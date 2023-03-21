@@ -7,7 +7,7 @@ const nearRegex = /^([a-fA-F0-9]{5})+([a-fA-F0-9]{49})+([a-fA-F0-9]{10})$/;
 const algoRegex = /^([A-Z2-7]{6})+([A-Z2-7]{46})+([A-Z2-7]{6})$/;
 
 /**
- * transform address to truncated address
+ * Transform address to truncated address
  * @date 3/21/2023 - 11:30:28 AM
  *
  * @param {string} address - address to truncate
@@ -19,20 +19,20 @@ const truncateHandler = (
   address: string,
   regex: RegExp | string,
   callback: (match: RegExpMatchArray | null) => string
-) => {
+): string => {
   const match = address.match(regex);
   if (!match) return address;
   return callback(match);
 };
 
 /**
- * truncate ethereum address
+ * Truncate ethereum address
  * @date 3/21/2023 - 11:28:51 AM
  *
  * @param {string} address - address to truncate
  * @returns {string} truncated address
  */
-export const truncateEthAddress = (address: string) => {
+export const truncateEthAddress = (address: string): string => {
   return truncateHandler(
     address,
     ethRegex,
@@ -41,13 +41,13 @@ export const truncateEthAddress = (address: string) => {
 };
 
 /**
- * truncate aeternity address
+ * Truncate aeternity address
  * @date 3/21/2023 - 11:28:51 AM
  * @param {string} address - address to truncate
  * @returns {string} truncated address
  */
 
-export const truncateAEAddress = (address: string) => {
+export const truncateAEAddress = (address: string): string => {
   return truncateHandler(
     address,
     aeRegex,
@@ -60,13 +60,13 @@ export const truncateAEAddress = (address: string) => {
 };
 
 /**
- * truncate near address
+ * Truncate near address
  * @date 3/21/2023 - 11:36:03 AM
  *
  * @param {string} address - address to truncate
  * @returns {string} truncated address
  */
-export const truncateNearAddress = (address: string) => {
+export const truncateNearAddress = (address: string): string => {
   return truncateHandler(
     address,
     nearRegex,
@@ -75,13 +75,13 @@ export const truncateNearAddress = (address: string) => {
 };
 
 /**
- * truncate algo address
+ * Truncate algo address
  * @date 3/21/2023 - 11:37:50 AM
  *
  * @param {string} address - address to truncate
  * @returns {string} truncated address
  */
-export const truncateAlgoAddress = (address: string) => {
+export const truncateAlgoAddress = (address: string): string => {
   return truncateHandler(
     address,
     algoRegex,
@@ -90,14 +90,17 @@ export const truncateAlgoAddress = (address: string) => {
 };
 
 /**
- * truncate address
+ * Truncate address
  * @date 3/21/2023 - 11:38:32 AM
  *
  * @param {string} rawAddress
  * @param {string} [token='eth']
  * @returns {string}
  */
-export const truncateAddress = (rawAddress: string, token = "eth") => {
+export const truncateAddress = (
+  rawAddress: string,
+  token: string = "eth"
+): string | undefined => {
   if (!rawAddress) return;
 
   const address = rawAddress.trim();
