@@ -55,6 +55,7 @@ function getLocale(locale: LocaleDateFormat): Locale {
  * @class DateManager
  * @typedef {DateManager}
  */
+
 export default class DateManager {
   /**
    * Get the date object from the date passed
