@@ -29,14 +29,6 @@ module.exports = {
                 "blue-lighter": "#F8FAFF",
                 "blue-light": "#DDE9FF",
                 "gray-light": "#1b66f8",
-                theme: {
-                    primary: "var(--tm-primary)",
-                    secondary: "var(--tm-secondary)",
-                    text: "var(--tm-text)",
-                    highlight: "var(--tm-highlight)",
-                    accent: "var(--tm-accent)",
-                    muted: "var(--tm-muted)",
-                },
             },
             spacing: {
                 3.75: "0.9375rem",
@@ -53,33 +45,24 @@ module.exports = {
                 16.25: "4.25rem",
                 17: "4.5rem",
                 62: "15.5rem",
-                64: "16rem",
                 96.5: "25.5rem",
                 98: "28rem",
                 99: "45.625rem",
+                "10.5/12": "90%",
             },
             borderRadius: {
-                DEFAULT: "0.25rem",
                 "3.5xl": "1.75rem",
             },
-            borderWidth: {
-                DEFAULT: "1px",
-            },
             boxShadow: {
-                DEFAULT:
-                    "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
                 md: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
                 lg: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
                 xl: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
                 "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
                 inner: "inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)",
-                none: "none",
             },
             fontSize: {
-                xxs: ["11px", { lineHeight: "1.2rem" }],
+                xxs: ["0.6875rem", { lineHeight: "1.2rem" }],
                 ".5xl": ["1.375rem", { lineHeight: "2rem" }],
-                "2xl": ["1.5rem", { lineHeight: "2rem" }],
-                "4xl": ["2.25rem", { lineHeight: "2.5rem" }],
                 "4.5xl": ["2.5rem", { lineHeight: "1" }],
                 "6.5xl": ["4rem", { lineHeight: "1" }],
                 "7.5xl": ["5rem", { lineHeight: "1" }],
@@ -91,7 +74,7 @@ module.exports = {
                 ".5xs": "14em",
                 ".5xl": "40rem",
                 prose: "100%",
-                sidebar: "340px",
+                sidebar: "21.25rem",
             },
             maxHeight: {
                 "3xs": "5rem",
@@ -99,6 +82,7 @@ module.exports = {
                 ".5xs": "14em",
                 xs: "20rem",
                 sm: "24rem",
+                sidebar: "21.25rem",
                 md: "28rem",
                 lg: "32rem",
                 xl: "36rem",
@@ -112,7 +96,6 @@ module.exports = {
                 "7.1xl": "80.5rem",
                 "8xl": "88rem",
                 prose: "100%",
-                sidebar: "340px",
             },
             minHeight: {
                 "3xs": "5rem",
@@ -147,15 +130,6 @@ module.exports = {
                 "6xl": "72rem",
                 "7xl": "80rem",
             },
-            outline: {
-                none: ["2px solid transparent", "2px"],
-                white: ["2px dotted white", "2px"],
-                black: ["2px dotted black", "2px"],
-            },
-
-            width: (theme) => ({
-                "10.5/12": "90%",
-            }),
             zIndex: {
                 99: "99",
                 999: "999",
