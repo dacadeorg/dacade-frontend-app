@@ -1,15 +1,9 @@
 import Head from "next/head";
 import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetStaticProps } from "next";
+import translate from "@/utilities/translate";
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale as string)),
-    },
-  };
-};
+export const getStaticProps: GetStaticProps = async ({ locale }) => translate(locale as string);
 
 const Home = () => {
   const { t } = useTranslation();
