@@ -65,6 +65,7 @@ export default class CommunityNavigation {
   }
 
   /**
+   * cleans up the url by removing the trailing slash
    * @date 3/21/2023 - 12:30:20 PM
    *
    * @private
@@ -77,6 +78,7 @@ export default class CommunityNavigation {
   }
 
   /**
+   * Get the course path for the specified course slug and community slug
    * @date 3/21/2023 - 12:30:50 PM
    *
    * @param {string} [link=""]
@@ -96,7 +98,7 @@ export default class CommunityNavigation {
   }
 
   /**
-   * Description placeholder
+   * Get the learning module path for the specified community and course slug
    * @date 3/21/2023 - 12:33:43 PM
    *
    * @param {string} path
@@ -116,6 +118,7 @@ export default class CommunityNavigation {
   }
 
   /**
+   * Get the challenge path for the specified community and course slug
    * @date 3/21/2023 - 12:34:49 PM
    *
    * @param {string} path
@@ -135,6 +138,7 @@ export default class CommunityNavigation {
   }
 
   /**
+   * Get the submission path for the specified community and course slug
    * @date 3/21/2023 - 12:35:40 PM
    *
    * @param {string} path
@@ -160,6 +164,7 @@ export default class CommunityNavigation {
   }
 
   /**
+   * Get the submissions path for the specified community and course slug
    * @date 3/21/2023 - 12:36:20 PM
    *
    * @param {(string | undefined)} [challengeId=this.params().challenge_id]
@@ -183,7 +188,7 @@ export default class CommunityNavigation {
   }
 
   /**
-   * Description placeholder
+   * Get the learning module links for the specified community slug
    * @date 3/21/2023 - 1:12:53 PM
    *
    * @param {Course} course
@@ -222,7 +227,7 @@ export default class CommunityNavigation {
   }
 
   /**
-   * Description placeholder
+   * Get the bounty links for the specified community slug
    * @date 3/21/2023 - 1:17:50 PM
    *
    * @param {Course} course
@@ -262,7 +267,7 @@ export default class CommunityNavigation {
   }
 
   /**
-   * Description placeholder
+   * TODO: description should be updated after understanding what this method does.
    * @date 3/21/2023 - 1:36:42 PM
    *
    * @param {{ course: Course; community: Community }} { course, community }
@@ -279,6 +284,7 @@ export default class CommunityNavigation {
     const challenges = this.bountyLinks(course, community?.slug);
     const learningModules = this.learningModuleLinks(course, community?.slug);
 
+    // TODO: improve naming of the List
     const list: List[] = [
       {
         id: "introduction",
