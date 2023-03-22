@@ -1,22 +1,23 @@
+/**
+ * Metadata description for the page
+ * @date 3/22/2023 - 11:29:35 AM
+ *
+ * @typedef {MetadataDescription}
+ */
 type MetadataDescription = {
   hid?: string;
-  /**
-   * hid is used as unique identifier.
-   * @date 3/22/2023 - 10:06:32 AM
-   *
-   * @type {string}
-   */
   name: string;
   content: string;
 };
 
 /**
- * Get formated metadata title
+ * Get metadata title from the arguments passed
  * @date 3/22/2023 - 10:03:55 AM
  *
  * @param {...string[]} args
  * @returns {string}
  */
+
 export const getMetadataTitle = (...args: string[]): string => {
   const elements = args.filter((elements) => elements);
   if (!elements.length) return "Dacade";
@@ -24,12 +25,13 @@ export const getMetadataTitle = (...args: string[]): string => {
 };
 
 /**
- * Get metadata description
+ * Get metadata description from the description passed
  * @date 3/22/2023 - 10:03:55 AM
  *
  * @param {string} description
- * @returns {MetadataDescription[]} 
+ * @returns {MetadataDescription[]}
  */
+
 export const getMetadataDescription = (
   description: string
 ): MetadataDescription[] => {

@@ -2,7 +2,12 @@ import lowlight from "lowlight/lib/core";
 import visit from "unist-util-visit";
 import { Data, Node } from "unist";
 
-// TODO: Type and desctiption should be updated after getting much explaination about this utility function
+/**
+ * Type of the attacher arguments.
+ * @date 3/22/2023 - 11:34:28 AM
+ *
+ * @typedef {AttacherArgs}
+ */
 
 type AttacherArgs = {
   include?: string[];
@@ -11,7 +16,7 @@ type AttacherArgs = {
 };
 
 /**
- * Description placeholder
+ * Attach the highlighter to the markdown processor and register the languages to be used
  * @date 3/22/2023 - 10:46:46 AM
  *
  * @export
@@ -25,7 +30,6 @@ export default function attacher({
   prefix,
 }: AttacherArgs): (ast: any) => any {
   // register custom languages
-
   lowlight.registerLanguage(
     "solidity",
     require("highlightjs-solidity").definer
@@ -46,7 +50,7 @@ export default function attacher({
   lowlight.registerLanguage("json", require("highlight.js/lib/languages/json"));
 
   /**
-   * Description placeholder
+   * Visit the code node and highlight the code using the language specified in the code block
    * @date 3/22/2023 - 10:47:26 AM
    *
    * @param {{ data?: any; value?: any; lang?: any }} node
