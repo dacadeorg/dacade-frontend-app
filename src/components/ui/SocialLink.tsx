@@ -4,6 +4,13 @@ import DiscordIcon from "../../../public/assets/icons/discord.svg";
 import TwitterIcon from "../../../public/assets/icons/twitter.svg";
 import YoutubeIcon from "../../../public/assets/icons/youtube.svg";
 
+/**
+ * Interface for Props component props for SocialLink
+ * @date 3/22/2023 - 5:48:27 PM
+ *
+ * @interface Props
+ * @typedef {Props}
+ */
 interface Props {
   link: {
     url: string;
@@ -12,6 +19,16 @@ interface Props {
   };
 }
 
+/**
+ *  SocialLink component
+ * @date 3/22/2023 - 5:48:53 PM
+ *
+ * @param {{ link: {
+ *    url: string;
+ *    title: string;
+ *    icon: string; }; }} { link }
+ * @returns {JSX}
+ */
 const SocialLink: React.FC<Props> = ({ link }) => {
   const icons = {
     discord: DiscordIcon,
