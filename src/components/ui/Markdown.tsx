@@ -31,7 +31,7 @@ interface MarkdownProps {
  * @returns {ReactElement}
  */
 
-export function Markdown({ value }: MarkdownProps): ReactElement {
+export default function Markdown({ value }: MarkdownProps): ReactElement {
   const [content, setContent] = useState("");
 
   //TODO: Should be uncommented when redux will be implemented
@@ -74,5 +74,3 @@ export function Markdown({ value }: MarkdownProps): ReactElement {
     </div>
   );
 }
-
-export default Markdown;
