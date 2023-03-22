@@ -4,11 +4,25 @@ import Link from "next/link";
 import { Children, ReactNode } from "react";
 import { FC } from "react";
 
+/**
+ * Interface for User
+ * @date 3/22/2023 - 5:42:26 PM
+ *
+ * @typedef {User}
+ */
+
 type User = {
   displayName?: string;
   username?: string;
   avatar?: string;
 };
+
+/**
+ * Interface for Avatar component props
+ * @date 3/22/2023 - 5:42:18 PM
+ *
+ * @typedef {AvatarProps}
+ */
 
 type AvatarProps = {
   icon?: string;
@@ -20,9 +34,33 @@ type AvatarProps = {
   useLink?: boolean;
 };
 
+/**
+ * Span component
+ * @date 3/22/2023 - 5:41:39 PM
+ *
+ * @param {{ children: ReactNode; }} { children }
+ * @returns {JSX}
+ */
+
 const Span: FC<{ children: ReactNode }> = ({ children }) => {
   return <span>{children}</span>;
 };
+
+/**
+ * Avatar component
+ * @date 3/22/2023 - 5:41:18 PM
+ *
+ * @param {{ icon: any; image: any; color: any; user?: {}; size?: string; shape?: string; useLink?: boolean; }} {
+  icon,
+  image,
+  color,
+  user = {},
+  size = "small",
+  shape = "circular",
+  useLink = true,
+}
+ * @returns {*}
+ */
 
 const Avatar: FC<AvatarProps> = ({
   icon,
