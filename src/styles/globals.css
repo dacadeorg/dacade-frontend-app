@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.nav-item,
+.nav-logo,
+.nav-brand {
+  @apply inline-block align-middle text-base lg:leading-none;
+}
+
+.nav-item {
+  @apply font-normal ml-2 opacity-70 hover:opacity-100;
+}
+
+.nav-brand {
+  @apply font-semibold mr-1.5;
+}
