@@ -10,7 +10,7 @@ import markdown from "../../../public/assets/icons/markdown-fill.svg";
  * @returns {ReactElement}
  */
 
-export function MarkdownIcon(): ReactElement {
+export default function MarkdownIcon(): ReactElement {
   return (
     <div className="mt-4 flex items-center">
       <span className="w-6 h-4">
