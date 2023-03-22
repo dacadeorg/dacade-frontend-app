@@ -1,9 +1,10 @@
 import Head from "next/head";
 import { useTranslation } from "next-i18next";
 import { GetStaticProps } from "next";
-import translate from "@/utilities/translate";
+import i18Translate from "@/utilities/I18Translate";
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => translate(locale as string);
+export const getStaticProps: GetStaticProps = async ({ locale }) =>
+  i18Translate(locale as string);
 
 const Home = () => {
   const { t } = useTranslation();
