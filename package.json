@@ -17,19 +17,20 @@
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "github-slugger": "^2.0.0",
-    "lowlight": "^1.2.0",
     "i18next": "^22.4.13",
+    "lowlight": "^1.2.0",
     "next": "13.2.4",
     "next-i18next": "^13.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-i18next": "^12.2.0",
     "typescript": "5.0.2",
-    "unist-util-visit": "^2.0.0",
-    "react-i18next": "^12.2.0"
+    "unist-util-visit": "^2.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "@types/lowlight": "^0.0.3",
     "autoprefixer": "^10.4.14",
     "eslint-config-prettier": "^8.7.0",
