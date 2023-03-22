@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useTranslation } from "next-i18next";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
-import Checkbox from "@/components/Checkbox";
+import Checkbox from "@/components/ui/Checkbox";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) =>
   i18Translate(locale as string);
