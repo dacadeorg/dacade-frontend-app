@@ -33,7 +33,7 @@ interface ProgressProps {
  * @returns {ReactElement}
  */
 
-export function Progress({
+export default function Progress({
   communityStyles,
   percentage,
 }: ProgressProps): ReactElement {
@@ -61,5 +61,3 @@ export function Progress({
     </div>
   );
 }
-
-export default Progress;
