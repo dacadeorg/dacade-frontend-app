@@ -1,19 +1,31 @@
-import { lowlight } from "lowlight/lib/core.js";
+import lowlight from "lowlight/lib/core";
 import visit from "unist-util-visit";
+import { Data, Node } from "unist";
 
 // TODO: Type and desctiption should be updated after getting much explaination about this utility function
 
+type AttacherArgs = {
+  include?: string[];
+  exclude?: string[];
+  prefix?: string;
+};
+
 /**
  * Description placeholder
- * @date 3/21/2023 - 9:04:49 PM
+ * @date 3/22/2023 - 10:46:46 AM
  *
  * @export
- * @param {{ include: any; exclude: any; prefix: any; }} [{ include, exclude, prefix }={}]
+ * @param {AttacherArgs} { include, exclude, prefix }
  * @returns {(ast: any) => any}
  */
 
-export default function attacher({ include, exclude, prefix } = {}) {
+export default function attacher({
+  include,
+  exclude,
+  prefix,
+}: AttacherArgs): (ast: any) => any {
   // register custom languages
+
   lowlight.registerLanguage(
     "solidity",
     require("highlightjs-solidity").definer
@@ -33,16 +45,14 @@ export default function attacher({ include, exclude, prefix } = {}) {
   );
   lowlight.registerLanguage("json", require("highlight.js/lib/languages/json"));
 
-  return (ast) => visit(ast, "code", visitor);
-
   /**
    * Description placeholder
-   * @date 3/21/2023 - 9:04:24 PM
+   * @date 3/22/2023 - 10:47:26 AM
    *
-   * @param {*} node
+   * @param {{ data?: any; value?: any; lang?: any }} node
    */
 
-  function visitor(node) {
+  function visitor(node: { data?: any; value?: any; lang?: any }) {
     const { lang } = node;
     let { data } = node;
 
@@ -70,4 +80,6 @@ export default function attacher({ include, exclude, prefix } = {}) {
       "language-" + lang,
     ];
   }
+
+  return (ast: Node<Data>) => visit(ast, "code", visitor);
 }
