@@ -15,7 +15,7 @@ export default function Section({
     children,
 }: Props): ReactElement {
 
-    const sectionClassNames = classNames("relative", {
+    const sectionClassName = classNames("relative", {
         "bg-white text-gray-900": type === "default",
         "bg-primary text-white": type === "primary",
         "bg-secondary text-gray-900": type === "secondary",
