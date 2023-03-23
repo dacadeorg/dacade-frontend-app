@@ -10,7 +10,15 @@ import NEARIcon from "../../../public/assets/icons/tokens/NEAR.svg"
 import USDCIcon from "../../../public/assets/icons/tokens/USDC.svg"
 
 
-type CoinProps = {
+
+/**
+ * Interface for the coin props
+ * @date 3/23/2023 - 11:32:31 AM
+ *
+ * @interface CoinProps
+ * @typedef {CoinProps}
+ */
+interface CoinProps {
   bgColor?: string;
   textColor?: string;
   size?: 'medium' | 'normal' | 'small';
@@ -18,6 +26,13 @@ type CoinProps = {
   token: string;
 }
 
+
+/**
+ * Array for coins information
+ * @date 3/23/2023 - 11:33:07 AM
+ *
+ * @type {{}}
+ */
 const coins = [
   {
     token: 'DAC',
