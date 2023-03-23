@@ -1,6 +1,14 @@
 import classNames from "classnames";
 import React, { useMemo } from "react";
 
+/**
+ * Radio Component
+ * @date 3/23/2023 - 3:14:26 PM
+ *
+ * @interface RadioProps
+ * @typedef {RadioProps}
+ */
+
 interface RadioProps {
   checked: boolean;
   disabled?: boolean;
@@ -35,17 +43,19 @@ export default function Radio({
     [communityStyles, colors.textAccent]
   );
 
+  const radioClass = classNames(
+    "w-9 h-9 border-gray-400 text-primary rounded-full",
+    { "cursor-not-allowed border-4": disabled },
+    { "cursor-pointer": !disabled }
+  );
+
   return (
     <input
       id={id}
       checked={checked}
       onChange={onChange}
       value={value}
-      className={classNames(
-        "w-9 h-9 border-gray-400 text-primary rounded-full",
-        { "cursor-not-allowed border-4": disabled },
-        { "cursor-pointer": !disabled }
-      )}
+      className={radioClass}
       name={name}
       required={required}
       style={styles}
