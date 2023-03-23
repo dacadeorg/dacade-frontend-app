@@ -2,6 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+.floating-input > input::placeholder {
+  color: transparent;
+}
+
+.floating-input > input:focus,
+.floating-input > input:not(:placeholder-shown) {
+  @apply pt-6 pb-2 border border-solid;
+}
+
+.nav-item,
+.nav-logo,
+.nav-brand {
+  @apply inline-block align-middle text-base lg:leading-none;
+}
+
+.nav-item {
+  @apply font-normal ml-2 opacity-70 hover:opacity-100;
+}
+
+.nav-brand {
+  @apply font-semibold mr-1.5;
+}
 @layer components {
 
 .hint-container a{
