@@ -1,6 +1,15 @@
 import { ReactElement } from "react";
 
-type EmptyStateProps = {
+
+
+/**
+ * Interface for the empty states props
+ * @date 3/23/2023 - 11:44:34 AM
+ *
+ * @interface EmptyStateProps
+ * @typedef {EmptyStateProps}
+ */
+interface EmptyStateProps {
   title?: string;
   subtitle?: string;
 }
