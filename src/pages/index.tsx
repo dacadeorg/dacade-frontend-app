@@ -9,7 +9,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) =>
 
 const Home = () => {
   const { t } = useTranslation();
-
   return (
     <>
       <Head>
@@ -28,5 +27,4 @@ const Home = () => {
     </>
   );
 };
-
 export default Home;
