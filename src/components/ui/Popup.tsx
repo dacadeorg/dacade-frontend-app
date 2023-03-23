@@ -6,10 +6,14 @@ interface PopupProps {
   show?: boolean;
   children?: React.ReactNode;
 }
-export default function popup({ center, onClose, show, children }: PopupProps) {
+export default function popup({
+  center,
+  onClose,
+  show,
+  children,
+}: PopupProps): React.ReactElement {
   return show ? (
     <div
-      v-if="show"
       className={classNames(
         "fixed z-999 w-screen h-screen overflow-y-scroll top-0 left-0",
         { "flex items-center": center }
@@ -21,5 +25,7 @@ export default function popup({ center, onClose, show, children }: PopupProps) {
       />
       {children}
     </div>
-  ) : null;
+  ) : (
+    <> </>
+  );
 }
