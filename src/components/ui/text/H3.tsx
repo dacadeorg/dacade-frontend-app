@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 
 /**
- * interface for the H3 component props
+ * Interface for the H3 component props
  * @date 3/23/2023 - 6:23:10 PM
  *
  * @interface H3Props
