@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 
 /**
  * Interface for NavItem component props
@@ -9,9 +9,9 @@ import { ReactNode } from "react";
  * @typedef {NavItemProps}
  */
 interface NavItemProps {
-  type?: string;
-  to?: string;
-  children?: ReactNode;
+  type: string;
+  to: string;
+  children: ReactNode;
 }
 
 /**
@@ -19,13 +19,13 @@ interface NavItemProps {
  * @date 3/22/2023 - 5:33:34 PM
  *
  * @param {{ type?: string; to?: string; children: any; }} { type = "item", to = "/", children }
- * @returns {JSX.Element}
+ * @returns {ReactElement}
  */
 export default function NavItem({
   type = "item",
   to = "/",
   children,
-}: NavItemProps): JSX.Element {
+}: NavItemProps): ReactElement {
   return (
     <li className={`nav-${type}`}>
       <Link href={to}>{children}</Link>
