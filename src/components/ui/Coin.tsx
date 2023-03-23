@@ -91,7 +91,7 @@ const coins = [
  * @param {CoinProps} { bgColor, textColor, size = 'normal', shape = 'circle', token }
  * @returns {ReactElement}
  */
-function Coin ({ bgColor, textColor, size = 'normal', shape = 'circle', token }: CoinProps): ReactElement {
+export default function Coin ({ bgColor, textColor, size = 'normal', shape = 'circle', token }: CoinProps): ReactElement {
 
   const coin = getCoin(token) || getCoin('DAC');
   const SizeClasses = getSizeClasses(size);
@@ -137,5 +137,3 @@ function Coin ({ bgColor, textColor, size = 'normal', shape = 'circle', token }:
 
 
 }
-
-export default Coin;
