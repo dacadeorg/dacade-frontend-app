@@ -1,4 +1,5 @@
-import { useState, FC, ChangeEvent } from "react";
+import classNames from "classnames";
+import { useState, ChangeEvent, ReactElement } from "react";
 
 /**
  * Interface for TextInput component props
@@ -7,7 +8,7 @@ import { useState, FC, ChangeEvent } from "react";
  * @interface Props
  * @typedef {Props}
  */
-interface Props {
+interface TextInputProps {
   type?: string;
   value?: string;
   label?: string;
@@ -23,18 +24,17 @@ interface Props {
  * @date 3/22/2023 - 4:31:51 PM
  *
  * @param {Prop} props
- * @returns {JSX}
+ * @returns {ReactElement}
  */
-const TextInput: FC<Props> = ({
-  type,
+export function TextInput({
   value = "",
   label,
   disabled,
   placeholder,
-  inputClass,
+  inputClass = "",
   error,
   handleInput,
-}) => {
+}: TextInputProps): ReactElement {
   const [isFocused, setIsFocused] = useState(false);
 
   const isFilled = value.trim().length > 0;
@@ -44,19 +44,16 @@ const TextInput: FC<Props> = ({
       <div className="floating-input relative">
         {label && (
           <label
-            className={`
-              ${
-                !isFilled && !isFocused ? "text-gray-400 flex items-center" : ""
+            className={classNames(
+              "absolute top-0 left-0 text-lg px-5 py-5 z-10 h-full pointer-events-none transform origin-left transition-all duration-100 ease-in-out items-center",
+              {
+                "text-gray-400 flex items-center": !isFilled && !isFocused,
+                "text-gray-400 scale-75 -translate-y-3 translate-x-1":
+                  isFocused || isFilled,
+                "text-red-600": error,
+                "text-blue-500": isFocused && !error,
               }
-              ${
-                isFocused || isFilled
-                  ? "text-gray-400 scale-75 -translate-y-3 translate-x-1"
-                  : ""
-              }
-              ${error ? "text-red-600" : ""}
-              ${isFocused && !error ? "text-blue-500" : ""}
-              absolute top-0 left-0 text-lg px-5 py-5 z-10 h-full pointer-events-none transform origin-left transition-all duration-100 ease-in-out items-center
-            `}
+            )}
           >
             {label}
           </label>
@@ -66,10 +63,10 @@ const TextInput: FC<Props> = ({
           placeholder={placeholder}
           autoComplete="off"
           disabled={disabled}
-          className={`
-            w-full border border-solid border-gray-200 h-56 resize-none m-0 pt-5 md:pt-7.5 pl-15 pr-2 md:px-10.75 block text-lg focus:outline-none placeholder-gray-400 placeholder-opacity-100
-            ${inputClass ? inputClass : ""}
-          `}
+          className={classNames(
+            "w-full border border-solid border-gray-200 h-56 resize-none m-0 pt-5 md:pt-7.5 pl-15 pr-2 md:px-10.75 block text-lg focus:outline-none placeholder-gray-400 placeholder-opacity-100",
+            inputClass
+          )}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onChange={handleInput}
@@ -82,6 +79,6 @@ const TextInput: FC<Props> = ({
       )}
     </div>
   );
-};
+}
 
 export default TextInput;
