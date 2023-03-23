@@ -9,13 +9,12 @@ import { useState, ChangeEvent, ReactElement, useMemo } from "react";
  * @typedef {Props}
  */
 interface TextInputProps {
-  type?: string;
-  value?: string;
+  value: string;
   label?: string;
-  disabled?: boolean;
-  placeholder?: string;
+  disabled: boolean;
+  placeholder: string;
   inputClass?: string;
-  error?: string;
+  error?: string | null;
   handleInput?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
@@ -31,10 +30,10 @@ interface TextInputProps {
 export default function TextInput({
   value = "",
   label,
-  disabled,
+  disabled = false,
   placeholder,
   inputClass = "",
-  error,
+  error = null,
   handleInput,
 }: TextInputProps): ReactElement {
   const [isFocused, setIsFocused] = useState(false);
