@@ -4,6 +4,7 @@ import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import Loader from "@/components/ui/Loader";
 
+
 export const getStaticProps: GetStaticProps = async ({ locale }) =>
   i18Translate(locale as string);
 
