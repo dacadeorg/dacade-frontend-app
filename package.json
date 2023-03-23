@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,tsx,js,jsx}' --write"
   },
   "dependencies": {
     "@types/node": "18.15.3",
