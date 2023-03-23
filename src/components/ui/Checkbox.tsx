@@ -1,6 +1,14 @@
-import { useState, useEffect, useRef } from "react";
+import classNames from "classnames";
+import { useState, useEffect, useRef, ReactElement } from "react";
 
-type CheckboxProps = {
+/**
+ * Interface for checbox props
+ * @date 3/23/2023 - 9:47:35 AM
+ *
+ * @interface CheckboxProps
+ * @typedef {CheckboxProps}
+ */
+interface CheckboxProps {
   checked?: boolean;
   disabled?: boolean;
   data?: string | ReadonlyArray<string> | number;
@@ -8,9 +16,14 @@ type CheckboxProps = {
   id?: string;
   name?: string;
   communityStyles?: boolean;
-};
+}
 
-const Checkbox = ({
+/**
+ * Checkbox component
+ * @date 3/23/2023 - 9:37:47 AM
+ *
+ * @export
+ * @param {CheckboxProps} {
   checked = false,
   disabled = false,
   data = "",
@@ -18,7 +31,18 @@ const Checkbox = ({
   id = "",
   name = "",
   communityStyles = false,
-}: CheckboxProps) => {
+}
+ * @returns {ReactElement}
+ */
+export default function Checkbox({
+  checked = false,
+  disabled = false,
+  data = "",
+  required = false,
+  id = "",
+  name = "",
+  communityStyles = false,
+}: CheckboxProps): ReactElement {
   const [checkedValue, setCheckedValue] = useState<boolean>(checked);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -32,6 +56,14 @@ const Checkbox = ({
 
   const styles = communityStyles ? { color: "#0000FF" } : undefined;
 
+  const checkboxClassName: string = classNames(
+    "w-5 h-5 bg-gray-100 rounded border-gray-200 text-primary",
+    {
+      "cursor-not-allowed": disabled,
+      "cursor-pointer": !disabled,
+    }
+  );
+
   return (
     <input
       id={id}
@@ -42,13 +74,9 @@ const Checkbox = ({
       name={name}
       required={required}
       disabled={disabled}
-      className={`w-5 h-5 bg-gray-100 rounded border-gray-200 text-primary ${
-        disabled ? "cursor-not-allowed" : "cursor-pointer"
-      }`}
+      className={checkboxClassName}
       style={styles}
       onChange={handleInputChange}
     />
   );
-};
-
-export default Checkbox;
+}
