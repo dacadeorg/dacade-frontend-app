@@ -1,8 +1,8 @@
 import { Url } from "next/dist/shared/lib/router/router";
 import Image from "next/image";
 import Link from "next/link";
-import { Children, ReactNode } from "react";
-import { FC } from "react";
+import { ReactElement, ReactNode } from "react";
+import classNames from "classnames";
 
 /**
  * Interface for User
@@ -11,11 +11,11 @@ import { FC } from "react";
  * @typedef {User}
  */
 
-type User = {
+interface User {
   displayName?: string;
   username?: string;
   avatar?: string;
-};
+}
 
 /**
  * Interface for Avatar component props
@@ -23,34 +23,43 @@ type User = {
  *
  * @typedef {AvatarProps}
  */
+type Size =
+  | "extra"
+  | "large"
+  | "medium"
+  | "medium-fixed"
+  | "small-fixed"
+  | "mini"
+  | "small";
 
-type AvatarProps = {
+type Shape = "rounded" | "rounded-3xl" | "full" | "squared" | "circular";
+interface AvatarProps {
   icon?: string;
   image?: string;
   color?: string;
   user?: User;
-  size?: "extra" | "large" | "medium" | "medium-fixed" | "small-fixed" | "mini";
-  shape?: "rounded" | "rounded-3xl" | "full" | "squared";
+  size?: Size;
+  shape?: Shape;
   useLink?: boolean;
-};
+}
 
 /**
  * Span component
  * @date 3/22/2023 - 5:41:39 PM
  *
  * @param {{ children: ReactNode; }} { children }
- * @returns {JSX}
+ * @returns {ReactElement}
  */
 
-const Span: FC<{ children: ReactNode }> = ({ children }) => {
+function Span({ children }: { children: ReactNode }): ReactElement {
   return <span>{children}</span>;
-};
+}
 
 /**
  * Avatar component
  * @date 3/22/2023 - 5:41:18 PM
  *
- * @param {{ icon: any; image: any; color: any; user?: {}; size?: string; shape?: string; useLink?: boolean; }} {
+ * @param {AvatarProps} {
   icon,
   image,
   color,
@@ -59,10 +68,10 @@ const Span: FC<{ children: ReactNode }> = ({ children }) => {
   shape = "circular",
   useLink = true,
 }
- * @returns {*}
+ * @returns {ReactElement}
  */
 
-const Avatar: FC<AvatarProps> = ({
+export default function Avatar({
   icon,
   image,
   color,
@@ -70,45 +79,41 @@ const Avatar: FC<AvatarProps> = ({
   size = "small",
   shape = "circular",
   useLink = true,
-}) => {
+}: AvatarProps): ReactElement {
   const initials = user?.displayName ? user?.displayName[0] : null;
 
   const link = user?.username && useLink ? `/profile/${user.username}` : null;
 
-  const sizeClasses =
-    size === "extra"
-      ? "w-32 h-32 text-4xl"
-      : size === "large"
-      ? "w-15 h-15 text-2xl"
-      : size === "medium"
-      ? "w-10 h-10 sm:h-12 sm:w-12 md:w-15 md:h-15 text-xl sm:text-2xl"
-      : size === "medium-fixed"
-      ? "w-10 h-10 text-2xl"
-      : size === "small-fixed"
-      ? "w-7 h-7 text-xl"
-      : size === "mini"
-      ? "w-5 h-5 text-xl"
-      : "w-9 h-9 text-lg";
+  const sizeClasses = classNames({
+    "w-32 h-32 text-4xl": size === "extra",
+    "w-15 h-15 text-2xl": size === "large",
+    "w-10 h-10 sm:h-12 sm:w-12 md:w-15 md:h-15 text-xl sm:text-2xl":
+      size === "medium",
+    "w-10 h-10 text-2xl": size === "medium-fixed",
+    "w-7 h-7 text-xl": size === "small-fixed",
+    "w-5 h-5 text-xl": size === "mini",
+    "w-9 h-9 text-lg": size === "small",
+  });
 
-  const shapeClasses =
-    shape === "rounded"
-      ? "rounded-xl"
-      : shape === "rounded-3xl"
-      ? "rounded-3xl"
-      : shape === "full"
-      ? "rounded-full"
-      : shape === "squared"
-      ? "rounded-none"
-      : "rounded-full";
-
+  const shapeClasses = classNames({
+    "rounded-xl": shape === "rounded",
+    "rounded-3xl": shape === "rounded-3xl",
+    "rounded-full": shape === "full" || shape === "circular",
+    "rounded-none": shape === "squared",
+  });
   const Component = useLink ? Link : Span;
 
   return (
     <Component
       href={link as Url}
-      className={`bg-primary inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle ${sizeClasses} ${shapeClasses} ${
-        user ? "cursor-pointer" : ""
-      }`}
+      className={classNames(
+        "bg-primary inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle",
+        sizeClasses,
+        shapeClasses,
+        {
+          "cursor-pointer": user,
+        }
+      )}
       style={{ backgroundColor: color }}
     >
       {user && user.avatar ? (
@@ -134,6 +139,4 @@ const Avatar: FC<AvatarProps> = ({
       )}
     </Component>
   );
-};
-
-export default Avatar;
+}
