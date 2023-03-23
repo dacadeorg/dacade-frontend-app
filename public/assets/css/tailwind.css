@@ -20,7 +20,8 @@
   @apply relative;
 }
 
-.content-wrapper, .width-wrapper {
+.content-wrapper,
+.width-wrapper {
   @apply xl:w-10/12 lg:w-10/12 md:w-10/12 sm:w-11/12 w-11/12 mx-auto max-w-7xl;
 }
 
@@ -28,13 +29,13 @@ body,
 .text-default {
   @apply text-gray-900;
 
-  font-family: 'Graphik', sans-serif;
-  font-feature-settings: 'ss01' 1, 'ss02' 1;
+  font-family: "Graphik", sans-serif;
+  font-feature-settings: "ss01" 1, "ss02" 1;
 }
 
 body {
   font-weight: 400;
-  font-family: 'Graphik', sans-serif;
+  font-family: "Graphik", sans-serif;
   width: 100%;
   position: relative;
 }
@@ -50,7 +51,7 @@ body {
 .message-rectangle::before {
   width: 0;
   height: 0;
-  content: '';
+  content: "";
   position: absolute;
   border-left: 28px solid transparent;
   bottom: 0;
@@ -69,7 +70,7 @@ body {
   width: 0;
   height: 0;
   left: -28px;
-  content: '';
+  content: "";
   position: absolute;
   border-left: 28px solid transparent;
   bottom: 0;
@@ -121,7 +122,7 @@ button,
       scrollbar-width: none; /* Firefox */
     }
   }
-  .badget-color {
+  .badge-color {
     background-color: rgba(114, 70, 231, 1);
   }
 }
@@ -196,7 +197,7 @@ div {
 }
 
 .list li::before {
-  content: url('../icons/list.svg');
+  content: url("../icons/list.svg");
   margin-left: -52px;
 }
 
@@ -217,12 +218,12 @@ div {
 /*  accent-color:#fff;*/
 /*  box-shadow: 0 0 0 1px #000 inset;*/
 /*}*/
-[type='checkbox']:checked,
-[type='radio']:checked {
+[type="checkbox"]:checked,
+[type="radio"]:checked {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");
 }
-[type='checkbox']:checked,
-[type='radio']:checked {
+[type="checkbox"]:checked,
+[type="radio"]:checked {
   background-color: currentColor;
   background-position: 50%;
   background-repeat: no-repeat;
@@ -230,8 +231,8 @@ div {
   border-color: transparent;
   border: currentColor 3px solid;
 }
-[type='checkbox'],
-[type='radio'] {
+[type="checkbox"],
+[type="radio"] {
   print-color-adjust: exact;
   --tw-shadow: 0 0 #0000;
   -webkit-appearance: none;
