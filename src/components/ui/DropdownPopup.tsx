@@ -1,3 +1,12 @@
+import { ReactElement } from "react";
+
+/**
+ * Dropdown Popup Interface
+ * @date 3/23/2023 - 6:26:00 PM
+ *
+ * @interface DropdownPopupProps
+ * @typedef {DropdownPopupProps}
+ */
 interface DropdownPopupProps {
   onClose: () => void;
   children?: React.ReactNode;
@@ -11,7 +20,7 @@ interface DropdownPopupProps {
 export default function DropdownPopup({
   onClose,
   children,
-}: DropdownPopupProps): React.ReactElement {
+}: DropdownPopupProps): ReactElement {
   const toggleInvite = () => {
     onClose();
   };
