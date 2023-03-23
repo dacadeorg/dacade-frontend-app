@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import { ReactElement } from "react";
 import DiscordIcon from "../../../public/assets/icons/discord.svg";
 import TwitterIcon from "../../../public/assets/icons/twitter.svg";
 import YoutubeIcon from "../../../public/assets/icons/youtube.svg";
@@ -27,9 +27,9 @@ interface Props {
  *    url: string;
  *    title: string;
  *    icon: string; }; }} { link }
- * @returns {JSX.Element}
+ * @returns {ReactElement}
  */
-export default function SocialLink({ link }: Props): JSX.Element {
+export default function SocialLink({ link }: Props): ReactElement {
   const icons = {
     discord: DiscordIcon,
     twitter: TwitterIcon,
