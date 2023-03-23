@@ -31,6 +31,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "@types/lowlight": "^0.0.3",
     "autoprefixer": "^10.4.14",
     "eslint-config-prettier": "^8.7.0",
