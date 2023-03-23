@@ -26,7 +26,7 @@ interface TextInputProps {
  * @param {TextInputProps} props
  * @returns {ReactElement}
  */
-export function TextInput({
+export default function TextInput({
   value = "",
   label,
   disabled,
@@ -80,5 +80,3 @@ export function TextInput({
     </div>
   );
 }
-
-export default TextInput;
