@@ -95,8 +95,8 @@ const coins = [
 export default function Coin ({ bgColor, textColor, size = 'normal', shape = 'circle', token, className="" }: CoinProps): ReactElement {
 
   const coin = getCoin(token) || getCoin('DAC');
-  const SizeClasses = getSizeClasses(size);
-  const ShapeClasses = getShapeClasses(shape);
+  const sizeClasses = getSizeClasses(size);
+  const shapeClasses = getShapeClasses(shape);
 
   function getCoin(token: string) {
     const value = token.toUpperCase();
@@ -129,7 +129,7 @@ export default function Coin ({ bgColor, textColor, size = 'normal', shape = 'ci
 
   return (
     <div
-      className={`inline-flex items-center justify-items-center text-white uppercase leading-none md:mr-0 mr-2 ${SizeClasses} ${ShapeClasses} ${className}`}
+      className={`inline-flex items-center justify-items-center text-white uppercase leading-none md:mr-0 mr-2 ${sizeClasses} ${shapeClasses} ${className}`}
       style={{ backgroundColor: bgColor || coin?.bgColor, color: textColor || coin?.textColor }}
     >
       {coin?.icon && <Image src={coin.icon} alt={coin.token} className="w-full h-auto max-h-full relative" />}
