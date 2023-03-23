@@ -2,16 +2,12 @@ import Head from "next/head";
 import { useTranslation } from "next-i18next";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
-import Popup from "@/components/ui/Popup";
-import { useState } from "react";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) =>
   i18Translate(locale as string);
 
 const Home = () => {
   const { t } = useTranslation();
-
-  const [showpopup, setshowpopup] = useState(true);
 
   return (
     <>
