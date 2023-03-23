@@ -11,7 +11,7 @@ import { useState, useEffect, useRef, ReactElement } from "react";
 interface CheckboxProps {
   checked?: boolean;
   disabled?: boolean;
-  data?: string | ReadonlyArray<string> | number;
+  value?: string | ReadonlyArray<string> | number;
   required?: boolean;
   id?: string;
   name?: string;
@@ -25,25 +25,25 @@ interface CheckboxProps {
  *
  * @export
  * @param {CheckboxProps} {
-  checked = false,
-  disabled = false,
-  data = "",
-  required = false,
-  id = "",
-  name = "",
-  communityStyles = false,
+  checked,
+  disabled,
+  value,
+  required,
+  id,
+  name,
+  communityStyles,
   onChange
 }
  * @returns {ReactElement}
  */
 export default function Checkbox({
-  checked = false,
-  disabled = false,
-  data = "",
-  required = false,
-  id = "",
-  name = "",
-  communityStyles = false,
+  checked ,
+  disabled,
+  value,
+  required,
+  id,
+  name,
+  communityStyles,
   onChange
 }: CheckboxProps): ReactElement {
 
@@ -62,7 +62,7 @@ export default function Checkbox({
       id={id}
       type="checkbox"
       checked={checked}
-      value={data}
+      value={value}
       name={name}
       required={required}
       disabled={disabled}
