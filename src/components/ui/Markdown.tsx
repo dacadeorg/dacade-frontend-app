@@ -3,7 +3,7 @@
  * because redux and its features are not implemented yet.
  */
 
-import { useState, useEffect, ReactElement } from "react";
+import { useState, useEffect, ReactElement, useCallback } from "react";
 
 // TODO: Should be uncommented when redux will be implemented
 // import { useSelector } from "react-redux";
@@ -38,22 +38,39 @@ export default function Markdown({ value }: MarkdownProps): ReactElement {
   //   const colors = useSelector((state: any) => state.ui.colors);
   //   const community = useSelector((state: any) => state.communities.current);
 
+  /**
+   * Parse the markdown content with the below plugins:
+   *  - remarkParse: parses Markdown content into an abstract syntax tree (AST).
+   *  - remarkBreaks: converts single line breaks in the Markdown into <br> tags.
+   *  - remarkGfm: adds support for GitHub Flavored Markdown extensions.
+   *  - Highlighter: highlights code blocks in the Markdown.
+   *  - remarkRehype: converts the Markdown AST into a rehype AST (for HTML generation).
+   *  - rehypRaw: which preserves raw HTML elements in the HTML output.
+   *  - rehypeExternalLinks: adds target="_blank" to external links in the HTML.
+   *  - rehypeSlug: adds anchor IDs to heading elements in the HTML.
+   *  - rehypeStringify: converts the rehype AST into HTML string format.
+   *
+   * @date 3/23/2023 - 12:42:38 PM
+   *
+   */
+  const parseMarkdown = useCallback(async (content: string) => {
+    const { value } = await unified()
+      .use(remarkParse)
+      .use(remarkBreaks)
+      .use(remarkGfm)
+      .use(() => Highlighter)
+      .use(remarkRehype, { allowDangerousHtml: true })
+      .use(rehypeRaw)
+      .use(rehypeExternalLinks, { target: "_blank" })
+      .use(rehypeSlug)
+      .use(rehypeStringify)
+      .process(content);
+    setContent(value as string);
+  }, []);
+
   useEffect(() => {
-    (async (content: string) => {
-      const { value } = await unified()
-        .use(remarkParse)
-        .use(remarkBreaks)
-        .use(remarkGfm)
-        .use(() => Highlighter)
-        .use(remarkRehype, { allowDangerousHtml: true })
-        .use(rehypeRaw)
-        .use(rehypeExternalLinks, { target: "_blank" })
-        .use(rehypeSlug)
-        .use(rehypeStringify)
-        .process(content);
-      setContent(value as string);
-    })(value);
-  }, [value]);
+    parseMarkdown(value);
+  }, [parseMarkdown, value]);
 
   // TODO: Should be uncommented when redux will be implemented
   //   const themeStyles = {
