@@ -34,11 +34,26 @@ export default function attacher({
     "solidity",
     require("highlightjs-solidity").definer
   );
-  lowlight.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
-  lowlight.registerLanguage("css", require("highlight.js/lib/languages/css"));
-  lowlight.registerLanguage("toml", require("highlight.js/lib/languages/ini"));
-  lowlight.registerLanguage("rust", require("highlight.js/lib/languages/rust"));
-  lowlight.registerLanguage("bash", require("highlight.js/lib/languages/bash"));
+  lowlight.registerLanguage(
+    "xml",
+    require("highlight.js/lib/languages/xml")
+  );
+  lowlight.registerLanguage(
+    "css",
+    require("highlight.js/lib/languages/css")
+  );
+  lowlight.registerLanguage(
+    "toml",
+    require("highlight.js/lib/languages/ini")
+  );
+  lowlight.registerLanguage(
+    "rust",
+    require("highlight.js/lib/languages/rust")
+  );
+  lowlight.registerLanguage(
+    "bash",
+    require("highlight.js/lib/languages/bash")
+  );
   lowlight.registerLanguage(
     "python",
     require("highlight.js/lib/languages/python")
@@ -47,7 +62,10 @@ export default function attacher({
     "javascript",
     require("highlight.js/lib/languages/javascript")
   );
-  lowlight.registerLanguage("json", require("highlight.js/lib/languages/json"));
+  lowlight.registerLanguage(
+    "json",
+    require("highlight.js/lib/languages/json")
+  );
 
   /**
    * Visit the code node and highlight the code using the language specified in the code block
@@ -77,7 +95,9 @@ export default function attacher({
       data.hProperties = {};
     }
 
-    data.hChildren = lowlight.highlight(lang, node.value, { prefix }).value;
+    data.hChildren = lowlight.highlight(lang, node.value, {
+      prefix,
+    }).value;
     data.hProperties.className = [
       "hljs",
       ...(data.hProperties.className || []),
