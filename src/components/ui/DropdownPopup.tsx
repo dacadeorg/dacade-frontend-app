@@ -1,4 +1,3 @@
-import React from "react";
 interface DropdownPopupProps {
   onClose: () => void;
   children?: React.ReactNode;
