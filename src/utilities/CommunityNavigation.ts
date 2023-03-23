@@ -113,7 +113,11 @@ export default class CommunityNavigation {
     communitySlug: string | undefined = this.params().slug
   ): string {
     return this.cleanupUrl(
-      this.coursePath(`learning-modules/${path}`, courseSlug, communitySlug)
+      this.coursePath(
+        `learning-modules/${path}`,
+        courseSlug,
+        communitySlug
+      )
     );
   }
 
@@ -282,7 +286,10 @@ export default class CommunityNavigation {
     community: Community;
   }): List[] {
     const challenges = this.bountyLinks(course, community?.slug);
-    const learningModules = this.learningModuleLinks(course, community?.slug);
+    const learningModules = this.learningModuleLinks(
+      course,
+      community?.slug
+    );
 
     // TODO: improve naming of the List
     const list: List[] = [

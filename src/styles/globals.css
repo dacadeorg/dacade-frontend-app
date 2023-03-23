@@ -10,3 +10,9 @@
 .floating-input > input:not(:placeholder-shown) {
   @apply pt-6 pb-2 border border-solid;
 }
+@layer components {
+
+.hint-container a{
+    @apply font-normal underline
+}
+}
