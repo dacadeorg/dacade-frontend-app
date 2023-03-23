@@ -1,4 +1,4 @@
-// import Coin from "../ui/Coin.tsx";
+import Coin from "../ui/Coin";
 import { useTranslation } from "next-i18next";
 
 interface OverviewRewardsProps {
@@ -17,7 +17,7 @@ export default function OverviewRewards ({ reward, category, size }: OverviewRew
     <div>
       {reward && reward.token && reward.amount && size === 'medium' && (
         <div className="flex items-center rounded-full max-w-max mr-4">
-          {/* <Coin token={reward.token} className="flex-none" /> */}
+          <Coin token={reward.token} className="flex-none" />
           <div className="text-base lg:pl-2 lg:pr-3 md:px-2 max-w-max">
             <div className="flex">
               <span className="block font-medium text-base pr-1">
