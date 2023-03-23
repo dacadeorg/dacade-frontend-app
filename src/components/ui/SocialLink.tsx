@@ -11,7 +11,7 @@ import YoutubeIcon from "../../../public/assets/icons/youtube.svg";
  * @interface Props
  * @typedef {Props}
  */
-interface Props {
+interface SocialLinkProps {
   link: {
     url: string;
     title: string;
@@ -29,7 +29,7 @@ interface Props {
  *    icon: string; }; }} { link }
  * @returns {ReactElement}
  */
-export default function SocialLink({ link }: Props): ReactElement {
+export default function SocialLink({ link }: SocialLinkProps): ReactElement {
   const icons = {
     discord: DiscordIcon,
     twitter: TwitterIcon,
