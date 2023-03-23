@@ -15,3 +15,9 @@
 .nav-brand {
   @apply font-semibold mr-1.5;
 }
+@layer components {
+
+.hint-container a{
+    @apply font-normal underline
+}
+}
