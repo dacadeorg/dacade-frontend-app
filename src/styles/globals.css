@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+
+.hint-container a{
+    @apply font-normal underline
+}
+}
