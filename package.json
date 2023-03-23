@@ -27,8 +27,7 @@
     "react-dom": "18.2.0",
     "react-i18next": "^12.2.0",
     "typescript": "5.0.2",
-    "unist-util-visit": "^2.0.0",
-    "yarn": "^1.22.19"
+    "unist-util-visit": "^2.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",

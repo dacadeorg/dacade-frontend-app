@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import Image from "next/image";
-import React from "react";
 
 interface LoaderProps {
   communityStyles?: boolean;
@@ -19,7 +18,7 @@ export default function Loader({ communityStyles = false }: LoaderProps) {
   return (
     <div
       className={classNames(
-        "flex items-center relative justify-center !h- !w-12",
+        "flex items-center relative justify-center !h-12 !w-12",
         {
           "text-primary": !communityStyles,
         }
