@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, { useMemo } from "react";
 
 interface RadioProps {
@@ -39,10 +40,12 @@ export default function Radio({
       id={id}
       checked={checked}
       onChange={onChange}
-      v-model="vModalValue"
       value={value}
-      className={`'w-9 h-9 rounded border-gray-400 text-primary rounded-full',
-      ${disabled ? "cursor-not-allowed border-4" : "cursor-pointer"}`}
+      className={classNames(
+        "w-9 h-9 border-gray-400 text-primary rounded-full",
+        { "cursor-not-allowed border-4": disabled },
+        { "cursor-pointer": !disabled }
+      )}
       name={name}
       required={required}
       style={styles}
