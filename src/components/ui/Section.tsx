@@ -1,11 +1,12 @@
 import { ReactElement } from "react";
-
-type Props = {
+interface Props {
     type?: string;
     padding?: string;
-};
-
-function Section({ type = "default", padding = "py-4" }: Props): ReactElement {
+}
+export default function Section({
+    type = "default",
+    padding = "py-4",
+}: Props): ReactElement {
     return (
         <div
             className={`relative ${
@@ -24,5 +25,3 @@ function Section({ type = "default", padding = "py-4" }: Props): ReactElement {
         </div>
     );
 }
-
-export default Section;
