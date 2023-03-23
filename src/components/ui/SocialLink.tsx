@@ -31,9 +31,9 @@ interface SocialLinkProps {
  */
 export default function SocialLink({ link }: SocialLinkProps): ReactElement {
   const icons = {
-    discord: DiscordIcon,
-    twitter: TwitterIcon,
-    youtube: YoutubeIcon,
+    discord: <DiscordIcon />,
+    twitter: <TwitterIcon />,
+    youtube: <YoutubeIcon />,
   };
 
   const icon = icons[link?.icon as keyof typeof icons];
@@ -47,7 +47,7 @@ export default function SocialLink({ link }: SocialLinkProps): ReactElement {
     >
       {icon && (
         <div title={link.title} className="w-4.5 inline-block">
-          <Image src={icon} alt="icon" />
+          {icon}
         </div>
       )}
     </a>
