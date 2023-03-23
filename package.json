@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,tsx,js,jsx}' --write"
   },
   "dependencies": {
     "@types/node": "18.15.3",
@@ -38,6 +39,13 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
     "postcss": "^8.4.21",
+    "prettier": "^2.8.6",
     "tailwindcss": "^3.2.7"
+  },
+  "lint-staged": {
+    "/src/**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "npm run prettier-format"
+    ]
   }
 }
