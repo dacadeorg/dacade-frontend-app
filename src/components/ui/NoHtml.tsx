@@ -5,9 +5,10 @@ interface NoHtmlProps {
 }
 
 export default function NoHtml({ value }: NoHtmlProps): ReactElement {
-    const processedString = useMemo(() => {
-        return value.replace(/(<([^>]+)>)/gi, "");
-    }, []);
+    const processedString = useMemo(
+        () => value.replace(/(<([^>]+)>)/gi, ""),
+        []
+    );
 
     return <span>{processedString}</span>;
 }
