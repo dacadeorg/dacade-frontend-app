@@ -10,7 +10,7 @@ interface OverviewRewardsProps {
   size: string;
 }
 
-function OverviewRewards ({ reward, category, size }: OverviewRewardsProps) {
+export default function OverviewRewards ({ reward, category, size }: OverviewRewardsProps) {
     const { t } = useTranslation();
 
   return (
@@ -41,5 +41,3 @@ function OverviewRewards ({ reward, category, size }: OverviewRewardsProps) {
     </div>
   );
 };
-
-export default OverviewRewards;
