@@ -23,7 +23,7 @@ interface TextInputProps {
  * TextInput component
  * @date 3/22/2023 - 4:31:51 PM
  *
- * @param {Prop} props
+ * @param {TextInputProps} props
  * @returns {ReactElement}
  */
 export function TextInput({
