@@ -3,7 +3,12 @@
  * because redux and its features are not implemented yet.
  */
 
-import { useState, useEffect, ReactElement, useCallback } from "react";
+import {
+  useState,
+  useEffect,
+  ReactElement,
+  useCallback,
+} from "react";
 
 // TODO: Should be uncommented when redux will be implemented
 // import { useSelector } from "react-redux";
@@ -31,7 +36,9 @@ interface MarkdownProps {
  * @returns {ReactElement}
  */
 
-export default function Markdown({ value }: MarkdownProps): ReactElement {
+export default function Markdown({
+  value,
+}: MarkdownProps): ReactElement {
   const [content, setContent] = useState("");
 
   //TODO: Should be uncommented when redux will be implemented
