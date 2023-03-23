@@ -1,13 +1,13 @@
-import React, { ReactElement } from "react";
+import { ReactElement, useMemo } from "react";
 
-type NoHtmlProps = {
+interface NoHtmlProps {
     value: string;
-};
+}
 
-function NoHtml({ value }: NoHtmlProps): ReactElement {
-    const processedString = value.replace(/(<([^>]+)>)/gi, "");
+export default function NoHtml({ value }: NoHtmlProps): ReactElement {
+    const processedString = useMemo(() => {
+        return value.replace(/(<([^>]+)>)/gi, "");
+    }, []);
 
     return <span>{processedString}</span>;
 }
-
-export default NoHtml;
