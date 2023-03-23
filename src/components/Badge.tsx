@@ -30,8 +30,8 @@ export default function Badge({
       className={classNames(
         "font-semibold leading-3 text-center inline-flex items-center justify-center rounded-full text-xxs",
         sizeClasses,
-        { "bg-white text-gray-900": isCommunity === true },
-        { "text-white bg-gray-900": isCommunity === false }
+        { "bg-white text-gray-900": isCommunity },
+        { "text-white bg-gray-900": !isCommunity }
       )}
       style={customStyle}
     >
