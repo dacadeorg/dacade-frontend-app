@@ -2,10 +2,12 @@ import { ReactElement } from "react";
 interface Props {
     type?: string;
     padding?: string;
+    children: ReactElement;
 }
 export default function Section({
     type = "default",
     padding = "py-4",
+    children,
 }: Props): ReactElement {
     return (
         <div
@@ -19,9 +21,7 @@ export default function Section({
                     : "bg-gray-50 text-gray-900"
             }`}
         >
-            <div className={padding}>
-                <slot />
-            </div>
+            <div className={padding}>{children}</div>
         </div>
     );
 }
