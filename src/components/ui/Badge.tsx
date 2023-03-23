@@ -2,7 +2,14 @@ import classNames from "classnames";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 
-interface BadgetProps {
+/**
+ * Badge component
+ * @date 3/23/2023 - 3:34:12 PM
+ *
+ * @interface BadgeProps
+ * @typedef {BadgeProps}
+ */
+interface BadgeProps {
   customStyle?: object;
   value: string | number;
   size?: "medium" | "small";
@@ -12,7 +19,7 @@ export default function Badge({
   customStyle,
   value,
   size = "small",
-}: BadgetProps) {
+}: BadgeProps) {
   const sizeClasses = useMemo(
     () =>
       ({
@@ -24,7 +31,9 @@ export default function Badge({
 
   const router = useRouter();
 
-  const isCommunity: boolean = router.pathname.startsWith("communities-slug__");
+  const isCommunity: boolean = router.pathname.startsWith(
+    "communities-slug__"
+  );
   return (
     <span
       className={classNames(
