@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FC, ReactNode } from "react";
+import { ReactNode } from "react";
 
 /**
  * Interface for NavItem component props
@@ -19,14 +19,16 @@ interface NavItemProps {
  * @date 3/22/2023 - 5:33:34 PM
  *
  * @param {{ type?: string; to?: string; children: any; }} { type = "item", to = "/", children }
- * @returns {JSX}
+ * @returns {JSX.Element}
  */
-const NavItem: FC<NavItemProps> = ({ type = "item", to = "/", children }) => {
+export default function NavItem({
+  type = "item",
+  to = "/",
+  children,
+}: NavItemProps): JSX.Element {
   return (
     <li className={`nav-${type}`}>
       <Link href={to}>{children}</Link>
     </li>
   );
-};
-
-export default NavItem;
+}
