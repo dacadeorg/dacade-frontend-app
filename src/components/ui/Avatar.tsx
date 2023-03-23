@@ -82,9 +82,9 @@ export default function Avatar({
 }: AvatarProps): ReactElement {
   const initials = user?.displayName ? user?.displayName[0] : null;
 
-  const link = user?.username && useLink ? `/profile/${user.username}` : null;
+  const link = user?.username && useLink ? `/profile/${user.username}` : "#";
 
-  const sizeClasses = classNames({
+  const sizeClassName = classNames({
     "w-32 h-32 text-4xl": size === "extra",
     "w-15 h-15 text-2xl": size === "large",
     "w-10 h-10 sm:h-12 sm:w-12 md:w-15 md:h-15 text-xl sm:text-2xl":
@@ -95,25 +95,27 @@ export default function Avatar({
     "w-9 h-9 text-lg": size === "small",
   });
 
-  const shapeClasses = classNames({
+  const shapeClassName = classNames({
     "rounded-xl": shape === "rounded",
     "rounded-3xl": shape === "rounded-3xl",
     "rounded-full": shape === "full" || shape === "circular",
     "rounded-none": shape === "squared",
   });
-  const Component = useLink ? Link : Span;
 
+  const componentClassName = classNames(
+    "bg-primary inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle",
+    sizeClassName,
+    shapeClassName,
+    {
+      "cursor-pointer": user,
+    }
+  );
+  const Component = useLink ? Link : Span;
+  
   return (
     <Component
-      href={link as Url}
-      className={classNames(
-        "bg-primary inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle",
-        sizeClasses,
-        shapeClasses,
-        {
-          "cursor-pointer": user,
-        }
-      )}
+      href={link}
+      className={componentClassName}
       style={{ backgroundColor: color }}
     >
       {user && user.avatar ? (
