@@ -16,6 +16,7 @@ interface CheckboxProps {
   id?: string;
   name?: string;
   communityStyles?: boolean;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 /**
@@ -31,6 +32,7 @@ interface CheckboxProps {
   id = "",
   name = "",
   communityStyles = false,
+  onChange
 }
  * @returns {ReactElement}
  */
@@ -42,17 +44,8 @@ export default function Checkbox({
   id = "",
   name = "",
   communityStyles = false,
+  onChange
 }: CheckboxProps): ReactElement {
-  const [checkedValue, setCheckedValue] = useState<boolean>(checked);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    setCheckedValue(checked);
-  }, [checked]);
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckedValue(event.target.checked);
-  };
 
   const styles = communityStyles ? { color: "#0000FF" } : undefined;
 
@@ -67,16 +60,15 @@ export default function Checkbox({
   return (
     <input
       id={id}
-      ref={inputRef}
       type="checkbox"
-      checked={checkedValue}
+      checked={checked}
       value={data}
       name={name}
       required={required}
       disabled={disabled}
       className={checkboxClassName}
       style={styles}
-      onChange={handleInputChange}
+      onChange={onChange}
     />
   );
 }
