@@ -27,9 +27,9 @@ interface Props {
  *    url: string;
  *    title: string;
  *    icon: string; }; }} { link }
- * @returns {JSX}
+ * @returns {JSX.Element}
  */
-const SocialLink: React.FC<Props> = ({ link }) => {
+export default function SocialLink({ link }: Props): JSX.Element {
   const icons = {
     discord: DiscordIcon,
     twitter: TwitterIcon,
@@ -52,6 +52,4 @@ const SocialLink: React.FC<Props> = ({ link }) => {
       )}
     </a>
   );
-};
-
-export default SocialLink;
+}
