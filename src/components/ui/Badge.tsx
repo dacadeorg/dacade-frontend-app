@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import { useMemo } from "react";
 
 /**
- * Badge component
- * @date 3/23/2023 - 3:34:12 PM
+ * Interface for Badge component props
+ * @date 3/23/2023 - 3:43:31 PM
  *
  * @interface BadgeProps
  * @typedef {BadgeProps}
@@ -15,6 +15,18 @@ interface BadgeProps {
   size?: "medium" | "small";
 }
 
+/**
+ * Badge component
+ * @date 3/23/2023 - 3:43:45 PM
+ *
+ * @export
+ * @param {BadgeProps} {
+  customStyle,
+  value,
+  size = "small",
+}
+ * @returns {*}
+ */
 export default function Badge({
   customStyle,
   value,
