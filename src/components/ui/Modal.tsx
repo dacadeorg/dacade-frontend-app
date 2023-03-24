@@ -1,7 +1,15 @@
 import { ReactElement, ReactNode, useMemo } from 'react';
-import Popup from '../ui/Popup';
+import Popup from './Popup';
 import classNames from 'classnames';
 
+
+/**
+ * Interface for modal props
+ * @date 3/24/2023 - 6:37:31 PM
+ *
+ * @interface ModalProps
+ * @typedef {ModalProps}
+ */
 interface ModalProps {
   show: boolean;
   size?: string;
@@ -9,6 +17,15 @@ interface ModalProps {
   children: ReactNode;
 }
 
+
+/**
+ * Component for the modal
+ * @date 3/24/2023 - 6:37:51 PM
+ *
+ * @export
+ * @param {ModalProps} { show, size = '', onClose, children }
+ * @returns {ReactElement}
+ */
 export default function Modal ({ show, size = '', onClose, children }:ModalProps): ReactElement {
   const sizeClasses = useMemo(() => {
     switch (size) {
