@@ -30,7 +30,9 @@ interface ButtonProps {
   customStyle?: object | null;
   link?: string;
   target: string;
+  className?: string;
   communityStyles?: boolean;
+  children: ReactNode
   onClick: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -68,6 +70,7 @@ type ComponentProps = Pick<
   customStyle = null,
   link = "",
   target = "_self",
+  className = ""
   communityStyles = false,
 }
  * @returns {ReactElement}
@@ -85,6 +88,8 @@ export default function Button({
   target = "_self",
   communityStyles = false,
   onClick,
+  className = "",
+  children
 }: ButtonProps): ReactElement {
   // TODO: Should be uncommented when the redux is implemented
   //   const colors = useSelector((state: any) => state.ui.colors);
@@ -129,7 +134,7 @@ export default function Button({
    */
 
   const componentClassName: string = classNames(
-    "btn outline-none focus:outline-none hover:outline-none cursor-pointer relative disabled:border-opacity-60 disabled:cursor-not-allowed",
+    `btn outline-none focus:outline-none hover:outline-none cursor-pointer relative disabled:border-opacity-60 disabled:cursor-not-allowed ${className} `,
     {
       "disabled:bg-gray-100 disabled:text-gray-400":
         variant === "primary" || variant === "secondary",
@@ -166,7 +171,6 @@ export default function Button({
      link,
      className,
      style,
-     children,
      target,
      onClick,
     }
@@ -176,10 +180,10 @@ export default function Button({
   function Component({
     className,
     style,
-    children,
     target,
     onClick,
     type,
+    children
   }: ComponentProps): ReactElement {
     if (!link)
       return (
@@ -222,7 +226,7 @@ export default function Button({
       target={target}
       onClick={onClick}
     >
-      {text}
+      {text || children }
     </Component>
   );
 }
