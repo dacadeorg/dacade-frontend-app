@@ -8,7 +8,8 @@ import {
 } from "react";
 
 // TODO: Should be uncommented when redux is implemented
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * Button props interface
@@ -87,7 +88,7 @@ export default function Button({
   onClick,
 }: ButtonProps): ReactElement {
   // TODO: Should be uncommented when the redux is implemented
-  const colors = useSelector((state: any) => state.ui.colors);
+  const colors = useSelector((state) => state.ui.colors);
 
   const isInternalLink: boolean = link?.startsWith("/");
 
