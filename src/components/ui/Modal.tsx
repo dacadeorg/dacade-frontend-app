@@ -1,0 +1,31 @@
+import { ReactElement, ReactNode, useMemo } from 'react';
+import Popup from '../ui/Popup';
+import classNames from 'classnames';
+
+interface ModalProps {
+  show: boolean;
+  size?: string;
+  onClose: (event?: any) => void;
+  children: ReactNode;
+}
+
+export default function Modal ({ show, size = '', onClose, children }:ModalProps): ReactElement {
+  const sizeClasses = useMemo(() => {
+    switch (size) {
+      case 'medium':
+        return 'w-11/12 md:w-9/12 lg:w-8/12 xl:w-1/2';
+      default:
+        return 'w-11/12 md:w-9/12 lg:w-8/12 xl:w-2/5';
+    }
+  }, [size]);
+
+  const modalClassName = classNames('bg-white my-auto rounded-3.5xl relative mx-auto max-w-5xl', {sizeClasses})
+
+  return (
+    <Popup show={show} className="py-8" onClose={onClose}>
+      <div className={modalClassName}>
+        {children}
+      </div>
+    </Popup>
+  );
+};
