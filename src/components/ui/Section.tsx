@@ -24,7 +24,7 @@ export default function Section({
 
     return (
         <div
-            className={sectionClassNames}
+            className={sectionClassName}
         >
             <div className={padding}>{children}</div>
         </div>
