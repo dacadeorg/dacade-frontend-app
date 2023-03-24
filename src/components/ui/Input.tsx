@@ -20,7 +20,6 @@ interface InputProps {
   onInput?: (value: string) => void;
 }
 
-
 /**
  * Component for a customized input
  * @date 3/24/2023 - 1:40:02 PM
@@ -52,7 +51,10 @@ export default function Input({
 }: InputProps): ReactElement {
   const [isFocused, setIsFocused] = useState(false);
 
-  const isFilled = useMemo(() => String(value)?.trim().length > 0,[]);
+  const isFilled = useMemo(
+    () => String(value)?.trim().length > 0,
+    []
+  );
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
     if (onInput) {
@@ -78,17 +80,13 @@ export default function Input({
   };
 
   const labelClasssName = classNames(
-    "text-gray-400",
-    "flex",
-    "items-center",
+    "absolute top-0 left-0 text-lg px-5 py-5 z-10 h-full pointer-events-none transform origin-left transition-all duration-100 ease-in-out items-center",
     {
-      "text-gray-400 scale-75 -translate-y-3 translate-x-1":
-        isFilled || isFocused,
-      "text-gray-400 flex items-center": !isFilled && !isFocused,
-      "text-red-600": error,
-      "text-blue-500": isFocused && !error,
-      "absolute top-0 left-0 text-lg px-5 py-5 z-10 h-full pointer-events-none transform origin-left transition-all duration-100 ease-in-out items-center":
-        true,
+      'text-gray-400 flex items-center': !isFilled && !isFocused,
+      'text-gray-400 scale-75 -translate-y-3 translate-x-1':
+        isFocused || isFilled,
+      'text-red-600': error,
+      'text-blue-500': isFocused && !error,
     }
   );
 
@@ -96,7 +94,7 @@ export default function Input({
     "floating-input": label || isFilled || isFocused,
   });
 
-  const inputClassName = classNames(
+  const inputElementClassName = classNames(
     `rounded-md focus:outline-none focus:shadow-sm w-full ${inputClass} ${fontSizeClasses()}`,
     {
       "text-gray-400 scale-75 -translate-y-3 translate-x-1 bg-gray-50":
@@ -108,12 +106,10 @@ export default function Input({
 
   return (
     <div className="relative">
-      <div
-        className={inputComponentClassName}
-      >
+      <div className={inputComponentClassName}>
         {label && <label className={labelClasssName}>{label}</label>}
         <input
-          className={inputClassName}
+          className={inputElementClassName}
           value={value}
           type={type}
           placeholder={placeholder}
