@@ -3,9 +3,9 @@ import Section from "@/components/ui/Section";
 import SocialLink from "@/components/ui/SocialLink";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
-import ApeUnitLogo from "../../../public/assets/icons/partners/apeunit.svg";
-import OctanLogo from "../../../public/assets/icons/partners/octan.svg";
-import CeloLogo from "../../../public/assets/icons/partners/celo.svg";
+import ApeUnitLogo from "@/icons/partners/apeunit.svg";
+import OctanLogo from "@/icons/partners/octan.svg";
+import CeloLogo from "@/icons/partners/celo.svg";
 
 interface FooterProps {
   backgroundColor?: boolean;

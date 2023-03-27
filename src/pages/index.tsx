@@ -2,7 +2,6 @@ import Head from "next/head";
 import { useTranslation } from "next-i18next";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
-import Footer from "@/components/layout/Footer";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) =>
   i18Translate(locale as string);
@@ -27,7 +26,6 @@ const Home = () => {
       <main className="flex items-center justify-center h-screen text-6xl font-bold text-white bg-blue-500">
         <span>{t("page.index.main.title")}</span>
       </main>
-      <Footer />
     </>
   );
 };
