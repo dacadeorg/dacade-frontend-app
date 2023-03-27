@@ -1,5 +1,5 @@
 import { ChangeEvent, ReactElement, useMemo, useState } from "react";
-import GithubIcon from "../../../public/assets/icons/github.svg";
+import GithubIcon from "@/icons/github.svg";
 import classNames from "classnames";
 
 /**

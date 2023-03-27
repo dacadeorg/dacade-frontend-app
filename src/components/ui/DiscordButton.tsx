@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import DiscordButtonIcon from "../../../public/assets/icons/discordButton.svg";
+import DiscordButtonIcon from "@/icons/discordButton.svg";
 
 /**
  * Discord Button Component

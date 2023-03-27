@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { ReactElement } from "react";
-import DiscordIcon from "../../../public/assets/icons/discord.svg";
-import TwitterIcon from "../../../public/assets/icons/twitter.svg";
-import YoutubeIcon from "../../../public/assets/icons/youtube.svg";
+import DiscordIcon from "@/icons/discord.svg";
+import TwitterIcon from "@/icons/twitter.svg";
+import YoutubeIcon from "@/icons/youtube.svg";
 
 /**
  * Interface for Props component props for SocialLink
@@ -29,7 +29,9 @@ interface SocialLinkProps {
  *    icon: string; }; }} { link }
  * @returns {ReactElement}
  */
-export default function SocialLink({ link }: SocialLinkProps): ReactElement {
+export default function SocialLink({
+  link,
+}: SocialLinkProps): ReactElement {
   const icons = {
     discord: <DiscordIcon />,
     twitter: <TwitterIcon />,

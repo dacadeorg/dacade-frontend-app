@@ -198,7 +198,7 @@ div {
 }
 
 .list li::before {
-  content: url("../../public/assets/icons/list.svg");
+  content: url("../icons/list.svg");
   margin-left: -52px;
 }
 
