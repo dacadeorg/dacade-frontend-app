@@ -13,15 +13,17 @@ const Home = () => {
     <>
       <Head>
         <title>Dacade</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Peer to peer learning" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+        />
+        <meta name="description" content={`${t("page.index.main.title")}`} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="h-screen bg-blue-500 text-white font-bold text-6xl flex justify-center items-center">
-        <span>{t("nav.signup.already-exist")}</span>
+      <main className="flex items-center justify-center h-screen text-6xl font-bold text-white bg-blue-500">
+        <span>{t("page.index.main.title")}</span>
       </main>
     </>
   );
 };
-
 export default Home;
