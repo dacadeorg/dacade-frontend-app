@@ -1,13 +1,13 @@
 import { ReactElement } from "react";
 import Image from "next/image";
-import DACIcon from "../../../public/assets/icons/tokens/DAC.svg";
-import CUSDIcon from "../../../public/assets/icons/tokens/cUSD.svg";
-import ETHIcon from "../../../public/assets/icons/tokens/ETH.svg";
-import AEIcon from "../../../public/assets/icons/tokens/AE.svg";
-import TEZIcon from "../../../public/assets/icons/tokens/Tezos.svg";
-import DAIIcon from "../../../public/assets/icons/tokens/DAI.svg";
-import NEARIcon from "../../../public/assets/icons/tokens/NEAR.svg";
-import USDCIcon from "../../../public/assets/icons/tokens/USDC.svg";
+import DACIcon from "@/icons/tokens/DAC.svg";
+import CUSDIcon from "@/icons/tokens/cUSD.svg";
+import ETHIcon from "@/icons/tokens/ETH.svg";
+import AEIcon from "@/icons/tokens/AE.svg";
+import TEZIcon from "@/icons/tokens/Tezos.svg";
+import DAIIcon from "@/icons/tokens/DAI.svg";
+import NEARIcon from "@/icons/tokens/NEAR.svg";
+import USDCIcon from "@/icons/tokens/USDC.svg";
 
 /**
  * Interface for the coin props

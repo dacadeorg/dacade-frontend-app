@@ -1,6 +1,6 @@
 import Button from "./";
-import Spinner from "../../../../public/assets/icons/spinner.svg";
-import ArrowRightIcon from "../../../../public/assets/icons/arrow-right.svg";
+import Spinner from "@/icons/spinner.svg";
+import ArrowRightIcon from "@/icons/arrow-right.svg";
 import { ReactElement, ReactNode, useMemo } from "react";
 import classNames from "classnames";
 

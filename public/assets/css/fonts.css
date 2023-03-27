@@ -1,31 +1,31 @@
 @font-face {
-  font-family: 'Graphik';
+  font-family: "Graphik";
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('~assets/fonts/Graphik-Semibold-Web.woff2') format('truetype');
+  src: url("/src/fonts/Graphik-Medium-Web.woff2") format("truetype");
 }
 
 @font-face {
-  font-family: 'Graphik';
+  font-family: "Graphik";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('~assets/fonts/Graphik-Medium-Web.woff2') format('truetype');
+  src: url("/src/fonts/Graphik-Medium-Web.woff2") format("truetype");
 }
 
 @font-face {
-  font-family: 'Graphik';
+  font-family: "Graphik";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('~assets/fonts/Graphik-Regular-Web.woff2') format('truetype');
+  src: url("/src/fonts/Graphik-Regular-Web.woff2") format("truetype");
 }
 
 @font-face {
-  font-family: 'Graphik';
+  font-family: "Graphik";
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url('~assets/fonts/GraphikRegularItalic.woff2') format('truetype');
+  src: url("/src/fonts/GraphikRegularItalic.woff2") format("truetype");
 }
