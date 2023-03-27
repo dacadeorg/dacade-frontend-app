@@ -74,8 +74,7 @@ export default function Footer({
                 target="__blank"
                 className="inline-block"
               >
-                {partner.logo}
-                {/* <Image src={partner.logo} alt={partner.name} /> */}
+                <partner.logo />
               </Link>
             ))}
           </div>
