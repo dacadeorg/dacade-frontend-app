@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import Section from "@/components/ui/Section";
 import SocialLink from "@/components/ui/SocialLink";
 import Link from "next/link";
