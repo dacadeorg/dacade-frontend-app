@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import Spinner from "../../../public/assets/icons/spinner.svg";
+import Spinner from "@/icons/spinner.svg";
 
 /**
  * Loader Props Interface
