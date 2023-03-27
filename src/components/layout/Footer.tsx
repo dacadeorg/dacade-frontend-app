@@ -15,6 +15,50 @@ interface Props {
 }
 
 /**
+ * Dacade's partners
+ * @date 3/27/2023 - 5:34:38 PM
+ */
+const socialLinks = [
+  {
+    title: "Discord",
+    url: "https://discord.gg/U38KQHDtHe",
+    icon: "discord",
+  },
+  {
+    title: "Twitter",
+    url: "https://twitter.com/dacadeorg",
+    icon: "twitter",
+  },
+  {
+    title: "Youtube",
+    url: "https://www.youtube.com/channel/UC08wXfDvuqBJvuZfNZkv3xQ",
+    icon: "youtube",
+  },
+];
+
+/**
+ * Dacade's partners
+ * @date 3/27/2023 - 5:34:38 PM
+ */
+const partners = [
+  {
+    name: "ApeUnit",
+    url: "https://apeunit.com",
+    logo: ApeUnitLogo,
+  },
+  {
+    name: "Octan Group",
+    url: "https://octan.group/",
+    logo: OctanLogo,
+  },
+  {
+    name: "Celo",
+    url: "https://celo.org",
+    logo: CeloLogo,
+  },
+];
+
+/**
  * The application footer that contains socials and partners.
  * @date 3/27/2023 - 5:26:28 PM
  *
@@ -28,41 +72,6 @@ export default function Footer({
   backgroundColor,
 }: Props): ReactElement {
   const { t } = useTranslation();
-
-  const [socialLinks] = useState([
-    {
-      title: "Discord",
-      url: "https://discord.gg/U38KQHDtHe",
-      icon: "discord",
-    },
-    {
-      title: "Twitter",
-      url: "https://twitter.com/dacadeorg",
-      icon: "twitter",
-    },
-    {
-      title: "Youtube",
-      url: "https://www.youtube.com/channel/UC08wXfDvuqBJvuZfNZkv3xQ",
-      icon: "youtube",
-    },
-  ]);
-  const [partners] = useState([
-    {
-      name: "ApeUnit",
-      url: "https://apeunit.com",
-      logo: ApeUnitLogo,
-    },
-    {
-      name: "Octan Group",
-      url: "https://octan.group/",
-      logo: OctanLogo,
-    },
-    {
-      name: "Celo",
-      url: "https://celo.org",
-      logo: CeloLogo,
-    },
-  ]);
 
   return (
     <Section
@@ -78,7 +87,7 @@ export default function Footer({
           <div className="flex items-center justify-center mt-8 mb-12 lg:mb-0 lg:justify-start space-x-9">
             {partners.map((partner, i) => (
               <Link
-                key={i}
+                key={partner.name}
                 href={partner.url}
                 title={partner.name}
                 target="__blank"
@@ -92,7 +101,7 @@ export default function Footer({
         <div className="w-full mt-6 lg:w-1/2 md:mt-0 lg:text-right">
           <div className="space-x-2">
             {socialLinks.map((link, i) => (
-              <SocialLink key={i} link={link} />
+              <SocialLink key={link.title} link={link} />
             ))}
           </div>
           <p className="mt-8.5">
