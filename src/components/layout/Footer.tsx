@@ -14,6 +14,16 @@ interface Props {
   backgroundColor?: boolean;
 }
 
+/**
+ * The application footer that contains socials and partners.
+ * @date 3/27/2023 - 5:26:28 PM
+ *
+ * @export
+ * @param {Props} {
+  backgroundColor,
+}
+ * @returns {ReactElement}
+ */
 export default function Footer({
   backgroundColor,
 }: Props): ReactElement {
