@@ -82,7 +82,7 @@ export default function Footer({
         <div className="w-full border-b border-gray-200 lg:w-1/2 lg:border-none md:border-none border-b-solid">
           <p
             className="block text-with-links"
-            v-html={t("footer.text")}
+            dangerouslySetInnerHTML={{ __html: t("footer.text") }}
           />
           <div className="flex items-center justify-center mt-8 mb-12 lg:mb-0 lg:justify-start space-x-9">
             {partners.map((partner, i) => (
