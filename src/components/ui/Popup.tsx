@@ -5,6 +5,7 @@ interface PopupProps {
   onClose?: () => void;
   show?: boolean;
   children?: React.ReactNode;
+  className: string;
 }
 export default function popup({
   center,
