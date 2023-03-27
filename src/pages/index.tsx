@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import Loader from "@/components/ui/Loader";
-
+import Footer from "@/components/layout/Footer";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) =>
   i18Translate(locale as string);
@@ -25,6 +25,7 @@ const Home = () => {
         <span>{t("nav.signup.already-exist")}</span>
         <Loader />
       </main>
+      <Footer />
     </>
   );
 };
