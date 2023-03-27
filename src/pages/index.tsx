@@ -26,7 +26,6 @@ const Home = () => {
       </Head>
       <main className="flex items-center justify-center h-screen text-6xl font-bold text-white bg-blue-500">
         <span>{t("page.index.main.title")}</span>
-        <DiscordButton />
       </main>
     </>
   );
