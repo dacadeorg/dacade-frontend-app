@@ -1,5 +1,6 @@
 import { ReactElement, ReactNode, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+// waiting for the popups folder to be migrated
 // import ReferralPopup from '@/components/popups/referral';
 
 
