@@ -1,16 +1,13 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement } from "react";
 import Section from "@/components/ui/Section";
 import SocialLink from "@/components/ui/SocialLink";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
-import { GetStaticProps } from "next";
-import i18Translate from "@/utilities/I18Translate";
-import Image from "next/image";
 import ApeUnitLogo from "../../../public/assets/icons/partners/apeunit.svg";
 import OctanLogo from "../../../public/assets/icons/partners/octan.svg";
 import CeloLogo from "../../../public/assets/icons/partners/celo.svg";
 
-interface Props {
+interface FooterProps {
   backgroundColor?: boolean;
 }
 
@@ -63,16 +60,15 @@ const partners = [
  * @date 3/27/2023 - 5:26:28 PM
  *
  * @export
- * @param {Props} {
+ * @param {FooterProps} {
   backgroundColor,
 }
  * @returns {ReactElement}
  */
 export default function Footer({
   backgroundColor,
-}: Props): ReactElement {
+}: FooterProps): ReactElement {
   const { t } = useTranslation();
-
   return (
     <Section
       padding="pt-20"
@@ -85,7 +81,7 @@ export default function Footer({
             dangerouslySetInnerHTML={{ __html: t("footer.text") }}
           />
           <div className="flex items-center justify-center mt-8 mb-12 lg:mb-0 lg:justify-start space-x-9">
-            {partners.map((partner, i) => (
+            {partners.map((partner) => (
               <Link
                 key={partner.name}
                 href={partner.url}
@@ -100,7 +96,7 @@ export default function Footer({
         </div>
         <div className="w-full mt-6 lg:w-1/2 md:mt-0 lg:text-right">
           <div className="space-x-2">
-            {socialLinks.map((link, i) => (
+            {socialLinks.map((link) => (
               <SocialLink key={link.title} link={link} />
             ))}
           </div>

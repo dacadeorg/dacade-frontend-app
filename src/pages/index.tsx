@@ -9,7 +9,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) =>
 
 const Home = () => {
   const { t } = useTranslation();
-
   return (
     <>
       <Head>
@@ -20,6 +19,7 @@ const Home = () => {
         />
         <meta
           name="description"
+          // The reason for using a template literal is because content should receive strings.
           content={`${t("page.index.main.title")}`}
         />
         <link rel="icon" href="/favicon.ico" />
