@@ -1,4 +1,4 @@
-import { CSSProperties, ReactElement, useMemo } from "react";
+import { CSSProperties, ReactElement, ReactNode, useMemo } from "react";
 
 
 /**
@@ -9,7 +9,7 @@ import { CSSProperties, ReactElement, useMemo } from "react";
  * @typedef {ThemeWrapperProps}
  */
 interface ThemeWrapperProps {
-  colors?: {
+  colors: {
     primary?: string;
     secondary?: string;
     text?: string;
@@ -17,7 +17,7 @@ interface ThemeWrapperProps {
     accent?: string;
     muted?: string;
   };
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 
