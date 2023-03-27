@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ReactElement } from "react";
-import Markdown from "../../../public/assets/icons/markdown-fill.svg";
+import Markdown from "@/icons/markdown-fill.svg";
 
 /**
  * Markdown Icon Component
