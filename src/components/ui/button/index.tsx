@@ -20,19 +20,19 @@ import {
 
 interface ButtonProps {
   text?: number | string;
-  loading: boolean;
-  disabled: boolean;
-  rounded: boolean;
+  loading?: boolean;
+  disabled?: boolean;
+  rounded?: boolean;
   type: "submit" | "button" | "reset" | undefined;
   variant: string;
   padding: boolean | string;
   margin?: string;
   customStyle?: object | null;
   link?: string;
-  target: string;
+  target?: string;
   className?: string;
   communityStyles?: boolean;
-  children: ReactNode
+  children: ReactNode;
   onClick: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -89,7 +89,7 @@ export default function Button({
   communityStyles = false,
   onClick,
   className = "",
-  children
+  children,
 }: ButtonProps): ReactElement {
   // TODO: Should be uncommented when the redux is implemented
   //   const colors = useSelector((state: any) => state.ui.colors);
@@ -183,7 +183,7 @@ export default function Button({
     target,
     onClick,
     type,
-    children
+    children,
   }: ComponentProps): ReactElement {
     if (!link)
       return (
@@ -226,7 +226,7 @@ export default function Button({
       target={target}
       onClick={onClick}
     >
-      {text || children }
+      {text || children}
     </Component>
   );
 }
