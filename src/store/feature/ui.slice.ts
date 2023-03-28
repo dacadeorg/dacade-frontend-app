@@ -42,12 +42,12 @@ const uiSlice = createSlice({
       state.showReferralPopup = action.payload as boolean;
     },
   },
-  extraReducers: {
-    [HYDRATE]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(HYDRATE, (state, action) => {
       return {
         ...state,
       };
-    },
+    });
   },
 });
 
