@@ -1,3 +1,4 @@
+import { SSRConfig } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 /**
@@ -6,10 +7,23 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
  *
  * @async
  * @param {string} locale
- * @returns {}
+ * @returns {i18Translate}
  */
 
-const i18Translate = async (locale: string) => {
+/**
+ * Interface for i18Translate return type
+ * @date 3/28/2023 - 9:33:46 PM
+ *
+ * @interface i18Translate
+ * @typedef {i18Translate}
+ */
+interface i18Translate {
+  props: SSRConfig
+}
+
+const i18Translate = async (
+  locale: string
+): Promise<i18Translate> => {
   return {
     props: {
       ...(await serverSideTranslations(locale)),

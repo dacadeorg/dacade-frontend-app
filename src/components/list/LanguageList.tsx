@@ -2,7 +2,7 @@ import Checkmark from "@/icons/checkmark.svg";
 import classNames from "classnames";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 
 /**
  * This Language list component responsible for switching languages 
@@ -17,10 +17,10 @@ export default function LanguageList(): ReactElement {
   const router = useRouter();
   const availableLocales: string[] | undefined = router.locales;
   const selected = router.locale;
-  const { t } = useTranslation('',{ useSuspense: false });
+  const { t } = useTranslation();
 
   /**
-   * switchLocalePath is used to switch the locale of a website and update the URL according to the languag.
+   * switchLocalePath is used to switch the locale of a website and update the URL according to the language.
    * @date 3/28/2023 - 3:19:13 PM
    *
    * @param {string} locale
