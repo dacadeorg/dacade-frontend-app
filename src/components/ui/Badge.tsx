@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useRouter } from "next/router";
-import { useMemo } from "react";
+import { CSSProperties, useMemo } from "react";
 
 /**
  * Interface for Badge component props
