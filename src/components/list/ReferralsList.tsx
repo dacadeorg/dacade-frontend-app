@@ -33,6 +33,7 @@ export default function ReferralsList({
   const { t } = useTranslation("common");
 
   const togglePopUp = () => {
+    // TODO: stop body scrolling functionality to be added while implementing page that's using this component.
     // dispatch(toggleShowReferralPopup({payload: true }));
   };
 
