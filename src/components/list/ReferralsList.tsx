@@ -5,10 +5,27 @@ import React, { ReactElement } from "react";
 import Button from "@/components/ui/button";
 import { useTranslation } from "next-i18next";
 
+/**
+ *  ReferralsList props interface
+ * @date 3/28/2023 - 12:02:30 PM
+ *
+ * @interface ReferralsListProps
+ * @typedef {ReferralsListProps}
+ */
 interface ReferralsListProps {
   text: string;
 }
 
+/**
+ *  ReferralsList Component
+ * @date 3/28/2023 - 12:02:39 PM
+ *
+ * @export
+ * @param {ReferralsListProps} {
+  text,
+}
+ * @returns {ReactElement}
+ */
 export default function ReferralsList({
   text,
 }: ReferralsListProps): ReactElement {
