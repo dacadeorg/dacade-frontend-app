@@ -13,6 +13,7 @@ interface BadgeProps {
   customStyle?: object;
   value: string | number;
   size?: "medium" | "small";
+  className?: string;
 }
 
 /**
@@ -31,6 +32,7 @@ export default function Badge({
   customStyle,
   value,
   size = "small",
+  className,
 }: BadgeProps) {
   const sizeClasses = useMemo(
     () =>
@@ -50,6 +52,7 @@ export default function Badge({
     <span
       className={classNames(
         "font-semibold leading-3 text-center inline-flex items-center justify-center rounded-full text-xxs",
+        className,
         sizeClasses,
         { "bg-white text-gray-900": isCommunity },
         { "text-white bg-gray-900": !isCommunity }
