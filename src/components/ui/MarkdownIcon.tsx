@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ReactElement } from "react";
-import markdown from "../../../public/assets/icons/markdown-fill.svg";
+import Markdown from "@/icons/markdown-fill.svg";
 
 /**
  * Markdown Icon Component
@@ -14,7 +14,7 @@ export default function MarkdownIcon(): ReactElement {
   return (
     <div className="mt-4 flex items-center">
       <span className="w-6 h-4">
-        <Image src={markdown} alt="markdown icon" />
+        <Markdown />
       </span>
       <span className="text-sm text-gray-500">
         <a

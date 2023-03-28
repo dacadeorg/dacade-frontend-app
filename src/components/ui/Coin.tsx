@@ -1,15 +1,13 @@
-import { ReactElement } from 'react';
-import Image from 'next/image';
-import DACIcon from "../../../public/assets/icons/tokens/DAC.svg"
-import CUSDIcon from "../../../public/assets/icons/tokens/cUSD.svg"
-import ETHIcon from "../../../public/assets/icons/tokens/ETH.svg"
-import AEIcon from "../../../public/assets/icons/tokens/AE.svg"
-import TEZIcon from "../../../public/assets/icons/tokens/Tezos.svg"
-import DAIIcon from "../../../public/assets/icons/tokens/DAI.svg"
-import NEARIcon from "../../../public/assets/icons/tokens/NEAR.svg"
-import USDCIcon from "../../../public/assets/icons/tokens/USDC.svg"
-
-
+import { ReactElement } from "react";
+import Image from "next/image";
+import DACIcon from "@/icons/tokens/DAC.svg";
+import CUSDIcon from "@/icons/tokens/cUSD.svg";
+import ETHIcon from "@/icons/tokens/ETH.svg";
+import AEIcon from "@/icons/tokens/AE.svg";
+import TEZIcon from "@/icons/tokens/Tezos.svg";
+import DAIIcon from "@/icons/tokens/DAI.svg";
+import NEARIcon from "@/icons/tokens/NEAR.svg";
+import USDCIcon from "@/icons/tokens/USDC.svg";
 
 /**
  * Interface for the coin props
@@ -21,12 +19,11 @@ import USDCIcon from "../../../public/assets/icons/tokens/USDC.svg"
 interface CoinProps {
   bgColor?: string;
   textColor?: string;
-  size?: 'medium' | 'normal' | 'small';
-  shape?: 'rounded' | 'squared' | 'circle';
+  size?: "medium" | "normal" | "small";
+  shape?: "rounded" | "squared" | "circle";
   token: string;
-  className?: string
+  className?: string;
 }
-
 
 /**
  * Array for coins information
@@ -36,52 +33,52 @@ interface CoinProps {
  */
 const coins = [
   {
-    token: 'DAC',
+    token: "DAC",
     icon: DACIcon,
-    bgColor: '#FBBF24',
-    textColor: '#FFFFFF',
+    bgColor: "#FBBF24",
+    textColor: "#FFFFFF",
   },
   {
-    token: 'cUSD',
+    token: "cUSD",
     icon: CUSDIcon,
-    bgColor: '#45CD85',
-    textColor: '#FFFFFF',
+    bgColor: "#45CD85",
+    textColor: "#FFFFFF",
   },
   {
-    token: 'ETH',
+    token: "ETH",
     icon: ETHIcon,
-    bgColor: '#627EEA',
-    textColor: '#FFFFFF',
+    bgColor: "#627EEA",
+    textColor: "#FFFFFF",
   },
   {
-    token: 'AE',
+    token: "AE",
     icon: AEIcon,
-    bgColor: '#DE3F6B',
-    textColor: '#FFFFFF',
+    bgColor: "#DE3F6B",
+    textColor: "#FFFFFF",
   },
   {
-    token: 'tez',
+    token: "tez",
     icon: TEZIcon,
-    bgColor: '#0D61FF',
-    textColor: '#FFFFFF',
+    bgColor: "#0D61FF",
+    textColor: "#FFFFFF",
   },
   {
-    token: 'DAI',
+    token: "DAI",
     icon: DAIIcon,
-    bgColor: '#F5AC37',
-    textColor: '#FEFEFD',
+    bgColor: "#F5AC37",
+    textColor: "#FEFEFD",
   },
   {
-    token: 'NEAR',
+    token: "NEAR",
     icon: NEARIcon,
-    bgColor: '#000000',
-    textColor: '#FFFFFF',
+    bgColor: "#000000",
+    textColor: "#FFFFFF",
   },
   {
-    token: 'USDC',
+    token: "USDC",
     icon: USDCIcon,
-    bgColor: '#2775ca',
-    textColor: '#FFFFFF',
+    bgColor: "#2775ca",
+    textColor: "#FFFFFF",
   },
 ];
 
@@ -92,9 +89,15 @@ const coins = [
  * @param {CoinProps} { bgColor, textColor, size = 'normal', shape = 'circle', token }
  * @returns {ReactElement}
  */
-export default function Coin ({ bgColor, textColor, size = 'normal', shape = 'circle', token, className="" }: CoinProps): ReactElement {
-
-  const coin = getCoin(token) || getCoin('DAC');
+export default function Coin({
+  bgColor,
+  textColor,
+  size = "normal",
+  shape = "circle",
+  token,
+  className = "",
+}: CoinProps): ReactElement {
+  const coin = getCoin(token) || getCoin("DAC");
   const sizeClasses = getSizeClasses(size);
   const shapeClasses = getShapeClasses(shape);
 
@@ -105,36 +108,43 @@ export default function Coin ({ bgColor, textColor, size = 'normal', shape = 'ci
 
   function getSizeClasses(size: string) {
     switch (size) {
-      case 'medium':
-        return 'w-10 h-10 sm:w-15 sm:h-15 text-xl p-1 sm:text-2xl sm:p-2';
-      case 'normal':
-        return 'w-10 h-10 text-xl p-1';
-      case 'small':
-        return 'w-4 h-4 text-md p-0.5';
+      case "medium":
+        return "w-10 h-10 sm:w-15 sm:h-15 text-xl p-1 sm:text-2xl sm:p-2";
+      case "normal":
+        return "w-10 h-10 text-xl p-1";
+      case "small":
+        return "w-4 h-4 text-md p-0.5";
       default:
-        return 'w-9 h-9 text-lg p-4';
+        return "w-9 h-9 text-lg p-4";
     }
   }
 
   function getShapeClasses(shape: string) {
     switch (shape) {
-      case 'rounded':
-        return 'rounded-xl';
-      case 'squared':
-        return 'rounded-none';
+      case "rounded":
+        return "rounded-xl";
+      case "squared":
+        return "rounded-none";
       default:
-        return 'rounded-full'
+        return "rounded-full";
     }
-}
+  }
 
   return (
     <div
       className={`inline-flex items-center justify-items-center text-white uppercase leading-none md:mr-0 mr-2 ${sizeClasses} ${shapeClasses} ${className}`}
-      style={{ backgroundColor: bgColor || coin?.bgColor, color: textColor || coin?.textColor }}
+      style={{
+        backgroundColor: bgColor || coin?.bgColor,
+        color: textColor || coin?.textColor,
+      }}
     >
-      {coin?.icon && <Image src={coin.icon} alt={coin.token} className="w-full h-auto max-h-full relative" />}
+      {coin?.icon && (
+        <Image
+          src={coin.icon}
+          alt={coin.token}
+          className="w-full h-auto max-h-full relative"
+        />
+      )}
     </div>
   );
-
-
 }
