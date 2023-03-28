@@ -17,13 +17,13 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
  * @interface i18Translate
  * @typedef {i18Translate}
  */
-interface i18Translate {
+interface Ii18Translate {
   props: SSRConfig
 }
 
 const i18Translate = async (
   locale: string
-): Promise<i18Translate> => {
+): Promise<Ii18Translate> => {
   return {
     props: {
       ...(await serverSideTranslations(locale)),
