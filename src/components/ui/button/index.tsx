@@ -7,8 +7,6 @@ import {
   ReactElement,
 } from "react";
 
-// TODO: Should be uncommented when redux is implemented
-// import { useSelector } from "react-redux";
 import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
@@ -33,7 +31,7 @@ interface ButtonProps {
   target: string;
   className?: string;
   communityStyles?: boolean;
-  children: ReactNode
+  children: ReactNode;
   onClick: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -90,16 +88,14 @@ export default function Button({
   communityStyles = false,
   onClick,
   className = "",
-  children
+  children,
 }: ButtonProps): ReactElement {
-  // TODO: Should be uncommented when the redux is implemented
   const colors = useSelector((state) => state.ui.colors);
 
   const isInternalLink: boolean = link?.startsWith("/");
 
   let communityStylesObj = {};
 
-  // TODO: Should be uncommented once redux is implemented
   if (communityStyles && colors && Object.keys(colors).length) {
     communityStylesObj = {
       borderColor: colors.textAccent,
@@ -184,7 +180,7 @@ export default function Button({
     target,
     onClick,
     type,
-    children
+    children,
   }: ComponentProps): ReactElement {
     if (!link)
       return (
@@ -227,7 +223,7 @@ export default function Button({
       target={target}
       onClick={onClick}
     >
-      {text || children }
+      {text || children}
     </Component>
   );
 }
