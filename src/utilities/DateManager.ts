@@ -1,4 +1,4 @@
-import { LocaleDateFormat } from "../types/localeDateFormat.d.ts";
+import { LocaleDateFormat } from "@/types/localeDateFormat";
 import {
   formatDistance,
   millisecondsToMinutes,
