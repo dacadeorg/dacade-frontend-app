@@ -6,8 +6,8 @@ interface OverviewRewardsProps {
     token: string;
     amount: number;
   };
-  category: string;
-  size: string;
+  category?: string;
+  size?: string;
 }
 
 export default function OverviewRewards ({ reward, category, size }: OverviewRewardsProps) {

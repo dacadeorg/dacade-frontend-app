@@ -5,6 +5,14 @@ import { ReactElement } from "react";
 import Avatar from "../ui/Avatar";
 import Reward from "../ui/Reward";
 
+
+/**
+ * Interface for the bounty props
+ * @date 3/28/2023 - 5:00:22 PM
+ *
+ * @interface BountyProps
+ * @typedef {BountyProps}
+ */
 interface BountyProps {
     link: string;
     bounty: Bounty;
@@ -12,6 +20,15 @@ interface BountyProps {
     isExternalLink: boolean;
   }
   
+
+ /**
+  * Bounty component
+  * @date 3/28/2023 - 5:00:45 PM
+  *
+  * @export
+  * @param {BountyProps} { link, bounty, type, isExternalLink }
+  * @returns {ReactElement}
+  */
  export default function Bounty({ link, bounty, type, isExternalLink }: BountyProps): ReactElement {
     return(
     <div
