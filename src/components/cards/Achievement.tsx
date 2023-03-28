@@ -3,7 +3,7 @@ import React, { ReactElement, useMemo } from "react";
 import Checkmark from "@/icons/checkMarkIcon.svg";
 import Image from "next/image";
 import Link from "next/link";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 
 interface AchievementCardProps {
   // TODO: The type should be improved after having a clear idea about the data type
@@ -19,8 +19,8 @@ export default function AchievementCard({
 
   // TODO: These lines should be uncommented when the redux is implemented
   // const router = useRouter();
-  //   const authUser = useSelector((state) => state.user.get);
-  //   const username = router.query.username || authUser?.displayName;
+  // const authUser = useSelector((state) => state.user.get);
+  // const username = router.query.username || authUser?.displayName;
 
   const minted: boolean =
     !!data?.minting?.tx && data?.community?.can_mint_certificates;
@@ -63,12 +63,14 @@ export default function AchievementCard({
                 alt="image"
               />
             </div>
+
             {isSVG && (
               <p className="text-sm font-medium text-center">
                 {data.metadata.name}
               </p>
             )}
           </div>
+
           <div
             className={`rounded-b-3.5xl border-t border-solid mt-4 py-4 bort flex flex-none justify-center items-center space-x-1 ${
               minted ? "bg-gray-100" : "invisible"
