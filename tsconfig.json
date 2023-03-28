@@ -23,8 +23,7 @@
     "**/*.ts",
     "**/*.tsx",
     "src/components/ui/Markdown.jsx",
-    "src/components/ui/Markdown.jsx",
-    "src/components/ui/data.json"
+    "src/components/ui/Markdown.jsx"
   ],
   "exclude": ["node_modules"]
 }
