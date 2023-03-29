@@ -4,6 +4,13 @@ import Coin from "@/components/ui/Coin";
 import Currency from "@/components/ui/Currency";
 import { truncateAddress } from "@/utilities/Address";
 
+/**
+ * Interface for balance card props
+ * @date 3/29/2023 - 1:19:22 PM
+ *
+ * @interface BalanceProps
+ * @typedef {BalanceProps}
+ */
 interface BalanceProps {
   details: {
     token: string;
@@ -13,6 +20,16 @@ interface BalanceProps {
   };
 }
 
+/**
+ * Balance card
+ * @date 3/29/2023 - 1:19:02 PM
+ *
+ * @export
+ * @param {BalanceProps} {
+  details,
+}
+ * @returns {ReactElement}
+ */
 export default function Balance({
   details,
 }: BalanceProps): ReactElement {
