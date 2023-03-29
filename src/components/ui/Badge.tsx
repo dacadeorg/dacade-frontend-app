@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useRouter } from "next/router";
-import { useMemo } from "react";
+import { HTMLProps, useMemo } from "react";
 
 /**
  * Interface for Badge component props
@@ -9,7 +9,8 @@ import { useMemo } from "react";
  * @interface BadgeProps
  * @typedef {BadgeProps}
  */
-interface BadgeProps {
+interface BadgeProps
+  extends Omit<HTMLProps<HTMLSpanElement>, "size"> {
   customStyle?: object;
   value: string | number;
   size?: "medium" | "small";
