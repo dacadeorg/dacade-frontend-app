@@ -8,6 +8,7 @@ import {
   useEffect,
   ReactElement,
   useCallback,
+  HTMLProps,
 } from "react";
 
 // TODO: Should be uncommented when redux will be implemented
@@ -23,7 +24,7 @@ import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
 import Highlighter from "@/utilities/Highlighter";
 
-interface MarkdownProps {
+interface MarkdownProps extends HTMLProps<HTMLDivElement> {
   value: string;
 }
 
@@ -38,6 +39,7 @@ interface MarkdownProps {
 
 export default function Markdown({
   value,
+  ...props
 }: MarkdownProps): ReactElement {
   const [content, setContent] = useState("");
 
@@ -88,6 +90,7 @@ export default function Markdown({
     <div
       // TODO: Should be uncommented when redux will be implemented
       //  style={themeStyles}
+      {...props}
       className="prose"
       data-testid="markdown"
     >
