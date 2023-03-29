@@ -3,7 +3,7 @@ import Avatar from "@/components/ui/Avatar";
 import Badge from "@/components/ui/Badge";
 import Currency from "@/components/ui/Currency";
 import { ReactElement } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 //TODO: This line will be uncommented when the store folder is migrated
 // import { RootState } from '@/store/types';
 
