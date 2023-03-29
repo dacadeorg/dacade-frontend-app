@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 
