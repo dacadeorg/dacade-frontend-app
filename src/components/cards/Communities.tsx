@@ -1,7 +1,19 @@
-import React, { ReactElement, useState } from "react";
+import { ReactElement, useState } from "react";
 import EthereumLogo from "@icons/partners/ethereum.svg";
-import CeloLogo from "@/assets/img/celo-logo.png";
+import CeloLogo from "../../..//public/assets/img/celo-logo.png";
 import Image from "next/image";
+
+/**
+ *  array of partners
+ * @date 3/29/2023 - 4:36:33 PM
+ *
+ */
+const PARTNERS = [
+  {
+    logo: CeloLogo,
+    link: "https://celo.org/",
+  },
+];
 
 /**
  *  Communities component
@@ -29,17 +41,12 @@ interface CommunitiesProps {
 export default function Communities({
   title = "",
 }: CommunitiesProps): ReactElement {
-  const [partners, _] = useState([
-    {
-      logo: CeloLogo,
-    },
-  ]);
-
   return (
     <div className="bg-gray-50 rounded-full pl-2 py-2 flex items-center mb-3">
-      {partners.map((partner, index) => (
+      {PARTNERS.map((partner, index) => (
         <a
-          key={index}
+          href={partner.link}
+          key={partner.link}
           target="__blank"
           className="inline-block md:mx-auto"
         >
