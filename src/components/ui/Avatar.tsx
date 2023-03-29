@@ -31,9 +31,14 @@ type Size =
   | "mini"
   | "small";
 
-type Shape = "rounded" | "rounded-3xl" | "full" | "squared" | "circular";
+type Shape =
+  | "rounded"
+  | "rounded-3xl"
+  | "full"
+  | "squared"
+  | "circular";
 
-interface AvatarProps extends LinkProps  {
+interface AvatarProps extends LinkProps {
   icon?: string;
   image?: string;
   color?: string;
@@ -42,6 +47,7 @@ interface AvatarProps extends LinkProps  {
   shape?: Shape;
   useLink?: boolean;
   style?: CSSProperties;
+  className?: string;
 }
 
 /**
@@ -81,10 +87,12 @@ export default function Avatar({
   shape = "circular",
   useLink = true,
   style,
+  className,
 }: AvatarProps): ReactElement {
   const initials = user?.displayName ? user?.displayName[0] : null;
 
-  const link = user?.username && useLink ? `/profile/${user.username}` : "#";
+  const link =
+    user?.username && useLink ? `/profile/${user.username}` : "#";
 
   const sizeClassName = classNames({
     "w-32 h-32 text-4xl": size === "extra",
@@ -108,13 +116,14 @@ export default function Avatar({
     "bg-primary inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle",
     sizeClassName,
     shapeClassName,
+    className,
     {
       "cursor-pointer": user,
     }
   );
 
   const Component = useLink ? Link : Span;
-  
+
   return (
     <Component
       href={link}
@@ -132,7 +141,12 @@ export default function Avatar({
         <span>{initials}</span>
       )}
       {icon && (
-        <Image layout="fill" src={icon} alt="icon image" className="p-2" />
+        <Image
+          layout="fill"
+          src={icon}
+          alt="icon image"
+          className="p-2"
+        />
       )}
       {image && (
         <Image

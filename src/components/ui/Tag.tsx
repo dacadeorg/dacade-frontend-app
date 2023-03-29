@@ -10,8 +10,9 @@ import classNames from "classnames";
 interface TagProps {
   rounded?: boolean;
   type?: "transparent" | "gray" | "light-gray" | "warn";
-  value: string;
+  value?: string;
   children?: React.ReactNode;
+  className?: string;
 }
 
 /**
@@ -32,9 +33,11 @@ export default function Tag({
   type = "gray",
   value,
   children,
+  className,
 }: TagProps) {
   const tagClassNames = classNames(
     "text-center px-2 p-0.5 h-5 inline-flex items-center",
+    className,
     {
       "bg-transparent bg-opacity-25 text-white":
         type == "transparent",
