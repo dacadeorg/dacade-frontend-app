@@ -3,11 +3,6 @@ import EthereumLogo from "@icons/partners/ethereum.svg";
 import CeloLogo from "../../..//public/assets/img/celo-logo.png";
 import Image from "next/image";
 
-/**
- *  array of partners
- * @date 3/29/2023 - 4:36:33 PM
- *
- */
 const PARTNERS = [
   {
     logo: CeloLogo,
