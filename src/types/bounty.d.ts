@@ -75,6 +75,7 @@ export interface Submission {
   timestamp: number
   user: User
   reviewable: boolean
+  status: string
 }
 
 export interface SubmissionMetadata {
