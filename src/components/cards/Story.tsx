@@ -58,9 +58,7 @@ export default function Story({
 
   useEffect(() => {
     setHeight(bubbleRef.current?.parentElement?.clientHeight || 0);
-  }, [bubbleRef]);
 
-  useEffect(() => {
     const updateHeight = () => {
       setHeight(bubbleRef.current?.parentElement?.clientHeight || 0);
     };
