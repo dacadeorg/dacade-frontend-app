@@ -1,6 +1,6 @@
 import { ReactElement, useState } from "react";
 import EthereumLogo from "@icons/partners/ethereum.svg";
-import CeloLogo from "../../..//public/assets/img/celo-logo.png";
+import CeloLogo from "../../../public/assets/img/celo-logo.png";
 import Image from "next/image";
 
 const PARTNERS = [
