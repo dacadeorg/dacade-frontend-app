@@ -1,5 +1,6 @@
 import React, { ReactElement } from "react";
 import { useTranslation } from "next-i18next";
+import Link from "next/link";
 
 /**
  *  Interface for Address component props
@@ -31,11 +32,11 @@ export default function Address({
     <div className="lg:pt-5 sm:pt-5 md:pt-5 pt-14 absolute text-sm lg:text-gray-700 md:text-gray-700 sm:text-gray-700 cursor-pointer text-primary font-medium lg:font-normal md:font-normal sm:font-normal">
       {hasAddress ? (
         <div>
-          <a href="#">{t("profile.wallets.address-set")}</a>
+          <Link href="#">{t("profile.wallets.address-set")}</Link>
         </div>
       ) : (
         <div>
-          <a href="#">{t("profile.wallets.address-change")}</a>
+          <Link href="#">{t("profile.wallets.address-change")}</Link>
         </div>
       )}
     </div>
