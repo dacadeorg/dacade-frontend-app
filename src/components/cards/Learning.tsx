@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { ReactElement } from "react";
 
 /**
- * Description placeholder
+ * Local date format enum
  * @date 3/29/2023 - 6:35:34 PM
  *
  * @enum {number}
