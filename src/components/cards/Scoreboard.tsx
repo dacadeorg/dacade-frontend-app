@@ -4,7 +4,7 @@ import Badge from "@/components/ui/Badge";
 import Currency from "@/components/ui/Currency";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
-// waiting for the store folder to be migrated.....
+//TODO: This line will be uncommented when the store folder is migrated
 // import { RootState } from '@/store/types';
 
 /**
@@ -37,7 +37,7 @@ export default function ScoreboardCard({
   value,
   index = 0,
 }: ScoreboardProps): ReactElement {
-  // commented these lines as we do not have the RootState migrated yet. will be uncommented after.
+  // TODO: will be uncommented after the import of the RootState file
 
   //   const { colors, community } = useSelector((state: RootState) => ({
   //     colors: state.ui.colors,
@@ -98,6 +98,7 @@ export default function ScoreboardCard({
               bottom: "-1px",
               right: "-3px",
               color: "#fff",
+              // TODO: will be uncommented after the RootState is imported
               //   backgroundColor: colors.textAccent,
             }}
           />
