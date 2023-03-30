@@ -7,8 +7,7 @@ import {
   ReactElement,
 } from "react";
 
-// TODO: Should be uncommented when redux is implemented
-// import { useSelector } from "react-redux";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * Button props interface
@@ -91,28 +90,26 @@ export default function Button({
   className = "",
   children,
 }: ButtonProps): ReactElement {
-  // TODO: Should be uncommented when the redux is implemented
-  //   const colors = useSelector((state: any) => state.ui.colors);
+  const colors = useSelector((state) => state.ui.colors);
 
   const isInternalLink: boolean = link?.startsWith("/");
 
-  const communityStylesObj = {};
+  let communityStylesObj = {};
 
-  //TODO: Should be uncommented once redux is implemented
-  //   if (communityStyles && colors && Object.keys(colors).length) {
-  //     communityStylesObj = {
-  //       borderColor: colors.textAccent,
-  //       color: type.includes("outline")
-  //         ? colors.textAccent
-  //         : colors.text,
-  //       backgroundColor: type.includes("outline")
-  //         ? "transparent"
-  //         : colors.textAccent,
-  //       "--button-color--hover": colors.text,
-  //       "--button-background-color--hover": colors.textAccent,
-  //       "--button-border-color--hover": colors.textAccent,
-  //     };
-  //   }
+  if (communityStyles && colors && Object.keys(colors).length) {
+    communityStylesObj = {
+      borderColor: colors.textAccent,
+      color: type.includes("outline")
+        ? colors.textAccent
+        : colors.text,
+      backgroundColor: type.includes("outline")
+        ? "transparent"
+        : colors.textAccent,
+      "--button-color--hover": colors.text,
+      "--button-background-color--hover": colors.textAccent,
+      "--button-border-color--hover": colors.textAccent,
+    };
+  }
 
   /**
    * Custom styles for the button which are not in tailwindcss
