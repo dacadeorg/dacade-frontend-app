@@ -1,4 +1,4 @@
-import { FC, ReactElement } from "react";
+import { ReactElement } from "react";
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import Coin from "@/components/ui/Coin";
 import ListIcon from "@/components/cards/community/_partials/ListIcon";
