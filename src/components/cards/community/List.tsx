@@ -6,6 +6,7 @@ import DateManager from "@/utilities/DateManager";
 import ArrowButton from "@/components/ui/button/Arrow";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
+import { Community } from "@/types/community";
 
 /**
  * Reward interface
@@ -42,16 +43,8 @@ interface Colors {
  * @typedef {CommunityListCardProps}
  */
 interface CommunityListCardProps {
-  community: {
-    name: string;
-    colors: Colors;
-    summary: string;
-    courses: number;
-    rewards: Rewards[];
-    duration: number;
-    slug: string;
-    description: string;
-    icon: string
+  community: Pick<Community, "name" | "colors" | "summary" | "courses" | "rewards" | "slug" | "description" | "icon"> & {
+    duration: number
   };
 }
 
@@ -81,7 +74,7 @@ export default function CommunityListCard ({
   );
 
   const reward = community.rewards.find(
-    (r) => r.type === "SUBMISSION"
+    (reward) => reward.type === "SUBMISSION"
   );
 
   return (
@@ -127,9 +120,9 @@ export default function CommunityListCard ({
                       variant="outline-primary"
                       loading={false}
                       disabled={false}
-                      minWidthClass={""}
+                      minWidthClass=""
                       communityStyles={false}
-                      direction={"left"}
+                      direction="left"
                     >
                       {t('page.index.main.button')}
                     </ArrowButton>
