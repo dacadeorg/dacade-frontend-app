@@ -36,23 +36,6 @@ export default function PartneringCard() {
             </a>
           </div>
         </div>
-        {/* <div className="self-start absolute bottom-8">
-          <a href="mailto:moritz@dacade.org">
-            <Button
-              className="
-                hover:bg-primary
-                group-hover:text-white
-                leading-relaxed
-                px-6
-                py-1.5
-              "
-              type="outline-primary"
-              padding={false}
-            >
-              {t('page.index.communities.partnering.button-text')}
-            </Button>
-          </a>
-        </div> */}
       </div>
       <span className="block absolute top-0 left-0 bg-primary opacity-5 z-0 w-full h-full" />
     </div>
