@@ -1,21 +1,8 @@
 import Currency from "@/components/ui/Currency";
 import { ReactElement } from "react";
 import Image from "next/image";
+import { Community } from "@/types/community";
 
-/**
- * Community interface
- * @date 3/30/2023 - 1:18:20 PM
- *
- * @interface Community
- * @typedef {Community}
- */
-interface Community {
-  colors: {
-    primary: string;
-  };
-  icon: string;
-  name: string;
-}
 
 /**
  * Interface for CommunityCardSmall props
