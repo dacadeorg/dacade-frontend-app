@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 // TODO: Should be uncommented when redux is implemented
 // import { useSelector } from "react-redux";
 import Checkmark from "@/icons/checkmark.svg";
