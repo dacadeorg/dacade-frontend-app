@@ -1,5 +1,9 @@
-import { CSSProperties, ReactElement, ReactNode, useMemo } from "react";
-
+import {
+  CSSProperties,
+  ReactElement,
+  ReactNode,
+  useMemo,
+} from "react";
 
 /**
  * Theme wrapper property interface
@@ -20,7 +24,6 @@ interface ThemeWrapperProps {
   children: ReactNode;
 }
 
-
 /**
  * Interface for the css style properties
  * @date 3/27/2023 - 6:40:04 PM
@@ -30,15 +33,13 @@ interface ThemeWrapperProps {
  * @extends {CSSProperties}
  */
 interface CSSVars extends CSSProperties {
-    '--tm-primary'?: string,
-      '--tm-secondary'?: string,
-      '--tm-text'?: string,
-      '--tm-highlight'?: string,
-      '--tm-accent'?: string,
-      '--tm-muted'?: string
+  "--tm-primary"?: string;
+  "--tm-secondary"?: string;
+  "--tm-text"?: string;
+  "--tm-highlight"?: string;
+  "--tm-accent"?: string;
+  "--tm-muted"?: string;
 }
-
-
 
 /**
  * Theme wrapper components
@@ -48,21 +49,20 @@ interface CSSVars extends CSSProperties {
  * @param {ThemeWrapperProps} { colors = {}, children }
  * @returns {ReactElement}
  */
-export default function ThemeWrapper ({ colors = {}, children }: ThemeWrapperProps): ReactElement {
+export default function ThemeWrapper({
+  colors = {},
+  children,
+}: ThemeWrapperProps): ReactElement {
   const cssVars: CSSVars = useMemo(() => {
     return {
-      '--tm-primary': colors.primary,
-      '--tm-secondary': colors.secondary,
-      '--tm-text': colors.text,
-      '--tm-highlight': colors.highlight,
-      '--tm-accent': colors.accent,
-      '--tm-muted': colors.muted,
+      "--tm-primary": colors.primary,
+      "--tm-secondary": colors.secondary,
+      "--tm-text": colors.text,
+      "--tm-highlight": colors.highlight,
+      "--tm-accent": colors.accent,
+      "--tm-muted": colors.muted,
     };
   }, [colors]);
 
-  return (
-    <div style={cssVars}>
-      {children}
-    </div>
-  );
-};
+  return <div style={cssVars}>{children}</div>;
+}

@@ -25,6 +25,7 @@ interface ArrowButtonProps {
   minWidthClass: string;
   communityStyles: boolean;
   direction: "left" | "right" | "up" | "down";
+  arrowClasses?: string
 }
 
 /**
@@ -62,6 +63,7 @@ export default function ArrowButton({
   direction = "right",
   minWidthClass = "min-w-44",
   communityStyles,
+  arrowClasses = ""
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
@@ -78,7 +80,7 @@ export default function ArrowButton({
     }
   }, [direction]);
 
-  const arrowClassNames = classNames(`w-4 h-4 text-gray-500`, {
+  const arrowClassNames = classNames(`w-4 h-4 text-gray-500 ${arrowClasses}`, {
     "rounded-full": rounded,
   });
 
