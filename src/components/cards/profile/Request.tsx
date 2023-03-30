@@ -9,11 +9,13 @@ import Avatar from "@/components/ui/Avatar";
  * @returns {*}
  */
 export default function Request() {
-  //   const referrals = useSelector((state) => state.user.referrals.list);
-  //   const previewList = referrals.slice(0, 3);
+  //  TODO:  to be uncommented when user slice is implemented
+  //  const referrals = useSelector((state) => state.user.referrals.list);
+  //  TODO: to be uncommented when user slice is implemented
+  //    const previewList = referrals.slice(0, 3);
 
   const onClick = () => {
-    // navigate to /profile/referrals
+    // TODO:  navigate to /profile/referrals
   };
 
   return (
