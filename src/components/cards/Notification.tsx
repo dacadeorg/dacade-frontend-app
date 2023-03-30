@@ -2,7 +2,7 @@ import { ReactElement, useMemo } from "react";
 import { useRouter } from "next/router";
 import Avatar from "@/components/ui/Avatar";
 import DateManager from "@/utilities/DateManager";
-import { LocaleDateFormat } from "@/types/localeDateFormat";
+import { Metadata } from "@/types/course";
 
 /**
  * User interface
@@ -27,9 +27,7 @@ interface User {
 interface Details {
   message: string;
   created_at: Date;
-  metadata: {
-    submission: string;
-  };
+  metadata: Metadata
   link: string;
   type: string;
 }
@@ -70,7 +68,7 @@ export default function Notification({
     () =>
       DateManager.fromNow(
         details.created_at,
-        router.locale as LocaleDateFormat.en
+        router.locale 
       ),
     [details.created_at, router.locale]
   );
@@ -79,21 +77,20 @@ export default function Notification({
     () =>
       DateManager.intlFormat(
         details.created_at,
-        router.locale as LocaleDateFormat.en
+        router.locale
       ),
     [details.created_at, router.locale]
   );
 
   const link = useMemo(() => {
-    switch (details.type) {
-      case "SUBMISSION":
-      case "REFERRAL":
-      case "FEEDBACK":
-        return `/${details.metadata.submission}`;
-      default:
-        return details.link;
+    const { type } = details;
+    if(type === "SUBMISSION" || type ===   "REFERRAL" || type ===  "FEEDBACK" ){
+      return `/${details.metadata.submissions}`;;
     }
-  }, [details.link, details.metadata.submission, details.type]);
+    else{
+      return details.link;
+    }
+  }, [details]);
 
   const notificationsLink = useMemo(() => {
     if (!link) return "";
