@@ -33,9 +33,6 @@ export default function PartneringCard() {
                 className="hover:bg-primary group-hover:text-white leading-relaxed lg:px-7 px-5 font-medium"
                 variant="outline-primary"
                 type="button"
-                onClick={() => {
-                  console.log("to be handled");
-                }}
                 padding={false}
               >
                 {t("page.index.communities.partnering.button-text")}
