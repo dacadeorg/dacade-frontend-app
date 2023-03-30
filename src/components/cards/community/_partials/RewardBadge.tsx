@@ -2,6 +2,13 @@ import { ReactElement } from "react";
 import Coin from "@/components/ui/Coin";
 import classNames from "classnames";
 
+/**
+ * Interface for Badge props
+ * @date 3/30/2023 - 2:57:29 PM
+ *
+ * @interface RewardBadgeProps
+ * @typedef {RewardBadgeProps}
+ */
 interface RewardBadgeProps {
   reward?: {
     token?: string;
@@ -10,6 +17,17 @@ interface RewardBadgeProps {
   type?: string;
 }
 
+/**
+ * Reward card, this is a partial 
+ * @date 3/30/2023 - 2:58:50 PM
+ *
+ * @export
+ * @param {RewardBadgeProps} {
+  reward = {},
+  type = "transparent",
+}
+ * @returns {ReactElement}
+ */
 export default function RewardBadge({
   reward = {},
   type = "transparent",

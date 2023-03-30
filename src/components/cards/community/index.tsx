@@ -6,7 +6,14 @@ import RewardBadge from "./_partials/RewardBadge";
 import { ReactElement } from "react";
 import { useTranslation, UseTranslation } from "next-i18next";
 
-interface Props {
+/**
+ * Interface for cummunity props
+ * @date 3/30/2023 - 3:01:14 PM
+ *
+ * @interface CommunityProps
+ * @typedef {CommunityProps}
+ */
+interface CommunityProps {
   showRewards?: boolean;
   community: {
     colors: {
@@ -30,15 +37,26 @@ interface Props {
   };
 }
 
+/**
+ * Community card function, which depend on _partials/RewardBadge and other components
+ * @date 3/30/2023 - 3:01:34 PM
+ *
+ * @export
+ * @param {CommunityProps} {
+  showRewards = true,
+  community,
+}
+ * @returns {ReactElement}
+ */
 export default function CommunityCard({
   showRewards = true,
   community,
-}: Props): ReactElement {
+}: CommunityProps): ReactElement {
   const { t } = useTranslation();
   const path = `/communities/${community?.slug}`;
 
   const reward = community.rewards.filter(
-    (r) => r.type === "SUBMISSION"
+    (r: any) => r.type === "SUBMISSION"
   )[0];
 
   return (
