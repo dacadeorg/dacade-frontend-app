@@ -1,0 +1,147 @@
+import { ReactElement, useMemo } from "react";
+import Avatar from "@/components/ui/Avatar";
+import RewardBadge from "@/components/badges/RewardBadge";
+import DateManager from "@/utilities/DateManager";
+import { useTranslation } from "next-i18next";
+
+// TODO: This interface should be refactored
+interface ReferralProps {
+  referral: {
+    user: {
+      displayName: string;
+      created_at: Date;
+    };
+    challenge?: any;
+    community?: {
+      name: string;
+    };
+    submission?: {
+      metadata?: {
+        evaluation?: {
+          points: number;
+          totalPoints: number;
+        };
+      };
+      created_at: Date;
+    };
+    rewarded?: boolean;
+    metadata?: {
+      reward: any;
+    };
+    updated_at: Date;
+  };
+}
+
+/**
+ * Referral component
+ * @date 3/30/2023 - 11:19:33 AM
+ *
+ * @export
+ * @param {ReferralProps} {
+  referral,
+}
+ * @returns {ReactElement}
+ */
+
+export default function Referral({
+  referral,
+}: ReferralProps): ReactElement {
+  const { t } = useTranslation();
+
+  const joinedAt = useMemo(
+    () => DateManager.fromNow(referral.user.created_at),
+    []
+  );
+
+  const participatedAt = useMemo(
+    () =>
+      referral.submission
+        ? DateManager.fromNow(referral.submission.created_at)
+        : null,
+    []
+  );
+
+  const rewardAt = useMemo(
+    () =>
+      referral.rewarded
+        ? DateManager.fromNow(referral.updated_at)
+        : null,
+    []
+  );
+
+  return (
+    <div className="bg-gray-50 text-sm text-gray-700 md:mb-0">
+      <div className="flex p-7">
+        <div className="">
+          <Avatar size="large" user={referral.user} />
+        </div>
+        <div className="ml-5">
+          <span className="text-lg leading-loose font-medium text-gray-900 pb-1">
+            {referral.user.displayName}
+          </span>
+          <p>
+            {t("referrals.joined")} {joinedAt}
+          </p>
+          <div className="pt-1">
+            <ul className="text-sm leading-loose font-light text-gray-700 pb-1 list">
+              {referral.challenge && referral.community && (
+                <li>
+                  <span className="ml-5">
+                    {t("referrals.challenge-participation")}
+                  </span>
+                  <span className="font-bold">
+                    {referral.community.name}
+                  </span>
+                  <span className="hidden md:inline-block">
+                    {participatedAt}
+                  </span>
+                </li>
+              )}
+
+              {referral.submission &&
+                referral.submission.metadata &&
+                referral.submission.metadata.evaluation && (
+                  <li>
+                    <span className="ml-5">
+                      {t("referrals.submission.evaluation")}
+                    </span>
+                    <span className="font-bold">
+                      {referral.submission.metadata.evaluation.points}
+                      /
+                      {
+                        referral.submission.metadata.evaluation
+                          .totalPoints
+                      }
+                    </span>
+                    {t("referrals.submission.points")}
+                    <span className="hidden md:inline-block">
+                      {rewardAt}
+                    </span>
+                  </li>
+                )}
+
+              {referral.rewarded &&
+                referral.metadata &&
+                referral.metadata.reward && (
+                  <li>
+                    <span className="ml-5">
+                      {t("referrals.reward.text")}
+                    </span>
+                    <span className="font-bold">
+                      <RewardBadge
+                        type="gray"
+                        reward={referral.metadata.reward}
+                      />
+                    </span>
+                    <span className="hidden md:inline-block">
+                      {rewardAt}
+                    </span>
+                  </li>
+                )}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
