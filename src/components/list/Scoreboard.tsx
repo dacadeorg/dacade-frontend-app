@@ -5,8 +5,8 @@ import Badge from "@/components/ui/Badge";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 
-// TODO: This is a temporary user interface solution.
-// it should updated when the user types is added
+// This is a temporary user interface solution.
+//  TODO: Should be updated when the user type is added
 interface User {
   key: string;
   reputation: number;
