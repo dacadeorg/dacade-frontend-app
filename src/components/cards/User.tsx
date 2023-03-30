@@ -6,6 +6,13 @@ import DateManager from "@/utilities/DateManager";
 import router, { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
 
+/**
+ * Interface for the user props
+ * @date 3/30/2023 - 9:58:14 AM
+ *
+ * @interface UserProps
+ * @typedef {UserProps}
+ */
 interface UserProps {
   boxLayout: boolean;
   link: string;
@@ -15,6 +22,21 @@ interface UserProps {
   timestamp: any;
 }
 
+/**
+ * User card component
+ * @date 3/30/2023 - 9:58:36 AM
+ *
+ * @export
+ * @param {UserProps} {
+  boxLayout,
+  link,
+  bordered,
+  user,
+  badge,
+  timestamp,
+}
+ * @returns {ReactElement}
+ */
 export default function UserCards({
   boxLayout,
   link,
@@ -59,6 +81,7 @@ export default function UserCards({
             customStyle={{
               bottom: "-1px",
               right: "-3px",
+              // TODO: Comment will be removed when redux will be implemented
               //   backgroundColor: colors.textAccent,
             }}
           />
@@ -89,6 +112,7 @@ export default function UserCards({
               className="font-medium"
               style={
                 {
+                  // TODO: Comment will be removed when redux will be implemented
                   // color: colors.textAccent,
                 }
               }
@@ -107,9 +131,4 @@ export default function UserCards({
       </div>
     </div>
   );
-}
-function localePath(
-  link: string
-): import("next/dist/shared/lib/router/router").Url {
-  throw new Error("Function not implemented.");
 }
