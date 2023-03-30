@@ -3,6 +3,8 @@ import Avatar from "@/components/ui/Avatar";
 import RewardBadge from "@/components/badges/RewardBadge";
 import DateManager from "@/utilities/DateManager";
 import { useTranslation } from "next-i18next";
+import { Reward } from "@/types/course";
+import { useRouter } from "next/router";
 
 // TODO: This interface should be refactored
 interface ReferralProps {
@@ -11,7 +13,7 @@ interface ReferralProps {
       displayName: string;
       created_at: Date;
     };
-    challenge?: any;
+    challenge?: string;
     community?: {
       name: string;
     };
@@ -26,7 +28,7 @@ interface ReferralProps {
     };
     rewarded?: boolean;
     metadata?: {
-      reward: any;
+      reward: Reward;
     };
     updated_at: Date;
   };
@@ -47,16 +49,16 @@ export default function Referral({
   referral,
 }: ReferralProps): ReactElement {
   const { t } = useTranslation();
-
+  const { locale } = useRouter();
   const joinedAt = useMemo(
-    () => DateManager.fromNow(referral.user.created_at),
+    () => DateManager.fromNow(referral.user.created_at, locale),
     []
   );
 
   const participatedAt = useMemo(
     () =>
       referral.submission
-        ? DateManager.fromNow(referral.submission.created_at)
+        ? DateManager.fromNow(referral.submission.created_at, locale)
         : null,
     []
   );
@@ -64,7 +66,7 @@ export default function Referral({
   const rewardAt = useMemo(
     () =>
       referral.rewarded
-        ? DateManager.fromNow(referral.updated_at)
+        ? DateManager.fromNow(referral.updated_at, locale)
         : null,
     []
   );

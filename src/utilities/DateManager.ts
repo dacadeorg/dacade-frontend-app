@@ -7,13 +7,15 @@ import {
 } from "date-fns";
 import { es, enUS, hr, bg, fr } from "date-fns/locale";
 
-enum LocaleDateFormat {
-  es = "es",
-  en = "en",
-  hr = "hr",
-  bg = "bg",
-  fr = "fr",
-}
+// enum LocaleDateFormat {
+//   es = "es",
+//   en = "en",
+//   hr = "hr",
+//   bg = "bg",
+//   fr = "fr",
+// }
+
+type LocaleDateFormat = string;
 
 type FormatOptions = {
   year?: "numeric" | "2-digit";
@@ -32,7 +34,7 @@ type FormatOptions = {
  * @returns {Locale}
  */
 
-function getLocale(locale: LocaleDateFormat): Locale {
+function getLocale(locale: LocaleDateFormat = "en"): Locale {
   switch (locale) {
     case "es":
       return es;
@@ -82,7 +84,7 @@ export default class DateManager {
 
   static fromNow(
     date: Date,
-    locale: LocaleDateFormat = LocaleDateFormat["en"]
+    locale: LocaleDateFormat = "en"
   ): string {
     return formatDistance(this.getDate(date), new Date(), {
       addSuffix: true,
@@ -115,7 +117,7 @@ export default class DateManager {
 
   static humanize(
     milliseconds: number,
-    locale: LocaleDateFormat = LocaleDateFormat["en"]
+    locale: string = "en"
   ): string {
     return formatDuration(
       {
@@ -141,7 +143,7 @@ export default class DateManager {
   static format(
     date: string | number | Date,
     format: string,
-    locale: LocaleDateFormat = LocaleDateFormat["en"]
+    locale: string = "en"
   ): string {
     return dateFormatter(this.getDate(date), format, {
       locale: getLocale(locale),
@@ -169,7 +171,7 @@ export default class DateManager {
 
   static intlFormat(
     date: string | number | Date,
-    locale: LocaleDateFormat = LocaleDateFormat["en"],
+    locale: string = "en",
     options: FormatOptions = {
       year: "numeric",
       month: "short",
@@ -193,7 +195,7 @@ export default class DateManager {
    * @returns {string}
    */
 
-  static getTimezone(locale = LocaleDateFormat["en"]): string {
+  static getTimezone(locale = "en"): string {
     return intlFormat(
       new Date(),
       {
