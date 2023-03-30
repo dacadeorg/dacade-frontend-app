@@ -12,8 +12,8 @@ import classNames from "classnames";
  * @typedef {ArrowButtonProps}
  */
 interface ArrowButtonProps {
-  loading: boolean;
-  disabled: boolean;
+  loading?: boolean;
+  disabled?: boolean;
   rounded?: boolean;
   type?: "submit" | "button" | "reset" | undefined;
   variant?: string;
@@ -22,9 +22,9 @@ interface ArrowButtonProps {
   customStyle?: object | null;
   link?: string;
   target?: string;
-  minWidthClass: string;
-  communityStyles: boolean;
-  direction: "left" | "right" | "up" | "down";
+  minWidthClass?: string;
+  communityStyles?: boolean;
+  direction?: "left" | "right" | "up" | "down";
 }
 
 /**
