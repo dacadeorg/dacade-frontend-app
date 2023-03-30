@@ -7,8 +7,7 @@ import {
   ReactElement,
 } from "react";
 
-// TODO: Should be uncommented when redux is implemented
-// import { useSelector } from "react-redux";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * Button props interface
@@ -20,19 +19,19 @@ import {
 
 interface ButtonProps {
   text?: number | string;
-  loading: boolean;
-  disabled: boolean;
-  rounded: boolean;
+  loading?: boolean;
+  disabled?: boolean;
+  rounded?: boolean;
   type: "submit" | "button" | "reset" | undefined;
   variant: string;
   padding: boolean | string;
   margin?: string;
   customStyle?: object | null;
   link?: string;
-  target: string;
+  target?: string;
   className?: string;
   communityStyles?: boolean;
-  children: ReactNode
+  children: ReactNode;
   onClick: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -89,30 +88,28 @@ export default function Button({
   communityStyles = false,
   onClick,
   className = "",
-  children
+  children,
 }: ButtonProps): ReactElement {
-  // TODO: Should be uncommented when the redux is implemented
-  //   const colors = useSelector((state: any) => state.ui.colors);
+  const colors = useSelector((state) => state.ui.colors);
 
   const isInternalLink: boolean = link?.startsWith("/");
 
-  const communityStylesObj = {};
+  let communityStylesObj = {};
 
-  //TODO: Should be uncommented once redux is implemented
-  //   if (communityStyles && colors && Object.keys(colors).length) {
-  //     communityStylesObj = {
-  //       borderColor: colors.textAccent,
-  //       color: type.includes("outline")
-  //         ? colors.textAccent
-  //         : colors.text,
-  //       backgroundColor: type.includes("outline")
-  //         ? "transparent"
-  //         : colors.textAccent,
-  //       "--button-color--hover": colors.text,
-  //       "--button-background-color--hover": colors.textAccent,
-  //       "--button-border-color--hover": colors.textAccent,
-  //     };
-  //   }
+  if (communityStyles && colors && Object.keys(colors).length) {
+    communityStylesObj = {
+      borderColor: colors.textAccent,
+      color: type.includes("outline")
+        ? colors.textAccent
+        : colors.text,
+      backgroundColor: type.includes("outline")
+        ? "transparent"
+        : colors.textAccent,
+      "--button-color--hover": colors.text,
+      "--button-background-color--hover": colors.textAccent,
+      "--button-border-color--hover": colors.textAccent,
+    };
+  }
 
   /**
    * Custom styles for the button which are not in tailwindcss
@@ -183,7 +180,7 @@ export default function Button({
     target,
     onClick,
     type,
-    children
+    children,
   }: ComponentProps): ReactElement {
     if (!link)
       return (
@@ -226,7 +223,7 @@ export default function Button({
       target={target}
       onClick={onClick}
     >
-      {text || children }
+      {text || children}
     </Component>
   );
 }
