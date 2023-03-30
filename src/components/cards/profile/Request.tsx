@@ -1,7 +1,13 @@
-import React from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import Avatar from "@/components/ui/Avatar";
 
+/**
+ * Request component
+ * @date 3/30/2023 - 3:56:57 PM
+ *
+ * @export
+ * @returns {*}
+ */
 export default function Request() {
   //   const referrals = useSelector((state) => state.user.referrals.list);
   //   const previewList = referrals.slice(0, 3);
@@ -31,7 +37,6 @@ export default function Request() {
           />
         ))} */}
       </div>
-      <div></div>
       <div
         className="text-sm md:flex text-gray-500 md:font-medium font-normal relative cursor-pointer"
         onClick={onClick}
