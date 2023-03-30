@@ -1,5 +1,12 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
+/**
+ *  Numbered component props
+ * @date 3/30/2023 - 9:18:44 AM
+ *
+ * @interface NumberedProps
+ * @typedef {NumberedProps}
+ */
 interface NumberedProps {
   index?: number | string;
   title?: string;
