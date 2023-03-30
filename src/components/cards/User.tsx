@@ -3,7 +3,7 @@ import Badge from "@/components/ui/Badge";
 import Currency from "@/components/ui/Currency";
 import Tag from "@/components/ui/Tag";
 import DateManager from "@/utilities/DateManager";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
 
 /**
