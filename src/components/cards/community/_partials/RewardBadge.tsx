@@ -32,8 +32,6 @@ export default function RewardBadge({
   reward = {},
   type = "transparent",
 }: RewardBadgeProps): ReactElement {
-  const { token, amount } = reward;
-
   const rewardClassname = classNames(
     "font-semibold leading-none text-center inline-flex items-center justify-between rounded-full text-xs p-0.5 h-5 space-x-2",
     {
@@ -44,11 +42,11 @@ export default function RewardBadge({
 
   return (
     <span className={rewardClassname}>
-      {token && <Coin token={token} size="small" />}
-      {amount && (
+      {reward.token && <Coin token={reward.token} size="small" />}
+      {reward.amount && (
         <div className="pl-0 pr-2 font-medium">
-          {amount}
-          {token}
+          {reward.amount}
+          {reward.token}
         </div>
       )}
     </span>

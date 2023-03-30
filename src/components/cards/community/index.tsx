@@ -4,7 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import RewardBadge from "./_partials/RewardBadge";
 import { ReactElement } from "react";
-import { useTranslation, UseTranslation } from "next-i18next";
+import { useTranslation } from "next-i18next";
+import { Community } from "@/types/community";
 
 /**
  * Interface for cummunity props
@@ -15,26 +16,7 @@ import { useTranslation, UseTranslation } from "next-i18next";
  */
 interface CommunityProps {
   showRewards?: boolean;
-  community: {
-    colors: {
-      primary?: string;
-      secondary?: string;
-      text?: string;
-      highlight?: string;
-      accent?: string;
-      muted?: string;
-    };
-    name: string;
-    description: string;
-    icon: string;
-    courses: number;
-    slug: string;
-    rewards: {
-      type: string;
-      token: string;
-      amount: number;
-    }[];
-  };
+  community: Community;
 }
 
 /**
@@ -56,7 +38,7 @@ export default function CommunityCard({
   const path = `/communities/${community?.slug}`;
 
   const reward = community.rewards.filter(
-    (r: any) => r.type === "SUBMISSION"
+    (reward) => reward.type === "SUBMISSION"
   )[0];
 
   return (
