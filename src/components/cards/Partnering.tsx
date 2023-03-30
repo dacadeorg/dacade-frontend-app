@@ -1,6 +1,13 @@
 import Button from "@/components/ui/button";
 import { useTranslation } from "next-i18next";
 
+/**
+ * PartneringCard component
+ * @date 3/30/2023 - 4:03:28 PM
+ *
+ * @export
+ * @returns {*}
+ */
 export default function PartneringCard() {
   const { t } = useTranslation();
   return (
