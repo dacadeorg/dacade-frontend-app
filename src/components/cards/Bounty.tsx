@@ -7,7 +7,7 @@ import Avatar from "@/components/ui/Avatar";
 // import Reward from "@/components/badges/Reward";
 import Link from "next/link";
 import navigation from "@/plugins/navigation";
-import { Bounty } from "@/types/bounty";
+import { Bounty, RewardType } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 
@@ -38,13 +38,14 @@ function Bounty({ bounty }: BountyProps): ReactElement {
     DateManager.fromNow(date, LocaleDateFormat["en"]);
 
   const type = () => {
-    if (bounty.reward.type === "SUBMISSION")
+    if (bounty.reward.type === RewardType.submission)
       return t("bounties.reward.challenge");
 
     return t("bounties.reward.feedback");
   };
 
-  const isChallenge = () => bounty.reward.type === "SUBMISSION";
+  const isChallenge = () =>
+    bounty.reward.type === RewardType.submission;
 
   const link = () => {
     if (bounty.url) {

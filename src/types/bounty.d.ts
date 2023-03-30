@@ -132,3 +132,21 @@ export interface BountyAuthor {
   description: string;
   name: string;
 }
+
+export interface Reward {
+  id: string;
+  ref: string;
+  created_at: string;
+  updated_at: string;
+  type: RewardType;
+  community: string;
+  token: string;
+  challenge: string;
+  amount: number;
+  stable?: boolean;
+  timestamp: number;
+}
+
+export enum RewardType {
+  submission = "SUBMISSION",
+}
