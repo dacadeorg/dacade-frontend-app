@@ -10,6 +10,7 @@
     "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,tsx,js,jsx}' --write"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.3",
     "@coingecko/cryptoformat": "^0.5.4",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/node": "18.15.3",
@@ -25,9 +26,11 @@
     "lowlight": "^1.2.0",
     "next": "13.2.4",
     "next-i18next": "^13.2.2",
+    "next-redux-wrapper": "^8.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-i18next": "^12.2.0",
+    "react-redux": "^8.0.5",
     "rehype-external-links": "^2.0.1",
     "rehype-raw": "^6.1.1",
     "rehype-slug": "^5.1.0",
