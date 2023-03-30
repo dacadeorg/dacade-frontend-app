@@ -10,7 +10,7 @@ interface OverviewRewardsProps {
 }
 
 /**
- * Component for the Reward challenge
+ * Component for the OverviewRewards
  * @date 3/30/2023 - 2:59:58 PM
  *
  * @export
