@@ -7,14 +7,6 @@ import {
 } from "date-fns";
 import { es, enUS, hr, bg, fr } from "date-fns/locale";
 
-// enum LocaleDateFormat {
-//   es = "es",
-//   en = "en",
-//   hr = "hr",
-//   bg = "bg",
-//   fr = "fr",
-// }
-
 type LocaleDateFormat = string;
 
 type FormatOptions = {

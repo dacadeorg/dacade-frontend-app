@@ -60,7 +60,7 @@ export default function Referral({
       referral.submission
         ? DateManager.fromNow(referral.submission.created_at, locale)
         : null,
-    []
+    [locale, referral.submission]
   );
 
   const rewardAt = useMemo(
@@ -68,7 +68,7 @@ export default function Referral({
       referral.rewarded
         ? DateManager.fromNow(referral.updated_at, locale)
         : null,
-    []
+    [locale, referral.rewarded, referral.updated_at]
   );
 
   return (
