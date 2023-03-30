@@ -1,5 +1,4 @@
 import { ReactElement } from "react";
-import Image from "next/image";
 import DACIcon from "@/icons/tokens/DAC.svg";
 import CUSDIcon from "@/icons/tokens/cUSD.svg";
 import ETHIcon from "@/icons/tokens/ETH.svg";
@@ -138,13 +137,7 @@ export default function Coin({
         color: textColor || coin?.textColor,
       }}
     >
-      {coin?.icon && (
-        <Image
-          src={coin.icon}
-          alt={coin.token}
-          className="w-full h-auto max-h-full relative"
-        />
-      )}
+      {coin?.icon && <coin.icon />}
     </div>
   );
 }
