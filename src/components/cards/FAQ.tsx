@@ -3,7 +3,15 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 
+/**
+ * FAQ card component
+ * @date 4/3/2023 - 6:31:28 PM
+ *
+ * @export
+ * @returns {ReactElement}
+ */
 export default function FaqCard(): ReactElement {
+  // TODO: to be uncommented when redux is implemented(communities slice)
   // const course = useSelector(
   //   (state) => state.communities.courses.current
   // );
