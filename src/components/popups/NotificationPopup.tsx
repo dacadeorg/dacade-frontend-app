@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Badge from "@/components/ui/Badge";
-import NotificationList from "@/components/list/Notification";
+// import NotificationList from "@/components/list/Notification";
 import Button from "@/components/ui/button";
 import BellIcon from "@/icons/notification-bell.svg";
 
@@ -97,7 +97,7 @@ export default function NotificationPopup({
             }}
             className="z-50 w-80 absolute top-14 right-0 bg-white py-4 px-4.5 rounded-3.5xl text-gray-900 no-scrollbar"
           >
-            <NotificationList />
+            {/* <NotificationList /> */}
           </div>
         )}
       </span>
