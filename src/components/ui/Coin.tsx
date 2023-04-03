@@ -20,7 +20,7 @@ interface CoinProps {
   textColor?: string;
   size?: "medium" | "normal" | "small";
   shape?: "rounded" | "squared" | "circle";
-  token: string;
+  token?: string;
   className?: string;
 }
 
@@ -28,7 +28,7 @@ interface CoinProps {
  * Array for coins information
  * @date 3/23/2023 - 11:33:07 AM
  *
- * @type {{}}
+ * @type {[]}
  */
 const coins = [
   {
@@ -100,7 +100,7 @@ export default function Coin({
   const sizeClasses = getSizeClasses(size);
   const shapeClasses = getShapeClasses(shape);
 
-  function getCoin(token: string) {
+  function getCoin(token: string = "") {
     const value = token.toUpperCase();
     return coins.find((coin) => coin.token.toUpperCase() === value);
   }
