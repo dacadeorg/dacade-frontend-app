@@ -30,6 +30,7 @@ export default function ObjectiveList({
   objectives = [],
   feedback = [],
 }: ObjectiveProps): ReactElement {
+  // TODO: will be uncommented when we apply the redux
   //   const community = useSelector((state) => state.communities.current);
   //   const colors = useSelector((state) => state.ui.colors);
 
