@@ -1,18 +1,16 @@
 /**
  * The following components are needed for this file to be fully implemented
- *  - Wrapper
- *  - Navbar
- *  - Footer
- *  - PrivacyPolicyBanner
+ *  - Wrapper from layout
+ *  - Navbar from layout
  *  - NotificationBar
  *
  */
 
 // import Wrapper from "./Wrapper";
 // import Navbar from "@/components/layout/Navbar";
-// import Footer from "@/components/layout/Footer";
-// import PrivacyPolicyBanner from "@/components/banner/PrivacyPolicy";
 // import NotificationBar from "@/components/layout/NotificationBar";
+import Footer from "@/components/layout/Footer";
+import PrivacyPolicyBanner from "@/components/banner/PrivacyPolicy";
 import DiscordButton from "@/components/ui/DiscordButton";
 import { ReactElement, ReactNode } from "react";
 
@@ -54,8 +52,8 @@ export default function DefaultLayout({
       <div className="relative flex-grow">{children}</div>
       <DiscordButton />
       <div className="relative flex-grow-0">
-        {/* <Footer backgroundColor={footerBackgroundColor} />
-          <PrivacyPolicyBanner /> */}
+        <Footer backgroundColor={footerBackgroundColor} />
+        <PrivacyPolicyBanner />
       </div>
     </div>
     // </Wrapper>
