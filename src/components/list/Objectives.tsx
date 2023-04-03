@@ -35,9 +35,9 @@ export default function ObjectiveList({
 
   return (
     <div className="flex flex-col gap-y-3 md:grid md:w-99 md:gap-x-3 md:items-stretch pt-2 md:pt-5 md:pb-2 md:mb-2">
-      {objectives.map((objective, i) => (
+      {objectives.map((objective, index) => (
         <Objective
-          key={i}
+          key={`objective-list-${index}`}
           crossmark={crossmark}
           objective={objective}
           iconcolor={iconcolor}
