@@ -10,6 +10,7 @@ export interface Community {
   summary: string;
   icon: string;
   name: string;
+  image: string;
   colors: Colors;
   slug: string;
   active: boolean;

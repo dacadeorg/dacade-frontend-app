@@ -110,9 +110,7 @@ export default function Avatar({
   });
 
   const componentClassName = classNames(
-    "bg-primary inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle",
-    sizeClassName,
-    shapeClassName,
+    `bg-primary inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle overflow-hidden relative ${sizeClassName} ${shapeClassName}`,
     {
       "cursor-pointer": user,
     }
