@@ -1,4 +1,5 @@
-import { Course, Metadata } from "./course";
+import { Course, Metadata, Reward } from "./course";
+import { Colors } from "./community";
 
 export interface Bounty {
   url: string;
@@ -22,13 +23,6 @@ export interface Bounty {
   totalSubmissions?: number;
   submissions?: Submission;
   author?: BountyAuthor;
-}
-
-export interface Colors {
-  textAccent: string;
-  accent: string;
-  text: string;
-  primary: string;
 }
 
 export interface BountyCourse extends Course {
@@ -131,20 +125,6 @@ export interface Reputation {
 export interface BountyAuthor {
   description: string;
   name: string;
-}
-
-export interface Reward {
-  id: string;
-  ref: string;
-  created_at: string;
-  updated_at: string;
-  type: RewardType;
-  community: string;
-  token: string;
-  challenge: string;
-  amount: number;
-  stable?: boolean;
-  timestamp: number;
 }
 
 export enum RewardType {
