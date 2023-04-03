@@ -119,14 +119,14 @@ export default function TranslationBox({
    * @date 3/29/2023 - 2:59:06 PM
    */
 
-  function revert() {
+  const revert = () => {
     setCurrentText(text);
     setLocale(defaultLocale);
-  }
+  };
 
-  function getLocaleName(code: "en" | "fr") {
+  const getLocaleName = (code: "en" | "fr") => {
     return locales[code].name;
-  }
+  };
 
   const translatable =
     currentLocale !== defaultLocale &&
