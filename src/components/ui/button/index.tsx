@@ -32,7 +32,7 @@ interface ButtonProps {
   className?: string;
   communityStyles?: boolean;
   children: ReactNode;
-  onClick: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
 /**
