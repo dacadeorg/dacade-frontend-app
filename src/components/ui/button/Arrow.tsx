@@ -12,20 +12,27 @@ import classNames from "classnames";
  * @typedef {ArrowButtonProps}
  */
 interface ArrowButtonProps {
-  loading: boolean;
-  disabled: boolean;
+  loading?: boolean;
+  disabled?: boolean;
   rounded?: boolean;
   type?: "submit" | "button" | "reset" | undefined;
   variant?: string;
   padding?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
   customStyle?: object | null;
   link?: string;
   target?: string;
+<<<<<<< HEAD
   minWidthClass: string;
   communityStyles: boolean;
   direction: "left" | "right" | "up" | "down";
   arrowClasses?: string
+=======
+  minWidthClass?: string;
+  communityStyles?: boolean;
+  direction?: "left" | "right" | "up" | "down";
+  arrowClasses?: string;
+>>>>>>> dev
 }
 
 /**
@@ -46,6 +53,7 @@ interface ArrowButtonProps {
   target = "",
   minWidthClass = "min-w-44",
   communityStyles,
+  arrowClasses,
 }
  * @returns {ReactElement}
  */
@@ -80,9 +88,18 @@ export default function ArrowButton({
     }
   }, [direction]);
 
+<<<<<<< HEAD
   const arrowClassNames = classNames(`w-4 h-4 text-gray-500 ${arrowClasses}`, {
     "rounded-full": rounded,
   });
+=======
+  const arrowClassNames = classNames(
+    `w-4 h-4 text-gray-500 ${arrowClasses}`,
+    {
+      "rounded-full": rounded,
+    }
+  );
+>>>>>>> dev
 
   const inputListeners = () => {};
 
@@ -104,7 +121,7 @@ export default function ArrowButton({
         "py-2 pl-5 pr-3.5": padding,
       })}
     >
-      <span className="flex h-full text-left items-center justify-between ">
+      <span className="flex items-center justify-between h-full text-left ">
         {isLeft && (
           <span
             className={classNames("block", { "pr-2.5": children })}
