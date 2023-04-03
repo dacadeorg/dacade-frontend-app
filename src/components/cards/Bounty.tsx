@@ -32,7 +32,9 @@ interface BountyProps {
  * @returns {ReactElement}
  */
 
-function Bounty({ bounty }: BountyProps): ReactElement {
+export default function Bounty({
+  bounty,
+}: BountyProps): ReactElement {
   const { t } = useTranslation();
   const { locale } = useRouter();
 
