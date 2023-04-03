@@ -26,7 +26,7 @@ interface FeedbackProps {
         reward: string;
         points: number;
       };
-      language: string;
+      language: "en" | "fr";
     };
     link?: string;
   };

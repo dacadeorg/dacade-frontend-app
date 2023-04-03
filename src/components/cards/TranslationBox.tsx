@@ -18,7 +18,7 @@ import Markdown from "@/components/ui/Markdown";
 
 interface TranslationBoxProps {
   text: string;
-  defaultLocale: "en" | "fr" | string;
+  defaultLocale: "en" | "fr";
   disabled: boolean;
   textContainerCssClasses: string | object | Array<any>;
   textCssClasses: string | object | Array<any>;
