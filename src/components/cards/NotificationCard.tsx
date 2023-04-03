@@ -46,6 +46,23 @@ interface NotificationCardProps {
 }
 
 /**
+ * Enum for notification types
+ * @date 3/28/2023 - 9:04:03 PM
+ * @enum {string}
+ * @typedef {TYPES}
+ * @property {string} SUBMISSION
+ * @property {string} REFERRAL
+ * @property {string} FEEDBACK
+ * @readonly
+ *
+ * */
+enum TYPES {
+  SUBMISSION = "SUBMISSION",
+  REFERRAL = "REFERRAL",
+  FEEDBACK = "FEEDBACK",
+}
+
+/**
  * NotificationCard component
  * @date 3/28/2023 - 8:57:59 PM
  *
@@ -76,10 +93,11 @@ export default function NotificationCard({
 
   const link = useMemo(() => {
     const { type } = details;
+
     if (
-      type === "SUBMISSION" ||
-      type === "REFERRAL" ||
-      type === "FEEDBACK"
+      type === TYPES.SUBMISSION ||
+      type === TYPES.REFERRAL ||
+      type === TYPES.FEEDBACK
     ) {
       return `/${details.metadata.submissions}`;
     } else {

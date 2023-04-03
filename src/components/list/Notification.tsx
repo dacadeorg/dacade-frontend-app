@@ -1,6 +1,6 @@
+import { ReactElement } from "react";
 import classNames from "classnames";
-import React, { ReactElement } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import NotificationCard from "@/components/cards/NotificationCard";
 
 /**
@@ -29,11 +29,16 @@ interface NotificationProps {
 export default function Notification({
   extended,
 }: NotificationProps): ReactElement {
-  // this is a notication list mock.
+  //  TODO:  to be uncommented when user notifications slice is implemented
+  //  const notifications = useSelector((state) => state.user.notifications);
   const notifications: any[] = [];
+
+  //  TODO:  to be uncommented when user slice is implemented
+  //  const user = useSelector((state) => state.user);
   const user = {};
 
   const { t } = useTranslation("common");
+
   return (
     <div className="text-left relative">
       {!extended && (
