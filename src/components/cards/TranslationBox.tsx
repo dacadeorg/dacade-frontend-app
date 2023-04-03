@@ -4,6 +4,7 @@ import {
   useCallback,
   ReactElement,
   useMemo,
+  CSSProperties,
 } from "react";
 import { Translate } from "@/utilities/Translate";
 import Markdown from "@/components/ui/Markdown";
@@ -20,8 +21,8 @@ interface TranslationBoxProps {
   text: string;
   defaultLocale: "en" | "fr";
   disabled: boolean;
-  textContainerCssClasses: string | object | Array<any>;
-  textCssClasses: string | object | Array<any>;
+  textContainerCssClasses: string | CSSProperties;
+  textCssClasses: string | CSSProperties;
 }
 
 /**

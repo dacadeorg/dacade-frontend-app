@@ -2,6 +2,7 @@ import Avatar from "@/components/ui/Avatar";
 import Badge from "@/components/ui/Badge";
 import Currency from "@/components/ui/Currency";
 import Tag from "@/components/ui/Tag";
+import { User } from "@/types/bounty";
 import DateManager from "@/utilities/DateManager";
 import { useRouter } from "next/router";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
@@ -17,7 +18,7 @@ interface UserProps {
   boxLayout: boolean;
   link: string;
   bordered: boolean;
-  user: any;
+  user: User;
   badge: string;
   timestamp: any;
   children?: ReactNode;
@@ -132,7 +133,7 @@ export default function UserCards({
           <slot />
         )}
       </div>
-      {children && children}
+      {children}
     </div>
   );
 }

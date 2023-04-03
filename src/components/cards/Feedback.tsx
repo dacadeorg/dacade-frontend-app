@@ -1,4 +1,4 @@
-import { ReactElement, useTransition } from "react";
+import { ReactElement } from "react";
 import UserCard from "@/components/cards/User";
 import ArrowButton from "@/components/ui/button/Arrow";
 import RewardBadge from "@/components/badges/RewardBadge";
@@ -6,7 +6,9 @@ import Tag from "@/components/ui/Tag";
 import TranslationBox from "@/components/cards/TranslationBox";
 
 import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
+import classNames from "classnames";
+import { User } from "@/types/bounty";
 
 /**
  * Props for the feedback card
@@ -17,7 +19,7 @@ import { useTranslation } from "react-i18next";
  */
 interface FeedbackProps {
   value: {
-    user: string;
+    user: User;
     created_at: string;
     ranking: number;
     text: string;
@@ -78,7 +80,7 @@ export default function FeedbackCard({
       timestamp={{ date: value.created_at, text: "Feedback" }}
       link={link}
       bordered={!last}
-      badge={`${value.ranking}`}
+      badge={`${value.ranking}`} //badge only accept string
       boxLayout={preview}
     >
       <TranslationBox
@@ -86,7 +88,9 @@ export default function FeedbackCard({
         defaultLocale={language}
         disabled={preview}
         textCssClasses="text-base md:text-lg leading-normal relative break-words"
-        textContainerCssClasses={{ "line-clamp-3 pb-3": preview }}
+        textContainerCssClasses={classNames({
+          "line-clamp-3 pb-3": preview,
+        })}
       />
       {value.metadata &&
         value.metadata.evaluation &&
