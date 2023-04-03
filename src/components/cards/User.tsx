@@ -15,11 +15,11 @@ import { ReactElement, ReactNode, useEffect, useState } from "react";
  * @typedef {UserProps}
  */
 interface UserProps {
-  boxLayout: boolean;
-  link: string;
-  bordered: boolean;
+  boxLayout?: boolean;
+  link?: string;
+  bordered?: boolean;
   user: any;
-  badge: string;
+  badge?: string;
   timestamp: any;
   children?: ReactNode;
 }
