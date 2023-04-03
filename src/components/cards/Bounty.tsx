@@ -10,6 +10,7 @@ import navigation from "@/plugins/navigation";
 import { Bounty, RewardType } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
+import { useRouter } from "next/router";
 
 /**
  * Bounty card component props
@@ -33,9 +34,10 @@ interface BountyProps {
 
 function Bounty({ bounty }: BountyProps): ReactElement {
   const { t } = useTranslation();
+  const { locale } = useRouter();
 
   const convertDate = (date: Date) =>
-    DateManager.fromNow(date, LocaleDateFormat["en"]);
+    DateManager.fromNow(date, locale);
 
   const type = () => {
     if (bounty.reward.type === RewardType.submission)
@@ -109,11 +111,7 @@ function Bounty({ bounty }: BountyProps): ReactElement {
               >
                 <div className="flex justify-between w-full pr-0">
                   <div className="flex space-x-1">
-                    <Avatar
-                      user={submission.user}
-                      size="mini"
-                      href="#"
-                    />
+                    <Avatar user={submission.user} size="mini" />
                     <div>{submission.user.displayName}</div>
                     <div className="flex align-middle text-gray-500 text-middle bg-gray-200 px-2 text-xxs rounded-xl m-0 h-5">
                       {submission.metadata &&
@@ -148,7 +146,6 @@ function Bounty({ bounty }: BountyProps): ReactElement {
           size="medium-fixed"
           shape="rounded"
           className="w-15 h-15 rounded-xl overflow-hidden"
-          href="#"
         />
         {bounty.submissions && bounty.submissions.length && (
           <Badge
