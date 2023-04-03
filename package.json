@@ -41,7 +41,8 @@
     "remark-rehype": "^10.1.0",
     "typescript": "5.0.2",
     "unified": "^10.1.2",
-    "unist-util-visit": "^2.0.0"
+    "unist-util-visit": "^2.0.0",
+    "use-onclickoutside": "^0.4.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
