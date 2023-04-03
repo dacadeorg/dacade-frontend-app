@@ -61,7 +61,7 @@ export default function EvaluationCard({
           textCssClasses="text-base md:text-lg leading-normal"
           defaultLocale={"en"}
           disabled={false}
-          textContainerCssClasses={""}
+          textContainerCssClasses=""
         />
         {children}
       </UserCard>
