@@ -42,7 +42,7 @@ export default function VideoPopup(): ReactElement {
           <span className="flex space-x-1 text-primary hover:text-primary-dark mt-3 text-base leading-normal">
             <PlayIcon className="-mt-1" fill="white" />
             <div className="leading-normal font-light">
-              <span className="font-medium">{t("app.name")}</span>
+              <span className="font-medium">{t("app.name")}</span>{" "}
               {t("page.index.main.button.description")}
             </div>
           </span>

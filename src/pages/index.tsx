@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useTranslation } from "next-i18next";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
+import MainSection from "@/components/sections/homepage/Main";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) =>
   i18Translate(locale as string);
@@ -22,7 +23,9 @@ const Home = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex items-center justify-center h-screen text-6xl font-bold text-white bg-blue-500"></main>
+      <main className="relative max-w-7xl mx-auto">
+        <MainSection />
+      </main>
     </>
   );
 };

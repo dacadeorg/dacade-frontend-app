@@ -19,6 +19,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: "Graphik",
+      },
       colors: {
         current: "currentColor",
         "primary-dark": "#205ED7",

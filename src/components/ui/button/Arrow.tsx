@@ -1,7 +1,7 @@
 import Button from "./";
 import Spinner from "@/icons/spinner.svg";
 import ArrowRightIcon from "@/icons/arrow-right.svg";
-import { ReactElement, ReactNode, useMemo } from "react";
+import { HTMLProps, ReactElement, ReactNode, useMemo } from "react";
 import classNames from "classnames";
 
 /**
@@ -11,7 +11,7 @@ import classNames from "classnames";
  * @interface ArrowButtonProps
  * @typedef {ArrowButtonProps}
  */
-interface ArrowButtonProps {
+interface ArrowButtonProps extends HTMLProps<HTMLButtonElement> {
   loading?: boolean;
   disabled?: boolean;
   rounded?: boolean;
@@ -64,7 +64,8 @@ export default function ArrowButton({
   direction = "right",
   minWidthClass = "min-w-44",
   communityStyles,
-  arrowClasses = ""
+  arrowClasses = "",
+  ...props
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
@@ -92,6 +93,7 @@ export default function ArrowButton({
 
   return (
     <Button
+      {...props}
       text={""}
       loading={loading}
       disabled={disabled}
@@ -115,11 +117,11 @@ export default function ArrowButton({
           >
             {!loading ? (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} group-hover:text-white transform`}
+                className={`${directionClass} ${arrowClassNames} text-white transform`}
               />
             ) : (
               <Spinner
-                className={`${arrowClassNames} group-hover:text-white animate-spin`}
+                className={`${arrowClassNames} text-white animate-spin`}
               />
             )}
           </span>
@@ -137,11 +139,11 @@ export default function ArrowButton({
           <span className="block">
             {!loading ? (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} group-hover:text-white transform`}
+                className={`${directionClass} ${arrowClassNames} text-white transform`}
               />
             ) : (
               <Spinner
-                className={`${arrowClassNames} group-hover:text-white animate-spin`}
+                className={`${arrowClassNames} text-white animate-spin`}
               />
             )}
           </span>
