@@ -1,11 +1,12 @@
-// import { useSelector } from 'react-redux';
-// TODO: to be uncommented when QuestionCard is ready
-// import QuestionCard from 'path/to/QuestionCard';
+import QuestionCard from "@/components/cards/Question";
+import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
+import { ReactElement } from "react";
 
-const FaqCard: React.FC = () => {
-  // TODO: to be uncommented when redux is ready
-  //   const course = useSelector((state: RootState) => state.communities.courses.current);
+export default function FaqCard(): ReactElement {
+  // const course = useSelector(
+  //   (state) => state.communities.courses.current
+  // );
   const { t } = useTranslation();
 
   return (
@@ -35,6 +36,4 @@ const FaqCard: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default FaqCard;
+}
