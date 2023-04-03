@@ -4,7 +4,7 @@ import Currency from "@/components/ui/Currency";
 import Tag from "@/components/ui/Tag";
 import DateManager from "@/utilities/DateManager";
 import { useRouter } from "next/router";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, ReactNode, useEffect, useState } from "react";
 
 /**
  * Interface for the user props
@@ -20,6 +20,7 @@ interface UserProps {
   user: any;
   badge: string;
   timestamp: any;
+  children?: ReactNode;
 }
 
 /**
@@ -34,6 +35,7 @@ interface UserProps {
   user,
   badge,
   timestamp,
+  children
 }
  * @returns {ReactElement}
  */
@@ -44,6 +46,7 @@ export default function UserCards({
   user,
   badge,
   timestamp,
+  children,
 }: UserProps): ReactElement {
   const { locale } = useRouter();
   // TODO: should be uncommented when the redux is implemented
@@ -129,6 +132,7 @@ export default function UserCards({
           <slot />
         )}
       </div>
+      {children && children}
     </div>
   );
 }
