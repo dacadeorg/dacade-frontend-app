@@ -26,7 +26,7 @@ type FormatOptions = {
  * @returns {Locale}
  */
 
-function getLocale(locale: LocaleDateFormat): Locale {
+function getLocale(locale: LocaleDateFormat = "en"): Locale {
   switch (locale) {
     case "es":
       return es;
@@ -109,7 +109,7 @@ export default class DateManager {
 
   static humanize(
     milliseconds: number,
-    locale: LocaleDateFormat
+    locale: string = "en"
   ): string {
     return formatDuration(
       {
@@ -135,7 +135,7 @@ export default class DateManager {
   static format(
     date: string | number | Date,
     format: string,
-    locale: LocaleDateFormat = "en"
+    locale: string = "en"
   ): string {
     return dateFormatter(this.getDate(date), format, {
       locale: getLocale(locale),
@@ -163,7 +163,7 @@ export default class DateManager {
 
   static intlFormat(
     date: string | number | Date,
-    locale: LocaleDateFormat = "en",
+    locale: string = "en",
     options: FormatOptions = {
       year: "numeric",
       month: "short",

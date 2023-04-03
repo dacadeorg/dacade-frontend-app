@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useRouter } from "next/router";
-import { HTMLProps, useMemo } from "react";
+import { HTMLProps, ReactElement, useMemo } from "react";
 
 /**
  * Interface for Badge component props
@@ -26,13 +26,14 @@ interface BadgeProps
   value,
   size = "small",
 }
- * @returns {*}
+ * @returns {ReactElement}
  */
 export default function Badge({
   customStyle,
   value,
   size = "small",
-}: BadgeProps) {
+  ...props
+}: BadgeProps): ReactElement {
   const sizeClasses = useMemo(
     () =>
       ({
@@ -49,6 +50,7 @@ export default function Badge({
   );
   return (
     <span
+      {...props}
       className={classNames(
         "font-semibold leading-3 text-center inline-flex items-center justify-center rounded-full text-xxs",
         sizeClasses,
