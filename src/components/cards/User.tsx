@@ -2,9 +2,10 @@ import Avatar from "@/components/ui/Avatar";
 import Badge from "@/components/ui/Badge";
 import Currency from "@/components/ui/Currency";
 import Tag from "@/components/ui/Tag";
+import { useSelector } from "@/hooks/useTypedSelector";
 import DateManager from "@/utilities/DateManager";
 import { useRouter } from "next/router";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, ReactNode, useEffect, useState } from "react";
 
 /**
  * Interface for the user props
@@ -20,6 +21,7 @@ interface UserProps {
   user: any;
   badge: string;
   timestamp: any;
+  children?: ReactNode;
 }
 
 /**
@@ -37,17 +39,18 @@ interface UserProps {
 }
  * @returns {ReactElement}
  */
-export default function UserCards({
+export default function UserCard({
   boxLayout,
   link,
   bordered,
   user,
   badge,
   timestamp,
+  children,
 }: UserProps): ReactElement {
   const { locale } = useRouter();
   // TODO: should be uncommented when the redux is implemented
-  //   const colors = useSelector((state) => state.ui.colors);
+  const colors = useSelector((state) => state.ui.colors);
   //   const community = useSelector((state) => state.communities.current);
   const [humanizedDate, setHumanizedDate] = useState("");
   const [date, setDate] = useState("");
@@ -81,8 +84,7 @@ export default function UserCards({
             customStyle={{
               bottom: "-1px",
               right: "-3px",
-              // TODO: Comment will be removed when redux will be implemented
-              //   backgroundColor: colors.textAccent,
+              backgroundColor: colors.textAccent,
             }}
           />
         )}
@@ -110,24 +112,15 @@ export default function UserCards({
             <span
               title={date}
               className="font-medium"
-              style={
-                {
-                  // TODO: Comment will be removed when redux will be implemented
-                  // color: colors.textAccent,
-                }
-              }
+              style={{
+                color: colors.textAccent,
+              }}
             >
               {humanizedDate}
             </span>
           </span>
         </div>
-        {link ? (
-          <a href={link}>
-            <slot />
-          </a>
-        ) : (
-          <slot />
-        )}
+        {link ? <a href={link}>{children}</a> : <>{children}</>}
       </div>
     </div>
   );
