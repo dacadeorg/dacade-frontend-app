@@ -1,7 +1,6 @@
-import { Url } from "next/dist/shared/lib/router/router";
 import Image from "next/image";
 import Link from "next/link";
-import { HTMLProps, ReactElement, ReactNode } from "react";
+import { CSSProperties, ReactElement, ReactNode } from "react";
 import classNames from "classnames";
 
 /**
@@ -38,7 +37,6 @@ type Shape =
   | "full"
   | "squared"
   | "circular";
-
 interface AvatarProps {
   icon?: string;
   image?: string;
@@ -47,6 +45,8 @@ interface AvatarProps {
   size?: Size;
   shape?: Shape;
   useLink?: boolean;
+  style?: CSSProperties;
+  className?: string;
 }
 
 /**
@@ -85,6 +85,8 @@ export default function Avatar({
   size = "small",
   shape = "circular",
   useLink = true,
+  style,
+  className,
 }: AvatarProps): ReactElement {
   const initials = user?.displayName ? user?.displayName[0] : null;
 
@@ -110,18 +112,21 @@ export default function Avatar({
   });
 
   const componentClassName = classNames(
-    `bg-primary inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle overflow-hidden relative ${sizeClassName} ${shapeClassName}`,
+    "bg-primary inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle",
+    sizeClassName,
+    shapeClassName,
     {
       "cursor-pointer": user,
     }
   );
+
   const Component = useLink ? Link : Span;
 
   return (
     <Component
       href={link}
       className={componentClassName}
-      style={{ backgroundColor: color }}
+      style={{ backgroundColor: color, ...style }}
     >
       {user && user.avatar ? (
         <Image
