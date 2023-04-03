@@ -25,6 +25,7 @@ interface ArrowButtonProps {
   minWidthClass?: string;
   communityStyles?: boolean;
   direction?: "left" | "right" | "up" | "down";
+  arrowClasses?: string;
 }
 
 /**
@@ -45,6 +46,7 @@ interface ArrowButtonProps {
   target = "",
   minWidthClass = "min-w-44",
   communityStyles,
+  arrowClasses,
 }
  * @returns {ReactElement}
  */
@@ -62,6 +64,7 @@ export default function ArrowButton({
   direction = "right",
   minWidthClass = "min-w-44",
   communityStyles,
+  arrowClasses = "",
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
@@ -78,9 +81,12 @@ export default function ArrowButton({
     }
   }, [direction]);
 
-  const arrowClassNames = classNames(`w-4 h-4 text-gray-500`, {
-    "rounded-full": rounded,
-  });
+  const arrowClassNames = classNames(
+    `w-4 h-4 text-gray-500 ${arrowClasses}`,
+    {
+      "rounded-full": rounded,
+    }
+  );
 
   const inputListeners = () => {};
 
@@ -102,7 +108,7 @@ export default function ArrowButton({
         "py-2 pl-5 pr-3.5": padding,
       })}
     >
-      <span className="flex h-full text-left items-center justify-between ">
+      <span className="flex items-center justify-between h-full text-left ">
         {isLeft && (
           <span
             className={classNames("block", { "pr-2.5": children })}
