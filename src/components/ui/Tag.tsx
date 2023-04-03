@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { HTMLProps } from "react";
 
 /**
  * Tag Props Interface
@@ -7,10 +8,10 @@ import classNames from "classnames";
  * @interface TagProps
  * @typedef {TagProps}
  */
-interface TagProps {
+interface TagProps extends HTMLProps<HTMLDivElement> {
   rounded?: boolean;
   type?: "transparent" | "gray" | "light-gray" | "warn";
-  value: string;
+  value?: string;
   children?: React.ReactNode;
 }
 
@@ -32,6 +33,7 @@ export default function Tag({
   type = "gray",
   value,
   children,
+  ...props
 }: TagProps) {
   const tagClassNames = classNames(
     "text-center px-2 p-0.5 h-5 inline-flex items-center",
@@ -46,7 +48,7 @@ export default function Tag({
     { rounded: !rounded }
   );
   return (
-    <div className={tagClassNames}>
+    <div {...props} className={tagClassNames}>
       <span className="text-xs font-medium block leading-none">
         {value ? <span>{value}</span> : children}
       </span>

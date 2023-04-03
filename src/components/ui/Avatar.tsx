@@ -1,7 +1,7 @@
 import { Url } from "next/dist/shared/lib/router/router";
 import Image from "next/image";
 import Link from "next/link";
-import { ReactElement, ReactNode } from "react";
+import { HTMLProps, ReactElement, ReactNode } from "react";
 import classNames from "classnames";
 
 /**
@@ -32,7 +32,13 @@ type Size =
   | "mini"
   | "small";
 
-type Shape = "rounded" | "rounded-3xl" | "full" | "squared" | "circular";
+type Shape =
+  | "rounded"
+  | "rounded-3xl"
+  | "full"
+  | "squared"
+  | "circular";
+
 interface AvatarProps {
   icon?: string;
   image?: string;
@@ -82,9 +88,10 @@ export default function Avatar({
 }: AvatarProps): ReactElement {
   const initials = user?.displayName ? user?.displayName[0] : null;
 
-  const link = user?.username && useLink ? `/profile/${user.username}` : "#";
+  const link =
+    user?.username && useLink ? `/profile/${user.username}` : "#";
 
-  const sizeClassName = classNames({
+  const sizeClassName = classNames("overflow-hidden", {
     "w-32 h-32 text-4xl": size === "extra",
     "w-15 h-15 text-2xl": size === "large",
     "w-10 h-10 sm:h-12 sm:w-12 md:w-15 md:h-15 text-xl sm:text-2xl":
@@ -103,15 +110,13 @@ export default function Avatar({
   });
 
   const componentClassName = classNames(
-    "bg-primary inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle",
-    sizeClassName,
-    shapeClassName,
+    `bg-primary inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle overflow-hidden relative ${sizeClassName} ${shapeClassName}`,
     {
       "cursor-pointer": user,
     }
   );
   const Component = useLink ? Link : Span;
-  
+
   return (
     <Component
       href={link}
@@ -129,7 +134,12 @@ export default function Avatar({
         <span>{initials}</span>
       )}
       {icon && (
-        <Image layout="fill" src={icon} alt="icon image" className="p-2" />
+        <Image
+          layout="fill"
+          src={icon}
+          alt="icon image"
+          className="p-2"
+        />
       )}
       {image && (
         <Image

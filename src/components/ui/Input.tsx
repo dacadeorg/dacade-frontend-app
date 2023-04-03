@@ -53,7 +53,7 @@ export default function Input({
 
   const isFilled = useMemo(
     () => String(value)?.trim().length > 0,
-    []
+    [value]
   );
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
