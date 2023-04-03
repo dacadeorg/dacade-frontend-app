@@ -37,7 +37,7 @@ export default function Notification({
   //  const user = useSelector((state) => state.user);
   const user = {};
 
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   return (
     <div className="text-left relative">
