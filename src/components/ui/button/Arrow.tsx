@@ -22,17 +22,10 @@ interface ArrowButtonProps {
   customStyle?: object | null;
   link?: string;
   target?: string;
-<<<<<<< HEAD
-  minWidthClass: string;
-  communityStyles: boolean;
-  direction: "left" | "right" | "up" | "down";
-  arrowClasses?: string
-=======
   minWidthClass?: string;
   communityStyles?: boolean;
   direction?: "left" | "right" | "up" | "down";
   arrowClasses?: string;
->>>>>>> dev
 }
 
 /**
@@ -88,18 +81,12 @@ export default function ArrowButton({
     }
   }, [direction]);
 
-<<<<<<< HEAD
-  const arrowClassNames = classNames(`w-4 h-4 text-gray-500 ${arrowClasses}`, {
-    "rounded-full": rounded,
-  });
-=======
   const arrowClassNames = classNames(
     `w-4 h-4 text-gray-500 ${arrowClasses}`,
     {
       "rounded-full": rounded,
     }
   );
->>>>>>> dev
 
   const inputListeners = () => {};
 
