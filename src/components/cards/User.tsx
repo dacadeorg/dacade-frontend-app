@@ -2,9 +2,11 @@ import Avatar from "@/components/ui/Avatar";
 import Badge from "@/components/ui/Badge";
 import Currency from "@/components/ui/Currency";
 import Tag from "@/components/ui/Tag";
+import { useSelector } from "@/hooks/useTypedSelector";
 import DateManager from "@/utilities/DateManager";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, ReactNode, useEffect, useState } from "react";
 
 /**
  * Interface for the user props
@@ -18,8 +20,9 @@ interface UserProps {
   link: string;
   bordered: boolean;
   user: any;
-  badge: string;
+  badge?: string;
   timestamp: any;
+  children: ReactNode;
 }
 
 /**
@@ -34,20 +37,22 @@ interface UserProps {
   user,
   badge,
   timestamp,
+  children
 }
  * @returns {ReactElement}
  */
-export default function UserCards({
+export default function UserCard({
   boxLayout,
   link,
   bordered,
   user,
-  badge,
+  badge = "",
   timestamp,
+  children
 }: UserProps): ReactElement {
   const { locale } = useRouter();
   // TODO: should be uncommented when the redux is implemented
-  //   const colors = useSelector((state) => state.ui.colors);
+  const colors = useSelector((state) => state.ui.colors);
   //   const community = useSelector((state) => state.communities.current);
   const [humanizedDate, setHumanizedDate] = useState("");
   const [date, setDate] = useState("");
@@ -57,7 +62,7 @@ export default function UserCards({
     setHumanizedDate(DateManager.fromNow(timestamp.date, locale));
     setDate(DateManager.intlFormat(timestamp.date, locale));
     setProfileURL(`/profile/${user.username}`);
-  }, [timestamp, user]);
+  }, [locale, timestamp, user]);
 
   return (
     <div
@@ -81,8 +86,8 @@ export default function UserCards({
             customStyle={{
               bottom: "-1px",
               right: "-3px",
-              // TODO: Comment will be removed when redux will be implemented
-              //   backgroundColor: colors.textAccent,
+
+              backgroundColor: colors.textAccent,
             }}
           />
         )}
@@ -106,28 +111,19 @@ export default function UserCards({
             )}
           </div>
           <span className="block text-sm leading-snug text-gray-700">
-            {timestamp.text}{" "}
+            {timestamp.text}
             <span
               title={date}
               className="font-medium"
-              style={
-                {
-                  // TODO: Comment will be removed when redux will be implemented
-                  // color: colors.textAccent,
-                }
-              }
+              style={{
+                color: colors.textAccent,
+              }}
             >
               {humanizedDate}
             </span>
           </span>
         </div>
-        {link ? (
-          <a href={link}>
-            <slot />
-          </a>
-        ) : (
-          <slot />
-        )}
+        {link ? <Link href={link}>{children}</Link> : children}
       </div>
     </div>
   );

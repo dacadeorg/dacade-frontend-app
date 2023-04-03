@@ -1,7 +1,8 @@
 import { ReactElement } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
-// import UserCard from '@/components/cards/User'
-// import TranslationBox from '@/components/cards/TranslationBox'
+import UserCard from "@/components/cards/User";
+import TranslationBox from "@/components/cards/TranslationBox";
+import { useTranslation } from "next-i18next";
 
 /**
  * Evaluation interface
@@ -23,49 +24,47 @@ interface Evaluation {
  * Interface for evaluation component props
  * @date 3/30/2023 - 9:37:00 AM
  *
- * @interface EvaluationProps
- * @typedef {EvaluationProps}
+ * @interface EvaluationCardProps
+ * @typedef {EvaluationCardProps}
  */
-interface EvaluationProps {
+interface EvaluationCardProps {
   evaluation: Evaluation;
-  stats?: boolean;
   link?: string;
-  buttons?: boolean;
   last?: boolean;
   children: ReactElement;
 }
-export default function Evaluation({
+export default function EvaluationCard({
   evaluation,
-  stats = false,
   link = "",
-  buttons = false,
-  last = false,
+  last,
   children,
-}: EvaluationProps): ReactElement {
+}: EvaluationCardProps): ReactElement {
   const language = evaluation?.metadata?.language || "en";
   const colors = useSelector((state) => state.ui.colors);
+  const { t } = useTranslation();
   // TODO: this line will be uncommented once community slice is available
   // const community = useSelector((state) => state.community);
   return (
     <>
-      {/* 
-        // TODO: this component[EvaluationCard] needs UserCard and TranslationBox which are not ready yet. Once they are ready we can uncomment both UserCard and TranslationBox
-        <UserCard
-            user={evaluation.evaluator}
-            timestamp={{
-                date: evaluation.created_at,
-                text: $t("submissions.evaluation.evaluated"),
-            }}
-            link={link}
-            bordered={!last}>
-            <TranslationBox
-                text={evaluation.comment}
-                text-css-classes="text-base md:text-lg leading-normal"
-                default-locale={language}
-            />
-            {children}
-        </UserCard>
-      */}
+      <UserCard
+        user={evaluation.evaluator}
+        timestamp={{
+          date: evaluation.created_at,
+          text: t("submissions.evaluation.evaluated"),
+        }}
+        link={link}
+        bordered={!last}
+        boxLayout={true}
+      >
+        <TranslationBox
+          text={evaluation.comment}
+          textCssClasses="text-base md:text-lg leading-normal"
+          defaultLocale={"en"}
+          disabled={false}
+          textContainerCssClasses={""}
+        />
+        {children}
+      </UserCard>
     </>
   );
 }
