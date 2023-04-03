@@ -49,9 +49,9 @@ export default function UserCard({
   children,
 }: UserProps): ReactElement {
   const { locale } = useRouter();
-  // TODO: should be uncommented when the redux is implemented
   const colors = useSelector((state) => state.ui.colors);
-  //   const community = useSelector((state) => state.communities.current);
+  // TODO: to be uncommented when community slice is implemented.
+  // const community = useSelector((state) => state.communities.current);
   const [humanizedDate, setHumanizedDate] = useState("");
   const [date, setDate] = useState("");
   const [profileURL, setProfileURL] = useState("");

@@ -15,6 +15,7 @@ import { ReactElement } from "react";
 type DefaultLocale = "en" | "fr";
 
 /**
+ *
  * Interface for SubmissionViewCard props
  * @date 4/3/2023 - 12:36:51 PM
  *
@@ -22,6 +23,7 @@ type DefaultLocale = "en" | "fr";
  * @typedef {SubmissionViewCardProps}
  */
 interface SubmissionViewCardProps {
+  // TODO: to be updated with ISubmission once community slice is implemented
   submission: {
     user: any;
     created_at: string;
@@ -49,7 +51,8 @@ export default function SubmissionViewCard({
   const { t } = useTranslation();
   const colors = useSelector((state) => state.ui.colors);
 
-  const language = submission?.metadata?.language || "en";
+  const language = (submission?.metadata?.language ||
+    "en") as DefaultLocale;
   const primaryButtonStyles = {
     borderColor: colors.textAccent,
     color: colors.text,
@@ -69,8 +72,8 @@ export default function SubmissionViewCard({
     >
       <TranslationBox
         textContainerCssClasses="pb-5"
-        text={submission.text as string}
-        defaultLocale={language as DefaultLocale}
+        text={submission.text}
+        defaultLocale={language}
         textCssClasses="text-base md:text-lg leading-normal text-gray-700"
       />
       <div className="inline-grid space-y-2 md:space-y-5 md:contents space-x-0 md:space-x-2">
