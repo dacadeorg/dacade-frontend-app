@@ -1,3 +1,6 @@
+// Those types are temporary
+// TODO: Should be improved with the extact types
+
 export type Course = {
   id: string;
   ref: string;
