@@ -90,7 +90,7 @@ export default function ScoreboardCard({
       </div>
       <div className="relative sm:flex-none pt-9 sm:p-0">
         <div className="relative sm:inset-0">
-          <Avatar user={value.user} size="large" href="#" />
+          <Avatar user={value.user} size="large" />
           <Badge
             className="absolute left-9 top-10 w-6 h-6 bg-theme-accent text-white"
             value={index}
