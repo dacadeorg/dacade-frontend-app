@@ -1,3 +1,5 @@
+// Those types are temporary
+// TODO: Should be improved with the extact types
 import { Metadata, Reward } from "./course";
 
 export interface Community {
