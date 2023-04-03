@@ -23,6 +23,7 @@ const Home = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      {/* TODO: The max with should be removed when the home page layout is migrated */}
       <main className="relative max-w-7xl mx-auto">
         <MainSection />
       </main>
