@@ -11,7 +11,7 @@ import classNames from "classnames";
 interface SectionProps {
   type?: string;
   padding?: string;
-  children: ReactElement;
+  children: ReactElement | ReactElement[];
 }
 
 /**

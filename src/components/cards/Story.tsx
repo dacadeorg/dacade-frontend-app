@@ -18,6 +18,8 @@ interface StoryProps {
   position: number;
   gridPosition: number;
   count: number;
+  onShowBubble?: () => void;
+  onHideBubble?: () => void;
 }
 
 /**
@@ -30,6 +32,8 @@ interface StoryProps {
   position,
   gridPosition,
   count,
+  onShowBubble,
+  onHideBubble,
 }
  * @returns {ReactElement}
  */
@@ -39,6 +43,8 @@ export default function Story({
   position,
   gridPosition,
   count,
+  onShowBubble,
+  onHideBubble,
 }: StoryProps): ReactElement {
   const [showBubble, setShowBubble] = useState(false);
   const [height, setHeight] = useState(0);
@@ -52,6 +58,7 @@ export default function Story({
    */
   useOnClickOutside(bubbleRef, () => {
     if (showBubble) {
+      onHideBubble?.();
       setShowBubble(false);
     }
   });
@@ -88,10 +95,15 @@ export default function Story({
         rotate(-${rotation}deg)`;
   };
 
+  const showStoryBubble = () => {
+    setShowBubble(true);
+    onShowBubble?.();
+  };
+
   return (
     <div
       ref={bubbleRef}
-      onClick={() => setShowBubble(true)}
+      onClick={() => showStoryBubble()}
       className="absolute border border-solid border-gray-200 bg-gray-50 rounded-full p-1 top-2/4 left-2/4 -m-7 flex flex-row-reverse"
       style={{
         transform: getPosition(),
