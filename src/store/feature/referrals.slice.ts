@@ -30,7 +30,7 @@ export const referralSlice = createSlice({
   },
 });
 
-const { setList } = referralSlice.actions;
+export const { setList } = referralSlice.actions;
 
 /**
  * Referral api fetch
