@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "/assets/css/fonts.css";
+
 .floating-input > input::placeholder {
   color: transparent;
 }
@@ -37,14 +39,12 @@
 body,
 .text-default {
   @apply text-gray-900;
-
-  font-family: "Graphik", sans-serif;
-  font-feature-settings: "ss01" 1, "ss02" 1;
+  font-feature-settings: "ss01" 1;
 }
 
 body {
+  @apply font-graphik;
   font-weight: 400;
-  font-family: "Graphik", sans-serif;
   width: 100%;
   position: relative;
 }

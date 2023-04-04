@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import _ from "lodash";
 import Story from "@/components/cards/Story";
 
@@ -9,9 +9,8 @@ import Story from "@/components/cards/Story";
  * @typedef {Testimonial}
  */
 interface Testimonial {
-  title: string;
-  content: string;
-  author: string;
+  content?: string;
+  icon?: string;
 }
 
 /**
@@ -39,19 +38,42 @@ interface ShowingBubble {
 export default function TestimonialsSection({
   list,
 }: TestimonialsSectionProps): ReactElement {
-  const [showingBubble, setShowingBubble] = useState<ShowingBubble>({
-    card: null,
-    grid: null,
-  });
+  const [showingBubble, setShowingBubble] = useState<ShowingBubble>(
+    () => ({
+      card: null,
+      grid: null,
+    })
+  );
 
   const gridSize = 90;
 
+  /**
+   * This line uses the chunk method from the lodash library to create an array of arrays from an input array list. The chunk
+   * method splits the list array into smaller arrays (chunks) of length 5 and returns an array containing these chunks.
+   * @date 4/4/2023 - 11:52:05 AM
+   *
+   */
+
   const grids = _.chunk(list, 5);
 
-  const getSize = (i: number) => {
+  /**
+   * Generate the width or height of the grid box depending on the number of testimonials and the index
+   * @date 4/4/2023 - 11:53:53 AM
+   *
+   * @param {number} i
+   * @returns {number}
+   */
+  const getSize = (i: number): number => {
     return (gridSize * (i + 1)) / grids.length;
   };
 
+  /**
+   * Clear the icon which is showing the popup/buble
+   * @date 4/4/2023 - 11:56:53 AM
+   *
+   * @param {number} card
+   * @param {number} grid
+   */
   const onBubbleHide = (card: number, grid: number) => {
     if (showingBubble.grid === grid && showingBubble.card === card) {
       setShowingBubble({
@@ -61,12 +83,30 @@ export default function TestimonialsSection({
     }
   };
 
+  /**
+   * Store which icon is displaying a bubble
+   * @date 4/4/2023 - 11:58:52 AM
+   *
+   * @param {number} card
+   * @param {number} grid
+   */
   const onBubbleShow = (card: number, grid: number) => {
+    console.log(card, grid);
+
     setShowingBubble({
       card,
       grid,
     });
   };
+
+  useEffect(() => {
+    console.log(showingBubble);
+
+    /**
+     * Set default bubble
+     * */
+    // setShowingBubble({ card: 4, grid: 0 });
+  }, [showingBubble]);
 
   return (
     <div className="relative w-full top-0 h-screen left-0 z-0 hidden md:block md:max-h-3xl lg:max-h-4xl xl:max-h-7.1xl">

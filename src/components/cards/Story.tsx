@@ -96,6 +96,11 @@ export default function Story({
   };
 
   const showStoryBubble = () => {
+    if (showBubble) {
+      setShowBubble(false);
+      onHideBubble?.();
+      return;
+    }
     setShowBubble(true);
     onShowBubble?.();
   };
@@ -113,6 +118,8 @@ export default function Story({
         className="object-cover h-14 w-14 rounded-full"
         src={story.icon as string}
         alt="story icon"
+        width={43}
+        height={43}
       />
 
       {showBubble && story.content && (

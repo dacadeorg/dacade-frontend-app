@@ -1,5 +1,5 @@
 import Button from "@/components/ui/button";
-import DiscordIcon from "@/assets/icons/discord.svg";
+import DiscordIcon from "@/icons/discord.svg";
 import { useTranslation } from "next-i18next";
 
 /**
@@ -14,26 +14,25 @@ interface Statistic {
   description: string;
   count: number;
 }
-
+const stats: Statistic[] = [
+  {
+    title: "testimonials.community.stats.card-1.title",
+    description: "testimonials.community.stats.card-1.description",
+    count: 10000,
+  },
+  {
+    title: "testimonials.community.stats.card-2.title",
+    description: "testimonials.community.stats.card-2.description",
+    count: 1500,
+  },
+  {
+    title: "testimonials.community.stats.card-3.title",
+    description: "testimonials.community.stats.card-3.description",
+    count: 3500,
+  },
+];
 export default function CommunityStats() {
   const { t } = useTranslation();
-  const stats: Statistic[] = [
-    {
-      title: "testimonials.community.stats.card-1.title",
-      description: "testimonials.community.stats.card-1.description",
-      count: 10000,
-    },
-    {
-      title: "testimonials.community.stats.card-2.title",
-      description: "testimonials.community.stats.card-2.description",
-      count: 1500,
-    },
-    {
-      title: "testimonials.community.stats.card-3.title",
-      description: "testimonials.community.stats.card-3.description",
-      count: 3500,
-    },
-  ];
 
   return (
     <div className="p-7 bg-primary rounded-3.5xl mx-auto text-white relative md:absolute md:top-28 lg:top-32 xl:w-1/3 md:w-4/6 z-10 sm:max-w-sm">
@@ -45,7 +44,9 @@ export default function CommunityStats() {
           <div key={stat.title} className="py-5">
             <span className="block text-2xl mb-2">{stat.count}</span>
             <p className="text-base w-3/4 m-0">
-              <span className="font-medium">{t(stat.title)}</span>
+              <span className="font-graphik font-medium">
+                {t(stat.title)}
+              </span>{" "}
               {t(stat.description)}
             </p>
           </div>
