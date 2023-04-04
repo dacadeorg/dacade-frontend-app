@@ -32,7 +32,7 @@ export default function DiscordConnect():ReactElement {
   };
 
   /**
-   * getDiscordMessage is used to generate status message related to dicord connetion
+   * Get transilated discord status messages related to discord connection
    * @date 4/4/2023 - 10:05:46 AM
    *
    * @returns {string}
@@ -44,12 +44,12 @@ export default function DiscordConnect():ReactElement {
   };
 
   /**
-   * Discord authenticator 
+   * Connect or disconnect user from discord 
    * @date 4/4/2023 - 9:39:06 AM
    *
-   * @type {*}
+   * @type {Function}
    */
-  const discordCallback = useCallback(() => {
+  const discordCallback: Function = useCallback(() => {
     async () => {
       try {
         const { code } = router.query;
