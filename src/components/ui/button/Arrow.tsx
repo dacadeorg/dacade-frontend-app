@@ -51,8 +51,8 @@ interface ArrowButtonProps {
  * @returns {ReactElement}
  */
 export default function ArrowButton({
-  loading,
-  disabled,
+  loading = false,
+  disabled = false,
   rounded = true,
   type = "submit",
   variant = "primary",
@@ -64,7 +64,7 @@ export default function ArrowButton({
   direction = "right",
   minWidthClass = "min-w-44",
   communityStyles,
-  arrowClasses = ""
+  arrowClasses = "",
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
@@ -115,11 +115,11 @@ export default function ArrowButton({
           >
             {!loading ? (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} group-hover:text-white transform`}
+                className={`${directionClass} ${arrowClassNames} group-hover:text-white- transform`}
               />
             ) : (
               <Spinner
-                className={`${arrowClassNames} group-hover:text-white animate-spin`}
+                className={`${arrowClassNames} group-hover:text-white- animate-spin`}
               />
             )}
           </span>
@@ -136,12 +136,10 @@ export default function ArrowButton({
         {!isLeft && (
           <span className="block">
             {!loading ? (
-              <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} group-hover:text-white transform`}
-              />
+              <ArrowRightIcon className={`transform`} />
             ) : (
               <Spinner
-                className={`${arrowClassNames} group-hover:text-white animate-spin`}
+                className={`${arrowClassNames} group-hover:text-white- animate-spin`}
               />
             )}
           </span>

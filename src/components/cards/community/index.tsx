@@ -89,7 +89,11 @@ export default function CommunityCard({
             </div>
             <div className="mt-4 align-middle">
               <Link href={path}>
-                <ArrowButton arrowClasses="border group-hover:bg-theme-accent bg-theme-primary text-theme-accent group-hover:text-theme-primary border-theme-accent">
+                <ArrowButton
+                  variant="outline-gray"
+                  loading={false}
+                  arrowClasses="border group-hover:bg-theme-accent bg-theme-primary text-theme-accent group-hover:text-theme-primary border-theme-accent"
+                >
                   {t("page.index.main.button")}
                 </ArrowButton>
               </Link>
