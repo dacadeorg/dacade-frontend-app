@@ -40,8 +40,8 @@ export default function TestimonialsSection({
 }: TestimonialsSectionProps): ReactElement {
   const [showingBubble, setShowingBubble] = useState<ShowingBubble>(
     () => ({
-      card: null,
-      grid: null,
+      card: 4,
+      grid: 0,
     })
   );
 
@@ -91,22 +91,11 @@ export default function TestimonialsSection({
    * @param {number} grid
    */
   const onBubbleShow = (card: number, grid: number) => {
-    console.log(card, grid);
-
     setShowingBubble({
       card,
       grid,
     });
   };
-
-  useEffect(() => {
-    console.log(showingBubble);
-
-    /**
-     * Set default bubble
-     * */
-    // setShowingBubble({ card: 4, grid: 0 });
-  }, [showingBubble]);
 
   return (
     <div className="relative w-full top-0 h-screen left-0 z-0 hidden md:block md:max-h-3xl lg:max-h-4xl xl:max-h-7.1xl">
@@ -130,6 +119,7 @@ export default function TestimonialsSection({
               position={storyIndex}
               count={grid.length}
               gridPosition={gridIndex}
+              showingBubble={showingBubble}
               onShowBubble={() => onBubbleShow(storyIndex, gridIndex)}
               onHideBubble={() => onBubbleHide(storyIndex, gridIndex)}
             />

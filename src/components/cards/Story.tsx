@@ -20,6 +20,10 @@ interface StoryProps {
   count: number;
   onShowBubble?: () => void;
   onHideBubble?: () => void;
+  showingBubble: {
+    card: number | null;
+    grid: number | null;
+  };
 }
 
 /**
@@ -43,10 +47,15 @@ export default function Story({
   position,
   gridPosition,
   count,
+  showingBubble,
   onShowBubble,
   onHideBubble,
 }: StoryProps): ReactElement {
-  const [showBubble, setShowBubble] = useState(false);
+  const [showBubble, setShowBubble] = useState(
+    () =>
+      position === showingBubble.card &&
+      gridPosition === showingBubble.grid
+  );
   const [height, setHeight] = useState(0);
   const bubbleRef = useRef<HTMLDivElement>(null);
 
@@ -122,7 +131,7 @@ export default function Story({
         height={43}
       />
 
-      {showBubble && story.content && (
+      {showBubble && (
         <div className="absolute p-4 md:p-7 left-6 md:-left-9 -ml-2 -mt-5 md:ml-20 lg:w-72 md:w-56 w-48 -bottom-60 md:bottom-16 bg-yellow-50 rounded-3.5xl rounded-tl-none md:rounded-tl-3.5xl md:rounded-bl-none text-yellow-900 border border-solid border-black border-opacity-5">
           <span>{story.content}</span>
         </div>
