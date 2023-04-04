@@ -36,7 +36,8 @@ export default function PrivacyPolicyBanner(): ReactElement {
     dispatch(acceptCookiePolicy());
   };
 
-  if (showBanner)
+  if (!showBanner) return <></>;
+  else
     return (
       <div className="fixed bottom-0 left-0 right-0 z-999 flex flex-row justify-center md:justify-between bg-primary">
         <div className="text-white py-8 text-center lg:text-base text-sm md:text-lg justify-center md:max-w-none px-6">
@@ -55,5 +56,4 @@ export default function PrivacyPolicyBanner(): ReactElement {
         </div>
       </div>
     );
-  else return <></>;
 }
