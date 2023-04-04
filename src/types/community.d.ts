@@ -28,3 +28,14 @@ export interface Colors {
   accent: string;
   primary: string;
 }
+export interface Referral {
+  id: string;
+  name: string;
+  ref: string;
+  created_at: string;
+  updated_at: string;
+  title: string;
+  community: Community;
+  timestamp: number;
+  reward: Reward;
+}
