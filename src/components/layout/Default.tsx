@@ -1,14 +1,13 @@
 /**
  * The following components are needed for this file to be fully implemented
- *  - Wrapper from layout
  *  - Navbar from layout
  *  - NotificationBar
  *
  */
 
-// import Wrapper from "./Wrapper";
 // import Navbar from "@/components/layout/Navbar";
 // import NotificationBar from "@/components/layout/NotificationBar";
+import Wrapper from "./Wrapper";
 import Footer from "@/components/layout/Footer";
 import PrivacyPolicyBanner from "@/components/banner/PrivacyPolicy";
 import DiscordButton from "@/components/ui/DiscordButton";
@@ -43,19 +42,19 @@ export default function DefaultLayout({
   children,
 }: DefaultLayoutProps): ReactElement {
   return (
-    // <Wrapper>
-    <div className="relative min-h-screen flex flex-col">
-      <div className="relative flex-grow-0">
-        {/* <Navbar />
+    <Wrapper>
+      <div className="relative min-h-screen flex flex-col">
+        <div className="relative flex-grow-0">
+          {/* <Navbar />
           <NotificationBar /> */}
+        </div>
+        <div className="relative flex-grow">{children}</div>
+        <DiscordButton />
+        <div className="relative flex-grow-0">
+          <Footer backgroundColor={footerBackgroundColor} />
+          <PrivacyPolicyBanner />
+        </div>
       </div>
-      <div className="relative flex-grow">{children}</div>
-      <DiscordButton />
-      <div className="relative flex-grow-0">
-        <Footer backgroundColor={footerBackgroundColor} />
-        <PrivacyPolicyBanner />
-      </div>
-    </div>
-    // </Wrapper>
+    </Wrapper>
   );
 }

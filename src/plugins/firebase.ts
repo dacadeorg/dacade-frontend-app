@@ -11,7 +11,12 @@ const firebase = initializeApp({
 });
 
 const auth = getAuth(firebase);
-const analytics = getAnalytics(firebase);
+// const analytics = getAnalytics(
+//   typeof window !== undefined ? firebase : undefined
+// );
 
-export { auth, analytics };
+export {
+  auth,
+  // , analytics
+};
 export default firebase;
