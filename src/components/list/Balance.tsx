@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import BalanceCard from "@/components/cards/Balance";
 import { useTranslation } from "react-i18next";
 import { ReactElement } from "react";
+import wallet from "@/types/balance";
 
 /**
  * Balance card props
@@ -27,18 +28,10 @@ interface BalanceListProps {
 export default function BalanceList({
   value = 0,
 }: BalanceListProps): ReactElement {
-  // TODO , to remove any when the stypes for state are available, i suppose after postman file arrives
+  // TODO; to remove any when the types for state are available, i suppose after postman file arrives
   const wallets: wallet[] = useSelector(
     (state: any) => state.user.wallets.list
   );
-
-  interface wallet {
-    token: string;
-    title: string;
-    address: string;
-    balance: number;
-    id?: number;
-  }
 
   const { t } = useTranslation();
 
