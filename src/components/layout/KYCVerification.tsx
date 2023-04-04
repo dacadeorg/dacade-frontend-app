@@ -1,6 +1,6 @@
 import Modal from "@/components/ui/Modal";
 import { useTranslation } from "next-i18next";
-import ArrowButton from "../ui/button/Arrow";
+import ArrowButton from "@/components/ui/button/Arrow";
 
 interface KYCVerificationProps {
   onCompleted: () => void;
