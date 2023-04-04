@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Section from "@/components/ui/Section";
 import CommunityCard from "@/components/cards/community";
@@ -6,11 +6,11 @@ import PartneringCard from "@/components/cards/Partnering";
 import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
 
-const CommunitiesSection = ({
+export default function CommunitiesSection({
   communities,
 }: {
   communities: Community[];
-}) => {
+}): ReactElement {
   const { t } = useTranslation();
   useEffect(() => {
     console.log(communities);
@@ -38,6 +38,4 @@ const CommunitiesSection = ({
       </div>
     </Section>
   );
-};
-
-export default CommunitiesSection;
+}
