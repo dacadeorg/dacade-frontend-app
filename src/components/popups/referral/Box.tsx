@@ -42,7 +42,7 @@ export default function Box({
    * @async
    * @returns {Promise<void>}
    */
-  const copyToClipboard = async () => {
+  const copyToClipboard = async (): Promise<void> => {
     if (!navigator.clipboard) return;
 
     try {

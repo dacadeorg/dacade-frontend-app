@@ -18,6 +18,7 @@ export interface Community {
   metadata: Omit<Metadata, "bestSubmissions">;
   timestamp: number;
   rewards: Reward[];
+  reward: Reward;
   courses: number;
 }
 
