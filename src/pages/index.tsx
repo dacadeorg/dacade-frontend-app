@@ -29,7 +29,10 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex items-center justify-center h-screen text-6xl font-bold text-white bg-blue-500-">
+      <main
+        className="flex items-center justify-center h-screen- 
+       font-bold text-white bg-blue-500-"
+      >
         <CommunitiesSection communities={communities} />
       </main>
     </>
@@ -37,24 +40,27 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
 };
 
 export const getStaticProps: GetServerSideProps =
-  wrapper.getServerSideProps((store) => async ({ locale }) => {
-    // const i18 = await i18Translate(locale as string);
-    const result = await store.dispatch(
-      communitiesApi.endpoints.getCommunities.initiate()
-    );
-    if (result.status !== "fulfilled")
-      return {
-        props: {
-          ...(await serverSideTranslations(locale as string)),
-          communities: [],
-        },
-      };
-    console.log(result.data);
-    return {
-      props: {
-        ...(await serverSideTranslations(locale as string)),
-        communities: result.data,
-      },
-    };
-  });
+  wrapper.getServerSideProps(
+    (store: any) =>
+      async ({ locale }: any) => {
+        // const i18 = await i18Translate(locale as string);
+        const result = await store.dispatch(
+          communitiesApi.endpoints.getCommunities.initiate()
+        );
+        if (result.status !== "fulfilled")
+          return {
+            props: {
+              ...(await serverSideTranslations(locale as string)),
+              communities: [],
+            },
+          };
+        console.log(result.data);
+        return {
+          props: {
+            ...(await serverSideTranslations(locale as string)),
+            communities: result.data,
+          },
+        };
+      }
+  );
 export default Home;
