@@ -1,4 +1,3 @@
-import React from "react";
 import Modal from "@/components/ui/Modal";
 import { useTranslation } from "next-i18next";
 import ArrowButton from "../ui/button/Arrow";
