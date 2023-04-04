@@ -26,7 +26,7 @@ interface ButtonProps {
   variant?: string;
   padding?: boolean | string;
   margin?: string;
-  customStyle?: object | null;
+  customStyle?: CSSProperties | null;
   link?: string;
   target?: string;
   className?: string;
