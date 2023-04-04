@@ -10,8 +10,8 @@
     "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,tsx,js,jsx}' --write"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.3",
     "@coingecko/cryptoformat": "^0.5.4",
+    "@reduxjs/toolkit": "^1.9.3",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/node": "18.15.3",
     "@types/react": "18.0.28",
@@ -22,6 +22,7 @@
     "dompurify": "^3.0.1",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
+    "firebase": "^9.19.1",
     "github-slugger": "^2.0.0",
     "i18next": "^22.4.13",
     "lowlight": "^1.2.0",

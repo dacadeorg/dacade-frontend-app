@@ -1,33 +1,49 @@
 import { useSelector, useDispatch } from "react-redux";
 import { IRootState } from "@/store";
-// import { toggleShowReferralPopup } from "@/store/ui";
+import { setShowReferralPopup } from "@/store/feature/ui.slice";
 import List from "./List";
 import Box from "./Box";
 import Crossmark from "@/icons/crossmark-2.svg";
 import Modal from "@/components/ui/Modal";
 import { useTranslation } from "next-i18next";
+import { ReactElement } from "react";
 
-const ReferralPopup = (): JSX.Element => {
+/**
+ * Referreal popup component
+ * @date 4/4/2023 - 3:31:08 PM
+ *
+ * @export
+ * @returns {ReactElement}
+ */
+
+export default function ReferralPopup(): ReactElement {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  //   const user = useSelector((state: IRootState) => state.user.get);
+
+  // Get user data and show referral popup status from the redux store
+  const user = useSelector((state: IRootState) => state.user.data);
+
+  // Get the referral visibility status from the redux store
   const showReferral = useSelector(
     (state: IRootState) => state.ui.showReferralPopup
   );
-  const referrals = useSelector(
-    (state: IRootState) => state.referrals.list
-  );
 
+  // Construct referral link using the user's display name
   const referralLink = `${window.location.origin}
     /signup?invite=${user?.displayName}`;
+
   const referralCode = user?.displayName;
   const username = user?.displayName;
 
-  //   const close = () => {
-  //     if (showReferral) {
-  //       dispatch(toggleShowReferralPopup(false));
-  //     }
-  //   };
+  /**
+   * Handles the close button click event.
+   * @returns {void}
+   */
+  const close = (): void => {
+    if (showReferral) {
+      dispatch(setShowReferralPopup(false));
+    }
+  };
 
   return (
     <>
@@ -41,7 +57,8 @@ const ReferralPopup = (): JSX.Element => {
               <Crossmark className="text-xl text-gray-600 w-6" />
             </button>
             <h1 className="text-xl md:text-3xl mr-3 mb-3 text-left">
-              {t("modal.referral.title")} {t("app.name")}
+              {t("modal.referral.title")}
+              {t("app.name")}
             </h1>
             <div className="text-base md:text-lg text-left font-normal text-gray-700 mb-8">
               <p className="mb-3 leading-normal">
@@ -75,6 +92,4 @@ const ReferralPopup = (): JSX.Element => {
       )}
     </>
   );
-};
-
-export default ReferralPopup;
+}
