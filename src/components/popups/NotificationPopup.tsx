@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import Badge from "@/components/ui/Badge";
+
+// TODO; will be uncommented when  notification list is ready
 // import NotificationList from "@/components/list/Notification";
+
 import Button from "@/components/ui/button";
 import BellIcon from "@/icons/notification-bell.svg";
 
@@ -34,7 +37,8 @@ export default function NotificationPopup({
   buttonStyles,
   badgeStyles,
 }: NotificationPopupProps) {
-  const [show, setShow] = useState(false);
+  const [isNotificationVisible, setIsNotificationVisible] =
+    useState(false);
 
   // TODO: will be uncommented when the redux store is ready
   //   const unread = useSelector(
@@ -49,17 +53,17 @@ export default function NotificationPopup({
   }, []);
 
   const toggle = () => {
-    setShow(!show);
-    if (unread && show) {
+    setIsNotificationVisible(!isNotificationVisible);
+    if (unread && isNotificationVisible) {
       //   dispatch("user/notifications/read");
     }
-    // dispatch("ui/toggleBodyScrolling", show);
+    // dispatch("ui/toggleBodyScrolling", isNotificationVisible);
   };
 
   const externalClick = () => {
-    if (!show) return;
-    setShow(false);
-    // dispatch("ui/toggleBodyScrolling", show);
+    if (!isNotificationVisible) return;
+    setIsNotificationVisible(false);
+    // dispatch("ui/toggleBodyScrolling", isNotificationVisible);
   };
 
   return (
@@ -67,10 +71,12 @@ export default function NotificationPopup({
       <span onClick={externalClick}>
         <li
           className={`inline-block align-middle mr-2 relative text-gray-500 ${
-            show ? "z-50" : "z-10"
+            isNotificationVisible ? "z-50" : "z-10"
           }`}
           style={{ width: "calc(100vw - 40px)", maxWidth: "340px" }}
-          onClick={() => setShow(!show)}
+          onClick={() =>
+            setIsNotificationVisible(!isNotificationVisible)
+          }
         >
           <Button
             type="button"
@@ -88,7 +94,7 @@ export default function NotificationPopup({
             )}
           </Button>
         </li>
-        {show && (
+        {isNotificationVisible && (
           <div
             style={{
               width: "340px",
@@ -101,7 +107,7 @@ export default function NotificationPopup({
           </div>
         )}
       </span>
-      {show && (
+      {isNotificationVisible && (
         <div className="opacity-25 fixed inset-0 z-30 bg-black" />
       )}
     </div>

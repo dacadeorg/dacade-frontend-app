@@ -1,9 +1,4 @@
-import React, {
-  ReactElement,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { ReactElement, useMemo, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
 import ArrowDown from "@/assets/arrow-down.svg";
 import DropdownPopup from "@/components/ui/DropdownPopup";
@@ -44,20 +39,19 @@ export default function LanguageSwitcher({
 
   const toggle = () => {
     setshow((prev) => !prev);
-    //TODO: dispatch toggleBodyScrolling
+    //TODO;  will be added when redux is added to the project
     // dispatch("ui/toggleBodyScrolling", show);
   };
 
   const toggleInvite = () => {
-    close();
-    //TODO: dispatch toggleInvite
+    //TODO; will be added when redux is added to the project
     // store.dispatch("ui/toggleShowReferralPopup", true);
   };
 
   const externalClick = () => {
     if (show) {
       setshow(false);
-      //TODO: dispatch toggleBodyScrolling
+      //TODO; will be added when redux is added to the project
       // dispatch("ui/toggleBodyScrolling", show);
     }
   };
@@ -82,13 +76,13 @@ export default function LanguageSwitcher({
           </span>
         </div>
         {show && (
-          <DropdownPopup onClose={toggle}>
-            <LanguageList />
-          </DropdownPopup>
-        )}
+          <>
+            <DropdownPopup onClose={toggle}>
+              <LanguageList />
+            </DropdownPopup>
 
-        {show && (
-          <div className="opacity-25 fixed inset-0 z-30 bg-black" />
+            <div className="opacity-25 fixed inset-0 z-30 bg-black" />
+          </>
         )}
       </div>
     </>
