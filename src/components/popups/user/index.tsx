@@ -28,8 +28,9 @@ export default function UserPopup({
 }): ReactElement {
   const [show, setShow] = useState(false);
   const [showReferral, setShowReferral] = useState(false);
-  const mainWallet = useSelector((state) => state.wallets.main);
-  const wallets = useSelector((state) => state.wallets.list);
+  const { main: mainWallet, list: wallets } = useSelector(
+    (state) => state.wallets
+  );
   const reputations = useSelector((state) => state.reputations.list);
   const user = useSelector((state) => state.user.data);
   const dispatch = useDispatch();

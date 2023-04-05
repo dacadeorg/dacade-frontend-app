@@ -1,6 +1,7 @@
 import { useSelector } from "@/hooks/useTypedSelector";
 import ListItem from "./ListItem";
 import { ReactElement } from "react";
+import { useTranslation } from "next-i18next";
 
 /**
  * Referral list component 
@@ -19,13 +20,14 @@ export default function ReferralList({
 }: {
   bounty?: boolean;
 }): ReactElement {
+  const { t } = useTranslation();
   const referrals = useSelector((state) => state.referrals.list);
 
   return (
     <div className="relative">
       <div className="flex justify-between items-center mb-3 text-gray-500">
         <div className="uppercase text-xs font-semibold">
-          modal.referral.list.bounty_title
+          {t("modal.referral.list.bounty_title")}
         </div>
         <div className="text-sm font-normal">
           {bounty

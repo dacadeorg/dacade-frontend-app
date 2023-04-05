@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import BalanceCard from "@/components/cards/Balance";
 import { Wallet } from "@/types/wallet";
