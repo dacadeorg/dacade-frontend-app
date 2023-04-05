@@ -40,7 +40,10 @@ export default function api(): AxiosInstance {
     const token = await getUserToken();
     config.headers["authorization"] = token;
     config.headers["app-name"] = Package.name;
-    config.headers["app-domain"] = window.location.hostname;
+    config.headers["app-domain"] =
+      typeof window !== undefined
+        ? window.location.hostname
+        : "dacade.org";
     config.headers["Accept-Language"] = i18n.defaultLocale;
     return config;
   };
