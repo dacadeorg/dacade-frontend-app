@@ -13,6 +13,7 @@ interface TagProps extends HTMLProps<HTMLDivElement> {
   type?: "transparent" | "gray" | "light-gray" | "warn";
   value?: string;
   children?: React.ReactNode;
+  className?: string;
 }
 
 /**
