@@ -56,7 +56,7 @@ export const { setAuthData, clearAuthData } = authSlice.actions;
 
 // Define the sing up async thunks using Redux Toolkit
 export const singUp = createAsyncThunk(
-  "",
+  "singup",
   async (
     payload: { email: string; password: string },
     { dispatch }
@@ -82,7 +82,7 @@ export const singUp = createAsyncThunk(
 
 // Define the login async thunks using Redux Toolkit
 export const login = createAsyncThunk(
-  "",
+  "login",
   async (
     payload: { email: string; password: string },
     { dispatch }
@@ -111,7 +111,7 @@ export const login = createAsyncThunk(
 
 // Define the login async thunks using Redux Toolkit
 export const passwordResetRequest = createAsyncThunk(
-  "",
+  "passwordReset/request",
   async (payload: { email: string }, { dispatch }) => {
     dispatch(setBusy(true));
     dispatch(clearError());
@@ -134,7 +134,7 @@ export const passwordResetRequest = createAsyncThunk(
 
 // Define the logout async thunks
 export const logout = createAsyncThunk(
-  "",
+  "logout",
   async (_, { dispatch }) => {
     await signOut(firebaseAuth);
     dispatch(clearAuthData());
