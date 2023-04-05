@@ -52,7 +52,7 @@ export const allNotifications = createAsyncThunk(
         list: Notification[];
         unread: number;
       }>("notifications");
-      dispatch(clearNotifications());
+      dispatch(setNotifications({ list: data.list }));
       return { list: data.list, unread: data.unread };
     } catch (error) {
       console.error(error);
