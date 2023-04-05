@@ -32,43 +32,51 @@ interface SidebarProps {
 export default function Sidebar({ burgerColor }: SidebarProps) {
   const { t } = useTranslation();
 
-  // redux store will be used in the future
+  // TODO: Should uncommented when redux is implemented
+  // const user = useSelector((state: RootState) => state.user);
+
+  //TODO: this will be removed when redux is implemented
   const user: any = {};
 
-  // redux store will be used in the future
+  // TODO: Should uncommented when redux is implemented
+  // const isAuthenticated = useSelector((state: RootState) => state.isAuthenticated);
+
+  //TODO: this will be removed when redux is implemented
   const isAuthenticated = false;
 
-  // redux store will be used in the future
   const username = user.username;
 
-  // redux store will be used in the future
+  // TODO: Should uncommented when redux is implemented
+  // const unread = useSelector((state: RootState) => state.notifications.unread);
+
+  //TODO: this will be removed when redux is implemented
   const unread: any = [];
 
   const [show, setshow] = useState(false);
 
   const logout = () => {
-    // this.$store.dispatch('auth/logout')
+    // dispatch('auth/logout');
   };
 
   const toggleInvite = () => {
     setshow(!show);
-    // this.$store.dispatch('ui/toggleShowReferralPopup',false)
+    // dispatch('ui/toggleShowReferralPopup',false)
   };
 
   const externalClick = () => {
     if (!show) return;
 
     setshow(!show);
-    //   this.$store.dispatch('ui/toggleBodyScrolling', this.show)
+    // dispatch('ui/toggleBodyScrolling',false)
   };
 
   const toggle = () => {
     setshow(!show);
 
     if (isAuthenticated && show && unread) {
-      // this.$store.dispatch('user/notifications/read')
+      // dispatch('user/notifications/read')
     }
-    //   this.$store.dispatch('ui/toggleBodyScrolling', this.show)
+    // dispatch('ui/toggleBodyScrolling',show)
     window.scrollTo(0, 0);
   };
   return (
