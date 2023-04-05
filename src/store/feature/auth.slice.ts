@@ -148,10 +148,7 @@ export const resendEmailVerification = async () => {
 };
 
 // Define the verify email
-export const verifyEmail = createAsyncThunk(
-  "verify/email",
-  async (payload: { code: string }) => {
-    const res = await api().post("auth/verify-email", payload);
-    return res;
-  }
-);
+export const verifyEmail = async (payload: { code: string }) => {
+  const res = await api().post("auth/verify-email", payload);
+  return res;
+};
