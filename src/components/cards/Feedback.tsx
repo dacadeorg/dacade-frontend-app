@@ -5,10 +5,10 @@ import RewardBadge from "@/components/badges/RewardBadge";
 import Tag from "@/components/ui/Tag";
 import TranslationBox from "@/components/cards/TranslationBox";
 
-import { useSelector } from "react-redux";
 import { useTranslation } from "next-i18next";
 import classNames from "classnames";
 import { User } from "@/types/bounty";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * Props for the feedback card
@@ -62,8 +62,7 @@ export default function FeedbackCard({
   const { t } = useTranslation();
   const language = value?.metadata?.language || "en";
 
-  // TODO: Remove 'any' when the postman file comes
-  const colors = useSelector((state: any) => state.ui.colors);
+  const colors = useSelector((state) => state.ui.colors);
 
   const primaryButtonStyles = {
     borderColor: colors.textAccent,
