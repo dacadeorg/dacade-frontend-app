@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef, useState } from "react";
+import { ReactElement, useRef, useState } from "react";
 import useOnClickOutside from "use-onclickoutside";
 import Video from "@/components/ui/Video";
 import PlayIcon from "@/icons/play.svg";
