@@ -39,28 +39,31 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
   );
 };
 
-export const getStaticProps: GetServerSideProps =
-  wrapper.getServerSideProps(
-    (store: any) =>
-      async ({ locale }: any) => {
-        // const i18 = await i18Translate(locale as string);
-        const result = await store.dispatch(
-          communitiesApi.endpoints.getCommunities.initiate()
-        );
-        if (result.status !== "fulfilled")
-          return {
-            props: {
-              ...(await serverSideTranslations(locale as string)),
-              communities: [],
-            },
-          };
-        console.log(result.data);
+export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
+  (store: any) =>
+    async ({ locale }: any) => {
+      // const i18 = await i18Translate(locale as string);
+      const result = await store.dispatch(
+        communitiesApi.endpoints.getCommunities.initiate()
+      );
+      if (result.status !== "fulfilled")
         return {
           props: {
             ...(await serverSideTranslations(locale as string)),
-            communities: result.data,
+            communities: [],
           },
         };
-      }
-  );
+      console.log(result.data);
+      const communities = result.data.slice(
+        0,
+        result.data.length - 1
+      );
+      return {
+        props: {
+          ...(await serverSideTranslations(locale as string)),
+          communities,
+        },
+      };
+    }
+);
 export default Home;
