@@ -1,5 +1,4 @@
-import { useSelector } from "react-redux";
-import { IRootState } from "@/store";
+import { useSelector } from "@/hooks/useTypedSelector";
 import ListItem from "./ListItem";
 import { ReactElement } from "react";
 
@@ -20,9 +19,7 @@ export default function ReferralList({
 }: {
   bounty?: boolean;
 }): ReactElement {
-  const referrals = useSelector(
-    (state: IRootState) => state.referrals.list
-  );
+  const referrals = useSelector((state) => state.referrals.list);
 
   return (
     <div className="relative">

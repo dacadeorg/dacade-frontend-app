@@ -1,4 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "@/hooks/useTypedSelector";
 import CloseIcon from "@/icons/close-icon.svg";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";

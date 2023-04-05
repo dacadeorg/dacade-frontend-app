@@ -1,5 +1,5 @@
-import { useSelector, useDispatch } from "react-redux";
-import { IRootState } from "@/store";
+import { useDispatch } from "react-redux";
+import { useSelector } from "@/hooks/useTypedSelector";
 import { setShowReferralPopup } from "@/store/feature/ui.slice";
 import List from "./List";
 import Box from "./Box";
@@ -21,11 +21,11 @@ export default function ReferralPopup(): ReactElement {
   const dispatch = useDispatch();
 
   // Get user data and show referral popup status from the redux store
-  const user = useSelector((state: IRootState) => state.user.data);
+  const user = useSelector((state) => state.user.data);
 
   // Get the referral visibility status from the redux store
   const showReferral = useSelector(
-    (state: IRootState) => state.ui.showReferralPopup
+    (state) => state.ui.showReferralPopup
   );
 
   // Construct referral link using the user's display name

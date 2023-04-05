@@ -1,4 +1,4 @@
-import api from "@/plugins/api";
+import api from "@/config/api";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 /**

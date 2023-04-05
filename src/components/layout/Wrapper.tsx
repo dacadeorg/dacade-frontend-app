@@ -1,7 +1,6 @@
 import { ReactElement, ReactNode } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "@/hooks/useTypedSelector";
 import ReferralPopup from "@/components/popups/referral";
-import { IRootState } from "@/store";
 
 /**
  * LayoutWrapper props interface
@@ -29,7 +28,7 @@ export default function LayoutWrapper({
   children,
 }: LayoutWrapperProps): ReactElement {
   const showReferral = useSelector(
-    (state: IRootState) => state.ui.showReferralPopup
+    (state) => state.ui.showReferralPopup
   );
 
   return (

@@ -4,14 +4,14 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "@/hooks/useTypedSelector";
 import BalanceList from "@/components/list/Balance";
 import ReputationList from "@/components/list/Reputation";
 import LanguageList from "@/components/list/LanguageList";
 import Avatar from "@/components/ui/Avatar";
 import Button from "@/components/ui/button";
 import DropdownPopup from "@/components/ui/DropdownPopup";
-import { IRootState } from "@/store";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { User } from "@/types/bounty";
@@ -45,19 +45,13 @@ const UserProfileDropdown = ({
       process.env.NEXT_PUBLIC_SHOW_LANGUAGE_SELECTOR === "true"
     );
 
-  const wallets = useSelector(
-    (state: IRootState) => state.wallets.list
-  );
+  const wallets = useSelector((state) => state.wallets.list);
 
-  const reputations = useSelector(
-    (state: IRootState) => state.reputations.list
-  );
+  const reputations = useSelector((state) => state.reputations.list);
 
-  const { busy, error } = useSelector(
-    (state: IRootState) => state.store
-  );
+  const { busy, error } = useSelector((state) => state.store);
 
-  const user = useSelector((state: IRootState) => state.user.data);
+  const user = useSelector((state) => state.user.data);
   const username = user?.displayName;
 
   /**

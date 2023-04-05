@@ -1,5 +1,5 @@
-import api from "@/plugins/api";
-import { auth as firebaseAuth } from "@/plugins/firebase";
+import api from "@/config/api";
+import { auth as firebaseAuth } from "@/config/firebase";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { User } from "@/types/bounty";
 

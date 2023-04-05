@@ -1,7 +1,6 @@
 import React, { ReactElement } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "@/hooks/useTypedSelector";
 import BalanceCard from "@/components/cards/Balance";
-import { IRootState } from "@/store";
 import { Wallet } from "@/types/wallet";
 import { useTranslation } from "next-i18next";
 
@@ -14,9 +13,7 @@ import { useTranslation } from "next-i18next";
  */
 export default function BalanceList(): ReactElement {
   const { t } = useTranslation();
-  const wallets = useSelector(
-    (state: IRootState) => state.wallets.list
-  );
+  const wallets = useSelector((state) => state.wallets.list);
 
   return (
     <div className="text-left">

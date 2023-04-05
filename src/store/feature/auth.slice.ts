@@ -8,8 +8,8 @@ import {
   sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
-import { auth as firebaseAuth } from "@/plugins/firebase";
-import api from "@/plugins/api";
+import { auth as firebaseAuth } from "@/config/firebase";
+import api from "@/config/api";
 import {
   clearError,
   setBusy,

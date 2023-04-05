@@ -1,8 +1,7 @@
 import React, { useState, useEffect, ReactElement } from "react";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import { IRootState } from "@/store";
-import { useSelector } from "react-redux";
+import { useSelector } from "@/hooks/useTypedSelector";
 import { setBusy, setError } from "@/store/feature/index.slice";
 
 // TODO: IError interface to be moved to a central store for all interfaces
@@ -28,9 +27,7 @@ interface IError extends Error {
 export default function Notification(): ReactElement {
   const { t } = useTranslation();
 
-  const { error, busy } = useSelector(
-    (state: IRootState) => state.store
-  );
+  const { error, busy } = useSelector((state) => state.store);
 
   const router = useRouter();
 

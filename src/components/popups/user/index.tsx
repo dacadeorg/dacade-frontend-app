@@ -1,12 +1,12 @@
 import { CSSProperties, ReactElement, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "@/hooks/useTypedSelector";
 // TODO: Should be uncommented when the ui.slice is updated.
 // import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 import Dropdown from "./Dropdown";
 import Avatar from "@/components/ui/Avatar";
 import Button from "@/components/ui/button";
 import Currency from "@/components/ui/Currency";
-import { IRootState } from "@/store";
 import { User } from "@/types/bounty";
 
 /**
@@ -28,16 +28,10 @@ export default function UserPopup({
 }): ReactElement {
   const [show, setShow] = useState(false);
   const [showReferral, setShowReferral] = useState(false);
-  const mainWallet = useSelector(
-    (state: IRootState) => state.wallets.main
-  );
-  const wallets = useSelector(
-    (state: IRootState) => state.wallets.list
-  );
-  const reputations = useSelector(
-    (state: IRootState) => state.reputations.list
-  );
-  const user = useSelector((state: IRootState) => state.user.data);
+  const mainWallet = useSelector((state) => state.wallets.main);
+  const wallets = useSelector((state) => state.wallets.list);
+  const reputations = useSelector((state) => state.reputations.list);
+  const user = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
 
   const toggle = () => {

@@ -1,4 +1,4 @@
-import api from "@/plugins/api";
+import api from "@/config/api";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Wallet } from "@/types/wallet";
 

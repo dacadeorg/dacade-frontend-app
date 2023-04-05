@@ -1,7 +1,6 @@
 import { ReactElement } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "@/hooks/useTypedSelector";
 import ReputationCard from "@/components/cards/Reputation";
-import { IRootState } from "@/store";
 import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
 
@@ -12,9 +11,7 @@ import { Community } from "@/types/community";
 
 export default function ReputationList(): ReactElement {
   const { t } = useTranslation();
-  const reputations = useSelector(
-    (state: IRootState) => state.reputations.list
-  );
+  const reputations = useSelector((state) => state.reputations.list);
 
   return (
     <div className="text-left">
