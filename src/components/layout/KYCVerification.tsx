@@ -2,55 +2,70 @@ import Modal from "@/components/ui/Modal";
 import { useTranslation } from "next-i18next";
 import ArrowButton from "@/components/ui/button/Arrow";
 
+/**
+ * KYCVerification Props Interface
+ * @date 4/5/2023 - 2:32:45 PM
+ *
+ * @interface KYCVerificationProps
+ * @typedef {KYCVerificationProps}
+ */
 interface KYCVerificationProps {
   onCompleted: () => void;
 }
 
+/**
+ * KYCVerification Component
+ * @date 4/5/2023 - 2:32:29 PM
+ *
+ * @export
+ * @param {KYCVerificationProps} {
+  onCompleted,
+}
+ * @returns {*}
+ */
 export default function KYCVerification({
   onCompleted,
 }: KYCVerificationProps) {
   const { t } = useTranslation();
 
-  //This will be fetched for the store
+  // TODO: This will be fetched from the store once the store is ready
+  // const {
+  //   showModal,
+  //   completed,
+  //   completedText,
+  //   reasonText,
+  //   verifying,
+  //   completedActionText,
+  //   actionText,
+  //   loading,
+  //   title,
+  // } = useSelector((state: any) => state.kyc);
+
+  // TODO: Remove this once the store is ready
   const showModal = false;
-
-  //This will be fetched for the store
   const completed = false;
-
-  //This will be fetched for the store
   const completedText = "";
-
-  //This will be fetched for the store
   const reasonText = "";
-
-  //This will be fetched for the store
   const completedActionText = "";
-
-  //This will be fetched for the store
   const actionText = "";
-
-  //This will be fetched for the store
   const loading = false;
-
-  //This will be fetched for the store
   const title = "";
-
-  //This will be fetched for the store
   const verifying = false;
 
   const closeModal = () => {
-    // this.$store.dispatch("kyc/closeVerificationModal");
+    // dispatch("kyc/closeVerificationModal");
   };
   const verify = () => {
     if (completed) return handleCompleted();
-    // this.$store.dispatch("kyc/launchWebSdk");
+    // dispatch("kyc/launchWebSdk");
   };
 
   const handleCompleted = () => {
     closeModal();
     onCompleted();
-    //   this.$store.dispatch('kyc/triggerCompleteAction')
+    // dispatch("kyc/triggerCompleteAction");
   };
+
   return (
     <Modal show={showModal} onClose={closeModal}>
       <div className="px-6 py-6">
