@@ -53,16 +53,19 @@ export default function KYCVerification({
   const verifying = false;
 
   const closeModal = () => {
+    // TODO: This will be dispatched to the store once the store is ready
     // dispatch("kyc/closeVerificationModal");
   };
   const verify = () => {
     if (completed) return handleCompleted();
+    // TODO: This will be dispatched to the store once the store is ready
     // dispatch("kyc/launchWebSdk");
   };
 
   const handleCompleted = () => {
     closeModal();
     onCompleted();
+    // TODO: This will be dispatched to the store once the store is ready
     // dispatch("kyc/triggerCompleteAction");
   };
 
