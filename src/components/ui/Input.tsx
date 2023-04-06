@@ -1,4 +1,11 @@
-import { ChangeEvent, ReactElement, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  HTMLProps,
+  ReactElement,
+  forwardRef,
+  useMemo,
+  useState,
+} from "react";
 import classNames from "classnames";
 
 /**
@@ -8,7 +15,8 @@ import classNames from "classnames";
  * @interface Props
  * @typedef {Props}
  */
-interface InputProps {
+interface InputProps
+  extends Omit<HTMLProps<HTMLInputElement>, "onInput"> {
   type?: string;
   value?: string | number;
   label?: string;
@@ -38,29 +46,34 @@ interface InputProps {
 }
  * @returns {ReactElement}
  */
-export default function Input({
-  type = "text",
-  value = "",
-  label,
-  disabled = false,
-  placeholder = null!,
-  error,
-  inputClass,
-  fontSize = "lg",
-  onInput,
-}: InputProps): ReactElement {
+const Input = forwardRef<HTMLInputElement, InputProps>(function (
+  {
+    type = "text",
+    // value = "",
+    label,
+    disabled = false,
+    placeholder = null!,
+    error,
+    inputClass,
+    fontSize = "lg",
+    onInput,
+    ...props
+  },
+  ref
+) {
   const [isFocused, setIsFocused] = useState(false);
-
-  const isFilled = useMemo(
-    () => String(value)?.trim().length > 0,
-    [value]
-  );
+  const [value, setValue] = useState("");
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
     if (onInput) {
       onInput(event.target.value);
     }
   };
+
+  const isFilled = useMemo(
+    () => String(value)?.trim().length > 0,
+    [value]
+  );
 
   const fontSizeClasses = () => {
     switch (fontSize) {
@@ -82,11 +95,11 @@ export default function Input({
   const labelClasssName = classNames(
     "absolute top-0 left-0 text-lg px-5 py-5 z-10 h-full pointer-events-none transform origin-left transition-all duration-100 ease-in-out items-center",
     {
-      'text-gray-400 flex items-center': !isFilled && !isFocused,
-      'text-gray-400 scale-75 -translate-y-3 translate-x-1':
+      "text-gray-400 flex items-center": !isFilled && !isFocused,
+      "text-gray-400 scale-75 -translate-y-3 translate-x-1":
         isFocused || isFilled,
-      'text-red-600': error,
-      'text-blue-500': isFocused && !error,
+      "text-red-600": error,
+      "text-blue-500": isFocused && !error,
     }
   );
 
@@ -109,6 +122,8 @@ export default function Input({
       <div className={inputComponentClassName}>
         {label && <label className={labelClasssName}>{label}</label>}
         <input
+          {...props}
+          ref={ref}
           className={inputElementClassName}
           value={value}
           type={type}
@@ -116,8 +131,7 @@ export default function Input({
           autoComplete="off"
           disabled={disabled}
           onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          onInput={handleInput}
+          onChange={(e) => setValue(e.target.value)}
         />
       </div>
       {error && (
@@ -127,4 +141,7 @@ export default function Input({
       )}
     </div>
   );
-}
+});
+
+Input.displayName = "Input";
+export default Input;

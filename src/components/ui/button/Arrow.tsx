@@ -64,7 +64,7 @@ export default function ArrowButton({
   direction = "right",
   minWidthClass = "min-w-44",
   communityStyles,
-  arrowClasses = ""
+  arrowClasses = "",
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
@@ -88,7 +88,9 @@ export default function ArrowButton({
     }
   );
 
-  const inputListeners = () => {};
+  const inputListeners = () => {
+    console.log("submit");
+  };
 
   return (
     <Button
