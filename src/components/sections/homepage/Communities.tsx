@@ -12,9 +12,6 @@ export default function CommunitiesSection({
   communities: Community[];
 }): ReactElement {
   const { t } = useTranslation();
-  useEffect(() => {
-    console.log(communities);
-  }, []);
 
   return (
     <Section padding="pt-20 lg:pb-24 md:pb-24">

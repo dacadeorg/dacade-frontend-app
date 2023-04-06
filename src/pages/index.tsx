@@ -12,9 +12,7 @@ import { useEffect, useLayoutEffect } from "react";
 const Home = (props: { pageProps: { communities: Community[] } }) => {
   const { t } = useTranslation();
   const { communities } = props.pageProps;
-  useEffect(() => {
-    console.log(communities);
-  }, []);
+
   return (
     <>
       <Head>

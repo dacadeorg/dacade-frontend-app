@@ -52,7 +52,7 @@ export default function Referral({
   const { locale } = useRouter();
   const joinedAt = useMemo(
     () => DateManager.fromNow(referral.user.created_at, locale),
-    []
+    [locale, referral.user.created_at]
   );
 
   const participatedAt = useMemo(
