@@ -33,7 +33,6 @@ interface Community {
   colors: Colors;
 }
 
-
 /**
  * Interface for CommunityListCardIcon component props
  * @date 3/30/2023 - 3:49:38 PM
@@ -75,8 +74,9 @@ export default function CommunityListCardIcon({
           </div>
           <div className="flex md:flex-row lg:flex-col justify-start flex-col max-w-xs -mt-4 md:-mt-7 md:max-w-lg items-start">
             <div className="text-sm">
+              <strong>{submissions}</strong> 
               <span>
-                <strong>{submissions}</strong> submissions
+                submission{submissions > 1 && "s"}
               </span>
             </div>
           </div>

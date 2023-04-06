@@ -11,6 +11,7 @@ import Head from "next/head";
 
 /**
  * Represents the Communities page.
+ * TODO: This page will be wrapped with homepage wrapper.
  * @date 4/6/2023 - 11:55:48 AM
  *
  * @export
@@ -38,7 +39,7 @@ export default function CommunitiesPage(){
         </h1>
         <div className="row w-full">
           {communities?.map((community,index) => (
-            <div key={`generated-key-${index}`} className="flex pb-4">
+            <div key={`generated-key-${index}`} className="flex pb-4 min-w-full flex-grow">
               <CommunityListCard community={community} />
             </div>
           ))}
