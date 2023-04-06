@@ -9,33 +9,6 @@ import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
 
 /**
- * Reward interface
- * @date 3/30/2023 - 3:47:06 PM
- *
- * @interface Rewards
- * @typedef {Rewards}
- */
-interface Rewards {
-  type: string;
-  token: string;
-  amount: number;
-}
-
-/**
- * Colors interface
- * @date 3/30/2023 - 3:47:20 PM
- *
- * @interface Colors
- * @typedef {Colors}
- */
-interface Colors {
-  textAccent: string;
-  text: string;
-  accent: string;
-  primary: string;
-}
-
-/**
  * Interface for CommunityListCard component props
  * @date 3/30/2023 - 3:47:38 PM
  *
@@ -43,9 +16,7 @@ interface Colors {
  * @typedef {CommunityListCardProps}
  */
 interface CommunityListCardProps {
-  community: Pick<Community, "name" | "colors" | "summary" | "courses" | "rewards" | "slug" | "description" | "icon"> & {
-    duration: number
-  };
+  community: Community;
 }
 
 /**
@@ -58,9 +29,9 @@ interface CommunityListCardProps {
 }
  * @returns {ReactElement}
  */
-export default function CommunityListCard ({
+export default function CommunityListCard({
   community,
-}: CommunityListCardProps): ReactElement  {
+}: CommunityListCardProps): ReactElement {
   const { t } = useTranslation();
   const path = `/communities/${community.slug}`;
 
@@ -96,7 +67,7 @@ export default function CommunityListCard ({
                       <Coin token={reward?.token} size="normal" />
                       <div className="flex flex-col text-sm leading-tight pt-1">
                         <div className="font-normal leading-tight">
-                          {t('communities.list-card.earn')}
+                          {t("communities.list-card.earn")}{" "}
                           <span className="font-bold">
                             {reward?.token}
                           </span>
@@ -105,9 +76,9 @@ export default function CommunityListCard ({
                           {t(
                             community.courses !== 1
                               ? "communities.card.courses"
-                              : "communities.card.course"
+                              : "communities.card.course",
+                            { count: community.courses }
                           )}
-                          count: {community.courses}
                         </div>
                       </div>
                     </div>
@@ -116,15 +87,15 @@ export default function CommunityListCard ({
                 <div className="mt-7 hidden md:block align-middle">
                   <Link href={path}>
                     <ArrowButton
-                      arrowClasses="group-hover:bg-primary bg-gray-200 border text-primary group-hover:text-white border-primary"
+                      rounded={false}
+                      arrowClasses="group-hover:bg-primary bg-gray-200 text-primary group-hover:text-white"
                       variant="outline-primary"
                       loading={false}
                       disabled={false}
-                      minWidthClass=""
                       communityStyles={false}
-                      direction="left"
+                      direction="right"
                     >
-                      {t('page.index.main.button')}
+                      {t("page.index.main.button")}
                     </ArrowButton>
                   </Link>
                 </div>
@@ -135,5 +106,4 @@ export default function CommunityListCard ({
       </Link>
     </ThemeWrapper>
   );
-};
-
+}

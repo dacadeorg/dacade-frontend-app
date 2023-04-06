@@ -65,7 +65,7 @@ export default function CommunityListCardIcon({
             </div>
             <div className="self-end w-auto sm:h-full md:h-auto">
               <Image
-                src={community.icon}
+                src={`/static${community.icon}`}
                 className="relative h-44 w-44 mb-5"
                 alt="Community icon"
                 width={176}

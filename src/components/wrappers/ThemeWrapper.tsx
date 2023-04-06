@@ -64,5 +64,5 @@ export default function ThemeWrapper({
     };
   }, [colors]);
 
-  return <div style={cssVars}>{children}</div>;
+  return <div style={{...cssVars}}>{children}</div>;
 }
