@@ -3,8 +3,7 @@ import DateManager, {
 } from "@/utilities/DateManager";
 import Badge from "@/components/ui/Badge";
 import Avatar from "@/components/ui/Avatar";
-// TODO: should be uncommented when Reward badge component is migrated
-// import Reward from "@/components/badges/Reward";
+import Reward from "@/components/badges/RewardBadge";
 import Link from "next/link";
 import navigation from "@/plugins/navigation";
 import { Bounty, RewardType } from "@/types/bounty";
@@ -92,10 +91,7 @@ export default function Bounty({
             {type()}
           </div>
           <div>
-            {/**
-             * TODO: Should be uncommented when the Rewart badge component is implemented
-             */}
-            {/* <Reward type="gray" reward={bounty.reward}></Reward> */}
+            <Reward type="gray" reward={bounty.reward}></Reward>
           </div>
         </Component>
         {bounty.submissions && bounty.submissions.length && (

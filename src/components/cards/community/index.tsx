@@ -57,7 +57,7 @@ export default function CommunityCard({
               </div>
               <div className="self-end max-w-lg sm:h-full sm:-mb-0 md:mb-2 md:h-auto">
                 <Image
-                  src={"/static/" + community.icon}
+                  src={`/static/${community.icon}`}
                   className="relative mb-5 h-44 w-44"
                   alt=""
                   width={56}
