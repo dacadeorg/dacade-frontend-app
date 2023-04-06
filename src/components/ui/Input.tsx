@@ -1,11 +1,4 @@
-import {
-  ChangeEvent,
-  HTMLProps,
-  ReactElement,
-  forwardRef,
-  useMemo,
-  useState,
-} from "react";
+import { HTMLProps, forwardRef, useMemo, useState } from "react";
 import classNames from "classnames";
 
 /**
@@ -18,7 +11,6 @@ import classNames from "classnames";
 interface InputProps
   extends Omit<HTMLProps<HTMLInputElement>, "onInput"> {
   type?: string;
-  value?: string | number;
   label?: string;
   disabled?: boolean;
   placeholder?: string;
@@ -35,7 +27,6 @@ interface InputProps
  * @export
  * @param {InputProps} {
   type = "text",
-  value = "",
   label,
   disabled = false,
   placeholder = null!,
@@ -49,7 +40,6 @@ interface InputProps
 const Input = forwardRef<HTMLInputElement, InputProps>(function (
   {
     type = "text",
-    // value = "",
     label,
     disabled = false,
     placeholder = null!,
@@ -64,16 +54,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (
   const [isFocused, setIsFocused] = useState(false);
   const [value, setValue] = useState("");
 
-  const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
-    if (onInput) {
-      onInput(event.target.value);
-    }
-  };
-
-  const isFilled = useMemo(
-    () => String(value)?.trim().length > 0,
-    [value]
-  );
+  const isFilled = useMemo(() => value.trim().length > 0, [value]);
 
   const fontSizeClasses = () => {
     switch (fontSize) {
@@ -96,15 +77,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (
     "absolute top-0 left-0 text-lg px-5 py-5 z-10 h-full pointer-events-none transform origin-left transition-all duration-100 ease-in-out items-center",
     {
       "text-gray-400 flex items-center": !isFilled && !isFocused,
-      "text-gray-400 scale-75 -translate-y-3 translate-x-1":
-        isFocused || isFilled,
+      "scale-75 -translate-y-3 translate-x-1": isFocused || isFilled,
       "text-red-600": error,
+      "text-gray-400": !isFocused && isFilled,
       "text-blue-500": isFocused && !error,
     }
   );
 
   const inputComponentClassName = classNames("relative dac-input", {
-    "floating-input": label || isFilled || isFocused,
+    "floating-input": label,
   });
 
   const inputElementClassName = classNames(
@@ -132,6 +113,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (
           disabled={disabled}
           onFocus={() => setIsFocused(true)}
           onChange={(e) => setValue(e.target.value)}
+          onBlurCapture={() => setIsFocused(false)}
         />
       </div>
       {error && (

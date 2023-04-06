@@ -131,7 +131,7 @@ export default function Button({
    */
 
   const componentClassName: string = classNames(
-    `btn outline-none focus:outline-none hover:outline-none cursor-pointer relative disabled:border-opacity-60 disabled:cursor-not-allowed ${className}`,
+    `btn outline-none focus:outline-none hover:outline-none cursor-pointer relative disabled:border-opacity-60 disabled:cursor-not-allowed ${className} `,
     {
       "disabled:bg-gray-100 disabled:text-gray-400":
         variant === "primary" || variant === "secondary",

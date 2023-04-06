@@ -46,7 +46,6 @@ export default function Login(): ReactElement {
   const emailValue = watch("email");
 
   const onSubmit = (form: FormValues) => {
-    console.log(errors.password);
     const loginData = {
       email: form.email,
       password: form.password,
@@ -94,11 +93,11 @@ export default function Login(): ReactElement {
                   type="email"
                   value={emailValue}
                   {...register("email", {
-                    required: "Please enter your email",
+                    required: "This field is required",
                     pattern: {
                       value:
                         /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
-                      message: "The email is not valid",
+                      message: "This must be a valid email address",
                     },
                   })}
                 />
@@ -119,11 +118,10 @@ export default function Login(): ReactElement {
                   value={passwordValue}
                   onInput={(value) => setPasswordValue(value)}
                   {...register("password", {
-                    required: "Please enter your password",
+                    required: "This field is required",
                     minLength: {
                       value: 6,
-                      message:
-                        "The password must be at least 6 characters",
+                      message: "The password is too short",
                     },
                   })}
                 />
