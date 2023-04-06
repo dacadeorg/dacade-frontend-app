@@ -150,6 +150,8 @@
   "communities.overview.scoreboard.description": "En la tabla de resultados, puede ver qué usuarios han acumulado la mejor reputación dando su valioso feedback a sus compañeras.",
   "communities.card.estimated": "Tiempo estimado",
   "communities.card.earn": "Gane recompensas",
+  "communities.card.submissions": "{{count}} Envíos",
+  "communities.card.submission": "{{count}} Envío",
   "communities.card.courses": "en {{count}} Cursos",
   "communities.card.course": "en {{count}} Cursos",
   "communities.list-card.earn": "Gane",
