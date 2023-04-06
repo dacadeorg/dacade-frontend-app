@@ -78,6 +78,4 @@ export const fetchAllCommunities = createAsyncThunk(
     }
   }
 );
-
-
 export default communitiesSlice;
