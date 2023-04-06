@@ -53,7 +53,6 @@ export default function ThemeWrapper({
   colors = {},
   children,
 }: ThemeWrapperProps): ReactElement {
-  console.log(colors);
   const cssVars: CSSVars = useMemo(() => {
     return {
       "--tm-primary": colors.primary,

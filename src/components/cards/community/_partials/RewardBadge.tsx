@@ -43,9 +43,11 @@ export default function RewardBadge({
   return (
     <span className={rewardClassname}>
       {reward.token && <Coin token={reward.token} size="small" />}
-      {reward && (
-        <div className="pl-0 pr-2 font-medium">{reward.token}</div>
-      )}
+
+      <div className="pl-0 pr-2 font-medium">
+        {reward.amount}
+        {reward.token}
+      </div>
     </span>
   );
 }
