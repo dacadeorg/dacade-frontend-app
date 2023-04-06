@@ -1,5 +1,5 @@
 declare module 'highlightjs-solidity' {
-    const definer: () => {
+  export const definer: () => {
       keywords: {
         keyword: string[];
         built_in: string[];
@@ -19,5 +19,4 @@ declare module 'highlightjs-solidity' {
       })[];
     };
   
-    export default definer;
   }
