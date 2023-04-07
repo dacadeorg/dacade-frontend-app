@@ -198,7 +198,7 @@ div {
 }
 
 .list li::before {
-  content: url("../../public/assets/icons/list.svg");
+  content: url("../icons/list.svg");
   margin-left: -52px;
 }
 
@@ -267,4 +267,13 @@ div {
 
 .prose ol li p {
   max-width: 730px;
+}
+
+.contains-ordered-list > ol {
+  list-style-type: decimal;
+  padding: 0.625rem 2rem;
+}
+
+.contains-ordered-list > li {
+  padding: 0.125rem 0;
 }

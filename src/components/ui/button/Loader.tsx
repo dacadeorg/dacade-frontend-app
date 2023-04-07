@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { ReactElement } from "react";
-import RefreshIcon from "../../../../public/assets/icons/refresh.svg";
+import RefreshIcon from "@/icons/refresh.svg";
 
 /**
  * Interface for Loader component props
