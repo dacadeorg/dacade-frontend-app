@@ -1,5 +1,9 @@
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import path from "path";
+import fs from "fs";
 
 /**
  * Terms and Conditions page props
@@ -36,16 +40,20 @@ export default function TermsConditions({
   );
 }
 
-// create a getstaticprops function to fetch the data from the markdown file
-export async function getStaticProps() {
-  const res = await fetch(
-    "http://localhost:3000/content/legal/terms.md"
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const markdownFilePath = path.join(
+    process.cwd(),
+    "src/content/legal/terms.md"
   );
-  const terms = await res.text();
+  const markdownFileContents = fs.readFileSync(
+    markdownFilePath,
+    "utf8"
+  );
 
   return {
     props: {
-      terms,
+      terms: markdownFileContents,
+      ...(await serverSideTranslations(locale || "en")),
     },
   };
-}
+};
