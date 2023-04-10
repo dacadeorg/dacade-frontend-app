@@ -6,6 +6,19 @@ import PartneringCard from "@/components/cards/Partnering";
 import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
 
+/**
+ *  Communities section component props
+ * @date 4/10/2023 - 7:31:44 AM
+ *
+ * @export
+ * @param {{
+  communities: Community[];
+}} {
+  communities,
+}
+ * @returns {ReactElement}
+ */
+
 export default function CommunitiesSection({
   communities,
 }: {
