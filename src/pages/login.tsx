@@ -84,12 +84,12 @@ export default function Login(): ReactElement {
             <div className="mb-5 relative">
               <div>
                 <Input
-                  // In backticks `` because placeholder requires a string.
-                  // Same for label
+                  /* In backticks `` because placeholder requires a string.
+                   * Same for label
+                   */
                   placeholder={`${t("login-page.email.placeholder")}`}
                   label={`${t("login-page.email.label")}`}
                   error={errors.email?.message}
-                  id="input-1"
                   type="email"
                   value={emailValue}
                   {...register("email", {
@@ -106,14 +106,14 @@ export default function Login(): ReactElement {
             <div>
               <div>
                 <Input
-                  // In backticks `` because placeholder requires a string.
-                  // Same for label
+                  /* In backticks `` because placeholder requires a string.
+                   * Same for label
+                   */
                   placeholder={`${t(
                     "login-page.password.placeholder"
                   )}`}
                   label={`${t("login-page.password.label")}`}
                   error={errors.password?.message}
-                  id="text-password"
                   type="password"
                   value={passwordValue}
                   onInput={(value) => setPasswordValue(value)}
