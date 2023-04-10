@@ -51,8 +51,8 @@ interface ArrowButtonProps {
  * @returns {ReactElement}
  */
 export default function ArrowButton({
-  loading,
-  disabled,
+  loading = false,
+  disabled = false,
   rounded = true,
   type = "submit",
   variant = "primary",
@@ -64,7 +64,7 @@ export default function ArrowButton({
   direction = "right",
   minWidthClass = "min-w-44",
   communityStyles,
-  arrowClasses = ""
+  arrowClasses = "",
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
@@ -104,9 +104,12 @@ export default function ArrowButton({
       type={type}
       communityStyles={communityStyles}
       onClick={inputListeners}
-      className={classNames(`group-hover:bg-primary group-hover:text-white ${minWidthClass}`, {
-        "py-2 pl-5 pr-3.5": padding,
-      })}
+      className={classNames(
+        `group-hover:bg-primary group-hover:text-white ${minWidthClass}`,
+        {
+          "py-2 pl-5 pr-3.5": padding,
+        }
+      )}
     >
       <span className="flex items-center justify-between h-full text-left">
         {isLeft && (
@@ -150,4 +153,3 @@ export default function ArrowButton({
     </Button>
   );
 }
-

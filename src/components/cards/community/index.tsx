@@ -57,9 +57,11 @@ export default function CommunityCard({
               </div>
               <div className="self-end max-w-lg sm:h-full sm:-mb-0 md:mb-2 md:h-auto">
                 <Image
-                  src={community.icon}
+                  src={`/static/${community.icon}`}
                   className="relative mb-5 h-44 w-44"
                   alt=""
+                  width={56}
+                  height={56}
                 />
               </div>
             </div>
@@ -81,15 +83,17 @@ export default function CommunityCard({
                   community.courses !== 1
                     ? "communities.card.courses"
                     : "communities.card.course",
-                  {
-                    count: community.courses,
-                  }
+                  { count: community.courses }
                 )}
               </div>
             </div>
             <div className="mt-4 align-middle">
               <Link href={path}>
-                <ArrowButton arrowClasses="border group-hover:bg-theme-accent bg-theme-primary text-theme-accent group-hover:text-theme-primary border-theme-accent">
+                <ArrowButton
+                  variant="outline-gray"
+                  loading={false}
+                  arrowClasses="border group-hover:bg-theme-accent bg-theme-primary text-theme-accent group-hover:text-theme-primary border-theme-accent"
+                >
                   {t("page.index.main.button")}
                 </ArrowButton>
               </Link>

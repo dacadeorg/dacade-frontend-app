@@ -148,10 +148,15 @@
   "communities.overview.scoreboard.description": "On the scoreboard, you can see which users have accumulated the most reputation by giving valuable feedback to their peers.",
   "communities.card.estimated": "Estimated Time",
   "communities.card.earn": "Earn rewards",
+<<<<<<< HEAD
   "communities.card.submissions": "{{count}} Изявления",
   "communities.card.submission": "{{count}} Подчинение",
   "communities.card.courses": "in {{count}} Courses",
   "communities.card.course": "in {{count}} Course",
+=======
+  "communities.card.courses": "in {{count}}  Courses",
+  "communities.card.course": "in {{count}}  Course",
+>>>>>>> origin/ft/migrate-section-communities
   "communities.list-card.earn": "Earn",
   "course.challenge.button": "Start now",
   "course.challenge.level-0": "Beginner",
