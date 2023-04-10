@@ -7,8 +7,7 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("../../src/fonts/Graphik-Medium-Web.woff2")
-    format("truetype");
+  src: url("../fonts/Graphik-Medium-Web.woff2") format("truetype");
 }
 
 @font-face {
@@ -16,8 +15,7 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("../../src/fonts/Graphik-Medium-Web.woff2")
-    format("truetype");
+  src: url("../fonts/Graphik-Medium-Web.woff2") format("truetype");
 }
 
 @font-face {
@@ -25,8 +23,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("../../src/fonts/Graphik-Regular-Web.woff2")
-    format("truetype");
+  src: url("../fonts/Graphik-Regular-Web.woff2") format("truetype");
 }
 
 @font-face {
@@ -34,8 +31,7 @@
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url("../../src/fonts/GraphikRegularItalic.woff2")
-    format("truetype");
+  src: url("../fonts/GraphikRegularItalic.woff2") format("truetype");
 }
 
 .floating-input > input::placeholder {
