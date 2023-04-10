@@ -5,6 +5,8 @@ import Tag from "@/components/ui/Tag";
 import DateManager from "@/utilities/DateManager";
 import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { IRootState } from "@/store";
 
 /**
  * Interface for the user props
@@ -46,9 +48,11 @@ export default function UserCards({
   timestamp,
 }: UserProps): ReactElement {
   const { locale } = useRouter();
-  // TODO: should be uncommented when the redux is implemented
-  //   const colors = useSelector((state) => state.ui.colors);
-  //   const community = useSelector((state) => state.communities.current);
+  // TODO: should replace the state type when the redux is implemented
+  const colors = useSelector((state: any) => state.ui.colors);
+  const community = useSelector(
+    (state: any) => state.communities.current
+  );
   const [humanizedDate, setHumanizedDate] = useState("");
   const [date, setDate] = useState("");
   const [profileURL, setProfileURL] = useState("");
@@ -81,8 +85,7 @@ export default function UserCards({
             customStyle={{
               bottom: "-1px",
               right: "-3px",
-              // TODO: Comment will be removed when redux will be implemented
-              //   backgroundColor: colors.textAccent,
+              backgroundColor: colors.textAccent,
             }}
           />
         )}
@@ -110,12 +113,9 @@ export default function UserCards({
             <span
               title={date}
               className="font-medium"
-              style={
-                {
-                  // TODO: Comment will be removed when redux will be implemented
-                  // color: colors.textAccent,
-                }
-              }
+              style={{
+                color: colors.textAccent,
+              }}
             >
               {humanizedDate}
             </span>
