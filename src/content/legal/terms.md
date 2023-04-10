@@ -1,9 +1,3 @@
----
-layout: default
-title: Terms of Service
-type: legal
----
-
 ## **Terms and Conditions**
 
 Last updated: June 17, 2021
