@@ -75,7 +75,7 @@ body,
   @apply text-gray-900;
 
   font-family: "Graphik", sans-serif;
-  font-feature-settings: "ss01" 1, "ss02" 1;
+  /* font-feature-settings: "ss01" 1, "ss02" 1; */
 }
 
 body {
