@@ -24,6 +24,7 @@ interface ArrowButtonProps
   link?: string;
   target?: string;
   minWidthClass?: string;
+  className?: string;
   communityStyles?: boolean;
   direction?: "left" | "right" | "up" | "down";
   arrowClasses?: string;
@@ -67,6 +68,7 @@ export default function ArrowButton({
   communityStyles,
   arrowClasses = "",
   onClick,
+  className = "",
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
@@ -104,7 +106,7 @@ export default function ArrowButton({
       type={type}
       communityStyles={communityStyles}
       onClick={onClick}
-      className={classNames(`group ${minWidthClass}`, {
+      className={classNames(`group ${minWidthClass} ${className}`, {
         "py-2 pl-5 pr-3.5": padding,
       })}
     >
@@ -115,11 +117,11 @@ export default function ArrowButton({
           >
             {!loading ? (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} transform`}
+                className={`${directionClass} ${arrowClassNames} text-white transform`}
               />
             ) : (
               <Spinner
-                className={`animate-spin ${arrowClassNames}`}
+                className={`${arrowClassNames} text-white animate-spin`}
               />
             )}
           </span>
@@ -135,13 +137,13 @@ export default function ArrowButton({
 
         {!isLeft && (
           <span className="block">
-            {!loading ? (
-              <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} transform`}
+            {loading ? (
+              <Spinner
+                className={`${arrowClassNames} text-white animate-spin`}
               />
             ) : (
-              <Spinner
-                className={`animate-spin ${arrowClassNames}`}
+              <ArrowRightIcon
+                className={`${directionClass} ${arrowClassNames} text-white transform`}
               />
             )}
           </span>

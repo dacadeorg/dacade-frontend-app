@@ -9,10 +9,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { communitiesApi } from "@/store/feature/communities.slice";
 import { Community } from "@/types/community";
 import CommunitiesSection from "@/components/sections/homepage/Communities";
-import { useEffect, useLayoutEffect } from "react";
-
-// export const getStaticProps: GetStaticProps = async ({ locale }) =>
-//   i18Translate(locale as string);
+import MainSection from "@/components/sections/homepage/Main";
 
 const Home = (props: { pageProps: { communities: Community[] } }) => {
   const { t } = useTranslation();
@@ -33,7 +30,7 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex items-center justify-center h-screen text-6xl font-bold">
-        hello world!
+        <MainSection />
         <CommunitiesSection communities={communities} />
       </main>
     </>
@@ -47,7 +44,7 @@ Home.getLayout = function (page: ReactElement) {
 export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
   (store: any) =>
     async ({ locale }: any) => {
-      // const i18 = await i18Translate(locale as string);
+      await i18Translate(locale as string);
       const result = await store.dispatch(
         communitiesApi.endpoints.getCommunities.initiate()
       );

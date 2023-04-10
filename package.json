@@ -57,6 +57,7 @@
     "@tailwindcss/typography": "^0.5.9",
     "@types/dompurify": "^3.0.0",
     "@types/lowlight": "^0.0.3",
+    "@types/node": "^18.15.11",
     "autoprefixer": "^10.4.14",
     "eslint-config-prettier": "^8.7.0",
     "husky": "^8.0.3",
