@@ -114,6 +114,8 @@ export interface User {
   disabled: boolean;
   reputation: number;
   username: string;
+  emailVerified: boolean;
+  email: string;
   avatar?: string;
   metadata?: UserMetadata;
   discordConnected?: boolean;

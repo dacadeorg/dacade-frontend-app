@@ -24,8 +24,10 @@ export default function DropdownPopup({
   const toggleInvite = () => {
     onClose?.();
   };
+
   return (
     <div
+      onClick={onClose}
       style={{
         width: "calc(100vw - 40px)",
         maxWidth: "340px",

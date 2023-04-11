@@ -1,9 +1,14 @@
 import { ReactElement, useMemo, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
-import ArrowDown from "@/assets/arrow-down.svg";
+import ArrowDown from "@/icons/arrow-down.svg";
 import DropdownPopup from "@/components/ui/DropdownPopup";
 import LanguageList from "@/components/list/LanguageList";
 import useOnClickOutside from "use-onclickoutside";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import {
+  toggleBodyScrolling,
+  toggleShowReferralPopup,
+} from "@/store/feature/ui.slice";
 
 /**
  * Language Switcher Interface
@@ -16,7 +21,7 @@ import useOnClickOutside from "use-onclickoutside";
  * */
 
 interface LanguageSwitcherProps {
-  close: () => void;
+  close?: () => void;
 }
 
 /**
@@ -34,38 +39,35 @@ export default function LanguageSwitcher({
   close,
 }: LanguageSwitcherProps): ReactElement {
   const [show, setshow] = useState(false);
-
   const popupRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch();
+
+  const { i18n } = useTranslation();
+  const currentLocale = useMemo(() => i18n.language, [i18n.language]);
 
   const toggle = () => {
     setshow((prev) => !prev);
-    //TODO;  will be added when redux is added to the project
-    // dispatch("ui/toggleBodyScrolling", show);
+    toggleBodyScrolling(!show)(dispatch);
   };
 
   const toggleInvite = () => {
-    //TODO; will be added when redux is added to the project
-    // store.dispatch("ui/toggleShowReferralPopup", true);
+    toggleShowReferralPopup(true)(dispatch);
   };
 
   const externalClick = () => {
     if (show) {
       setshow(false);
-      //TODO; will be added when redux is added to the project
-      // dispatch("ui/toggleBodyScrolling", show);
+      toggleBodyScrolling(false)(dispatch);
     }
   };
-
   useOnClickOutside(popupRef, externalClick);
 
-  const { i18n } = useTranslation();
-
-  const currentLocale = useMemo(() => i18n.language, []);
   return (
     <>
       <div>
         <div
           ref={popupRef}
+          onClick={toggle}
           className="inline-block opacity-70 hover:opacity-100 text-sm ml-3 cursor-pointer"
         >
           <span className="inline-block uppercase">
@@ -77,7 +79,7 @@ export default function LanguageSwitcher({
         </div>
         {show && (
           <>
-            <DropdownPopup onClose={toggle}>
+            <DropdownPopup onClose={externalClick}>
               <LanguageList />
             </DropdownPopup>
 

@@ -13,6 +13,7 @@ import walletSlice from "./feature/wallet.slice";
 import reputationSlice from "./feature/reputation.slice";
 import indexSlice from "./feature/index.slice";
 import { communitiesApi } from "./feature/communities.slice";
+import authSlice from "./feature/auth.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof community.reducer>;
@@ -24,6 +25,7 @@ export interface IRootState {
   wallets: ReturnType<typeof walletSlice.reducer>;
   reputations: ReturnType<typeof reputationSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
+  auth: ReturnType<typeof authSlice.reducer>;
   communityApi: ReturnType<typeof communitiesApi.reducer>;
 }
 
@@ -38,6 +40,7 @@ const store = configureStore({
     [reputationSlice.name]: reputationSlice.reducer,
     [indexSlice.name]: indexSlice.reducer,
     [community.name]: community.reducer,
+    [authSlice.name]: authSlice.reducer,
     [communitiesApi.reducerPath]: communitiesApi.reducer,
     [referralsApi.reducerPath]: referralsApi.reducer,
   },

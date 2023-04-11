@@ -29,7 +29,7 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex items-center justify-center h-screen text-6xl font-bold">
+      <main>
         <MainSection />
         <CommunitiesSection communities={communities} />
       </main>

@@ -1,15 +1,21 @@
 import React, { useState, useEffect, ReactElement } from "react";
 import hexToRgba from "hex-to-rgba";
-// import { useSelector, useDispatch } from "react-redux";
-// import Logo from "@/components/layout/Logo";
+import Logo from "@/icons/logo.svg";
 // import Sidebar from "@/components/popups/Sidebar";
 import NavItem from "@/components/ui/NavItem";
-// import NotificationPopup from "@/components/popups/Notification";
-// import UserPopup from "@/components/popups/user";
+import NotificationPopup from "@/components/popups/NotificationPopup";
+import UserPopup from "@/components/popups/user";
 import Button from "@/components/ui/button";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-// import LanguageSwitcherPopup from "@/components/popups/LanguageSwitcher.tsx";
+import LanguageSwitcherPopup from "@/components/popups/LanguageSwitcher";
+import { useSelector } from "@/hooks/useTypedSelector";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import {
+  authCheck,
+  authVerify,
+  logout,
+} from "@/store/feature/auth.slice";
 
 interface NavbarProps {
   settings: any;
@@ -22,6 +28,8 @@ export default function Navbar({
 }: NavbarProps): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const containerStyle = {
     backgroundColor: settings.colors.primary,
     color: settings.colors.text,
@@ -30,27 +38,20 @@ export default function Navbar({
     backgroundColor: hexToRgba(settings.colors.text, 0.3),
     color: settings.colors.text,
   };
+
   const badgeStyle = {
     backgroundColor: settings.colors.accent,
     color: settings.colors.primary,
   };
-  const [user, setUser] = useState({});
-  // const user = useSelector((state: any) => state.user.get);
-  const [isAuthenticatedAndVerified, setIsAuthenticatedAndVerified] =
-    useState(true);
 
-  // const isAuthenticatedAndVerified = useSelector(
-  //   (state: any) => state.auth.isVerified
-  // );
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
-  // const isAuthenticated = useSelector(
-  //   (state: any) => state.auth.check
-  // );
-  // const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.data);
+  const isAuthenticatedAndVerified = useSelector((state) =>
+    authVerify(state)
+  );
+  const isAuthenticated = useSelector(authCheck);
 
-  const logOut = () => {
-    console.log("logged out!");
-    // dispatch({ type: "auth/logout" });
+  const onLogOut = () => {
+    dispatch(logout());
   };
 
   const getSectionName = (route: any) => {
@@ -74,7 +75,7 @@ export default function Navbar({
         <ul className="relative">
           <NavItem to="/" type="logo">
             <span className="w-8 h-8 md:w-11 md:h-11">
-              {/* <Logo /> */}
+              <Logo />
             </span>
           </NavItem>
           <NavItem to="/" type="brand">
@@ -92,6 +93,7 @@ export default function Navbar({
           </ul>
         )}
         <ul className="ml-auto text-right relative flex lg:hidden items-center">
+          {/* TODO: waiting the side bar to be implemented */}
           {/* <Sidebar burgerColor={sidebarBurgerColor} /> */}
         </ul>
         {!isAuthenticated && (
@@ -151,17 +153,17 @@ export default function Navbar({
               </div>
             )}
             <div className="inline-block">
-              {/* <LanguageSwitcherPopup /> */}
+              <LanguageSwitcherPopup />
             </div>
           </ul>
         )}
         {isAuthenticated && (
           <ul className="hidden lg:flex ml-auto text-right relative">
-            {/* <NotificationPopup
+            <NotificationPopup
               buttonStyles={buttonStyle}
               badgeStyles={badgeStyle}
-            /> */}
-            {/* <UserPopup buttonStyles={buttonStyle} /> */}
+            />
+            <UserPopup buttonStyles={buttonStyle} />
           </ul>
         )}
       </div>
