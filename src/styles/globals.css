@@ -39,7 +39,7 @@ body,
   @apply text-gray-900;
 
   font-family: "Graphik", sans-serif;
-  font-feature-settings: "ss01" 1, "ss02" 1;
+  /* font-feature-settings: "ss01" 1, "ss02" 1; */
 }
 
 body {
@@ -267,4 +267,13 @@ div {
 
 .prose ol li p {
   max-width: 730px;
+}
+
+.contains-ordered-list > ol {
+  list-style-type: decimal;
+  padding: 0.625rem 2rem;
+}
+
+.contains-ordered-list > li {
+  padding: 0.125rem 0;
 }

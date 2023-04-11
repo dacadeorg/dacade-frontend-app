@@ -1,3 +1,5 @@
+// Those types are temporary
+// TODO: Should be improved with the extact types
 import { Metadata, Reward } from "./course";
 
 export interface Community {
@@ -8,6 +10,7 @@ export interface Community {
   summary: string;
   icon: string;
   name: string;
+  image: string;
   colors: Colors;
   slug: string;
   active: boolean;
@@ -16,6 +19,7 @@ export interface Community {
   timestamp: number;
   rewards: Reward[];
   courses: number;
+  duration:number
 }
 
 export interface Colors {

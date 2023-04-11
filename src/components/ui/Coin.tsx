@@ -1,5 +1,4 @@
 import { ReactElement } from "react";
-import Image from "next/image";
 import DACIcon from "@/icons/tokens/DAC.svg";
 import CUSDIcon from "@/icons/tokens/cUSD.svg";
 import ETHIcon from "@/icons/tokens/ETH.svg";
@@ -21,7 +20,7 @@ interface CoinProps {
   textColor?: string;
   size?: "medium" | "normal" | "small";
   shape?: "rounded" | "squared" | "circle";
-  token: string;
+  token?: string;
   className?: string;
 }
 
@@ -29,7 +28,7 @@ interface CoinProps {
  * Array for coins information
  * @date 3/23/2023 - 11:33:07 AM
  *
- * @type {{}}
+ * @type {[]}
  */
 const coins = [
   {
@@ -101,7 +100,7 @@ export default function Coin({
   const sizeClasses = getSizeClasses(size);
   const shapeClasses = getShapeClasses(shape);
 
-  function getCoin(token: string) {
+  function getCoin(token: string = "") {
     const value = token.toUpperCase();
     return coins.find((coin) => coin.token.toUpperCase() === value);
   }
@@ -132,19 +131,13 @@ export default function Coin({
 
   return (
     <div
-      className={`inline-flex items-center justify-items-center text-white uppercase leading-none md:mr-0 mr-2 ${sizeClasses} ${shapeClasses} ${className}`}
+      className={`relative overflow-hidden inline-flex items-center justify-items-center text-white uppercase leading-none md:mr-0 mr-2 ${sizeClasses} ${shapeClasses} ${className}`}
       style={{
         backgroundColor: bgColor || coin?.bgColor,
         color: textColor || coin?.textColor,
       }}
     >
-      {coin?.icon && (
-        <Image
-          src={coin.icon}
-          alt={coin.token}
-          className="w-full h-auto max-h-full relative"
-        />
-      )}
+      {coin?.icon && <coin.icon />}
     </div>
   );
 }
