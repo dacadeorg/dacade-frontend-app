@@ -143,7 +143,7 @@ export default function ArrowButton({
               />
             ) : (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} transform`}
+                className={`${directionClass} ${arrowClassNames} group-hover:bg-theme-accent bg-theme-primary text-theme-accent group-hover:text-theme-primary transform`}
               />
             )}
           </span>
