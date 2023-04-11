@@ -2,11 +2,16 @@ import Avatar from "@/components/ui/Avatar";
 import Badge from "@/components/ui/Badge";
 import Currency from "@/components/ui/Currency";
 import Tag from "@/components/ui/Tag";
+import { useSelector } from "@/hooks/useTypedSelector";
 import DateManager from "@/utilities/DateManager";
 import { useRouter } from "next/router";
+<<<<<<< HEAD
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { IRootState } from "@/store";
+=======
+import { ReactElement, ReactNode, useEffect, useState } from "react";
+>>>>>>> dev
 
 /**
  * Interface for the user props
@@ -16,12 +21,13 @@ import { IRootState } from "@/store";
  * @typedef {UserProps}
  */
 interface UserProps {
-  boxLayout: boolean;
-  link: string;
-  bordered: boolean;
+  boxLayout?: boolean;
+  link?: string;
+  bordered?: boolean;
   user: any;
-  badge: string;
+  badge?: string;
   timestamp: any;
+  children?: ReactNode;
 }
 
 /**
@@ -39,20 +45,27 @@ interface UserProps {
 }
  * @returns {ReactElement}
  */
-export default function UserCards({
+export default function UserCard({
   boxLayout,
   link,
   bordered,
   user,
   badge,
   timestamp,
+  children,
 }: UserProps): ReactElement {
   const { locale } = useRouter();
+<<<<<<< HEAD
   // TODO: should replace the state type when the redux is implemented
   const colors = useSelector((state: any) => state.ui.colors);
   const community = useSelector(
     (state: any) => state.communities.current
   );
+=======
+  const colors = useSelector((state) => state.ui.colors);
+  // TODO: to be uncommented when community slice is implemented.
+  // const community = useSelector((state) => state.communities.current);
+>>>>>>> dev
   const [humanizedDate, setHumanizedDate] = useState("");
   const [date, setDate] = useState("");
   const [profileURL, setProfileURL] = useState("");
@@ -121,13 +134,7 @@ export default function UserCards({
             </span>
           </span>
         </div>
-        {link ? (
-          <a href={link}>
-            <slot />
-          </a>
-        ) : (
-          <slot />
-        )}
+        {link ? <a href={link}>{children}</a> : <>{children}</>}
       </div>
     </div>
   );
