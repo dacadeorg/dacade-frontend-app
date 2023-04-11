@@ -22,8 +22,8 @@ interface ButtonProps {
   loading?: boolean;
   disabled?: boolean;
   rounded?: boolean;
-  type?: "submit" | "button" | "reset";
-  variant?: string;
+  type: "submit" | "button" | "reset" | undefined;
+  variant: string;
   padding?: boolean | string;
   margin?: string;
   customStyle?: object | null;

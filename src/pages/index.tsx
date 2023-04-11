@@ -23,9 +23,7 @@ const Home = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="relative">
-        <TestimonialsSection />
-      </div>
+      <div className="relative"></div>
     </>
   );
 };
