@@ -149,6 +149,9 @@ module.exports = {
         99: "99",
         999: "999",
       },
+      fontFamily: {
+        graphik: "'Graphik',sans-serif",
+      },
     },
   },
   plugins: [lineClamp, typography],

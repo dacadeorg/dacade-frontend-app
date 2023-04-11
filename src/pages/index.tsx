@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useTranslation } from "next-i18next";
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import HomeLayout from "@/layouts/Home";
 import { ReactElement } from "react";
@@ -10,6 +10,7 @@ import { communitiesApi } from "@/store/feature/communities.slice";
 import { Community } from "@/types/community";
 import CommunitiesSection from "@/components/sections/homepage/Communities";
 import MainSection from "@/components/sections/homepage/Main";
+import TestimonialsSection from "@/components/sections/homepage/Testimonials";
 
 const Home = (props: { pageProps: { communities: Community[] } }) => {
   const { t } = useTranslation();
@@ -32,6 +33,7 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
       <main>
         <MainSection />
         <CommunitiesSection communities={communities} />
+        <TestimonialsSection />
       </main>
     </>
   );
