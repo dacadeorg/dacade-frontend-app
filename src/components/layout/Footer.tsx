@@ -101,10 +101,7 @@ export default function Footer({
             ))}
           </div>
           <p className="mt-8.5">
-            <Link
-              href="localePath('/privacy-policy')"
-              target="__blank"
-            >
+            <Link href="/privacy-policy" target="__blank">
               {t("footer.privacy-policy")}
             </Link>
           </p>

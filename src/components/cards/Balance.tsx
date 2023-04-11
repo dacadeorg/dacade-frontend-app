@@ -3,6 +3,7 @@ import Link from "next/link";
 import Coin from "@/components/ui/Coin";
 import Currency from "@/components/ui/Currency";
 import { truncateAddress } from "@/utilities/Address";
+import { Wallet } from "@/types/wallet";
 
 /**
  * Interface for balance card props
@@ -12,12 +13,7 @@ import { truncateAddress } from "@/utilities/Address";
  * @typedef {BalanceProps}
  */
 interface BalanceProps {
-  details: {
-    token: string;
-    title: string;
-    address: string;
-    balance: number;
-  };
+  details: Wallet;
 }
 
 /**

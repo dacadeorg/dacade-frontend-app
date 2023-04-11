@@ -21,6 +21,7 @@
     "dompurify": "^3.0.1",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
+    "firebase": "^9.19.1",
     "github-slugger": "^2.0.0",
     "i18next": "^22.4.13",
     "lowlight": "^1.2.0",
