@@ -3,6 +3,7 @@ import Avatar from "@/components/ui/Avatar";
 import Currency from "@/components/ui/Currency";
 import { Community } from "@/types/community";
 import { ReactElement } from "react";
+import { User } from "@/types/bounty";
 
 /**
  * Interface for the reputation card props
@@ -12,7 +13,7 @@ import { ReactElement } from "react";
  * @typedef {ReputationCardProps}
  */
 interface ReputationCardProps {
-  user?: object;
+  user?: User;
   details: {
     community?: Community;
     score?: number;

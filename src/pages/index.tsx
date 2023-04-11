@@ -3,11 +3,13 @@ import { useTranslation } from "next-i18next";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import MainSection from "@/components/sections/homepage/Main";
+import HomeLayout from "@/layouts/Home";
+import { ReactElement } from "react";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) =>
   i18Translate(locale as string);
 
-const Home = () => {
+export default function Home() {
   const { t } = useTranslation();
   return (
     <>
@@ -29,5 +31,8 @@ const Home = () => {
       </main>
     </>
   );
+}
+
+Home.getLayout = function (page: ReactElement) {
+  return <HomeLayout>{page}</HomeLayout>;
 };
-export default Home;
