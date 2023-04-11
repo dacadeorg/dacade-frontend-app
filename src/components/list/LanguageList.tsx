@@ -4,6 +4,13 @@ import { useRouter } from "next/router";
 import { ReactElement, useMemo } from "react";
 import { useTranslation } from "next-i18next";
 
+const languages = {
+  en: "English",
+  es: "Español",
+  bg: "Bulgarian",
+  hr: "Croatian",
+};
+
 /**
  * This Language list component responsible for switching languages
  * @date 3/28/2023 - 3:17:38 PM
@@ -25,8 +32,7 @@ export default function LanguageList(): ReactElement {
    * @param {string} locale
    */
   const switchLocalePath = (locale: string) => {
-    console.log({ locale });
-    // router.push(router.asPath, router.asPath, { locale: locale });
+    router.push(router.asPath, router.asPath, { locale: locale });
   };
 
   return (
@@ -37,7 +43,7 @@ export default function LanguageList(): ReactElement {
       <div className="space-y-4 mt-2">
         {availableLocales?.map((locale) => (
           <div
-            onClick={() => console.log("clicked")}
+            onClick={() => switchLocalePath(locale)}
             key={locale}
             className={classNames(
               "flex justify-between cursor-pointer",
@@ -53,7 +59,7 @@ export default function LanguageList(): ReactElement {
                   "font-normal": locale !== selected,
                 })}
               >
-                {locale}
+                {languages[locale]}
               </span>
             </div>
             {locale === selected && (

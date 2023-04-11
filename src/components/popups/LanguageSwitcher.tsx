@@ -51,6 +51,7 @@ export default function LanguageSwitcher({
   };
 
   const toggleInvite = () => {
+    close?.();
     toggleShowReferralPopup(true)(dispatch);
   };
 
@@ -64,9 +65,8 @@ export default function LanguageSwitcher({
 
   return (
     <>
-      <div>
+      <div ref={popupRef}>
         <div
-          ref={popupRef}
           onClick={toggle}
           className="inline-block opacity-70 hover:opacity-100 text-sm ml-3 cursor-pointer"
         >

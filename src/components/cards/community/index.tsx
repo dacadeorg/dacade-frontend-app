@@ -94,7 +94,7 @@ export default function CommunityCard({
                 <ArrowButton
                   variant="outline-gray"
                   loading={false}
-                  arrowClasses="border group-hover:bg-theme-accent bg-theme-primary text-theme-accent group-hover:text-theme-primary border-theme-accent"
+                  className="border group-hover:bg-theme-accent bg-theme-primary text-theme-accent group-hover:text-theme-primary border-theme-accent"
                 >
                   {t("page.index.main.button")}
                 </ArrowButton>

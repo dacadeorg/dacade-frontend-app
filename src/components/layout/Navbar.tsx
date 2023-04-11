@@ -16,6 +16,7 @@ import {
   authVerify,
   logout,
 } from "@/store/feature/auth.slice";
+import LanguageList from "../list/LanguageList";
 
 interface NavbarProps {
   settings: any;
@@ -71,11 +72,11 @@ export default function Navbar({
 
   return (
     <div className="text-gray-900" style={containerStyle}>
-      <div className="content-wrapper lg:py-12 py-6 flex relative">
+      <div className="lg:py-12 py-6 flex relative">
         <ul className="relative">
           <NavItem to="/" type="logo">
-            <span className="w-8 h-8 md:w-11 md:h-11">
-              <Logo />
+            <span>
+              <Logo className="w-8 h-8 md:w-11 md:h-11" />
             </span>
           </NavItem>
           <NavItem to="/" type="brand">
