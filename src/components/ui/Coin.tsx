@@ -131,7 +131,7 @@ export default function Coin({
 
   return (
     <div
-      className={`inline-flex items-center justify-items-center text-white uppercase leading-none md:mr-0 mr-2 ${sizeClasses} ${shapeClasses} ${className}`}
+      className={`relative overflow-hidden inline-flex items-center justify-items-center text-white uppercase leading-none md:mr-0 mr-2 ${sizeClasses} ${shapeClasses} ${className}`}
       style={{
         backgroundColor: bgColor || coin?.bgColor,
         color: textColor || coin?.textColor,

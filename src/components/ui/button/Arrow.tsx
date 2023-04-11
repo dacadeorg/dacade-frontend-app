@@ -1,4 +1,4 @@
-import Button from "./";
+import Button from ".";
 import Spinner from "@/icons/spinner.svg";
 import ArrowRightIcon from "@/icons/arrow-right.svg";
 import { ReactElement, ReactNode, useMemo } from "react";
@@ -27,6 +27,7 @@ interface ArrowButtonProps {
   communityStyles?: boolean;
   direction?: "left" | "right" | "up" | "down";
   arrowClasses?: string;
+  onClick?: () => void;
 }
 
 /**
@@ -59,13 +60,13 @@ export default function ArrowButton({
   variant = "primary",
   padding,
   children,
+  onClick,
   customStyle = null,
   link = "",
   target = "",
   direction = "right",
   minWidthClass = "min-w-44",
   communityStyles,
-  className,
   arrowClasses = "",
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
@@ -84,13 +85,11 @@ export default function ArrowButton({
   }, [direction]);
 
   const arrowClassNames = classNames(
-    `w-4 h-4 text-gray-500 ${arrowClasses}`,
+    `text-gray-500 ${arrowClasses}`,
     {
       "rounded-full": rounded,
     }
   );
-
-  const inputListeners = () => {};
 
   return (
     <Button
@@ -105,23 +104,23 @@ export default function ArrowButton({
       target={target}
       type={type}
       communityStyles={communityStyles}
-      onClick={inputListeners}
-      className={classNames(`group ${minWidthClass} ${className}`, {
+      onClick={onClick}
+      className={classNames(`group ${minWidthClass}`, {
         "py-2 pl-5 pr-3.5": padding,
       })}
     >
-      <span className="flex items-center justify-between h-full text-left ">
+      <span className="flex items-center justify-between h-full text-left">
         {isLeft && (
           <span
             className={classNames("block", { "pr-2.5": children })}
           >
             {!loading ? (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} text-white transform`}
+                className={`${directionClass} ${arrowClassNames} transform`}
               />
             ) : (
               <Spinner
-                className={`${arrowClassNames} text-white animate-spin`}
+                className={`animate-spin ${arrowClassNames}`}
               />
             )}
           </span>
@@ -137,13 +136,13 @@ export default function ArrowButton({
 
         {!isLeft && (
           <span className="block">
-            {loading ? (
-              <Spinner
-                className={`${arrowClassNames} text-white animate-spin`}
+            {!loading ? (
+              <ArrowRightIcon
+                className={`${directionClass} ${arrowClassNames} transform`}
               />
             ) : (
-              <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} text-white transform`}
+              <Spinner
+                className={`animate-spin ${arrowClassNames}`}
               />
             )}
           </span>
@@ -152,3 +151,4 @@ export default function ArrowButton({
     </Button>
   );
 }
+

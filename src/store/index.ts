@@ -4,6 +4,7 @@ import {
   referralsApi,
   referralSlice,
 } from "./feature/referrals.slice";
+import community from "./feature/community.slice";
 import ui from "./feature/ui.slice";
 import userSlice from "./feature/user.slice";
 import { bannerSlice } from "./feature/banner.slice";
@@ -13,6 +14,7 @@ import reputationSlice from "./feature/reputation.slice";
 import indexSlice from "./feature/index.slice";
 
 export interface IRootState {
+  communities: ReturnType<typeof community.reducer> ;
   ui: ReturnType<typeof ui.reducer>;
   referrals: ReturnType<typeof referralSlice.reducer>;
   user: ReturnType<typeof userSlice.reducer>;
@@ -23,10 +25,11 @@ export interface IRootState {
   store: ReturnType<typeof indexSlice.reducer>;
 }
 
-const makeStore = () =>
+const store =
   configureStore({
     reducer: {
       [ui.name]: ui.reducer,
+      [community.name]: community.reducer,
       [referralSlice.name]: referralSlice.reducer,
       [userSlice.name]: userSlice.reducer,
       [notificationsSlice.name]: notificationsSlice.reducer,
@@ -42,4 +45,4 @@ const makeStore = () =>
     devTools: true,
   });
 
-export const wrapper = createWrapper(makeStore);
+export const wrapper = createWrapper(() => store);
