@@ -26,6 +26,7 @@ interface ArrowButtonProps {
   communityStyles?: boolean;
   direction?: "left" | "right" | "up" | "down";
   arrowClasses?: string;
+  onClick?: () => void;
 }
 
 /**
@@ -58,13 +59,14 @@ export default function ArrowButton({
   variant = "primary",
   padding,
   children,
+  onClick,
   customStyle = null,
   link = "",
   target = "",
   direction = "right",
   minWidthClass = "min-w-44",
   communityStyles,
-  arrowClasses = ""
+  arrowClasses = "",
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
@@ -88,8 +90,6 @@ export default function ArrowButton({
     }
   );
 
-  const inputListeners = () => {};
-
   return (
     <Button
       text={""}
@@ -103,8 +103,8 @@ export default function ArrowButton({
       target={target}
       type={type}
       communityStyles={communityStyles}
-      onClick={inputListeners}
-      className={classNames(`group-hover:bg-primary group-hover:text-white ${minWidthClass}`, {
+      onClick={onClick}
+      className={classNames(`group ${minWidthClass}`, {
         "py-2 pl-5 pr-3.5": padding,
       })}
     >
