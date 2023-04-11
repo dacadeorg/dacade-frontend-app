@@ -1,5 +1,6 @@
 import { Course, Metadata, Reward } from "./course";
 import { Colors } from "./community";
+import { ReactNode } from "react";
 
 export interface Bounty {
   url: string;
@@ -56,6 +57,10 @@ export interface Faq {
 
 export interface Submission {
   length: Submission | undefined;
+  /**
+   *@property {function((submission: any) => JSX.Element): import("react").ReactNode} map - Applies the provided function to each element in the submission array, returning a new array of React elements.
+   */
+  map(arg0: (submission: Submission) => JSX.Element): ReactNode;
   id: string;
   ref: string;
   created_at: string;
@@ -65,7 +70,7 @@ export interface Submission {
   user_id: string;
   challenge: string;
   text: string;
-  reviewDeadline: number;
+  reviewDeadline: Date;
   metadata: SubmissionMetadata;
   timestamp: number;
   user: User;
