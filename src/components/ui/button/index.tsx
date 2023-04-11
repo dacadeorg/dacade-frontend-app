@@ -24,7 +24,7 @@ interface ButtonProps {
   rounded?: boolean;
   type: "submit" | "button" | "reset" | undefined;
   variant: string;
-  padding: boolean | string;
+  padding?: boolean | string;
   margin?: string;
   customStyle?: object | null;
   link?: string;
