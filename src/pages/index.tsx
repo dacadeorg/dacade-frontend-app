@@ -7,7 +7,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { communitiesApi } from "@/store/feature/communities.slice";
 import { Community } from "@/types/community";
 import CommunitiesSection from "@/components/sections/homepage/Communities";
-import { useEffect, useLayoutEffect } from "react";
+import { ReactElement, useEffect, useLayoutEffect } from "react";
+import HomeLayout from "@/layouts/Home";
+import MainSection from "@/components/sections/homepage/Main";
 
 const Home = (props: { pageProps: { communities: Community[] } }) => {
   const { t } = useTranslation();
@@ -27,6 +29,10 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      {/* TODO: The max with should be removed when the home page layout is migrated */}
+      <main className="relative max-w-7xl mx-auto">
+        <MainSection />
+      </main>
       <main
         className="flex items-center justify-center h-screen- 
        font-bold text-white bg-blue-500-"
@@ -35,6 +41,10 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
       </main>
     </>
   );
+};
+
+Home.getLayout = function (page: ReactElement) {
+  return <HomeLayout>{page}</HomeLayout>;
 };
 
 export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
