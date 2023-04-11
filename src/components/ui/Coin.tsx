@@ -33,53 +33,49 @@ interface CoinProps {
 const coins = [
   {
     token: "DAC",
-    icon: <DACIcon />,
+    icon: DACIcon,
     bgColor: "#FBBF24",
     textColor: "#FFFFFF",
   },
   {
     token: "cUSD",
-    icon: <CUSDIcon />,
+    icon: CUSDIcon,
     bgColor: "#45CD85",
     textColor: "#FFFFFF",
   },
   {
     token: "ETH",
-    icon: <ETHIcon />,
+    icon: ETHIcon,
     bgColor: "#627EEA",
     textColor: "#FFFFFF",
   },
   {
     token: "AE",
-    icon: <AEIcon />,
+    icon: AEIcon,
     bgColor: "#DE3F6B",
     textColor: "#FFFFFF",
   },
   {
     token: "tez",
-    icon: <TEZIcon />,
+    icon: TEZIcon,
     bgColor: "#0D61FF",
     textColor: "#FFFFFF",
   },
   {
     token: "DAI",
-    icon: <DAIIcon />,
+    icon: DAIIcon,
     bgColor: "#F5AC37",
     textColor: "#FEFEFD",
   },
   {
     token: "NEAR",
-    icon: (
-      <span className="w-full h-auto max-h-full relative">
-        <NEARIcon />
-      </span>
-    ),
+    icon: NEARIcon,
     bgColor: "#000000",
     textColor: "#FFFFFF",
   },
   {
     token: "USDC",
-    icon: <USDCIcon />,
+    icon: USDCIcon,
     bgColor: "#2775ca",
     textColor: "#FFFFFF",
   },
@@ -141,7 +137,7 @@ export default function Coin({
         color: textColor || coin?.textColor,
       }}
     >
-      {coin?.icon && coin.icon}
+      {coin?.icon && <coin.icon />}
     </div>
   );
 }
