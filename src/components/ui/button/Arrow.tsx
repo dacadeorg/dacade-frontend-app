@@ -1,4 +1,4 @@
-import Button from "./";
+import Button from ".";
 import Spinner from "@/icons/spinner.svg";
 import ArrowRightIcon from "@/icons/arrow-right.svg";
 import { ReactElement, ReactNode, useMemo } from "react";
