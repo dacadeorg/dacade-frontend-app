@@ -6,7 +6,7 @@ import Box from "./Box";
 import Crossmark from "@/icons/crossmark-2.svg";
 import Modal from "@/components/ui/Modal";
 import { useTranslation } from "next-i18next";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 
 /**
  * Referreal popup component
@@ -19,6 +19,7 @@ import { ReactElement } from "react";
 export default function ReferralPopup(): ReactElement {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const [referralLink, setReferralLink] = useState("");
 
   // Get user data and show referral popup status from the redux store
   const user = useSelector((state) => state.user.data);
@@ -28,9 +29,15 @@ export default function ReferralPopup(): ReactElement {
     (state) => state.ui.showReferralPopup
   );
 
-  // Construct referral link using the user's display name
-  const referralLink = `${window.location.origin}
-    /signup?invite=${user?.displayName}`;
+  useEffect(() => {
+    // Construct referral link using the user's display name
+    if (window !== undefined) {
+      setReferralLink(
+        () => `${window.location.origin}
+    /signup?invite=${user?.displayName}`
+      );
+    }
+  }, [user?.displayName]);
 
   const referralCode = user?.displayName;
   const username = user?.displayName;

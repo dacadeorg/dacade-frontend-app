@@ -4,7 +4,6 @@ import CloseIcon from "@/icons/close-icon.svg";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { ReactElement, useEffect } from "react";
-import { IRootState } from "@/store";
 import {
   checkCookiePolicy,
   acceptCookiePolicy,
@@ -22,7 +21,7 @@ export default function PrivacyPolicyBanner(): ReactElement {
   const dispatch = useDispatch();
 
   const showBanner = useSelector(
-    (state: IRootState) => state.banner.showCookiePolicy
+    (state) => state.banner.showCookiePolicy
   );
 
   useEffect(() => {
@@ -37,8 +36,7 @@ export default function PrivacyPolicyBanner(): ReactElement {
     dispatch(acceptCookiePolicy());
   };
 
-  if (!showBanner) return <></>;
-  else
+  if (showBanner)
     return (
       <div className="fixed bottom-0 left-0 right-0 z-999 flex flex-row justify-center md:justify-between bg-primary">
         <div className="text-white py-8 text-center lg:text-base text-sm md:text-lg justify-center md:max-w-none px-6">
@@ -57,4 +55,5 @@ export default function PrivacyPolicyBanner(): ReactElement {
         </div>
       </div>
     );
+  return <></>;
 }

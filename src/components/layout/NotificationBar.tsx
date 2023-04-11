@@ -1,21 +1,8 @@
-import React, { useState, useEffect, ReactElement } from "react";
+import { useEffect, ReactElement } from "react";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { setBusy, setError } from "@/store/feature/index.slice";
-
-// TODO: IError interface to be moved to a central store for all interfaces
-/**
- * Custom Error interface
- * @date 3/27/2023 - 5:13:31 PM
- *
- * @interface IError
- * @typedef {IError}
- * @extends {Error}
- */
-interface IError extends Error {
-  code?: string;
-}
 
 /**
  *  Notification component
