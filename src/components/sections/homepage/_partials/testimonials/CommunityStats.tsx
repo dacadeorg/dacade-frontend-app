@@ -53,7 +53,7 @@ export default function CommunityStats() {
         ))}
       </div>
       <a target="_blank" href="https://discord.gg/U38KQHDtHe">
-        <Button className="outline-white">
+        <Button variant="outline-white">
           {t("testimonials.community.join", {
             appName: t("app.name"),
           })}
