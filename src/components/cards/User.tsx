@@ -4,6 +4,7 @@ import Currency from "@/components/ui/Currency";
 import Tag from "@/components/ui/Tag";
 import { useSelector } from "@/hooks/useTypedSelector";
 import DateManager from "@/utilities/DateManager";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
 
@@ -36,6 +37,7 @@ interface UserProps {
   user,
   badge,
   timestamp,
+  children
 }
  * @returns {ReactElement}
  */
@@ -44,7 +46,7 @@ export default function UserCard({
   link,
   bordered,
   user,
-  badge,
+  badge = "",
   timestamp,
   children,
 }: UserProps): ReactElement {
@@ -108,7 +110,7 @@ export default function UserCard({
             )}
           </div>
           <span className="block text-sm leading-snug text-gray-700">
-            {timestamp.text}{" "}
+            {timestamp.text}
             <span
               title={date}
               className="font-medium"
@@ -122,6 +124,7 @@ export default function UserCard({
         </div>
         {link ? <a href={link}>{children}</a> : <>{children}</>}
       </div>
+      {children}
     </div>
   );
 }
