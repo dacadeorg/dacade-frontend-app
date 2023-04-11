@@ -21,6 +21,7 @@ interface ThemeWrapperProps {
     accent?: string;
     muted?: string;
   };
+  className?: string;
   children: ReactNode;
 }
 
@@ -51,6 +52,7 @@ interface CSSVars extends CSSProperties {
  */
 export default function ThemeWrapper({
   colors = {},
+  className = "",
   children,
 }: ThemeWrapperProps): ReactElement {
   const cssVars: CSSVars = useMemo(() => {
@@ -64,5 +66,9 @@ export default function ThemeWrapper({
     };
   }, [colors]);
 
-  return <div style={cssVars}>{children}</div>;
+  return (
+    <div className={className} style={{ ...cssVars }}>
+      {children}
+    </div>
+  );
 }
