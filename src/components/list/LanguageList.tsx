@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { ReactElement, useMemo } from "react";
 import { useTranslation } from "next-i18next";
 
-const languages = {
+const languages: { [key: string]: string } = {
   en: "English",
   es: "Español",
   bg: "Bulgarian",
@@ -59,7 +59,7 @@ export default function LanguageList(): ReactElement {
                   "font-normal": locale !== selected,
                 })}
               >
-                {languages[locale]}
+                {languages[locale as string]}
               </span>
             </div>
             {locale === selected && (

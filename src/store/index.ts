@@ -29,7 +29,7 @@ export interface IRootState {
   communityApi: ReturnType<typeof communitiesApi.reducer>;
 }
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     [ui.name]: ui.reducer,
     [referralSlice.name]: referralSlice.reducer,
