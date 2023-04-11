@@ -27,6 +27,7 @@ interface ArrowButtonProps
   communityStyles?: boolean;
   direction?: "left" | "right" | "up" | "down";
   arrowClasses?: string;
+  onClick?: () => void;
 }
 
 /**
@@ -59,6 +60,7 @@ export default function ArrowButton({
   variant = "primary",
   padding,
   children,
+  onClick,
   customStyle = null,
   link = "",
   target = "",
@@ -66,7 +68,6 @@ export default function ArrowButton({
   minWidthClass = "min-w-44",
   communityStyles,
   arrowClasses = "",
-  onClick,
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
