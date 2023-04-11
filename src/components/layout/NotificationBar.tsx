@@ -1,23 +1,8 @@
-import React, { useState, useEffect, ReactElement } from "react";
+import { useEffect, ReactElement } from "react";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-// TODO: to be uncommented when notification slice is created
-// import {setBusy, setError} from '@/store/feature/notification.slice';
-// TODO: to be uncommented when notification slice is created
-// import { useSelector } from "react-redux"
-
-// TODO: IError interface to be moved to a central store for all interfaces
-/**
- * Custom Error interface
- * @date 3/27/2023 - 5:13:31 PM
- *
- * @interface IError
- * @typedef {IError}
- * @extends {Error}
- */
-interface IError extends Error {
-  code?: string;
-}
+import { useSelector } from "@/hooks/useTypedSelector";
+import { setBusy, setError } from "@/store/feature/index.slice";
 
 /**
  *  Notification component
@@ -29,13 +14,7 @@ interface IError extends Error {
 export default function Notification(): ReactElement {
   const { t } = useTranslation();
 
-  // TODO: to be uncommented when notification slice is created
-  // const { error, busy } = useSelector((state) => state.notification);
-
-  //TODO: (busy, setBusy) to be removed when notification slice is created.
-  const [busy, setBusy] = useState(false);
-  //TODO: (error, setError) to be removed when notification slice is created.
-  const [error, setError] = useState<IError | null>(null);
+  const { error, busy } = useSelector((state) => state.store);
 
   const router = useRouter();
 

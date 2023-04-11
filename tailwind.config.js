@@ -20,7 +20,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: "Graphik",
+        sans: ["Graphik", "sans-serif"],
       },
       colors: {
         current: "currentColor",
