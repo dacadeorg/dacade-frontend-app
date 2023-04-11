@@ -34,7 +34,7 @@ export default function CommunitiesPage(){
           {title}
         </title>
       </Head>
-      <div className="flex flex-col justify-center content-wrapper">
+      <div className="flex flex-col justify-center">
         <h1 className="text-4xl sm:text-5xl pt-10 md:pt-20 pb-10">
           {t("nav.communities")}
         </h1>
