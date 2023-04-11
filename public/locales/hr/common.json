@@ -148,11 +148,8 @@
   "communities.overview.scoreboard.description": "On the scoreboard, you can see which users have accumulated the most reputation by giving valuable feedback to their peers.",
   "communities.card.estimated": "Estimated Time",
   "communities.card.earn": "Earn rewards",
-<<<<<<< HEAD
   "communities.card.submissions": "{{count}} Podnesci",
   "communities.card.submission": "{{count}} Podnošenje",
-=======
->>>>>>> ft/migrate-section-communities
   "communities.card.courses": "in {{count}} Courses",
   "communities.card.course": "in {{count}} Course",
   "communities.list-card.earn": "Earn",

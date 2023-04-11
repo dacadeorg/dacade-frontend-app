@@ -1,7 +1,7 @@
 import Button from "./";
 import Spinner from "@/icons/spinner.svg";
 import ArrowRightIcon from "@/icons/arrow-right.svg";
-import { ReactElement, ReactNode, useMemo } from "react";
+import { HTMLProps, ReactElement, ReactNode, useMemo } from "react";
 import classNames from "classnames";
 
 /**
@@ -11,7 +11,8 @@ import classNames from "classnames";
  * @interface ArrowButtonProps
  * @typedef {ArrowButtonProps}
  */
-interface ArrowButtonProps {
+interface ArrowButtonProps
+  extends Pick<HTMLProps<HTMLButtonElement>, "onClick"> {
   loading?: boolean;
   disabled?: boolean;
   rounded?: boolean;
@@ -67,6 +68,7 @@ export default function ArrowButton({
   communityStyles,
   className,
   arrowClasses = "",
+  onClick,
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
@@ -90,8 +92,6 @@ export default function ArrowButton({
     }
   );
 
-  const inputListeners = () => {};
-
   return (
     <Button
       text={""}
@@ -105,8 +105,8 @@ export default function ArrowButton({
       target={target}
       type={type}
       communityStyles={communityStyles}
-      onClick={inputListeners}
-      className={classNames(`group-hover:bg-primary group-hover:text-white ${minWidthClass}`, {
+      onClick={onClick}
+      className={classNames(`group ${minWidthClass}`, {
         "py-2 pl-5 pr-3.5": padding,
       })}
     >
