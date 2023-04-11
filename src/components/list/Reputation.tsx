@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import ReputationCard from "@/components/cards/Reputation";
 
 export default function ReputationList(): ReactElement {
-  // TODO: To be uncommented when the use slice is implemented
+  // TODO: To be uncommented when the user slice is implemented
   // const reputations = useSelector(state => state.user.reputations.list)
   const { t } = useTranslation();
 
@@ -15,7 +15,7 @@ export default function ReputationList(): ReactElement {
       </span>
       <div className="space-y-4 mt-2">
         {/* 
-          // TODO: To be uncommented when the use slice is implemented
+          // TODO: To be uncommented when the user slice is implemented
           {
             reputations.map(reputation => (
               <ReputationCard key={reputation.id} details={reputation} />
