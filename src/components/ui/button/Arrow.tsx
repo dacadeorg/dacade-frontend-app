@@ -84,7 +84,7 @@ export default function ArrowButton({
   }, [direction]);
 
   const arrowClassNames = classNames(
-    `w-4 h-4 text-gray-500 ${arrowClasses}`,
+    `text-gray-500 ${arrowClasses}`,
     {
       "rounded-full": rounded,
     }
@@ -108,18 +108,18 @@ export default function ArrowButton({
         "py-2 pl-5 pr-3.5": padding,
       })}
     >
-      <span className="flex items-center justify-between h-full text-left ">
+      <span className="flex items-center justify-between h-full text-left">
         {isLeft && (
           <span
             className={classNames("block", { "pr-2.5": children })}
           >
             {!loading ? (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} group-hover:text-white transform`}
+                className={`${directionClass} ${arrowClassNames} transform`}
               />
             ) : (
               <Spinner
-                className={`${arrowClassNames} group-hover:text-white animate-spin`}
+                className={`animate-spin ${arrowClassNames}`}
               />
             )}
           </span>
@@ -137,11 +137,11 @@ export default function ArrowButton({
           <span className="block">
             {!loading ? (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} group-hover:text-white transform`}
+                className={`${directionClass} ${arrowClassNames} transform`}
               />
             ) : (
               <Spinner
-                className={`${arrowClassNames} group-hover:text-white animate-spin`}
+                className={`animate-spin ${arrowClassNames}`}
               />
             )}
           </span>
@@ -150,3 +150,4 @@ export default function ArrowButton({
     </Button>
   );
 }
+
