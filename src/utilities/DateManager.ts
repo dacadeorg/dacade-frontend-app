@@ -7,7 +7,7 @@ import {
 } from "date-fns";
 import { es, enUS, hr, bg, fr } from "date-fns/locale";
 
-type LocaleDateFormat = string;
+export type LocaleDateFormat = string;
 
 type FormatOptions = {
   year?: "numeric" | "2-digit";

@@ -10,6 +10,7 @@ import Spinner from "@/icons/spinner.svg";
  */
 interface LoaderProps {
   communityStyles?: boolean;
+  className?: string;
 }
 
 /**
@@ -17,7 +18,10 @@ interface LoaderProps {
  * @date 3/23/2023 - 5:09:34 PM
  *
  * @export
- * @param {LoaderProps} { communityStyles = false }
+ * @param {LoaderProps}  {
+  communityStyles = false,
+  className = "",
+}
  * @returns {*}
  */
 const colors = {
@@ -29,13 +33,14 @@ const colors = {
 
 export default function Loader({
   communityStyles = false,
+  className = "",
 }: LoaderProps) {
   const styles = {
     color: colors.textAccent,
   };
 
   const loaderClasses = classNames(
-    "flex items-center relative justify-center !h-12 !w-12",
+    `flex items-center relative justify-center !h-12 !w-12 ${className}`,
     {
       "text-primary": !communityStyles,
     }
