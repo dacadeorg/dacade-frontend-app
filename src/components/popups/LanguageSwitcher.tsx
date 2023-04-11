@@ -60,7 +60,7 @@ export default function LanguageSwitcher({
 
   const { i18n } = useTranslation();
 
-  const currentLocale = useMemo(() => i18n.language, []);
+  const currentLocale = useMemo(() => i18n.language, [i18n.language]);
   return (
     <>
       <div>

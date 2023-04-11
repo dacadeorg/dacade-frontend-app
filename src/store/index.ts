@@ -25,7 +25,7 @@ export interface IRootState {
   store: ReturnType<typeof indexSlice.reducer>;
 }
 
-const store =
+export const store =
   configureStore({
     reducer: {
       [ui.name]: ui.reducer,
