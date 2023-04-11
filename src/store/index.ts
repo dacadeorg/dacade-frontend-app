@@ -27,7 +27,7 @@ export interface IRootState {
   communitiesApi: ReturnType<typeof communitiesApi.reducer>;
 }
 
-const store =  configureStore({
+export const store =  configureStore({
     reducer: {
       [ui.name]: ui.reducer,
       [community.name]: community.reducer,
