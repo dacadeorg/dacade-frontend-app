@@ -4,7 +4,8 @@
  */
 
 // TODO: Should be uncommented when the redux is fully implemented
-// import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { useSelector } from "@/hooks/useTypedSelector";
 import CloseIcon from "@/icons/close-icon.svg";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
