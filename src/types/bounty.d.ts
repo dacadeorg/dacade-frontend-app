@@ -56,9 +56,6 @@ export interface Faq {
 
 export interface Submission {
   length: Submission | undefined;
-  map(
-    arg0: (submission: any) => JSX.Element
-  ): import("react").ReactNode;
   id: string;
   ref: string;
   created_at: string;
