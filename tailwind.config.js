@@ -117,7 +117,8 @@ module.exports = {
         "6xl": "72rem",
         "7xl": "80rem",
       },
-      minWidth: {
+      minWidth: (theme) => ({
+        ...theme("spacing"),
         "3xs": "5rem",
         "2xs": "10rem",
         ".5xs": "14em",
@@ -132,7 +133,7 @@ module.exports = {
         "5xl": "64rem",
         "6xl": "72rem",
         "7xl": "80rem",
-      },
+      }),
       zIndex: {
         99: "99",
         999: "999",

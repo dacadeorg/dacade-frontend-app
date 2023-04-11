@@ -23,6 +23,7 @@ interface ArrowButtonProps {
   link?: string;
   target?: string;
   minWidthClass?: string;
+  className?: string;
   communityStyles?: boolean;
   direction?: "left" | "right" | "up" | "down";
   arrowClasses?: string;
@@ -64,7 +65,8 @@ export default function ArrowButton({
   direction = "right",
   minWidthClass = "min-w-44",
   communityStyles,
-  arrowClasses = ""
+  className,
+  arrowClasses = "",
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
@@ -104,7 +106,7 @@ export default function ArrowButton({
       type={type}
       communityStyles={communityStyles}
       onClick={inputListeners}
-      className={classNames(`group ${minWidthClass}`, {
+      className={classNames(`group ${minWidthClass} ${className}`, {
         "py-2 pl-5 pr-3.5": padding,
       })}
     >
@@ -115,11 +117,11 @@ export default function ArrowButton({
           >
             {!loading ? (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} group-hover:text-white transform`}
+                className={`${directionClass} ${arrowClassNames} text-white transform`}
               />
             ) : (
               <Spinner
-                className={`${arrowClassNames} group-hover:text-white animate-spin`}
+                className={`${arrowClassNames} text-white animate-spin`}
               />
             )}
           </span>
@@ -135,13 +137,13 @@ export default function ArrowButton({
 
         {!isLeft && (
           <span className="block">
-            {!loading ? (
-              <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} group-hover:text-white transform`}
+            {loading ? (
+              <Spinner
+                className={`${arrowClassNames} text-white animate-spin`}
               />
             ) : (
-              <Spinner
-                className={`${arrowClassNames} group-hover:text-white animate-spin`}
+              <ArrowRightIcon
+                className={`${directionClass} ${arrowClassNames} text-white transform`}
               />
             )}
           </span>

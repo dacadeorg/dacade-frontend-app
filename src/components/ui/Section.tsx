@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 import classNames from "classnames";
 
 /**
@@ -11,7 +11,7 @@ import classNames from "classnames";
 interface SectionProps {
   type?: string;
   padding?: string;
-  children: ReactElement;
+  children: ReactNode;
 }
 
 /**
