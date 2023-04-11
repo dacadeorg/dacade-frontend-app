@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import Badge from "@/components/ui/Badge";
-
-// TODO; will be uncommented when  notification list is ready
-// import NotificationList from "@/components/list/Notification";
+import NotificationList from "@/components/list/Notification";
 
 import Button from "@/components/ui/button";
 import BellIcon from "@/icons/notification-bell.svg";
@@ -45,24 +43,28 @@ export default function NotificationPopup({
   //     (state) => state.user.notifications.unread
   //   );
 
-  // TODO: will be removed when the redux store is ready
+  // TODO: We will add corresponding type when the redux store is ready
   const unread: any = [];
 
   useEffect(() => {
+    // TODO: will be uncommented when the redux store is ready
     // dispatch("user/notifications/all");
   }, []);
 
   const toggle = () => {
     setIsNotificationVisible(!isNotificationVisible);
     if (unread && isNotificationVisible) {
+      // TODO: will be uncommented when the redux store is ready
       //   dispatch("user/notifications/read");
     }
+    // TODO: will be uncommented when the redux store is ready
     // dispatch("ui/toggleBodyScrolling", isNotificationVisible);
   };
 
   const externalClick = () => {
     if (!isNotificationVisible) return;
     setIsNotificationVisible(false);
+    // TODO: will be uncommented when the redux store is ready
     // dispatch("ui/toggleBodyScrolling", isNotificationVisible);
   };
 
@@ -103,7 +105,7 @@ export default function NotificationPopup({
             }}
             className="z-50 w-80 absolute top-14 right-0 bg-white py-4 px-4.5 rounded-3.5xl text-gray-900 no-scrollbar"
           >
-            {/* <NotificationList /> */}
+            <NotificationList extended={false} />
           </div>
         )}
       </span>
