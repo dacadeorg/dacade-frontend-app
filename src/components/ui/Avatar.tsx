@@ -46,6 +46,7 @@ interface AvatarProps {
   shape?: Shape;
   useLink?: boolean;
   style?: CSSProperties;
+  className?: string;
 }
 
 /**
@@ -85,6 +86,7 @@ export default function Avatar({
   shape = "circular",
   useLink = true,
   style,
+  className,
 }: AvatarProps): ReactElement {
   const initials = user?.displayName ? user?.displayName[0] : null;
 
@@ -113,6 +115,7 @@ export default function Avatar({
     "bg-primary inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle",
     sizeClassName,
     shapeClassName,
+    className,
     {
       "cursor-pointer": user,
     }
