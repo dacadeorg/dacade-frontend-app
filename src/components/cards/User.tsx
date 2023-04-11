@@ -16,13 +16,13 @@ import { ReactElement, ReactNode, useEffect, useState } from "react";
  * @typedef {UserProps}
  */
 interface UserProps {
-  boxLayout: boolean;
-  link: string;
-  bordered: boolean;
+  boxLayout?: boolean;
+  link?: string;
+  bordered?: boolean;
   user: any;
   badge?: string;
   timestamp: any;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 /**
@@ -48,12 +48,12 @@ export default function UserCard({
   user,
   badge = "",
   timestamp,
-  children
+  children,
 }: UserProps): ReactElement {
   const { locale } = useRouter();
-  // TODO: should be uncommented when the redux is implemented
   const colors = useSelector((state) => state.ui.colors);
-  //   const community = useSelector((state) => state.communities.current);
+  // TODO: to be uncommented when community slice is implemented.
+  // const community = useSelector((state) => state.communities.current);
   const [humanizedDate, setHumanizedDate] = useState("");
   const [date, setDate] = useState("");
   const [profileURL, setProfileURL] = useState("");
@@ -86,7 +86,6 @@ export default function UserCard({
             customStyle={{
               bottom: "-1px",
               right: "-3px",
-
               backgroundColor: colors.textAccent,
             }}
           />
@@ -123,7 +122,7 @@ export default function UserCard({
             </span>
           </span>
         </div>
-        {link ? <Link href={link}>{children}</Link> : children}
+        {link ? <a href={link}>{children}</a> : <>{children}</>}
       </div>
     </div>
   );
