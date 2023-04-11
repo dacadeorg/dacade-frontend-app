@@ -22,7 +22,7 @@ interface ButtonProps {
   loading?: boolean;
   disabled?: boolean;
   rounded?: boolean;
-  type: "submit" | "button" | "reset" | undefined;
+  type?: "submit" | "button" | "reset";
   variant: string;
   padding?: boolean | string;
   margin?: string;
@@ -47,7 +47,7 @@ type ComponentProps = Pick<
   ButtonProps,
   "link" | "disabled" | "padding" | "target" | "onClick" | "type"
 > & {
-  children: ReactNode;
+  children?: ReactNode;
   className: string;
   style: CSSProperties;
 };
