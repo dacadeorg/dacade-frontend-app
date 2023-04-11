@@ -8,8 +8,6 @@
   font-weight: 600;
   font-display: swap;
   src: url("../fonts/Graphik-Medium-Web.woff2") format("truetype");
-  src: url("../../src/fonts/Graphik-Medium-Web.woff2")
-    format("truetype");
 }
 
 @font-face {
@@ -18,8 +16,6 @@
   font-weight: 500;
   font-display: swap;
   src: url("../fonts/Graphik-Medium-Web.woff2") format("truetype");
-  src: url("../../src/fonts/Graphik-Medium-Web.woff2")
-    format("truetype");
 }
 
 @font-face {
@@ -28,8 +24,6 @@
   font-weight: 400;
   font-display: swap;
   src: url("../fonts/Graphik-Regular-Web.woff2") format("truetype");
-  src: url("../../src/fonts/Graphik-Regular-Web.woff2")
-    format("truetype");
 }
 
 @font-face {
@@ -38,8 +32,6 @@
   font-weight: 400;
   font-display: swap;
   src: url("../fonts/GraphikRegularItalic.woff2") format("truetype");
-  src: url("../../src/fonts/GraphikRegularItalic.woff2")
-    format("truetype");
 }
 
 .floating-input > input::placeholder {
@@ -76,15 +68,12 @@
 
 body,
 .text-default {
-  @apply text-gray-900;
-
   font-family: "Graphik", sans-serif;
-  /* font-feature-settings: "ss01" 1, "ss02" 1; */
+  font-feature-settings: "ss01" 1, "ss02" 1;
 }
 
 body {
   font-weight: 400;
-  font-family: "Graphik", sans-serif;
   width: 100%;
   position: relative;
 }

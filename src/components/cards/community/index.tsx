@@ -6,6 +6,7 @@ import RewardBadge from "./_partials/RewardBadge";
 import { ReactElement } from "react";
 import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
+import { useRouter } from "next/router";
 
 /**
  * Interface for cummunity props
@@ -36,6 +37,7 @@ export default function CommunityCard({
 }: CommunityProps): ReactElement {
   const { t } = useTranslation();
   const path = `/communities/${community?.slug}`;
+  const router = useRouter();
 
   const reward = community.rewards.filter(
     (reward) => reward.type === "SUBMISSION"
@@ -43,7 +45,7 @@ export default function CommunityCard({
 
   return (
     <ThemeWrapper colors={community.colors}>
-      <Link href={path} className="block h-full">
+      <div onClick={() => router.push(path)} className="block h-full">
         <div className="flex flex-col h-full p-6 pb-3 space-y-5 divide-y-2 group bg-theme-primary text-theme-text divide-dotted divide-theme-accent">
           <div className="flex-grow">
             <div className="flex flex-col justify-between space-y-5 sm:flex-row lg:flex-col 2xl:flex-row">
@@ -92,7 +94,8 @@ export default function CommunityCard({
                 <ArrowButton
                   variant="outline-gray"
                   loading={false}
-                  arrowClasses="border group-hover:bg-theme-accent bg-theme-primary text-theme-accent group-hover:text-theme-primary border-theme-accent"
+                  className="border group-hover:bg-theme-accent bg-theme-primary text-theme-accent group-hover:text-theme-primary border-theme-accent"
+                  arrowClasses="group-hover:bg-theme-accent bg-theme-primary text-theme-accent group-hover:text-theme-primary "
                 >
                   {t("page.index.main.button")}
                 </ArrowButton>
@@ -100,7 +103,7 @@ export default function CommunityCard({
             </div>
           </div>
         </div>
-      </Link>
+      </div>
     </ThemeWrapper>
   );
 }

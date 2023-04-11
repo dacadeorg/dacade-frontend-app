@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const lineClamp = require("@tailwindcss/line-clamp");
+const typography = require("@tailwindcss/typography");
 
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -55,7 +56,7 @@ module.exports = {
         15: "3.75rem",
         16.25: "4.25rem",
         17: "4.5rem",
-        44: '11rem',
+        44: "11rem",
         62: "15.5rem",
         96.5: "25.5rem",
         98: "28rem",
@@ -142,6 +143,7 @@ module.exports = {
         "5xl": "64rem",
         "6xl": "72rem",
         "7xl": "80rem",
+        44: "11rem",
       }),
       zIndex: {
         99: "99",
@@ -149,5 +151,5 @@ module.exports = {
       },
     },
   },
-  plugins: [lineClamp],
+  plugins: [lineClamp, typography],
 };
