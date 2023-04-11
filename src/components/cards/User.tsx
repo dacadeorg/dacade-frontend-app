@@ -124,6 +124,7 @@ export default function UserCard({
         </div>
         {link ? <a href={link}>{children}</a> : <>{children}</>}
       </div>
+      {children}
     </div>
   );
 }
