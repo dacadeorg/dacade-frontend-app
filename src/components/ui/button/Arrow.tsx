@@ -1,7 +1,7 @@
 import Button from "./";
 import Spinner from "@/icons/spinner.svg";
 import ArrowRightIcon from "@/icons/arrow-right.svg";
-import { ReactElement, ReactNode, useMemo } from "react";
+import { HTMLProps, ReactElement, ReactNode, useMemo } from "react";
 import classNames from "classnames";
 
 /**
@@ -11,7 +11,8 @@ import classNames from "classnames";
  * @interface ArrowButtonProps
  * @typedef {ArrowButtonProps}
  */
-interface ArrowButtonProps {
+interface ArrowButtonProps
+  extends Pick<HTMLProps<HTMLButtonElement>, "onClick"> {
   loading?: boolean;
   disabled?: boolean;
   rounded?: boolean;
@@ -23,6 +24,7 @@ interface ArrowButtonProps {
   link?: string;
   target?: string;
   minWidthClass?: string;
+  className?: string;
   communityStyles?: boolean;
   direction?: "left" | "right" | "up" | "down";
   arrowClasses?: string;
@@ -65,6 +67,8 @@ export default function ArrowButton({
   minWidthClass = "min-w-44",
   communityStyles,
   arrowClasses = "",
+  onClick,
+  className = "",
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
@@ -82,13 +86,11 @@ export default function ArrowButton({
   }, [direction]);
 
   const arrowClassNames = classNames(
-    `w-4 h-4 text-gray-500 ${arrowClasses}`,
+    `text-gray-500 ${arrowClasses}`,
     {
       "rounded-full": rounded,
     }
   );
-
-  const inputListeners = () => {};
 
   return (
     <Button
@@ -103,23 +105,23 @@ export default function ArrowButton({
       target={target}
       type={type}
       communityStyles={communityStyles}
-      onClick={inputListeners}
-      className={classNames(`group ${minWidthClass}`, {
+      onClick={onClick}
+      className={classNames(`group ${minWidthClass} ${className}`, {
         "py-2 pl-5 pr-3.5": padding,
       })}
     >
-      <span className="flex items-center justify-between h-full text-left ">
+      <span className="flex items-center justify-between h-full text-left">
         {isLeft && (
           <span
             className={classNames("block", { "pr-2.5": children })}
           >
             {!loading ? (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} group-hover:text-white- transform`}
+                className={`${directionClass} ${arrowClassNames} transform`}
               />
             ) : (
               <Spinner
-                className={`${arrowClassNames} group-hover:text-white- animate-spin`}
+                className={`${arrowClassNames} animate-spin`}
               />
             )}
           </span>
@@ -135,11 +137,13 @@ export default function ArrowButton({
 
         {!isLeft && (
           <span className="block">
-            {!loading ? (
-              <ArrowRightIcon className={`transform`} />
-            ) : (
+            {loading ? (
               <Spinner
-                className={`${arrowClassNames} group-hover:text-white- animate-spin`}
+                className={`${arrowClassNames}  animate-spin`}
+              />
+            ) : (
+              <ArrowRightIcon
+                className={`${directionClass} ${arrowClassNames} transform`}
               />
             )}
           </span>
