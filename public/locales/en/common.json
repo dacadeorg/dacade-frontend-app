@@ -149,8 +149,11 @@
   "communities.overview.scoreboard.description": "On the scoreboard, you can see which users have accumulated the most reputation by giving valuable feedback to their peers.",
   "communities.card.estimated": "Estimated Time",
   "communities.card.earn": "Earn rewards",
+<<<<<<< HEAD
   "communities.card.submissions": "{{count}} Submissions",
   "communities.card.submission": "{{count}} Submission",
+=======
+>>>>>>> ft/migrate-section-communities
   "communities.card.courses": "in {{count}} Courses",
   "communities.card.course": "in {{count}} Course",
   "communities.list-card.earn": "Earn",
@@ -342,11 +345,11 @@
   "ui.translation.action.original": "See original",
   "notifications.emails.unsubscribe.confirm.title": "Confirm unsubscribing to email notifications",
   "notifications.emails.unsubscribe.confirm.text": "You will no longer receive email notifications from <strong>{appName}</strong>.",
-  "notifications.emails.unsubscribe.button.confirm":  "Confirm",
-  "notifications.emails.unsubscribe.button.cancel":  "Cancel",
-  "notifications.emails.unsubscribe.button.loading":  "Loading...",
-  "notifications.emails.unsubscribe.button.home":  "Go Back Home",
-  "notifications.emails.unsubscribe.warning":  "If this is not your email address, please ignore this page since the email associated with this page was most likely forwarded to you.",
+  "notifications.emails.unsubscribe.button.confirm": "Confirm",
+  "notifications.emails.unsubscribe.button.cancel": "Cancel",
+  "notifications.emails.unsubscribe.button.loading": "Loading...",
+  "notifications.emails.unsubscribe.button.home": "Go Back Home",
+  "notifications.emails.unsubscribe.warning": "If this is not your email address, please ignore this page since the email associated with this page was most likely forwarded to you.",
   "notifications.emails.unsubscribe.success.title": "You have successfully unsubscribed from email notifications",
   "discord-verification.error.title": "Discord verification failed",
   "discord-verification.success.title": "Discord has been linked successfully"

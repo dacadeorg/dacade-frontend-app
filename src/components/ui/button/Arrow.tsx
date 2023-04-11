@@ -52,8 +52,8 @@ interface ArrowButtonProps {
  * @returns {ReactElement}
  */
 export default function ArrowButton({
-  loading,
-  disabled,
+  loading = false,
+  disabled = false,
   rounded = true,
   type = "submit",
   variant = "primary",

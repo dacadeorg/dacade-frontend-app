@@ -6,8 +6,7 @@ import MainSection from "@/components/sections/homepage/Main";
 import HomeLayout from "@/layouts/Home";
 import { ReactElement } from "react";
 
-export const getStaticProps: GetStaticProps = async ({ locale }) =>
-  i18Translate(locale as string);
+
 
 export default function Home() {
   const { t } = useTranslation();
@@ -32,6 +31,9 @@ export default function Home() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) =>
+  i18Translate(locale as string);
 
 Home.getLayout = function (page: ReactElement) {
   return <HomeLayout>{page}</HomeLayout>;

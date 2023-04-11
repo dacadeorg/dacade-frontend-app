@@ -33,12 +33,12 @@ module.exports = {
         "blue-light": "#DDE9FF",
         "gray-light": "#1b66f8",
         theme: {
-          primary: 'var(--tm-primary)',
-          secondary: 'var(--tm-secondary)',
-          text: 'var(--tm-text)',
-          highlight: 'var(--tm-highlight)',
-          accent: 'var(--tm-accent)',
-          muted: 'var(--tm-muted)',
+          primary: "var(--tm-primary)",
+          secondary: "var(--tm-secondary)",
+          text: "var(--tm-text)",
+          highlight: "var(--tm-highlight)",
+          accent: "var(--tm-accent)",
+          muted: "var(--tm-muted)",
         },
       },
       spacing: {

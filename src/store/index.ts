@@ -12,6 +12,7 @@ import { notificationsSlice } from "./feature/notification.slice";
 import walletSlice from "./feature/wallet.slice";
 import reputationSlice from "./feature/reputation.slice";
 import indexSlice from "./feature/index.slice";
+import { communitiesApi } from "./feature/communities.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof community.reducer> ;
@@ -23,6 +24,7 @@ export interface IRootState {
   wallets: ReturnType<typeof walletSlice.reducer>;
   reputations: ReturnType<typeof reputationSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
+  communitiesApi: ReturnType<typeof communitiesApi.reducer>;
 }
 
 const store =  configureStore({
@@ -37,6 +39,7 @@ const store =  configureStore({
       [reputationSlice.name]: reputationSlice.reducer,
       [indexSlice.name]: indexSlice.reducer,
       [referralsApi.reducerPath]: referralsApi.reducer,
+      [communitiesApi.reducerPath]: communitiesApi.reducer,
     },
     middleware: (getDefaultMiddleware) => {
       return getDefaultMiddleware().concat(referralsApi.middleware);
