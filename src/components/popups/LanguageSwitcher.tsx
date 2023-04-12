@@ -1,5 +1,6 @@
 import { ReactElement, useMemo, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
+import ArrowDown from "@/icons/arrow-down.svg";
 import ChevronBottom from "@/icons/chevron-bottom.svg";
 import DropdownPopup from "@/components/ui/DropdownPopup";
 import LanguageList from "@/components/list/LanguageList";
@@ -85,6 +86,15 @@ export default function LanguageSwitcher({
           </>
         )}
       </div>
+      {show && (
+        <>
+          <DropdownPopup onClose={externalClick}>
+            <LanguageList />
+          </DropdownPopup>
+
+          <div className="opacity-25 fixed inset-0 z-30 bg-black" />
+        </>
+      )}
     </>
   );
 }
