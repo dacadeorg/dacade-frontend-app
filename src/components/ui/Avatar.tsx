@@ -41,7 +41,7 @@ interface AvatarProps {
   icon?: string;
   image?: string;
   color?: string;
-  user: User | null;
+  user?: User | null;
   size?: Size;
   shape?: Shape;
   useLink?: boolean;

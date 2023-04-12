@@ -55,7 +55,7 @@ export default function DefaultLayout({
                 muted: "var(--tm-muted)",
               },
             }}
-            sidebarBurgerColor={""}
+            sidebarBurgerColor={false}
           />
           <NotificationBar />
         </div>
