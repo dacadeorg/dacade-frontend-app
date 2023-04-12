@@ -9,7 +9,7 @@ import useOnClickOutside from "use-onclickoutside";
  * @typedef {DropdownPopupProps}
  */
 interface DropdownPopupProps {
-  onClose: () => void;
+  onClose?: () => void;
   children?: React.ReactNode;
 }
 
@@ -23,7 +23,7 @@ export default function DropdownPopup({
   children,
 }: DropdownPopupProps): ReactElement {
   const toggleInvite = () => {
-    onClose();
+    onClose?.();
   };
 
   const popupRef = useRef<HTMLDivElement>(null);
