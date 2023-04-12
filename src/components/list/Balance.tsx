@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector } from "@/hooks/useTypedSelector";
 import BalanceCard from "@/components/cards/Balance";
 import { useTranslation } from "react-i18next";
 import { ReactElement } from "react";
@@ -28,10 +28,10 @@ interface BalanceListProps {
 export default function BalanceList({
   value = 0,
 }: BalanceListProps): ReactElement {
-  // TODO: to remove any when the types for state are available, i suppose after postman file arrives
-  const wallets: wallet[] = useSelector(
-    (state: any) => state.user.wallets.list
-  );
+  // TODO: Uncomment this once redux store is available
+  // const wallets: wallet[] = useSelector(
+  //   (state) => state.user.wallets.list
+  // );
 
   const { t } = useTranslation();
 
@@ -41,9 +41,10 @@ export default function BalanceList({
         {t("nav.balance")}
       </span>
       <div className="space-y-4 mt-2">
-        {wallets.map((wallet) => (
+        {/* TODO: uncomment this once the redux store is implemented */}
+        {/* {wallets.map((wallet) => (
           <BalanceCard key={wallet.id} details={wallet} />
-        ))}
+        ))} */}
       </div>
     </div>
   );
