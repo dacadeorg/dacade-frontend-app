@@ -67,7 +67,7 @@ export default function EmailVerification() {
       </div>
     </div>
   ) : (
-    <></>
+    <>User Not available</>
   );
 }
 
