@@ -1,4 +1,6 @@
-import { Course, Metadata } from "./course";
+import { Course, Metadata, Reward } from "./course";
+import { Colors } from "./community";
+import { ReactNode } from "react";
 
 export interface Bounty {
   url: string;
@@ -22,13 +24,6 @@ export interface Bounty {
   totalSubmissions?: number;
   submissions?: Submission;
   author?: BountyAuthor;
-}
-
-export interface Colors {
-  textAccent: string;
-  accent: string;
-  text: string;
-  primary: string;
 }
 
 export interface BountyCourse extends Course {
@@ -62,9 +57,10 @@ export interface Faq {
 
 export interface Submission {
   length: Submission | undefined;
-  map(
-    arg0: (submission: any) => JSX.Element
-  ): import("react").ReactNode;
+  /**
+   *@property {function((submission: any) => JSX.Element): import("react").ReactNode} map - Applies the provided function to each element in the submission array, returning a new array of React elements.
+   */
+  map(arg0: (submission: Submission) => JSX.Element): ReactNode;
   id: string;
   ref: string;
   created_at: string;
@@ -74,7 +70,7 @@ export interface Submission {
   user_id: string;
   challenge: string;
   text: string;
-  reviewDeadline: number;
+  reviewDeadline: Date;
   metadata: SubmissionMetadata;
   timestamp: number;
   user: User;
@@ -133,20 +129,6 @@ export interface Reputation {
 export interface BountyAuthor {
   description: string;
   name: string;
-}
-
-export interface Reward {
-  id: string;
-  ref: string;
-  created_at: string;
-  updated_at: string;
-  type: RewardType;
-  community: string;
-  token: string;
-  challenge: string;
-  amount: number;
-  stable?: boolean;
-  timestamp: number;
 }
 
 export enum RewardType {

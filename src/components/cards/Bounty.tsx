@@ -1,6 +1,4 @@
-import DateManager, {
-  LocaleDateFormat,
-} from "@/utilities/DateManager";
+import DateManager from "@/utilities/DateManager";
 import Badge from "@/components/ui/Badge";
 import Avatar from "@/components/ui/Avatar";
 import Reward from "@/components/badges/RewardBadge";

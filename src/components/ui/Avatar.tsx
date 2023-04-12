@@ -115,6 +115,7 @@ export default function Avatar({
     "bg-primary inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle",
     sizeClassName,
     shapeClassName,
+    className,
     {
       "cursor-pointer": user,
     }

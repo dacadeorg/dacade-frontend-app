@@ -1,4 +1,4 @@
-import Button from "./";
+import Button from ".";
 import Spinner from "@/icons/spinner.svg";
 import ArrowRightIcon from "@/icons/arrow-right.svg";
 import { HTMLProps, ReactElement, ReactNode, useMemo } from "react";
@@ -28,6 +28,7 @@ interface ArrowButtonProps
   communityStyles?: boolean;
   direction?: "left" | "right" | "up" | "down";
   arrowClasses?: string;
+  onClick?: () => void;
 }
 
 /**
@@ -60,6 +61,7 @@ export default function ArrowButton({
   variant = "primary",
   padding,
   children,
+  onClick,
   customStyle = null,
   link = "",
   target = "",
