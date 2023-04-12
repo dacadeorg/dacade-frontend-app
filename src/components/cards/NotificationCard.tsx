@@ -27,7 +27,7 @@ interface User {
 interface Details {
   message: string;
   created_at: Date;
-  metadata: Metadata
+  metadata: Metadata;
   link: string;
   type: string;
 }
@@ -36,58 +36,71 @@ interface Details {
  * Interface for notification component props
  * @date 3/28/2023 - 8:57:52 PM
  *
- * @interface NotificationProps
- * @typedef {NotificationProps}
+ * @interface NotificationCardProps
+ * @typedef {NotificationCardProps}
  */
-interface NotificationProps {
+interface NotificationCardProps {
   user: User;
   details: Details;
   extended?: boolean;
 }
 
 /**
- * Notification component
+ * Enum for notification types
+ * @date 3/28/2023 - 9:04:03 PM
+ * @enum {string}
+ * @typedef {TYPES}
+ * @property {string} SUBMISSION
+ * @property {string} REFERRAL
+ * @property {string} FEEDBACK
+ * @readonly
+ *
+ * */
+enum TYPES {
+  SUBMISSION = "SUBMISSION",
+  REFERRAL = "REFERRAL",
+  FEEDBACK = "FEEDBACK",
+}
+
+/**
+ * NotificationCard component
  * @date 3/28/2023 - 8:57:59 PM
  *
  * @export
- * @param {NotificationProps} {
+ * @param {NotificationCardProps} {
   user = {},
   details,
   extended = false,
 }
  * @returns {ReactElement}
  */
-export default function Notification({
+export default function NotificationCard({
   user = {},
   details,
   extended = false,
-}: NotificationProps): ReactElement {
+}: NotificationCardProps): ReactElement {
   const router = useRouter();
 
   const humanizedDate = useMemo(
-    () =>
-      DateManager.fromNow(
-        details.created_at,
-        router.locale 
-      ),
+    () => DateManager.fromNow(details.created_at, router.locale),
     [details.created_at, router.locale]
   );
 
   const date = useMemo(
-    () =>
-      DateManager.intlFormat(
-        details.created_at,
-        router.locale
-      ),
+    () => DateManager.intlFormat(details.created_at, router.locale),
     [details.created_at, router.locale]
   );
 
   const link = useMemo(() => {
     const { type } = details;
-    if(type === "SUBMISSION" || type ===   "REFERRAL" || type ===  "FEEDBACK" ){
-      return `/${details.metadata.submissions}`;;
-    }
-    else{
+
+    if (
+      type === TYPES.SUBMISSION ||
+      type === TYPES.REFERRAL ||
+      type === TYPES.FEEDBACK
+    ) {
+      return `/${details.metadata.submissions}`;
+    } else {
       return details.link;
     }
   }, [details]);

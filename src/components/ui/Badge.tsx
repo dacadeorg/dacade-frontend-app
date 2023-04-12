@@ -12,8 +12,9 @@ import { HTMLProps, ReactElement, useMemo } from "react";
 interface BadgeProps
   extends Omit<HTMLProps<HTMLSpanElement>, "size"> {
   customStyle?: object;
-  value: string | number;
+  value?: string | number;
   size?: "medium" | "small";
+  className?: string;
 }
 
 /**

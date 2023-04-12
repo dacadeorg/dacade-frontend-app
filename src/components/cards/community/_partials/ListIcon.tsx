@@ -1,6 +1,7 @@
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import Image from "next/image";
 import { ReactElement } from "react";
+import { useTranslation } from "next-i18next";
 
 /**
  * Colors interface
@@ -33,7 +34,6 @@ interface Community {
   colors: Colors;
 }
 
-
 /**
  * Interface for CommunityListCardIcon component props
  * @date 3/30/2023 - 3:49:38 PM
@@ -49,6 +49,7 @@ export default function CommunityListCardIcon({
   community,
 }: CommunityListCardIconProps): ReactElement {
   const submissions = community.metadata?.submissions || 0;
+  const { t } = useTranslation();
 
   return (
     <ThemeWrapper colors={community.colors}>
@@ -65,7 +66,7 @@ export default function CommunityListCardIcon({
             </div>
             <div className="self-end w-auto sm:h-full md:h-auto">
               <Image
-                src={community.icon}
+                src={`/static${community.icon}`}
                 className="relative h-44 w-44 mb-5"
                 alt="Community icon"
                 width={176}
@@ -75,9 +76,12 @@ export default function CommunityListCardIcon({
           </div>
           <div className="flex md:flex-row lg:flex-col justify-start flex-col max-w-xs -mt-4 md:-mt-7 md:max-w-lg items-start">
             <div className="text-sm">
-              <span>
-                <strong>{submissions}</strong> submissions
-              </span>
+              {t(
+                submissions > 1
+                  ? "communities.card.submissions"
+                  : "communities.card.submission",
+                { count: submissions }
+              )}
             </div>
           </div>
         </div>
