@@ -14,7 +14,7 @@ import reputationSlice from "./feature/reputation.slice";
 import indexSlice from "./feature/index.slice";
 import { communitiesApi } from "./feature/communities.slice";
 import authSlice from "./feature/auth.slice";
-import scoreboardSlice from "./feature/communites/scoreboard.slice";
+import scoreboardSlice from "./feature/communities/scoreboard.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof community.reducer>;
