@@ -4,6 +4,7 @@ import {
   referralsApi,
   referralSlice,
 } from "./feature/referrals.slice";
+import community from "./feature/community.slice";
 import ui from "./feature/ui.slice";
 import userSlice from "./feature/user.slice";
 import { bannerSlice } from "./feature/banner.slice";
@@ -25,22 +26,24 @@ export interface IRootState {
   store: ReturnType<typeof indexSlice.reducer>;
 }
 
-const store = configureStore({
-  reducer: {
-    [ui.name]: ui.reducer,
-    [referralSlice.name]: referralSlice.reducer,
-    [userSlice.name]: userSlice.reducer,
-    [notificationsSlice.name]: notificationsSlice.reducer,
-    [bannerSlice.name]: bannerSlice.reducer,
-    [walletSlice.name]: walletSlice.reducer,
-    [reputationSlice.name]: reputationSlice.reducer,
-    [indexSlice.name]: indexSlice.reducer,
-    [referralsApi.reducerPath]: referralsApi.reducer,
-  },
-  middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(referralsApi.middleware);
-  },
-  devTools: true,
-});
+export const store =
+  configureStore({
+    reducer: {
+      [ui.name]: ui.reducer,
+      [community.name]: community.reducer,
+      [referralSlice.name]: referralSlice.reducer,
+      [userSlice.name]: userSlice.reducer,
+      [notificationsSlice.name]: notificationsSlice.reducer,
+      [bannerSlice.name]: bannerSlice.reducer,
+      [walletSlice.name]: walletSlice.reducer,
+      [reputationSlice.name]: reputationSlice.reducer,
+      [indexSlice.name]: indexSlice.reducer,
+      [referralsApi.reducerPath]: referralsApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) => {
+      return getDefaultMiddleware().concat(referralsApi.middleware);
+    },
+    devTools: true,
+  });
 
 export const wrapper = createWrapper(() => store);
