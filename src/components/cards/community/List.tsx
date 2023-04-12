@@ -7,6 +7,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
+import { useRouter } from "next/router";
 
 /**
  * Interface for CommunityListCard component props
@@ -33,6 +34,7 @@ export default function CommunityListCard({
   community,
 }: CommunityListCardProps): ReactElement {
   const { t } = useTranslation();
+  const router = useRouter();
   const path = `/communities/${community.slug}`;
 
   const rewards = community.rewards.reduce((accumulator, reward) => ({
@@ -50,7 +52,7 @@ export default function CommunityListCard({
 
   return (
     <ThemeWrapper className="w-full" colors={community.colors}>
-      <Link href={path} className="bg-red-200">
+      <div onClick={() => router.push(path)} className="bg-red-200">
         <div className="group w-full bg-gray-200 lg:flex min-w-full mx-0 rounded-3xl relative">
           <ListIcon community={community} />
           <div className="flex-col justify-between flex p-3 md:p-7 text-gray-700 flex-1 divide-y divide-dotted divide-gray-500">
@@ -104,7 +106,7 @@ export default function CommunityListCard({
             </div>
           </div>
         </div>
-      </Link>
+      </div>
     </ThemeWrapper>
   );
 }
