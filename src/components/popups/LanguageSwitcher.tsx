@@ -1,9 +1,8 @@
 import { ReactElement, useMemo, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
-import ArrowDown from "@/assets/arrow-down.svg";
+import ArrowDown from "@/icons/arrow-down.svg";
 import DropdownPopup from "@/components/ui/DropdownPopup";
 import LanguageList from "@/components/list/LanguageList";
-import useOnClickOutside from "use-onclickoutside";
 
 /**
  * Language Switcher Interface
@@ -56,35 +55,32 @@ export default function LanguageSwitcher({
     }
   };
 
-  useOnClickOutside(popupRef, externalClick);
-
   const { i18n } = useTranslation();
 
   const currentLocale = useMemo(() => i18n.language, []);
   return (
     <>
-      <div>
-        <div
-          ref={popupRef}
-          className="inline-block opacity-70 hover:opacity-100 text-sm ml-3 cursor-pointer"
-        >
-          <span className="inline-block uppercase">
-            {currentLocale}
-          </span>
-          <span className="inline-block">
-            <ArrowDown />
-          </span>
-        </div>
-        {show && (
-          <>
-            <DropdownPopup onClose={toggle}>
-              <LanguageList />
-            </DropdownPopup>
-
-            <div className="opacity-25 fixed inset-0 z-30 bg-black" />
-          </>
-        )}
+      <div
+        ref={popupRef}
+        onClick={toggle}
+        className="inline-block opacity-70 hover:opacity-100 text-sm ml-3 cursor-pointer"
+      >
+        <span className="inline-block uppercase">
+          {currentLocale}
+        </span>
+        <span className="inline-block">
+          <ArrowDown />
+        </span>
       </div>
+      {show && (
+        <>
+          <DropdownPopup onClose={externalClick}>
+            <LanguageList />
+          </DropdownPopup>
+
+          <div className="opacity-25 fixed inset-0 z-30 bg-black" />
+        </>
+      )}
     </>
   );
 }

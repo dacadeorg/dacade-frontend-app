@@ -1,4 +1,5 @@
-import { ReactElement } from "react";
+import { ReactElement, useRef } from "react";
+import useOnClickOutside from "use-onclickoutside";
 
 /**
  * Dropdown Popup Interface
@@ -24,8 +25,13 @@ export default function DropdownPopup({
   const toggleInvite = () => {
     onClose();
   };
+
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside(popupRef, () => onClose());
   return (
     <div
+      ref={popupRef}
       style={{
         width: "calc(100vw - 40px)",
         maxWidth: "340px",
