@@ -16,7 +16,7 @@ import useOnClickOutside from "use-onclickoutside";
  * */
 
 interface LanguageSwitcherProps {
-  close: () => void;
+  close?: () => void;
 }
 
 /**
