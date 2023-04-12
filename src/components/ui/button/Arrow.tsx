@@ -1,7 +1,7 @@
 import Button from ".";
 import Spinner from "@/icons/spinner.svg";
 import ArrowRightIcon from "@/icons/arrow-right.svg";
-import { ReactElement, ReactNode, useMemo } from "react";
+import { HTMLProps, ReactElement, ReactNode, useMemo } from "react";
 import classNames from "classnames";
 
 /**
@@ -11,7 +11,8 @@ import classNames from "classnames";
  * @interface ArrowButtonProps
  * @typedef {ArrowButtonProps}
  */
-interface ArrowButtonProps {
+interface ArrowButtonProps
+  extends Pick<HTMLProps<HTMLButtonElement>, "onClick"> {
   loading?: boolean;
   disabled?: boolean;
   rounded?: boolean;
@@ -53,22 +54,22 @@ interface ArrowButtonProps {
  * @returns {ReactElement}
  */
 export default function ArrowButton({
-  loading,
-  disabled,
+  loading = false,
+  disabled = false,
   rounded = true,
   type = "submit",
   variant = "primary",
   padding,
   children,
-  onClick,
   customStyle = null,
   link = "",
   target = "",
   direction = "right",
   minWidthClass = "min-w-44",
   communityStyles,
-  className,
   arrowClasses = "",
+  onClick,
+  className = "",
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
@@ -85,12 +86,9 @@ export default function ArrowButton({
     }
   }, [direction]);
 
-  const arrowClassNames = classNames(
-    `text-gray-500 ${arrowClasses}`,
-    {
-      "rounded-full": rounded,
-    }
-  );
+  const arrowClassNames = classNames(`${arrowClasses}`, {
+    "rounded-full": rounded,
+  });
 
   return (
     <Button
@@ -105,6 +103,7 @@ export default function ArrowButton({
       target={target}
       type={type}
       communityStyles={communityStyles}
+      onClick={onClick}
       className={classNames(`group ${minWidthClass} ${className}`, {
         "py-2 pl-5 pr-3.5": padding,
       })}
@@ -116,11 +115,11 @@ export default function ArrowButton({
           >
             {!loading ? (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} text-white transform`}
+                className={`${directionClass} ${arrowClassNames} transform`}
               />
             ) : (
               <Spinner
-                className={`${arrowClassNames} text-white animate-spin`}
+                className={`animate-spin ${arrowClassNames}`}
               />
             )}
           </span>

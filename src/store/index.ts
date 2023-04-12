@@ -12,6 +12,8 @@ import { notificationsSlice } from "./feature/notification.slice";
 import walletSlice from "./feature/wallet.slice";
 import reputationSlice from "./feature/reputation.slice";
 import indexSlice from "./feature/index.slice";
+import { communitiesApi } from "./feature/communities.slice";
+import authSlice from "./feature/auth.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof community.reducer>;
@@ -23,25 +25,32 @@ export interface IRootState {
   wallets: ReturnType<typeof walletSlice.reducer>;
   reputations: ReturnType<typeof reputationSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
+  auth: ReturnType<typeof authSlice.reducer>;
+  communityApi: ReturnType<typeof communitiesApi.reducer>;
 }
 
-const makeStore = () =>
-  configureStore({
-    reducer: {
-      [ui.name]: ui.reducer,
-      [referralSlice.name]: referralSlice.reducer,
-      [userSlice.name]: userSlice.reducer,
-      [notificationsSlice.name]: notificationsSlice.reducer,
-      [bannerSlice.name]: bannerSlice.reducer,
-      [walletSlice.name]: walletSlice.reducer,
-      [reputationSlice.name]: reputationSlice.reducer,
-      [indexSlice.name]: indexSlice.reducer,
-      [referralsApi.reducerPath]: referralsApi.reducer,
-    },
-    middleware: (getDefaultMiddleware) => {
-      return getDefaultMiddleware().concat(referralsApi.middleware);
-    },
-    devTools: true,
-  });
+export const store = configureStore({
+  reducer: {
+    [ui.name]: ui.reducer,
+    [referralSlice.name]: referralSlice.reducer,
+    [userSlice.name]: userSlice.reducer,
+    [notificationsSlice.name]: notificationsSlice.reducer,
+    [bannerSlice.name]: bannerSlice.reducer,
+    [walletSlice.name]: walletSlice.reducer,
+    [reputationSlice.name]: reputationSlice.reducer,
+    [indexSlice.name]: indexSlice.reducer,
+    [community.name]: community.reducer,
+    [authSlice.name]: authSlice.reducer,
+    [communitiesApi.reducerPath]: communitiesApi.reducer,
+    [referralsApi.reducerPath]: referralsApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(
+      referralsApi.middleware,
+      communitiesApi.middleware
+    );
+  },
+  devTools: true,
+});
 
-export const wrapper = createWrapper(() => makeStore());
+export const wrapper = createWrapper(() => store);

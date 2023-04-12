@@ -1,8 +1,15 @@
 import Checkmark from "@/icons/checkmark.svg";
 import classNames from "classnames";
 import { useRouter } from "next/router";
-import { ReactElement } from "react";
+import { ReactElement, useMemo } from "react";
 import { useTranslation } from "next-i18next";
+
+const languages: { [key: string]: string } = {
+  en: "English",
+  es: "Español",
+  bg: "Bulgarian",
+  hr: "Croatian",
+};
 
 /**
  * This Language list component responsible for switching languages
@@ -15,7 +22,7 @@ import { useTranslation } from "next-i18next";
 export default function LanguageList(): ReactElement {
   const router = useRouter();
   const availableLocales: string[] | undefined = router.locales;
-  const selected = router.locale;
+  const selected = useMemo(() => router.locale, [router.locale]);
   const { t } = useTranslation();
 
   /**
@@ -24,7 +31,7 @@ export default function LanguageList(): ReactElement {
    *
    * @param {string} locale
    */
-  const switchLocalePath = (locale: string): void => {
+  const switchLocalePath = (locale: string) => {
     router.push(router.asPath, router.asPath, { locale: locale });
   };
 
@@ -52,7 +59,7 @@ export default function LanguageList(): ReactElement {
                   "font-normal": locale !== selected,
                 })}
               >
-                {locale}
+                {languages[locale as string]}
               </span>
             </div>
             {locale === selected && (

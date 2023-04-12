@@ -1,8 +1,15 @@
 import { ReactElement, useMemo, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
 import ArrowDown from "@/icons/arrow-down.svg";
+import ChevronBottom from "@/icons/chevron-bottom.svg";
 import DropdownPopup from "@/components/ui/DropdownPopup";
 import LanguageList from "@/components/list/LanguageList";
+import useOnClickOutside from "use-onclickoutside";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import {
+  toggleBodyScrolling,
+  toggleShowReferralPopup,
+} from "@/store/feature/ui.slice";
 
 /**
  * Language Switcher Interface
@@ -33,44 +40,51 @@ export default function LanguageSwitcher({
   close,
 }: LanguageSwitcherProps): ReactElement {
   const [show, setshow] = useState(false);
-
   const popupRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch();
+
+  const { i18n } = useTranslation();
+  const currentLocale = useMemo(() => i18n.language, [i18n.language]);
 
   const toggle = () => {
     setshow((prev) => !prev);
-    //TODO;  will be added when redux is added to the project
-    // dispatch("ui/toggleBodyScrolling", show);
+    toggleBodyScrolling(!show)(dispatch);
   };
 
   const toggleInvite = () => {
-    //TODO; will be added when redux is added to the project
-    // store.dispatch("ui/toggleShowReferralPopup", true);
+    close?.();
+    toggleShowReferralPopup(true)(dispatch);
   };
 
   const externalClick = () => {
     if (show) {
       setshow(false);
-      //TODO; will be added when redux is added to the project
-      // dispatch("ui/toggleBodyScrolling", show);
+      toggleBodyScrolling(false)(dispatch);
     }
   };
+  useOnClickOutside(popupRef, externalClick);
 
-  const { i18n } = useTranslation();
-
-  const currentLocale = useMemo(() => i18n.language, []);
   return (
     <>
-      <div
-        ref={popupRef}
-        onClick={toggle}
-        className="inline-block opacity-70 hover:opacity-100 text-sm ml-3 cursor-pointer"
-      >
-        <span className="inline-block uppercase">
-          {currentLocale}
-        </span>
-        <span className="inline-block">
-          <ArrowDown />
-        </span>
+      <div ref={popupRef}>
+        <div
+          onClick={toggle}
+          className="flex opacity-70 hover:opacity-100 text-sm ml-3 cursor-pointer items-center"
+        >
+          <span className="uppercase">{currentLocale}</span>
+          <span>
+            <ChevronBottom className="w-4 mx-1" />
+          </span>
+        </div>
+        {show && (
+          <>
+            <DropdownPopup onClose={externalClick}>
+              <LanguageList />
+            </DropdownPopup>
+
+            <div className="opacity-25 fixed inset-0 z-30 bg-black" />
+          </>
+        )}
       </div>
       {show && (
         <>

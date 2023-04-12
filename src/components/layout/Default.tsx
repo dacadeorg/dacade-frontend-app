@@ -4,7 +4,7 @@
  *
  */
 
-// import Navbar from "@/components/layout/Navbar";
+import Navbar from "@/components/layout/Navbar";
 import Wrapper from "./Wrapper";
 import Footer from "@/components/layout/Footer";
 import PrivacyPolicyBanner from "@/components/banner/PrivacyPolicy";
@@ -44,7 +44,19 @@ export default function DefaultLayout({
     <Wrapper>
       <div className="relative min-h-screen flex flex-col">
         <div className="relative flex-grow-0">
-          {/* <Navbar />*/}
+          <Navbar
+            settings={{
+              colors: {
+                primary: "var(--tm-primary)",
+                secondary: "var(--tm-secondary)",
+                text: "var(--tm-text)",
+                highlight: "var(--tm-highlight)",
+                accent: "var(--tm-accent)",
+                muted: "var(--tm-muted)",
+              },
+            }}
+            sidebarBurgerColor={false}
+          />
           <NotificationBar />
         </div>
         <div className="relative flex-grow">{children}</div>
