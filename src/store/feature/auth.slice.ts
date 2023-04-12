@@ -1,3 +1,4 @@
+import { IRootState } from "@/store";
 import {
   createAsyncThunk,
   createSlice,
@@ -35,7 +36,7 @@ const initialState: AuthState = {
 };
 
 // Define the auth slice using Redux Toolkit
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
@@ -55,8 +56,8 @@ const authSlice = createSlice({
 export const { setAuthData, clearAuthData } = authSlice.actions;
 
 // Define the sing up async thunks using Redux Toolkit
-export const singUp = createAsyncThunk(
-  "singup",
+export const signUp = createAsyncThunk(
+  "signup",
   async (
     payload: { email: string; password: string },
     { dispatch }
@@ -152,3 +153,9 @@ export const verifyEmail = async (payload: { code: string }) => {
   const res = await api().post("auth/verify-email", payload);
   return res;
 };
+
+export const authCheck = (state: IRootState) =>
+  state.auth.data !== null && state.auth.data !== undefined;
+
+export const authVerify = (state: IRootState) =>
+  authCheck(state) && (state.auth.data?.emailVerified as boolean);
