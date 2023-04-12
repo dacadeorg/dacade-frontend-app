@@ -259,6 +259,7 @@ div {
 }
 [type="checkbox"],
 [type="radio"] {
+  -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
   --tw-shadow: 0 0 #0000;
   -webkit-appearance: none;
