@@ -22,13 +22,9 @@ export default function DropdownPopup({
   onClose,
   children,
 }: DropdownPopupProps): ReactElement {
-  const toggleInvite = () => {
-    onClose?.();
-  };
-
   const popupRef = useRef<HTMLDivElement>(null);
 
-  useOnClickOutside(popupRef, () => onClose());
+  useOnClickOutside(popupRef, () => onClose?.());
   return (
     <div
       ref={popupRef}

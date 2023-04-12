@@ -5,6 +5,7 @@ import i18Translate from "@/utilities/I18Translate";
 import HomeLayout from "@/layouts/Home";
 import { ReactElement } from "react";
 import MainSection from "@/components/sections/homepage/Main";
+import LanguageSwitcher from "@/components/popups/LanguageSwitcher";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) =>
   i18Translate(locale as string);
@@ -27,6 +28,7 @@ export default function Home() {
       </Head>
       {/* TODO: The max with should be removed when the home page layout is migrated */}
       <main className="relative max-w-7xl mx-auto">
+        <LanguageSwitcher />
         <MainSection />
       </main>
     </>
