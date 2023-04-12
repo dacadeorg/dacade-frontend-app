@@ -1,6 +1,7 @@
 import {
   ChangeEvent,
   FormEventHandler,
+  HTMLProps,
   ReactElement,
   useState,
 } from "react";
@@ -13,10 +14,10 @@ import Radio from "@/components/ui/Radio";
  * @interface FilterOptionProps
  * @typedef {FilterOptionProps}
  */
-interface FilterOptionProps {
+interface FilterOptionProps extends HTMLProps<HTMLInputElement> {
   label?: string;
   value?: string | number;
-  data: string;
+  data?: string;
   name?: string;
 }
 
@@ -38,6 +39,7 @@ export default function FilterOption({
   value = "",
   data = "",
   name = "",
+  ...props
 }: FilterOptionProps): ReactElement {
   const [vModalValue, setVModalValue] = useState(value);
 
@@ -55,6 +57,7 @@ export default function FilterOption({
     <div className="mt-2 mb-2">
       <label className="inline-flex items-center">
         <Radio
+          {...props}
           id="radio btn"
           data={data}
           required={true}
