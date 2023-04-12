@@ -1,11 +1,11 @@
 import ArrowButton from "@/components/ui/button/Arrow";
 import i18Translate from "@/utilities/I18Translate";
 import { GetStaticProps } from "next";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 // TODO: user data will be uncommented when the redux store is ready
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 /**
  * Email verification page
@@ -28,7 +28,6 @@ export default function EmailVerification() {
     // setloading(true);
     // try {
     //   const data = await dispatch("auth/resendEmailVerification");
-    //   console.log(data);
     // } catch (e) {
     //   console.log(e);
     // } finally {

@@ -19,6 +19,7 @@ export interface Community {
   timestamp: number;
   rewards: Reward[];
   courses: number;
+  duration:number
 }
 
 export interface Colors {
