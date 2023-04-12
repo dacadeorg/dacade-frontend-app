@@ -1,7 +1,6 @@
-import React, { useState, useEffect, ReactElement } from "react";
+import { ReactElement } from "react";
 import hexToRgba from "hex-to-rgba";
 import Logo from "@/icons/logo.svg";
-// import Sidebar from "@/components/popups/Sidebar";
 import NavItem from "@/components/ui/NavItem";
 import NotificationPopup from "@/components/popups/NotificationPopup";
 import UserPopup from "@/components/popups/user";
@@ -17,10 +16,11 @@ import {
   logout,
 } from "@/store/feature/auth.slice";
 import LanguageList from "../list/LanguageList";
+import Sidebar from "./Sidebar";
 
 interface NavbarProps {
   settings: any;
-  sidebarBurgerColor: string;
+  sidebarBurgerColor: boolean;
 }
 
 export default function Navbar({
@@ -95,7 +95,7 @@ export default function Navbar({
         )}
         <ul className="ml-auto text-right relative flex lg:hidden items-center">
           {/* TODO: waiting the side bar to be implemented */}
-          {/* <Sidebar burgerColor={sidebarBurgerColor} /> */}
+          <Sidebar burgerColor={sidebarBurgerColor} />
         </ul>
         {!isAuthenticated && (
           <ul className="ml-auto text-right relative hidden lg:block">

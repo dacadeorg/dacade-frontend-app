@@ -79,7 +79,7 @@ export default function MainSection(): ReactElement {
       <div className="lg:hidden pt-10">
         <Link href="/communities">
           <ArrowButton
-            min-width-class="min-w-62"
+            minWidthClass="min-w-62"
             className="py-4 pl-7.5 pr-5.75"
           >
             {t("page.index.main.button")}

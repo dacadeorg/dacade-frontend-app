@@ -142,6 +142,7 @@ export default function Bounty({
           size="medium-fixed"
           shape="rounded"
           className="w-15 h-15 rounded-xl overflow-hidden"
+          user={null}
         />
         {bounty.submissions && bounty.submissions.length && (
           <Badge

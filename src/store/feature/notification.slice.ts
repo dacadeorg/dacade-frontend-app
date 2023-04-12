@@ -61,3 +61,15 @@ export const allNotifications = createAsyncThunk(
     }
   }
 );
+
+export const readNotification = createAsyncThunk(
+  "notifications/read",
+  async (_, { dispatch }) => {
+    try {
+      await api().post("notifications/read");
+      dispatch(allNotifications());
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);

@@ -61,7 +61,6 @@ export default function ArrowButton({
   variant = "primary",
   padding,
   children,
-  onClick,
   customStyle = null,
   link = "",
   target = "",
@@ -69,6 +68,7 @@ export default function ArrowButton({
   minWidthClass = "min-w-44",
   communityStyles,
   arrowClasses = "",
+  onClick,
   className = "",
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
@@ -86,12 +86,9 @@ export default function ArrowButton({
     }
   }, [direction]);
 
-  const arrowClassNames = classNames(
-    `text-gray-500 ${arrowClasses}`,
-    {
-      "rounded-full": rounded,
-    }
-  );
+  const arrowClassNames = classNames(`${arrowClasses}`, {
+    "rounded-full": rounded,
+  });
 
   return (
     <Button
@@ -122,7 +119,7 @@ export default function ArrowButton({
               />
             ) : (
               <Spinner
-                className={`${arrowClassNames} animate-spin`}
+                className={`animate-spin ${arrowClassNames}`}
               />
             )}
           </span>
@@ -138,13 +135,13 @@ export default function ArrowButton({
 
         {!isLeft && (
           <span className="block">
-            {loading ? (
-              <Spinner
-                className={`${arrowClassNames}  animate-spin`}
-              />
-            ) : (
+            {!loading ? (
               <ArrowRightIcon
                 className={`${directionClass} ${arrowClassNames} transform`}
+              />
+            ) : (
+              <Spinner
+                className={`animate-spin ${arrowClassNames}`}
               />
             )}
           </span>

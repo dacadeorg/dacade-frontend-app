@@ -143,7 +143,6 @@ module.exports = {
         "5xl": "64rem",
         "6xl": "72rem",
         "7xl": "80rem",
-        44: "11rem",
       }),
       zIndex: {
         99: "99",
