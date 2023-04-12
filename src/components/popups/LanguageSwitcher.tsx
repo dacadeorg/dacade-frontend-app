@@ -15,7 +15,7 @@ import LanguageList from "@/components/list/LanguageList";
  * */
 
 interface LanguageSwitcherProps {
-  close: () => void;
+  close?: () => void;
 }
 
 /**
