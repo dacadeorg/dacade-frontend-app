@@ -19,6 +19,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Graphik", "sans-serif"],
+      },
       colors: {
         current: "currentColor",
         "primary-dark": "#205ED7",
@@ -29,6 +32,14 @@ module.exports = {
         "blue-lighter": "#F8FAFF",
         "blue-light": "#DDE9FF",
         "gray-light": "#1b66f8",
+        theme: {
+          primary: 'var(--tm-primary)',
+          secondary: 'var(--tm-secondary)',
+          text: 'var(--tm-text)',
+          highlight: 'var(--tm-highlight)',
+          accent: 'var(--tm-accent)',
+          muted: 'var(--tm-muted)',
+        },
       },
       spacing: {
         3.75: "0.9375rem",
@@ -44,6 +55,7 @@ module.exports = {
         15: "3.75rem",
         16.25: "4.25rem",
         17: "4.5rem",
+        44: '11rem',
         62: "15.5rem",
         96.5: "25.5rem",
         98: "28rem",
@@ -114,7 +126,8 @@ module.exports = {
         "6xl": "72rem",
         "7xl": "80rem",
       },
-      minWidth: {
+      minWidth: (theme) => ({
+        ...theme("spacing"),
         "3xs": "5rem",
         "2xs": "10rem",
         ".5xs": "14em",
@@ -129,7 +142,7 @@ module.exports = {
         "5xl": "64rem",
         "6xl": "72rem",
         "7xl": "80rem",
-      },
+      }),
       zIndex: {
         99: "99",
         999: "999",

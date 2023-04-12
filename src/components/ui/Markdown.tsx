@@ -8,6 +8,7 @@ import {
   useEffect,
   ReactElement,
   useCallback,
+  HTMLProps,
 } from "react";
 
 // TODO: Should be uncommented when redux will be implemented
@@ -22,8 +23,9 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
 import Highlighter from "@/utilities/Highlighter";
+import rehypeFormat from "rehype-format";
 
-interface MarkdownProps {
+interface MarkdownProps extends HTMLProps<HTMLDivElement> {
   value: string;
 }
 
@@ -38,6 +40,7 @@ interface MarkdownProps {
 
 export default function Markdown({
   value,
+  ...props
 }: MarkdownProps): ReactElement {
   const [content, setContent] = useState("");
 
@@ -61,7 +64,7 @@ export default function Markdown({
    *
    */
   const parseMarkdown = useCallback(async (content: string) => {
-    const { value } = await unified()
+    unified()
       .use(remarkParse)
       .use(remarkBreaks)
       .use(remarkGfm)
@@ -71,8 +74,11 @@ export default function Markdown({
       .use(rehypeExternalLinks, { target: "_blank" })
       .use(rehypeSlug)
       .use(rehypeStringify)
-      .process(content);
-    setContent(value as string);
+      .use(rehypeFormat)
+      .use(rehypeStringify)
+      .process(content, (error, file) => {
+        if (!error) setContent(file?.value as string);
+      });
   }, []);
 
   useEffect(() => {
@@ -88,6 +94,7 @@ export default function Markdown({
     <div
       // TODO: Should be uncommented when redux will be implemented
       //  style={themeStyles}
+      {...props}
       className="prose"
       data-testid="markdown"
     >

@@ -1,4 +1,4 @@
-import Button from "./";
+import Button from ".";
 import Spinner from "@/icons/spinner.svg";
 import ArrowRightIcon from "@/icons/arrow-right.svg";
 import { ReactElement, ReactNode, useMemo } from "react";
@@ -12,19 +12,22 @@ import classNames from "classnames";
  * @typedef {ArrowButtonProps}
  */
 interface ArrowButtonProps {
-  loading: boolean;
-  disabled: boolean;
+  loading?: boolean;
+  disabled?: boolean;
   rounded?: boolean;
   type?: "submit" | "button" | "reset" | undefined;
   variant?: string;
   padding?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
   customStyle?: object | null;
   link?: string;
   target?: string;
-  minWidthClass: string;
-  communityStyles: boolean;
-  direction: "left" | "right" | "up" | "down";
+  minWidthClass?: string;
+  className?: string;
+  communityStyles?: boolean;
+  direction?: "left" | "right" | "up" | "down";
+  arrowClasses?: string;
+  onClick?: () => void;
 }
 
 /**
@@ -45,6 +48,7 @@ interface ArrowButtonProps {
   target = "",
   minWidthClass = "min-w-44",
   communityStyles,
+  arrowClasses,
 }
  * @returns {ReactElement}
  */
@@ -56,12 +60,14 @@ export default function ArrowButton({
   variant = "primary",
   padding,
   children,
+  onClick,
   customStyle = null,
   link = "",
   target = "",
   direction = "right",
   minWidthClass = "min-w-44",
   communityStyles,
+  arrowClasses = "",
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
@@ -78,11 +84,12 @@ export default function ArrowButton({
     }
   }, [direction]);
 
-  const arrowClassNames = classNames(`w-4 h-4 text-gray-500`, {
-    "rounded-full": rounded,
-  });
-
-  const inputListeners = () => {};
+  const arrowClassNames = classNames(
+    `text-gray-500 ${arrowClasses}`,
+    {
+      "rounded-full": rounded,
+    }
+  );
 
   return (
     <Button
@@ -97,23 +104,23 @@ export default function ArrowButton({
       target={target}
       type={type}
       communityStyles={communityStyles}
-      onClick={inputListeners}
+      onClick={onClick}
       className={classNames(`group ${minWidthClass}`, {
         "py-2 pl-5 pr-3.5": padding,
       })}
     >
-      <span className="flex h-full text-left items-center justify-between ">
+      <span className="flex items-center justify-between h-full text-left">
         {isLeft && (
           <span
             className={classNames("block", { "pr-2.5": children })}
           >
             {!loading ? (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} group-hover:text-white transform`}
+                className={`${directionClass} ${arrowClassNames} transform`}
               />
             ) : (
               <Spinner
-                className={`${arrowClassNames} group-hover:text-white animate-spin`}
+                className={`animate-spin ${arrowClassNames}`}
               />
             )}
           </span>
@@ -131,11 +138,11 @@ export default function ArrowButton({
           <span className="block">
             {!loading ? (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} group-hover:text-white transform`}
+                className={`${directionClass} ${arrowClassNames} transform`}
               />
             ) : (
               <Spinner
-                className={`${arrowClassNames} group-hover:text-white animate-spin`}
+                className={`animate-spin ${arrowClassNames}`}
               />
             )}
           </span>
@@ -144,3 +151,4 @@ export default function ArrowButton({
     </Button>
   );
 }
+
