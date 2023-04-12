@@ -8,7 +8,7 @@ import { ReactElement } from "react";
  * @typedef {DropdownPopupProps}
  */
 interface DropdownPopupProps {
-  onClose: () => void;
+  onClose?: () => void;
   children?: React.ReactNode;
 }
 
@@ -22,10 +22,12 @@ export default function DropdownPopup({
   children,
 }: DropdownPopupProps): ReactElement {
   const toggleInvite = () => {
-    onClose();
+    onClose?.();
   };
+
   return (
     <div
+      onClick={onClose}
       style={{
         width: "calc(100vw - 40px)",
         maxWidth: "340px",

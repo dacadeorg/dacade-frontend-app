@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const lineClamp = require("@tailwindcss/line-clamp");
+const typography = require("@tailwindcss/typography");
 
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -33,12 +34,12 @@ module.exports = {
         "blue-light": "#DDE9FF",
         "gray-light": "#1b66f8",
         theme: {
-          primary: 'var(--tm-primary)',
-          secondary: 'var(--tm-secondary)',
-          text: 'var(--tm-text)',
-          highlight: 'var(--tm-highlight)',
-          accent: 'var(--tm-accent)',
-          muted: 'var(--tm-muted)',
+          primary: "var(--tm-primary)",
+          secondary: "var(--tm-secondary)",
+          text: "var(--tm-text)",
+          highlight: "var(--tm-highlight)",
+          accent: "var(--tm-accent)",
+          muted: "var(--tm-muted)",
         },
       },
       spacing: {
@@ -55,7 +56,7 @@ module.exports = {
         15: "3.75rem",
         16.25: "4.25rem",
         17: "4.5rem",
-        44: '11rem',
+        44: "11rem",
         62: "15.5rem",
         96.5: "25.5rem",
         98: "28rem",
@@ -149,5 +150,5 @@ module.exports = {
       },
     },
   },
-  plugins: [lineClamp],
+  plugins: [lineClamp, typography],
 };

@@ -4,10 +4,11 @@ import { getMetadataTitle } from "@/utilities/Metadata";
 import { fetchAllCommunities } from "@/store/feature/community.slice";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import CommunityListCard from "@/components/cards/community/List";
 import i18Translate from "@/utilities/I18Translate";
 import Head from "next/head";
+import HomeLayout from "@/layouts/Home";
 
 /**
  * Represents the Communities page.
@@ -33,7 +34,7 @@ export default function CommunitiesPage(){
           {title}
         </title>
       </Head>
-      <div className="flex flex-col justify-center content-wrapper">
+      <div className="flex flex-col justify-center">
         <h1 className="text-4xl sm:text-5xl pt-10 md:pt-20 pb-10">
           {t("nav.communities")}
         </h1>
@@ -57,4 +58,8 @@ export default function CommunitiesPage(){
  */
 export const getStaticProps: GetStaticProps = async ({ locale }) =>
   i18Translate(locale as string);
+
+CommunitiesPage.getLayout = function (page: ReactElement) {
+    return <HomeLayout>{page}</HomeLayout>;
+  };
 
