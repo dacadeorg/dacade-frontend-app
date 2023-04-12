@@ -67,6 +67,7 @@ export default function UserPopup({
             onClick={toggle}
           >
             <Button
+              type="button"
               custom-style={buttonStyles}
               padding={false}
               variant="secondary"

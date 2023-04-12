@@ -71,6 +71,7 @@ const stories = (
     },
   ];
 };
+
 export default function TestimonialsSection(): ReactElement {
   const { t } = useTranslation();
   return (

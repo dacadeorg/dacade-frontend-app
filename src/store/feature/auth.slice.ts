@@ -17,10 +17,12 @@ import {
   setJobDone,
 } from "./index.slice";
 import { fetchUser } from "./user.slice";
+import { IRootState } from "..";
+import { User } from "@/types/bounty";
 
 // Define the interface for the auth state
 interface AuthState {
-  data: Record<string, unknown> | null;
+  data: User | null;
   userBalance: number | null;
   balance: number | null;
   walletAddresses: string[] | null;
@@ -39,10 +41,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setAuthData(
-      state,
-      action: PayloadAction<Record<string, unknown> | null>
-    ) {
+    setAuthData(state, action) {
       state.data = action.payload;
     },
     clearAuthData(state) {
@@ -51,8 +50,15 @@ const authSlice = createSlice({
   },
 });
 
+export const authCheck = (state: IRootState) =>
+  state.auth.data !== null && state.auth.data !== undefined;
+
+export const authVerify = (state: IRootState) =>
+  authCheck(state) && (state.auth.data?.emailVerified as boolean);
+
 // Export the auth actions
 export const { setAuthData, clearAuthData } = authSlice.actions;
+export default authSlice;
 
 // Define the sing up async thunks using Redux Toolkit
 export const singUp = createAsyncThunk(

@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const lineClamp = require("@tailwindcss/line-clamp");
+const typography = require("@tailwindcss/typography");
 
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -147,10 +148,7 @@ module.exports = {
         99: "99",
         999: "999",
       },
-      fontFamily: {
-        graphik: "'Graphik',sans-serif",
-      },
     },
   },
-  plugins: [lineClamp],
+  plugins: [lineClamp, typography],
 };
