@@ -174,7 +174,7 @@
   "testimonials.community.stats.card-2.description": "a los retos de los estudiantes que terminaron los tutoriales de la comunidad.",
   "testimonials.community.stats.card-3.title": "Feedbacks,",
   "testimonials.community.stats.card-3.description": "los estudiantes mostraron sus propuestas a sus compañeras",
-  "testimonials.community.join": "{appName} en Discord",
+  "testimonials.community.join": "{{appName}} en Discord",
   "testimonials.text": "Dacade es muy motivadora, no era consciente de que mis pocos conocimientos podrían ser útiles. Gracias por permitirnos aprender e investigar más.",
   "footer.text": "Dacade ha sido creada en colaboración con múltiples contribuciones. Si le interesa colaborar <a href=\"https://discord.gg/U38KQHDtHe\">contáctenos.</a>",
   "footer.privacy-policy": "Impressum & Política de Privacidad",

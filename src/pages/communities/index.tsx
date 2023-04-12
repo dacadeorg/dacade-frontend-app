@@ -2,14 +2,13 @@ import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import { fetchAllCommunities } from "@/store/feature/community.slice";
-import { useSelector } from "@/hooks/useTypedSelector";
-import { useDispatch } from "@/hooks/useTypedDispatch";
-import { useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import CommunityListCard from "@/components/cards/community/List";
 import Head from "next/head";
-import { IRootState, wrapper } from "@/store";
+import { wrapper } from "@/store";
 import { Community } from "@/types/community";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import HomeLayout from "@/layouts/Home";
 
 /**
  * Represents the Communities page.
@@ -30,7 +29,7 @@ export default function CommunitiesPage(props: {
       <Head>
         <title>{title}</title>
       </Head>
-      <div className="flex flex-col justify-center content-wrapper">
+      <div className="flex flex-col justify-center">
         <h1 className="text-4xl sm:text-5xl pt-10 md:pt-20 pb-10">
           {t("nav.communities")}
         </h1>
@@ -70,3 +69,6 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
     };
   }
 );
+CommunitiesPage.getLayout = function (page: ReactElement) {
+  return <HomeLayout>{page}</HomeLayout>;
+};
