@@ -6,8 +6,10 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useEffect } from "react";
 import CommunityListCard from "@/components/cards/community/List";
-import i18Translate from "@/utilities/I18Translate";
 import Head from "next/head";
+import { IRootState, wrapper } from "@/store";
+import { Community } from "@/types/community";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 /**
  * Represents the Communities page.
@@ -16,30 +18,28 @@ import Head from "next/head";
  *
  * @export
  */
-export default function CommunitiesPage(){
+export default function CommunitiesPage(props: {
+  pageProps: { communities: Community[] };
+}) {
   const { t } = useTranslation();
-  const communities = useSelector((state) => state.communities.list);
-  const dispatch = useDispatch();
-  const title: string = getMetadataTitle(t("nav.communities"))
-
-  useEffect(() => {
-    dispatch(fetchAllCommunities());
-  }, [dispatch]);
+  const communities = props.pageProps.communities;
+  const title: string = getMetadataTitle(t("nav.communities"));
 
   return (
     <>
       <Head>
-        <title>
-          {title}
-        </title>
+        <title>{title}</title>
       </Head>
       <div className="flex flex-col justify-center content-wrapper">
         <h1 className="text-4xl sm:text-5xl pt-10 md:pt-20 pb-10">
           {t("nav.communities")}
         </h1>
         <div className="row w-full">
-          {communities?.map((community,index) => (
-            <div key={`generated-key-${index}`} className="flex pb-4 min-w-full flex-grow">
+          {communities?.map((community, index) => (
+            <div
+              key={`generated-key-${index}`}
+              className="flex pb-4 min-w-full flex-grow"
+            >
               <CommunityListCard community={community} />
             </div>
           ))}
@@ -47,14 +47,26 @@ export default function CommunitiesPage(){
       </div>
     </>
   );
-};
+}
 
 /**
- * Initialize the page transilation
+ * Initialize the page transilation and fetch the communities.
  * @date 4/6/2023 - 11:52:05 AM
  *
  * @async
  */
-export const getStaticProps: GetStaticProps = async ({ locale }) =>
-  i18Translate(locale as string);
-
+export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
+  (store) => async (data) => {
+    const { locale } = data;
+    const results = await store.dispatch(
+      fetchAllCommunities({ locale: locale as string })
+    );
+    return {
+      props: {
+        ...(await serverSideTranslations(locale as string)),
+        communities: results.payload,
+        revalidate: 60 * 60 * 12,
+      },
+    };
+  }
+);
