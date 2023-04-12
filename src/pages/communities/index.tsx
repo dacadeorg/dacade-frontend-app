@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { getMetadataTitle } from "@/utilities/Metadata";
-import { fetchAllCommunities } from "@/store/feature/community.slice";
+import { fetchAllCommunities, setCurrentCommunity } from "@/store/feature/community.slice";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { ReactElement, useEffect } from "react";
@@ -40,7 +40,7 @@ export default function CommunitiesPage(){
         </h1>
         <div className="row w-full">
           {communities?.map((community,index) => (
-            <div key={`generated-key-${index}`} className="flex pb-4 min-w-full flex-grow">
+            <div key={`generated-key-${index}`} onClick={() => dispatch(setCurrentCommunity(community))} className="flex pb-4 min-w-full flex-grow">
               <CommunityListCard community={community} />
             </div>
           ))}
