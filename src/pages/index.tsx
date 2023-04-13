@@ -34,8 +34,7 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* TODO: The max with should be removed when the home page layout is migrated */}
-      <main className="relative mx-auto max-w-7xl">
-        <LanguageSwitcher />
+      <main className="relative max-w-7xl mx-auto">
         <MainSection />
         <CommunitiesSection communities={communities} />
         <TestimonialsSection />
