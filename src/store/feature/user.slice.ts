@@ -61,7 +61,7 @@ export const fetchUser = createAsyncThunk(
 
     try {
       await dispatch(getToken());
-      const { data } = await api().get("users/current");
+      const { data } = await api().client.get("users/current");
       return data;
     } catch (e) {
       dispatch(clear());
@@ -77,7 +77,7 @@ export const fetchUser = createAsyncThunk(
 export const update = createAsyncThunk(
   "user/update",
   async (payload, { dispatch }) => {
-    await api().patch("users/update", payload);
+    await api().client.patch("users/update", payload);
     dispatch(fetchUser());
   }
 );

@@ -50,6 +50,7 @@ interface ArrowButtonProps
   minWidthClass = "min-w-44",
   communityStyles,
   arrowClasses,
+  onClick,
 }
  * @returns {ReactElement}
  */
@@ -135,13 +136,13 @@ export default function ArrowButton({
 
         {!isLeft && (
           <span className="block">
-            {!loading ? (
-              <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} transform`}
+            {loading ? (
+              <Spinner
+                className={`${arrowClassNames} animate-spin`}
               />
             ) : (
-              <Spinner
-                className={`animate-spin ${arrowClassNames}`}
+              <ArrowRightIcon
+                className={`${directionClass} ${arrowClassNames} transform`}
               />
             )}
           </span>
