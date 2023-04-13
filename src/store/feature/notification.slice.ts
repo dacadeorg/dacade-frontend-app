@@ -65,7 +65,7 @@ export const readNotification = createAsyncThunk(
   "notifications/read",
   async (_, { dispatch }) => {
     try {
-      await api().post("notifications/read");
+      await api().client.post("notifications/read");
       dispatch(allNotifications());
     } catch (error) {
       console.error(error);
