@@ -12,6 +12,7 @@ interface SectionProps {
   type?: string;
   padding?: string;
   children: ReactElement;
+  className?: string;
 }
 
 /**
@@ -27,9 +28,10 @@ interface SectionProps {
  * @returns {ReactElement}
  */
 export default function Section({
-  type = "default",
+  type,
   padding = "py-4",
   children,
+  className,
 }: SectionProps): ReactElement {
   const sectionClassName = classNames("relative", {
     "bg-white text-gray-900": type === "default",
@@ -39,7 +41,7 @@ export default function Section({
   });
 
   return (
-    <div className={sectionClassName}>
+    <div className={`${sectionClassName} ${className}`}>
       <div className={padding}>{children}</div>
     </div>
   );
