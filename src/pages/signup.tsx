@@ -66,7 +66,7 @@ export default function Signup(): ReactElement {
     try {
       const warningTerms = !checkTerms;
       if (warningTerms) return;
-      setLoading(true);
+      setLoading(false);
       dispatch(singUp(signupData));
     } catch (error) {
       setLoading(false);
