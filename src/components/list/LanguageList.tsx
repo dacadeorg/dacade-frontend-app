@@ -43,8 +43,8 @@ export default function LanguageList(): ReactElement {
       <div className="space-y-4 mt-2">
         {availableLocales?.map((locale) => (
           <div
-            onClick={() => switchLocalePath(locale)}
             key={locale}
+            onClick={() => switchLocalePath(locale)}
             className={classNames(
               "flex justify-between cursor-pointer",
               {

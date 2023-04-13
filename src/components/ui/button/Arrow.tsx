@@ -50,6 +50,7 @@ interface ArrowButtonProps
   minWidthClass = "min-w-44",
   communityStyles,
   arrowClasses,
+  onClick,
 }
  * @returns {ReactElement}
  */

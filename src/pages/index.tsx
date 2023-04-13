@@ -10,10 +10,8 @@ import { communitiesApi } from "@/store/feature/communities.slice";
 import { Community } from "@/types/community";
 import CommunitiesSection from "@/components/sections/homepage/Communities";
 import MainSection from "@/components/sections/homepage/Main";
-<<<<<<< HEAD
-=======
+import LanguageSwitcher from "@/components/popups/LanguageSwitcher";
 import TestimonialsSection from "@/components/sections/homepage/Testimonials";
->>>>>>> ft/migrate-homePage
 
 const Home = (props: { pageProps: { communities: Community[] } }) => {
   const { t } = useTranslation();
@@ -35,12 +33,9 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-<<<<<<< HEAD
       {/* TODO: The max with should be removed when the home page layout is migrated */}
-      <main className="relative max-w-7xl mx-auto">
-=======
-      <main>
->>>>>>> ft/migrate-homePage
+      <main className="relative mx-auto max-w-7xl">
+        <LanguageSwitcher />
         <MainSection />
         <CommunitiesSection communities={communities} />
         <TestimonialsSection />
