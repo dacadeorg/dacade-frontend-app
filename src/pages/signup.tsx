@@ -4,15 +4,17 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import Input from "@/components/ui/Input";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import { ReactElement, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import { useSelector } from "@/hooks/useTypedSelector";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 import classNames from "classnames";
 import Checkbox from "@/components/ui/Checkbox";
+import { singUp } from "@/store/feature/auth.slice";
+import ReferralsList from "@/components/popups/referral/List";
 
 /**
  * Signup form values
@@ -27,6 +29,7 @@ interface FormValues {
   username: string;
   password: string;
   referralCode: string;
+  checkTerms: boolean;
 }
 
 /**
@@ -44,21 +47,14 @@ export default function Signup(): ReactElement {
   } = useForm<FormValues>();
   const { query } = useRouter();
   const referrer = query.invite;
-  const [checkedTerms, setCheckedTerms] = useState(false);
-
-  /***
-   *
-   * TODO to be uncommented after referrals slice is mergred
-   * const referrals = useSelector( state => state.referrals )
-   *
-   */
+  const referrals = useSelector((state) => state.referrals.list);
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const onSubmit = (form: FormValues) => {
     setLoading(true);
-    const { email, username, password, referralCode } = form;
+    const { email, username, password, referralCode, checkTerms } = form;
     const signupData = {
       email,
       username,
@@ -68,14 +64,10 @@ export default function Signup(): ReactElement {
     };
 
     try {
-      const warningTerms = !checkedTerms;
-      if(warningTerms) return 
+      const warningTerms = !checkTerms;
+      if (warningTerms) return;
       setLoading(true);
-
-      // TODO: Should be uncommented after the auth slice merged
-      // replace 'auth/signUp' with your actual signup action
-      // dispatch(signup(signupData))
-
+      dispatch(singUp(signupData));
     } catch (error) {
       setLoading(false);
     }
@@ -101,21 +93,19 @@ export default function Signup(): ReactElement {
                   {t("signup-page.referrer.title")}
                   {t("app.name")}
                 </h1>
-                {/* <p
+                <p
                   className={classNames("my-px text-gray-700", {
                     invisible: !(referrals && referrals.length),
                   })}
                 >
                   {t("signup-page.referrer.subtitle")}
-                </p> */}
-                {/* 
-                  TODO: 
-                  {referrals && referrals.length && (
-                    <div className="my-8">
-                      <ReferralsList bounty />
-                    </div>
-                  )} 
-                */}
+                </p>
+
+                {referrals && referrals.length && (
+                  <div className="my-8">
+                    <ReferralsList bounty />
+                  </div>
+                )}
               </div>
             )}
 
@@ -149,7 +139,7 @@ export default function Signup(): ReactElement {
                 id="username"
                 placeholder={`${t("login-page.username.placeholde")}`}
                 label={`${t("login-page.username.label")}`}
-                error={errors.email?.message}
+                error={errors.username?.message}
                 {...register("username", {
                   required: "This field is required",
                   minLength: {
@@ -165,7 +155,7 @@ export default function Signup(): ReactElement {
                 type="password"
                 placeholder={`${t("login-page.password.placeholde")}`}
                 label={`${t("login-page.password.label")}`}
-                error={errors.email?.message}
+                error={errors.password?.message}
                 {...register("password", {
                   required: "This field is required",
                   minLength: {
@@ -183,9 +173,8 @@ export default function Signup(): ReactElement {
                     "login-page.refcode.placeholder"
                   )}`}
                   label={`${t("login-page.refcode.label")}`}
-                  error={errors.email?.message}
+                  error={errors.referralCode?.message}
                   {...register("referralCode", {
-                    required: "This field is required",
                     minLength: {
                       value: 3,
                       message: "The referral code is too short",
@@ -201,19 +190,14 @@ export default function Signup(): ReactElement {
                   <div className="flex space-x-3">
                     <div>
                       <Checkbox
-                        name="terms"
-                        checked={checkedTerms}
                         id="terms-checkbox"
-                        required={true}
-                        onChange={() =>
-                          setCheckedTerms(!checkedTerms)
-                        }
+                        {...register("checkTerms", {
+                          required: `${t("signup-page.terms.warning")}`,
+                        })}
                       />
                     </div>
                     <div className="max-w-none test">
-                      <p>
-                        I agree to {t("app.name")}s
-                      </p>
+                      <p>I agree to {t("app.name")}s</p>
                       <Link
                         className="underline"
                         href="/terms-conditions"
@@ -222,13 +206,9 @@ export default function Signup(): ReactElement {
                       </Link>
                     </div>
                   </div>
-                  {!checkedTerms && (
-                    <span
-                      className="text-red-600"
-                    >
-                      {t("signup-page.terms.warning")}
-                    </span>
-                  )}
+                  <span className="text-red-600">
+                    {errors.checkTerms?.message}
+                  </span>
                 </div>
               </div>
 
