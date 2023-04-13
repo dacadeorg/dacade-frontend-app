@@ -3,12 +3,34 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { Community } from "@/types/community";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
+import { ReactElement } from "react";
 
+/**
+ * Represents the Community Section
+ * @date 4/13/2023 - 6:00:03 AM
+ *
+ * @interface ICommunitySection
+ * @typedef {ICommunitySection}
+ */
+interface ICommunitySection {
+  community: Community;
+}
+
+/**
+ * Represents the Community Section
+ * @date 4/13/2023 - 5:56:41 AM
+ *
+ * @export
+ * @param {{
+  community: Community;
+}} {
+  community,
+}
+ * @returns {*}
+ */
 export default function CommunitySection({
   community,
-}: {
-  community: Community;
-}) {
+}: ICommunitySection): ReactElement {
   const { t } = useTranslation();
   const submissions = community.metadata?.submissions || 0;
   const feedbacks = community.metadata?.feedbacks || 0;
@@ -36,9 +58,12 @@ export default function CommunitySection({
             </p>
           </div>
           <div className="self-end w-36 md:w-1/2 max-w-lg">
-            <img
+            <Image
               src={"/static/" + community.icon}
+              alt={community.name}
               className="relative w-full"
+              width={300}
+              height={300}
             />
           </div>
         </div>
