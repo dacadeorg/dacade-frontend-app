@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import React from "react";
+
 import ReactMarkdown from "react-markdown";
 import path from "path";
 import fs from "fs";
