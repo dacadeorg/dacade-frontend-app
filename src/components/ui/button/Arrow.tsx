@@ -1,7 +1,7 @@
 import Button from ".";
 import Spinner from "@/icons/spinner.svg";
 import ArrowRightIcon from "@/icons/arrow-right.svg";
-import { ReactElement, ReactNode, useMemo } from "react";
+import { HTMLProps, ReactElement, ReactNode, useMemo } from "react";
 import classNames from "classnames";
 
 /**
@@ -11,7 +11,8 @@ import classNames from "classnames";
  * @interface ArrowButtonProps
  * @typedef {ArrowButtonProps}
  */
-interface ArrowButtonProps {
+interface ArrowButtonProps
+  extends Pick<HTMLProps<HTMLButtonElement>, "onClick"> {
   loading?: boolean;
   disabled?: boolean;
   rounded?: boolean;
@@ -48,6 +49,7 @@ interface ArrowButtonProps {
   minWidthClass = "min-w-44",
   communityStyles,
   arrowClasses,
+  onClick,
 }
  * @returns {ReactElement}
  */
@@ -59,7 +61,6 @@ export default function ArrowButton({
   variant = "primary",
   padding,
   children,
-  onClick,
   customStyle = null,
   link = "",
   target = "",
@@ -67,6 +68,7 @@ export default function ArrowButton({
   minWidthClass = "min-w-44",
   communityStyles,
   arrowClasses = "",
+  onClick,
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
@@ -137,7 +139,7 @@ export default function ArrowButton({
           <span className="block">
             {!loading ? (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} transform`}
+                className={`${directionClass} ${arrowClassNames} group-hover:text-white text-white transform`}
               />
             ) : (
               <Spinner
@@ -150,4 +152,3 @@ export default function ArrowButton({
     </Button>
   );
 }
-

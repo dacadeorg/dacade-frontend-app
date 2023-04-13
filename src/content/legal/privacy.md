@@ -1,9 +1,3 @@
----
-layout: default
-title: Privacy Policy
-type: legal
----
-
 ## Impressum
 
 Unit U+2467 GmbH
