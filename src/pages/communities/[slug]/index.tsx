@@ -1,4 +1,11 @@
+import { wrapper } from "@/store";
+import { fetchCurrentCommunity } from "@/store/feature/community.slice";
+import { setColors } from "@/store/feature/ui.slice";
+import { Community } from "@/types/community";
 import { useRouter } from "next/router";
+import MainHeader from "@/components/sections/communities/overview/MainHeader";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 
 /**
  * This page is here to mock the redirect that happens when you click on one of the community list
@@ -6,13 +13,59 @@ import { useRouter } from "next/router";
  *
  * @export
  */
-export default function Slug() {
+export default function Slug(props: {
+  pageProps: { community: Community };
+}) {
+  const { community } = props.pageProps;
   const router = useRouter();
   const { slug } = router.query;
 
   return (
-    <div className="flex items-center justify-center h-screen font-bold text-6xl">
-      {slug}
+    <div className="">
+      {community && (
+        <ThemeWrapper colors={community.colors}>
+          <MainHeader community={community} />
+        </ThemeWrapper>
+      )}
     </div>
   );
 }
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: true,
+  };
+}
+
+export const getStaticProps = wrapper.getStaticProps(
+  (store) => async (data) => {
+    // const { slug } = data.params;
+    const slug = data.params?.slug;
+    const locale = data.locale;
+    const results = await store.dispatch(
+      fetchCurrentCommunity({
+        slug: slug as string,
+        locale: data.locale as string,
+      })
+    );
+    // if (
+    //   results.type === "community/fetchCurrentCommunity/fulfilled"
+    // ) {
+    //   return {
+    //     props: {
+    //       community: [],
+    //     },
+    //   };
+    // }
+    const community = results.payload as Community;
+    console.log({ community });
+    await store.dispatch(setColors(community?.colors));
+    return {
+      props: {
+        ...(await serverSideTranslations(locale as string)),
+        community,
+      },
+    };
+  }
+);
