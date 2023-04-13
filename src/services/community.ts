@@ -7,9 +7,15 @@ export const fetchCommunities = async (): Promise<Community[]> => {
   return response.data;
 };
 
-export const fetchCommunity = async (
-  slug: string
-): Promise<Community> => {
-  const response = await api().server.get(`communities/${slug}`);
+export const fetchCommunity = async ({
+  slug,
+  locale,
+}: {
+  slug: string;
+  locale: string;
+}): Promise<Community> => {
+  const response = await api(locale).server.get(
+    `communities/${slug}`
+  );
   return response.data;
 };
