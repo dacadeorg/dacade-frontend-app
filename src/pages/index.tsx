@@ -35,7 +35,6 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
       </Head>
       {/* TODO: The max with should be removed when the home page layout is migrated */}
       <main className="relative max-w-7xl mx-auto">
-        <LanguageSwitcher />
         <MainSection />
         <CommunitiesSection communities={communities} />
         <TestimonialsSection />
