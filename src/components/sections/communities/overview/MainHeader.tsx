@@ -26,7 +26,7 @@ interface ICommunitySection {
 }} {
   community,
 }
- * @returns {*}
+ * @returns {ReactElement}
  */
 export default function CommunitySection({
   community,
