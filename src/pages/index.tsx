@@ -10,6 +10,7 @@ import { communitiesApi } from "@/store/feature/communities.slice";
 import { Community } from "@/types/community";
 import CommunitiesSection from "@/components/sections/homepage/Communities";
 import MainSection from "@/components/sections/homepage/Main";
+import LanguageSwitcher from "@/components/popups/LanguageSwitcher";
 import TestimonialsSection from "@/components/sections/homepage/Testimonials";
 
 const Home = (props: { pageProps: { communities: Community[] } }) => {
@@ -32,7 +33,9 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      {/* TODO: The max with should be removed when the home page layout is migrated */}
+      <main className="relative max-w-7xl mx-auto">
+        <LanguageSwitcher />
         <MainSection />
         <CommunitiesSection communities={communities} />
         <TestimonialsSection />
