@@ -70,12 +70,12 @@ export default function CommunitySection({
         <div className="flex flex-col max-w-xs mt-0 sm:-mt-15 lg:-mt-8 md:max-w-xl lg:flex-row lg:items-center">
           <div className="my-2 text-sm">
             <span>
-              <strong>{submissions}</strong>
-              {" " + t("communities.submissions")}
+              <strong>{submissions} </strong>
+              {t("communities.submissions")}
             </span>
             <span className="p-2 md:border-l md:ml-2">
-              <strong>{feedbacks}</strong>
-              {" " + t("communities.feedbacks")}
+              <strong>{feedbacks} </strong>
+              {t("communities.feedbacks")}
             </span>
             <div />
           </div>
