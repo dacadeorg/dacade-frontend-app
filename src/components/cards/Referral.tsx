@@ -69,6 +69,7 @@ export default function Referral({
           color={referral.community.colors.primary}
           size="large"
           shape="rounded"
+          user={null}
         />
       </div>
     </div>

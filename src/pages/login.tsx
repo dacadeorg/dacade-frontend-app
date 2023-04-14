@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 import ArrowButton from "@/components/ui/button/Arrow";
 import Input from "@/components/ui/Input";
 import { getMetadataTitle } from "@/utilities/Metadata";
-import { ReactElement, useState } from "react";
+import { ReactElement, ReactNode, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
