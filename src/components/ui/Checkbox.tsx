@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useState, useEffect, useRef, ReactElement } from "react";
+import { useState, useEffect, useRef, ReactElement, forwardRef } from "react";
 
 /**
  * Interface for checbox props
@@ -36,7 +36,7 @@ interface CheckboxProps {
 }
  * @returns {ReactElement}
  */
-export default function Checkbox({
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>( function ({
   checked ,
   disabled,
   value,
@@ -45,7 +45,7 @@ export default function Checkbox({
   name,
   communityStyles,
   onChange
-}: CheckboxProps): ReactElement {
+}, ref) {
 
   const styles = communityStyles ? { color: "#0000FF" } : undefined;
 
@@ -59,6 +59,7 @@ export default function Checkbox({
 
   return (
     <input
+      ref={ref}
       id={id}
       type="checkbox"
       checked={checked}
@@ -71,4 +72,7 @@ export default function Checkbox({
       onChange={onChange}
     />
   );
-}
+})
+
+Checkbox.displayName = "Checkbox";
+export default Checkbox;
