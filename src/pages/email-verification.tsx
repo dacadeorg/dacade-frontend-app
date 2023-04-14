@@ -16,7 +16,6 @@ import { useSelector } from "react-redux";
  */
 export default function EmailVerification() {
   const { t } = useTranslation();
-
   // TODO: user data will be uncommented when the redux store is ready
   //   const { user } = useSelector((state: any) => state?.auth);
 
