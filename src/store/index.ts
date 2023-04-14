@@ -45,6 +45,7 @@ export const store = configureStore({
     [authSlice.name]: authSlice.reducer,
     [communitiesApi.reducerPath]: communitiesApi.reducer,
     [referralsApi.reducerPath]: referralsApi.reducer,
+    [coursesApi.reducerPath]: coursesApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(

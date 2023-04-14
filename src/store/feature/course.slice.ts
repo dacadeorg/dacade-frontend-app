@@ -2,7 +2,6 @@ import {
   createApi,
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
-import { Community } from "@/types/community";
 import { HYDRATE } from "next-redux-wrapper";
 
 export const coursesApi = createApi({

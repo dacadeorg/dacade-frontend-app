@@ -16,7 +16,7 @@ import { fetchCommunities } from "@/services/community";
  */
 export interface CommunitiesState {
   list: Community[];
-  current: Community | {};
+  current?: Community;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: object | null | string;
 }
@@ -31,7 +31,6 @@ const initialState: CommunitiesState = {
   list: [],
   status: "idle",
   error: null,
-  current: {}
 };
 
 /**

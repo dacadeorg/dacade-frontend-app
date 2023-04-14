@@ -12,13 +12,7 @@ import { Community } from "@/types/community";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HomeLayout from "@/layouts/Home";
 
-/**
- * Represents the Communities page.
- * TODO: This page will be wrapped with homepage wrapper.
- * @date 4/6/2023 - 11:55:48 AM
- *
- * @export
- */
+
 export default function CommunitiesPage(props: {
   pageProps: { communities: Community[] };
 }) {
