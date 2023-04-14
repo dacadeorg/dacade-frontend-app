@@ -2,7 +2,6 @@ import { wrapper } from "@/store";
 import { fetchCurrentCommunity } from "@/store/feature/community.slice";
 import { setColors } from "@/store/feature/ui.slice";
 import { Community } from "@/types/community";
-import { useRouter } from "next/router";
 import MainHeader from "@/components/sections/communities/overview/MainHeader";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
@@ -17,9 +16,6 @@ export default function Slug(props: {
   pageProps: { community: Community };
 }) {
   const { community } = props.pageProps;
-  const router = useRouter();
-  const { slug } = router.query;
-
   return (
     <div className="">
       {community && (
@@ -40,7 +36,6 @@ export async function getStaticPaths() {
 
 export const getStaticProps = wrapper.getStaticProps(
   (store) => async (data) => {
-    // const { slug } = data.params;
     const slug = data.params?.slug;
     const locale = data.locale;
     const results = await store.dispatch(
@@ -59,7 +54,6 @@ export const getStaticProps = wrapper.getStaticProps(
     //   };
     // }
     const community = results.payload as Community;
-    console.log({ community });
     await store.dispatch(setColors(community?.colors));
     return {
       props: {

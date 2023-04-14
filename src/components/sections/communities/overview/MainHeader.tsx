@@ -59,7 +59,7 @@ export default function CommunitySection({
           </div>
           <div className="self-end w-36 md:w-1/2 max-w-lg">
             <Image
-              src={"/static/" + community.icon}
+              src={`/static/${community.icon}`}
               alt={community.name}
               className="relative w-full"
               width={300}
