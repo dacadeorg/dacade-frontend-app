@@ -3,7 +3,7 @@ import Badge from "@/components/ui/Badge";
 import Avatar from "@/components/ui/Avatar";
 import Reward from "@/components/badges/RewardBadge";
 import Link from "next/link";
-import navigation from "@/plugins/navigation";
+import navigation from "@/config/navigation";
 import { Bounty, RewardType } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
@@ -142,6 +142,7 @@ export default function Bounty({
           size="medium-fixed"
           shape="rounded"
           className="w-15 h-15 rounded-xl overflow-hidden"
+          user={null}
         />
         {bounty.submissions && bounty.submissions.length && (
           <Badge

@@ -1,39 +1,19 @@
+import { ReactElement } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import BalanceCard from "@/components/cards/Balance";
-import { useTranslation } from "react-i18next";
-import { ReactElement } from "react";
-import wallet from "@/types/balance";
+import { Wallet } from "@/types/wallet";
+import { useTranslation } from "next-i18next";
 
 /**
- * Balance card props
- * @date 4/3/2023 - 1:14:52 PM
- *
- * @interface BalanceListProps
- * @typedef {BalanceListProps}
- */
-interface BalanceListProps {
-  value?: number;
-}
-
-/**
- * Function that return Balance card component
- * @date 4/3/2023 - 1:15:06 PM
+ * Balance list component
+ * @date 4/4/2023 - 10:48:27 PM
  *
  * @export
- * @param {BalanceListProps} {
-  value = 0,
-}
  * @returns {ReactElement}
  */
-export default function BalanceList({
-  value = 0,
-}: BalanceListProps): ReactElement {
-  // TODO: Uncomment this once redux store is available
-  // const wallets: wallet[] = useSelector(
-  //   (state) => state.user.wallets.list
-  // );
-
+export default function BalanceList(): ReactElement {
   const { t } = useTranslation();
+  const wallets = useSelector((state) => state.wallets.list);
 
   return (
     <div className="text-left">
@@ -41,10 +21,9 @@ export default function BalanceList({
         {t("nav.balance")}
       </span>
       <div className="space-y-4 mt-2">
-        {/* TODO: uncomment this once the redux store is implemented */}
-        {/* {wallets.map((wallet) => (
+        {wallets.map((wallet: Wallet) => (
           <BalanceCard key={wallet.id} details={wallet} />
-        ))} */}
+        ))}
       </div>
     </div>
   );
