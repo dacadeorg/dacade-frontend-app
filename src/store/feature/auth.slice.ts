@@ -70,7 +70,7 @@ export const singUp = createAsyncThunk(
     dispatch(setBusy(true));
     dispatch(clearError());
     try {
-      const user = await api().post("auth/signup", {
+      const user = await api().client.post("auth/signup", {
         ...payload,
         redirectLink: "/communities",
       });
@@ -149,12 +149,12 @@ export const logout = createAsyncThunk(
 
 // Define the resend email verfication
 export const resendEmailVerification = async () => {
-  const res = await api().get("auth/send-verification-email");
+  const res = await api().client.get("auth/send-verification-email");
   return res;
 };
 
 // Define the verify email
 export const verifyEmail = async (payload: { code: string }) => {
-  const res = await api().post("auth/verify-email", payload);
+  const res = await api().client.post("auth/verify-email", payload);
   return res;
 };

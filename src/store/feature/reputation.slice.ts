@@ -42,7 +42,7 @@ export const fetchReputations = createAsyncThunk(
   "reputations/fetchAll",
   async (_, { dispatch }) => {
     try {
-      const { data } = await api().get("reputations");
+      const { data } = await api().client.get("reputations");
       return data;
     } catch (err) {
       dispatch(clear());

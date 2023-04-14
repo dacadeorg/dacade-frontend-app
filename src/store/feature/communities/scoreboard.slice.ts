@@ -50,7 +50,7 @@ export const { setList, setLoading } = scoreboardSlice.actions;
 export const all = (slug: string) => async (dispatch: any) => {
   dispatch(setLoading(true));
   try {
-    const { data } = await api().get<Scoreboard[]>(
+    const { data } = await api().client.get<Scoreboard[]>(
       `communities/${slug}/scoreboard`
     );
 
@@ -77,7 +77,7 @@ export const filter =
   async (dispatch: any) => {
     dispatch(setLoading(true));
     try {
-      const { data } = await api().get<Scoreboard[]>(
+      const { data } = await api().client.get<Scoreboard[]>(
         `communities/${slug}/scoreboard`,
         {
           params: {
