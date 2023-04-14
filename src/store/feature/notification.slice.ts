@@ -48,14 +48,13 @@ export const allNotifications = createAsyncThunk(
   "notifications/all",
   async (_, { dispatch }) => {
     try {
-      const { data } = await api().get<{
+      const { data } = await api().client.get<{
         list: Notification[];
         unread: number;
       }>("notifications");
       dispatch(setNotifications({ list: data.list }));
       return { list: data.list, unread: data.unread };
     } catch (error) {
-      console.error(error);
       dispatch(clearNotifications());
       throw error;
     }
@@ -66,7 +65,7 @@ export const readNotification = createAsyncThunk(
   "notifications/read",
   async (_, { dispatch }) => {
     try {
-      await api().post("notifications/read");
+      await api().client.post("notifications/read");
       dispatch(allNotifications());
     } catch (error) {
       console.error(error);
