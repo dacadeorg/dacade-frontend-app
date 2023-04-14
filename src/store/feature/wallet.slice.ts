@@ -37,7 +37,7 @@ const initialState: WalletState = {
 export const allWallets = createAsyncThunk(
   "wallets/all",
   async () => {
-    const { data } = await api().get<Wallet[]>("wallets");
+    const { data } = await api().client.get<Wallet[]>("wallets");
     return data;
   }
 );
@@ -63,7 +63,7 @@ export const updateWallet = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await api().patch(
+      const { data } = await api().client.patch(
         `wallets/update/${payload.id}`,
         payload
       );

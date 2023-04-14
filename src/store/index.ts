@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
+import community from "./feature/community.slice";
 import {
   referralsApi,
   referralSlice,
 } from "./feature/referrals.slice";
-import community from "./feature/community.slice";
 import ui from "./feature/ui.slice";
 import userSlice from "./feature/user.slice";
 import { bannerSlice } from "./feature/banner.slice";
