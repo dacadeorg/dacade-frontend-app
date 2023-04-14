@@ -75,7 +75,7 @@ const stories = (
 export default function TestimonialsSection(): ReactElement {
   const { t } = useTranslation();
   return (
-    <Section padding="py-6 xl:py-10 md:py-8" type="secondary-light">
+    <Section padding="py-6 xl:py-10 md:py-8 mt-5" type="default">
       <CommunityStats />
       <Stories list={stories(t)} />
     </Section>
