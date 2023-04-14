@@ -4,6 +4,12 @@ import {
 } from "@reduxjs/toolkit/query/react";
 import { HYDRATE } from "next-redux-wrapper";
 
+/**
+ * courses api
+ * @date 4/14/2023 - 10:56:25 AM
+ *
+ * @type {*}
+ */
 export const coursesApi = createApi({
   reducerPath: "coursesApi",
   baseQuery: fetchBaseQuery({
