@@ -32,7 +32,6 @@ const initialState: CommunitiesState = {
   error: null,
 };
 
-
 /**
  * Created community slice
  * @date 4/6/2023 - 11:59:18 AM
@@ -69,9 +68,9 @@ const communitiesSlice = createSlice({
  */
 export const fetchAllCommunities = createAsyncThunk(
   "communities/all",
-  async (_, { rejectWithValue }) => {
+  async ({ locale }: { locale: string }, { rejectWithValue }) => {
     try {
-      const communities = await fetchCommunities();
+      const communities = await fetchCommunities({ locale });
       return communities;
     } catch (error) {
       return rejectWithValue(error);
