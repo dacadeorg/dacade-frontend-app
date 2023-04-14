@@ -1,4 +1,3 @@
-import { CoursesOverview } from "@/components/sections/communities/overview/Courses";
 import { useRouter } from "next/router";
 
 /**
@@ -14,7 +13,6 @@ export default function Slug() {
   return (
     <div className="flex items-center justify-center h-screen font-bold text-6xl">
       {slug}
-      <CoursesOverview />
     </div>
   );
 }
