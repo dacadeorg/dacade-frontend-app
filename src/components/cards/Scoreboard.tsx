@@ -1,11 +1,9 @@
-// import { useSelector } from 'react-redux';
 import Avatar from "@/components/ui/Avatar";
 import Badge from "@/components/ui/Badge";
 import Currency from "@/components/ui/Currency";
 import { ReactElement } from "react";
 import { useTranslation } from "next-i18next";
-//TODO: This line will be uncommented when the store folder is migrated
-// import { RootState } from '@/store/types';
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * Interface for the scoreboard properties
@@ -37,12 +35,10 @@ export default function ScoreboardCard({
   value,
   index = 0,
 }: ScoreboardProps): ReactElement {
-  // TODO: will be uncommented after the import of the RootState file
-
-  //   const { colors, community } = useSelector((state: RootState) => ({
-  //     colors: state.ui.colors,
-  //     community: state.communities.current,
-  //   }));
+  const { colors } = useSelector((state) => ({
+    colors: state.ui.colors,
+    community: state.communities.current,
+  }));
 
   const { t } = useTranslation();
 
@@ -90,7 +86,7 @@ export default function ScoreboardCard({
       </div>
       <div className="relative sm:flex-none pt-9 sm:p-0">
         <div className="relative sm:inset-0">
-          <Avatar user={value.user} size="large" />
+          <Avatar user={value.user} size="large" shape="full" />
           <Badge
             className="absolute left-9 top-10 w-6 h-6 bg-theme-accent text-white"
             value={index}
@@ -98,8 +94,7 @@ export default function ScoreboardCard({
               bottom: "-1px",
               right: "-3px",
               color: "#fff",
-              // TODO: will be uncommented after the RootState is imported
-              //   backgroundColor: colors.textAccent,
+              backgroundColor: colors.textAccent,
             }}
           />
         </div>

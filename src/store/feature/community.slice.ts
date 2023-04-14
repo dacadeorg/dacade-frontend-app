@@ -5,6 +5,8 @@ import {
 } from "@reduxjs/toolkit";
 import { Community } from "@/types/community";
 import { fetchCommunities } from "@/services/community";
+import api from "@/config/api";
+import { IRootState } from "..";
 
 /**
  * CommunitiesState interface
@@ -17,6 +19,7 @@ import { fetchCommunities } from "@/services/community";
 export interface CommunitiesState {
   list: Community[];
   current?: Community;
+  content: any;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: object | null | string;
 }
@@ -30,6 +33,7 @@ export interface CommunitiesState {
 const initialState: CommunitiesState = {
   list: [],
   status: "idle",
+  content: null,
   error: null,
 };
 
@@ -45,6 +49,9 @@ const communitiesSlice = createSlice({
   reducers: {
     setCurrentCommunity: (state, action) => {
       state.current = action.payload;
+    },
+    setContent: (state, action: PayloadAction<any>) => {
+      state.content = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -62,6 +69,9 @@ const communitiesSlice = createSlice({
       .addCase(fetchAllCommunities.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload as string;
+      })
+      .addCase(fetchCommunity.fulfilled, (state, action) => {
+        state.current = action.payload;
       });
   },
 });
@@ -82,6 +92,34 @@ export const fetchAllCommunities = createAsyncThunk(
     }
   }
 );
+
+/**
+ * Fetch a community by name
+ * @date 4/14/2023 - 1:00:03 PM
+ *
+ * @type {*}
+ */
+
+export const fetchCommunity = createAsyncThunk(
+  "communities/find",
+  async (slug: string, _) => {
+    try {
+      const { data } = await api().server.get<Community>(
+        `communities/${slug}`
+      );
+      return data;
+    } catch (error) {
+      console.error("Failed to fetch community:", error);
+    }
+  }
+);
+
+export const selectList = (state: IRootState) =>
+  state.communities.list;
+export const selectCurrent = (state: IRootState) =>
+  state.communities.current;
+export const selectContent = (state: IRootState) =>
+  state.communities.content;
 
 export const { setCurrentCommunity } = communitiesSlice.actions;
 

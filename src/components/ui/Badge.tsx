@@ -33,6 +33,7 @@ export default function Badge({
   customStyle,
   value,
   size = "small",
+  className,
   ...props
 }: BadgeProps): ReactElement {
   const sizeClasses = useMemo(
@@ -55,6 +56,7 @@ export default function Badge({
       className={classNames(
         "font-semibold leading-3 text-center inline-flex items-center justify-center rounded-full text-xxs",
         sizeClasses,
+        className,
         { "bg-white text-gray-900": isCommunity },
         { "text-white bg-gray-900": !isCommunity }
       )}
