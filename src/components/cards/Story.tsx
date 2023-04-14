@@ -18,6 +18,12 @@ interface StoryProps {
   position: number;
   gridPosition: number;
   count: number;
+  onShowBubble?: () => void;
+  onHideBubble?: () => void;
+  showingBubble: {
+    card: number | null;
+    grid: number | null;
+  };
 }
 
 /**
@@ -30,6 +36,8 @@ interface StoryProps {
   position,
   gridPosition,
   count,
+  onShowBubble,
+  onHideBubble,
 }
  * @returns {ReactElement}
  */
@@ -39,8 +47,15 @@ export default function Story({
   position,
   gridPosition,
   count,
+  showingBubble,
+  onShowBubble,
+  onHideBubble,
 }: StoryProps): ReactElement {
-  const [showBubble, setShowBubble] = useState(false);
+  const [showBubble, setShowBubble] = useState(
+    () =>
+      position === showingBubble.card &&
+      gridPosition === showingBubble.grid
+  );
   const [height, setHeight] = useState(0);
   const bubbleRef = useRef<HTMLDivElement>(null);
 
@@ -52,6 +67,7 @@ export default function Story({
    */
   useOnClickOutside(bubbleRef, () => {
     if (showBubble) {
+      onHideBubble?.();
       setShowBubble(false);
     }
   });
@@ -88,10 +104,20 @@ export default function Story({
         rotate(-${rotation}deg)`;
   };
 
+  const showStoryBubble = () => {
+    if (showBubble) {
+      setShowBubble(false);
+      onHideBubble?.();
+      return;
+    }
+    setShowBubble(true);
+    onShowBubble?.();
+  };
+
   return (
     <div
       ref={bubbleRef}
-      onClick={() => setShowBubble(true)}
+      onClick={() => showStoryBubble()}
       className="absolute border border-solid border-gray-200 bg-gray-50 rounded-full p-1 top-2/4 left-2/4 -m-7 flex flex-row-reverse"
       style={{
         transform: getPosition(),
@@ -101,9 +127,11 @@ export default function Story({
         className="object-cover h-14 w-14 rounded-full"
         src={story.icon as string}
         alt="story icon"
+        width={43}
+        height={43}
       />
 
-      {showBubble && story.content && (
+      {showBubble && (
         <div className="absolute p-4 md:p-7 left-6 md:-left-9 -ml-2 -mt-5 md:ml-20 lg:w-72 md:w-56 w-48 -bottom-60 md:bottom-16 bg-yellow-50 rounded-3.5xl rounded-tl-none md:rounded-tl-3.5xl md:rounded-bl-none text-yellow-900 border border-solid border-black border-opacity-5">
           <span>{story.content}</span>
         </div>

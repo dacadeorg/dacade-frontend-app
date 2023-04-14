@@ -1,4 +1,5 @@
-import { ReactElement } from "react";
+import { ReactElement, useRef } from "react";
+import useOnClickOutside from "use-onclickoutside";
 
 /**
  * Dropdown Popup Interface
@@ -8,7 +9,7 @@ import { ReactElement } from "react";
  * @typedef {DropdownPopupProps}
  */
 interface DropdownPopupProps {
-  onClose: () => void;
+  onClose?: () => void;
   children?: React.ReactNode;
 }
 
@@ -21,11 +22,12 @@ export default function DropdownPopup({
   onClose,
   children,
 }: DropdownPopupProps): ReactElement {
-  const toggleInvite = () => {
-    onClose();
-  };
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside(popupRef, () => onClose?.());
   return (
     <div
+      ref={popupRef}
       style={{
         width: "calc(100vw - 40px)",
         maxWidth: "340px",

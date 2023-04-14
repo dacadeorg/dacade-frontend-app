@@ -68,15 +68,12 @@
 
 body,
 .text-default {
-  @apply text-gray-900;
-
   font-family: "Graphik", sans-serif;
-  /* font-feature-settings: "ss01" 1, "ss02" 1; */
+  font-feature-settings: "ss01" 1, "ss02" 1;
 }
 
 body {
   font-weight: 400;
-  font-family: "Graphik", sans-serif;
   width: 100%;
   position: relative;
 }

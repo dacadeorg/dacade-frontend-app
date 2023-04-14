@@ -103,6 +103,7 @@ export default function CourseCard({
             color={community.colors.primary}
             size="large"
             shape="rounded-3xl"
+            user={null}
           />
           <div className="font-light text-sm max-w-xs pb-2 text-gray-700">
             <p>{t("course.challenge.certificate.description")}</p>

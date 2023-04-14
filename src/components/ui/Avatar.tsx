@@ -41,7 +41,7 @@ interface AvatarProps {
   icon?: string;
   image?: string;
   color?: string;
-  user?: User;
+  user?: User | null;
   size?: Size;
   shape?: Shape;
   useLink?: boolean;
@@ -81,7 +81,7 @@ export default function Avatar({
   icon,
   image,
   color,
-  user = {},
+  user = null,
   size = "small",
   shape = "circular",
   useLink = true,

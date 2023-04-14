@@ -62,7 +62,7 @@ export default function UserCard({
     setHumanizedDate(DateManager.fromNow(timestamp.date, locale));
     setDate(DateManager.intlFormat(timestamp.date, locale));
     setProfileURL(`/profile/${user.username}`);
-  }, [locale, timestamp, user]);
+  }, [timestamp, user, locale]);
 
   return (
     <div

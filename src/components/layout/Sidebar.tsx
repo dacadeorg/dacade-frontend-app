@@ -9,7 +9,16 @@ import BountiesIcon from "@/icons/bounties.svg";
 import CommunitiesIcon from "@/icons/communities.svg";
 import WalletIcon from "@/icons/wallet.svg";
 import Popup from "@/components/ui/Popup";
-
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { useSelector } from "@/hooks/useTypedSelector";
+import {
+  toggleBodyScrolling,
+  toggleShowReferralPopup,
+} from "@/store/feature/ui.slice";
+import { readNotification } from "@/store/feature/notification.slice";
+import { logout } from "@/store/feature/auth.slice";
+import { authVerify } from "@/store/feature/auth.slice";
+import ReputationList from "../list/Reputation";
 /**
  * Sidebar props interface
  * @date 4/4/2023 - 3:49:01 PM
@@ -18,7 +27,7 @@ import Popup from "@/components/ui/Popup";
  * @typedef {SidebarProps}
  */
 interface SidebarProps {
-  burgerColor: false;
+  burgerColor: boolean;
 }
 
 /**
@@ -29,54 +38,42 @@ interface SidebarProps {
  * @param {SidebarProps} { burgerColor }
  * @returns {*}
  */
-export default function Sidebar({ burgerColor }: SidebarProps) {
+export default function Sidebar({
+  burgerColor = false,
+}: SidebarProps): any {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
-  // TODO: Should uncommented when redux is implemented
-  // const user = useSelector((state: RootState) => state.user);
-
-  //TODO: this will be removed when redux is implemented
-  const user: any = {};
-
-  // TODO: Should uncommented when redux is implemented
-  // const isAuthenticated = useSelector((state: RootState) => state.isAuthenticated);
-
-  //TODO: this will be removed when redux is implemented
-  const isAuthenticated = false;
-
-  const username = user.username;
-
-  // TODO: Should uncommented when redux is implemented
-  // const unread = useSelector((state: RootState) => state.notifications.unread);
-
-  //TODO: this will be removed when redux is implemented
-  const unread: any = [];
+  const user = useSelector((state) => state.user.data);
+  const isAuthenticated = useSelector((state) => authVerify(state));
+  const username = user?.username;
+  const unread = useSelector((state) => state.notifications.unread);
 
   const [show, setshow] = useState(false);
 
-  const logout = () => {
-    // dispatch('auth/logout');
+  const onLogout = () => {
+    dispatch(logout());
   };
 
   const toggleInvite = () => {
     setshow(!show);
-    // dispatch('ui/toggleShowReferralPopup',false)
+    toggleShowReferralPopup(false)(dispatch);
   };
 
   const externalClick = () => {
     if (!show) return;
 
     setshow(!show);
-    // dispatch('ui/toggleBodyScrolling',false)
+    toggleBodyScrolling(false)(dispatch);
   };
 
   const toggle = () => {
     setshow(!show);
 
     if (isAuthenticated && show && unread) {
-      // dispatch('user/notifications/read')
+      dispatch(readNotification());
     }
-    // dispatch('ui/toggleBodyScrolling',show)
+    toggleBodyScrolling(show)(dispatch);
     window.scrollTo(0, 0);
   };
   return (
@@ -85,7 +82,7 @@ export default function Sidebar({ burgerColor }: SidebarProps) {
         className="inline-block align-middle z-40 relative ease-linear transition-all duration-150"
         onClick={toggle}
       >
-        {show ? (
+        {!show ? (
           <div>
             <MobileMenuLogo
               className={burgerColor ? "text-white" : "text-black"}
@@ -174,7 +171,7 @@ export default function Sidebar({ burgerColor }: SidebarProps) {
                   </div>
                   <div
                     className="py-2 self-end text-right whitespace-nowrap align-text-bottom font-normal text-sm text-gray-500 cursor-pointer"
-                    onClick={logout}
+                    onClick={onLogout}
                   >
                     <span>{t("nav.sign-out")}</span>
                   </div>
@@ -198,6 +195,7 @@ export default function Sidebar({ burgerColor }: SidebarProps) {
             )}
             {isAuthenticated && (
               <div className="px-5 py-2 relative">
+                {/* TODO: Will be uncommented when the component is implemented */}
                 {/* <NotificationList /> */}
               </div>
             )}
@@ -226,8 +224,7 @@ export default function Sidebar({ burgerColor }: SidebarProps) {
                     {t("nav.sign-up")}
                   </Link>
                 </Button>
-
-                {/* <ReputationList />  */}
+                <ReputationList />
               </div>
             )}
           </div>
