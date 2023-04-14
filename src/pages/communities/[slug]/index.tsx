@@ -27,17 +27,17 @@ export default function Slug(props: {
   );
 }
 
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: true,
-  };
-}
+// export async function getStaticPaths() {
+//   return {
+//     paths: [],
+//     fallback: "blocking",
+//   };
+// }
 
-export const getStaticProps = wrapper.getStaticProps(
+export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (data) => {
-    const slug = data.params?.slug;
-    const locale = data.locale;
+    const { query } = data;
+    const slug = query?.slug;
     const results = await store.dispatch(
       fetchCurrentCommunity({
         slug: slug as string,
@@ -57,7 +57,7 @@ export const getStaticProps = wrapper.getStaticProps(
     await store.dispatch(setColors(community?.colors));
     return {
       props: {
-        ...(await serverSideTranslations(locale as string)),
+        ...(await serverSideTranslations(data.locale as string)),
         community,
       },
     };

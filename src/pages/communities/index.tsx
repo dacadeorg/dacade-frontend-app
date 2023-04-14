@@ -1,5 +1,5 @@
 import { GetStaticProps } from "next";
-import { useTranslation } from "next-i18next";
+import { SSRConfig, useTranslation } from "next-i18next";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import { fetchAllCommunities } from "@/store/feature/community.slice";
 import { ReactElement, useEffect } from "react";
@@ -9,6 +9,7 @@ import { wrapper } from "@/store";
 import { Community } from "@/types/community";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HomeLayout from "@/layouts/Home";
+import i18Translate from "@/utilities/I18Translate";
 
 /**
  * Represents the Communities page.
@@ -60,6 +61,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
     const results = await store.dispatch(
       fetchAllCommunities({ locale: locale as string })
     );
+    // console.log((await serverSideTranslations(locale as string)))
     return {
       props: {
         ...(await serverSideTranslations(locale as string)),
@@ -69,6 +71,9 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
     };
   }
 );
+// type NextI18 = Pick<SSRConfig, "_nextI18Next">;
+// type NextI18Next = NextI18["_nextI18Next"];
+
 CommunitiesPage.getLayout = function (page: ReactElement) {
   return <HomeLayout>{page}</HomeLayout>;
 };

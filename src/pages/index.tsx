@@ -50,7 +50,6 @@ Home.getLayout = function (page: ReactElement) {
 export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
   (store: any) =>
     async ({ locale }: any) => {
-      await i18Translate(locale as string);
       const result = await store.dispatch(
         communitiesApi.endpoints.getCommunities.initiate()
       );
