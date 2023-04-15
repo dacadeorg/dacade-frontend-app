@@ -6,9 +6,10 @@ import {
 import { Community } from "@/types/community";
 import {
   fetchCommunities,
-  fetchCommunity,
+  fetchCommunity as fetchSlugCommunity 
 } from "@/services/community";
 import { setColors } from "@/store/feature/ui.slice";
+import api from "@/config/api";
 /**
  * CommunitiesState interface
  * @date 4/6/2023 - 11:59:08 AM
@@ -90,6 +91,28 @@ export const fetchAllCommunities = createAsyncThunk(
   }
 );
 
+/**
+ * Fetch a community by name
+ * @date 4/14/2023 - 1:00:03 PM
+ *
+ * @type {*}
+ */
+
+export const fetchCommunity = createAsyncThunk(
+  "communities/find",
+  async (slug: string, _) => {
+    try {
+      const { data } = await api().server.get<Community>(
+        `communities/${slug}`
+      );
+      return data;
+    } catch (error) {
+      console.error("Failed to fetch community:", error);
+    }
+  }
+);
+
+
 export const fetchCurrentCommunity = createAsyncThunk(
   "communities/current",
   async (
@@ -97,7 +120,7 @@ export const fetchCurrentCommunity = createAsyncThunk(
     { rejectWithValue, dispatch }
   ) => {
     try {
-      const community = await fetchCommunity({ slug, locale });
+      const community = await fetchSlugCommunity({ slug, locale });
       dispatch(setCurrent(community));
       return community;
     } catch (error) {
