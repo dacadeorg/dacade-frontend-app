@@ -1,11 +1,14 @@
-import { useRouter } from "next/router";
 import { wrapper } from "@/store";
-import { fetchCurrentCommunity } from "@/store/feature/community.slice";
-import { setColors } from "@/store/feature/ui.slice";
+import { useRouter } from "next/router";
+import Section from "@/components/ui/Section";
 import { Community } from "@/types/community";
-import MainHeader from "@/components/sections/communities/overview/MainHeader";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { setColors } from "@/store/feature/ui.slice";
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
+import { fetchCurrentCommunity } from "@/store/feature/community.slice";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import MainHeader from "@/components/sections/communities/overview/MainHeader";
+import { CoursesOverview } from "@/components/sections/communities/overview/Courses";
+import ScoreboardOverview from "@/components/sections/communities/overview/scoreboard";
 
 /**
  * This page is here to mock the redirect that happens when you click on one of the community list
@@ -24,6 +27,12 @@ export default function Slug(props: {
           <MainHeader community={community} />
         </ThemeWrapper>
       )}
+      <Section type= "default">
+        <div className="w-full mx-auto divide-y divide-solid divide-gray-200">
+          <CoursesOverview community={community} />
+          {/* <ScoreboardOverview /> */}
+        </div>
+      </Section>
     </div>
   );
 }

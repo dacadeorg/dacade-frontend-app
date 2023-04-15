@@ -31,7 +31,7 @@ export default function Section({
   type,
   padding = "py-4",
   children,
-  className,
+  className = "",
 }: SectionProps): ReactElement {
   const sectionClassName = classNames("relative", {
     "bg-white text-gray-900": type === "default",
