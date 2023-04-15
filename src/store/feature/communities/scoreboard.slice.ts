@@ -47,20 +47,21 @@ const scoreboardSlice = createSlice({
 
 export const { setList, setLoading } = scoreboardSlice.actions;
 
-export const all = (slug: string) => async (dispatch: any) => {
-  dispatch(setLoading(true));
-  try {
-    const { data } = await api().client.get<Scoreboard[]>(
-      `communities/${slug}/scoreboard`
-    );
+export const fetchAllScoreboard =
+  (slug: string) => async (dispatch: any) => {
+    dispatch(setLoading(true));
+    try {
+      const { data } = await api().client.get<Scoreboard[]>(
+        `communities/${slug}/scoreboard`
+      );
 
-    dispatch(setList(data));
-  } catch (error) {
-    console.error(error);
-  } finally {
-    dispatch(setLoading(false));
-  }
-};
+      dispatch(setList(data));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
 
 /**
  * Filter action

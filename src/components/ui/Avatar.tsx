@@ -112,7 +112,7 @@ export default function Avatar({
   });
 
   const componentClassName = classNames(
-    "bg-primary inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle",
+    "bg-primary relative inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle",
     sizeClassName,
     shapeClassName,
     className,
@@ -133,7 +133,7 @@ export default function Avatar({
         <Image
           src={user.avatar}
           alt="img"
-          layout="fill"
+          fill={true}
           className="object-cover w-full h-full"
         />
       ) : (
@@ -141,7 +141,7 @@ export default function Avatar({
       )}
       {icon && (
         <Image
-          layout="fill"
+          fill={true}
           src={icon}
           alt="icon image"
           className="p-2"
@@ -150,7 +150,7 @@ export default function Avatar({
       {image && (
         <Image
           src={image}
-          layout="fill"
+          fill={true}
           alt="icon image"
           className="p-0 object-cover w-full h-full"
         />
