@@ -71,8 +71,8 @@ export default function Navbar({
   };
 
   return (
-    <div className="text-gray-900" style={containerStyle}>
-      <div className="lg:py-12 py-6 flex relative">
+    <div className="text-gray-900 " style={containerStyle}>
+      <div className="content-wrapper lg:py-12 py-6 flex relative">
         <ul className="relative">
           <NavItem to="/" type="logo">
             <span>

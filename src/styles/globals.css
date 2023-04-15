@@ -37,13 +37,11 @@
 
 body,
 .text-default {
-  @apply text-gray-900; 
+  @apply text-gray-900 font-sans; 
 }
 
 body {
-  font-weight: 400;
-  width: 100%;
-  position: relative;
+  @apply font-sans relative w-full font-normal;
 }
 
 .message-rectangle {

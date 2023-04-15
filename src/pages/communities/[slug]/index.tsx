@@ -9,6 +9,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import MainHeader from "@/components/sections/communities/overview/MainHeader";
 import { CoursesOverview } from "@/components/sections/communities/overview/Courses";
 import ScoreboardOverview from "@/components/sections/communities/overview/scoreboard";
+import CommunityLayout from "@/layouts/Community";
+import { ReactElement } from "react";
 
 /**
  * This page is here to mock the redirect that happens when you click on one of the community list
@@ -18,7 +20,7 @@ import ScoreboardOverview from "@/components/sections/communities/overview/score
  */
 export default function Slug(props: {
   pageProps: { community: Community };
-}) {
+}): ReactElement {
   const { community } = props.pageProps;
   return (
     <div className="">
@@ -36,6 +38,10 @@ export default function Slug(props: {
     </div>
   );
 }
+Slug.getLayout = function (page: ReactElement) {
+  return <CommunityLayout>{page}</CommunityLayout>;
+};
+
 
 // export async function getStaticPaths() {
 //   return {
