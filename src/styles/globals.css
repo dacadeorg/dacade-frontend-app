@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .floating-input > input::placeholder {
   color: transparent;
 }
@@ -37,8 +36,8 @@
 
 body,
 .text-default {
-  @apply text-gray-900 font-sans; 
-  font-feature-settings: 'ss01' 1, 'ss02' 1;
+  @apply text-gray-900 font-sans;
+  font-feature-settings: "ss01" 1, "ss02" 1;
 }
 
 body {

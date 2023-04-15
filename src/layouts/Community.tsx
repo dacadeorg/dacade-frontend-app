@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 import Wrapper from "@/components/layout/Wrapper";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -27,15 +27,11 @@ export function CommunityLayout({
 }): ReactElement {
   const colors = useSelector((state) => state.ui.colors);
 
-  const settings = {
-    colors,
-  };
-
   return (
     <Wrapper>
       <ThemeWrapper colors={colors}>
         <div className="relative overflow-hidden lg:overflow-auto">
-          <Navbar settings={settings} sidebarBurgerColor />
+          <Navbar settings={{ colors }} sidebarBurgerColor />
           <NotificationBar />
           <div className="relative">{children}</div>
           <DiscordButton />

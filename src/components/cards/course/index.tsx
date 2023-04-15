@@ -114,7 +114,7 @@ export default function CourseCard({
       <div className="block sm:hidden pt-6">
         <Link href={path}>
           <ArrowButton
-            community-styles={true}
+            communityStyles={true}
             variant="outline-primary"
           >
             {t("course.challenge.button")}

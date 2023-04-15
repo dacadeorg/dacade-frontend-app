@@ -5,6 +5,7 @@ import {
   MouseEvent,
   ReactNode,
   ReactElement,
+  useMemo,
 } from "react";
 
 import { useSelector } from "@/hooks/useTypedSelector";
@@ -94,22 +95,23 @@ export default function Button({
 
   const isInternalLink: boolean = link?.startsWith("/");
 
-  let communityStylesObj = {};
-
-  if (communityStyles && colors && Object.keys(colors).length) {
-    communityStylesObj = {
-      borderColor: colors.textAccent,
-      color: type.includes("outline")
-        ? colors.textAccent
-        : colors.text,
-      backgroundColor: type.includes("outline")
-        ? "transparent"
-        : colors.textAccent,
-      "--button-color--hover": colors.text,
-      "--button-background-color--hover": colors.textAccent,
-      "--button-border-color--hover": colors.textAccent,
-    };
-  }
+  let communityStylesObj = useMemo(() => {
+    if (communityStyles && colors && Object.keys(colors).length) {
+      return {
+        borderColor: colors.textAccent,
+        color: variant.includes("outline")
+          ? colors.textAccent
+          : colors.text,
+        backgroundColor: variant.includes("outline")
+          ? "transparent"
+          : colors.textAccent,
+        "--button-color--hover": colors.text,
+        "--button-background-color--hover": colors.textAccent,
+        "--button-border-color--hover": colors.textAccent,
+      };
+    }
+    return {};
+  }, [colors, communityStyles, variant]);
 
   /**
    * Custom styles for the button which are not in tailwindcss
@@ -118,10 +120,12 @@ export default function Button({
    * @type {CSSProperties}
    */
 
-  const styles: CSSProperties | {} = {
-    ...communityStylesObj,
-    ...(customStyle || {}),
-  };
+  const styles: CSSProperties | {} = useMemo(() => {
+    return {
+      ...communityStylesObj,
+      ...(customStyle || {}),
+    };
+  }, [communityStylesObj, customStyle]);
 
   /**
    * Set button className according to the type of the button

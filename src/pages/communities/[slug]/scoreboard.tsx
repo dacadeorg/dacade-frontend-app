@@ -7,9 +7,9 @@ import {
 } from "@/utilities/Metadata";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { fetchCommunity } from "@/store/feature/community.slice";
+import { fetchCurrentCommunity } from "@/store/feature/community.slice";
 import { useRouter } from "next/router";
-import { fetchAllScoreboard } from "@/store/feature/communities/scoreboard.slice";
+import { fetchAllScoreboards } from "@/store/feature/communities/scoreboard.slice";
 import { useTranslation } from "next-i18next";
 import Head from "next/head";
 import { ReactElement } from "react-markdown/lib/react-markdown";
@@ -35,9 +35,19 @@ export default function ScoreboardList(): ReactElement {
   } = useSelector((state) => state);
 
   useEffect(() => {
-    dispatch(fetchCommunity(params.slug as string));
-    fetchAllScoreboard(params.slug as string)(dispatch);
-  }, [dispatch, params.slug]);
+    dispatch(
+      fetchCurrentCommunity({
+        slug: params.slug as string,
+        locale: router.locale as string,
+      })
+    );
+    dispatch(
+      fetchAllScoreboards({
+        slug: params.slug as string,
+        locale: router.locale as string,
+      })
+    );
+  }, [dispatch, params.slug, router.locale]);
 
   return (
     <>

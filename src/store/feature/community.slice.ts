@@ -4,12 +4,8 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { Community } from "@/types/community";
-import {
-  fetchCommunities,
-  fetchCommunity as fetchSlugCommunity 
-} from "@/services/community";
-import { setColors } from "@/store/feature/ui.slice";
 import api from "@/config/api";
+
 /**
  * CommunitiesState interface
  * @date 4/6/2023 - 11:59:08 AM
@@ -70,10 +66,14 @@ const communitiesSlice = createSlice({
       .addCase(fetchAllCommunities.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload as string;
+      })
+      .addCase(fetchCurrentCommunity.fulfilled, (state, action) => {
+        state.current = action.payload;
       });
   },
 });
 export const { setCurrent, setAll } = communitiesSlice.actions;
+
 /**
  * Fetches all communities from the API.
  * @date 4/6/2023 - 12:09:48 PM
@@ -83,8 +83,10 @@ export const fetchAllCommunities = createAsyncThunk(
   "communities/all",
   async ({ locale }: { locale: string }, { rejectWithValue }) => {
     try {
-      const communities = await fetchCommunities({ locale });
-      return communities;
+      const { data } = await api(locale).server.get<Community[]>(
+        "communities"
+      );
+      return data;
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -98,31 +100,17 @@ export const fetchAllCommunities = createAsyncThunk(
  * @type {*}
  */
 
-export const fetchCommunity = createAsyncThunk(
-  "communities/find",
-  async (slug: string, _) => {
-    try {
-      const { data } = await api().server.get<Community>(
-        `communities/${slug}`
-      );
-      return data;
-    } catch (error) {
-      console.error("Failed to fetch community:", error);
-    }
-  }
-);
-
-
 export const fetchCurrentCommunity = createAsyncThunk(
   "communities/current",
   async (
     { slug, locale }: { slug: string; locale: string },
-    { rejectWithValue, dispatch }
+    { rejectWithValue }
   ) => {
     try {
-      const community = await fetchSlugCommunity({ slug, locale });
-      dispatch(setCurrent(community));
-      return community;
+      const { data } = await api(locale).server.get<Community>(
+        `communities/${slug}`
+      );
+      return data;
     } catch (error) {
       return rejectWithValue(error);
     }
