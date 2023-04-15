@@ -61,7 +61,6 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
     const results = await store.dispatch(
       fetchAllCommunities({ locale: locale as string })
     );
-    // console.log((await serverSideTranslations(locale as string)))
     return {
       props: {
         ...(await serverSideTranslations(locale as string)),
@@ -71,8 +70,6 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
     };
   }
 );
-// type NextI18 = Pick<SSRConfig, "_nextI18Next">;
-// type NextI18Next = NextI18["_nextI18Next"];
 
 CommunitiesPage.getLayout = function (page: ReactElement) {
   return <HomeLayout>{page}</HomeLayout>;

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { ReactElement } from "react";
 
 /**
- * Represents the Community Section
+ * Represents the Community Section Props
  * @date 4/13/2023 - 6:00:03 AM
  *
  * @interface ICommunitySection

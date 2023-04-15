@@ -27,13 +27,6 @@ export default function Slug(props: {
   );
 }
 
-// export async function getStaticPaths() {
-//   return {
-//     paths: [],
-//     fallback: "blocking",
-//   };
-// }
-
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (data) => {
     const { query } = data;
@@ -44,15 +37,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
         locale: data.locale as string,
       })
     );
-    // if (
-    //   results.type === "community/fetchCurrentCommunity/fulfilled"
-    // ) {
-    //   return {
-    //     props: {
-    //       community: [],
-    //     },
-    //   };
-    // }
     const community = results.payload as Community;
     await store.dispatch(setColors(community?.colors));
     return {
