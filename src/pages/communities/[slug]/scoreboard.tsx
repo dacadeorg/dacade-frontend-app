@@ -20,11 +20,29 @@ import { Scoreboard } from "@/types/scoreboard";
 import { fetchCurrentCommunity } from "@/store/feature/community.slice";
 import { useRouter } from "next/router";
 
+/**
+ * represents the props for the ScoreboardList component.
+ * @date 4/16/2023 - 10:29:30 PM
+ *
+ * @interface IScoreboardListProps
+ * @typedef {IScoreboardListProps}
+ */
 interface IScoreboardListProps {
   badgeStyles?: Record<string, unknown>;
   locale: string;
 }
 
+/**
+ *  ScoreboardList component for communities scoreboard page.
+ * @date 4/16/2023 - 10:28:54 PM
+ *
+ * @export
+ * @param {IScoreboardListProps} {
+  badgeStyles = {},
+  locale,
+}
+ * @returns {ReactElement}
+ */
 export default function ScoreboardList({
   badgeStyles = {},
   locale,
