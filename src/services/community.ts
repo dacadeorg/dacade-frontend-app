@@ -6,6 +6,19 @@ export const fetchCommunities = async ({
 }: {
   locale: string;
 }): Promise<Community[]> => {
-  const response = await api(locale).server.get("communities");
-  return response.data;
+  const { data } = await api(locale).server.get("communities");
+  return data;
+};
+
+export const fetchCommunity = async ({
+  slug,
+  locale,
+}: {
+  slug: string;
+  locale: string;
+}): Promise<Community> => {
+  const { data } = await api(locale).server.get(
+    `communities/${slug}`
+  );
+  return data;
 };

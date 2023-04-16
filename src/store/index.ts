@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
-import community from "./feature/community.slice";
+import communities from "./feature/community.slice";
 import {
   referralsApi,
   referralSlice,
@@ -14,9 +14,10 @@ import reputationSlice from "./feature/reputation.slice";
 import indexSlice from "./feature/index.slice";
 import { communitiesApi } from "./feature/communities.slice";
 import authSlice from "./feature/auth.slice";
+import scoreboardSlice from "./feature/communities/scoreboard.slice";
 
 export interface IRootState {
-  communities: ReturnType<typeof community.reducer>;
+  communities: ReturnType<typeof communities.reducer>;
   ui: ReturnType<typeof ui.reducer>;
   referrals: ReturnType<typeof referralSlice.reducer>;
   user: ReturnType<typeof userSlice.reducer>;
@@ -26,7 +27,8 @@ export interface IRootState {
   reputations: ReturnType<typeof reputationSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
-  communityApi: ReturnType<typeof communitiesApi.reducer>;
+  communitiesApi: ReturnType<typeof communitiesApi.reducer>;
+  scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
 }
 
 export const store = configureStore({
@@ -39,10 +41,11 @@ export const store = configureStore({
     [walletSlice.name]: walletSlice.reducer,
     [reputationSlice.name]: reputationSlice.reducer,
     [indexSlice.name]: indexSlice.reducer,
-    [community.name]: community.reducer,
     [authSlice.name]: authSlice.reducer,
     [communitiesApi.reducerPath]: communitiesApi.reducer,
     [referralsApi.reducerPath]: referralsApi.reducer,
+    [scoreboardSlice.name]: scoreboardSlice.reducer,
+    [communities.name]: communities.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(

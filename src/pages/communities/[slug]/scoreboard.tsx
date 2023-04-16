@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import Header from "@/components/sections/communities/_partials/Header";
@@ -14,28 +14,39 @@ import { wrapper } from "@/store";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useTranslation } from "next-i18next";
+import HomeLayout from "@/layouts/Home";
+import { Community } from "@/types/community";
+import { Scoreboard } from "@/types/scoreboard";
+import { fetchCurrentCommunity } from "@/store/feature/community.slice";
+import { useRouter } from "next/router";
 
-interface Props {
+interface IScoreboardListProps {
   badgeStyles?: Record<string, unknown>;
+  locale: string;
 }
 
-const ScoreboardList: React.FC<Props> = ({ badgeStyles = {} }) => {
-  const dispatch = useDispatch();
-  const { community, list } = useSelector((state) => ({
-    community: state.communities.current,
-    list: state.scoreboard.list,
-  }));
+export default function ScoreboardList({
+  badgeStyles = {},
+  locale,
+}: IScoreboardListProps): ReactElement {
   const { t } = useTranslation();
+  const community = useSelector((state) => state.communities.current);
+  const scoreboard = useSelector((state) => state.scoreboard.list);
+  const router = useRouter();
+  const dispatch = useDispatch();
   useEffect(() => {
     Promise.all([
-      dispatch(fetchCommunities({ locale: "en" })),
-      dispatch(fetchScoreboard("celo")),
-    ]).then((res) => {
-      console.log({ res });
-      console.log("done");
+      dispatch(
+        fetchCurrentCommunity({
+          locale: locale as string,
+          slug: router.query.slug as string,
+        })
+      ),
+      dispatch(fetchScoreboard(router.query?.slug as string)),
+    ]).catch((e) => {
+      console.error(e);
     });
-  }, []);
-
+  }, [dispatch, router.query?.slug, locale]);
   return (
     <>
       <Head>
@@ -57,37 +68,28 @@ const ScoreboardList: React.FC<Props> = ({ badgeStyles = {} }) => {
           subtitle={t("communities.navigation.scoreboard")}
         />
         <div className="my-24 w-full divide-y divide-gray-200 space-y-4 bg-gray-50 lg:max-w-2xl rounded-3.5xl overflow-hidden">
-          {list.map((item, i) => (
+          {scoreboard.map((item, i) => (
             <ScoreboardCard key={i} index={i + 1} value={item} />
           ))}
         </div>
       </div>
     </>
   );
+}
+
+ScoreboardList.getLayout = function (page: ReactElement) {
+  return <HomeLayout>{page}</HomeLayout>;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => {
-    return async ({ params, locale }) => {
-      const { dispatch } = store;
-      console.log({ params });
-      //   const results = await Promise.all([
-      //     dispatch(fetchCommunities({ locale: locale as string })),
-      //     dispatch(fetchScoreboard(params?.slug as string)),
-      //   ]);
-
-      //   console.log(results);
-
-      //   await dispatch(fetchCommunities(params.slug));
-      //   await dispatch(fetchScoreboard(params.slug));
-
+    return async ({ locale }) => {
       return {
         props: {
           ...(await serverSideTranslations(locale as string)),
+          locale: locale as string,
         },
       };
     };
   }
 );
-
-export default ScoreboardList;

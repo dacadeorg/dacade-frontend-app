@@ -53,8 +53,8 @@ export const all = (slug: string) => async (dispatch: any) => {
     const { data } = await api().client.get<Scoreboard[]>(
       `communities/${slug}/scoreboard`
     );
-
     dispatch(setList(data));
+    return data;
   } catch (error) {
     console.error(error);
   } finally {
