@@ -33,7 +33,7 @@ export default function ScoreboardOverview(): ReactElement {
     >
       <div className="w-full flex flex-row mt-10">
         <ScoreboardFilter />
-        {list && list.length && (
+        {list && list.length ? (
           <div className="w-full flex flex-col divide-y divide-solid divide-gray-200 border border-gray-200 border-solid rounded-3xl overflow-hidden">
             {list.slice(0, items).map((item, i) => (
               <ScoreboardCard
@@ -55,7 +55,7 @@ export default function ScoreboardOverview(): ReactElement {
               </div>
             )}
           </div>
-        )}
+        ) : null}
       </div>
     </SectionWrapperCol>
   );

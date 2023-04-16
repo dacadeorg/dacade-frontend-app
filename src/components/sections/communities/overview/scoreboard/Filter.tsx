@@ -31,7 +31,7 @@ interface Option {
  * @type {Option[]}
  */
 
-const options: Option[] = [
+const filterOptions: Option[] = [
   {
     label: "All",
     value: "all",
@@ -85,12 +85,14 @@ export default function Filters(): ReactElement {
   const { slug } = router.query;
 
   useEffect(() => {
-    filterScoreboards({
-      slug: slug as string,
-      filterBy,
-      sortBy,
-      locale: router.locale as string,
-    });
+    dispatch(
+      filterScoreboards({
+        slug: slug as string,
+        filterBy,
+        sortBy,
+        locale: router.locale as string,
+      })
+    );
   }, [dispatch, filterBy, router.locale, slug, sortBy]);
 
   useEffect(() => {
@@ -121,10 +123,10 @@ export default function Filters(): ReactElement {
         <div className="block mt-6 mb-6">
           <span className="text-gray-700 mb-4">Filter by</span>
           <div className="mt-6 mb-6">
-            {options.map((option, i) => (
+            {filterOptions.map((option, i) => (
               <FilterOption
                 key={`option-${i}`}
-                checked={filterBy === option.value}
+                defaultChecked={filterBy === option.value}
                 label={option.label}
                 value={option.value}
                 name="filter-by-option"
@@ -142,7 +144,7 @@ export default function Filters(): ReactElement {
             {sortingOptions.map((option, i) => (
               <FilterOption
                 key={`sorting-option-${i}`}
-                checked={sortBy === option.value}
+                defaultChecked={sortBy === option.value}
                 label={option.label}
                 value={option.value}
                 name="sort-by-option"
