@@ -99,7 +99,7 @@ export default function CourseCard({
             {t(`course.challenge.certificate`)}
           </span>
           <Avatar
-            icon={community.icon}
+            icon={`/static${community.icon}`}
             color={community.colors.primary}
             size="large"
             shape="rounded-3xl"

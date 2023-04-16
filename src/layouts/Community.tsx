@@ -35,7 +35,7 @@ export function CommunityLayout({
           <NotificationBar />
           <div className="relative">{children}</div>
           <DiscordButton />
-          <Footer />
+          <Footer backgroundColor="default" />
           <PrivacyPolicyBanner />
         </div>
       </ThemeWrapper>
