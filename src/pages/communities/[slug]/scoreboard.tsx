@@ -58,7 +58,7 @@ export default function ScoreboardList({
         </title>
         {getMetadataDescription(community?.description as string).map(
           ({ name, content }) => (
-            <meta name={name} content={content} />
+            <meta key={name} name={name} content={content} />
           )
         )}
       </Head>
