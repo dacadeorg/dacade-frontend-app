@@ -68,7 +68,7 @@ export default function CourseCard({
         <div className="hidden sm:block">
           <Link href={path}>
             <ArrowButton
-              community-styles={true}
+              communityStyles={true}
               variant="outline-primary"
             >
               {t("course.challenge.button")}
@@ -99,9 +99,9 @@ export default function CourseCard({
             {t(`course.challenge.certificate`)}
           </span>
           <Avatar
-            icon={community.icon}
+            icon={`/static/${community.icon}`}
             color={community.colors.primary}
-            size="large"
+            size="extra"
             shape="rounded-3xl"
             user={null}
           />
