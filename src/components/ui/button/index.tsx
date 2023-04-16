@@ -140,7 +140,7 @@ export default function Button({
         variant.includes("outline"),
       "bg-primary hover:bg-primary-dark text-white":
         variant === "primary",
-      "bg-secondary": variant === "secondary",
+      "bg-secondary text-primary": variant === "secondary",
       "text-primary border border-solid border-primary bg-transparent hover:bg-primary hover:text-white":
         variant === "outline-primary",
       "text-secondary border border-solid border-secondary bg-transparent hover:bg-secondary hover:text-gray-900":
