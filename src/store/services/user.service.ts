@@ -8,10 +8,19 @@ import {
 import { User } from "@/types/bounty";
 import { createApi } from "@reduxjs/toolkit/dist/query";
 
+/**
+ * User API service
+ * @date 4/17/2023 - 7:31:21 PM
+ *
+ * @type {*}
+ */
 const userService = createApi({
   reducerPath: "userService",
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
+    /**
+     *  Get user endpoint
+     */
     getUser: builder.query({
       query: () => "users/current",
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
@@ -25,6 +34,10 @@ const userService = createApi({
       },
     }),
 
+    /**
+     * Update user endpoint
+     * @query {payload}
+     */
     updateUser: builder.mutation({
       query: (payload: User) => ({
         url: "users/update",
@@ -39,8 +52,18 @@ const userService = createApi({
   }),
 });
 
+/**
+ * Get user function
+ */
 export const getUser = () =>
   userService.endpoints.getUser.initiate("en");
+
+/**
+ * Update user function
+ * @param user
+ * @returns
+ */
 export const updateUser = (user: User) =>
   userService.endpoints.updateUser.initiate(user);
+
 export default userService;

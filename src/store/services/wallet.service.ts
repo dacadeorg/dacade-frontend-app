@@ -30,7 +30,7 @@ const walletService: any = createApi({
   endpoints: (builder) => ({
     /**
      * Update wallet endpoint
-     * @param {UpdateWalletPayload} wallet function parameter which is composed by:
+     * @query {UpdateWalletPayload} wallet function parameter which is composed by:
      *  - payload: The data to update the wallet
      *  - locale: The local language which is by default 'en'
      */
@@ -57,6 +57,7 @@ const walletService: any = createApi({
 
     /**
      * Fetches all wallets.
+     * @query {locale} - The locale language
      */
     getAllWallets: builder.query({
       query: (locale: string) => ({
@@ -67,7 +68,6 @@ const walletService: any = createApi({
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
-        console.log(data);
         dispatch(setWalletList(data));
       },
     }),
