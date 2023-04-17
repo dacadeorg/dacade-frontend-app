@@ -84,26 +84,19 @@ export const getServerSideProps = wrapper.getServerSideProps(
       fetchCourse({ ...fetchArgs, slug: course_slug })
     );
 
-    const getAllCourses = store.dispatch(
-      fetchAllCourses({ ...fetchArgs, slug })
-    );
-
     const results = await Promise.all([
       getCurrentCommunty,
       getCurrentCourse,
-      getAllCourses,
     ]);
 
     const community = results[0].payload;
     const course = results[1].payload;
-    const courses = results[2].payload;
 
     return {
       props: {
         ...(await serverSideTranslations(data.locale as string)),
         community,
         course,
-        courses,
       },
     };
   }
