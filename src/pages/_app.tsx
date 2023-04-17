@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { appWithTranslation } from "next-i18next";
 import { wrapper } from "@/store";
 import { Provider } from "react-redux";
+import graphik from "@/config/font";
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
 
@@ -43,7 +44,11 @@ const App = ({ Component, ...rest }: AppPropsWithLayout) => {
 
   return (
     <Provider store={store}>
-      {getLayout(<Component {...pageProps} />)}
+      {getLayout(
+        <main className={`${graphik.variable} font-sans`}>
+          <Component {...pageProps} />
+        </main>
+      )}
     </Provider>
   );
 };

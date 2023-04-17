@@ -9,8 +9,8 @@ import i18Translate from "@/utilities/I18Translate";
 import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { ReactElement } from "react-markdown/lib/react-markdown";
+import { useTranslation } from "next-i18next";
+import { ReactElement } from "react";
 
 /**
  * Email verification page
@@ -37,44 +37,42 @@ export default function EmailVerification(): ReactElement {
     try {
       await resendEmailVerification();
     } catch (e) {
-      console.log(e);
+      console.error(e);
     } finally {
       setloading(false);
     }
   };
 
-  if (user)
-    return (
-      <div className="flex items-center justify-center absolute min-h-screen top-0 w-full">
-        <div className="relative p-6 text-center">
-          <div>
-            <h1 className="text-3xl font-medium mb-7">
-              {t("email-verification.title")}
-            </h1>
-            <p className="text-lg">
-              {t("email-verification.subtitle")}
-            </p>
-            <p className="text-base font-bold mb-4">{user.email}</p>
-            <p
-              className="text-lg py-4"
-              dangerouslySetInnerHTML={{
-                __html: t("email-verification.message"),
-              }}
-            />
-            <p className="text-sm py-4">
-              {t("email-verification.foot-note")}
-            </p>
-          </div>
+  return (
+    <div className="flex items-center justify-center absolute min-h-screen top-0 w-full">
+      <div className="relative p-6 text-center">
+        <div>
+          <h1 className="text-3xl font-medium mb-7">
+            {t("email-verification.title")}
+          </h1>
+          <p className="text-lg">
+            {t("email-verification.subtitle")}
+          </p>
+          <p className="text-base font-bold mb-4">{user?.email}</p>
+          <p
+            className="text-lg py-4"
+            dangerouslySetInnerHTML={{
+              __html: t("email-verification.message"),
+            }}
+          />
+          <p className="text-sm py-4">
+            {t("email-verification.foot-note")}
+          </p>
+        </div>
 
-          <div className="text-center mt-1">
-            <ArrowButton loading={loading} onClick={resendEmail}>
-              {t("email-verification.buttons.resend")}
-            </ArrowButton>
-          </div>
+        <div className="text-center mt-1">
+          <ArrowButton loading={loading} onClick={resendEmail}>
+            {t("email-verification.buttons.resend")}
+          </ArrowButton>
         </div>
       </div>
-    );
-  return <></>;
+    </div>
+  );
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) =>
