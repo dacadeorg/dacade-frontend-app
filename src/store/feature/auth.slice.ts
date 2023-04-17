@@ -61,7 +61,7 @@ export const { setAuthData, clearAuthData } = authSlice.actions;
 export default authSlice;
 
 // Define the sing up async thunks using Redux Toolkit
-export const singUp = createAsyncThunk(
+export const signUp = createAsyncThunk(
   "singup",
   async (
     payload: { email: string; password: string },

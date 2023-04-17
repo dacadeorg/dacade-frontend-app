@@ -13,7 +13,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import classNames from "classnames";
 import Checkbox from "@/components/ui/Checkbox";
-import { singUp } from "@/store/feature/auth.slice";
+import { signUp } from "@/store/feature/auth.slice";
 import ReferralsList from "@/components/popups/referral/List";
 
 /**
@@ -66,7 +66,7 @@ export default function Signup(): ReactElement {
     try {
       if (!checkTerms) return;
       setLoading(false);
-      dispatch(singUp(signupData));
+      dispatch(signUp(signupData));
     } catch (error) {
       setLoading(false);
     }
