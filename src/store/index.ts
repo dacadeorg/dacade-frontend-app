@@ -1,23 +1,22 @@
-import {
-  referralsApi,
-  referralSlice,
-} from "./feature/referrals.slice";
+import { referralSlice } from "./feature/referrals.slice";
+import { configureStore } from "@reduxjs/toolkit";
+import { createWrapper } from "next-redux-wrapper";
+import community from "./feature/community.slice";
+import ui from "./feature/ui.slice";
+import userSlice from "./feature/user.slice";
+import { bannerSlice } from "./feature/banner.slice";
 import { notificationsSlice } from "./feature/notification.slice";
 import { communitiesApi } from "./feature/communities.slice";
 import reputationSlice from "./feature/reputation.slice";
-import { bannerSlice } from "./feature/banner.slice";
 import { coursesApi } from "./feature/course.slice";
-import { createWrapper } from "next-redux-wrapper";
-import { configureStore } from "@reduxjs/toolkit";
-import community from "./feature/community.slice";
 import { communityService } from "./services/community.service";
 import walletSlice from "./feature/wallet.slice";
 import indexSlice from "./feature/index.slice";
-import userSlice from "./feature/user.slice";
 import authSlice from "./feature/auth.slice";
-import ui from "./feature/ui.slice";
 import walletService from "./services/wallet.service";
 import userService from "./services/user.service";
+import reputationService from "./services/reputation.service";
+import referralsService from "./services/referrals.service";
 
 export interface IRootState {
   communities: ReturnType<typeof community.reducer>;
@@ -33,6 +32,9 @@ export interface IRootState {
   communityApi: ReturnType<typeof communitiesApi.reducer>;
   communityService: ReturnType<typeof communityService.reducer>;
   courses: ReturnType<typeof coursesApi.reducer>;
+  walletService: ReturnType<typeof walletService.reducer>;
+  userService: ReturnType<typeof userSlice.reducer>;
+  reputationService: ReturnType<typeof reputationService.reducer>;
 }
 
 export const store = configureStore({
@@ -49,19 +51,21 @@ export const store = configureStore({
     [authSlice.name]: authSlice.reducer,
     [communitiesApi.reducerPath]: communitiesApi.reducer,
     [communityService.reducerPath]: communityService.reducer,
-    [referralsApi.reducerPath]: referralsApi.reducer,
     [coursesApi.reducerPath]: coursesApi.reducer,
     [walletService.reducerPath]: walletService.reducer,
     [userService.reducerPath]: userSlice.reducer,
+    [reputationService.reducerPath]: reputationService.reducer,
+    [referralsService.reducerPath]: referralsService.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
-      referralsApi.middleware,
       communitiesApi.middleware,
       coursesApi.middleware,
       communityService.middleware,
       walletService.middleware,
-      userService.middleware
+      userService.middleware,
+      reputationService.middleware,
+      referralsService.middleware
     );
   },
 });

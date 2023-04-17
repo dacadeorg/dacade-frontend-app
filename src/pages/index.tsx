@@ -15,6 +15,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 
 const Home = (props: { pageProps: { communities: Community[] } }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const {
     pageProps: { communities },
   } = props;

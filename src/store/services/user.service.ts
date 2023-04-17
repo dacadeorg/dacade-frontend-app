@@ -21,7 +21,7 @@ const userService = createApi({
     /**
      *  Get user endpoint
      */
-    getUser: builder.query({
+    getUser: builder.query<User, any>({
       query: () => "users/current",
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
@@ -38,7 +38,7 @@ const userService = createApi({
      * Update user endpoint
      * @query {payload}
      */
-    updateUser: builder.mutation({
+    updateUser: builder.mutation<any, User>({
       query: (payload: User) => ({
         url: "users/update",
         method: "PATCH",

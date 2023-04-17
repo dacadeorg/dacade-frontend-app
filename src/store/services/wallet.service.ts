@@ -34,7 +34,7 @@ const walletService: any = createApi({
      *  - payload: The data to update the wallet
      *  - locale: The local language which is by default 'en'
      */
-    updateWallet: builder.mutation({
+    updateWallet: builder.mutation<UpdateWalletPayload, any>({
       query: ({
         payload,
         locale,
