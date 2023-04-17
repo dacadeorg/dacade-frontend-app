@@ -1,6 +1,7 @@
 import { ReactElement, ReactNode } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import ReferralPopup from "@/components/popups/referral";
+import graphik from "@/config/font";
 
 /**
  * LayoutWrapper props interface
@@ -32,7 +33,9 @@ export default function LayoutWrapper({
   );
 
   return (
-    <div className="relative w-full h-full content-wrapper">
+    <div
+      className={`relative w-full h-full content-wrapper ${graphik.variable} font-sans`}
+    >
       {children}
       {showReferral && <ReferralPopup />}
     </div>
