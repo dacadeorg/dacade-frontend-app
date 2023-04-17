@@ -1,15 +1,11 @@
-import {
-  createApi,
-  fetchBaseQuery,
-} from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { Community } from "@/types/community";
 import { HYDRATE } from "next-redux-wrapper";
+import baseQuery from "@/config/baseQuery";
 
 export const communitiesApi = createApi({
   reducerPath: "communitiesApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
-  }),
+  baseQuery: baseQuery(),
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
       return action.payload[reducerPath];
