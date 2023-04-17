@@ -1,3 +1,4 @@
+import { Scoreboard } from "@/types/scoreboard";
 import {
   createAsyncThunk,
   createSlice,
@@ -8,7 +9,7 @@ import {
   fetchCommunities,
   fetchCommunity,
 } from "@/services/community";
-import { setColors } from "@/store/feature/ui.slice";
+import api from "@/config/api";
 /**
  * CommunitiesState interface
  * @date 4/6/2023 - 11:59:08 AM
@@ -72,6 +73,20 @@ const communitiesSlice = createSlice({
       .addCase(fetchAllCommunities.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload as string;
+      })
+      .addCase(fetchCurrentCommunity.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(
+        fetchCurrentCommunity.fulfilled,
+        (state, action: PayloadAction<Community>) => {
+          state.status = "succeeded";
+          state.current = action.payload;
+        }
+      )
+      .addCase(fetchCurrentCommunity.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload as string;
       });
   },
 });
@@ -102,10 +117,23 @@ export const fetchCurrentCommunity = createAsyncThunk(
   ) => {
     try {
       const community = await fetchCommunity({ slug, locale });
-      dispatch(setCurrentCommunity(community));
       return community;
     } catch (error) {
       return rejectWithValue(error);
+    }
+  }
+);
+
+export const fetchAllScoreboards = createAsyncThunk(
+  "communities/scoreboard/all",
+  async ({ slug, locale }: { slug: string; locale: string }) => {
+    try {
+      const { data } = await api(locale).server.get<Scoreboard[]>(
+        `communities/${slug}/scoreboard`
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
     }
   }
 );

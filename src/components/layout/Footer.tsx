@@ -74,7 +74,7 @@ export default function Footer({
       padding="pt-20"
       type={backgroundColor ? "secondary-light" : "default"}
     >
-      <div className="py-8 text-base text-center text-gray-400 border-t border-gray-200 border-t-solid lg:flex md:flex lg:text-left">
+      <div className="py-8 content-wrapper text-base text-center text-gray-400 border-t border-gray-200 border-t-solid lg:flex md:flex lg:text-left">
         <div className="w-full border-b border-gray-200 lg:w-1/2 lg:border-none md:border-none border-b-solid">
           <p
             className="block text-with-links"

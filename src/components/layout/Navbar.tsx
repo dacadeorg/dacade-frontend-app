@@ -72,7 +72,7 @@ export default function Navbar({
 
   return (
     <div className="text-gray-900" style={containerStyle}>
-      <div className="lg:py-12 py-6 flex relative">
+      <div className="lg:py-12 py-6 content-wrapper flex relative">
         <ul className="relative">
           <NavItem to="/" type="logo">
             <span>

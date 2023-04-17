@@ -32,7 +32,7 @@ export default function LayoutWrapper({
   );
 
   return (
-    <div className="relative w-full h-full content-wrapper">
+    <div className="relative w-full h-full">
       {children}
       {showReferral && <ReferralPopup />}
     </div>
