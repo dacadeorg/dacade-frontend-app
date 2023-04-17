@@ -3,6 +3,8 @@ import useOnClickOutside from "use-onclickoutside";
 import Video from "@/components/ui/Video";
 import PlayIcon from "@/icons/play.svg";
 import { useTranslation } from "next-i18next";
+import { toggleBodyScrolling } from "@/store/feature/ui.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  * Video popup component
@@ -15,18 +17,17 @@ export default function VideoPopup(): ReactElement {
   const { t } = useTranslation();
   const [show, setShow] = useState(false);
   const videoPopupRef = useRef<HTMLSpanElement>(null);
+  const dispatch = useDispatch();
 
   const toggle = () => {
     setShow(!show);
-    // TODO: Will be uncommented after the implementation of redux
-    // dispatch('ui/toggleBodyScrolling', show)
+    toggleBodyScrolling(!show)(dispatch);
   };
 
   const externalClick = () => {
     if (show) {
       setShow(false);
-      // TODO: Will be uncommented after the implementation of redux
-      // dispatch('ui/toggleBodyScrolling', show)
+      toggleBodyScrolling(false)(dispatch);
     }
   };
 
@@ -47,14 +48,14 @@ export default function VideoPopup(): ReactElement {
             </div>
           </span>
         </li>
-        <div className="flex justify-center">
+        <div className="absolute w-full flex justify-center top-0">
           <div
             className={`z-50 mt-0 w-full inline-block fixed top-14 md:top-24 left-0 right-0 bg-transparent px-auto rounded-3.5xl text-gray-900 no-scrollbar max-w-full h-auto content-wrapper justify-self-center sm:m-auto ${
               !show && "hidden"
             }`}
           >
             <Video
-              className="z-50 aspect-w-16 aspect-h-8 max-w-full m-auto justify-center bg-black"
+              className="z-50 aspect-w-16 aspect-h-8 max-w-full m-auto justify-center"
               url="https://youtube.com/embed/GmVrQDulaLY"
             />
           </div>

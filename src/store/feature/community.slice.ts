@@ -19,6 +19,7 @@ import { setColors } from "@/store/feature/ui.slice";
  */
 export interface CommunitiesState {
   list: Community[];
+  current?: Community;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: object | null | string;
   current: Community | null;

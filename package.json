@@ -12,6 +12,7 @@
   "dependencies": {
     "@coingecko/cryptoformat": "^0.5.4",
     "@reduxjs/toolkit": "^1.9.3",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/axios": "^0.14.0",
     "@types/node": "18.15.3",
