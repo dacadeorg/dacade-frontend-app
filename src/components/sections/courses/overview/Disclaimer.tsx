@@ -5,13 +5,11 @@ import Section from "../../communities/_partials/Section";
 import { useTranslation } from "react-i18next";
 
 export default function Disclaimer() {
-  const { course } = useSelector(
-    (state) => state.communities.courses.current
-  );
+  const course = useSelector((state) => state.courses.current);
 
   const { t } = useTranslation();
 
-  return course.disclaimer ? (
+  return course && course.disclaimer ? (
     <Section className="mt-0! pt-0!">
       <Hint>
         <strong>

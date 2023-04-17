@@ -7,9 +7,7 @@ import Reward from "@/components/ui/Reward";
 export default function Rewards() {
   const { t } = useTranslation();
 
-  const { course } = useSelector(
-    (state) => state.communities.courses.current
-  );
+  const course = useSelector((state) => state.courses.current);
   return course && course.challenge ? (
     <Section
       title={t("communities.overview.reward.title")}

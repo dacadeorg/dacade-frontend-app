@@ -5,6 +5,8 @@ import {
 } from "@reduxjs/toolkit";
 import { Community } from "@/types/community";
 import { fetchCommunities } from "@/services/community";
+import { Course } from "@/types/course";
+import api from "@/config/api";
 
 /**
  * CommunitiesState interface
@@ -16,6 +18,7 @@ import { fetchCommunities } from "@/services/community";
  */
 export interface CommunitiesState {
   list: Community[];
+  courses: Course[];
   current?: Community;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: object | null | string;
@@ -29,6 +32,7 @@ export interface CommunitiesState {
  */
 const initialState: CommunitiesState = {
   list: [],
+  courses: [],
   status: "idle",
   error: null,
 };
@@ -43,6 +47,9 @@ const communitiesSlice = createSlice({
   name: "communities",
   initialState,
   reducers: {
+    setAll: (state, action: PayloadAction<Community[]>) => {
+      state.list = action.payload;
+    },
     setCurrentCommunity: (state, action) => {
       state.current = action.payload;
     },
@@ -77,6 +84,23 @@ export const fetchAllCommunities = createAsyncThunk(
     try {
       const communities = await fetchCommunities({ locale });
       return communities;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const fetchCurrentCommunity = createAsyncThunk(
+  "communities/current",
+  async (
+    { slug, locale }: { slug?: string; locale: string },
+    { rejectWithValue }
+  ) => {
+    try {
+      const { data } = await api(locale).server.get<Community>(
+        `communities/${slug}`
+      );
+      return data;
     } catch (error) {
       return rejectWithValue(error);
     }

@@ -2,18 +2,16 @@ import React from "react";
 import Duration from "../_partials/Duration";
 import { useTranslation } from "next-i18next";
 import Video from "@/components/ui/Video";
-import { useSelector } from "react-redux";
 import ObjectiveList from "@/components/list/Objectives";
 import Section from "../../communities/_partials/Section";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 export default function Trailer() {
   const { t } = useTranslation();
 
-  const { course } = useSelector(
-    (state) => state.communities.courses.current
-  );
+  const course = useSelector((state) => state.courses.current);
 
-  return course.trailer && course.trailer.video ? (
+  return course && course.trailer && course.trailer.video ? (
     <Section title={t("communities.overview.trailer")}>
       <Duration
         className="-mt-1"

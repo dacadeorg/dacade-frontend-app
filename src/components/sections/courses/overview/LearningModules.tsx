@@ -1,15 +1,14 @@
-import Section from "@/components/ui/Section";
 import React from "react";
 import { useTranslation } from "next-i18next";
 import { useSelector } from "@/hooks/useTypedSelector";
 import LearningModuleCard from "@/components/cards/Learning";
+import Section from "../../communities/_partials/Section";
 
 export default function LearningModules() {
   const { t } = useTranslation();
-  const { course } = useSelector(
-    (state) => state.communities.courses.current
-  );
-  return (
+  const course = useSelector((state) => state.courses.current);
+
+  return course ? (
     <Section>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 flex-wrap">
         <div className="mt-0 md:pt-4 mr-4 flex w-full flex-col">
@@ -30,5 +29,5 @@ export default function LearningModules() {
         })}
       </div>
     </Section>
-  );
+  ) : null;
 }

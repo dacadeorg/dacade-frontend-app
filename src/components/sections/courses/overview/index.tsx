@@ -7,14 +7,13 @@ import TrailerSection from "./Trailer";
 import LearningModulesSection from "./LearningModules";
 import ChallengeSection from "./Challenge";
 import Header from "@/components/sections/communities/_partials/Header";
-import { useSelector } from "@/hooks/useTypedSelector";
 import PageNavigation from "../PageNavigation";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 export default function Overview() {
-  const { course } = useSelector(
-    (state) => state.communities.courses.current
-  );
-  return (
+  const course = useSelector((state) => state.courses.current);
+
+  return course ? (
     <div className="flex flex-col divide-y divide-solid divide-gray-200 lg:py-5 space-y-8 text-gray-700">
       <Header title={course.name} description={course.description} />
       <RewardsSection />
@@ -24,7 +23,7 @@ export default function Overview() {
       <TrailerSection />
       <LearningModulesSection />
       <ChallengeSection />
-      <PageNavigation />
+      <PageNavigation show={true} />
     </div>
-  );
+  ) : null;
 }

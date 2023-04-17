@@ -4,7 +4,10 @@ import Navigation from "./Navigation";
 import MobileNav from "./MobileNav";
 import CommunityNavigation from "./CommunityNavigation";
 
-export default function Wrapper() {
+interface WrapperProps {
+  children: React.ReactNode;
+}
+export default function Wrapper({ children }: WrapperProps) {
   return (
     <Section>
       <div className="lg:flex h-auto">
@@ -16,7 +19,7 @@ export default function Wrapper() {
         </div>
         <div className="w-full lg:w-3/4">
           <CommunityNavigation />
-          <slot />
+          {children}
         </div>
       </div>
     </Section>

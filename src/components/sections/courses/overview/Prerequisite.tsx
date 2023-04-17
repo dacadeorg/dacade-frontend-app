@@ -7,10 +7,9 @@ import { useSelector } from "@/hooks/useTypedSelector";
 
 export default function Prerequisite() {
   const { t } = useTranslation();
-  const { course } = useSelector(
-    (state) => state.communities.courses.current
-  );
-  return course.prerequisite ? (
+  const course = useSelector((state) => state.courses.current);
+
+  return course && course.prerequisite ? (
     <Section
       title={t("communities.overview.info.prerequisite.title")}
       subtitle={t("communities.overview.info.prerequisite.subtitle")}
@@ -18,13 +17,15 @@ export default function Prerequisite() {
       <div className="mb-5">
         <ObjectiveList objectives={course.prerequisite.items} />
       </div>
-      <Hint v-if="course.prerequisite.hint">
-        <span
-          dangerouslySetInnerHTML={{
-            __html: course.prerequisite.hint,
-          }}
-        />
-      </Hint>
+      {course.prerequisite.hint && (
+        <Hint>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: course.prerequisite.hint,
+            }}
+          />
+        </Hint>
+      )}
     </Section>
   ) : null;
 }

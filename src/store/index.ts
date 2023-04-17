@@ -13,8 +13,8 @@ import walletSlice from "./feature/wallet.slice";
 import reputationSlice from "./feature/reputation.slice";
 import indexSlice from "./feature/index.slice";
 import { communitiesApi } from "./feature/communities.slice";
-import { coursesApi } from "./feature/course.slice";
 import authSlice from "./feature/auth.slice";
+import courseSlice from "./feature/course.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof community.reducer>;
@@ -28,7 +28,7 @@ export interface IRootState {
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
   communityApi: ReturnType<typeof communitiesApi.reducer>;
-  courses: ReturnType<typeof coursesApi.reducer>;
+  courses: ReturnType<typeof courseSlice.reducer>;
 }
 
 export const store = configureStore({
@@ -43,15 +43,14 @@ export const store = configureStore({
     [indexSlice.name]: indexSlice.reducer,
     [community.name]: community.reducer,
     [authSlice.name]: authSlice.reducer,
+    [courseSlice.name]: courseSlice.reducer,
     [communitiesApi.reducerPath]: communitiesApi.reducer,
     [referralsApi.reducerPath]: referralsApi.reducer,
-    [coursesApi.reducerPath]: coursesApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
       referralsApi.middleware,
-      communitiesApi.middleware,
-      coursesApi.middleware,
+      communitiesApi.middleware
     );
   },
   devTools: true,

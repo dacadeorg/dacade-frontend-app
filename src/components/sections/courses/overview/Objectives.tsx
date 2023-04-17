@@ -7,16 +7,14 @@ import { useSelector } from "@/hooks/useTypedSelector";
 export default function Objectives() {
   const { t } = useTranslation();
 
-  const { course } = useSelector(
-    (state) => state.communities.courses.current
-  );
+  const course = useSelector((state) => state.courses.current);
 
-  return (
+  return course ? (
     <Section
       title={t("communities.overview.objective.title")}
       subtitle={t("communities.overview.objective.subtitle")}
     >
       <ObjectiveList objectives={course.objectives} />
     </Section>
-  );
+  ) : null;
 }

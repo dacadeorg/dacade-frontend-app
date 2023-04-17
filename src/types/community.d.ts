@@ -20,7 +20,8 @@ export interface Community {
   rewards: Reward[];
   reward: Reward;
   courses: number;
-  duration:number
+  duration: number;
+  items: any[];
 }
 
 export interface Colors {

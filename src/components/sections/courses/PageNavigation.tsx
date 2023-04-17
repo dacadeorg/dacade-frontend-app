@@ -18,18 +18,20 @@ export default function PageNavigation({
 
   const { t } = useTranslation();
 
-  const menus = useSelector((state) => state.menus);
+  const menus = useSelector((state) => state.communities.list);
 
   const router = useRouter();
 
-  const [expanded, setexpanded] = useState(true);
+  const list = menus.map((menu) => menu?.items).flat();
 
-  const list = menus.map((menu) => menu.items).flat();
-
-  const currentIndex = list.findIndex(
-    (el) =>
-      stripTrailingSlash(el.link) ===
-      stripTrailingSlash(router.asPath)
+  const currentIndex = useMemo(
+    () =>
+      list.findIndex(
+        (el) =>
+          stripTrailingSlash(el.link) ===
+          stripTrailingSlash(router.asPath)
+      ),
+    [list]
   );
 
   const prevUrl = useMemo(() => {

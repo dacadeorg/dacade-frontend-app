@@ -1,44 +1,47 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
-import LanguageSwitcher from "@/components/popups/LanguageSwitcher";
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import { useSelector } from "@/hooks/useTypedSelector";
 import NavigationLink from "./_partials/navigation/link";
+import LanguageSwitcher from "./_partials/LanguageSwitcher";
 
 export default function Navigation() {
   const { t } = useTranslation();
 
   const community = useSelector((state) => state.communities.current);
 
-  const menus = useSelector((state) => state.menus);
+  const menus = useSelector((state) => state.courses.menus);
 
-  return (
+  return community ? (
     <ThemeWrapper colors={community.colors}>
       <ul className="relative">
-        {menus.map((menu, index) => {
-          return (
-            <li key={index} className="relative mb-8">
-              {!menu.hideTitle && (
-                <span className="relative text-xs font-semibold uppercase">
-                  {t(menu.title)}
-                </span>
-              )}
-              <ul>
-                {menu.items.map((item, index) => {
-                  return (
-                    <li key={index} className="relative mt-4">
-                      <NavigationLink item={item} />
-                    </li>
-                  );
-                })}
-              </ul>
-            </li>
-          );
-        })}
+        {menus.length &&
+          menus.map((menu, index) => {
+            return (
+              <li key={index} className="relative mb-8">
+                {!menu.hideTitle && (
+                  <span className="relative text-xs font-semibold uppercase">
+                    {t(menu.title)}
+                  </span>
+                )}
+                <ul>
+                  {menu.items.length
+                    ? menu.items.map((item, index) => {
+                        return (
+                          <li key={index} className="relative mt-4">
+                            <NavigationLink item={item} />
+                          </li>
+                        );
+                      })
+                    : null}
+                </ul>
+              </li>
+            );
+          })}
         <li>
           <LanguageSwitcher />
         </li>
       </ul>
     </ThemeWrapper>
-  );
+  ) : null;
 }

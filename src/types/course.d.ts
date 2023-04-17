@@ -23,6 +23,13 @@ export type Course = {
   learningModules: LearningModule[];
   challenge: Challenge;
   translations: any[];
+  trailer: any;
+  disclaimer: any;
+  items?: any[];
+  prerequisite: {
+    items: any[];
+    hint: string;
+  };
 };
 
 export type CertificateData = {

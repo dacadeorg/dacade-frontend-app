@@ -13,11 +13,12 @@ export default function Link({ item }: LinkProps) {
   const colors = useSelector((state) => state.ui.colors);
   const [expanded, setexpanded] = useState(true);
   const router = useRouter();
+
   const isCurrentLink = (link: string, exact = false) => {
     if (exact) {
-      return router.pathname === router.locale + "/" + link;
+      return router.asPath === link;
     }
-    return router.pathname.includes(router.locale + "/" + link);
+    return router.asPath.includes(link);
   };
 
   const activeLinkStyle = { color: colors.primary };
@@ -47,10 +48,10 @@ export default function Link({ item }: LinkProps) {
           expanded={expanded}
         />
       </LinkAction>
-      {item.subitems &&
+      {item.subitems ? (
         item.subitems.length &&
         isCurrentLink(item.link, false) &&
-        expanded && (
+        expanded ? (
           <ul>
             {item.subitems.map((subitem: any, j: number) => {
               return (
@@ -63,7 +64,8 @@ export default function Link({ item }: LinkProps) {
               );
             })}
           </ul>
-        )}
+        ) : null
+      ) : null}
     </span>
   );
 }
