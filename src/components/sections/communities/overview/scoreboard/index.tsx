@@ -45,7 +45,7 @@ export default function ScoreboardOverview(): ReactElement {
             {items < list.length && (
               <div className="flex w-full sm:flex space-x-5 space-y-0 sm:flex-row-reverse overflow-hidden bg-gray-50 p-6 sm:px-4 sm:py-7 items-center sm:justify-center">
                 <ArrowButton
-                  community-styles={true}
+                  communityStyles={true}
                   variant="outline-primary"
                   direction="down"
                   onClick={loadMore}

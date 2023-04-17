@@ -139,7 +139,7 @@ export default function Navbar({
                       disabled={false}
                       type="button"
                       rounded={false}
-                      onClick={() => {}}
+                      onClick={() => null}
                       className={
                         router.pathname === "/login"
                           ? "text-sm py-2 text-primary"

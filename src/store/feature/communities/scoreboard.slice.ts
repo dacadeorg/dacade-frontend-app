@@ -127,6 +127,7 @@ export const filterScoreboards = createAsyncThunk(
       if (sortBy) {
         data.sort((a, b) => b[sortBy] - a[sortBy]);
       }
+
       return data;
     } catch (error) {
       console.error(error);

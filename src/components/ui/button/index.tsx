@@ -95,14 +95,22 @@ export default function Button({
 
   const isInternalLink: boolean = link?.startsWith("/");
 
-  let communityStylesObj = useMemo(() => {
+  /**
+   * Custom styles for the button which are not in tailwindcss
+   * @date 4/16/2023 - 12:07:15 AM
+   *
+   * @type {CSSProperties}
+   */
+
+  const styles: CSSProperties = useMemo(() => {
+    let communityStylesObj = {};
+    const isOutline = variant.includes("outline");
+
     if (communityStyles && colors && Object.keys(colors).length) {
-      return {
+      communityStylesObj = {
         borderColor: colors.textAccent,
-        color: variant.includes("outline")
-          ? colors.textAccent
-          : colors.text,
-        backgroundColor: variant.includes("outline")
+        color: isOutline ? colors.textAccent : colors.text,
+        backgroundColor: isOutline
           ? "transparent"
           : colors.textAccent,
         "--button-color--hover": colors.text,
@@ -110,22 +118,11 @@ export default function Button({
         "--button-border-color--hover": colors.textAccent,
       };
     }
-    return {};
-  }, [colors, communityStyles, variant]);
-
-  /**
-   * Custom styles for the button which are not in tailwindcss
-   * @date 3/23/2023 - 7:47:57 PM
-   *
-   * @type {CSSProperties}
-   */
-
-  const styles: CSSProperties | {} = useMemo(() => {
     return {
       ...communityStylesObj,
       ...(customStyle || {}),
     };
-  }, [communityStylesObj, customStyle]);
+  }, [colors, communityStyles, customStyle, variant]);
 
   /**
    * Set button className according to the type of the button
@@ -135,7 +132,7 @@ export default function Button({
    */
 
   const componentClassName: string = classNames(
-    `btn outline-none focus:outline-none hover:outline-none cursor-pointer relative disabled:border-opacity-60 disabled:cursor-not-allowed ${className} `,
+    `btn outline-none focus:outline-none hover:outline-none cursor-pointer relative disabled:border-opacity-60 disabled:cursor-not-allowed ${className}`,
     {
       "disabled:bg-gray-100 disabled:text-gray-400":
         variant === "primary" || variant === "secondary",
@@ -143,7 +140,7 @@ export default function Button({
         variant.includes("outline"),
       "bg-primary hover:bg-primary-dark text-white":
         variant === "primary",
-      "bg-secondary": variant === "secondary",
+      "bg-secondary text-primary": variant === "secondary",
       "text-primary border border-solid border-primary bg-transparent hover:bg-primary hover:text-white":
         variant === "outline-primary",
       "text-secondary border border-solid border-secondary bg-transparent hover:bg-secondary hover:text-gray-900":
