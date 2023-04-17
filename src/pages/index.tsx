@@ -9,9 +9,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Community } from "@/types/community";
 import CommunitiesSection from "@/components/sections/homepage/Communities";
 import MainSection from "@/components/sections/homepage/Main";
-import LanguageSwitcher from "@/components/popups/LanguageSwitcher";
 import TestimonialsSection from "@/components/sections/homepage/Testimonials";
 import { getCommunities } from "@/store/services/community.service";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 const Home = (props: { pageProps: { communities: Community[] } }) => {
   const { t } = useTranslation();
@@ -33,8 +33,7 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* TODO: The max with should be removed when the home page layout is migrated */}
-      <main className="relative max-w-7xl mx-auto">
+      <main className="relative mx-auto">
         <MainSection />
         <CommunitiesSection communities={communities} />
         <TestimonialsSection />

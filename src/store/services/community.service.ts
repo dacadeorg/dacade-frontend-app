@@ -6,7 +6,7 @@ export const communityService = createApi({
   reducerPath: "communityService",
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
-    signUp: builder.query<Community[], string>({
+    signUp: builder.query({
       query: (locale: string) => ({
         url: `/communities`,
         headers: {
@@ -20,4 +20,4 @@ export const communityService = createApi({
 
 export const getCommunities = (locale: string = "en") => communityService.endpoints.getCommunities.initiate(locale)
 
-export const { useGetCommunitiesQuery } = communityService;
+
