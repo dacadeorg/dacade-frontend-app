@@ -16,6 +16,7 @@ import { fetchCommunities } from "@/services/community";
  */
 export interface CommunitiesState {
   list: Community[];
+  current?: Community;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: object | null | string;
 }
@@ -41,7 +42,11 @@ const initialState: CommunitiesState = {
 const communitiesSlice = createSlice({
   name: "communities",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentCommunity: (state, action) => {
+      state.current = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllCommunities.pending, (state) => {
@@ -77,4 +82,7 @@ export const fetchAllCommunities = createAsyncThunk(
     }
   }
 );
+
+export const { setCurrentCommunity } = communitiesSlice.actions;
+
 export default communitiesSlice;
