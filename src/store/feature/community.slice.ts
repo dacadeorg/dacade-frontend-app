@@ -19,7 +19,6 @@ import { setColors } from "@/store/feature/ui.slice";
  */
 export interface CommunitiesState {
   list: Community[];
-  current?: Community;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: object | null | string;
   current: Community | null;
@@ -51,7 +50,10 @@ const communitiesSlice = createSlice({
     setAll: (state, action: PayloadAction<Community[]>) => {
       state.list = action.payload;
     },
-    setCurrent: (state, action: PayloadAction<Community>) => {
+    setCurrentCommunity: (
+      state,
+      action: PayloadAction<Community>
+    ) => {
       state.current = action.payload;
     },
   },
@@ -73,7 +75,8 @@ const communitiesSlice = createSlice({
       });
   },
 });
-export const { setCurrent, setAll } = communitiesSlice.actions;
+export const { setCurrentCommunity, setAll } =
+  communitiesSlice.actions;
 /**
  * Fetches all communities from the API.
  * @date 4/6/2023 - 12:09:48 PM
@@ -99,7 +102,7 @@ export const fetchCurrentCommunity = createAsyncThunk(
   ) => {
     try {
       const community = await fetchCommunity({ slug, locale });
-      dispatch(setCurrent(community));
+      dispatch(setCurrentCommunity(community));
       return community;
     } catch (error) {
       return rejectWithValue(error);
