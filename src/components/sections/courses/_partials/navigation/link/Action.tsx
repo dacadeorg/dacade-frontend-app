@@ -2,13 +2,13 @@ import Link from "next/link";
 import { ReactElement, ReactNode, useState } from "react";
 
 /**
- * Action props interface
+ * Activable link props interface
  * @date 4/17/2023 - 12:34:13 PM
  *
- * @interface ActionProps
- * @typedef {ActionProps}
+ * @interface ActivableLinkProps
+ * @typedef {ActivableLinkProps}
  */
-interface ActionProps {
+interface ActivableLinkProps {
   item: {
     subitems?: Array<any>;
     link: string;
@@ -24,7 +24,7 @@ interface ActionProps {
  * @date 4/17/2023 - 12:34:39 PM
  *
  * @export
- * @param {ActionProps} {
+ * @param {ActivableLinkProps} {
   item,
   activeLinkStyle = {},
   isActive = false,
@@ -33,13 +33,13 @@ interface ActionProps {
 }
  * @returns {ReactElement}
  */
-export default function ActivableLink({
+export function ActivableLink({
   item,
   activeLinkStyle = {},
   isActive = false,
   goToLink = () => {},
   children,
-}: ActionProps): ReactElement {
+}: ActivableLinkProps): ReactElement {
   const [expanded, setExpanded] = useState(true);
 
   const styles = isActive ? activeLinkStyle : {};

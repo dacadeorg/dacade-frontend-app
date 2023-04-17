@@ -29,7 +29,7 @@ interface NavItemProps {
 }
  * @returns {ReactElement}
  */
-export default function NavItem({
+export function NavItem({
   item,
   isActive = false,
   expanded = false,
