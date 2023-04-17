@@ -16,11 +16,9 @@ import Package from "../../package.json";
 const baseQuery = (locale: string = "en"): BaseQueryFn =>
   fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
-    prepareHeaders: async (headers) => {
+    prepareHeaders: async (headers, _) => {
       const token = await getUserToken();
-      if (token) {
-        headers.set("authorization", token);
-      }
+      if (token) headers.set("authorization", token);
       headers.set("Content-Type", "application/json");
       headers.set("app-name", Package.name);
       headers.set("Accept-Language", locale);
