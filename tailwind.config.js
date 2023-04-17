@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const lineClamp = require("@tailwindcss/line-clamp");
+const { fontFamily } = require("tailwindcss/defaultTheme");
 const typography = require("@tailwindcss/typography");
 
 module.exports = {
@@ -21,7 +22,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Graphik", "sans-serif"],
+        sans: ["var(--font-graphik)", ...fontFamily.sans],
       },
       colors: {
         current: "currentColor",
