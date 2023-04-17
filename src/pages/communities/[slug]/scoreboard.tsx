@@ -9,7 +9,7 @@ import {
 } from "@/utilities/Metadata";
 // TODO: fetchCommunities and fetchScoreboard to be combined in redux store optimisation.
 import { fetchAllCommunities as fetchCommunities } from "@/store/feature/community.slice";
-import { all as fetchScoreboard } from "@/store/feature/communities/scoreboard.slice";
+import { fetchAllScoreboards } from "@/store/feature/communities/scoreboard.slice";
 import { wrapper } from "@/store";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
@@ -60,7 +60,12 @@ export default function ScoreboardList({
           slug: router.query.slug as string,
         })
       ),
-      dispatch(fetchScoreboard(router.query?.slug as string)),
+      dispatch(
+        fetchAllScoreboards({
+          slug: router.query?.slug as string,
+          locale: locale as string,
+        })
+      ),
     ]).catch((e) => {
       console.error(e);
     });

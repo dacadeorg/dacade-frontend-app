@@ -1,4 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { IRootState } from "@/store";
 import api from "@/config/api";
 import { Scoreboard } from "@/types/scoreboard";
@@ -36,48 +40,81 @@ const scoreboardSlice = createSlice({
   name: "scoreboard",
   initialState,
   reducers: {
-    setList: (state, action: PayloadAction<any[]>) => {
+    setScoreboardList: (
+      state,
+      action: PayloadAction<Scoreboard[]>
+    ) => {
       state.list = action.payload;
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchAllScoreboards.pending, (state, _) => {
+        state.loading = true;
+      })
+      .addCase(fetchAllScoreboards.fulfilled, (state, action) => {
+        state.loading = false;
+        state.list = action.payload as Scoreboard[];
+      })
+      .addCase(fetchAllScoreboards.rejected, (state, _) => {
+        state.loading = false;
+      })
+      .addCase(filterScoreboards.pending, (state, _) => {
+        state.loading = true;
+      })
+      .addCase(filterScoreboards.fulfilled, (state, action) => {
+        state.loading = false;
+        state.list = action.payload as Scoreboard[];
+      })
+      .addCase(filterScoreboards.rejected, (state, action) => {
+        state.loading = false;
+      });
+  },
 });
 
-export const { setList, setLoading } = scoreboardSlice.actions;
+export const { setScoreboardList, setLoading } =
+  scoreboardSlice.actions;
 
-export const all = (slug: string) => async (dispatch: any) => {
-  dispatch(setLoading(true));
-  try {
-    const { data } = await api().client.get<Scoreboard[]>(
-      `communities/${slug}/scoreboard`
-    );
-    dispatch(setList(data));
-    return data;
-  } catch (error) {
-    console.error(error);
-  } finally {
-    dispatch(setLoading(false));
+export const fetchAllScoreboards = createAsyncThunk(
+  "communities/scoreboard/all",
+  async ({ slug, locale }: { slug: string; locale: string }) => {
+    try {
+      const { data } = await api(locale).server.get<Scoreboard[]>(
+        `communities/${slug}/scoreboard`
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
   }
-};
+);
+
+interface FilterScoreboardsArgs {
+  slug: string;
+  filterBy: string;
+  sortBy: string;
+  locale: string;
+}
 
 /**
- * Filter action
- * @date 4/12/2023 - 7:59:39 PM
+ * Filter scoreboard slice
+ * @date 4/17/2023 - 9:50:15 AM
  *
- * @param {string} slug
- * @param {string} filterBy
- * @param {string} sortBy
- * @returns {(dispatch: any) => any}
+ * @type {*}
  */
-
-export const filter =
-  (slug: string, filterBy: string, sortBy: string) =>
-  async (dispatch: any) => {
-    dispatch(setLoading(true));
+export const filterScoreboards = createAsyncThunk(
+  "communities/scoreboard/filter",
+  async ({
+    slug,
+    filterBy,
+    sortBy,
+    locale,
+  }: FilterScoreboardsArgs) => {
     try {
-      const { data } = await api().client.get<Scoreboard[]>(
+      const { data } = await api(locale).server.get<Scoreboard[]>(
         `communities/${slug}/scoreboard`,
         {
           params: {
@@ -87,30 +124,37 @@ export const filter =
       );
 
       if (sortBy) {
-        data.sort((a, b) => b[sortBy] - a[sortBy]);
+        data.sort(
+          (firstItem, secondItem) =>
+            secondItem[sortBy] - firstItem[sortBy]
+        );
       }
-      dispatch(setList(data));
+
+      return data;
     } catch (error) {
       console.error(error);
-    } finally {
-      dispatch(setLoading(false));
     }
-  };
+  }
+);
+
+interface SortScoreboardsArgs {
+  sortBy: string;
+  list: Scoreboard[];
+}
 
 /**
  * Sort action
  * @date 4/12/2023 - 8:00:00 PM
  *
  * @param {string} sortBy
- * @returns {(dispatch: any, state: any) => void}
  */
-export const sort =
-  (sortBy: string) => (dispatch: any, list: Scoreboard[]) => {
-    const sortedList = [...list].sort(
-      (a, b) => b[sortBy] - a[sortBy]
-    );
-    dispatch(setList(sortedList));
-  };
+export const sortScoreboards = ({
+  sortBy,
+  list,
+}: SortScoreboardsArgs): Scoreboard[] => {
+  const sortedList = [...list].sort((a, b) => b[sortBy] - a[sortBy]);
+  return sortedList;
+};
 
 export const selectList = (state: IRootState) =>
   state.scoreboard.list;

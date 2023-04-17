@@ -44,6 +44,7 @@ export const store = configureStore({
     [reputationSlice.name]: reputationSlice.reducer,
     [indexSlice.name]: indexSlice.reducer,
     [authSlice.name]: authSlice.reducer,
+    [scoreboardSlice.name]: scoreboardSlice.reducer,
     [communitiesApi.reducerPath]: communitiesApi.reducer,
     [referralsApi.reducerPath]: referralsApi.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
