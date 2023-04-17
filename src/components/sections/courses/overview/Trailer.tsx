@@ -40,9 +40,9 @@ export default function Trailer() {
         className="prose pt-6 w-full max-w-full"
       >
         <span className="block text-lg mt-2 prose">
-          {course.trailer.info.title}
+          {course.trailer?.info?.title}
         </span>
-        <ObjectiveList objectives={course.trailer.info.items} />
+        <ObjectiveList objectives={course.trailer?.info?.items} />
       </div>
     </Section>
   ) : null;
