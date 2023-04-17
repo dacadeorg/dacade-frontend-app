@@ -51,11 +51,6 @@ export default function LanguageSwitcher({
     toggleBodyScrolling(!show)(dispatch);
   };
 
-  const toggleInvite = () => {
-    close?.();
-    toggleShowReferralPopup(true)(dispatch);
-  };
-
   const externalClick = () => {
     if (show) {
       setshow(false);
@@ -79,22 +74,13 @@ export default function LanguageSwitcher({
         {show && (
           <>
             <DropdownPopup onClose={externalClick}>
-              <LanguageList />
+              <LanguageList onSelect={externalClick} />
             </DropdownPopup>
 
             <div className="opacity-25 fixed inset-0 z-30 bg-black" />
           </>
         )}
       </div>
-      {show && (
-        <>
-          <DropdownPopup onClose={externalClick}>
-            <LanguageList />
-          </DropdownPopup>
-
-          <div className="opacity-25 fixed inset-0 z-30 bg-black" />
-        </>
-      )}
     </>
   );
 }
