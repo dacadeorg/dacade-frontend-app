@@ -1,9 +1,10 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import FilterOption from "./_partials/FilterOption";
 import {
-  filter,
+  filterScoreboards,
   selectList,
-  sort,
+  setScoreboardList,
+  sortScoreboards,
 } from "@/store/feature/communities/scoreboard.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useRouter } from "next/router";
@@ -30,7 +31,7 @@ interface Option {
  * @type {Option[]}
  */
 
-const options: Option[] = [
+const filterOptions: Option[] = [
   {
     label: "All",
     value: "all",
@@ -84,12 +85,21 @@ export default function Filters(): ReactElement {
   const { slug } = router.query;
 
   useEffect(() => {
-    filter(slug as string, filterBy, sortBy)(dispatch);
-  }, [dispatch, filterBy, slug, sortBy]);
+    dispatch(
+      filterScoreboards({
+        slug: slug as string,
+        filterBy,
+        sortBy,
+        locale: router.locale as string,
+      })
+    );
+  }, [dispatch, filterBy, router.locale, slug, sortBy]);
 
   useEffect(() => {
-    sort(sortBy)(dispatch, list);
-  }, [dispatch, list, sortBy]);
+    dispatch(setScoreboardList(sortScoreboards({ sortBy, list })));
+    // Eslint disable because the list is running the effect infinitely
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, sortBy]);
 
   const handleFilterByChange = (
     event: ChangeEvent<HTMLInputElement>
@@ -113,7 +123,7 @@ export default function Filters(): ReactElement {
         <div className="block mt-6 mb-6">
           <span className="text-gray-700 mb-4">Filter by</span>
           <div className="mt-6 mb-6">
-            {options.map((option, i) => (
+            {filterOptions.map((option, i) => (
               <FilterOption
                 key={`option-${i}`}
                 checked={filterBy === option.value}
