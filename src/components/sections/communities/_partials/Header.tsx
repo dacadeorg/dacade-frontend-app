@@ -1,8 +1,9 @@
-import React, { ReactElement } from "react";
+import classNames from "classnames";
+import { ReactElement } from "react";
 
 /**
- * This is an interface for Header component props
- * @date 4/16/2023 - 5:23:23 PM
+ * Community header props interface
+ * @date 4/12/2023 - 5:13:54 PM
  *
  * @interface HeaderProps
  * @typedef {HeaderProps}
@@ -15,8 +16,8 @@ interface HeaderProps {
 }
 
 /**
- *  Header component
- * @date 4/16/2023 - 5:23:32 PM
+ * Community Header component
+ * @date 4/12/2023 - 5:14:49 PM
  *
  * @export
  * @param {HeaderProps} {
@@ -33,15 +34,18 @@ export default function Header({
   subtitle = null,
   description = null,
 }: HeaderProps): ReactElement {
+  const headerClassName = classNames(
+    "text-4xl md:text-5xl leading-none",
+    {
+      "hidden md:flex": hideTitleOnMobile,
+      "text-gray-400": subtitle,
+      "text-gray-900": !subtitle,
+    }
+  );
+
   return (
     <div>
-      <h1
-        className={`text-4xl md:text-5xl leading-none ${
-          hideTitleOnMobile ? "hidden md:flex" : ""
-        } ${subtitle ? "text-gray-400" : "text-gray-900"}`}
-      >
-        {title}
-      </h1>
+      <h1 className={headerClassName}>{title}</h1>
       {subtitle && (
         <h2 className="text-4xl md:text-5xl leading-none text-default font-normal">
           {subtitle}

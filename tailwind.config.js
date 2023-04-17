@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 const lineClamp = require("@tailwindcss/line-clamp");
+const { fontFamily } = require("tailwindcss/defaultTheme");
 const typography = require("@tailwindcss/typography");
+const aspectRatio = require("@tailwindcss/aspect-ratio");
 
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -21,7 +23,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Graphik", "sans-serif"],
+        sans: ["var(--font-graphik)", ...fontFamily.sans],
       },
       colors: {
         current: "currentColor",
@@ -150,5 +152,5 @@ module.exports = {
       },
     },
   },
-  plugins: [lineClamp, typography],
+  plugins: [lineClamp, typography, aspectRatio],
 };
