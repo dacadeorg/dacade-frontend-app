@@ -47,7 +47,7 @@ type ComponentProps = Pick<
   ButtonProps,
   "link" | "disabled" | "padding" | "target" | "onClick" | "type"
 > & {
-  children: ReactNode;
+  children?: ReactNode;
   className: string;
   style: CSSProperties;
 };
