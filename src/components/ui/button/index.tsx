@@ -140,7 +140,7 @@ export default function Button({
         variant.includes("outline"),
       "bg-primary hover:bg-primary-dark text-white":
         variant === "primary",
-      "bg-secondary text-primary": variant === "secondary",
+      "bg-secondary": variant === "secondary",
       "text-primary border border-solid border-primary bg-transparent hover:bg-primary hover:text-white":
         variant === "outline-primary",
       "text-secondary border border-solid border-secondary bg-transparent hover:bg-secondary hover:text-gray-900":
@@ -156,6 +156,7 @@ export default function Button({
     }
   );
 
+  // btn outline-none focus:outline-none hover:outline-none cursor-pointer relative disabled:border-opacity-60 disabled:cursor-not-allowed text-sm py-2 text-gray-900 disabled:bg-gray-100 disabled:text-gray-400 bg-secondary text-primary
   /**
    * This component checks the type of link and retuns a corresponding
    * component, which can be:

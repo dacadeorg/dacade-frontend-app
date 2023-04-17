@@ -84,7 +84,7 @@ export default function NotificationPopup({
             type="button"
             padding={false}
             variant="secondary"
-            className="p-2 bg-gray-100 bg-opacity-75 hover:bg-gray-50"
+            className="p-2 bg-gray-100 bg-opacity-75 hover:bg-gray-50 text-primary"
             customStyle={buttonStyles}
           >
             <BellIcon />

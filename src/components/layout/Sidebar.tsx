@@ -208,7 +208,7 @@ export default function Sidebar({
                   padding={false}
                   type="button"
                   variant="secondary"
-                  className="w-full p-3 text-sm font-medium"
+                  className="w-full p-3 text-sm font-medium text-primary"
                   onClick={toggle}
                 >
                   <Link className="w-full" href="/login">
