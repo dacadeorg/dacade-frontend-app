@@ -6,6 +6,7 @@ import MainHeader from "@/components/sections/communities/overview/MainHeader";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import HomeLayout from "@/layouts/Home";
+import { ReactElement } from "react";
 
 /**
  * This page is here to mock the redirect that happens when you click on one of the community list
@@ -30,7 +31,7 @@ export default function Slug(props: {
 
 Slug.getLayout = (page: ReactElement) => {
   return <HomeLayout>{page}</HomeLayout>;
-}
+};
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (data) => {
