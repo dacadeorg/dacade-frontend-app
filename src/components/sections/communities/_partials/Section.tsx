@@ -2,27 +2,28 @@ import { ReactElement, ReactNode } from "react";
 import H3 from "@/components/ui/text/H3";
 
 /**
- * OverviewRewards props interface
+ * Section props interface
  * @date 4/12/2023 - 5:17:58 PM
  *
- * @interface OverviewRewardsProps
- * @typedef {OverviewRewardsProps}
+ * @interface SectionProps
+ * @typedef {SectionProps}
  */
-interface OverviewRewardsProps {
-  title?: string;
+interface SectionProps {
+  title?: string | null;
   titleBold?: boolean;
-  subtitle?: string;
+  subtitle?: string | null;
   id?: string;
+  className?: string;
   hideSubtitleOnMobile?: boolean;
   children: ReactNode;
 }
 
 /**
- * OverviewRewards Component
+ * Section Component
  * @date 4/12/2023 - 5:18:41 PM
  *
  * @export
- * @param {OverviewRewardsProps} {
+ * @param {SectionProps} {
   title,
   titleBold = true,
   subtitle,
@@ -32,18 +33,19 @@ interface OverviewRewardsProps {
 }
  * @returns {ReactElement}
  */
-export default function OverviewRewards({
+export default function Section({
   title,
   titleBold = true,
   subtitle,
   id,
   hideSubtitleOnMobile = false,
   children,
-}: OverviewRewardsProps): ReactElement {
+  className,
+}: SectionProps): ReactElement {
   return (
     <div
       id={id}
-      className="text-xl md:text-.5xl px-0 py-5 md:py-10 md:pb-5"
+      className={`text-xl md:text-.5xl px-0 py-5 md:py-10 md:pb-5 ${className}`}
     >
       {title && <H3 bold={titleBold}>{title}</H3>}
       <p
