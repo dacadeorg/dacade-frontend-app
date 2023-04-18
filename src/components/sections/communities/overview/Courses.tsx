@@ -4,7 +4,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import CourseCard from "@/components/cards/course";
 import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
-import { useGetCourseQuery } from "@/store/feature/course.slice";
+// import { useGetCourseQuery } from "@/store/feature/course.slice";
 import { Course } from "@/types/course";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
@@ -23,7 +23,7 @@ export function CoursesOverview(): ReactElement {
   } = useSelector((state) => state);
   const router = useRouter();
   const { slug } = router.query;
-  const { data: courseList, error } = useGetCourseQuery(slug);
+  // const { data: courseList, error } = useGetCourseQuery(slug);
   const { t } = useTranslation();
 
   return (
@@ -34,14 +34,14 @@ export function CoursesOverview(): ReactElement {
         description={`${t('communities.overview.courses.description')}`}
       > 
     */}
-      {!error &&
+      {/* {!error &&
         courseList?.map((course: Course) => (
           <CourseCard
             key={course.id}
             course={course}
             community={current as Community}
           />
-        ))}
+        ))} */}
       {/* </SectionWrapper> */}
     </>
   );
