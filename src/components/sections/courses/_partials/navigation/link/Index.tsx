@@ -2,7 +2,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { NavItem as LinkContent } from "./Content";
 import SubLink from "./Sub";
 import { ActivableLink as LinkAction } from "./Action";
-import { ReactElement, useState } from "react";
+import { ReactElement, useMemo, useState } from "react";
 
 /**
  * Course link props interface
@@ -40,12 +40,16 @@ export default function CourseLink({
   const colors = useSelector((state) => state.ui.colors);
   const [expanded, setExpanded] = useState(true);
 
-  const isCurrentLink = (link: string, exact: boolean = false) => {
-    if (exact) {
-      return window.location.pathname === link;
-    }
-    return window.location.pathname.includes(link);
-  };
+  const isCurrentLink = useMemo(
+    () =>
+      (link: string, exact: boolean = false) => {
+        if (exact) {
+          return window.location.pathname === link;
+        }
+        return window.location.pathname.includes(link);
+      },
+    []
+  );
 
   const isActive = isCurrentLink(item.link, item.exact);
 
@@ -84,7 +88,7 @@ export default function CourseLink({
           <ul>
             {item.subitems.map((subitem, j) => (
               <SubLink
-                key={j}
+                key={`course-item-${j}`}
                 item={item}
                 subitem={subitem}
                 activeLinkStyle={activeLinkStyle}

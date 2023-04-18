@@ -1,5 +1,11 @@
+import classNames from "classnames";
 import Link from "next/link";
-import { ReactElement, ReactNode, useState } from "react";
+import {
+  CSSProperties,
+  ReactElement,
+  ReactNode,
+  useState,
+} from "react";
 
 /**
  * Activable link props interface
@@ -13,7 +19,7 @@ interface ActivableLinkProps {
     subitems?: Array<any>;
     link: string;
   };
-  activeLinkStyle?: object;
+  activeLinkStyle?: CSSProperties;
   isActive?: boolean;
   goToLink?: () => void;
   children: ReactNode;
@@ -43,9 +49,10 @@ export function ActivableLink({
   const [expanded, setExpanded] = useState(true);
 
   const styles = isActive ? activeLinkStyle : {};
-  const classes = `relative block text-gray-500 cursor-pointer ${
-    isActive ? "activable-link" : ""
-  }`;
+  const classes = classNames(
+    "relative block text-gray-500 cursor-pointer",
+    { "activable-link": isActive }
+  );
 
   return (
     <span className="relative block">
