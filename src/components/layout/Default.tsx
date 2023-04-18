@@ -47,6 +47,7 @@ export default function DefaultLayout({
           <Navbar
             settings={{
               colors: {
+                textAccent: "",
                 primary: "var(--tm-primary)",
                 secondary: "var(--tm-secondary)",
                 text: "var(--tm-text)",

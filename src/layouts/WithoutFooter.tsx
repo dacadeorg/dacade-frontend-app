@@ -26,7 +26,7 @@ interface LayoutWithoutFooterProps {
 export default function LayoutWithoutFooter({
   children,
 }: LayoutWithoutFooterProps): ReactElement {
-  const colors = useSelector((state) => state.ui.colors);
+  const colors = useSelector((state) => state?.ui.colors);
   return (
     <Wrapper>
       <div className="relative min-h-screen">

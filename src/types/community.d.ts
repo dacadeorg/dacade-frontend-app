@@ -20,7 +20,7 @@ export interface Community {
   rewards: Reward[];
   reward: Reward;
   courses: number;
-  duration:number
+  duration: number;
 }
 
 export interface Colors {
@@ -28,6 +28,9 @@ export interface Colors {
   text: string;
   accent: string;
   primary: string;
+  secondary: string;
+  highlight: string;
+  muted: string;
 }
 export interface Referral {
   id: string;
