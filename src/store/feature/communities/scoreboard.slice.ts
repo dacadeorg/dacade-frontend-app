@@ -17,6 +17,7 @@ import { Scoreboard } from "@/types/scoreboard";
 interface State {
   list: Scoreboard[];
   loading: boolean;
+  filterBy: string;
 }
 
 /**
@@ -28,6 +29,7 @@ interface State {
 const initialState: State = {
   list: [],
   loading: false,
+  filterBy: "all",
 };
 
 /**
@@ -40,13 +42,10 @@ const scoreboardSlice = createSlice({
   name: "scoreboard",
   initialState,
   reducers: {
-    setScoreboardList: (
-      state,
-      action: PayloadAction<Scoreboard[]>
-    ) => {
+    setScoreboardList: (state, action) => {
       state.list = action.payload;
     },
-    setLoading: (state, action: PayloadAction<boolean>) => {
+    setLoading: (state, action) => {
       state.loading = action.payload;
     },
   },
@@ -56,6 +55,7 @@ const scoreboardSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchAllScoreboards.fulfilled, (state, action) => {
+        state.filterBy = "all";
         state.loading = false;
         state.list = action.payload as Scoreboard[];
       })
@@ -66,10 +66,11 @@ const scoreboardSlice = createSlice({
         state.loading = true;
       })
       .addCase(filterScoreboards.fulfilled, (state, action) => {
+        state.filterBy = action.payload?.filterBy || "";
         state.loading = false;
-        state.list = action.payload as Scoreboard[];
+        state.list = action.payload?.list as Scoreboard[];
       })
-      .addCase(filterScoreboards.rejected, (state, action) => {
+      .addCase(filterScoreboards.rejected, (state, _) => {
         state.loading = false;
       });
   },
@@ -105,6 +106,7 @@ interface FilterScoreboardsArgs {
  *
  * @type {*}
  */
+
 export const filterScoreboards = createAsyncThunk(
   "communities/scoreboard/filter",
   async ({
@@ -130,7 +132,7 @@ export const filterScoreboards = createAsyncThunk(
         );
       }
 
-      return data;
+      return { list: data, filterBy };
     } catch (error) {
       console.error(error);
     }

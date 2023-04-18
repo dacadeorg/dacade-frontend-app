@@ -71,7 +71,7 @@ export default function UserPopup({
               custom-style={buttonStyles}
               padding={false}
               variant="secondary"
-              className={`p-0.5 bg-gray-100 bg-opacity-75 hover:bg-gray-50 ${
+              className={`p-0.5 bg-gray-100 bg-opacity-75 hover:bg-gray-50 text-primary ${
                 mainWallet ? "pr-5" : ""
               }`}
             >

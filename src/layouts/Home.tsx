@@ -7,7 +7,7 @@ export default function HomeLayout({
   children: ReactNode;
 }): ReactElement {
   return (
-    <DefaultLayout footerBackgroundColor={true}>
+    <DefaultLayout footerBackgroundColor={false}>
       {children}
     </DefaultLayout>
   );
