@@ -81,6 +81,7 @@ export type Rubic = {
 export type Format = {
   githubLink: boolean;
   text: boolean;
+  disclaimer: boolean;
 };
 
 export type Metadata = {

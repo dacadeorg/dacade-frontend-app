@@ -17,6 +17,7 @@ import authSlice from "./feature/auth.slice";
 import scoreboardSlice from "./feature/communities/scoreboard.slice";
 import challengeSlice from "./feature/communities/challenges";
 import courseSlice from "./feature/course.slice";
+import submissionSlice from "./feature/communities/challenges/submissions";
 
 export interface IRootState {
   communities: ReturnType<typeof community.reducer>;
@@ -30,6 +31,7 @@ export interface IRootState {
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
+  submission: ReturnType<typeof submissionSlice.reducer>;
   communityApi: ReturnType<typeof communitiesApi.reducer>;
   challenges: ReturnType<typeof challengeSlice.reducer>;
   courses: ReturnType<typeof courseSlice.reducer>;
@@ -50,6 +52,7 @@ export const store = configureStore({
     [scoreboardSlice.name]: scoreboardSlice.reducer,
     [challengeSlice.name]: challengeSlice.reducer,
     [courseSlice.name]: courseSlice.reducer,
+    [submissionSlice.name]: submissionSlice.reducer,
     [communitiesApi.reducerPath]: communitiesApi.reducer,
     [referralsApi.reducerPath]: referralsApi.reducer,
   },
