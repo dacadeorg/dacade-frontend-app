@@ -3,6 +3,7 @@ import Section from "@/components/sections/communities/_partials/Section";
 // TODO this will be uncommented after duration commponent has been merged 
 // import Duration from "@/components/sections/courses/_partials/Duration";
 import Slugger from "github-slugger";
+import Link from "next/link";
 
 /**
  * Material interface
@@ -50,7 +51,7 @@ export default function AdditionalMaterialSection({
   return materials.length ? (
     <Section title="Additional Material">
       {materials.map((material, index) => (
-        <a
+        <Link
           key={`material-${index}`}
           href={material.link}
           target="__blank"
@@ -66,7 +67,7 @@ export default function AdditionalMaterialSection({
             {/* TODO this will be uncommented after duration commponent has been merged */}
             {/* <Duration value={material.duration} /> */}
           </span>
-        </a>
+        </Link>
       ))}
     </Section>
   ) : (
