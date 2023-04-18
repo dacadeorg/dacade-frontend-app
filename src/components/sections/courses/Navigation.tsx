@@ -2,8 +2,8 @@ import React from "react";
 import { useTranslation } from "next-i18next";
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import { useSelector } from "@/hooks/useTypedSelector";
-import NavigationLink from "./_partials/navigation/link";
 import LanguageSwitcher from "./_partials/LanguageSwitcher";
+import CourseLink from "./_partials/navigation/link/Index";
 
 /**
  * Navigation component
@@ -36,7 +36,7 @@ export default function Navigation() {
                     ? menu.items.map((item, index) => {
                         return (
                           <li key={index} className="relative mt-4">
-                            <NavigationLink item={item} />
+                            <CourseLink item={item} />
                           </li>
                         );
                       })
