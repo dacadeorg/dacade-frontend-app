@@ -3,6 +3,13 @@ import React, { useMemo } from "react";
 import ChevronRightIcon from "@/icons/chevron-right.svg";
 import { useSelector } from "@/hooks/useTypedSelector";
 
+/**
+ * CommunityNavigation component interface
+ * @date 4/18/2023 - 12:24:08 PM
+ *
+ * @export
+ * @returns {*}
+ */
 export default function CommunityNavigation() {
   const community = useSelector((state) => state.communities.current);
 

@@ -7,10 +7,27 @@ import { useRouter } from "next/router";
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+/**
+ * PageNavigation component interface
+ * @date 4/18/2023 - 12:23:20 PM
+ *
+ * @interface PageNavigationProps
+ * @typedef {PageNavigationProps}
+ */
 interface PageNavigationProps {
   show?: boolean;
 }
 
+/**
+ * PageNavigation component
+ * @date 4/18/2023 - 12:23:30 PM
+ *
+ * @export
+ * @param {PageNavigationProps} {
+  show,
+}
+ * @returns {*}
+ */
 export default function PageNavigation({
   show,
 }: PageNavigationProps) {

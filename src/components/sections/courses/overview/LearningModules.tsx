@@ -4,6 +4,13 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import LearningModuleCard from "@/components/cards/Learning";
 import Section from "../../communities/_partials/Section";
 
+/**
+ * LearningModules component
+ * @date 4/18/2023 - 12:24:45 PM
+ *
+ * @export
+ * @returns {*}
+ */
 export default function LearningModules() {
   const { t } = useTranslation();
   const course = useSelector((state) => state.courses.current);

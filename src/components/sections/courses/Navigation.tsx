@@ -5,6 +5,13 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import NavigationLink from "./_partials/navigation/link";
 import LanguageSwitcher from "./_partials/LanguageSwitcher";
 
+/**
+ * Navigation component
+ * @date 4/18/2023 - 12:23:40 PM
+ *
+ * @export
+ * @returns {*}
+ */
 export default function Navigation() {
   const { t } = useTranslation();
 

@@ -4,6 +4,13 @@ import { useTranslation } from "next-i18next";
 import { useSelector } from "@/hooks/useTypedSelector";
 import Reward from "@/components/ui/Reward";
 
+/**
+ * Rewards component
+ * @date 4/18/2023 - 12:25:06 PM
+ *
+ * @export
+ * @returns {*}
+ */
 export default function Rewards() {
   const { t } = useTranslation();
 

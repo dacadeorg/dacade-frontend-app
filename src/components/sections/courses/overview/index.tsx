@@ -10,6 +10,13 @@ import Header from "@/components/sections/communities/_partials/Header";
 import PageNavigation from "../PageNavigation";
 import { useSelector } from "@/hooks/useTypedSelector";
 
+/**
+ * Overview component
+ * @date 4/18/2023 - 12:24:38 PM
+ *
+ * @export
+ * @returns {*}
+ */
 export default function Overview() {
   const course = useSelector((state) => state.courses.current);
 

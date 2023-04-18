@@ -3,6 +3,13 @@ import React from "react";
 import { useTranslation } from "next-i18next";
 import Section from "../../communities/_partials/Section";
 
+/**
+ * Challenge component
+ * @date 4/18/2023 - 12:24:15 PM
+ *
+ * @export
+ * @returns {*}
+ */
 export default function Challenge() {
   const course = useSelector((state) => state.courses.current);
 

@@ -6,6 +6,13 @@ import ObjectiveList from "@/components/list/Objectives";
 import Section from "../../communities/_partials/Section";
 import { useSelector } from "@/hooks/useTypedSelector";
 
+/**
+ * Trailer component
+ * @date 4/18/2023 - 12:25:12 PM
+ *
+ * @export
+ * @returns {*}
+ */
 export default function Trailer() {
   const { t } = useTranslation();
 

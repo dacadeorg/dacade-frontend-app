@@ -4,6 +4,13 @@ import React from "react";
 import Section from "../../communities/_partials/Section";
 import { useTranslation } from "react-i18next";
 
+/**
+ * Disclaimer component
+ * @date 4/18/2023 - 12:24:31 PM
+ *
+ * @export
+ * @returns {*}
+ */
 export default function Disclaimer() {
   const course = useSelector((state) => state.courses.current);
 

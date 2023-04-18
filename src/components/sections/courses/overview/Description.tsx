@@ -1,6 +1,13 @@
 import { useSelector } from "@/hooks/useTypedSelector";
 import React from "react";
 
+/**
+ * Description component
+ * @date 4/18/2023 - 12:24:23 PM
+ *
+ * @export
+ * @returns {*}
+ */
 export default function Description() {
   const htmlTagsCleanup = (value: string) => {
     return value.replace(

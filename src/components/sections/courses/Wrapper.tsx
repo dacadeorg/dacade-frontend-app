@@ -4,9 +4,25 @@ import Navigation from "./Navigation";
 import MobileNav from "./MobileNav";
 import CommunityNavigation from "./CommunityNavigation";
 
+/**
+ *  Wrapper component interface
+ * @date 4/18/2023 - 12:22:26 PM
+ *
+ * @interface WrapperProps
+ * @typedef {WrapperProps}
+ */
 interface WrapperProps {
   children: React.ReactNode;
 }
+
+/**
+ * Wrapper component
+ * @date 4/18/2023 - 12:22:49 PM
+ *
+ * @export
+ * @param {WrapperProps} { children }
+ * @returns {*}
+ */
 export default function Wrapper({ children }: WrapperProps) {
   return (
     <Section>

@@ -5,10 +5,25 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import ChevronRightIcon from "@/icons/chevron-right.svg";
 import ChevronBottomIcon from "@/icons/chevron-right.svg";
 
+/**
+ * MobileNav component interface
+ * @date 4/18/2023 - 12:23:49 PM
+ *
+ * @interface MobileNavProps
+ * @typedef {MobileNavProps}
+ */
 interface MobileNavProps {
   showTopBorder?: boolean;
 }
 
+/**
+ * MobileNav component
+ * @date 4/18/2023 - 12:23:58 PM
+ *
+ * @export
+ * @param {MobileNavProps} { showTopBorder }
+ * @returns {*}
+ */
 export default function MobileNav({ showTopBorder }: MobileNavProps) {
   const [visiblity, setvisiblity] = useState(false);
 
