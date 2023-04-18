@@ -5,13 +5,13 @@ import Section from "@/components/sections/communities/_partials/Section";
 import Slugger from "github-slugger";
 
 /**
- * Materials interface
+ * Material interface
  * @date 4/18/2023 - 8:16:26 PM
  *
- * @interface Materials
- * @typedef {Materials}
+ * @interface Material
+ * @typedef {Material}
  */
-interface Materials {
+interface Material {
   link: string;
   title: string;
   duration: string;
@@ -26,7 +26,7 @@ interface Materials {
  * @typedef {AdditionalMaterialSectionProps}
  */
 interface AdditionalMaterialSectionProps {
-  materials: Materials[];
+  materials: Material[];
 }
 
 /**
@@ -48,7 +48,7 @@ export default function AdditionalMaterialSection({
   };
 
   return materials.length ? (
-    <Section title={"Additional Material"}>
+    <Section title="Additional Material">
       {materials.map((material, index) => (
         <a
           key={`material-${index}`}
