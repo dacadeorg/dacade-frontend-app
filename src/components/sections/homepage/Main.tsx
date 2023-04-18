@@ -38,7 +38,7 @@ export default function MainSection(): ReactElement {
   const { t } = useTranslation();
 
   return (
-    <Section padding="p-0">
+    <Section type="default" padding="p-0">
       <div className="w-full lg:py-24 pt-24 pb-8">
         <h1 className="lg:text-8xl md:text-6xl text-5xl leading-none tracking-tighter">
           {t("page.index.main.title")}

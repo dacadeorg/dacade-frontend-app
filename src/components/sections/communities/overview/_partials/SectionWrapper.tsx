@@ -33,7 +33,7 @@ export function SectionWrapper({
   children,
 }: SectionWrapperProps): ReactElement {
   return (
-    <div className="py-12 flex flex-col lg:flex-col">
+    <div className="py-12 flex flex-col lg:flex-row">
       <div className="w-full lg:w-3/12 xl:w-2/5 flex flex-col text-gray-700 space-y-2">
         <div className="font-medium text-.5xl leading-snug">
           {title}
@@ -42,7 +42,7 @@ export function SectionWrapper({
           {description}
         </div>
       </div>
-      <div className="w-full mt-5 items-center md:flex md:flex-col">
+      <div className="w-full mt-5 lg:m-0 lg:w-9/12 xl:w-3/5 items-center flex flex-col">
         {children}
       </div>
     </div>

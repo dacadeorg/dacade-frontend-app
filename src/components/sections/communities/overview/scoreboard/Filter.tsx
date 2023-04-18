@@ -130,7 +130,7 @@ export default function Filters(): ReactElement {
             {filterOptions.map((option, i) => (
               <FilterOption
                 key={`option-${i}`}
-                checked={filterBy === option.value}
+                defaultChecked={filterBy === option.value}
                 label={option.label}
                 value={option.value}
                 name="filter-by-option"
@@ -148,7 +148,7 @@ export default function Filters(): ReactElement {
             {sortingOptions.map((option, i) => (
               <FilterOption
                 key={`sorting-option-${i}`}
-                checked={sortBy === option.value}
+                defaultChecked={sortBy === option.value}
                 label={option.label}
                 value={option.value}
                 name="sort-by-option"
