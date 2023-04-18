@@ -18,6 +18,7 @@ const reputationService = createApi({
   endpoints: (builder) => ({
     /**
      * Fetch all reputations endpoint
+     * @method GET
      */
     fetchReputation: builder.query<Reputation, string>({
       query: (locale: string) => ({

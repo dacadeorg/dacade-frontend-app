@@ -3,7 +3,6 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { setWalletList } from "../feature/wallet.slice";
-import Package from "../../../package.json";
 
 /**
  * Update wallet payload interface
@@ -30,6 +29,7 @@ const walletService: any = createApi({
   endpoints: (builder) => ({
     /**
      * Update wallet endpoint
+     * @method PATCH
      * @query {UpdateWalletPayload} wallet function parameter which is composed by:
      *  - payload: The data to update the wallet
      *  - locale: The local language which is by default 'en'
@@ -57,6 +57,7 @@ const walletService: any = createApi({
 
     /**
      * Fetches all wallets.
+     * @method GET
      * @query {locale} - The locale language
      */
     getAllWallets: builder.query({

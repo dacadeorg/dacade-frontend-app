@@ -19,7 +19,8 @@ const userService = createApi({
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
     /**
-     *  Get user endpoint
+     * Get user endpoint
+     * @method GET
      */
     getUser: builder.query<User, any>({
       query: () => "users/current",
@@ -36,6 +37,7 @@ const userService = createApi({
 
     /**
      * Update user endpoint
+     * @method PATCH
      * @query {payload}
      */
     updateUser: builder.mutation<any, User>({

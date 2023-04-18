@@ -10,6 +10,10 @@ const referralsService = createApi({
   reducerPath: "referralsApi",
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
+    /**
+     * Get Referrals endpoint
+     * @method GET
+     */
     getReferrals: builder.query({
       query: () => "referrals",
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
@@ -20,6 +24,13 @@ const referralsService = createApi({
   }),
 });
 
+/**
+ * Fetch referrals function
+ * @date 4/18/2023 - 10:26:38 AM
+ *
+ * @param {string} locale
+ * @returns {*}
+ */
 export const fetchReferrals = (locale: string) =>
   referralsService.endpoints.getReferrals.initiate(locale);
 export default referralsService;
