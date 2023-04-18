@@ -27,7 +27,7 @@ import ReputationList from "../list/Reputation";
  * @typedef {SidebarProps}
  */
 interface SidebarProps {
-  burgerColor: boolean;
+  burgerColor?: boolean;
 }
 
 /**

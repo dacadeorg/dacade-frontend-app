@@ -15,11 +15,13 @@ import {
   authVerify,
   logout,
 } from "@/store/feature/auth.slice";
-import LanguageList from "../list/LanguageList";
 import Sidebar from "./Sidebar";
+import { Colors } from "@/types/community";
 
 interface NavbarProps {
-  settings: any;
+  settings: {
+    colors: Colors;
+  };
   sidebarBurgerColor: boolean;
 }
 
