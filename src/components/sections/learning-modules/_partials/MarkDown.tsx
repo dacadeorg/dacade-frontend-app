@@ -1,4 +1,9 @@
-import { CSSProperties, useEffect, useState } from "react";
+import {
+  CSSProperties,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import matter from "gray-matter";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
@@ -21,7 +26,7 @@ const Markdown = ({ url }: { url: string }) => {
   const [markdown, setMarkdown] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
-  const route = useRouter()
+  const route = useRouter();
   const colors = useSelector((state) => state.ui.colors);
   const community = useSelector((state) => state.communities.current);
   const menus = useSelector(
@@ -32,38 +37,41 @@ const Markdown = ({ url }: { url: string }) => {
     "--text-accent-color": colors.textAccent,
   };
 
-  const handleNavigation = (markdown) => {
-    const processor = unified().use(remarkParse).use(ExtractToc);
-    const node = processor.parse(markdown);
-    const tree = processor.runSync(node);
-    const data = cloneDeep(menus);
-    const slugger = new Slugger();
-    const list = data.map((menu: { id: string; items: any[] }) => {
-      if (menu.id !== "learning-modules") {
-        return menu;
-      }
-      menu.items = menu.items.map((item) => {
-        if (item.id !== route.query.id) {
-          return item;
+  const handleNavigation = useCallback(
+    (markdown) => {
+      const processor = unified().use(remarkParse).use(ExtractToc);
+      const node = processor.parse(markdown);
+      const tree = processor.runSync(node);
+      const data = cloneDeep(menus);
+      const slugger = new Slugger();
+      const list = data.map((menu: { id: string; items: any[] }) => {
+        if (menu.id !== "learning-modules") {
+          return menu;
         }
-        slugger.reset();
-        item.subitems = tree.map((el) => {
-          return {
-            label: String(el.value).replace(/^\d+\.+\d\s*/, ""),
-            link: `${slugger.slug(el.value)}`,
-            exact: false,
-          };
+        menu.items = menu.items.map((item) => {
+          if (item.id !== route.query.id) {
+            return item;
+          }
+          slugger.reset();
+          item.subitems = tree.map((el) => {
+            return {
+              label: String(el.value).replace(/^\d+\.+\d\s*/, ""),
+              link: `${slugger.slug(el.value)}`,
+              exact: false,
+            };
+          });
+          return item;
         });
-        return item;
+        return menu;
       });
-      return menu;
-    });
 
-    dispatch({
-      type: "communities/navigation/setList",
-      payload: list,
-    });
-  };
+      dispatch({
+        type: "communities/navigation/setList",
+        payload: list,
+      });
+    },
+    [dispatch, menus, route.query.id]
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -96,7 +104,7 @@ const Markdown = ({ url }: { url: string }) => {
       }
     };
     fetchData();
-  }, []);
+  }, [handleNavigation, markdown.content, url]);
 
   return (
     <div>
