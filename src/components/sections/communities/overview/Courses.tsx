@@ -9,7 +9,6 @@ import { Course } from "@/types/course";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
 
-
 /**
  * Course overview component
  * @date 4/14/2023 - 10:58:10 AM
@@ -17,7 +16,7 @@ import { ReactElement } from "react";
  * @export
  * @returns {ReactElement}
  */
-export function CoursesOverview():ReactElement {
+export function CoursesOverview(): ReactElement {
   const {
     ui: { colors },
     communities: { current },

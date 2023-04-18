@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
  *
  * @export
  */
-export default function communityPage() {
+export default function CommunityPage() {
   const router = useRouter();
   const { slug } = router.query;
 
