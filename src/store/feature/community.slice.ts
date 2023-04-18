@@ -47,41 +47,7 @@ const communitiesSlice = createSlice({
       state.current = action.payload;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchAllCommunities.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(
-        fetchAllCommunities.fulfilled,
-        (state, action: PayloadAction<Community[]>) => {
-          state.status = "succeeded";
-          state.list = action.payload;
-        }
-      )
-      .addCase(fetchAllCommunities.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload as string;
-      });
-  },
 });
-
-/**
- * Fetches all communities from the API.
- * @date 4/6/2023 - 12:09:48 PM
- *
- */
-export const fetchAllCommunities = createAsyncThunk(
-  "communities/all",
-  async ({ locale }: { locale: string }, { rejectWithValue }) => {
-    try {
-      const communities = await fetchCommunities({ locale });
-      return communities;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
-  }
-);
 
 export const { setCurrentCommunity } = communitiesSlice.actions;
 

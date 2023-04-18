@@ -4,10 +4,10 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import CourseCard from "@/components/cards/course";
 import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
-import { useGetCourseQuery } from "@/store/feature/course.slice";
 import { Course } from "@/types/course";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
+import { useGetCourseQuery } from "@/store/services/course.service";
 
 
 /**

@@ -1,5 +1,4 @@
-import api from "@/config/api";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { Notification } from "@/types/notification";
 
 interface NotificationState {

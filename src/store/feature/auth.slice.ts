@@ -1,24 +1,23 @@
+import { IRootState } from "..";
+import { User } from "@/types/bounty";
+import { fetchUser } from "../services/user.service";
+import { auth as firebaseAuth } from "@/config/firebase";
 import {
   createAsyncThunk,
   createSlice,
-  PayloadAction,
 } from "@reduxjs/toolkit";
 import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
-import { auth as firebaseAuth } from "@/config/firebase";
-import api from "@/config/api";
+
 import {
   clearError,
   setBusy,
   setError,
   setJobDone,
 } from "./index.slice";
-import { IRootState } from "..";
-import { User } from "@/types/bounty";
-import { fetchUser } from "../services/user.service";
 
 // Define the interface for the auth state
 interface AuthState {
@@ -60,31 +59,6 @@ export const authVerify = (state: IRootState) =>
 export const { setAuthData, clearAuthData } = authSlice.actions;
 export default authSlice;
 
-// Define the sing up async thunks using Redux Toolkit
-export const signUp = createAsyncThunk(
-  "singup",
-  async (
-    payload: { email: string; password: string },
-    { dispatch }
-  ) => {
-    dispatch(setBusy(true));
-    dispatch(clearError());
-    try {
-      const user = await api().client.post("auth/signup", {
-        ...payload,
-        redirectLink: "/communities",
-      });
-      //   dispatch(createEvent("user-signed-up", { userId: user.uid }));
-      dispatch(
-        login({ email: payload.email, password: payload.password })
-      );
-    } catch (error) {
-      dispatch(setError(error));
-      dispatch(setBusy(false));
-      throw error;
-    }
-  }
-);
 
 // Define the login async thunks using Redux Toolkit
 export const login = createAsyncThunk(
@@ -110,7 +84,6 @@ export const login = createAsyncThunk(
       dispatch(setAuthData(null));
       dispatch(setBusy(false));
       dispatch(setError(error));
-      throw error;
     }
   }
 );
@@ -146,15 +119,3 @@ export const logout = createAsyncThunk(
     dispatch(clearAuthData());
   }
 );
-
-// Define the resend email verfication
-export const resendEmailVerification = async () => {
-  const res = await api().client.get("auth/send-verification-email");
-  return res;
-};
-
-// Define the verify email
-export const verifyEmail = async (payload: { code: string }) => {
-  const res = await api().client.post("auth/verify-email", payload);
-  return res;
-};

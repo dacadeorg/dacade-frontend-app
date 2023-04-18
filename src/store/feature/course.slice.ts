@@ -1,29 +1,45 @@
-import {
-  createApi,
-  fetchBaseQuery,
-} from "@reduxjs/toolkit/query/react";
-import { HYDRATE } from "next-redux-wrapper";
+import { Course } from "@/types/course";
+import { createSlice } from "@reduxjs/toolkit";
+import { List } from "@/utilities/CommunityNavigation";
 
-/**
- * courses api
- * @date 4/14/2023 - 10:56:25 AM
- *
- * @type {*}
- */
-export const coursesApi = createApi({
-  reducerPath: "coursesApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
-  }),
-  extractRehydrationInfo(action, { reducerPath }) {
-    if (action.type === HYDRATE) {
-      return action.payload[reducerPath];
-    }
-  },
-  endpoints: (builder) => ({
-    getCourse: builder.query({
-      query: (current) => `communities/${current}/courses`,
-    }),
-  }),
+
+// Define initial state
+interface CourseState {
+  list: Course[];
+  count: number;
+  current: Course | null;
+  // TODO: Those type should be improved whenever they are known
+  content: any | null;
+  menus: List[];
+}
+
+const initialState: CourseState = {
+  list: [],
+  count: 0,
+  current: null,
+  content: null,
+  menus: [],
+};
+// Define Redux Toolkit slice
+const courseSlice = createSlice({
+  name: "courses",
+  initialState,
+  reducers: {
+    setCurrent: (state, action) => {
+      state.current = action.payload;
+    },
+    setList: (state, action) => {
+      state.list = action.payload;
+    },
+    setContent: (state, action) => {
+      state.content = action.payload;
+    },
+    setNavigation: (state, action) => {
+      const { list } = action.payload;
+      state.menus = list;
+    },
+  }
 });
-export const { useGetCourseQuery } = coursesApi;
+
+export const { setCurrent, setList, setContent, setNavigation } =
+  courseSlice.actions;

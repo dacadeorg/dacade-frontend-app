@@ -29,7 +29,7 @@ type ListItem = {
   link: string;
 };
 
-type List = {
+export type List = {
   id: string;
   title: string;
   hideTitle?: boolean;

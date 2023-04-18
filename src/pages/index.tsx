@@ -10,12 +10,11 @@ import { Community } from "@/types/community";
 import CommunitiesSection from "@/components/sections/homepage/Communities";
 import MainSection from "@/components/sections/homepage/Main";
 import TestimonialsSection from "@/components/sections/homepage/Testimonials";
-import { getCommunities } from "@/store/services/community.service";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import { fetchAllCommunities } from "@/store/services/community.service";
 
 const Home = (props: { pageProps: { communities: Community[] } }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const {
     pageProps: { communities },
   } = props;
@@ -51,7 +50,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
   (store: any) =>
     async ({ locale }: any) => {
       await i18Translate(locale as string);
-      const result = await store.dispatch(getCommunities(locale));
+      const result = await store.dispatch(fetchAllCommunities(locale));
       if (result.status !== "fulfilled")
         return {
           props: {

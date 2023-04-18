@@ -6,9 +6,8 @@ import ui from "./feature/ui.slice";
 import userSlice from "./feature/user.slice";
 import { bannerSlice } from "./feature/banner.slice";
 import { notificationsSlice } from "./feature/notification.slice";
-import { communitiesApi } from "./feature/communities.slice";
 import reputationSlice from "./feature/reputation.slice";
-import { coursesApi } from "./feature/course.slice";
+import { coursesService } from "./services/course.service";
 import { communityService } from "./services/community.service";
 import walletSlice from "./feature/wallet.slice";
 import indexSlice from "./feature/index.slice";
@@ -30,9 +29,9 @@ export interface IRootState {
   reputations: ReturnType<typeof reputationSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
-  communityApi: ReturnType<typeof communitiesApi.reducer>;
+  communityApi: ReturnType<typeof communityService.reducer>;
   communityService: ReturnType<typeof communityService.reducer>;
-  courses: ReturnType<typeof coursesApi.reducer>;
+  courses: ReturnType<typeof coursesService.reducer>;
   walletService: ReturnType<typeof walletService.reducer>;
   userService: ReturnType<typeof userSlice.reducer>;
   reputationService: ReturnType<typeof reputationService.reducer>;
@@ -53,9 +52,9 @@ export const store = configureStore({
     [indexSlice.name]: indexSlice.reducer,
     [community.name]: community.reducer,
     [authSlice.name]: authSlice.reducer,
-    [communitiesApi.reducerPath]: communitiesApi.reducer,
     [communityService.reducerPath]: communityService.reducer,
-    [coursesApi.reducerPath]: coursesApi.reducer,
+    [communityService.reducerPath]: communityService.reducer,
+    [coursesService.reducerPath]: coursesService.reducer,
     [walletService.reducerPath]: walletService.reducer,
     [userService.reducerPath]: userSlice.reducer,
     [reputationService.reducerPath]: reputationService.reducer,
@@ -64,8 +63,8 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
-      communitiesApi.middleware,
-      coursesApi.middleware,
+      communityService.middleware,
+      coursesService.middleware,
       communityService.middleware,
       walletService.middleware,
       userService.middleware,

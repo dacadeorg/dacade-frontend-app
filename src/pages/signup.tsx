@@ -13,8 +13,8 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import classNames from "classnames";
 import Checkbox from "@/components/ui/Checkbox";
-import { signUp } from "@/store/feature/auth.slice";
 import ReferralsList from "@/components/popups/referral/List";
+import { signUp } from "@/store/services/auth.service";
 
 /**
  * Signup form values
@@ -45,7 +45,7 @@ export default function Signup(): ReactElement {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
-  const { query } = useRouter();
+  const { query, locale } = useRouter();
   const referrer = query.invite;
   const referrals = useSelector((state) => state.referrals.list);
   const { t } = useTranslation();
@@ -54,7 +54,8 @@ export default function Signup(): ReactElement {
 
   const onSubmit = (form: FormValues) => {
     setLoading(true);
-    const { email, username, password, referralCode, checkTerms } = form;
+    const { email, username, password, referralCode, checkTerms } =
+      form;
     const signupData = {
       email,
       username,
@@ -66,7 +67,7 @@ export default function Signup(): ReactElement {
     try {
       if (!checkTerms) return;
       setLoading(false);
-      dispatch(signUp(signupData));
+      dispatch(signUp({ locale, payload: { ...signupData } }));
     } catch (error) {
       setLoading(false);
     }
@@ -191,7 +192,9 @@ export default function Signup(): ReactElement {
                       <Checkbox
                         id="terms-checkbox"
                         {...register("checkTerms", {
-                          required: `${t("signup-page.terms.warning")}`,
+                          required: `${t(
+                            "signup-page.terms.warning"
+                          )}`,
                         })}
                       />
                     </div>
