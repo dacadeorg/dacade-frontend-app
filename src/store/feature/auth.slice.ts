@@ -16,9 +16,9 @@ import {
   setError,
   setJobDone,
 } from "./index.slice";
-import { fetchUser } from "./user.slice";
 import { IRootState } from "..";
 import { User } from "@/types/bounty";
+import { fetchUser } from "../services/user.service";
 
 // Define the interface for the auth state
 interface AuthState {

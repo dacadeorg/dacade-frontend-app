@@ -57,7 +57,7 @@ const userService = createApi({
 /**
  * Get user function
  */
-export const getUser = () =>
+export const fetchUser = () =>
   userService.endpoints.getUser.initiate("en");
 
 /**

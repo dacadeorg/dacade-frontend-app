@@ -15,10 +15,10 @@ import {
   toggleBodyScrolling,
   toggleShowReferralPopup,
 } from "@/store/feature/ui.slice";
-import { readNotification } from "@/store/feature/notification.slice";
 import { logout } from "@/store/feature/auth.slice";
 import { authVerify } from "@/store/feature/auth.slice";
 import ReputationList from "../list/Reputation";
+import { readNotification } from "@/store/services/notification.service";
 /**
  * Sidebar props interface
  * @date 4/4/2023 - 3:49:01 PM

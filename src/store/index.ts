@@ -17,6 +17,7 @@ import walletService from "./services/wallet.service";
 import userService from "./services/user.service";
 import reputationService from "./services/reputation.service";
 import referralsService from "./services/referrals.service";
+import notificationsService from "./services/notification.service";
 
 export interface IRootState {
   communities: ReturnType<typeof community.reducer>;
@@ -35,6 +36,9 @@ export interface IRootState {
   walletService: ReturnType<typeof walletService.reducer>;
   userService: ReturnType<typeof userSlice.reducer>;
   reputationService: ReturnType<typeof reputationService.reducer>;
+  notificationService: ReturnType<
+    typeof notificationsService.reducer
+  >;
 }
 
 export const store = configureStore({
@@ -56,6 +60,7 @@ export const store = configureStore({
     [userService.reducerPath]: userSlice.reducer,
     [reputationService.reducerPath]: reputationService.reducer,
     [referralsService.reducerPath]: referralsService.reducer,
+    [notificationsService.reducerPath]: notificationsService.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
@@ -65,7 +70,8 @@ export const store = configureStore({
       walletService.middleware,
       userService.middleware,
       reputationService.middleware,
-      referralsService.middleware
+      referralsService.middleware,
+      notificationsService.middleware
     );
   },
 });
