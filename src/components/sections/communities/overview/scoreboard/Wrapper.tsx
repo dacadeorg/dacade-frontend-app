@@ -1,39 +1,39 @@
 import { ReactNode, ReactElement } from "react";
 
 /**
- * Section wrapper component props interface
- * @date 4/12/2023 - 5:43:32 PM
+ * Communities section wrapper props interface
+ * @date 4/12/2023 - 8:28:45 PM
  *
  * @interface SectionWrapperProps
  * @typedef {SectionWrapperProps}
  */
 
 interface SectionWrapperProps {
-  title?: string | null;
+  title?: string;
   description?: string;
   children?: ReactNode;
 }
 
 /**
- * Community section wrapper component
- * @date 4/12/2023 - 5:42:53 PM
+ * Communities pages section wrapper
+ * @date 4/12/2023 - 8:28:14 PM
  *
  * @export
  * @param {SectionWrapperProps} {
-  title,
-  description,
+  title = "",
+  description = "",
   children,
 }
  * @returns {ReactElement}
  */
 
-export function SectionWrapper({
-  title,
-  description,
+export default function SectionWrapper({
+  title = "",
+  description = "",
   children,
 }: SectionWrapperProps): ReactElement {
   return (
-    <div className="py-12 flex flex-col lg:flex-col">
+    <div className="py-12 flex flex-col">
       <div className="w-full lg:w-3/12 xl:w-2/5 flex flex-col text-gray-700 space-y-2">
         <div className="font-medium text-.5xl leading-snug">
           {title}

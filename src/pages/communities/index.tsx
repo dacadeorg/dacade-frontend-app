@@ -1,8 +1,10 @@
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { getMetadataTitle } from "@/utilities/Metadata";
-import { fetchAllCommunities, setCurrentCommunity } from "@/store/feature/community.slice";
-import { useSelector } from "@/hooks/useTypedSelector";
+import {
+  fetchAllCommunities,
+  setCurrentCommunity,
+} from "@/store/feature/community.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { ReactElement, useEffect } from "react";
 import CommunityListCard from "@/components/cards/community/List";
@@ -12,14 +14,13 @@ import { Community } from "@/types/community";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HomeLayout from "@/layouts/Home";
 
-
 export default function CommunitiesPage(props: {
   pageProps: { communities: Community[] };
 }) {
   const { t } = useTranslation();
   const communities = props.pageProps.communities;
   const title: string = getMetadataTitle(t("nav.communities"));
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -31,8 +32,12 @@ export default function CommunitiesPage(props: {
           {t("nav.communities")}
         </h1>
         <div className="row w-full">
-          {communities?.map((community,index) => (
-            <div key={`generated-key-${index}`} onClick={() => dispatch(setCurrentCommunity(community))} className="flex pb-4 min-w-full flex-grow">
+          {communities?.map((community, index) => (
+            <div
+              key={`generated-key-${index}`}
+              onClick={() => dispatch(setCurrentCommunity(community))}
+              className="flex pb-4 min-w-full flex-grow"
+            >
               <CommunityListCard community={community} />
             </div>
           ))}

@@ -1,29 +1,89 @@
-import {
-  createApi,
-  fetchBaseQuery,
-} from "@reduxjs/toolkit/query/react";
-import { HYDRATE } from "next-redux-wrapper";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import api from "@/config/api";
+import { Course } from "@/types/course";
+import { List } from "@/utilities/CommunityNavigation";
 
-/**
- * courses api
- * @date 4/14/2023 - 10:56:25 AM
- *
- * @type {*}
- */
-export const coursesApi = createApi({
-  reducerPath: "coursesApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
-  }),
-  extractRehydrationInfo(action, { reducerPath }) {
-    if (action.type === HYDRATE) {
-      return action.payload[reducerPath];
-    }
+// Define initial state
+interface CourseState {
+  list: Course[];
+  count: number;
+  current: Course | null;
+  // TODO: Those type should be improved whenever they are known
+  content: any | null;
+  menus: List[];
+}
+
+const initialState: CourseState = {
+  list: [],
+  count: 0,
+  current: null,
+  content: null,
+  menus: [],
+};
+
+// Define Redux Toolkit slice
+const courseSlice = createSlice({
+  name: "courses",
+  initialState,
+  reducers: {
+    setCurrent: (state, action) => {
+      state.current = action.payload;
+    },
+    setList: (state, action) => {
+      state.list = action.payload;
+    },
+    setContent: (state, action) => {
+      state.content = action.payload;
+    },
+    setNavigation: (state, action) => {
+      const { list } = action.payload;
+      state.menus = list;
+    },
   },
-  endpoints: (builder) => ({
-    getCourse: builder.query({
-      query: (current) => `communities/${current}/courses`,
-    }),
-  }),
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCourse.fulfilled, (state, action) => {
+        // TODO will be uncommented when the redux is working okay
+        // state.current = action.payload;
+      })
+      .addCase(fetchAllCourses.fulfilled, (state, action) => {
+        // TODO will be uncommented when the redux is working okay
+        // state.list = action.payload;
+      });
+  },
 });
-export const { useGetCourseQuery } = coursesApi;
+
+// Extract actions and reducer
+export const { setCurrent, setList, setContent, setNavigation } =
+  courseSlice.actions;
+
+// Define Redux Thunk async actions
+export const fetchCourse = createAsyncThunk(
+  "courses/find",
+  async ({ slug, locale }: { slug?: string; locale: string }) => {
+    try {
+      const { data } = await api(locale).server.get(
+        `courses/${slug}`
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
+export const fetchAllCourses = createAsyncThunk(
+  "courses/all",
+  async ({ slug, locale }: { slug?: string; locale: string }) => {
+    try {
+      const { data } = await api(locale).server.get(
+        `communities/${slug}/courses`
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
+export default courseSlice;
