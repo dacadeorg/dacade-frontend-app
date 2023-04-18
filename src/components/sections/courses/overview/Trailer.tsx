@@ -21,9 +21,8 @@ export default function Trailer() {
   return course && course.trailer && course.trailer.video ? (
     <Section title={t("communities.overview.trailer")}>
       <Duration
-        className="-mt-1"
         text={t("communities.overview.trailer.video")}
-        duration={course.trailer.duration}
+        value={course.trailer.duration}
       />
       <div className="block text-lg mt-3 mb-4.5">
         {course.trailer.summary}
