@@ -1,39 +1,72 @@
-import React, { useState } from "react";
-import LinkAction from "./LinkAction";
-import LinkContent from "./LinkContent";
-import SubLink from "./SubLink";
-import { useRouter } from "next/router";
 import { useSelector } from "@/hooks/useTypedSelector";
+import { NavItem as LinkContent } from "./Content";
+import SubLink from "./Sub";
+import { ActivableLink as LinkAction } from "./Action";
+import { ReactElement, useMemo, useState } from "react";
 
-interface LinkProps {
-  item: any;
+/**
+ * Course link props interface
+ * @date 4/17/2023 - 1:00:05 PM
+ *
+ * @interface courseLinkProps
+ * @typedef {courseLinkProps}
+ */
+interface courseLinkProps {
+  item: {
+    link: string;
+    exact: boolean;
+    subitems: Array<{
+      link: string;
+      exact: boolean;
+      label: string;
+    }>;
+    label: string;
+  };
 }
 
-export default function Link({ item }: LinkProps) {
+/**
+ * Course link component
+ * @date 4/17/2023 - 1:00:24 PM
+ *
+ * @export
+ * @param {courseLinkProps} {
+  item,
+}
+ * @returns {ReactElement}
+ */
+export default function CourseLink({
+  item,
+}: courseLinkProps): ReactElement {
   const colors = useSelector((state) => state.ui.colors);
-  const [expanded, setexpanded] = useState(true);
-  const router = useRouter();
+  const [expanded, setExpanded] = useState(true);
 
-  const isCurrentLink = (link: string, exact = false) => {
-    if (exact) {
-      return router.asPath === link;
-    }
-    return router.asPath.includes(link);
-  };
-
-  const activeLinkStyle = { color: colors.primary };
+  const isCurrentLink = useMemo(
+    () =>
+      (link: string, exact: boolean = false) => {
+        if (exact) {
+          return window.location.pathname === link;
+        }
+        return window.location.pathname.includes(link);
+      },
+    []
+  );
 
   const isActive = isCurrentLink(item.link, item.exact);
+
+  const activeLinkStyle = {
+    color: colors.primary,
+  };
 
   const goToLink = () => {
     if (!item?.link) return;
 
     if (isCurrentLink(item.link, item.exact)) {
-      setexpanded(!expanded);
+      setExpanded(!expanded);
       return;
     }
-    router.push(item.link);
+    window.location.href = item.link;
   };
+
   return (
     <span className="relative block text-sm">
       <LinkAction
@@ -48,24 +81,21 @@ export default function Link({ item }: LinkProps) {
           expanded={expanded}
         />
       </LinkAction>
-      {item.subitems ? (
+      {item.subitems &&
         item.subitems.length &&
         isCurrentLink(item.link, false) &&
-        expanded ? (
+        expanded && (
           <ul>
-            {item.subitems.map((subitem: any, j: number) => {
-              return (
-                <SubLink
-                  key={j}
-                  item={item}
-                  subitem={subitem}
-                  activeLinkStyle={activeLinkStyle}
-                />
-              );
-            })}
+            {item.subitems.map((subitem, j) => (
+              <SubLink
+                key={`course-item-${j}`}
+                item={item}
+                subitem={subitem}
+                activeLinkStyle={activeLinkStyle}
+              />
+            ))}
           </ul>
-        ) : null
-      ) : null}
+        )}
     </span>
   );
 }
