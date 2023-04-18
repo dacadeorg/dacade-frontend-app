@@ -91,8 +91,12 @@ export default function ScoreboardList({
           subtitle={t("communities.navigation.scoreboard")}
         />
         <div className="my-24 w-full divide-y divide-gray-200 space-y-4 bg-gray-50 lg:max-w-2xl rounded-3.5xl overflow-hidden">
-          {scoreboard.map((item, i) => (
-            <ScoreboardCard key={i} index={i + 1} value={item} />
+          {scoreboard.map((item, index) => (
+            <ScoreboardCard
+              key={index}
+              index={index + 1}
+              value={item}
+            />
           ))}
         </div>
       </div>
