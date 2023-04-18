@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useMemo } from "react";
+import React, { HTMLProps, useMemo } from "react";
 
 /**
  * Radio Component
@@ -9,27 +9,14 @@ import React, { useMemo } from "react";
  * @typedef {RadioProps}
  */
 
-interface RadioProps {
-  checked: boolean;
-  disabled?: boolean;
-  value?: string | number | readonly string[] | undefined;
-  data?: string | number | readonly string[] | undefined;
-  required?: boolean;
-  id?: string;
-  name?: string;
+interface RadioProps extends HTMLProps<HTMLInputElement> {
   communityStyles?: boolean;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 export default function Radio({
-  id,
   disabled,
-  name,
-  checked,
-  required,
-  value,
   communityStyles,
-  onChange,
+  ...props
 }: RadioProps) {
   const colors = {
     text: "#0D61FF",
@@ -49,18 +36,5 @@ export default function Radio({
     { "cursor-pointer": !disabled }
   );
 
-  return (
-    <input
-      id={id}
-      checked={checked}
-      onChange={onChange}
-      value={value}
-      className={radioClass}
-      name={name}
-      required={required}
-      style={styles}
-      type="radio"
-      disabled={disabled}
-    />
-  );
+  return <input {...props} style={styles} type="radio" />;
 }

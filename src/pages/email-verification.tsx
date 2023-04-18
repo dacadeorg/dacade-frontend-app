@@ -1,42 +1,50 @@
+/*
+ TODO: The logic for this is file need to be improved 
+ when the login and signup logic is fully tested.
+*/
 import ArrowButton from "@/components/ui/button/Arrow";
+import { useSelector } from "@/hooks/useTypedSelector";
 import i18Translate from "@/utilities/I18Translate";
 import { GetStaticProps } from "next";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-
-// TODO: user data will be uncommented when the redux store is ready
-import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useTranslation } from "next-i18next";
+import { ReactElement } from "react";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { resendEmailVerification } from "@/store/services/auth.service";
 
 /**
  * Email verification page
  * @date 4/6/2023 - 7:11:31 PM
  *
  * @export
- * @returns {*}
+ * @returns {ReactElement}
  */
-export default function EmailVerification() {
-  const { t } = useTranslation();
-  // TODO: user data will be uncommented when the redux store is ready
-  //   const { user } = useSelector((state: any) => state?.auth);
 
-  // this will be removed when the redux store is ready
-  const user = { email: "johndoe@gmail.com" };
+export default function EmailVerification(): ReactElement {
+  const { t } = useTranslation();
+  const router = useRouter();
+  const [loading, setloading] = useState(false);
+  const user = useSelector((state) => state.auth.data);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [router, user]);
 
   const resendEmail = async () => {
-    //TODO: will be uncommented when the redux store is ready
-    // setloading(true);
-    // try {
-    //   const data = await dispatch("auth/resendEmailVerification");
-    // } catch (e) {
-    //   console.log(e);
-    // } finally {
-    //   setloading(false);
-    // }
+    setloading(true);
+    try {
+      dispatch(resendEmailVerification());
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setloading(false);
+    }
   };
 
-  const [loading, setloading] = useState(false);
-
-  return user ? (
+  return (
     <div className="flex items-center justify-center absolute min-h-screen top-0 w-full">
       <div className="relative p-6 text-center">
         <div>
@@ -46,7 +54,7 @@ export default function EmailVerification() {
           <p className="text-lg">
             {t("email-verification.subtitle")}
           </p>
-          <p className="text-base font-bold mb-4">{user.email}</p>
+          <p className="text-base font-bold mb-4">{user?.email}</p>
           <p
             className="text-lg py-4"
             dangerouslySetInnerHTML={{
@@ -65,8 +73,6 @@ export default function EmailVerification() {
         </div>
       </div>
     </div>
-  ) : (
-    <>User Not available</>
   );
 }
 
