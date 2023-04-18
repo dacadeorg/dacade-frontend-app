@@ -3,14 +3,15 @@ import Header from '@/components/sections/communities/_partials/Header';
 import ObjectiveList from '@/components/list/Objectives';
 import { useSelector } from '@/hooks/useTypedSelector';
 import { useTranslation } from 'next-i18next';
+import { ReactElement } from 'react';
 
 /**
  * Learning module header component
  * @date 4/18/2023 - 5:05:14 PM
  *
- * @returns {*}
+ * @returns {ReactElement}
  */
-const LearningModuleHeader = () => {
+export default function LearningModuleHeader(): ReactElement {
   const course = useSelector((state) => state.courses.current);
   const learningModule = useSelector((state) => state.learningModules.current);
   const { t } = useTranslation()
@@ -34,4 +35,3 @@ const LearningModuleHeader = () => {
   );
 };
 
-export default LearningModuleHeader;
