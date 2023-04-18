@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import { useSelector } from "@/hooks/useTypedSelector";
 import LanguageSwitcher from "./_partials/LanguageSwitcher";
-import CourseLink from "./_partials/navigation/link/Index";
+import CourseLink from "./_partials/navigation/link/CourseLink";
 
 /**
  * Navigation component
