@@ -47,14 +47,7 @@ const communitiesSlice = createSlice({
     setAll: (state, action: PayloadAction<Community[]>) => {
       state.list = action.payload;
     },
-<<<<<<< HEAD
-    setCurrentCommunity: (
-      state,
-      action: PayloadAction<Community>
-    ) => {
-=======
     setCurrent: (state, action: PayloadAction<Community>) => {
->>>>>>> dev
       state.current = action.payload;
     },
   },
@@ -79,13 +72,8 @@ const communitiesSlice = createSlice({
       });
   },
 });
-<<<<<<< HEAD
-export const { setCurrentCommunity, setAll } =
-  communitiesSlice.actions;
-=======
 export const { setCurrent, setAll } = communitiesSlice.actions;
 
->>>>>>> dev
 /**
  * Fetches all communities from the API.
  * @date 4/6/2023 - 12:09:48 PM
@@ -105,8 +93,6 @@ export const fetchAllCommunities = createAsyncThunk(
   }
 );
 
-<<<<<<< HEAD
-=======
 /**
  * Fetch a community by name
  * @date 4/14/2023 - 1:00:03 PM
@@ -114,19 +100,10 @@ export const fetchAllCommunities = createAsyncThunk(
  * @type {*}
  */
 
->>>>>>> dev
 export const fetchCurrentCommunity = createAsyncThunk(
   "communities/current",
   async (
     { slug, locale }: { slug: string; locale: string },
-<<<<<<< HEAD
-    { rejectWithValue, dispatch }
-  ) => {
-    try {
-      const community = await fetchCommunity({ slug, locale });
-      dispatch(setCurrentCommunity(community));
-      return community;
-=======
     { rejectWithValue }
   ) => {
     try {
@@ -134,7 +111,6 @@ export const fetchCurrentCommunity = createAsyncThunk(
         `communities/${slug}`
       );
       return data;
->>>>>>> dev
     } catch (error) {
       return rejectWithValue(error);
     }

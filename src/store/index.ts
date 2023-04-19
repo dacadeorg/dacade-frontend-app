@@ -48,22 +48,11 @@ export const store = configureStore({
     [courseSlice.name]: courseSlice.reducer,
     [communitiesApi.reducerPath]: communitiesApi.reducer,
     [referralsApi.reducerPath]: referralsApi.reducer,
-<<<<<<< HEAD
-    [scoreboardSlice.name]: scoreboardSlice.reducer,
-    [communities.name]: communities.reducer,
-    [coursesApi.reducerPath]: coursesApi.reducer,
-=======
->>>>>>> dev
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
       referralsApi.middleware,
-<<<<<<< HEAD
-      communitiesApi.middleware,
-      coursesApi.middleware
-=======
       communitiesApi.middleware
->>>>>>> dev
     );
   },
   devTools: true,
