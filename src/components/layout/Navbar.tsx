@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useMemo } from "react";
 import hexToRgba from "hex-to-rgba";
 import Logo from "@/icons/logo.svg";
 import NavItem from "@/components/ui/NavItem";
@@ -27,16 +27,24 @@ interface NavbarProps {
 
 export default function Navbar({
   settings,
-  sidebarBurgerColor,
+  sidebarBurgerColor = false,
 }: NavbarProps): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.data);
+  const isAuthenticatedAndVerified = useSelector((state) =>
+    authVerify(state)
+  );
+  const isAuthenticated = useSelector(authCheck);
 
-  const containerStyle = {
-    backgroundColor: settings.colors.primary,
-    color: settings.colors.text,
-  };
+  const containerStyle = useMemo(() => {
+    return {
+      backgroundColor: settings.colors.primary,
+      color: settings.colors.text,
+    };
+  }, [settings.colors.primary, settings.colors.text]);
+
   const buttonStyle = {
     backgroundColor: hexToRgba(settings.colors.text, 0.3),
     color: settings.colors.text,
@@ -46,12 +54,6 @@ export default function Navbar({
     backgroundColor: settings.colors.accent,
     color: settings.colors.primary,
   };
-
-  const user = useSelector((state) => state.user.data);
-  const isAuthenticatedAndVerified = useSelector((state) =>
-    authVerify(state)
-  );
-  const isAuthenticated = useSelector(authCheck);
 
   const onLogOut = () => {
     dispatch(logout());
@@ -73,8 +75,8 @@ export default function Navbar({
   };
 
   return (
-    <div className="text-gray-900" style={containerStyle}>
-      <div className="lg:py-12 py-6 flex relative">
+    <div className="text-gray-900 " style={containerStyle}>
+      <div className="content-wrapper lg:py-12 py-6 flex relative">
         <ul className="relative">
           <NavItem to="/" type="logo">
             <span>
@@ -96,7 +98,6 @@ export default function Navbar({
           </ul>
         )}
         <ul className="ml-auto text-right relative flex lg:hidden items-center">
-          {/* TODO: waiting the side bar to be implemented */}
           <Sidebar burgerColor={sidebarBurgerColor} />
         </ul>
         {!isAuthenticated && (
@@ -141,7 +142,7 @@ export default function Navbar({
                       disabled={false}
                       type="button"
                       rounded={false}
-                      onClick={() => {}}
+                      onClick={() => null}
                       className={
                         router.pathname === "/login"
                           ? "text-sm py-2 text-primary"

@@ -44,11 +44,7 @@ const App = ({ Component, ...rest }: AppPropsWithLayout) => {
 
   return (
     <Provider store={store}>
-      {getLayout(
-        <main className={`${graphik.variable} font-sans`}>
-          <Component {...pageProps} />
-        </main>
-      )}
+      {getLayout(<Component {...pageProps} />)}
     </Provider>
   );
 };

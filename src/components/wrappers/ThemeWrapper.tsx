@@ -2,6 +2,7 @@ import {
   CSSProperties,
   ReactElement,
   ReactNode,
+  useEffect,
   useMemo,
 } from "react";
 
@@ -21,7 +22,7 @@ interface ThemeWrapperProps {
     accent?: string;
     muted?: string;
   };
-  className?: string
+  className?: string;
   children: ReactNode;
 }
 
@@ -66,5 +67,9 @@ export default function ThemeWrapper({
     };
   }, [colors]);
 
-  return <div className={className} style={{...cssVars}}>{children}</div>;
+  return (
+    <div className={className} style={{ ...cssVars }}>
+      {children}
+    </div>
+  );
 }

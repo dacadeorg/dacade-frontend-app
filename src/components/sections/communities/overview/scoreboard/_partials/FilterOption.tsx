@@ -1,10 +1,4 @@
-import {
-  ChangeEvent,
-  FormEventHandler,
-  HTMLProps,
-  ReactElement,
-  useState,
-} from "react";
+import { HTMLProps, ReactElement } from "react";
 import Radio from "@/components/ui/Radio";
 
 /**
@@ -41,14 +35,6 @@ export default function FilterOption({
   name = "",
   ...props
 }: FilterOptionProps): ReactElement {
-  const [vModalValue, setVModalValue] = useState(value);
-
-  const handleVModalValueChange: FormEventHandler<
-    HTMLInputElement
-  > = (event: ChangeEvent<HTMLInputElement>) => {
-    setVModalValue(event.target.value);
-  };
-
   const isChecked = () => {
     return value === data;
   };
@@ -60,11 +46,9 @@ export default function FilterOption({
           {...props}
           id="radio btn"
           data={data}
-          required={true}
           name={name}
+          value={value}
           className="w-8"
-          value={vModalValue}
-          onChange={handleVModalValueChange}
         />
         <span
           className={

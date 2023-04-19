@@ -1,9 +1,3 @@
-/**
- * The following components are needed for this file to be fully implemented
- *  - Navbar from layout
- *
- */
-
 import Navbar from "@/components/layout/Navbar";
 import Wrapper from "./Wrapper";
 import Footer from "@/components/layout/Footer";
