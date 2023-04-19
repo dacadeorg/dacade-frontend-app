@@ -3,7 +3,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 import community from "./feature/community.slice";
 import ui from "./feature/ui.slice";
-import userSlice from "./feature/user.slice";
 import { bannerSlice } from "./feature/banner.slice";
 import { notificationsSlice } from "./feature/notification.slice";
 import reputationSlice from "./feature/reputation.slice";
@@ -19,6 +18,7 @@ import referralsService from "./services/referrals.service";
 import notificationsService from "./services/notification.service";
 import scoreboardSlice from "./feature/communities/scoreboard.slice";
 import courseSlice from "./feature/course.slice";
+import userSlice from "./feature/user.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof community.reducer>;
@@ -59,7 +59,7 @@ export const store = configureStore({
     [communityService.reducerPath]: communityService.reducer,
     [coursesService.reducerPath]: coursesService.reducer,
     [walletService.reducerPath]: walletService.reducer,
-    [userService.reducerPath]: userSlice.reducer,
+    [userService.reducerPath]: userService.reducer,
     [reputationService.reducerPath]: reputationService.reducer,
     [referralsService.reducerPath]: referralsService.reducer,
     [notificationsService.reducerPath]: notificationsService.reducer,
