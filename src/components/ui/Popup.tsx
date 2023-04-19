@@ -30,7 +30,7 @@ interface PopupProps {
 }
  * @returns {ReactElement}
  */
-export default function popup({
+export default function Popup({
   center,
   onClose,
   show,

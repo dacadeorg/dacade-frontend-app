@@ -4,7 +4,6 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { Community } from "@/types/community";
-import { fetchCommunities } from "@/services/community";
 import { Course } from "@/types/course";
 import api from "@/config/api";
 
@@ -19,9 +18,9 @@ import api from "@/config/api";
 export interface CommunitiesState {
   list: Community[];
   courses: Course[];
-  current?: Community;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: object | null | string;
+  current: Community | null;
 }
 
 /**
@@ -35,6 +34,7 @@ const initialState: CommunitiesState = {
   courses: [],
   status: "idle",
   error: null,
+  current: null,
 };
 
 /**
@@ -50,7 +50,7 @@ const communitiesSlice = createSlice({
     setAll: (state, action: PayloadAction<Community[]>) => {
       state.list = action.payload;
     },
-    setCurrentCommunity: (state, action) => {
+    setCurrent: (state, action: PayloadAction<Community>) => {
       state.current = action.payload;
     },
   },
@@ -69,9 +69,13 @@ const communitiesSlice = createSlice({
       .addCase(fetchAllCommunities.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload as string;
+      })
+      .addCase(fetchCurrentCommunity.fulfilled, (state, action) => {
+        state.current = action.payload;
       });
   },
 });
+export const { setCurrent, setAll } = communitiesSlice.actions;
 
 /**
  * Fetches all communities from the API.
@@ -82,18 +86,27 @@ export const fetchAllCommunities = createAsyncThunk(
   "communities/all",
   async ({ locale }: { locale: string }, { rejectWithValue }) => {
     try {
-      const communities = await fetchCommunities({ locale });
-      return communities;
+      const { data } = await api(locale).server.get<Community[]>(
+        "communities"
+      );
+      return data;
     } catch (error) {
       return rejectWithValue(error);
     }
   }
 );
 
+/**
+ * Fetch a community by name
+ * @date 4/14/2023 - 1:00:03 PM
+ *
+ * @type {*}
+ */
+
 export const fetchCurrentCommunity = createAsyncThunk(
   "communities/current",
   async (
-    { slug, locale }: { slug?: string; locale: string },
+    { slug, locale }: { slug: string; locale: string },
     { rejectWithValue }
   ) => {
     try {
@@ -106,7 +119,5 @@ export const fetchCurrentCommunity = createAsyncThunk(
     }
   }
 );
-
-export const { setCurrentCommunity } = communitiesSlice.actions;
 
 export default communitiesSlice;

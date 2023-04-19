@@ -11,6 +11,10 @@ const languages: { [key: string]: string } = {
   hr: "Croatian",
 };
 
+interface LanguageSwitcherProps {
+  onSelect?: () => void;
+}
+
 /**
  * This Language list component responsible for switching languages
  * @date 3/28/2023 - 3:17:38 PM
@@ -19,7 +23,9 @@ const languages: { [key: string]: string } = {
  * @returns {ReactElement}
  */
 
-export default function LanguageList(): ReactElement {
+export default function LanguageList({
+  onSelect,
+}: LanguageSwitcherProps): ReactElement {
   const router = useRouter();
   const availableLocales: string[] | undefined = router.locales;
   const selected = useMemo(() => router.locale, [router.locale]);
@@ -33,6 +39,7 @@ export default function LanguageList(): ReactElement {
    */
   const switchLocalePath = (locale: string) => {
     router.push(router.asPath, router.asPath, { locale: locale });
+    onSelect?.();
   };
 
   return (

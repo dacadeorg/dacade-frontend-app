@@ -6,7 +6,7 @@ import {
   setCurrentCommunity,
 } from "@/store/feature/community.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import CommunityListCard from "@/components/cards/community/List";
 import Head from "next/head";
 import { wrapper } from "@/store";
@@ -76,6 +76,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
     const results = await store.dispatch(
       fetchAllCommunities({ locale: locale as string })
     );
+
     return {
       props: {
         ...(await serverSideTranslations(locale as string)),
@@ -85,6 +86,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
     };
   }
 );
+
 CommunitiesPage.getLayout = function (page: ReactElement) {
   return <HomeLayout>{page}</HomeLayout>;
 };
