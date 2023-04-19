@@ -68,7 +68,7 @@ export default function CourseCard({
         <div className="hidden sm:block">
           <Link href={path}>
             <ArrowButton
-              community-styles={true}
+              communityStyles={true}
               variant="outline-primary"
             >
               {t("course.challenge.button")}
@@ -87,7 +87,7 @@ export default function CourseCard({
                 : "course.challenge.reward.description",
               {
                 currency: `$`,
-                amount: `${reward.amount}`,
+                amount: reward.amount,
                 token: reward.token,
               }
             )}
@@ -96,12 +96,12 @@ export default function CourseCard({
       ) : (
         <div className="text-base text-left sm:flex flex-start flex flex-col pt-6 sm:pt-0 space-y-4 pb-5 sm:pl-7 sm:pb-10 w-full sm:w-2/5 lg:w-1/3 tracking-wider">
           <span className="text-xxs tracking-wider px-1 font-semibold uppercase text-gray-500">
-            course.challenge.certificate
+            {t(`course.challenge.certificate`)}
           </span>
           <Avatar
-            icon={community.icon}
+            icon={`/static${community.icon}`}
             color={community.colors.primary}
-            size="large"
+            size="extra"
             shape="rounded-3xl"
             user={null}
           />
@@ -114,7 +114,7 @@ export default function CourseCard({
       <div className="block sm:hidden pt-6">
         <Link href={path}>
           <ArrowButton
-            community-styles={true}
+            communityStyles={true}
             variant="outline-primary"
           >
             {t("course.challenge.button")}

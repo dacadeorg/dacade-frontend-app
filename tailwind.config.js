@@ -23,7 +23,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-graphik)", ...fontFamily.sans],
+        sans: ["var(--font-graphik)", "sans-serif"],
       },
       colors: {
         current: "currentColor",

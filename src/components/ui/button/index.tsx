@@ -5,6 +5,7 @@ import {
   MouseEvent,
   ReactNode,
   ReactElement,
+  useMemo,
 } from "react";
 
 import { useSelector } from "@/hooks/useTypedSelector";
@@ -94,34 +95,34 @@ export default function Button({
 
   const isInternalLink: boolean = link?.startsWith("/");
 
-  let communityStylesObj = {};
-
-  if (communityStyles && colors && Object.keys(colors).length) {
-    communityStylesObj = {
-      borderColor: colors.textAccent,
-      color: type.includes("outline")
-        ? colors.textAccent
-        : colors.text,
-      backgroundColor: type.includes("outline")
-        ? "transparent"
-        : colors.textAccent,
-      "--button-color--hover": colors.text,
-      "--button-background-color--hover": colors.textAccent,
-      "--button-border-color--hover": colors.textAccent,
-    };
-  }
-
   /**
    * Custom styles for the button which are not in tailwindcss
-   * @date 3/23/2023 - 7:47:57 PM
+   * @date 4/16/2023 - 12:07:15 AM
    *
    * @type {CSSProperties}
    */
 
-  const styles: CSSProperties | {} = {
-    ...communityStylesObj,
-    ...(customStyle || {}),
-  };
+  const styles: CSSProperties = useMemo(() => {
+    let communityStylesObj = {};
+    const isOutline = variant.includes("outline");
+
+    if (communityStyles && colors && Object.keys(colors).length) {
+      communityStylesObj = {
+        borderColor: colors.textAccent,
+        color: isOutline ? colors.textAccent : colors.text,
+        backgroundColor: isOutline
+          ? "transparent"
+          : colors.textAccent,
+        "--button-color--hover": colors.text,
+        "--button-background-color--hover": colors.textAccent,
+        "--button-border-color--hover": colors.textAccent,
+      };
+    }
+    return {
+      ...communityStylesObj,
+      ...(customStyle || {}),
+    };
+  }, [colors, communityStyles, customStyle, variant]);
 
   /**
    * Set button className according to the type of the button
@@ -131,7 +132,7 @@ export default function Button({
    */
 
   const componentClassName: string = classNames(
-    `btn outline-none focus:outline-none hover:outline-none cursor-pointer relative disabled:border-opacity-60 disabled:cursor-not-allowed ${className} `,
+    `btn outline-none focus:outline-none hover:outline-none cursor-pointer relative disabled:border-opacity-60 disabled:cursor-not-allowed ${className}`,
     {
       "disabled:bg-gray-100 disabled:text-gray-400":
         variant === "primary" || variant === "secondary",

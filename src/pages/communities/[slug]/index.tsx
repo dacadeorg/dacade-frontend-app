@@ -1,31 +1,60 @@
 import { wrapper } from "@/store";
-import { fetchCurrentCommunity } from "@/store/feature/community.slice";
-import { setColors } from "@/store/feature/ui.slice";
+import Section from "@/components/ui/Section";
 import { Community } from "@/types/community";
-import MainHeader from "@/components/sections/communities/overview/MainHeader";
+import { setColors } from "@/store/feature/ui.slice";
+import {
+  fetchCurrentCommunity,
+  setCurrent,
+} from "@/store/feature/community.slice";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import HomeLayout from "@/layouts/Home";
-import { ReactElement, useEffect } from "react";
+import MainHeader from "@/components/sections/communities/overview/MainHeader";
+import { CoursesOverview } from "@/components/sections/communities/overview/Courses";
+import ScoreboardOverview from "@/components/sections/communities/overview/scoreboard";
 import CommunityLayout from "@/layouts/Community";
+import { ReactElement, useEffect } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import {
+  fetchAllCourses,
+  setList,
+} from "@/store/feature/course.slice";
+import { Course } from "@/types/course";
+import {
+  fetchAllScoreboards,
+  setScoreboardList,
+} from "@/store/feature/communities/scoreboard.slice";
+import { Scoreboard } from "@/types/scoreboard";
 
-/**
- * This page is here to mock the redirect that happens when you click on one of the community list
- * @date 4/6/2023 - 12:22:05 PM
- *
- * @export
- */
 export default function Slug(props: {
-  pageProps: { community: Community };
-}) {
-  const { community } = props.pageProps;
+  pageProps: {
+    community: Community;
+    courses: Course[];
+    scoreboards: Scoreboard[];
+  };
+}): ReactElement {
+  const { community, courses, scoreboards } = props.pageProps;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setCurrent(community));
+    dispatch(setColors(community.colors));
+    dispatch(setList(courses));
+    dispatch(setScoreboardList(scoreboards));
+  }, [community, courses, dispatch, scoreboards]);
 
   return (
-    <div>{community && <MainHeader community={community} />}</div>
+    <div>
+      <MainHeader />
+      <Section type="default">
+        <div className="w-full mx-auto divide-y divide-solid divide-gray-200">
+          <CoursesOverview />
+          <ScoreboardOverview />
+        </div>
+      </Section>
+    </div>
   );
 }
 
-Slug.getLayout = (page: ReactElement) => {
+Slug.getLayout = function (page: ReactElement) {
   return <CommunityLayout>{page}</CommunityLayout>;
 };
 
@@ -42,17 +71,27 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const getCurrentCommunty = store.dispatch(
       fetchCurrentCommunity(fetchArgs)
     );
+    const getAllCourses = store.dispatch(fetchAllCourses(fetchArgs));
+    const getAllScoreboards = store.dispatch(
+      fetchAllScoreboards(fetchArgs)
+    );
 
-    const results = await Promise.all([getCurrentCommunty]);
+    const results = await Promise.all([
+      getCurrentCommunty,
+      getAllCourses,
+      getAllScoreboards,
+    ]);
 
-    const community = results[0].payload as Community;
-
-    await store.dispatch(setColors(community.colors));
+    const community = results[0].payload;
+    const courses = results[1].payload;
+    const scoreboards = results[2].payload;
 
     return {
       props: {
         ...(await serverSideTranslations(data.locale as string)),
         community,
+        courses,
+        scoreboards,
       },
     };
   }

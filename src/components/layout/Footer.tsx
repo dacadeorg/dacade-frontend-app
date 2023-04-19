@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useCallback } from "react";
 import Section from "@/components/ui/Section";
 import SocialLink from "@/components/ui/SocialLink";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import OctanLogo from "@/icons/partners/octan.svg";
 import CeloLogo from "@/icons/partners/celo.svg";
 
 interface FooterProps {
-  backgroundColor?: boolean;
+  backgroundColor?: boolean | string;
 }
 
 /**
@@ -69,12 +69,26 @@ export default function Footer({
   backgroundColor,
 }: FooterProps): ReactElement {
   const { t } = useTranslation();
+
+  const getFooterTheme = useCallback(() => {
+    let theme;
+    switch (backgroundColor) {
+      case true:
+        theme = "secondary";
+        break;
+      case false:
+        theme = "";
+        break;
+      default:
+        theme = backgroundColor;
+        break;
+    }
+    return theme;
+  }, [backgroundColor]);
+
   return (
-    <Section
-      padding="pt-20"
-      type={backgroundColor ? "secondary-light" : "default"}
-    >
-      <div className="py-8 content-wrapper text-base text-center text-gray-400 border-t border-gray-200 border-t-solid lg:flex md:flex lg:text-left">
+    <Section padding="pt-20" type={getFooterTheme()}>
+      <div className="py-8 text-base text-center text-gray-400 border-t border-gray-200 border-t-solid lg:flex md:flex lg:text-left">
         <div className="w-full border-b border-gray-200 lg:w-1/2 lg:border-none md:border-none border-b-solid">
           <p
             className="block text-with-links"
