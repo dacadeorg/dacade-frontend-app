@@ -45,7 +45,10 @@ export default function CommunityCard({
 
   return (
     <ThemeWrapper colors={community.colors}>
-      <div onClick={() => router.push(path)} className="block h-full">
+      <div
+        onClick={() => router.push(path)}
+        className="block h-full hover:cursor-pointer"
+      >
         <div className="flex flex-col h-full p-6 pb-3 space-y-5 divide-y-2 group bg-theme-primary text-theme-text divide-dotted divide-theme-accent">
           <div className="flex-grow">
             <div className="flex flex-col justify-between space-y-5 sm:flex-row lg:flex-col 2xl:flex-row">

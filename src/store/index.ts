@@ -18,6 +18,7 @@ import reputationService from "./services/reputation.service";
 import referralsService from "./services/referrals.service";
 import notificationsService from "./services/notification.service";
 import scoreboardSlice from "./feature/communities/scoreboard.slice";
+import courseSlice from "./feature/course.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof community.reducer>;
@@ -30,7 +31,7 @@ export interface IRootState {
   reputations: ReturnType<typeof reputationSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
-  courses: ReturnType<typeof coursesService.reducer>;
+  coursesService: ReturnType<typeof coursesService.reducer>;
   communityService: ReturnType<typeof communityService.reducer>;
   walletService: ReturnType<typeof walletService.reducer>;
   userService: ReturnType<typeof userSlice.reducer>;
@@ -39,6 +40,7 @@ export interface IRootState {
     typeof notificationsService.reducer
   >;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
+  courses: ReturnType<typeof courseSlice.reducer>;
 }
 
 export const store = configureStore({
@@ -65,7 +67,6 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
-      communityService.middleware,
       coursesService.middleware,
       communityService.middleware,
       walletService.middleware,

@@ -33,7 +33,7 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="relative mx-auto">
+      <main>
         <MainSection />
         <CommunitiesSection communities={communities} />
         <TestimonialsSection />
@@ -50,7 +50,10 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
   (store: any) =>
     async ({ locale }: any) => {
       await i18Translate(locale as string);
-      const result = await store.dispatch(fetchAllCommunities(locale));
+      const result = await store.dispatch(
+        fetchAllCommunities(locale)
+      );
+
       if (result.status !== "fulfilled")
         return {
           props: {
@@ -58,7 +61,9 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
             communities: [],
           },
         };
+
       const communities = result.data;
+
       return {
         props: {
           ...(await serverSideTranslations(locale as string)),
