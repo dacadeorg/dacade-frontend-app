@@ -12,6 +12,8 @@ import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
+import { createEvent } from "@/store/feature/events.slice";
+import { Submission as TSubmission } from "@/types/bounty";
 
 interface FormValues {
   text: string;
@@ -31,8 +33,8 @@ export default function Submission(): ReactElement {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
-  const githubLinkValue = watch("githubLink");
-  const textValue = watch("text");
+  let githubLinkValue = watch("githubLink");
+  let textValue = watch("text");
   const dispatch = useDispatch();
 
   const { t } = useTranslation();
@@ -40,6 +42,7 @@ export default function Submission(): ReactElement {
   const user = useSelector((state) => state.user.data);
   const colors = useSelector((state) => state.ui.colors);
   const challenge = useSelector((state) => state.challenges.current);
+  const community = useSelector((state) => state.communities.current);
 
   const [submitting, setSubmitting] = useState(false);
   const [checkedTerms, setCheckedTerms] = useState(false);
@@ -83,15 +86,19 @@ export default function Submission(): ReactElement {
             })
           );
 
-          // TODO: Should be uncommented after getting a explaination about this action.
-          // Not clear fow now
-          // dispatch("events/create", {
-          //   name: "submission-created",
-          //   attributes: {
-          //     submissionId: result.id,
-          //     community: community.slug,
-          //   },
-          // });
+          const submission = result.payload as TSubmission;
+
+          dispatch(
+            createEvent({
+              name: "submission-created",
+              attributes: {
+                submissionId: submission.id,
+                community: community?.slug,
+              },
+            })
+          );
+          textValue = "";
+          githubLinkValue = "";
           setSubmitting(false);
         } catch (error) {
           console.log(error);

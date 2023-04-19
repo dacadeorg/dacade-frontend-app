@@ -48,10 +48,13 @@ const submissionSlice = createSlice({
           : action.payload.data;
         state.list = updatedList;
       })
-      .addCase(createSubmission.fulfilled, (state, action) => {
-        state.current = action.payload;
-        state.list = [...state.list, ...action.payload];
-      })
+      .addCase(
+        createSubmission.fulfilled,
+        (state, action: PayloadAction<Submission>) => {
+          state.current = action.payload;
+          state.list = [...state.list, action.payload];
+        }
+      )
       .addCase(
         findSubmissionWithRelations.fulfilled,
         (state, action) => {
@@ -121,11 +124,14 @@ export const createSubmission = createAsyncThunk(
     link: string;
     challengeId: string;
   }) => {
-    const { data } = await api().server.post("submissions/create", {
-      challenge_id: challengeId,
-      text,
-      link,
-    });
+    const { data } = await api().server.post<Submission>(
+      "submissions/create",
+      {
+        challenge_id: challengeId,
+        text,
+        link,
+      }
+    );
     return data;
   }
 );
