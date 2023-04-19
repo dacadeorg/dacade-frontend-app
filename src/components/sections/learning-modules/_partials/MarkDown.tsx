@@ -25,6 +25,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useRouter } from "next/router";
 import { Compatible } from "vfile";
 import { ReactElement } from "react-markdown/lib/react-markdown";
+import { setNavigationList } from "@/store/feature/communities/navigation.slice";
 
 /**
  * Markdown props interface
@@ -35,31 +36,6 @@ import { ReactElement } from "react-markdown/lib/react-markdown";
  */
 interface MarkDownProps {
   url: string;
-}
-
-/**
- *  Item interface
- * @date 4/19/2023 - 8:58:20 PM
- *
- * @interface Item
- * @typedef {Item}
- */
-interface Item {
-  id: string | string[] | undefined;
-  subitems: SubItem[];
-}
-
-/**
- * Subitem interface
- * @date 4/19/2023 - 8:58:05 PM
- *
- * @interface SubItem
- * @typedef {SubItem}
- */
-interface SubItem {
-  label: string;
-  link: string;
-  exact: boolean;
 }
 
 /**
@@ -78,7 +54,7 @@ export function Markdown({ url }: MarkDownProps): ReactElement {
   const route = useRouter();
   const colors = useSelector((state) => state.ui.colors);
   const menus = useSelector(
-    (state) => state.communities.navigation.list
+    (state) => state.navigation.list
   );
 
   const themeStyles = {
@@ -93,7 +69,7 @@ export function Markdown({ url }: MarkDownProps): ReactElement {
       const tree = processor.runSync(node) as any;
       const data = cloneDeep(menus);
       const slugger = new Slugger();
-      const list = data.map((menu: { id: string; items: Item[] }) => {
+      const list = data.map((menu) => {
         if (menu.id !== "learning-modules") {
           return menu;
         }
@@ -114,10 +90,9 @@ export function Markdown({ url }: MarkDownProps): ReactElement {
         return menu;
       });
 
-      // TODO This line will be uncommented once course view page has been merged. to inhert communities/navigation/setList
-      // dispatch(setNavigationList(list));
+      dispatch(setNavigationList(list));
     },
-    [menus, route.query.id]
+    [dispatch, menus, route.query.id]
   );
 
   useEffect(() => {
