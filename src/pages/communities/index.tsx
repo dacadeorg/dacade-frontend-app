@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import {
   fetchAllCommunities,
-  setCurrentCommunity,
+  setCurrent as setCurrentCommunity,
 } from "@/store/feature/community.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { ReactElement } from "react";

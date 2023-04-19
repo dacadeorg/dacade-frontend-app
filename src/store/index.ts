@@ -14,7 +14,6 @@ import reputationSlice from "./feature/reputation.slice";
 import indexSlice from "./feature/index.slice";
 import { communitiesApi } from "./feature/communities.slice";
 import authSlice from "./feature/auth.slice";
-import courseSlice from "./feature/course.slice";
 import scoreboardSlice from "./feature/communities/scoreboard.slice";
 import courseSlice from "./feature/course.slice";
 

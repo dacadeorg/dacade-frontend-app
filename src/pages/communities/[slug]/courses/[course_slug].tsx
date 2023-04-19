@@ -4,7 +4,7 @@ import { ReactElement, useEffect } from "react";
 import OverviewSection from "@/components/sections/courses/overview";
 import {
   fetchCurrentCommunity,
-  setCurrentCommunity,
+  setCurrent as setCurrentCommunity,
 } from "@/store/feature/community.slice";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useDispatch } from "react-redux";
@@ -45,7 +45,7 @@ export default function CommunityCourseViewPage(props: {
     dispatch(setCurrent(course));
     dispatch(setColors(community.colors));
     dispatch(setNavigation({ list }));
-  }, [community, course]);
+  }, [community, course, list]);
 
   const title = getMetadataTitle(course.name);
   const meta = getMetadataTitle(course.description);
@@ -56,7 +56,7 @@ export default function CommunityCourseViewPage(props: {
         <title>{title}</title>
         <meta name="description" content={meta} />
       </Head>
-      <div className="lg:py-0 lg:pb-8 py-8 flex flex-col divide-y divide-solid divide-gray-200 space-y-8 text-gray-700">
+      <div className="flex flex-col py-8 space-y-8 text-gray-700 divide-y divide-gray-200 lg:py-0 lg:pb-8 divide-solid">
         <OverviewSection />
       </div>
     </Wrapper>
