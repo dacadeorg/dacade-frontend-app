@@ -11,24 +11,72 @@ import remarkRehype from "remark-rehype";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeStringify from "rehype-stringify";
 import remarkUnwrapAllImages from "remark-unwrap-all-images";
-import ExtractToc from "remark-extract-toc";
 import rehypeSlug from "rehype-slug";
 import Slugger from "github-slugger";
 import Highlighter from "@/utilities/Highlighter";
-import Loader from "@/components/ui/Loader";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
+import rehypeFormat from "rehype-format";
+import withToc from "@stefanprobst/remark-extract-toc";
 import { cloneDeep } from "lodash";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useRouter } from "next/router";
+import { Compatible } from "vfile";
+import { ReactElement } from "react-markdown/lib/react-markdown";
 
-const Markdown = ({ url }: { url: string }) => {
+/**
+ * Markdown props interface
+ * @date 4/19/2023 - 8:58:51 PM
+ *
+ * @interface MarkDownProps
+ * @typedef {MarkDownProps}
+ */
+interface MarkDownProps {
+  url: string;
+}
+
+/**
+ *  Item interface
+ * @date 4/19/2023 - 8:58:20 PM
+ *
+ * @interface Item
+ * @typedef {Item}
+ */
+interface Item {
+  id: string | string[] | undefined;
+  subitems: SubItem[];
+}
+
+/**
+ * Subitem interface
+ * @date 4/19/2023 - 8:58:05 PM
+ *
+ * @interface SubItem
+ * @typedef {SubItem}
+ */
+interface SubItem {
+  label: string;
+  link: string;
+  exact: boolean;
+}
+
+/**
+ * Markdown component
+ * @date 4/19/2023 - 8:59:24 PM
+ *
+ * @export
+ * @param {MarkDownProps} { url }
+ * @returns {ReactElement}
+ */
+export function Markdown({ url }: MarkDownProps): ReactElement {
   const dispatch = useDispatch();
-  const [markdown, setMarkdown] = useState("");
+  const [markdown, setMarkdown] = useState<{ [key: string]: any }>();
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const route = useRouter();
   const colors = useSelector((state) => state.ui.colors);
-  const community = useSelector((state) => state.communities.current);
   const menus = useSelector(
     (state) => state.communities.navigation.list
   );
@@ -38,13 +86,14 @@ const Markdown = ({ url }: { url: string }) => {
   };
 
   const handleNavigation = useCallback(
-    (markdown) => {
-      const processor = unified().use(remarkParse).use(ExtractToc);
+    (markdown: Compatible | undefined) => {
+      const processor = unified().use(remarkParse).use(withToc);
       const node = processor.parse(markdown);
-      const tree = processor.runSync(node);
+      // Casting with any because processor.runSync has not arrays methods type infered.
+      const tree = processor.runSync(node) as any;
       const data = cloneDeep(menus);
       const slugger = new Slugger();
-      const list = data.map((menu: { id: string; items: any[] }) => {
+      const list = data.map((menu: { id: string; items: Item[] }) => {
         if (menu.id !== "learning-modules") {
           return menu;
         }
@@ -53,7 +102,7 @@ const Markdown = ({ url }: { url: string }) => {
             return item;
           }
           slugger.reset();
-          item.subitems = tree.map((el) => {
+          item.subitems = tree.map((el: { value: string }) => {
             return {
               label: String(el.value).replace(/^\d+\.+\d\s*/, ""),
               link: `${slugger.slug(el.value)}`,
@@ -65,46 +114,55 @@ const Markdown = ({ url }: { url: string }) => {
         return menu;
       });
 
-      dispatch({
-        type: "communities/navigation/setList",
-        payload: list,
-      });
+      // TODO This line will be uncommented once course view page has been merged. to inhert communities/navigation/setList
+      // dispatch(setNavigationList(list));
     },
-    [dispatch, menus, route.query.id]
+    [menus, route.query.id]
   );
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const content = await fetch(url).then((response) =>
+        const responseText = await fetch(url).then((response) =>
           response.text()
         );
-        setMarkdown(matter(content));
+        const { data } = matter(responseText);
+        setMarkdown(data);
+        handleNavigation(markdown);
 
-        handleNavigation(markdown?.content);
-
-        const { value } = await unified()
-          .use(remarkUnwrapAllImages)
+        unified()
           .use(remarkParse)
-          .use(Highlighter)
-          .use(remarkRehype)
-          .use(rehypeExternalLinks)
+          .use(remarkBreaks)
+          .use(remarkGfm)
+          .use(() => Highlighter)
+          .use(remarkRehype, { allowDangerousHtml: true })
+          .use(remarkUnwrapAllImages)
+          .use(rehypeRaw)
+          .use(rehypeExternalLinks, { target: "_blank" })
           .use(rehypeSlug)
           .use(rehypeStringify)
-          .process(markdown.content);
-        setContent(value);
-      } catch (e) {
-        console.log(e.message);
-        setContent(
-          `<span style="color: red;">Error: ${e.message}</span>`
-        );
+          .use(rehypeFormat)
+          .use(rehypeStringify)
+          .process(content, (error, file) => {
+            if (!error) setContent(file?.value as string);
+          });
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          setContent(
+            `<span style="color: red;">Error: ${error.message}</span>`
+          );
+        } else {
+          setContent(
+            `<span style="color: red;">An unknown error occurred</span>`
+          );
+        }
       } finally {
         setLoading(false);
       }
     };
     fetchData();
-  }, [handleNavigation, markdown.content, url]);
+  }, [content, handleNavigation, markdown, markdown?.content, url]);
 
   return (
     <div>
@@ -115,7 +173,7 @@ const Markdown = ({ url }: { url: string }) => {
               style={{ ...(themeStyles as CSSProperties) }}
               className="prose"
             >
-              {markdown.data.title && <h2>{markdown.data.title}</h2>}
+              {markdown.title && <h2>{markdown.title}</h2>}
               <div
                 className="markdown-content"
                 dangerouslySetInnerHTML={{ __html: content }}
@@ -128,4 +186,4 @@ const Markdown = ({ url }: { url: string }) => {
       )}
     </div>
   );
-};
+}

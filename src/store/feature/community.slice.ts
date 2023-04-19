@@ -15,6 +15,7 @@ import api from "@/config/api";
  * @typedef {CommunitiesState}
  */
 export interface CommunitiesState {
+  navigation: any;
   list: Community[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: object | null | string;

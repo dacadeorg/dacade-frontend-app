@@ -12,6 +12,7 @@ import CommunitiesSection from "@/components/sections/homepage/Communities";
 import MainSection from "@/components/sections/homepage/Main";
 import LanguageSwitcher from "@/components/popups/LanguageSwitcher";
 import TestimonialsSection from "@/components/sections/homepage/Testimonials";
+import { Markdown } from "@/components/sections/learning-modules/_partials/Markdown";
 
 const Home = (props: { pageProps: { communities: Community[] } }) => {
   const { t } = useTranslation();
@@ -37,6 +38,7 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
         <MainSection />
         <CommunitiesSection communities={communities} />
         <TestimonialsSection />
+        <Markdown url={"https://github.com/atlp-rwanda/ecommerce-app-cogito-bn/blob/develop/README.md"} />
       </main>
     </>
   );
