@@ -33,6 +33,7 @@ const initialState: CommunitiesState = {
   status: "idle",
   error: null,
   current: null,
+  navigation: undefined
 };
 
 /**
