@@ -15,7 +15,7 @@ interface courseLinkProps {
   item: {
     link: string;
     exact: boolean;
-    subitems: Array<{
+    subitems?: Array<{
       link: string;
       exact: boolean;
       label: string;
