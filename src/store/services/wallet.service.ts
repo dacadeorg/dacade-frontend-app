@@ -23,7 +23,7 @@ interface UpdateWalletPayload {
  *
  * @type {*}
  */
-const walletService: any = createApi({
+const walletService = createApi({
   reducerPath: "walletService",
   baseQuery: baseQuery(),
   endpoints: (builder) => ({

@@ -28,10 +28,6 @@ export const communityService = createApi({
           "accept-language": locale,
         },
       }),
-      // onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-      //   const { data } = await queryFulfilled;
-      //   dispatch(setCurrentCommunity(data));
-      // },
     }),
   }),
 });
