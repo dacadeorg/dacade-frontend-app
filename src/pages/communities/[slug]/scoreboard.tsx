@@ -1,75 +1,54 @@
-import { ReactElement, useEffect } from "react";
-import { useSelector } from "@/hooks/useTypedSelector";
-import { useDispatch } from "@/hooks/useTypedDispatch";
+import React, { ReactNode, useEffect } from "react";
 import Header from "@/components/sections/communities/_partials/Header";
 import ScoreboardCard from "@/components/cards/Scoreboard";
 import {
   getMetadataDescription,
   getMetadataTitle,
 } from "@/utilities/Metadata";
-// TODO: fetchCommunities and fetchScoreboard to be combined in redux store optimisation.
-import { fetchAllCommunities as fetchCommunities } from "@/store/feature/community.slice";
-import { fetchAllScoreboards } from "@/store/feature/communities/scoreboard.slice";
-import { wrapper } from "@/store";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import Head from "next/head";
-import { useTranslation } from "next-i18next";
-import HomeLayout from "@/layouts/Home";
-import { Community } from "@/types/community";
-import { Scoreboard } from "@/types/scoreboard";
+import { useSelector } from "@/hooks/useTypedSelector";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchCurrentCommunity } from "@/store/feature/community.slice";
 import { useRouter } from "next/router";
+import { fetchAllScoreboards } from "@/store/feature/communities/scoreboard.slice";
+import { useTranslation } from "next-i18next";
+import Head from "next/head";
+import { ReactElement } from "react-markdown/lib/react-markdown";
+import { GetStaticProps } from "next";
+import i18Translate from "@/utilities/I18Translate";
+import HomeLayout from "@/layouts/Home";
 
 /**
- * represents the props for the ScoreboardList component.
- * @date 4/16/2023 - 10:29:30 PM
+ * Scoreboard list page
+ * @date 4/14/2023 - 1:36:53 PM
  *
- * @interface IScoreboardListProps
- * @typedef {IScoreboardListProps}
- */
-interface IScoreboardListProps {
-  badgeStyles?: Record<string, unknown>;
-  locale: string;
-}
-
-/**
- *  ScoreboardList component for communities scoreboard page.
- * @date 4/16/2023 - 10:28:54 PM
- *
- * @export
- * @param {IScoreboardListProps} {
-  badgeStyles = {},
-  locale,
-}
  * @returns {ReactElement}
  */
-export default function ScoreboardList({
-  badgeStyles = {},
-  locale,
-}: IScoreboardListProps): ReactElement {
+export default function ScoreboardList(): ReactElement {
   const { t } = useTranslation();
-  const community = useSelector((state) => state.communities.current);
-  const scoreboard = useSelector((state) => state.scoreboard.list);
-  const router = useRouter();
   const dispatch = useDispatch();
+  const router = useRouter();
+  const params = router.query;
+
+  const {
+    communities: { current: community },
+    scoreboard: { list },
+  } = useSelector((state) => state);
+
   useEffect(() => {
-    Promise.all([
-      dispatch(
-        fetchCurrentCommunity({
-          locale: locale as string,
-          slug: router.query.slug as string,
-        })
-      ),
-      dispatch(
-        fetchAllScoreboards({
-          slug: router.query?.slug as string,
-          locale: locale as string,
-        })
-      ),
-    ]).catch((e) => {
-      console.error(e);
-    });
-  }, [dispatch, router.query?.slug, locale]);
+    dispatch(
+      fetchCurrentCommunity({
+        slug: params.slug as string,
+        locale: router.locale as string,
+      })
+    );
+    dispatch(
+      fetchAllScoreboards({
+        slug: params.slug as string,
+        locale: router.locale as string,
+      })
+    );
+  }, [dispatch, params.slug, router.locale]);
+
   return (
     <>
       <Head>
@@ -80,21 +59,21 @@ export default function ScoreboardList({
           )}
         </title>
         {getMetadataDescription(community?.description as string).map(
-          ({ name, content }) => (
-            <meta key={name} name={name} content={content} />
+          (attributes, i) => (
+            <meta key={`scoreboard-meta-${i}`} {...attributes} />
           )
         )}
       </Head>
       <div className="py-4 flex flex-col text-gray-700">
         <Header
-          title={community?.name as string}
+          title={community?.name}
           subtitle={t("communities.navigation.scoreboard")}
         />
         <div className="my-24 w-full divide-y divide-gray-200 space-y-4 bg-gray-50 lg:max-w-2xl rounded-3.5xl overflow-hidden">
-          {scoreboard.map((item, index) => (
+          {list.map((item, i) => (
             <ScoreboardCard
-              key={index}
-              index={index + 1}
+              key={`scoreboard-item-${i}`}
+              index={i + 1}
               value={item}
             />
           ))}
@@ -104,19 +83,10 @@ export default function ScoreboardList({
   );
 }
 
-ScoreboardList.getLayout = function (page: ReactElement) {
+ScoreboardList.getLayout = function (page: ReactNode) {
   return <HomeLayout>{page}</HomeLayout>;
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => {
-    return async ({ locale }) => {
-      return {
-        props: {
-          ...(await serverSideTranslations(locale as string)),
-          locale: locale as string,
-        },
-      };
-    };
-  }
-);
+export const getServerSideProps: GetStaticProps = async ({
+  locale,
+}) => await i18Translate(locale as string);
