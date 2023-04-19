@@ -55,7 +55,7 @@ export const store = configureStore({
     [indexSlice.name]: indexSlice.reducer,
     [community.name]: community.reducer,
     [authSlice.name]: authSlice.reducer,
-    [communityService.reducerPath]: communityService.reducer,
+    [courseSlice.name]: courseSlice.reducer,
     [communityService.reducerPath]: communityService.reducer,
     [coursesService.reducerPath]: coursesService.reducer,
     [walletService.reducerPath]: walletService.reducer,

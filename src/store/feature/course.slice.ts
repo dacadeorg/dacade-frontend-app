@@ -1,7 +1,6 @@
-import { Course } from "@/types/course";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { List } from "@/utilities/CommunityNavigation";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "@/config/api";
+import { Course } from "@/types/course";
 
 // Define initial state
 interface CourseState {
@@ -10,7 +9,7 @@ interface CourseState {
   current: Course | null;
   // TODO: Those type should be improved whenever they are known
   content: any | null;
-  menus: List[];
+  menus: any[];
 }
 
 const initialState: CourseState = {
@@ -26,62 +25,28 @@ const courseSlice = createSlice({
   name: "courses",
   initialState,
   reducers: {
-    setCurrent: (state, action) => {
+    setCurrentCourse: (state, action) => {
       state.current = action.payload;
     },
-    setList: (state, action) => {
+    setCourseList: (state, action) => {
       state.list = action.payload;
     },
-    setContent: (state, action) => {
+    setCourseContent: (state, action) => {
       state.content = action.payload;
     },
-    setNavigation: (state, action) => {
+    setCourseNavigation: (state, action) => {
       const { list } = action.payload;
       state.menus = list;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchCourse.fulfilled, (state, action) => {
-        state.current = action.payload;
-      })
-      .addCase(fetchAllCourses.fulfilled, (state, action) => {
-        state.list = action.payload;
-      });
-  },
 });
 
 // Extract actions and reducer
-export const { setCurrent, setList, setContent, setNavigation } =
-  courseSlice.actions;
-
-// Define Redux Thunk async actions
-export const fetchCourse = createAsyncThunk(
-  "courses/find",
-  async ({ slug, locale }: { slug: string; locale: string }) => {
-    try {
-      const { data } = await api(locale).server.get(
-        `courses/${slug}`
-      );
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-);
-
-export const fetchAllCourses = createAsyncThunk(
-  "courses/all",
-  async ({ slug, locale }: { slug: string; locale: string }) => {
-    try {
-      const { data } = await api(locale).server.get(
-        `communities/${slug}/courses`
-      );
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-);
+export const {
+  setCurrentCourse,
+  setCourseList,
+  setCourseContent,
+  setCourseNavigation,
+} = courseSlice.actions;
 
 export default courseSlice;

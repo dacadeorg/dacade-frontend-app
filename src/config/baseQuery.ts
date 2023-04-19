@@ -24,7 +24,7 @@ const baseQuery = (locale: string = "en"): BaseQueryFn =>
       headers.set("Accept-Language", locale);
       // headers.set(
       //   "app-domain",
-      //   typeof window !== undefined
+      //   typeof window !== "undefined"
       //     ? window.location.hostname
       //     : "dacade.org"
       // );

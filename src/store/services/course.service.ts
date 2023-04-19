@@ -3,6 +3,7 @@ import {
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
 import { HYDRATE } from "next-redux-wrapper";
+import { setCourseList } from "../feature/course.slice";
 
 /**
  * courses api

@@ -2,10 +2,6 @@ import { wrapper } from "@/store";
 import Section from "@/components/ui/Section";
 import { Community } from "@/types/community";
 import { setColors } from "@/store/feature/ui.slice";
-import {
-  fetchCurrentCommunity,
-  setCurrent,
-} from "@/store/feature/community.slice";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import MainHeader from "@/components/sections/communities/overview/MainHeader";
 import { CoursesOverview } from "@/components/sections/communities/overview/Courses";
@@ -13,16 +9,16 @@ import ScoreboardOverview from "@/components/sections/communities/overview/score
 import CommunityLayout from "@/layouts/Community";
 import { ReactElement, useEffect } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import {
-  fetchAllCourses,
-  setList,
-} from "@/store/feature/course.slice";
 import { Course } from "@/types/course";
 import {
   fetchAllScoreboards,
   setScoreboardList,
 } from "@/store/feature/communities/scoreboard.slice";
 import { Scoreboard } from "@/types/scoreboard";
+import { fetchAllCourses } from "@/store/services/course.service";
+import { setCourseList } from "@/store/feature/course.slice";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
 
 export default function Slug(props: {
   pageProps: {
@@ -35,9 +31,9 @@ export default function Slug(props: {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setCurrent(community));
+    dispatch(setCurrentCommunity(community));
     dispatch(setColors(community.colors));
-    dispatch(setList(courses));
+    dispatch(setCourseList(courses));
     dispatch(setScoreboardList(scoreboards));
   }, [community, courses, dispatch, scoreboards]);
 
@@ -82,8 +78,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
       getAllScoreboards,
     ]);
 
-    const community = results[0].payload;
-    const courses = results[1].payload;
+    const community = results[0].data;
+    const courses = results[1].data;
     const scoreboards = results[2].payload;
 
     return {
