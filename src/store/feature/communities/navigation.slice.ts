@@ -25,9 +25,22 @@ export interface Item {
   subitems: SubItem[];
 }
 
+/**
+ * Items interface
+ * @date 4/19/2023 - 9:56:39 PM
+ *
+ * @export
+ * @interface Items
+ * @typedef {Items}
+ */
+export interface Items {
+  id: string | string[] | undefined;
+  items: Item[];
+}
+
 // Define initial state
 interface NavigationState {
-  list: Item[];
+  list: Items[];
 }
 
 const initialState: NavigationState = {
@@ -38,11 +51,10 @@ export const navigationSlice = createSlice({
   name: "navigation",
   initialState,
   reducers: {
-    setNavigationList(state, action: PayloadAction<Item[]>) {
+    setNavigationList(state, action: PayloadAction<Items[]>) {
       state.list = action.payload;
     },
   },
 });
 
-
-export const  { setNavigationList } = navigationSlice.actions;
+export const { setNavigationList } = navigationSlice.actions;

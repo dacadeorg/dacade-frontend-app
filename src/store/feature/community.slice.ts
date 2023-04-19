@@ -19,8 +19,6 @@ export interface CommunitiesState {
   status: "idle" | "loading" | "succeeded" | "failed";
   error: object | null | string;
   current: Community | null;
-  // 
-  navigation: any;
 }
 
 /**
@@ -34,7 +32,6 @@ const initialState: CommunitiesState = {
   status: "idle",
   error: null,
   current: null,
-  navigation: undefined
 };
 
 /**
