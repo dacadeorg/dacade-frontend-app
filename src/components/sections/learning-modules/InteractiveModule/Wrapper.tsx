@@ -3,7 +3,14 @@ import H3 from "@/components/ui/text/H3";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { ReactElement, ReactNode } from "react";
 
-interface Props {
+/**
+ * interactive Module Wrapper Props interface
+ * @date 4/19/2023 - 1:41:31 PM
+ *
+ * @interface interactiveModuleWrapperProps
+ * @typedef {interactiveModuleWrapperProps}
+ */
+interface interactiveModuleWrapperProps {
   title?: string;
   subtitle?: string;
   sectionTitle?: string;
@@ -12,6 +19,21 @@ interface Props {
   children: ReactNode;
 }
 
+/**
+ * interactive Module Wrapper component
+ * @date 4/19/2023 - 1:41:56 PM
+ *
+ * @export
+ * @param {interactiveModuleWrapperProps} {
+  title = "",
+  subtitle = "",
+  sectionTitle = "",
+  duration = "",
+  percentage = 0,
+  children,
+}
+ * @returns {ReactElement}
+ */
 export default function InteractiveModuleWrapper({
   title = "",
   subtitle = "",
@@ -19,7 +41,7 @@ export default function InteractiveModuleWrapper({
   duration = "",
   percentage = 0,
   children,
-}: Props): ReactElement {
+}: interactiveModuleWrapperProps): ReactElement {
   const colors = useSelector((state) => state.ui.colors);
 
   return (

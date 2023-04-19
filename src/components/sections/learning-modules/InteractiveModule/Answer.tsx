@@ -15,8 +15,26 @@ interface InterractiveAswerProps {
   text?: string;
   disable?: boolean;
   timerCount?: number;
+  onRetry?: () => void;
+  onWrong?: (index: number) => void;
+  onSelect?: (index: number) => void;
 }
 
+/**
+ * Interactive module answer component
+ * @date 4/19/2023 - 11:55:19 AM
+ *
+ * @export
+ * @param {InterractiveAswerProps} {
+  checked = false,
+  correct = false,
+  selected = false,
+  text = "",
+  disable = false,
+  timerCount = 0,
+}
+ * @returns {ReactElement}
+ */
 export default function InteractiveModuleAnswer({
   checked = false,
   correct = false,
