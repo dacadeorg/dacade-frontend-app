@@ -23,7 +23,7 @@ interface CheckboxProps {
   id?: string;
   name?: string;
   communityStyles?: boolean;
-  className: string;
+  className?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
