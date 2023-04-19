@@ -41,7 +41,7 @@ interface ActivableLinkProps {
  */
 export function ActivableLink({
   item,
-  activeLinkStyle = {},
+  activeLinkStyle,
   isActive = false,
   goToLink = () => {},
   children,

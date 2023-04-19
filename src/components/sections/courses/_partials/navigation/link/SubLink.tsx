@@ -1,19 +1,38 @@
 import classNames from "classnames";
 import Link from "next/link";
-import React from "react";
 import { useTranslation } from "next-i18next";
+import { CSSProperties, ReactElement } from "react";
 
+/**
+ * Interface for subLink
+ * @date 4/19/2023 - 7:04:21 PM
+ *
+ * @interface SubLinkProps
+ * @typedef {SubLinkProps}
+ */
 interface SubLinkProps {
-  activeLinkStyle: any;
+  activeLinkStyle: CSSProperties;
   item: any;
   subitem: any;
 }
 
+/**
+ * subLink component
+ * @date 4/19/2023 - 7:05:09 PM
+ *
+ * @export
+ * @param {SubLinkProps} {
+  activeLinkStyle,
+  item,
+  subitem,
+}
+ * @returns {ReactElement}
+ */
 export default function SubLink({
   activeLinkStyle,
   item,
   subitem,
-}: SubLinkProps) {
+}: SubLinkProps): ReactElement {
   const { t } = useTranslation();
   return (
     <li

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ReactElement } from "react";
+import { CSSProperties, ReactElement } from "react";
 
 /**
  * SubLink props interface
@@ -12,7 +12,7 @@ interface subLinkProps {
   item: {
     link: string;
   };
-  activeLinkStyle: React.CSSProperties;
+  activeLinkStyle: CSSProperties;
   subitem: {
     link: string;
     label: string;

@@ -4,8 +4,8 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { ReactElement, useMemo } from "react";
+import { useTranslation } from "next-i18next";
 
 /**
  * PageNavigation component interface
@@ -26,11 +26,11 @@ interface PageNavigationProps {
  * @param {PageNavigationProps} {
   show,
 }
- * @returns {*}
+ * @returns {ReactElement}
  */
 export default function PageNavigation({
   show,
-}: PageNavigationProps) {
+}: PageNavigationProps): ReactElement {
   const colors = useSelector((state) => state.ui.colors);
 
   const { t } = useTranslation();
@@ -48,7 +48,7 @@ export default function PageNavigation({
           stripTrailingSlash(el.link) ===
           stripTrailingSlash(router.asPath)
       ),
-    [list]
+    [list, router.asPath]
   );
 
   const prevUrl = useMemo(() => {
@@ -98,7 +98,7 @@ export default function PageNavigation({
             <ArrowButton
               customStyle={buttonStyle}
               direction="left"
-              min-width-class="null"
+              minWidthClass="null"
             >
               {t("nav.page.prev")}
             </ArrowButton>
@@ -110,7 +110,9 @@ export default function PageNavigation({
               className={classNames({
                 "text-.5xl py-4.5 pl-6 pr-5.5": !prevUrl,
               })}
-              min-width-class="prevUrl ? 'min-w-28' : 'min-w-3/4 sm:min-w-64'"
+              minWidthClass={`${
+                prevUrl ? "min-w-28" : "min-w-3/4 sm:min-w-64"
+              }`}
               customStyle={activeButtonStyle}
             >
               {!prevUrl
@@ -121,5 +123,7 @@ export default function PageNavigation({
         )}
       </div>
     </Section>
-  ) : null;
+  ) : (
+    <></>
+  );
 }

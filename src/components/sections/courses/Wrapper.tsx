@@ -1,8 +1,8 @@
 import Section from "@/components/ui/Section";
-import React from "react";
 import Navigation from "./Navigation";
 import MobileNav from "./MobileNav";
 import CommunityNavigation from "./CommunityNavigation";
+import { ReactElement, ReactNode } from "react";
 
 /**
  *  Wrapper component interface
@@ -12,7 +12,7 @@ import CommunityNavigation from "./CommunityNavigation";
  * @typedef {WrapperProps}
  */
 interface WrapperProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 /**
@@ -21,16 +21,18 @@ interface WrapperProps {
  *
  * @export
  * @param {WrapperProps} { children }
- * @returns {*}
+ * @returns {ReactElement}
  */
-export default function Wrapper({ children }: WrapperProps) {
+export default function Wrapper({
+  children,
+}: WrapperProps): ReactElement {
   return (
     <Section>
-      <div className="lg:flex h-auto">
-        <div className="hidden lg:block sticky top-0 self-start w-1/4 py-3 pr-9 lg:py-14">
+      <div className="h-auto lg:flex">
+        <div className="sticky top-0 self-start hidden w-1/4 py-3 lg:block pr-9 lg:py-14">
           <Navigation />
         </div>
-        <div className="lg:hidden pt-8 pb-0 w-full lg:py-14">
+        <div className="w-full pt-8 pb-0 lg:hidden lg:py-14">
           <MobileNav showTopBorder />
         </div>
         <div className="w-full lg:w-3/4">

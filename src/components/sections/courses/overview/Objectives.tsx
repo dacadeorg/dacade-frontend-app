@@ -1,17 +1,17 @@
 import ObjectiveList from "@/components/list/Objectives";
-import React from "react";
 import Section from "../../communities/_partials/Section";
 import { useTranslation } from "next-i18next";
 import { useSelector } from "@/hooks/useTypedSelector";
+import { ReactElement } from "react";
 
 /**
  * Objectives component
  * @date 4/18/2023 - 12:24:51 PM
  *
  * @export
- * @returns {*}
+ * @returns {ReactElement}
  */
-export default function Objectives() {
+export default function Objectives(): ReactElement {
   const { t } = useTranslation();
 
   const course = useSelector((state) => state.courses.current);
@@ -23,5 +23,7 @@ export default function Objectives() {
     >
       <ObjectiveList objectives={course.objectives} />
     </Section>
-  ) : null;
+  ) : (
+    <></>
+  );
 }

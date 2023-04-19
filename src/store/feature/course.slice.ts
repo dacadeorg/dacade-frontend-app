@@ -43,12 +43,10 @@ const courseSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchCourse.fulfilled, (state, action) => {
-        // TODO will be uncommented when the redux is working okay
-        // state.current = action.payload;
+        state.current = action.payload;
       })
       .addCase(fetchAllCourses.fulfilled, (state, action) => {
-        // TODO will be uncommented when the redux is working okay
-        // state.list = action.payload;
+        state.list = action.payload;
       });
   },
 });

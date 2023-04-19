@@ -14,9 +14,26 @@ import { Community } from "@/types/community";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HomeLayout from "@/layouts/Home";
 
-export default function CommunitiesPage(props: {
+/**
+ * Interface for community view page
+ * @date 4/19/2023 - 7:53:52 PM
+ *
+ * @interface CommunityPageprops
+ * @typedef {CommunityPageprops}
+ */
+interface CommunityPageProps {
   pageProps: { communities: Community[] };
-}) {
+}
+
+/**
+ * Community view page
+ * @date 4/19/2023 - 7:54:15 PM
+ *
+ * @export
+ * @param {CommunityPageprops} props
+ * @returns
+ */
+export default function CommunitiesPage(props: CommunityPageProps) {
   const { t } = useTranslation();
   const communities = props.pageProps.communities;
   const title: string = getMetadataTitle(t("nav.communities"));
@@ -28,15 +45,15 @@ export default function CommunitiesPage(props: {
         <title>{title}</title>
       </Head>
       <div className="flex flex-col justify-center">
-        <h1 className="text-4xl sm:text-5xl pt-10 md:pt-20 pb-10">
+        <h1 className="pt-10 pb-10 text-4xl sm:text-5xl md:pt-20">
           {t("nav.communities")}
         </h1>
-        <div className="row w-full">
+        <div className="w-full row">
           {communities?.map((community, index) => (
             <div
               key={`generated-key-${index}`}
               onClick={() => dispatch(setCurrentCommunity(community))}
-              className="flex pb-4 min-w-full flex-grow"
+              className="flex flex-grow min-w-full pb-4"
             >
               <CommunityListCard community={community} />
             </div>

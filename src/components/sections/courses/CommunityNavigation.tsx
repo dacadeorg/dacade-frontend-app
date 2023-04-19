@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useMemo } from "react";
+import { ReactElement, useMemo } from "react";
 import ChevronRightIcon from "@/icons/chevron-right.svg";
 import { useSelector } from "@/hooks/useTypedSelector";
 
@@ -8,9 +8,9 @@ import { useSelector } from "@/hooks/useTypedSelector";
  * @date 4/18/2023 - 12:24:08 PM
  *
  * @export
- * @returns {*}
+ * @returns {ReactElement}
  */
-export default function CommunityNavigation() {
+export default function CommunityNavigation(): ReactElement {
   const community = useSelector((state) => state.communities.current);
 
   const course = useSelector((state) => state.courses.current);
@@ -43,8 +43,8 @@ export default function CommunityNavigation() {
   }, [community]);
   return community && course ? (
     <div>
-      <div className="text-sm relative pt-4 py-4 md:pt-7 lg:border-0 border-b-2 flex items-center">
-        <div className="text-gray-500 leading-none">
+      <div className="relative flex items-center py-4 pt-4 text-sm border-b-2 md:pt-7 lg:border-0">
+        <div className="leading-none text-gray-500">
           <Link href={path}>{community.name}</Link>
         </div>
         <div className="px-0.5">
@@ -53,5 +53,7 @@ export default function CommunityNavigation() {
         <div className="font-medium leading-none">{course.name}</div>
       </div>
     </div>
-  ) : null;
+  ) : (
+    <></>
+  );
 }
