@@ -26,12 +26,10 @@ export default function InteractiveModuleItem({
   const started = false;
 
   const completed = () => {
-    dispatch(completed);
     setDisabled(true);
   };
 
   const start = () => {
-    dispatch(start);
     setAnswering(true);
   };
 
