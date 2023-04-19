@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useMemo, useState } from "react";
 import InteractiveModuleAnswer from "./Answer";
 
 const RETRY_TIME = 14;
@@ -49,21 +49,25 @@ export default function InteractiveModuleQuestion({
     { text: string; id: number }[]
   >([]);
 
-  useEffect(() => {
-    shuffleAnswers(data.answers);
-  }, [data.answers]);
-
   const shuffleAnswers = (answers: string[]) => {
     const randomized = [...answers]
       .map((value, index) => ({ text: value, id: index }))
       .sort(() => Math.random() - 0.5);
-    setRandomizedAnswers(randomized);
+    return randomized;
   };
 
+  const memoizedRandomizedAnswers = useMemo(
+    () => shuffleAnswers(data.answers),
+    [data.answers]
+  );
+
+  useEffect(() => {
+    setRandomizedAnswers(memoizedRandomizedAnswers);
+  }, [memoizedRandomizedAnswers]);
+
   const selectAnswer = (index: number) => {
-    if (disable) {
-      return;
-    }
+    if (disable) return;
+
     if (selected === index) {
       setSelected(null);
       return;
@@ -82,7 +86,7 @@ export default function InteractiveModuleQuestion({
   };
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setTimeout>;
     if (timerCount > 0) {
       interval = setInterval(() => {
         setTimerCount((prevCount) => prevCount - 1);

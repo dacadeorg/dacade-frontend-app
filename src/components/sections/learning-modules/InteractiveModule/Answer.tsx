@@ -1,4 +1,5 @@
 import Checkbox from "@/components/ui/Checkbox";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 import { ChangeEvent, ReactElement } from "react";
 
 /**
@@ -43,6 +44,7 @@ export default function InteractiveModuleAnswer({
   disable = false,
   timerCount = 0,
 }: InterractiveAswerProps): ReactElement {
+  const dispatch = useDispatch();
   const borderColor = !selected
     ? "border-gray-200"
     : correct
@@ -72,18 +74,14 @@ export default function InteractiveModuleAnswer({
         disable ? "cursor-not-allowed" : "cursor-pointer"
       }`}
       role="button"
-      onClick={() => {
-        if (selected) {
-          return;
-        }
-      }}
+      onClick={() => !selected}
     >
       <div className="flex items-center space-x-3 relative z-50 w-full md:p-4.5 p-4 border-solid bg-transparent checked-color">
         <span>
           <Checkbox
             checked={checked}
             disabled={disable}
-            community-styles={correct}
+            communityStyles={correct}
             className={!correct ? "text-red-900" : ""}
             onChange={checkboxClick}
           />

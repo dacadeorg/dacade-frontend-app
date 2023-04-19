@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import InteractiveModuleWrapper from "./Wrapper";
 import Markdown from "@/components/ui/Markdown";
 import Loader from "@/components/ui/Loader";
@@ -90,16 +90,18 @@ export default function InteractiveModule({
     : ended
     ? "Lesson end"
     : "Explanation";
-  const completion = ended
-    ? 100
-    : Math.round((current / items.length) * 100);
+
+  const completion = useMemo(
+    () => (ended ? 100 : Math.round((current / items.length) * 100)),
+    [ended, current, items.length]
+  );
 
   useEffect(() => {
     setLoading(true);
     // checkIfAnswered();
     return () => {
+      // TODO: will be uncommented when migration of the navigation
       // showPageNavigation();
-      console.log("waiting for the page navigation");
     };
   }, []);
 
@@ -150,7 +152,7 @@ export default function InteractiveModule({
     <InteractiveModuleWrapper
       title={stepTitle}
       subtitle={stepSubtitle}
-      section-title={data.title}
+      sectionTitle={data.title}
       percentage={completion}
       duration="15 minutes"
     >
@@ -160,7 +162,7 @@ export default function InteractiveModule({
             {!ended ? (
               <>
                 {items.map((item, index) => (
-                  <div key={index}>
+                  <div key={`item-${index}`}>
                     {current === index && (
                       <InteractiveModuleItem
                         data={item}
@@ -182,7 +184,7 @@ export default function InteractiveModule({
                 </p>
                 <p>
                   <Link href="/login">Login</Link>
-                  {"to make sure your progress doesn't get lost."}
+                  to make sure your progress doesn&#8217;t get lost.
                 </p>
               </Hint>
             )}
