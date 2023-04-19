@@ -1,6 +1,6 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import Section from "@/components/sections/communities/_partials/Section";
-// TODO this will be uncommented after duration commponent has been merged 
+// TODO this will be uncommented after duration commponent has been merged
 // import Duration from "@/components/sections/courses/_partials/Duration";
 import Slugger from "github-slugger";
 import Link from "next/link";
@@ -17,7 +17,6 @@ interface Material {
   title: string;
   duration: string;
 }
-
 
 /**
  * AdditionalMaterialSection component props
