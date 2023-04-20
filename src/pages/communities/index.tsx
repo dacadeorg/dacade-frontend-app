@@ -53,7 +53,6 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
     const results = await store.dispatch(
       fetchAllCommunities({ locale: locale as string })
     );
-
     return {
       props: {
         ...(await serverSideTranslations(locale as string)),

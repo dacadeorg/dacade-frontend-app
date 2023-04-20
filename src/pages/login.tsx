@@ -10,6 +10,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
+import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 
 /**
  * Login form values
@@ -70,7 +71,7 @@ export default function Login(): ReactElement {
           {getMetadataTitle(t("login-page.signin.title"))}
         </title>
       </Head>
-      <div className="absolute w-full top-0 min-h-screen flex items-center">
+      <div className="absolute h-full w-full -justify-center top-0 flex items-center">
         <form
           className="content-wrapper"
           onSubmit={handleSubmit(onSubmit)}
@@ -156,6 +157,10 @@ export default function Login(): ReactElement {
     </>
   );
 }
+
+Login.getLayout = function (page: ReactElement) {
+  return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
+};
 
 export const getStaticProps: GetStaticProps = async ({ locale }) =>
   i18Translate(locale as string);
