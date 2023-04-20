@@ -75,35 +75,34 @@ export default function Submission(): ReactElement {
       form.text.length > 0 && form.githubLink.length > 0;
 
     if (isValid) {
-      if (!submitting) {
-        try {
-          setSubmitting(true);
-          const result = await dispatch(
-            createSubmission({
-              challengeId: challenge?.id as string,
-              text: form.text,
-              link: form.githubLink,
-            })
-          );
+      if (submitting) return;
+      try {
+        setSubmitting(true);
+        const result = await dispatch(
+          createSubmission({
+            challengeId: challenge?.id as string,
+            text: form.text,
+            link: form.githubLink,
+          })
+        );
 
-          const submission = result.payload as TSubmission;
+        const submission = result.payload as TSubmission;
 
-          dispatch(
-            createEvent({
-              name: "submission-created",
-              attributes: {
-                submissionId: submission.id,
-                community: community?.slug,
-              },
-            })
-          );
-          textValue = "";
-          githubLinkValue = "";
-          setSubmitting(false);
-        } catch (error) {
-          console.log(error);
-          setSubmitting(false);
-        }
+        dispatch(
+          createEvent({
+            name: "submission-created",
+            attributes: {
+              submissionId: submission.id,
+              community: community?.slug,
+            },
+          })
+        );
+        textValue = "";
+        githubLinkValue = "";
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setSubmitting(false);
       }
     }
   };
