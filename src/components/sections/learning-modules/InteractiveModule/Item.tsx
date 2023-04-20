@@ -1,11 +1,26 @@
-import React, { ReactElement, useState } from "react";
-// import { useSelector } from 'react-redux';
+import { ReactElement, useState } from "react";
 import Button from "@/components/ui/button";
 import InteractiveModuleQuestion from "@/components/sections/learning-modules/InteractiveModule/Question";
 import Markdown from "@/components/ui/Markdown";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { authCheck } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+
+interface InteractiveModuleItemProps {
+  data: {
+    text: string;
+    title: string;
+    options: {
+      text: string;
+      isCorrect: boolean;
+    };
+    question: {
+      title: string;
+      answers: string[];
+      correct: number;
+    };
+  };
+}
 
 /**
  * Interactive module item component
@@ -17,7 +32,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
  */
 export default function InteractiveModuleItem({
   data,
-}: any): ReactElement {
+}: InteractiveModuleItemProps): ReactElement {
   const [answering, setAnswering] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const dispatch = useDispatch();
@@ -41,7 +56,7 @@ export default function InteractiveModuleItem({
           <div className="mx-auto w-full text-center mt-8">
             <Button
               variant="outline-primary"
-              community-styles
+              communityStyles
               onClick={start}
             >
               Understood

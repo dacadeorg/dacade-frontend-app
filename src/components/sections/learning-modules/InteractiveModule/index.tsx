@@ -19,16 +19,23 @@ import { authCheck } from "@/store/feature/auth.slice";
 interface interactiveModuleProps {
   data: {
     title: string;
+    text: string;
     closing: {
       text: string;
       title: string;
     };
     items: {
+      text: string;
       title: string;
       options: {
         text: string;
         isCorrect: boolean;
-      }[];
+      };
+      question: {
+        title: string;
+        answers: string[];
+        correct: number;
+      };
     }[];
     ref: string;
   };
@@ -164,11 +171,7 @@ export default function InteractiveModule({
                 {items.map((item, index) => (
                   <div key={`item-${index}`}>
                     {current === index && (
-                      <InteractiveModuleItem
-                        data={item}
-                        completed={goToNextItem}
-                        answering={() => setAnswering(true)}
-                      />
+                      <InteractiveModuleItem data={item} />
                     )}
                   </div>
                 ))}
