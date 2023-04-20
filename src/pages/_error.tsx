@@ -1,9 +1,8 @@
-import ArrowButton from "@/components/ui/button/Arrow";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
-import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSideProps } from "next";
 import { ReactElement } from "react";
+import Error from "@/layouts/Error";
 
 /**
  * Error page props
@@ -13,62 +12,15 @@ import { ReactElement } from "react";
  * @typedef {ErrorPageProps}
  */
 interface ErrorPageProps {
-  error?: {
+  error: {
     statusCode?: number;
     message?: string;
   };
-};
-
+}
 export default function ErrorPage({
   error,
 }: ErrorPageProps): ReactElement {
-  const { t } = useTranslation();
-  const title = () => {
-    switch (error?.statusCode) {
-      case 403:
-        return t("error.default.title");
-      case 404:
-        return t("error.404.title");
-      default:
-        return t("error.default.title");
-    }
-  };
-
-  const message = () => {
-    switch (error?.statusCode) {
-      case 403:
-        return error?.message;
-      case 404:
-        return t("error.404.message");
-      default:
-        return t("error.default.message");
-    }
-  };
-
-  const showRefresh = () => {
-    return error?.statusCode !== 403 && error?.statusCode !== 404;
-  };
-
-  return (
-    <div className="flex items-center justify-center absolute min-h-screen top-0 w-full">
-      <div className="relative p-6 text-center">
-        <h1 className="text-3xl font-medium mb-6">{title()}</h1>
-        <p className={`text-lg ${!showRefresh() ? "mb-6" : "mb-2"}`}>
-          {message()}
-        </p>
-        {showRefresh() && (
-          <p className="text-lg mb-6">
-            {t("error.page.button.refresh")}
-          </p>
-        )}
-        <div className="text-center">
-          <ArrowButton padding={true} link="/" target="_self">
-            {t("error.page.button.home")}
-          </ArrowButton>
-        </div>
-      </div>
-    </div>
-  );
+  return <Error error={error} />;
 }
 export const getServerSideProps: GetServerSideProps = async ({
   locale,
