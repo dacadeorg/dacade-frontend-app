@@ -16,9 +16,12 @@ import {
   logout,
 } from "@/store/feature/auth.slice";
 import Sidebar from "./Sidebar";
+import { Colors } from "@/types/community";
 
 interface NavbarProps {
-  settings: any;
+  settings: {
+    colors: Colors;
+  };
   sidebarBurgerColor: boolean;
 }
 
