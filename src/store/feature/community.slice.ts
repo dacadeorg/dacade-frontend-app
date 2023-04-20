@@ -7,7 +7,6 @@ import {
 import { Community } from "@/types/community";
 import { Course } from "@/types/course";
 import api from "@/config/api";
-import { Course } from "@/types/course";
 
 /**
  * CommunitiesState interface
@@ -23,7 +22,6 @@ export interface CommunitiesState {
   status: "idle" | "loading" | "succeeded" | "failed";
   error: object | null | string;
   current: Community | null;
-  courses: Course | null
 }
 
 /**
@@ -38,7 +36,6 @@ const initialState: CommunitiesState = {
   status: "idle",
   error: null,
   current: null,
-  courses: null
 };
 
 /**

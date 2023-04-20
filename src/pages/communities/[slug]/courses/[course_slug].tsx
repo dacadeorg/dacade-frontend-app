@@ -48,7 +48,7 @@ export default function CommunityCourseViewPage(props: {
     dispatch(setCurrent(course));
     dispatch(setColors(community.colors));
     dispatch(setNavigation({ list }));
-  }, [community, course, list]);
+  }, [community, course, dispatch, list]);
 
   const title = getMetadataTitle(course.name);
   const meta = getMetadataDescription(course.description);
