@@ -26,6 +26,7 @@ import {
 } from "@/utilities/Metadata";
 import CommunityLayout from "@/layouts/Community";
 import DefaultLayout from "@/components/layout/Default";
+import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 
 export default function CourseViewPage(props: {
   pageProps: {
@@ -49,6 +50,7 @@ export default function CourseViewPage(props: {
     dispatch(setCurrent(course));
     dispatch(setColors(community.colors));
     dispatch(setNavigation({ list }));
+    initNavigationMenu()(dispatch);
   }, [community, course, dispatch, list]);
 
   const title = getMetadataTitle(course.name);

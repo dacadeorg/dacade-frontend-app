@@ -23,9 +23,9 @@ export default function Navigation(): ReactElement {
     (state) => state.communities?.current
   );
 
-  useEffect(() => {
-    initNavigationMenu()(dispatch);
-  }, [dispatch]);
+  // useEffect(() => {
+  //   initNavigationMenu()(dispatch);
+  // }, [dispatch]);
 
   const menus = useSelector((state) => state.navigation.menus);
 
