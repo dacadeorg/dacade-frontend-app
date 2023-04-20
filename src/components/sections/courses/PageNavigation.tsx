@@ -1,4 +1,3 @@
-import Section from "@/components/ui/Section";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
 import classNames from "classnames";
@@ -6,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactElement, useMemo } from "react";
 import { useTranslation } from "next-i18next";
+import Section from "../communities/_partials/Section";
 
 /**
  * PageNavigation component interface
@@ -31,19 +31,22 @@ interface PageNavigationProps {
 export default function PageNavigation({
   show,
 }: PageNavigationProps): ReactElement {
-  const colors = useSelector((state) => state.ui.colors);
+  const colors = useSelector((state) => state.ui?.colors);
 
   const { t } = useTranslation();
 
-  const menus = useSelector((state) => state.communities.list);
+  const menus = useSelector((state) => state.communities?.list);
 
   const router = useRouter();
 
-  const list = menus.map((menu) => menu?.items).flat();
+  const list = useMemo(
+    () => menus?.map((menu) => menu?.items).flat(),
+    [menus]
+  );
 
   const currentIndex = useMemo(
     () =>
-      list.findIndex(
+      list?.findIndex(
         (el) =>
           stripTrailingSlash(el.link) ===
           stripTrailingSlash(router.asPath)
@@ -61,7 +64,7 @@ export default function PageNavigation({
 
   const nextUrl = useMemo(() => {
     const index = currentIndex + 1;
-    if (index < list.length - 1 && list[index]?.link) {
+    if (index < list?.length - 1 && list[index]?.link) {
       return list[index].link;
     }
     return null;

@@ -11,7 +11,6 @@ import { useDispatch } from "react-redux";
 import {
   setCurrent,
   fetchCourse,
-  fetchAllCourses,
   setNavigation,
 } from "@/store/feature/course.slice";
 import { Community } from "@/types/community";
@@ -25,8 +24,10 @@ import {
   getMetadataDescription,
   getMetadataTitle,
 } from "@/utilities/Metadata";
+import CommunityLayout from "@/layouts/Community";
+import DefaultLayout from "@/components/layout/Default";
 
-export default function CommunityCourseViewPage(props: {
+export default function CourseViewPage(props: {
   pageProps: {
     community: Community;
     course: Course;
@@ -66,8 +67,12 @@ export default function CommunityCourseViewPage(props: {
   );
 }
 
-CommunityCourseViewPage.getLayout = function (page: ReactElement) {
-  return <HomeLayout>{page}</HomeLayout>;
+CourseViewPage.getLayout = function (page: ReactElement) {
+  return (
+    <DefaultLayout footerBackgroundColor={"default"}>
+      {page}
+    </DefaultLayout>
+  );
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -95,12 +100,20 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const community = results[0].payload;
     const course = results[1].payload;
 
-    return {
-      props: {
-        ...(await serverSideTranslations(data.locale as string)),
-        community,
-        course,
-      },
-    };
+    console.log(course);
+
+    if (course) {
+      return {
+        props: {
+          ...(await serverSideTranslations(data.locale as string)),
+          community,
+          course,
+        },
+      };
+    } else {
+      return {
+        notFound: true,
+      };
+    }
   }
 );

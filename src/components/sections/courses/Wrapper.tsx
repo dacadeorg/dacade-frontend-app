@@ -27,7 +27,7 @@ export default function Wrapper({
   children,
 }: WrapperProps): ReactElement {
   return (
-    <Section>
+    <Section type="default">
       <div className="h-auto lg:flex">
         <div className="sticky top-0 self-start hidden w-1/4 py-3 lg:block pr-9 lg:py-14">
           <Navigation />

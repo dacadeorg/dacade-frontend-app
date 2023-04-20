@@ -11,9 +11,11 @@ import { useSelector } from "@/hooks/useTypedSelector";
  * @returns {ReactElement}
  */
 export default function CommunityNavigation(): ReactElement {
-  const community = useSelector((state) => state.communities.current);
+  const community = useSelector(
+    (state) => state.communities?.current
+  );
 
-  const course = useSelector((state) => state.courses.current);
+  const course = useSelector((state) => state.courses?.current);
 
   const path = useMemo(
     () => (community ? `/communities/${community.slug}` : ""),

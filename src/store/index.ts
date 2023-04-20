@@ -16,10 +16,12 @@ import { communitiesApi } from "./feature/communities.slice";
 import authSlice from "./feature/auth.slice";
 import scoreboardSlice from "./feature/communities/scoreboard.slice";
 import courseSlice from "./feature/course.slice";
+import communitySlice from "./feature/community.slice";
 import { learningModules } from "./feature/learningModules.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
+  community: ReturnType<typeof communitySlice.reducer>;
   ui: ReturnType<typeof ui.reducer>;
   referrals: ReturnType<typeof referralSlice.reducer>;
   user: ReturnType<typeof userSlice.reducer>;
@@ -32,7 +34,7 @@ export interface IRootState {
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   communityApi: ReturnType<typeof communitiesApi.reducer>;
   courses: ReturnType<typeof courseSlice.reducer>;
-  learningModules: ReturnType<typeof learningModules.reducer>
+  learningModules: ReturnType<typeof learningModules.reducer>;
 }
 
 export const store = configureStore({
@@ -49,6 +51,7 @@ export const store = configureStore({
     [courseSlice.name]: courseSlice.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
     [courseSlice.name]: courseSlice.reducer,
+    [communitySlice.name]: communitySlice.reducer,
     [communitiesApi.reducerPath]: communitiesApi.reducer,
     [referralsApi.reducerPath]: referralsApi.reducer,
     [learningModules.name]: learningModules.reducer,

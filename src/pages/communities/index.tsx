@@ -44,7 +44,7 @@ export default function CommunitiesPage(props: CommunityPageProps) {
       <Head>
         <title>{title}</title>
       </Head>
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col justify-center content-wrapper">
         <h1 className="pt-10 pb-10 text-4xl sm:text-5xl md:pt-20">
           {t("nav.communities")}
         </h1>

@@ -81,8 +81,7 @@ export default function CourseLink({
           expanded={expanded}
         />
       </LinkAction>
-      {item.subitems &&
-        item.subitems.length &&
+      {item.subitems && item.subitems.length ? (
         isCurrentLink(item.link, false) &&
         expanded && (
           <ul>
@@ -95,7 +94,10 @@ export default function CourseLink({
               />
             ))}
           </ul>
-        )}
+        )
+      ) : (
+        <></>
+      )}
     </span>
   );
 }

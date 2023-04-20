@@ -14,14 +14,16 @@ import CourseLink from "./_partials/navigation/link/CourseLink";
 export default function Navigation() {
   const { t } = useTranslation();
 
-  const community = useSelector((state) => state.communities.current);
+  const community = useSelector(
+    (state) => state.communities?.current
+  );
 
-  const menus = useSelector((state) => state.courses.menus);
+  const menus = useSelector((state) => state.courses?.menus);
 
   return community ? (
     <ThemeWrapper colors={community.colors}>
       <ul className="relative">
-        {menus.length &&
+        {menus.length ? (
           menus.map((menu, index) => {
             return (
               <li key={`menu-${index}`} className="relative mb-8">
@@ -48,7 +50,10 @@ export default function Navigation() {
                 </ul>
               </li>
             );
-          })}
+          })
+        ) : (
+          <></>
+        )}
         <li>
           <LanguageSwitcher />
         </li>

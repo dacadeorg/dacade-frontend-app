@@ -1,5 +1,6 @@
 import ChevronRightIcon from "@/icons/chevron-right.svg";
 import { ReactElement } from "react";
+import { useTranslation } from "next-i18next";
 
 /**
  * NavItem props
@@ -34,6 +35,7 @@ export function NavItem({
   isActive = false,
   expanded = false,
 }: NavItemProps): ReactElement {
+  const { t } = useTranslation();
   return (
     <span>
       <span
@@ -51,7 +53,7 @@ export function NavItem({
           }`}
         />
       </span>
-      <span className="nav-label">{item.label}</span>
+      <span className="nav-label">{t(item.label)}</span>
     </span>
   );
 }
