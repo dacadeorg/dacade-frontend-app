@@ -1,11 +1,10 @@
 import SubmissionCard from "./_partials/SubmissionCard";
 import Section from "@/components/sections/communities/_partials/Section";
 import ArrowButton from "@/components/ui/button/Arrow";
+import navigation from "@/config/navigation";
 import { useSelector } from "@/hooks/useTypedSelector";
-import CommunityNavigation from "@/utilities/CommunityNavigation";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { CSSProperties } from "react";
 
 const BestSubmissions = () => {
@@ -18,9 +17,6 @@ const BestSubmissions = () => {
     community: state.communities.current,
     colors: state.ui.colors,
   }));
-  const router = useRouter();
-
-  const communityNavigation = new CommunityNavigation(router);
 
   return (
     <Section
@@ -41,7 +37,7 @@ const BestSubmissions = () => {
           ))} */}
         </div>
         <div className="text-right ml-auto xl:m-0 pt-6">
-          <Link href={communityNavigation.submissionsPath("")}>
+          <Link href={navigation.community.submissionsPath("")}>
             <ArrowButton
               variant="outline-primary"
               communityStyles={true}

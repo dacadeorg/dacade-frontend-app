@@ -5,8 +5,7 @@ import Badge from "@/components/ui/Badge";
 import Link from "next/link";
 import { Submission } from "@/types/bounty";
 import { ReactElement } from "react";
-import { useRouter } from "next/router";
-import CommunityNavigation from "@/utilities/CommunityNavigation";
+import navigation from "@/config/navigation";
 
 interface SubmissionCardProps {
   submission: Submission;
@@ -15,16 +14,15 @@ interface SubmissionCardProps {
 export default function SubmissionCard({
   submission,
 }: SubmissionCardProps): ReactElement {
-  const router = useRouter();
   const colors = useSelector((state) => state.ui.colors);
   const community = useSelector((state) => state.communities.current);
   const date = DateManager.fromNow(submission.created_at, "en");
 
-  const communityNavigation = new CommunityNavigation(router);
-
   return (
     <div className="bg-gray-50 text-sm text-gray-700 border-solid border border-gray-200 rounded-3xl mb-5 md:mb-0">
-      <Link href={communityNavigation.submissionsPath(submission.id)}>
+      <Link
+        href={navigation.community.submissionsPath(submission.id)}
+      >
         <div className="p-7">
           <span className="text-lg leading-loose font-medium text-gray-900 pb-1">
             {submission.user.displayName}

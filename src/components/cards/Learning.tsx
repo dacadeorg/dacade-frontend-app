@@ -1,4 +1,4 @@
-import CommunityNavigation from "@/utilities/CommunityNavigation";
+import navigation from "@/config/navigation";
 import DateManager from "@/utilities/DateManager";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
@@ -31,7 +31,7 @@ interface LearningModule {
   description: string;
 }
 /**
- * 
+ *
  * Learning component props interface
  * @date 3/29/2023 - 6:35:38 PM
  *
@@ -54,8 +54,6 @@ export default function Learning({
   learningModule,
 }: LearningProps): ReactElement {
   const router = useRouter();
-  const navigation = new CommunityNavigation(router);
-
   const duration = (value: number) => {
     if (!value) {
       return 0;
@@ -66,7 +64,7 @@ export default function Learning({
     );
   };
   const navigate = () => {
-    const courseLink = navigation.learningModulePath(
+    const courseLink = navigation.community.learningModulePath(
       learningModule.id
     );
     router.push(courseLink);

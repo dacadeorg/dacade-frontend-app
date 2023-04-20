@@ -96,7 +96,7 @@ export default function Bounty({
           <div className="mt-4 space-y-0 divide-y divide-gray-200 border-t border-t-solid border-gray-200">
             {bounty.submissions.map((submission) => (
               <Link
-                href={navigation.community.submissionPath(
+                href={navigation.community.submissionsPath(
                   submission.id,
                   bounty.challenge,
                   bounty.course.slug,
