@@ -1,7 +1,13 @@
 import Button from ".";
 import Spinner from "@/icons/spinner.svg";
 import ArrowRightIcon from "@/icons/arrow-right.svg";
-import { HTMLProps, ReactElement, ReactNode, useMemo } from "react";
+import {
+  CSSProperties,
+  HTMLProps,
+  ReactElement,
+  ReactNode,
+  useMemo,
+} from "react";
 import classNames from "classnames";
 
 /**

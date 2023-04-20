@@ -142,35 +142,9 @@ export default class CommunityNavigation {
   }
 
   /**
-   * Get the submission path for the specified community and course slug
-   * @date 3/21/2023 - 12:35:40 PM
-   *
-   * @param {string} path
-   * @param {(string | undefined)} [challengeId=this.params().challenge_id]
-   * @param {(string | undefined)} [courseSlug=this.params().course_slug]
-   * @param {(string | undefined)} [communitySlug=this.params().slug]
-   * @returns {string}
-   */
-
-  submissionPath(
-    path: string,
-    challengeId: string | undefined = this.params().challenge_id,
-    courseSlug: string | undefined = this.params().course_slug,
-    communitySlug: string | undefined = this.params().slug
-  ): string {
-    return this.cleanupUrl(
-      this.challengePath(
-        `${challengeId}/submissions/${path}`,
-        courseSlug,
-        communitySlug
-      )
-    );
-  }
-
-  /**
    * Get the submissions path for the specified community and course slug
    * @date 3/21/2023 - 12:36:20 PM
-   *
+   * @param {(string)} path
    * @param {(string | undefined)} [challengeId=this.params().challenge_id]
    * @param {(string | undefined)} [courseSlug=this.params().course_slug]
    * @param {(string | undefined)} [communitySlug=this.params().slug]
@@ -178,13 +152,14 @@ export default class CommunityNavigation {
    */
 
   submissionsPath(
-    challengeId: string | undefined = this.params().challenge_id,
-    courseSlug: string | undefined = this.params().course_slug,
-    communitySlug: string | undefined = this.params().slug
+    path: string,
+    challengeId: string = this.params().challenge_id as string,
+    courseSlug: string = this.params().course_slug as string,
+    communitySlug: string = this.params().slug as string
   ): string {
     return this.cleanupUrl(
       this.challengePath(
-        `${challengeId}/submissions`,
+        `${challengeId}/submissions/${path}`,
         courseSlug,
         communitySlug
       )
@@ -241,7 +216,7 @@ export default class CommunityNavigation {
 
   bountyLinks(
     course: Course,
-    communitySlug: string | undefined = this.params().slug
+    communitySlug: string = this.params().slug as string
   ): BountyLink[] {
     if (!course?.challenge) return [];
 
@@ -259,7 +234,7 @@ export default class CommunityNavigation {
       {
         id: "submissions",
         label: "communities.navigation.submissions",
-        link: this.submissionPath(
+        link: this.submissionsPath(
           "",
           course.challenge.id,
           course.slug,

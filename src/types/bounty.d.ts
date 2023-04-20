@@ -1,5 +1,5 @@
-import { Course, Metadata, Reward } from "./course";
-import { Colors } from "./community";
+import { Challenge, Course, Metadata, Reward } from "./course";
+import { Colors, Community } from "./community";
 import { ReactNode } from "react";
 
 export interface Bounty {
@@ -63,10 +63,10 @@ export interface Submission {
   map(arg0: (submission: Submission) => JSX.Element): ReactNode;
   id: string;
   ref: string;
-  created_at: string;
-  updated_at: string;
+  created_at: Date;
+  updated_at: Date;
   link: string;
-  community: string;
+  community: Community;
   user_id: string;
   challenge: string;
   text: string;
@@ -76,10 +76,11 @@ export interface Submission {
   user: User;
   reviewable: boolean;
   status: string;
+  reward: ApplicableReward;
 }
 
 export interface SubmissionMetadata {
-  evaluation: any;
+  evaluation: Evaluation;
   applicableReward: ApplicableReward;
   reviewed: boolean;
   feedbacks: number;
@@ -90,11 +91,11 @@ export interface ApplicableReward {
   ref: string;
   amount: number;
   updated_at: string;
-  challenge: string;
+  challenge: Challenge;
   created_at: string;
   id: string;
-  type: string;
-  community: string;
+  type: Type;
+  community: Community;
   timestamp: number;
   token: string;
   stable?: boolean;
@@ -123,7 +124,7 @@ export interface UserMetadata {
 
 export interface Reputation {
   total: number;
-  list: string[];
+  list: { [key: string]: number };
 }
 
 export interface BountyAuthor {
@@ -133,4 +134,22 @@ export interface BountyAuthor {
 
 export enum RewardType {
   submission = "SUBMISSION",
+}
+
+export enum SubmissionType {
+  feedback = "FEEDBACK",
+  submission = "SUBMISSION",
+}
+
+export interface Evaluation {
+  reward: EvaluationReward | null;
+  score: number;
+  totalPoints: number;
+  points: number;
+}
+
+export interface EvaluationReward {
+  amount: number;
+  ref: string;
+  token: string;
 }
