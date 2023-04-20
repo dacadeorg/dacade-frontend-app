@@ -7,6 +7,9 @@ interface Color {
   text: string;
   accent: string;
   primary: string;
+  secondary: string;
+  highlight: string;
+  muted: string;
 }
 interface UIAction {
   payload: Color | string | boolean;
@@ -24,6 +27,9 @@ const initialState: UIState = {
     text: "",
     accent: "",
     primary: "",
+    secondary: "",
+    highlight: "",
+    muted: "",
   },
   locked: false,
   showReferralPopup: false,

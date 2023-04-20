@@ -15,6 +15,7 @@ import classNames from "classnames";
 import Checkbox from "@/components/ui/Checkbox";
 import { singUp } from "@/store/feature/auth.slice";
 import ReferralsList from "@/components/popups/referral/List";
+import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 
 /**
  * Signup form values
@@ -54,7 +55,8 @@ export default function Signup(): ReactElement {
 
   const onSubmit = (form: FormValues) => {
     setLoading(true);
-    const { email, username, password, referralCode, checkTerms } = form;
+    const { email, username, password, referralCode, checkTerms } =
+      form;
     const signupData = {
       email,
       username,
@@ -191,12 +193,14 @@ export default function Signup(): ReactElement {
                       <Checkbox
                         id="terms-checkbox"
                         {...register("checkTerms", {
-                          required: `${t("signup-page.terms.warning")}`,
+                          required: `${t(
+                            "signup-page.terms.warning"
+                          )}`,
                         })}
                       />
                     </div>
                     <div className="max-w-none test">
-                      <p>I agree to {t("app.name")}s</p>
+                      <p>I agree to {t("app.name")}&#8217;s</p>
                       <Link
                         className="underline"
                         href="/terms-conditions"
@@ -229,6 +233,8 @@ export default function Signup(): ReactElement {
     </>
   );
 }
-
+Signup.getLayout = function (page: ReactElement) {
+  return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
+};
 export const getStaticProps: GetStaticProps = async ({ locale }) =>
   i18Translate(locale as string);
