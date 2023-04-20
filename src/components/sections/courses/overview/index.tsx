@@ -30,7 +30,7 @@ export default function Overview() {
       <TrailerSection />
       <LearningModulesSection />
       <ChallengeSection />
-      <PageNavigation show={true} />
+      <PageNavigation />
     </div>
   ) : null;
 }

@@ -52,13 +52,15 @@ export default function CourseViewPage(props: {
   }, [community, course, dispatch, list]);
 
   const title = getMetadataTitle(course.name);
-  const meta = getMetadataDescription(course.description);
-  const metaDescription = meta ? meta[0].content : "";
+  const descriptions = getMetadataDescription(course.description);
+
   return (
     <Wrapper>
       <Head>
         <title>{title}</title>
-        <meta name="description" content={metaDescription} />
+        {descriptions.map((meta, i) => (
+          <meta key={`sourse_slug-head-${i}`} {...meta} />
+        ))}
       </Head>
       <div className="flex flex-col py-8 space-y-8 text-gray-700 divide-y divide-gray-200 lg:py-0 lg:pb-8 divide-solid">
         <OverviewSection />
@@ -99,8 +101,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     const community = results[0].payload;
     const course = results[1].payload;
-
-    console.log(course);
 
     if (course) {
       return {

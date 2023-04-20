@@ -291,7 +291,7 @@ export default class CommunityNavigation {
       community?.slug
     );
 
-    // TODO: improve naming of the List
+    // TODO: improve the naming of the List
     const list: List[] = [
       {
         id: "introduction",

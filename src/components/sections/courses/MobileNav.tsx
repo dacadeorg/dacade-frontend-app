@@ -3,7 +3,7 @@ import Navigation from "./Navigation";
 import { useTranslation } from "next-i18next";
 import { useSelector } from "@/hooks/useTypedSelector";
 import ChevronRightIcon from "@/icons/chevron-right.svg";
-import ChevronBottomIcon from "@/icons/chevron-right.svg";
+import ChevronBottomIcon from "@/icons/chevron-bottom.svg";
 
 /**
  * MobileNav component interface
@@ -36,11 +36,12 @@ export default function MobileNav({
   const activeLinkStyle = {
     color: colors.textAccent,
   };
+
   return (
     <div
       style={activeLinkStyle}
       className={`text-sm font-medium -mt-4 relative pt-4 py-4 md:py-7 border-b-2 border-t-2 ${
-        !showTopBorder ? "border-t-2" : "-mt-12"
+        !showTopBorder ? "border-t-2" : "-mt-10"
       }`}
     >
       <div className="flex">

@@ -27,12 +27,12 @@ export default function Rewards(): ReactElement {
             {course.challenge.rewards.map(
               (reward: RewardType, i: number) => {
                 return (
-                  <div key={`reward-${i}`}>
-                    <Reward
-                      reward={reward}
-                      category={reward.type.toLowerCase()}
-                    />
-                  </div>
+                  <Reward
+                    key={`reward-${i}`}
+                    reward={reward}
+                    size="medium"
+                    category={reward.type.toLowerCase()}
+                  />
                 );
               }
             )}

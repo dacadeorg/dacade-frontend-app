@@ -3,6 +3,9 @@ import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import { useSelector } from "@/hooks/useTypedSelector";
 import LanguageSwitcher from "./_partials/LanguageSwitcher";
 import CourseLink from "./_partials/navigation/link/CourseLink";
+import { useEffect } from "react";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 
 /**
  * Navigation component
@@ -13,12 +16,17 @@ import CourseLink from "./_partials/navigation/link/CourseLink";
  */
 export default function Navigation() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const community = useSelector(
     (state) => state.communities?.current
   );
 
-  const menus = useSelector((state) => state.courses?.menus);
+  useEffect(() => {
+    initNavigationMenu()(dispatch);
+  }, [dispatch]);
+
+  const menus = useSelector((state) => state.navigation.menus);
 
   return community ? (
     <ThemeWrapper colors={community.colors}>
@@ -34,7 +42,7 @@ export default function Navigation() {
                 )}
                 <ul>
                   {menu.items.length ? (
-                    menu.items.map((item, index) => {
+                    menu.items.map((item, index: number) => {
                       return (
                         <li
                           key={`menu-item-${index}`}
