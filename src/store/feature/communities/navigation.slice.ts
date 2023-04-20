@@ -83,7 +83,6 @@ export const initNavigationMenu = () => (dispatch: Dispatch) => {
     community,
   });
   dispatch(setNavigationList(menus));
-  return menus;
 };
 
 /**
