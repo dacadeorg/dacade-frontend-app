@@ -1,10 +1,11 @@
+import { Scoreboard } from "@/types/scoreboard";
 import {
   createAsyncThunk,
   createSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { Community } from "@/types/community";
-import { fetchCommunities } from "@/services/community";
+import api from "@/config/api";
 
 /**
  * CommunitiesState interface
@@ -16,9 +17,9 @@ import { fetchCommunities } from "@/services/community";
  */
 export interface CommunitiesState {
   list: Community[];
-  current?: Community;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: object | null | string;
+  current: Community | null;
 }
 
 /**
@@ -31,6 +32,7 @@ const initialState: CommunitiesState = {
   list: [],
   status: "idle",
   error: null,
+  current: null,
 };
 
 /**
@@ -43,7 +45,10 @@ const communitiesSlice = createSlice({
   name: "communities",
   initialState,
   reducers: {
-    setCurrentCommunity: (state, action) => {
+    setAll: (state, action: PayloadAction<Community[]>) => {
+      state.list = action.payload;
+    },
+    setCurrent: (state, action: PayloadAction<Community>) => {
       state.current = action.payload;
     },
   },
@@ -62,9 +67,13 @@ const communitiesSlice = createSlice({
       .addCase(fetchAllCommunities.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload as string;
+      })
+      .addCase(fetchCurrentCommunity.fulfilled, (state, action) => {
+        state.current = action.payload;
       });
   },
 });
+export const { setCurrent, setAll } = communitiesSlice.actions;
 
 /**
  * Fetches all communities from the API.
@@ -75,14 +84,38 @@ export const fetchAllCommunities = createAsyncThunk(
   "communities/all",
   async ({ locale }: { locale: string }, { rejectWithValue }) => {
     try {
-      const communities = await fetchCommunities({ locale });
-      return communities;
+      const { data } = await api(locale).server.get<Community[]>(
+        "communities"
+      );
+      return data;
     } catch (error) {
       return rejectWithValue(error);
     }
   }
 );
 
-export const { setCurrentCommunity } = communitiesSlice.actions;
+/**
+ * Fetch a community by name
+ * @date 4/14/2023 - 1:00:03 PM
+ *
+ * @type {*}
+ */
+
+export const fetchCurrentCommunity = createAsyncThunk(
+  "communities/current",
+  async (
+    { slug, locale }: { slug: string; locale: string },
+    { rejectWithValue }
+  ) => {
+    try {
+      const { data } = await api(locale).server.get<Community>(
+        `communities/${slug}`
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 
 export default communitiesSlice;

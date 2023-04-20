@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
-import community from "./feature/community.slice";
+import communities from "./feature/community.slice";
 import {
   referralsApi,
   referralSlice,
@@ -13,11 +13,12 @@ import walletSlice from "./feature/wallet.slice";
 import reputationSlice from "./feature/reputation.slice";
 import indexSlice from "./feature/index.slice";
 import { communitiesApi } from "./feature/communities.slice";
-import { coursesApi } from "./feature/course.slice";
 import authSlice from "./feature/auth.slice";
+import scoreboardSlice from "./feature/communities/scoreboard.slice";
+import courseSlice from "./feature/course.slice";
 
 export interface IRootState {
-  communities: ReturnType<typeof community.reducer>;
+  communities: ReturnType<typeof communities.reducer>;
   ui: ReturnType<typeof ui.reducer>;
   referrals: ReturnType<typeof referralSlice.reducer>;
   user: ReturnType<typeof userSlice.reducer>;
@@ -27,8 +28,9 @@ export interface IRootState {
   reputations: ReturnType<typeof reputationSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
+  scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   communityApi: ReturnType<typeof communitiesApi.reducer>;
-  courses: ReturnType<typeof coursesApi.reducer>;
+  courses: ReturnType<typeof courseSlice.reducer>;
 }
 
 export const store = configureStore({
@@ -41,17 +43,16 @@ export const store = configureStore({
     [walletSlice.name]: walletSlice.reducer,
     [reputationSlice.name]: reputationSlice.reducer,
     [indexSlice.name]: indexSlice.reducer,
-    [community.name]: community.reducer,
     [authSlice.name]: authSlice.reducer,
+    [scoreboardSlice.name]: scoreboardSlice.reducer,
+    [courseSlice.name]: courseSlice.reducer,
     [communitiesApi.reducerPath]: communitiesApi.reducer,
     [referralsApi.reducerPath]: referralsApi.reducer,
-    [coursesApi.reducerPath]: coursesApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
       referralsApi.middleware,
-      communitiesApi.middleware,
-      coursesApi.middleware,
+      communitiesApi.middleware
     );
   },
   devTools: true,

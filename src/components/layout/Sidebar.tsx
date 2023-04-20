@@ -19,6 +19,7 @@ import { readNotification } from "@/store/feature/notification.slice";
 import { logout } from "@/store/feature/auth.slice";
 import { authVerify } from "@/store/feature/auth.slice";
 import ReputationList from "../list/Reputation";
+
 /**
  * Sidebar props interface
  * @date 4/4/2023 - 3:49:01 PM
@@ -27,7 +28,7 @@ import ReputationList from "../list/Reputation";
  * @typedef {SidebarProps}
  */
 interface SidebarProps {
-  burgerColor: boolean;
+  burgerColor?: boolean;
 }
 
 /**
@@ -76,6 +77,7 @@ export default function Sidebar({
     toggleBodyScrolling(show)(dispatch);
     window.scrollTo(0, 0);
   };
+
   return (
     <div className="relative">
       <li
@@ -203,16 +205,17 @@ export default function Sidebar({
             {!isAuthenticated && (
               <div className="w-full h-15 p-2 flex">
                 <Button
-                  padding="false"
+                  padding={false}
                   type="button"
                   variant="secondary"
-                  className="w-full p-3 text-sm font-medium"
+                  className="w-full p-3 text-sm font-medium text-primary"
                   onClick={toggle}
                 >
-                  <Link className="w-full" href={"/login"}>
+                  <Link className="w-full" href="/login">
                     {t("nav.login")}
                   </Link>
                 </Button>
+
                 <Button
                   variant="primary"
                   type="button"
@@ -220,11 +223,10 @@ export default function Sidebar({
                   className="w-full p-3 text-sm font-medium"
                   onClick={toggle}
                 >
-                  <Link className="w-full" href={"/signup"}>
+                  <Link className="w-full" href="/signup">
                     {t("nav.sign-up")}
                   </Link>
                 </Button>
-                <ReputationList />
               </div>
             )}
           </div>

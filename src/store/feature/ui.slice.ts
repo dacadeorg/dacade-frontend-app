@@ -7,6 +7,9 @@ interface Color {
   text: string;
   accent: string;
   primary: string;
+  secondary: string;
+  highlight: string;
+  muted: string;
 }
 interface UIAction {
   payload: Color | string | boolean;
@@ -20,10 +23,13 @@ export interface UIState {
 // TODO: colors to be initialized when the communities have been initialized
 const initialState: UIState = {
   colors: {
-    textAccent: "#000000",
-    text: "#fff",
-    accent: "#A6FA7C",
-    primary: "#000000",
+    textAccent: "",
+    text: "",
+    accent: "",
+    primary: "",
+    secondary: "",
+    highlight: "",
+    muted: "",
   },
   locked: false,
   showReferralPopup: false,

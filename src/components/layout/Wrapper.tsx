@@ -34,7 +34,7 @@ export default function LayoutWrapper({
 
   return (
     <div
-      className={`relative w-full h-full content-wrapper ${graphik.variable} font-sans`}
+      className={`relative w-full h-full ${graphik.variable} font-sans`}
     >
       {children}
       {showReferral && <ReferralPopup />}
