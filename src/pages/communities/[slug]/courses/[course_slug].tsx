@@ -21,7 +21,10 @@ import Wrapper from "@/components/sections/courses/Wrapper";
 import CommunityNavigation from "@/utilities/CommunityNavigation";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { getMetadataTitle } from "@/utilities/Metadata";
+import {
+  getMetadataDescription,
+  getMetadataTitle,
+} from "@/utilities/Metadata";
 
 export default function CommunityCourseViewPage(props: {
   pageProps: {
@@ -48,13 +51,13 @@ export default function CommunityCourseViewPage(props: {
   }, [community, course, list]);
 
   const title = getMetadataTitle(course.name);
-  const meta = getMetadataTitle(course.description);
-
+  const meta = getMetadataDescription(course.description);
+  const metaDescription = meta ? meta[0].content : "";
   return (
     <Wrapper>
       <Head>
         <title>{title}</title>
-        <meta name="description" content={meta} />
+        <meta name="description" content={metaDescription} />
       </Head>
       <div className="flex flex-col py-8 space-y-8 text-gray-700 divide-y divide-gray-200 lg:py-0 lg:pb-8 divide-solid">
         <OverviewSection />
