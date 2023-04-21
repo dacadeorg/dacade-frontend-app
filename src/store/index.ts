@@ -19,6 +19,7 @@ import challengeSlice from "./feature/communities/challenges";
 import courseSlice from "./feature/course.slice";
 import submissionSlice from "./feature/communities/challenges/submissions";
 import eventsSlice from "./feature/events.slice";
+import { navigationSlice } from "./feature/communities/navigation.slice";
 import { learningModules } from "./feature/learningModules.slice";
 
 export interface IRootState {
@@ -38,6 +39,7 @@ export interface IRootState {
   communityApi: ReturnType<typeof communitiesApi.reducer>;
   challenges: ReturnType<typeof challengeSlice.reducer>;
   courses: ReturnType<typeof courseSlice.reducer>;
+  navigation: ReturnType<typeof navigationSlice.reducer>;
   learningModules: ReturnType<typeof learningModules.reducer>;
 }
 
@@ -59,6 +61,7 @@ export const store = configureStore({
     [submissionSlice.name]: submissionSlice.reducer,
     [communitiesApi.reducerPath]: communitiesApi.reducer,
     [referralsApi.reducerPath]: referralsApi.reducer,
+    [navigationSlice.name]: navigationSlice.reducer,
     [learningModules.name]: learningModules.reducer,
   },
   middleware: (getDefaultMiddleware) => {

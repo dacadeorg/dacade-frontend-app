@@ -80,7 +80,7 @@ export default function Submission(): ReactElement {
         setSubmitting(true);
         const result = await dispatch(
           createSubmission({
-            challengeId: challenge?.id as string,
+            challengeId: challenge?.id!,
             text: form.text,
             link: form.githubLink,
           })
