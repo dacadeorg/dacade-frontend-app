@@ -57,6 +57,7 @@ export const store = configureStore({
     [communitySlice.name]: communitySlice.reducer,
     [communitiesApi.reducerPath]: communitiesApi.reducer,
     [referralsApi.reducerPath]: referralsApi.reducer,
+    [navigationSlice.name]: navigationSlice.reducer,
     [learningModules.name]: learningModules.reducer,
   },
   middleware: (getDefaultMiddleware) => {

@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
             communities: [],
           },
         };
-      const communities = result.data;
+      const communities = await result.data;
       return {
         props: {
           ...(await serverSideTranslations(locale as string)),

@@ -20,7 +20,7 @@ export default function Disclaimer(): ReactElement {
     <>
       {course && course.disclaimer ? (
         <Section>
-          <Hint>
+          <Hint className={""}>
             <strong>
               {t("communities.overview.info.disclaimer.title")}:
             </strong>

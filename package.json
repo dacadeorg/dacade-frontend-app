@@ -12,6 +12,7 @@
   "dependencies": {
     "@coingecko/cryptoformat": "^0.5.4",
     "@reduxjs/toolkit": "^1.9.3",
+    "@stefanprobst/remark-extract-toc": "^2.2.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/axios": "^0.14.0",
@@ -26,6 +27,7 @@
     "eslint-config-next": "13.2.4",
     "firebase": "^9.19.1",
     "github-slugger": "^2.0.0",
+    "gray-matter": "^4.0.3",
     "hex-to-rgba": "^2.0.1",
     "highlightjs-solidity": "^2.0.6",
     "i18next": "^22.4.13",
@@ -50,6 +52,7 @@
     "remark-gfm": "^3.0.1",
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
+    "remark-unwrap-all-images": "^1.0.1",
     "typescript": "5.0.2",
     "unified": "^10.1.2",
     "unist-util-visit": "^2.0.0",

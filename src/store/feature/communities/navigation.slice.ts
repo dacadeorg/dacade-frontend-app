@@ -23,22 +23,54 @@ interface NavigationState {
 }
 
 /**
- * Initial Navigation State
- * @date 4/20/2023 - 4:08:49 PM
+ * Subitem interface
+ * @date 4/19/2023 - 8:58:05 PM
  *
- * @type {NavigationState}
+ * @interface SubItem
+ * @typedef {SubItem}
  */
+export interface SubItem {
+  label: string;
+  link: string;
+  exact: boolean;
+}
+
+/**
+ *  Item interface
+ * @date 4/19/2023 - 8:58:20 PM
+ *
+ * @interface Item
+ * @typedef {Item}
+ */
+export interface Item {
+  id: string | string[] | undefined;
+  subitems: SubItem[];
+}
+
+/**
+ * Items interface
+ * @date 4/19/2023 - 9:56:39 PM
+ *
+ * @export
+ * @interface Items
+ * @typedef {Items}
+ */
+export interface Items {
+  id: string | string[] | undefined;
+  items: Item[];
+}
+
+// Define initial state
+interface NavigationState {
+  list: Items[];
+}
+
 const initialState: NavigationState = {
+  list: [],
   menus: [],
   showPageNavigation: true,
 };
 
-/**
- * Navigation slice
- * @date 4/20/2023 - 4:09:08 PM
- *
- * @type {*}
- */
 export const navigationSlice = createSlice({
   name: "navigation",
   initialState,
@@ -55,8 +87,12 @@ export const navigationSlice = createSlice({
   },
 });
 
-export const { setNavigationList, setShowPageNavigation } =
-  navigationSlice.actions;
+
+export const {
+  setNavigationList,
+  setShowPageNavigation,
+} = navigationSlice.actions;
+
 
 export const communityPath = (link: string, router: NextRouter) => {
   return `/communities/${router.query.slug}/courses/${router.query.course_slug}/${link}`;
@@ -85,12 +121,15 @@ export const initNavigationMenu = () => (dispatch: Dispatch) => {
   dispatch(setNavigationList(menus));
 };
 
+
+
 /**
  * Hide navigation action
  * @date 4/20/2023 - 4:09:46 PM
  *
  * @returns {(dispatch: Dispatch) => void}
  */
+
 export const hidePageNavigation = () => (dispatch: Dispatch) => {
   dispatch(setShowPageNavigation(false));
 };
@@ -101,6 +140,13 @@ export const hidePageNavigation = () => (dispatch: Dispatch) => {
  *
  * @returns {(dispatch: Dispatch) => void}
  */
+
+
 export const showPageNavigation = () => (dispatch: Dispatch) => {
   dispatch(setShowPageNavigation(true));
 };
+
+
+
+
+

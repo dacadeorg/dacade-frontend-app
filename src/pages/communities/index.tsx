@@ -13,6 +13,7 @@ import { wrapper } from "@/store";
 import { Community } from "@/types/community";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HomeLayout from "@/layouts/Home";
+import { result } from "lodash";
 
 /**
  * Interface for community view page
