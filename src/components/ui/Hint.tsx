@@ -2,7 +2,7 @@ import { ReactElement, ReactNode } from "react";
 
 type HintProps = {
   children: ReactNode;
-  className: string;
+  className?: string;
 };
 
 function Hint({ children, className }: HintProps): ReactElement {
