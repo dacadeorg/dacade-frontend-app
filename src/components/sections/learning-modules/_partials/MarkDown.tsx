@@ -1,5 +1,6 @@
 import {
   CSSProperties,
+  ReactElement,
   useCallback,
   useEffect,
   useState,
@@ -24,7 +25,6 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useRouter } from "next/router";
 import { Compatible } from "vfile";
-import { ReactElement } from "react-markdown/lib/react-markdown";
 import { setNavigationList } from "@/store/feature/communities/navigation.slice";
 
 /**

@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, ReactElement } from "react";
 import PageNavigation from "@/components/sections/courses/PageNavigation";
 import InteractiveModule from "@/components/sections/learning-modules/InteractiveModule";
 import AdditionalMaterialsSection from "@/components/sections/learning-modules/AdditionalMaterials";
@@ -28,7 +28,6 @@ import {
 import MaterialSection from "@/components/sections/learning-modules/MaterialSection";
 import { MaterialType } from "@/types/material";
 import CommunityLayout from "@/layouts/Community";
-import { ReactElement } from "react-markdown/lib/react-markdown";
 
 export default function LearningModulePage(props: {
   pageProps: {

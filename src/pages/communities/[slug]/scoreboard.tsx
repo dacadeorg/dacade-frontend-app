@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactElement, ReactNode, useEffect } from "react";
 import Header from "@/components/sections/communities/_partials/Header";
 import ScoreboardCard from "@/components/cards/Scoreboard";
 import {
@@ -12,7 +12,6 @@ import { useRouter } from "next/router";
 import { fetchAllScoreboards } from "@/store/feature/communities/scoreboard.slice";
 import { useTranslation } from "next-i18next";
 import Head from "next/head";
-import { ReactElement } from "react-markdown/lib/react-markdown";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import HomeLayout from "@/layouts/Home";

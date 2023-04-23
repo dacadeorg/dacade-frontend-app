@@ -1,9 +1,8 @@
 import { useRouter } from "next/router";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
-import { useEffect, useMemo, useState } from "react";
+import { ReactElement, useEffect, useMemo, useState } from "react";
 import { languages } from "@/constants/languages";
-import { ReactElement } from "react-markdown/lib/react-markdown";
 
 /**
  * Locale interface
