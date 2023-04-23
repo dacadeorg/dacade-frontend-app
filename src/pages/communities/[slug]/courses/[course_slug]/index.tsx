@@ -1,32 +1,29 @@
 import { wrapper } from "@/store";
-import HomeLayout from "@/layouts/Home";
 import { ReactElement, useEffect } from "react";
 import OverviewSection from "@/components/sections/courses/overview";
 import {
   fetchCurrentCommunity,
-  setCurrent as setCurrentCommunity,
+  setCurrentCommunity,
 } from "@/store/feature/community.slice";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useDispatch } from "react-redux";
 import {
-  setCurrent,
+  setCurrentCourse,
   fetchCourse,
-  setNavigation,
+  setCourseNavigation,
 } from "@/store/feature/course.slice";
 import { Community } from "@/types/community";
 import { Course } from "@/types/course";
 import { setColors } from "@/store/feature/ui.slice";
 import Wrapper from "@/components/sections/courses/Wrapper";
-import CommunityNavigation from "@/utilities/CommunityNavigation";
-import { useRouter } from "next/router";
 import Head from "next/head";
 import {
   getMetadataDescription,
   getMetadataTitle,
 } from "@/utilities/Metadata";
-import CommunityLayout from "@/layouts/Community";
 import DefaultLayout from "@/components/layout/Default";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
+import navigation from "@/config/navigation";
 
 export default function CourseViewPage(props: {
   pageProps: {
@@ -38,18 +35,13 @@ export default function CourseViewPage(props: {
   const { community, course } = props.pageProps;
 
   const dispatch = useDispatch();
-
-  const router = useRouter();
-
-  const communityNavigation = new CommunityNavigation(router);
-
-  const list = communityNavigation.init({ community, course });
+  const list = navigation.community.init({ community, course });
 
   useEffect(() => {
     dispatch(setCurrentCommunity(community));
-    dispatch(setCurrent(course));
+    dispatch(setCurrentCourse(course));
     dispatch(setColors(community.colors));
-    dispatch(setNavigation({ list }));
+    dispatch(setCourseNavigation({ list }));
     initNavigationMenu()(dispatch);
   }, [community, course, dispatch, list]);
 
