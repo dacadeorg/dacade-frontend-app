@@ -86,8 +86,8 @@ export default function MaterialSection({ material }: MaterialProps) {
             variant="outline-primary"
           >
             {material?.type === MaterialType.TEXT
-              ? t("learning-module.material?.open.lesson")
-              : t("learning-module.material?.open.article")}
+              ? t("learning-module.material.open.lesson")
+              : t("learning-module.material.open.article")}
           </ArrowButton>
         )}
     </Section>

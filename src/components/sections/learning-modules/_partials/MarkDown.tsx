@@ -46,16 +46,16 @@ interface MarkDownProps {
  * @param {MarkDownProps} { url }
  * @returns {ReactElement}
  */
-export function Markdown({ url }: MarkDownProps): ReactElement {
+export default function Markdown({
+  url,
+}: MarkDownProps): ReactElement {
   const dispatch = useDispatch();
   const [markdown, setMarkdown] = useState<{ [key: string]: any }>();
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const route = useRouter();
   const colors = useSelector((state) => state.ui.colors);
-  const menus = useSelector(
-    (state) => state.navigation.list
-  );
+  const menus = useSelector((state) => state.navigation.list);
 
   const themeStyles = {
     "--text-accent-color": colors.textAccent,
