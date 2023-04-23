@@ -146,8 +146,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const course = results[1].payload;
     const learningModule = results[2].payload;
 
-    console.log(results);
-
     return {
       props: {
         ...(await serverSideTranslations(locale)),
