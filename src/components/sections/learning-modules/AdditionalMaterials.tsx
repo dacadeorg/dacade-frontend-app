@@ -3,7 +3,7 @@ import Section from "@/components/sections/communities/_partials/Section";
 import Duration from "@/components/sections/courses/_partials/Duration";
 import Slugger from "github-slugger";
 import Link from "next/link";
-import { Material } from "@/types/course";
+import { Material } from "@/types/material";
 
 /**
  * AdditionalMaterialSection component props
