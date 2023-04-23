@@ -1,4 +1,10 @@
-import { ChangeEvent, ReactElement, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  HTMLProps,
+  ReactElement,
+  useMemo,
+  useState,
+} from "react";
 import GithubIcon from "@/icons/github.svg";
 import classNames from "classnames";
 
@@ -10,11 +16,11 @@ import classNames from "classnames";
  * @typedef {InputProps}
  */
 
-interface GithubLinkInputProps {
-  type: string;
+interface GithubLinkInputProps extends HTMLProps<HTMLInputElement> {
+  type?: string;
   value: string;
-  label: string | null;
-  disabled: boolean;
+  label?: string;
+  disabled?: boolean;
   placeholder?: string;
   error: string | null;
   handleInput: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -44,7 +50,7 @@ interface GithubLinkInputProps {
 export default function GithubLinkInput({
   type = "text",
   value = "",
-  label = null,
+  label,
   disabled = false,
   placeholder,
   error = null,
