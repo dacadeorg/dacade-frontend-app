@@ -22,8 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/components/ui/Markdown.jsx",
-    "src/components/ui/Markdown.jsx"
+    "src/components/sections/learning-modules/_partials/MarkDown.jsx"
   ],
   "exclude": ["node_modules"]
 }

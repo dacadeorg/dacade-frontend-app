@@ -26,8 +26,8 @@ import {
   getMetadataTitle,
 } from "@/utilities/Metadata";
 import MaterialSection from "@/components/sections/learning-modules/MaterialSection";
-import { MaterialType } from "@/types/material";
-import CommunityLayout from "@/layouts/Community";
+import DefaultLayout from "@/components/layout/Default";
+import Header from "@/components/sections/learning-modules/Header";
 
 export default function LearningModulePage(props: {
   pageProps: {
@@ -48,14 +48,14 @@ export default function LearningModulePage(props: {
   const materials = useMemo(
     () =>
       learningModule?.materials?.filter(
-        (material) => material.type !== MaterialType.ADDITIONAL
+        (material) => material.type !== "ADDITIONAL"
       ) || [],
     [learningModule?.materials]
   );
   const additionalMaterials = useMemo(
     () =>
       learningModule?.materials?.filter(
-        (material) => material.type === MaterialType.ADDITIONAL
+        (material) => material.type === "ADDITIONAL"
       ) || [],
     [learningModule?.materials]
   );
@@ -80,6 +80,7 @@ export default function LearningModulePage(props: {
       </Head>
       <Wrapper>
         <div className="py-8 flex flex-col divide-y divide-solid divide-gray-200 space-y-8 text-gray-700">
+          <Header />
           <div className="w-full divide-y divide-solid divide-gray-200">
             {materials.map((material, i) => (
               <MaterialSection
@@ -102,7 +103,11 @@ export default function LearningModulePage(props: {
 }
 
 LearningModulePage.getLayout = function (page: ReactElement) {
-  return <CommunityLayout>{page}</CommunityLayout>;
+  return (
+    <DefaultLayout footerBackgroundColor={"default"}>
+      {page}
+    </DefaultLayout>
+  );
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -140,6 +145,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const community = results[0].payload;
     const course = results[1].payload;
     const learningModule = results[2].payload;
+
+    console.log(results);
 
     return {
       props: {

@@ -6,7 +6,8 @@ import Video from "@/components/ui/Video";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import Markdown from "./_partials/MarkDown";
-import { Material, MaterialType } from "@/types/material";
+import { Material } from "@/types/Material";
+
 /**
  * Material component
  * @date 4/20/2023 - 10:36:51 AM
@@ -18,15 +19,13 @@ interface MaterialProps {
   material?: Material;
 }
 
-
 export default function MaterialSection({ material }: MaterialProps) {
   const sluggify = (text: string) => {
     const slugger = new Slugger();
     return slugger.slug(text);
   };
 
-  
-  const isAdditional = material?.type === MaterialType.ADDITIONAL;
+  const isAdditional = material?.type === "ADDITIONAL";
   const materialId = !(!material?.title || isAdditional)
     ? sluggify(material?.title)
     : "";
@@ -48,10 +47,10 @@ export default function MaterialSection({ material }: MaterialProps) {
           {material?.description}
         </span>
       )}
-      {material?.type === MaterialType["EMBEDDED-VIDEO"] && (
+      {material?.type === "EMBEDDED-VIDEO" && (
         <Video url={material.link} />
       )}
-      {material?.type === MaterialType.MARKDOWN && (
+      {material?.type === "MARKDOWN" && (
         <Markdown url={material?.link} />
       )}
       {isAdditional && (
@@ -76,17 +75,17 @@ export default function MaterialSection({ material }: MaterialProps) {
           ))}
         </div>
       )}
-      {(material?.type === MaterialType.TEXT ||
-        material?.type === MaterialType.ARTICLE) &&
+      {(material?.type === "TEXT" || material?.type === "ARTICLE") &&
         material?.link && (
           <ArrowButton
+            padding={true}
             link={material?.link}
             target="__blank"
             className="mt-4 block"
-            community-styles={true}
+            communityStyles={true}
             variant="outline-primary"
           >
-            {material?.type === MaterialType.TEXT
+            {material?.type === "TEXT"
               ? t("learning-module.material.open.lesson")
               : t("learning-module.material.open.article")}
           </ArrowButton>

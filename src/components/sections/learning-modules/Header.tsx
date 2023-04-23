@@ -1,9 +1,9 @@
-import Section from '@/components/sections/communities/_partials/Section';
-import Header from '@/components/sections/communities/_partials/Header';
-import ObjectiveList from '@/components/list/Objectives';
-import { useSelector } from '@/hooks/useTypedSelector';
-import { useTranslation } from 'next-i18next';
-import { ReactElement } from 'react';
+import Section from "@/components/sections/communities/_partials/Section";
+import Header from "@/components/sections/communities/_partials/Header";
+import ObjectiveList from "@/components/list/Objectives";
+import { useSelector } from "@/hooks/useTypedSelector";
+import { useTranslation } from "next-i18next";
+import { ReactElement } from "react";
 
 /**
  * Learning module header component
@@ -13,8 +13,10 @@ import { ReactElement } from 'react';
  */
 export default function LearningModuleHeader(): ReactElement {
   const course = useSelector((state) => state.courses.current);
-  const learningModule = useSelector((state) => state.learningModules.current);
-  const { t } = useTranslation()
+  const learningModule = useSelector(
+    (state) => state.learningModules.current
+  );
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -25,12 +27,12 @@ export default function LearningModuleHeader(): ReactElement {
         description={learningModule?.description}
       />
       <Section
-        title={`${t('communities.overview.objective.title')}`}
-        subtitle={`${t('communities.chapter.objective.subtitle')}:`}
+        title={`${t("communities.overview.objective.title")}`}
+        subtitle={`${t("communities.chapter.objective.subtitle")}`}
+        hideSubtitleOnMobile={true}
       >
         <ObjectiveList objectives={learningModule?.objectives} />
       </Section>
     </div>
   );
-};
-
+}
