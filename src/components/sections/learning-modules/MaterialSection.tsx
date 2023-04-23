@@ -25,6 +25,7 @@ export default function MaterialSection({ material }: MaterialProps) {
     return slugger.slug(text);
   };
 
+  
   const isAdditional = material?.type === MaterialType.ADDITIONAL;
   const materialId = !(!material?.title || isAdditional)
     ? sluggify(material?.title)
