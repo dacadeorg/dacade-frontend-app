@@ -6,7 +6,7 @@ import Video from "@/components/ui/Video";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import Markdown from "./_partials/MarkDown";
-import { Material } from "@/types/Material";
+import { Material } from "@/types/course";
 
 /**
  * Material component
