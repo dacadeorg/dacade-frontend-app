@@ -6,8 +6,7 @@ import Video from "@/components/ui/Video";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import Markdown from "./_partials/MarkDown";
-import { Material, MaterialType } from "@/types/course";
-
+import { Material, MaterialType } from "@/types/material";
 /**
  * Material component
  * @date 4/20/2023 - 10:36:51 AM
@@ -18,6 +17,7 @@ import { Material, MaterialType } from "@/types/course";
 interface MaterialProps {
   material?: Material;
 }
+
 
 export default function MaterialSection({ material }: MaterialProps) {
   const sluggify = (text: string) => {

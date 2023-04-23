@@ -8,7 +8,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Community } from "@/types/community";
 import { wrapper } from "@/store";
-import { Course, LearningModule, MaterialType } from "@/types/course";
+import { Course, LearningModule } from "@/types/course";
 import {
   fetchCourse,
   setCurrentCourse,
@@ -26,6 +26,9 @@ import {
   getMetadataTitle,
 } from "@/utilities/Metadata";
 import MaterialSection from "@/components/sections/learning-modules/MaterialSection";
+import { MaterialType } from "@/types/material";
+import CommunityLayout from "@/layouts/Community";
+import { ReactElement } from "react-markdown/lib/react-markdown";
 
 export default function LearningModulePage(props: {
   pageProps: {
@@ -69,33 +72,39 @@ export default function LearningModulePage(props: {
   );
 
   return (
-    <Wrapper>
-      <div className="py-8 flex flex-col divide-y divide-solid divide-gray-200 space-y-8 text-gray-700">
-        <Head>
-          <title>{title}</title>
-          {descriptions.map((meta, i) => (
-            <meta key={`learning-module-head-${i}`} {...meta} />
-          ))}
-        </Head>
-        <div className="w-full divide-y divide-solid divide-gray-200">
-          {materials.map((material, i) => (
-            <MaterialSection
-              key={`material-section-${i}`}
-              material={material}
+    <>
+      <Head>
+        <title>{title}</title>
+        {descriptions.map((meta, i) => (
+          <meta key={`learning-module-head-${i}`} {...meta} />
+        ))}
+      </Head>
+      <Wrapper>
+        <div className="py-8 flex flex-col divide-y divide-solid divide-gray-200 space-y-8 text-gray-700">
+          <div className="w-full divide-y divide-solid divide-gray-200">
+            {materials.map((material, i) => (
+              <MaterialSection
+                key={`material-section-${i}`}
+                material={material}
+              />
+            ))}
+            <AdditionalMaterialsSection
+              materials={additionalMaterials}
             />
-          ))}
-          <AdditionalMaterialsSection
-            materials={additionalMaterials}
-          />
-          {interactiveModules.length > 0 && (
-            <InteractiveModule data={interactiveModules[0]} />
-          )}
-          <PageNavigation />
+            {interactiveModules.length > 0 && (
+              <InteractiveModule data={interactiveModules[0]} />
+            )}
+            <PageNavigation />
+          </div>
         </div>
-      </div>
-    </Wrapper>
+      </Wrapper>
+    </>
   );
 }
+
+LearningModulePage.getLayout = function (page: ReactElement) {
+  return <CommunityLayout>{page}</CommunityLayout>;
+};
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (data) => {
