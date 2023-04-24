@@ -19,6 +19,7 @@ import {
 import { fetchUser } from "./user.slice";
 import { IRootState } from "..";
 import { User } from "@/types/bounty";
+import { createEvent } from "./events.slice";
 
 // Define the interface for the auth state
 interface AuthState {
@@ -70,11 +71,22 @@ export const singUp = createAsyncThunk(
     dispatch(setBusy(true));
     dispatch(clearError());
     try {
-      const user = await api().client.post("auth/signup", {
-        ...payload,
-        redirectLink: "/communities",
-      });
-      //   dispatch(createEvent("user-signed-up", { userId: user.uid }));
+      const { data: user } = await api().client.post<User>(
+        "auth/signup",
+        {
+          ...payload,
+          redirectLink: "/communities",
+        }
+      );
+
+      dispatch(
+        createEvent({
+          name: "user-signed-up",
+          attributes: {
+            userId: user.uid,
+          },
+        })
+      );
       dispatch(
         login({ email: payload.email, password: payload.password })
       );

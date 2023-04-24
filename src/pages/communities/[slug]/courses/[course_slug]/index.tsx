@@ -4,14 +4,14 @@ import { ReactElement, useEffect } from "react";
 import OverviewSection from "@/components/sections/courses/overview";
 import {
   fetchCurrentCommunity,
-  setCurrent as setCurrentCommunity,
+  setCurrentCommunity,
 } from "@/store/feature/community.slice";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useDispatch } from "react-redux";
 import {
-  setCurrent,
+  setCurrentCourse,
   fetchCourse,
-  setNavigation,
+  setCourseNavigation,
 } from "@/store/feature/course.slice";
 import { Community } from "@/types/community";
 import { Course } from "@/types/course";
@@ -47,9 +47,9 @@ export default function CourseViewPage(props: {
 
   useEffect(() => {
     dispatch(setCurrentCommunity(community));
-    dispatch(setCurrent(course));
+    dispatch(setCurrentCourse(course));
     dispatch(setColors(community.colors));
-    dispatch(setNavigation({ list }));
+    dispatch(setCourseNavigation({ list }));
     initNavigationMenu()(dispatch);
   }, [community, course, dispatch, list]);
 

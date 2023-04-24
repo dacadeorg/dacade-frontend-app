@@ -4,7 +4,7 @@ import { Community } from "@/types/community";
 import { setColors } from "@/store/feature/ui.slice";
 import {
   fetchCurrentCommunity,
-  setCurrent,
+  setCurrentCommunity,
 } from "@/store/feature/community.slice";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import MainHeader from "@/components/sections/communities/overview/MainHeader";
@@ -15,7 +15,7 @@ import { ReactElement, useEffect } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import {
   fetchAllCourses,
-  setList,
+  setCoursesList,
 } from "@/store/feature/course.slice";
 import { Course } from "@/types/course";
 import {
@@ -35,9 +35,9 @@ export default function Slug(props: {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setCurrent(community));
+    dispatch(setCurrentCommunity(community));
     dispatch(setColors(community.colors));
-    dispatch(setList(courses));
+    dispatch(setCoursesList(courses));
     dispatch(setScoreboardList(scoreboards));
   }, [community, courses, dispatch, scoreboards]);
 
