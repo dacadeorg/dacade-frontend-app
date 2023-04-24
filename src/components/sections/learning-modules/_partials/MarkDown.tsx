@@ -8,17 +8,9 @@ import {
 import matter from "gray-matter";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeExternalLinks from "rehype-external-links";
-import rehypeStringify from "rehype-stringify";
-import remarkUnwrapAllImages from "remark-unwrap-all-images";
-import rehypeSlug from "rehype-slug";
 import Slugger from "github-slugger";
 import Highlighter from "@/utilities/Highlighter";
-import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
-import remarkBreaks from "remark-breaks";
-import rehypeFormat from "rehype-format";
 import withToc from "@stefanprobst/remark-extract-toc";
 import { cloneDeep } from "lodash";
 import { useSelector } from "@/hooks/useTypedSelector";
@@ -29,7 +21,6 @@ import { setNavigationList } from "@/store/feature/communities/navigation.slice"
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
-// import { darcula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 /**
  * Markdown props interface
@@ -107,7 +98,7 @@ export default function Markdown({
         const responseText = await fetch(url).then((response) =>
           response.text()
         );
-        const { data } = matter(responseText);
+
         setMarkdown(responseText);
         handleNavigation(markdown);
       } catch (error: unknown) {
