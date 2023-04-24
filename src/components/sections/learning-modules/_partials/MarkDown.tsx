@@ -26,6 +26,10 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useRouter } from "next/router";
 import { Compatible } from "vfile";
 import { setNavigationList } from "@/store/feature/communities/navigation.slice";
+import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
+// import { darcula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 /**
  * Markdown props interface
@@ -50,7 +54,7 @@ export default function Markdown({
   url,
 }: MarkDownProps): ReactElement {
   const dispatch = useDispatch();
-  const [markdown, setMarkdown] = useState<{ [key: string]: any }>();
+  const [markdown, setMarkdown] = useState<string>("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const route = useRouter();
@@ -61,6 +65,7 @@ export default function Markdown({
     "--text-accent-color": colors.textAccent,
   };
 
+  // TODO Should be adapted to the react-markdown
   const handleNavigation = useCallback(
     (markdown: Compatible | undefined) => {
       const processor = unified().use(remarkParse).use(withToc);
@@ -103,25 +108,8 @@ export default function Markdown({
           response.text()
         );
         const { data } = matter(responseText);
-        setMarkdown(data);
+        setMarkdown(responseText);
         handleNavigation(markdown);
-
-        unified()
-          .use(remarkParse)
-          .use(remarkBreaks)
-          .use(remarkGfm)
-          .use(() => Highlighter)
-          .use(remarkRehype, { allowDangerousHtml: true })
-          .use(remarkUnwrapAllImages)
-          .use(rehypeRaw)
-          .use(rehypeExternalLinks, { target: "_blank" })
-          .use(rehypeSlug)
-          .use(rehypeStringify)
-          .use(rehypeFormat)
-          .use(rehypeStringify)
-          .process(content, (error, file) => {
-            if (!error) setContent(file?.value as string);
-          });
       } catch (error: unknown) {
         if (error instanceof Error) {
           setContent(
@@ -137,7 +125,7 @@ export default function Markdown({
       }
     };
     fetchData();
-  }, [content, handleNavigation, markdown, markdown?.content, url]);
+  }, [content, handleNavigation, markdown, url]);
 
   return (
     <div>
@@ -146,13 +134,11 @@ export default function Markdown({
           {markdown && (
             <div
               style={{ ...(themeStyles as CSSProperties) }}
-              className="prose"
+              className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl"
             >
-              {markdown.title && <h2>{markdown.title}</h2>}
-              <div
-                className="markdown-content"
-                dangerouslySetInnerHTML={{ __html: content }}
-              />
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {markdown}
+              </ReactMarkdown>
             </div>
           )}
         </div>
