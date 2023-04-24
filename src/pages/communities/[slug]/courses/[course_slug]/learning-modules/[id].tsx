@@ -28,6 +28,8 @@ import {
 import MaterialSection from "@/components/sections/learning-modules/MaterialSection";
 import DefaultLayout from "@/components/layout/Default";
 import Header from "@/components/sections/learning-modules/Header";
+import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
+import { setColors } from "@/store/feature/ui.slice";
 
 export default function LearningModulePage(props: {
   pageProps: {
@@ -43,6 +45,8 @@ export default function LearningModulePage(props: {
     dispatch(setCurrentCommunity(community));
     dispatch(setCurrentCourse(course));
     dispatch(setCurrentLearningModule(learningModule));
+    dispatch(setColors(community.colors));
+    initNavigationMenu()(dispatch);
   }, [community, course, dispatch, learningModule]);
 
   const materials = useMemo(
