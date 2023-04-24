@@ -273,3 +273,18 @@ div {
 .contains-ordered-list > li {
   padding: 0.125rem 0;
 }
+.nav-icon {
+  display: block;
+}
+.nuxt-link-active + ul {
+  display: block;
+}
+.nuxt-link-exact-active,
+.activable-link.nuxt-link-active {
+  color: inherit !important;
+  opacity: 1;
+}
+.nuxt-link-exact-active > .nav-icon,
+.activable-link.nuxt-link-active > .nav-icon {
+  display: block;
+}

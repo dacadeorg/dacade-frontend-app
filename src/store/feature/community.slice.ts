@@ -5,8 +5,8 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { Community } from "@/types/community";
-import api from "@/config/api";
 import { Course } from "@/types/course";
+import api from "@/config/api";
 
 /**
  * CommunitiesState interface
@@ -18,10 +18,10 @@ import { Course } from "@/types/course";
  */
 export interface CommunitiesState {
   list: Community[];
+  courses: Course[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: object | null | string;
   current: Community | null;
-  courses: Course | null
 }
 
 /**
@@ -32,10 +32,10 @@ export interface CommunitiesState {
  */
 const initialState: CommunitiesState = {
   list: [],
+  courses: [],
   status: "idle",
   error: null,
   current: null,
-  courses: null
 };
 
 /**

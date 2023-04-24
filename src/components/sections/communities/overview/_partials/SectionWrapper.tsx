@@ -9,9 +9,9 @@ import { ReactNode, ReactElement } from "react";
  */
 
 interface SectionWrapperProps {
-  title: string;
-  description: string;
-  children: ReactNode;
+  title?: string | null;
+  description?: string;
+  children?: ReactNode;
 }
 
 /**

@@ -15,7 +15,7 @@ import NotificationBar from "./NotificationBar";
  */
 
 interface DefaultLayoutProps {
-  footerBackgroundColor?: boolean;
+  footerBackgroundColor?: boolean | string;
   children: ReactNode;
 }
 

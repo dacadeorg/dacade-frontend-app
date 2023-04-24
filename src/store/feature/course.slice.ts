@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "@/config/api";
 import { Course } from "@/types/course";
+import { List } from "@/utilities/CommunityNavigation";
 
 // Define initial state
 interface CourseState {
@@ -9,7 +10,7 @@ interface CourseState {
   current: Course | null;
   // TODO: Those type should be improved whenever they are known
   content: any | null;
-  menus: any[];
+  menus: List[];
 }
 
 const initialState: CourseState = {
@@ -57,7 +58,7 @@ export const { setCurrent, setList, setContent, setNavigation } =
 // Define Redux Thunk async actions
 export const fetchCourse = createAsyncThunk(
   "courses/find",
-  async ({ slug, locale }: { slug: string; locale: string }) => {
+  async ({ slug, locale }: { slug?: string; locale: string }) => {
     try {
       const { data } = await api(locale).server.get(
         `courses/${slug}`
@@ -71,7 +72,7 @@ export const fetchCourse = createAsyncThunk(
 
 export const fetchAllCourses = createAsyncThunk(
   "courses/all",
-  async ({ slug, locale }: { slug: string; locale: string }) => {
+  async ({ slug, locale }: { slug?: string; locale: string }) => {
     try {
       const { data } = await api(locale).server.get(
         `communities/${slug}/courses`

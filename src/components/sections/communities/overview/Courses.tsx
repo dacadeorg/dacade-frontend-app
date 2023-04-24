@@ -1,6 +1,9 @@
-import CourseCard from "@/components/cards/course";
 import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
+
+// Waiting for store/services to be implemented
+// import { useGetCourseQuery } from "@/store/feature/course.slice";
+import CourseCard from "@/components/cards/course";
 import { Course } from "@/types/course";
 import { ReactElement } from "react";
 import { SectionWrapper } from "./_partials/SectionWrapper";
