@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import RewardsSection from "./Rewards";
 import ObjectivesSection from "./Objectives";
 import PrerequisiteSection from "./Prerequisite";
