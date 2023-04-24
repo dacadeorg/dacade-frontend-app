@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useEffect } from "react";
+import { ReactElement, ReactNode, useEffect } from "react";
 import Header from "@/components/sections/communities/_partials/Header";
 import ScoreboardCard from "@/components/cards/Scoreboard";
 import {

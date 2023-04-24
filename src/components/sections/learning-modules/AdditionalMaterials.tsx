@@ -50,7 +50,7 @@ export default function AdditionalMaterialSection({
             {material.title}
           </p>
           <span className="ml-2 leading-normal">
-            <Duration value={material.duration} text={""} />
+            <Duration value={material.duration} text="" />
           </span>
         </Link>
       ))}

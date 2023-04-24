@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import InteractiveModuleWrapper from "./Wrapper";
 import Markdown from "@/components/ui/Markdown";
 import Loader from "@/components/ui/Loader";
@@ -11,7 +17,6 @@ import { authCheck } from "@/store/feature/auth.slice";
 import { InteractiveModule as InteractiveModuleType } from "@/types/course";
 import {
   hidePageNavigation,
-  setShowPageNavigation,
   showPageNavigation,
 } from "@/store/feature/communities/navigation.slice";
 import {
@@ -38,11 +43,11 @@ interface interactiveModuleProps {
  * @param {interactiveModuleProps} {
   data,
 }
- * @returns {*}
+ * @returns {ReactElement}
  */
 export default function InteractiveModule({
   data,
-}: interactiveModuleProps) {
+}: interactiveModuleProps): ReactElement {
   const [started, setStarted] = useState(false);
   const [current, setCurrent] = useState(0);
   const [ended, setEnded] = useState(false);

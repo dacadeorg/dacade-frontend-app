@@ -31,13 +31,32 @@ import Header from "@/components/sections/learning-modules/Header";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import { setColors } from "@/store/feature/ui.slice";
 
-export default function LearningModulePage(props: {
+/**
+ * Learning module page props interfae
+ * @date 4/24/2023 - 8:36:15 PM
+ *
+ * @interface LearningModulePageProps
+ * @typedef {LearningModulePageProps}
+ */
+interface LearningModulePageProps {
   pageProps: {
     community: Community;
     course: Course;
     learningModule: LearningModule;
   };
-}) {
+}
+
+/**
+ * Learning module module view page
+ * @date 4/24/2023 - 8:35:52 PM
+ *
+ * @export
+ * @param {LearningModulePageProps} props
+ * @returns
+ */
+export default function LearningModulePage(
+  props: LearningModulePageProps
+) {
   const { community, course, learningModule } = props.pageProps;
   const dispatch = useDispatch();
 
