@@ -45,7 +45,7 @@ export default function Slug(props: {
     <div>
       <MainHeader />
       <Section type="default">
-        <div className="w-full mx-auto divide-y divide-solid divide-gray-200">
+        <div className="w-full mx-auto divide-y divide-gray-200 divide-solid">
           <CoursesOverview />
           <ScoreboardOverview />
         </div>

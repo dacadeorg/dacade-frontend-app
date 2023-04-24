@@ -20,10 +20,12 @@ import courseSlice from "./feature/course.slice";
 import submissionSlice from "./feature/communities/challenges/submissions";
 import eventsSlice from "./feature/events.slice";
 import { navigationSlice } from "./feature/communities/navigation.slice";
+import communitySlice from "./feature/community.slice";
 import { learningModules } from "./feature/learningModules.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
+  community: ReturnType<typeof communitySlice.reducer>;
   ui: ReturnType<typeof ui.reducer>;
   referrals: ReturnType<typeof referralSlice.reducer>;
   user: ReturnType<typeof userSlice.reducer>;
@@ -33,13 +35,13 @@ export interface IRootState {
   reputations: ReturnType<typeof reputationSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
+  navigation: ReturnType<typeof navigationSlice.reducer>;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   submission: ReturnType<typeof submissionSlice.reducer>;
   events: ReturnType<typeof eventsSlice.reducer>;
   communityApi: ReturnType<typeof communitiesApi.reducer>;
   challenges: ReturnType<typeof challengeSlice.reducer>;
   courses: ReturnType<typeof courseSlice.reducer>;
-  navigation: ReturnType<typeof navigationSlice.reducer>;
   learningModules: ReturnType<typeof learningModules.reducer>;
 }
 
@@ -54,11 +56,14 @@ export const store = configureStore({
     [reputationSlice.name]: reputationSlice.reducer,
     [indexSlice.name]: indexSlice.reducer,
     [authSlice.name]: authSlice.reducer,
+    [courseSlice.name]: courseSlice.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
     [challengeSlice.name]: challengeSlice.reducer,
     [courseSlice.name]: courseSlice.reducer,
     [eventsSlice.name]: eventsSlice.reducer,
     [submissionSlice.name]: submissionSlice.reducer,
+    [navigationSlice.name]: navigationSlice.reducer,
+    [communitySlice.name]: communitySlice.reducer,
     [communitiesApi.reducerPath]: communitiesApi.reducer,
     [referralsApi.reducerPath]: referralsApi.reducer,
     [navigationSlice.name]: navigationSlice.reducer,

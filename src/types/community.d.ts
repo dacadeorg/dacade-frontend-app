@@ -20,6 +20,7 @@ export interface Community {
   courses: number;
   duration: number;
   challenge: Challenge;
+  items?: any[];
 }
 
 export interface Colors {
