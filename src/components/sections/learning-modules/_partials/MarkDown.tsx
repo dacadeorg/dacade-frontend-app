@@ -13,7 +13,6 @@ import { updateNavigationMarkdownMenu } from "@/store/feature/communities/naviga
 import ReactMarkdown from "react-markdown";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeSlug from "rehype-slug";
-import useSmoothScroll from "@/hooks/useSmoothScroll";
 
 /**
  * Markdown props interface
@@ -42,7 +41,6 @@ export default function Markdown({
   const [loading, setLoading] = useState(false);
   const route = useRouter();
   const colors = useSelector((state) => state.ui.colors);
-  // useSmoothScroll(route);
 
   const themeStyles = {
     "--text-accent-color": colors.textAccent,

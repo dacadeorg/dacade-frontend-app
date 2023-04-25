@@ -116,11 +116,11 @@ export default function ArrowButton({
           >
             {!loading ? (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} text-white transform`}
+                className={`${directionClass} ${arrowClassNames} transform`}
               />
             ) : (
               <Spinner
-                className={`${arrowClassNames} text-white animate-spin`}
+                className={`${arrowClassNames} animate-spin`}
               />
             )}
           </span>
