@@ -37,7 +37,7 @@ export interface SubItem {
  * @interface Item
  * @typedef {Item}
  */
-export interface Item {
+export interface Item extends SubItem {
   id: string | string[] | undefined;
   subitems: SubItem[];
 }
@@ -51,6 +51,8 @@ export interface Item {
  * @typedef {Items}
  */
 export interface Items {
+  hideTitle: boolean;
+  title: string;
   id: string | string[] | undefined;
   items: Item[];
 }
