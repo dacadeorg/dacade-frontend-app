@@ -1,5 +1,5 @@
-import SubmissionViewCard from "../cards/SubmissionView";
-import Feedback from "../feedbacks";
+import SubmissionViewCard from "@/components/cards/SubmissionView";
+import Feedback from "@/components/sections/feedbacks";
 import Evaluation from "./Evaluation";
 
 /**

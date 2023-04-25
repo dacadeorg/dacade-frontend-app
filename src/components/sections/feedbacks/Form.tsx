@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from "react";
-import GithubLinkInput from "../ui/GithubLinkInput";
-import MarkdownIcon from "../ui/MarkdownIcon";
-import ArrowButton from "../ui/button/Arrow";
+import GithubLinkInput from "../../ui/GithubLinkInput";
+import MarkdownIcon from "../../ui/MarkdownIcon";
+import ArrowButton from "../../ui/button/Arrow";
 import { useTranslation } from "next-i18next";
-import TextInput from "../ui/TextInput";
-import Avatar from "../ui/Avatar";
+import TextInput from "../../ui/TextInput";
+import Avatar from "../../ui/Avatar";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useForm } from "react-hook-form";
 import api from "@/config/api";

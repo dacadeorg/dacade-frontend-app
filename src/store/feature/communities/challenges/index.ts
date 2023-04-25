@@ -3,6 +3,13 @@ import { Submission } from "@/types/bounty";
 import { Challenge } from "@/types/course";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+/**
+ * Challenge state interface 
+ * @date 4/25/2023 - 8:18:04 PM
+ *
+ * @interface ChallengeState
+ * @typedef {ChallengeState}
+ */
 interface ChallengeState {
   current: Challenge | null;
   list: Challenge[];
@@ -61,7 +68,7 @@ export const {
  */
 export const fetchChallenge = createAsyncThunk(
   "challenges/find",
-  async ({ id }: { id: string }) => {
+  async ({ id }: { id: string , locale?: string }) => {
     const { data } = await api().server.get(`challenges/${id}`);
     
     return data;

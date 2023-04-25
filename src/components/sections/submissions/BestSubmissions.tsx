@@ -1,11 +1,11 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import Link from "next/link";
-import ArrowButton from "../ui/button/Arrow";
 import { useTranslation } from "next-i18next";
 import SubmissionCard from "./_partials/SubmissionCard";
-import Section from "../sections/communities/_partials/Section";
 import { useRouter } from "next/router";
 import CommunityNavigation from "@/utilities/CommunityNavigation";
+import Section from "../communities/_partials/Section";
+import ArrowButton from "@/components/ui/button/Arrow";
 
 /**
  * BestSubmissions Component
@@ -14,7 +14,7 @@ import CommunityNavigation from "@/utilities/CommunityNavigation";
  * @export
  * @returns {*}
  */
-export default function BestSubmissions() {
+export default function BestSubmissions(): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
   const navigation = new CommunityNavigation(router);

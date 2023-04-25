@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from "react";
-import Coin from "../ui/Coin";
+import Coin from "@/components/ui/Coin";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import DateManager from "@/utilities/DateManager";
 import ChevronBottomIcon from "@/icons/chevron-bottom.svg";
 import ChevronTopIcon from "@/icons/chevron-top.svg";
-import ObjectiveList from "../list/Objectives";
+import ObjectiveList from "../../list/Objectives";
 
 /**
  * Criteria component
@@ -16,7 +16,7 @@ import ObjectiveList from "../list/Objectives";
  */
 export default function Criteria() {
   const [githubLink, setgithubLink] = useState();
-  const [text, settext] = useState();
+  const [text, setText] = useState();
   const [infoVisibility, setinfoVisibility] = useState(false);
   const [description, setdescription] = useState(
     "This applies only if the submission reaches 6/20 Points otherwise the best feedback will get 0.5 CGLD"
@@ -27,14 +27,14 @@ export default function Criteria() {
     "The third feedback receives <b>0.5 CGLD</b>",
   ]);
 
-  const submission: any = {};
+  const submission = useSelector(state => state.submission) ;
 
   const reward = useMemo(
     () =>
       submission?.challenge?.rewards.find(
         (reward: any) => reward.type === "FEEDBACK"
       ),
-    []
+    [submission]
   );
 
   const colors = useSelector((state) => state.ui.colors);
@@ -51,12 +51,12 @@ export default function Criteria() {
     () =>
       submission?.metadata?.evaluation ||
       submission?.metadata?.reviewed,
-    []
+    [submission?.metadata?.evaluation, submission?.metadata?.reviewed]
   );
 
   const deadline = useMemo(
     () => DateManager.fromNow(submission.reviewDeadline),
-    []
+    [submission.reviewDeadline]
   );
 
   const { t } = useTranslation();

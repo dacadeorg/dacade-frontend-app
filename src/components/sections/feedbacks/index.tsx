@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import FeedbackCard from "../cards/Feedback";
-import Loader from "../ui/button/Loader";
+import FeedbackCard from "../../cards/Feedback";
+import Loader from "../../ui/button/Loader";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { authCheck } from "@/store/feature/auth.slice";
-import Section from "../sections/communities/_partials/Section";
+import Section from "../communities/_partials/Section";
 import Criteria from "./Criteria";
 import Form from "./Form";
 

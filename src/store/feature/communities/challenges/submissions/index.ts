@@ -2,14 +2,21 @@ import api from "@/config/api";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { setCurrentCourse } from "@/store/feature/course.slice";
 import { Submission } from "@/types/bounty";
+import { setCurrentChallenge } from "..";
+import { IRootState } from "@/store";
 import {
   createAsyncThunk,
   createSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { setCurrentChallenge } from "..";
-import { IRootState } from "@/store";
 
+/**
+ * Submission state interface
+ * @date 4/25/2023 - 8:18:42 PM
+ *
+ * @interface SubmissionState
+ * @typedef {SubmissionState}
+ */
 interface SubmissionState {
   current: Submission | null;
   list: Submission[];
@@ -48,7 +55,14 @@ export const submissionsSlice = createSlice({
   },
 });
 
-export const find = createAsyncThunk(
+
+/**
+ * Find submission by id
+ * @date 4/25/2023 - 8:19:35 PM
+ *
+ * @type {*}
+ */
+export const findSubmssionById = createAsyncThunk(
   "submissions/find",
   async (
     { id, locale }: { id: string; locale?: string },
@@ -67,6 +81,13 @@ export const find = createAsyncThunk(
   }
 );
 
+
+/**
+ * Fetch all submission
+ * @date 4/25/2023 - 8:20:21 PM
+ *
+ * @type {*}
+ */
 export const fetchAllSubmission = createAsyncThunk(
   "submissions/all",
   async (
@@ -83,9 +104,7 @@ export const fetchAllSubmission = createAsyncThunk(
       {
         params: { start_after: startAfter },
       }
-    );
-    console.log(data);
-    
+    );    
     const list = [];
     if (startAfter) {
       const list = selectList(state as IRootState)
@@ -97,7 +116,14 @@ export const fetchAllSubmission = createAsyncThunk(
   }
 );
 
-export const create = createAsyncThunk(
+
+/**
+ * Create a submission
+ * @date 4/25/2023 - 8:21:48 PM
+ *
+ * @type {*}
+ */
+export const createSubmission = createAsyncThunk(
   "submissions/create",
   async (
     {
@@ -111,7 +137,7 @@ export const create = createAsyncThunk(
       challengeId: string;
       locale?: string;
     },
-    { dispatch, getState }
+    { dispatch }
   ) => {
     const { data } = await api(locale).server.post(
       "submissions/create",
@@ -126,11 +152,18 @@ export const create = createAsyncThunk(
   }
 );
 
+
+/**
+ * Find challenge with it's relation ["evaluation","course","community"]
+ * @date 4/25/2023 - 8:22:20 PM
+ *
+ * @type {*}
+ */
 export const findWithRelations = createAsyncThunk(
   "submissions/findWithRelations",
   async (
     { id, locale }: { id: string; locale: string },
-    { dispatch, getState }
+    { dispatch }
   ) => {
     const { data } = await api(locale).server.get(
       `submissions/${id}`,
