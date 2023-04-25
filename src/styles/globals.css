@@ -288,3 +288,17 @@ div {
 .activable-link.nuxt-link-active > .nav-icon {
   display: block;
 }
+
+code {
+  text-shadow: none !important;
+  font-weight: 400;
+  max-width: fit-content;
+}
+
+code::after {
+  content: "" !important;
+}
+
+code::before {
+  content: "" !important;
+}

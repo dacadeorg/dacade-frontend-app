@@ -128,7 +128,7 @@ export default function Markdown({
       {markdown && (
         <div
           style={{ ...(themeStyles as CSSProperties) }}
-          className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl"
+          className="prose"
         >
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkParse]}

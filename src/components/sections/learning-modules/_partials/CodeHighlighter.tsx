@@ -1,7 +1,9 @@
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import darcula from "react-syntax-highlighter/dist/cjs/styles/prism/darcula";
+import darcula from "react-syntax-highlighter/dist/cjs/styles/prism/coldark-dark";
+
 import { ReactElement } from "react";
 import { CodeProps } from "react-markdown/lib/ast-to-react";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * CodeHighlighter component responsible for highlighting code in the mardown
@@ -23,6 +25,7 @@ export default function CodeHighlighter({
   children,
   ...props
 }: CodeProps): ReactElement {
+  const colors = useSelector((state) => state.ui.colors);
   const match = /language-(\w+)/.exec(className || "");
 
   if (!inline && match)
@@ -37,5 +40,5 @@ export default function CodeHighlighter({
         {String(children).replace(/\n$/, "")}
       </SyntaxHighlighter>
     );
-  return <code>{children}</code>;
+  return <code style={{ color: colors.textAccent }}>{children}</code>;
 }
