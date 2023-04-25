@@ -26,16 +26,16 @@ const courseSlice = createSlice({
   name: "courses",
   initialState,
   reducers: {
-    setCurrent: (state, action) => {
+    setCurrentCourse: (state, action) => {
       state.current = action.payload;
     },
-    setList: (state, action) => {
+    setCoursesList: (state, action) => {
       state.list = action.payload;
     },
-    setContent: (state, action) => {
+    setCourseContent: (state, action) => {
       state.content = action.payload;
     },
-    setNavigation: (state, action) => {
+    setCourseNavigation: (state, action) => {
       const { list } = action.payload;
       state.menus = list;
     },
@@ -52,8 +52,12 @@ const courseSlice = createSlice({
 });
 
 // Extract actions and reducer
-export const { setCurrent, setList, setContent, setNavigation } =
-  courseSlice.actions;
+export const {
+  setCurrentCourse,
+  setCoursesList,
+  setCourseContent,
+  setCourseNavigation,
+} = courseSlice.actions;
 
 // Define Redux Thunk async actions
 export const fetchCourse = createAsyncThunk(

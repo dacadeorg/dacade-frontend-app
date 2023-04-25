@@ -1,6 +1,6 @@
 import api from "@/config/api";
-import { setCurrent as setCurrentCommunity } from "@/store/feature/community.slice";
-import { setCurrent as setCurrentCourse } from "@/store/feature/course.slice";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
+import { setCurrentCourse } from "@/store/feature/course.slice";
 import { Submission } from "@/types/bounty";
 import {
   createAsyncThunk,

@@ -57,14 +57,41 @@ export type Challenge = {
   courses: string[];
   certificateIcon: string;
   certificateData: CertificateData;
+  ratingCriteria: RatingCriteria[];
   timestamp: number;
+  maxPoints: number;
+  minPoints: number;
   rewards: Reward[];
   ratingCriteria?: RatingCriteria[]
+};
+
+export type RatingCriteria = {
+  name: string;
+  order: number;
+  rubric: Rubric[];
+  maxPoints: number;
+  [key: string]: any;
+};
+
+export type Rubic = {
+  id: string;
+  ref: string;
+  created_at: string;
+  updated_at: string;
+  challenge: string;
+  text: string;
+  type: string;
+  order: number;
+  points: number;
+  timestamp: number;
+  typeSlug: string;
+  [key: string]: any;
 };
 
 export type Format = {
   githubLink: boolean;
   text: boolean;
+  disclaimer: boolean;
 };
 
 export type Metadata = {

@@ -1,6 +1,4 @@
-// Those types are temporary
-// TODO: Should be improved with the extact types
-import { Metadata, Reward } from "./course";
+import { Challenge, Metadata, Reward } from "./course";
 
 export interface Community {
   id: string;
@@ -21,6 +19,7 @@ export interface Community {
   reward: Reward;
   courses: number;
   duration: number;
+  challenge: Challenge;
   items?: any[];
 }
 
