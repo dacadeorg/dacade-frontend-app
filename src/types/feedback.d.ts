@@ -8,4 +8,5 @@ export type Feedback = {
   name: string;
   challenge: string;
   timestamp: timestamp;
+  description?: string;
 };

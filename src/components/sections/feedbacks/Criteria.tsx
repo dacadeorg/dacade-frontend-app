@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { ReactElement, useMemo, useState } from "react";
 import Coin from "@/components/ui/Coin";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
@@ -6,6 +6,7 @@ import DateManager from "@/utilities/DateManager";
 import ChevronBottomIcon from "@/icons/chevron-bottom.svg";
 import ChevronTopIcon from "@/icons/chevron-top.svg";
 import ObjectiveList from "../../list/Objectives";
+import { Feedback } from "@/types/feedback";
 
 /**
  * Criteria component
@@ -14,7 +15,7 @@ import ObjectiveList from "../../list/Objectives";
  * @export
  * @returns {*}
  */
-export default function Criteria() {
+export default function Criteria(): ReactElement {
   const [githubLink, setgithubLink] = useState();
   const [text, setText] = useState();
   const [infoVisibility, setinfoVisibility] = useState(false);
@@ -27,14 +28,17 @@ export default function Criteria() {
     "The third feedback receives <b>0.5 CGLD</b>",
   ]);
 
-  const submission = useSelector(state => state.submission) ;
+  const submission = useSelector(
+    (state) => state.submissions.current
+  );
+  const challenge = useSelector((state) => state.challenges.current);
 
   const reward = useMemo(
     () =>
-      submission?.challenge?.rewards.find(
-        (reward: any) => reward.type === "FEEDBACK"
+      challenge?.rewards?.find(
+        (reward: { type: string }) => reward.type === "FEEDBACK"
       ),
-    [submission]
+    [challenge]
   );
 
   const colors = useSelector((state) => state.ui.colors);
@@ -55,15 +59,15 @@ export default function Criteria() {
   );
 
   const deadline = useMemo(
-    () => DateManager.fromNow(submission.reviewDeadline),
-    [submission.reviewDeadline]
+    () => DateManager.fromNow(submission?.reviewDeadline as Date),
+    [submission?.reviewDeadline]
   );
 
   const { t } = useTranslation();
 
   const list = useMemo(
-    () => submission.challenge.feedbackInfo,
-    [submission]
+    () => challenge?.feedbackInfo,
+    [challenge?.feedbackInfo]
   );
   return (
     <div
@@ -93,10 +97,13 @@ export default function Criteria() {
             }
           >
             <div className="sm:pl-10 pl-15">
-              <div v-if="reward" className="font-medium text-lg">
-                {reward.amount}
-                {reward.token}
-              </div>
+              {reward && (
+                <div className="font-medium text-lg">
+                  {reward.amount}
+                  {reward.token}
+                </div>
+              )}
+
               <div className="text-sm md">
                 {t("feedback.bounty")}
                 <span v-if="reviewed" className="font-medium">
@@ -114,12 +121,11 @@ export default function Criteria() {
               className={
                 reviewed
                   ? "divide-gray-200 "
-                  : "divide-yellow-200" +
-                    " divide-y space-y-4 flex-inline text-base font-medium sm:right-8 sm:top-3 sm:absolute pt-4 sm:pt-0"
+                  : "divide-yellow-200 divide-y space-y-4 flex-inline text-base font-medium sm:right-8 sm:top-3 sm:absolute pt-4 sm:pt-0"
               }
             >
-              {submission.challenge.feedbackInfo &&
-              submission.challenge.feedbackInfo.length ? (
+              {challenge?.feedbackInfo &&
+              challenge?.feedbackInfo.length ? (
                 <div
                   className="pl-15 sm:pl-0 flex items-center justify-between cursor-pointer"
                   onClick={() => {
@@ -155,45 +161,53 @@ export default function Criteria() {
                     : "border-yellow-200" + " divide-y space-y-4"
                 }
               >
-                {list.map((item: any, key: number) => {
-                  return (
-                    <div
-                      key={key}
-                      className={
-                        reviewed
-                          ? "border-gray-200"
-                          : "border-yellow-200" +
-                            " pt-6 px-3.75 sm:px-10 pb-0 sm:border-t font-medium"
-                      }
-                    >
-                      <span className="relative block">
-                        {t("feedback.criteria." + item.name)}
-                      </span>
-                      <div
-                        className={
-                          reviewed
-                            ? "text-gray-600"
-                            : "text-yellow-900" +
-                              " sm:-ml-6 px-5 sm:p-0"
-                        }
-                      >
-                        <ObjectiveList
-                          iconcolor={reviewed ? "#9CA3AF" : "#F59E0B"}
-                          crossmark={!item.positive}
-                          objectives={item.criteria}
-                        />
-                        {item.description && (
+                {challenge?.feedbackInfo?.length ? (
+                  challenge?.feedbackInfo.map(
+                    (item, key: number) => {
+                      return (
+                        <div
+                          key={`feedback-${key}`}
+                          className={
+                            reviewed
+                              ? "border-gray-200"
+                              : "border-yellow-200" +
+                                " pt-6 px-3.75 sm:px-10 pb-0 sm:border-t font-medium"
+                          }
+                        >
+                          <span className="relative block">
+                            {t("feedback.criteria." + item.name)}
+                          </span>
                           <div
-                            className="mt-4 text-sm font-normal"
-                            dangerouslySetInnerHTML={{
-                              __html: item.description,
-                            }}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
+                            className={
+                              reviewed
+                                ? "text-gray-600"
+                                : "text-yellow-900" +
+                                  " sm:-ml-6 px-5 sm:p-0"
+                            }
+                          >
+                            <ObjectiveList
+                              iconcolor={
+                                reviewed ? "#9CA3AF" : "#F59E0B"
+                              }
+                              crossmark={!item.positive}
+                              objectives={item.criteria}
+                            />
+                            {item.description && (
+                              <div
+                                className="mt-4 text-sm font-normal"
+                                dangerouslySetInnerHTML={{
+                                  __html: item.description,
+                                }}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      );
+                    }
+                  )
+                ) : (
+                  <></>
+                )}
               </div>
             )}
           </div>

@@ -2,6 +2,7 @@
 // TODO: Should be improved with the extact types
 
 import { RatingCriteria } from "./challenge";
+import { Feedback } from "./feedback";
 
 export type Course = {
   id: string;
@@ -62,7 +63,8 @@ export type Challenge = {
   maxPoints: number;
   minPoints: number;
   rewards: Reward[];
-  ratingCriteria?: RatingCriteria[]
+  ratingCriteria?: RatingCriteria[];
+  feedbackInfo?: Feedback[]
 };
 
 export type RatingCriteria = {

@@ -1,11 +1,12 @@
 import React, { useMemo, useState } from "react";
-import Section from "../ui/Section";
+import Section from "@/components/ui/Section";
 import SubmissionCard from "./_partials/SubmissionCard";
-import Loader from "../ui/button/Loader";
-import EmptyState from "../ui/EmptyState";
+import Loader from "@/components/ui/button/Loader";
+import EmptyState from "@/components/ui/EmptyState";
 import { useTranslation } from "next-i18next";
 import CommunityNavigation from "@/utilities/CommunityNavigation";
 import { useRouter } from "next/router";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * List View Page
@@ -17,17 +18,16 @@ import { useRouter } from "next/router";
 export default function List() {
   const router = useRouter();
   const navigation = new CommunityNavigation(router);
-  const { t } = useTranslation();
-  const submissions: any = [];
-
-  const showLoadMore = useMemo(
-    () => showButton && submissions.length >= 30,
-    []
-  );
-
   const [page, setpage] = useState();
   const [loading, setloading] = useState(false);
   const [showButton, setshowButton] = useState(true);
+  const { t } = useTranslation();
+  const submissions = useSelector(state => state.submissions.list);
+
+  const showLoadMore = useMemo(
+    () => showButton && submissions.length >= 30,
+    [showButton, submissions.length]
+  );
 
   const nextPage = () => {};
   return (

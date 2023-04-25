@@ -45,7 +45,7 @@ export default function SubmissionCard({
 
   const date = useMemo(
     () => DateManager.fromNow(submission.created_at, router.locale),
-    []
+    [router.locale, submission.created_at]
   );
   return (
     <div className="bg-gray-50 text-sm text-gray-700 border-solid border border-gray-200 rounded-3xl mb-5 md:mb-0">

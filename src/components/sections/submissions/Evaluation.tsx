@@ -1,9 +1,9 @@
 import { useTranslation } from "next-i18next";
 import React, { Fragment } from "react";
-import EvaluationCard from "../cards/Evaluation";
-import Coin from "../ui/Coin";
+import EvaluationCard from "@/components/cards/Evaluation";
+import Coin from "@/components/ui/Coin";
 import { useSelector } from "@/hooks/useTypedSelector";
-// import RatingRubric from "@/components/sections/challenges/Rubric";
+import RatingRubric from "@/components/sections/challenges/Rubric";
 
 /**
  * Evaluation Component
@@ -22,13 +22,13 @@ export default function Evaluation() {
   return (
     <EvaluationCard evaluation={evaluation}>
       <Fragment>
-        {/* {submission.challenge && (
+        {submission.challenge && (
           <RatingRubric
             hideTitle
             ratingCriteria={submission.challenge.ratingCriteria}
             selected={evaluation.criteria}
           />
-        )} */}
+        )}
         <div className="grid grid-cols-1 space-y-4 md:space-y-0 md:grid-cols-2 lg:grid-cols-4 mt-3 gap-y-5 gap-x-5">
           <div className="text-sm">
             <span className="block font-medium">

@@ -31,7 +31,7 @@ const initialState: SubmissionState = {
 };
 
 export const submissionsSlice = createSlice({
-  name: "submission",
+  name: "submissions",
   initialState,
   reducers: {
     setCurrent(state, action: PayloadAction<Submission | null>) {

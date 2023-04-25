@@ -1,6 +1,7 @@
 import SubmissionViewCard from "@/components/cards/SubmissionView";
 import Feedback from "@/components/sections/feedbacks";
 import Evaluation from "./Evaluation";
+import { ReactElement } from "react";
 
 /**
  * SubmitionView Page
@@ -9,7 +10,7 @@ import Evaluation from "./Evaluation";
  * @export
  * @returns {*}
  */
-export default function View() {
+export default function View():ReactElement {
   const submission: any = {};
   return submission ? (
     <div>
