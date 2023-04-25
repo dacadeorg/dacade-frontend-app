@@ -9,18 +9,11 @@ import { store } from "@/store";
 import { Course } from "@/types/course";
 import { Community } from "@/types/community";
 import { List } from "@/utilities/CommunityNavigation";
-
-/**
- * Initial navigation state interface
- * @date 4/20/2023 - 4:08:28 PM
- *
- * @interface NavigationState
- * @typedef {NavigationState}
- */
-interface NavigationState {
-  menus: List[];
-  showPageNavigation: boolean;
-}
+import remarkParse from "remark-parse";
+import { unified } from "unified";
+import { cloneDeep } from "lodash";
+import Slugger from "github-slugger";
+const extractToc = require("remark-extract-toc");
 
 /**
  * Subitem interface
@@ -62,11 +55,11 @@ export interface Items {
 
 // Define initial state
 interface NavigationState {
-  list: Items[];
+  menus: Items[];
+  showPageNavigation: boolean;
 }
 
 const initialState: NavigationState = {
-  list: [],
   menus: [],
   showPageNavigation: true,
 };
@@ -87,12 +80,8 @@ export const navigationSlice = createSlice({
   },
 });
 
-
-export const {
-  setNavigationList,
-  setShowPageNavigation,
-} = navigationSlice.actions;
-
+export const { setNavigationList, setShowPageNavigation } =
+  navigationSlice.actions;
 
 export const communityPath = (link: string, router: NextRouter) => {
   return `/communities/${router.query.slug}/courses/${router.query.course_slug}/${link}`;
@@ -121,8 +110,6 @@ export const initNavigationMenu = () => (dispatch: Dispatch) => {
   dispatch(setNavigationList(menus));
 };
 
-
-
 /**
  * Hide navigation action
  * @date 4/20/2023 - 4:09:46 PM
@@ -141,12 +128,39 @@ export const hidePageNavigation = () => (dispatch: Dispatch) => {
  * @returns {(dispatch: Dispatch) => void}
  */
 
-
 export const showPageNavigation = () => (dispatch: Dispatch) => {
   dispatch(setShowPageNavigation(true));
 };
 
+export const updateNavigationMarkdownMenu =
+  () => (url: string, route: NextRouter, dispatch: Dispatch) => {
+    const menus = store.getState().navigation.menus;
+    const processor = unified().use(remarkParse).use(extractToc);
+    const node = processor.parse(url);
+    // Casting with any because processor.runSync has not arrays methods type infered.
+    const tree = processor.runSync(node) as any;
+    const data = cloneDeep(menus);
+    const slugger = new Slugger();
+    const list = data.map((menu) => {
+      if (menu.id !== "learning-modules") {
+        return menu;
+      }
+      menu.items = menu.items.map((item) => {
+        if (item.id !== route.query.id) {
+          return item;
+        }
+        slugger.reset();
+        item.subitems = tree.map((el: { value: string }) => {
+          return {
+            label: String(el.value).replace(/^\d+\.+\d\s*/, ""),
+            link: `${slugger.slug(el.value)}`,
+            exact: false,
+          };
+        });
+        return item;
+      });
+      return menu;
+    });
 
-
-
-
+    dispatch(setNavigationList(list));
+  };
