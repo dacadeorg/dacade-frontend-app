@@ -5,7 +5,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import matter from "gray-matter";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import Slugger from "github-slugger";
@@ -19,9 +18,7 @@ import { useRouter } from "next/router";
 import { Compatible } from "vfile";
 import { setNavigationList } from "@/store/feature/communities/navigation.slice";
 import ReactMarkdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import Loader from "@/components/ui/Loader";
-import darcula from "react-syntax-highlighter/dist/cjs/styles/prism/darcula";
 import CodeHighlighter from "./CodeHighlighter";
 
 /**
@@ -124,38 +121,34 @@ export default function Markdown({
     fetchData();
   }, [content, handleNavigation, markdown, url]);
 
+  if (loading)
+    return <Loader communityStyles={true} className="py-32" />;
   return (
     <div>
-      {!loading ? (
-        <div>
-          {markdown && (
-            <div
-              style={{ ...(themeStyles as CSSProperties) }}
-              className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl"
-            >
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm, remarkParse]}
-                components={{
-                  code({ inline, className, children, ...props }) {
-                    return (
-                      <CodeHighlighter
-                        inline={inline}
-                        className={className}
-                        {...props}
-                      >
-                        {children}
-                      </CodeHighlighter>
-                    );
-                  },
-                }}
-              >
-                {markdown}
-              </ReactMarkdown>
-            </div>
-          )}
+      {markdown && (
+        <div
+          style={{ ...(themeStyles as CSSProperties) }}
+          className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl"
+        >
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm, remarkParse]}
+            components={{
+              code: ({ inline, className, children, ...props }) => {
+                return (
+                  <CodeHighlighter
+                    inline={inline}
+                    className={className}
+                    {...props}
+                  >
+                    {children}
+                  </CodeHighlighter>
+                );
+              },
+            }}
+          >
+            {markdown}
+          </ReactMarkdown>
         </div>
-      ) : (
-        <Loader communityStyles={true} className="py-32" />
       )}
     </div>
   );
