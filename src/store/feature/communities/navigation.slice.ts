@@ -13,6 +13,8 @@ import remarkParse from "remark-parse";
 import { unified } from "unified";
 import { cloneDeep } from "lodash";
 import Slugger from "github-slugger";
+
+// Does not support TypeScript
 const extractToc = require("remark-extract-toc");
 
 /**
