@@ -1,6 +1,8 @@
 // Those types are temporary
 // TODO: Should be improved with the extact types
 
+import { RatingCriteria } from "./challenge";
+
 export type Course = {
   id: string;
   ref: string;
@@ -57,6 +59,7 @@ export type Challenge = {
   certificateData: CertificateData;
   timestamp: number;
   rewards: Reward[];
+  ratingCriteria?: RatingCriteria[]
 };
 
 export type Format = {
