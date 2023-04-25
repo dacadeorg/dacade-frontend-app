@@ -131,6 +131,7 @@ export default function Markdown({
           className="prose"
         >
           <ReactMarkdown
+            className="markdown-content"
             remarkPlugins={[remarkGfm, remarkParse]}
             components={{
               code: ({ inline, className, children, ...props }) => {
