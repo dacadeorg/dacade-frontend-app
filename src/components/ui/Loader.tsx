@@ -47,11 +47,7 @@ export default function Loader({
       className={loaderClasses}
       style={{ ...(communityStyles ? styles : {}) }}
     >
-      <Spinner
-        // height={18}
-        // width={18}
-        className="animate-spin h-12 w-12"
-      />
+      <Spinner className="animate-spin h-12 w-12" />
     </div>
   );
 }
