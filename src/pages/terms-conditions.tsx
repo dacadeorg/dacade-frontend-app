@@ -4,6 +4,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ReactMarkdown from "react-markdown";
 import path from "path";
 import fs from "fs";
+import DefaultLayout from "@/components/layout/Default";
+import { ReactElement } from "react";
 
 /**
  * Terms and Conditions page props
@@ -32,13 +34,21 @@ export default function TermsConditions({
   pageProps: { terms },
 }: TermsConditionsProps) {
   return (
-    <div className="content-wrapper">
+    <div className="content-wrapper mt-11 ">
       <article className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl">
         <ReactMarkdown>{terms}</ReactMarkdown>
       </article>
     </div>
   );
 }
+
+TermsConditions.getLayout = function (page: ReactElement) {
+  return (
+    <DefaultLayout footerBackgroundColor={"default"}>
+      {page}
+    </DefaultLayout>
+  );
+};
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const markdownFilePath = path.join(
