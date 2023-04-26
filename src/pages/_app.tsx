@@ -1,9 +1,9 @@
 import "@/styles/globals.css";
+import "../../public/assets/css/styles.scss";
 import type { AppProps } from "next/app";
 import { appWithTranslation } from "next-i18next";
 import { wrapper } from "@/store";
 import { Provider } from "react-redux";
-import graphik from "@/config/font";
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
 

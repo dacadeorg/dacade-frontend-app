@@ -1,0 +1,4 @@
+{
+  "githubPullRequests.ignoredPullRequestBranches": ["dev"],
+  "vue.features.codeActions.enable": false
+}

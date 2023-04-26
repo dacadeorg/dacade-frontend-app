@@ -5,7 +5,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import matter from "gray-matter";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import Slugger from "github-slugger";
@@ -19,8 +18,8 @@ import { useRouter } from "next/router";
 import { Compatible } from "vfile";
 import { setNavigationList } from "@/store/feature/communities/navigation.slice";
 import ReactMarkdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
+import Loader from "@/components/ui/Loader";
+import CodeHighlighter from "./CodeHighlighter";
 
 /**
  * Markdown props interface
@@ -60,9 +59,12 @@ export default function Markdown({
   const handleNavigation = useCallback(
     (markdown: Compatible | undefined) => {
       const processor = unified().use(remarkParse).use(withToc);
+      // console.log(processor);
       const node = processor.parse(markdown);
+
       // Casting with any because processor.runSync has not arrays methods type infered.
       const tree = processor.runSync(node) as any;
+
       const data = cloneDeep(menus);
       const slugger = new Slugger();
       const list = data.map((menu) => {
@@ -118,23 +120,35 @@ export default function Markdown({
     fetchData();
   }, [content, handleNavigation, markdown, url]);
 
+  if (loading)
+    return <Loader communityStyles={true} className="py-32" />;
   return (
     <div>
-      {!loading ? (
-        <div>
-          {markdown && (
-            <div
-              style={{ ...(themeStyles as CSSProperties) }}
-              className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl"
-            >
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {markdown}
-              </ReactMarkdown>
-            </div>
-          )}
+      {markdown && (
+        <div
+          style={{ ...(themeStyles as CSSProperties) }}
+          className="prose"
+        >
+          <ReactMarkdown
+            className="markdown-content"
+            remarkPlugins={[remarkGfm, remarkParse]}
+            components={{
+              code: ({ inline, className, children, ...props }) => {
+                return (
+                  <CodeHighlighter
+                    inline={inline}
+                    className={className}
+                    {...props}
+                  >
+                    {children}
+                  </CodeHighlighter>
+                );
+              },
+            }}
+          >
+            {markdown}
+          </ReactMarkdown>
         </div>
-      ) : (
-        <></>
       )}
     </div>
   );
