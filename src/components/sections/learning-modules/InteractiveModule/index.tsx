@@ -1,4 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import InteractiveModuleWrapper from "./Wrapper";
 import Markdown from "@/components/ui/Markdown";
 import Loader from "@/components/ui/Loader";
@@ -8,6 +14,15 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import Link from "next/link";
 import InteractiveModuleItem from "@/components/sections/learning-modules/InteractiveModule/Item";
 import { authCheck } from "@/store/feature/auth.slice";
+import { InteractiveModule as InteractiveModuleType } from "@/types/course";
+import {
+  hidePageNavigation,
+  showPageNavigation,
+} from "@/store/feature/communities/navigation.slice";
+import {
+  checkAnswer,
+  submitModuleAnswer,
+} from "@/store/feature/learningModules.slice";
 
 /**
  * interactive Module props interface
@@ -17,28 +32,7 @@ import { authCheck } from "@/store/feature/auth.slice";
  * @typedef {interactiveModuleProps}
  */
 interface interactiveModuleProps {
-  data: {
-    title: string;
-    text: string;
-    closing: {
-      text: string;
-      title: string;
-    };
-    items: {
-      text: string;
-      title: string;
-      options: {
-        text: string;
-        isCorrect: boolean;
-      };
-      question: {
-        title: string;
-        answers: string[];
-        correct: number;
-      };
-    }[];
-    ref: string;
-  };
+  data: InteractiveModuleType;
 }
 
 /**
@@ -49,11 +43,11 @@ interface interactiveModuleProps {
  * @param {interactiveModuleProps} {
   data,
 }
- * @returns {*}
+ * @returns {ReactElement}
  */
 export default function InteractiveModule({
   data,
-}: interactiveModuleProps) {
+}: interactiveModuleProps): ReactElement {
   const [started, setStarted] = useState(false);
   const [current, setCurrent] = useState(0);
   const [ended, setEnded] = useState(false);
@@ -63,35 +57,28 @@ export default function InteractiveModule({
 
   const isLoggedIn = useSelector((state) => authCheck(state));
   const items = data?.items?.length ? data.items : [];
-
-  const colors = useSelector((state) => state.ui.colors);
-  const community = useSelector((state) => state.communities.current);
   const course = useSelector((state) => state.courses.current);
 
-  //TODO: This will be uncommented after the navigation slice has been migrated
-  // const showPageNavigation = () => {
-  //   dispatch("communities/navigation/showPageNavigation");
-  // };
-
-  // const checkIfAnswered = async () => {
-  //   try {
-  //     if (!isLoggedIn) return;
-  //     const answers = await checkAnswer(data.ref);
-  //     if (!answers.length) return;
-  //     setCurrent(items.length);
-  //     setStarted(true);
-  //     setEnded(true);
-  //   } catch (e) {
-  //     console.log(e);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const checkIfAnswered = useCallback(async () => {
+    try {
+      if (!isLoggedIn) return;
+      const answers = await checkAnswer(data.ref);
+      if (!answers.length) return;
+      setCurrent(items.length);
+      setStarted(true);
+      setEnded(true);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }, [data.ref, isLoggedIn, items.length]);
 
   const stepTitle =
     ended && data?.closing?.title
       ? data.closing.title
       : items[current]?.title;
+
   const stepSubtitle = answering
     ? "Knowledge test - Select the best option"
     : ended
@@ -105,12 +92,12 @@ export default function InteractiveModule({
 
   useEffect(() => {
     setLoading(true);
-    // checkIfAnswered();
+    hidePageNavigation()(dispatch);
+    checkIfAnswered();
     return () => {
-      // TODO: will be uncommented when migration of the navigation
-      // showPageNavigation();
+      showPageNavigation()(dispatch);
     };
-  }, []);
+  }, [checkIfAnswered, dispatch]);
 
   const nextItem = () => {
     setCurrent(current + 1);
@@ -127,33 +114,12 @@ export default function InteractiveModule({
 
   const completed = () => {
     setEnded(true);
-    // showPageNavigation();
+    showPageNavigation()(dispatch);
     if (!isLoggedIn) return;
-    // submitModuleAnswer();
+    dispatch(
+      submitModuleAnswer({ ref: data.ref, course: course?.ref! })
+    );
   };
-
-  //TODO: This will be uncommented after the courses/learnigModules slice has been migrated
-  // const submitModuleAnswer = () => {
-  //   dispatch(
-  //     "communities/courses/learningModules/submitModuleAnswer",
-  //     {
-  //       ref: data.ref,
-  //       course: course.ref,
-  //     }
-  //   );
-  // };
-
-  // const checkAnswer = () => {
-  //   return dispatch(
-  //     "communities/courses/learningModules/checkAnswer",
-  //     data.ref
-  //   );
-  // };
-
-  //TODO: This will be uncommented after the navigation slice has been migrated
-  // const hidePageNavigation = () => {
-  //   dispatch("communities/navigation/hidePageNavigation");
-  // };
 
   return (
     <InteractiveModuleWrapper
@@ -193,7 +159,7 @@ export default function InteractiveModule({
             )}
           </>
         )}
-        {loading && <Loader className="h-48" community-styles />}
+        {loading && <Loader className="h-48" communityStyles />}
       </div>
     </InteractiveModuleWrapper>
   );

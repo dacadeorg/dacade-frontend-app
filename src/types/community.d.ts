@@ -19,8 +19,8 @@ export interface Community {
   reward: Reward;
   courses: number;
   duration: number;
-  challenge: Challenge;
   items?: any[];
+  challenge: Challenge;
 }
 
 export interface Colors {

@@ -1,30 +1,12 @@
 import Slugger from "github-slugger";
-//  TODO this line will be uncommented once learning module Markdown component has been merged and fragment could be removed during.
-// import Markdown from './_partials/Markdown';
 import Section from "@/components/sections/communities/_partials/Section";
-//  TODO this line will be uncommented once Duration component
-// import Duration from '@/components/sections/courses/_partials/Duration';
+import Duration from "@/components/sections/courses/_partials/Duration";
 import ArrowButton from "@/components/ui/button/Arrow";
 import Video from "@/components/ui/Video";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
-
-/**
- * Material interface
- * @date 4/20/2023 - 10:36:35 AM
- *
- * @interface Material
- * @typedef {Material}
- */
-interface Material {
-  type: string;
-  title: string;
-  subtitle?: string;
-  duration?: number;
-  link: string;
-  list: { link: string }[];
-  description?: string;
-}
+import Markdown from "./_partials/MarkDown";
+import { Material } from "@/types/course";
 
 /**
  * Material component
@@ -37,7 +19,7 @@ interface MaterialProps {
   material?: Material;
 }
 
-export function Material({ material }: MaterialProps) {
+export default function MaterialSection({ material }: MaterialProps) {
   const sluggify = (text: string) => {
     const slugger = new Slugger();
     return slugger.slug(text);
@@ -55,12 +37,10 @@ export function Material({ material }: MaterialProps) {
       title={isAdditional ? "Additional Material" : material?.title}
     >
       {!isAdditional && (
-        //  TODO this line will be uncommented once Duration component has been merged and fragment could be removed during.
-        // <Duration
-        //   text={material?.subtitle}
-        //   value={material?.duration}
-        // />
-        <></>
+        <Duration
+          text={material?.subtitle!}
+          value={material?.duration!}
+        />
       )}
       {!isAdditional && (
         <span className="block text-lg mb-6 mt-2 md:w-99">
@@ -71,9 +51,7 @@ export function Material({ material }: MaterialProps) {
         <Video url={material.link} />
       )}
       {material?.type === "MARKDOWN" && (
-        // TODO this line will be uncommented once markdown component has been merged and fragment could be removed during.
-        // <Markdown url={material?.link} />
-        <></>
+        <Markdown url={material?.link} />
       )}
       {isAdditional && (
         <div>
@@ -91,8 +69,7 @@ export function Material({ material }: MaterialProps) {
                 {material?.title}
               </p>
               <span className="ml-2 leading-normal">
-                {/* TODO this line will be uncommented once Duration component  */}
-                {/* <Duration value={material?.duration} /> */}
+                <Duration value={material?.duration!} text={""} />
               </span>
             </Link>
           ))}
@@ -101,15 +78,16 @@ export function Material({ material }: MaterialProps) {
       {(material?.type === "TEXT" || material?.type === "ARTICLE") &&
         material?.link && (
           <ArrowButton
+            padding={true}
             link={material?.link}
             target="__blank"
             className="mt-4 block"
-            community-styles={true}
+            communityStyles={true}
             variant="outline-primary"
           >
             {material?.type === "TEXT"
-              ? t("learning-module.material?.open.lesson")
-              : t("learning-module.material?.open.article")}
+              ? t("learning-module.material.open.lesson")
+              : t("learning-module.material.open.article")}
           </ArrowButton>
         )}
     </Section>

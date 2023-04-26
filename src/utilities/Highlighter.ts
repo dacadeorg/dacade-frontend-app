@@ -1,13 +1,11 @@
 import lowlight from "lowlight/lib/core";
 import visit from "unist-util-visit";
 import { Data, Node } from "unist";
-import solidityDefiner from 'highlightjs-solidity';
-import 'highlightjs-solidity';
-import { PluggableList, Preset } from "unified";
-
+import solidityDefiner from "highlightjs-solidity";
+import "highlightjs-solidity";
 
 // Declare the highlightjs-solidity module
-declare module 'highlightjs-solidity';
+declare module "highlightjs-solidity";
 
 /**
  * Type of the attacher arguments.
@@ -37,10 +35,9 @@ export default function attacher({
   prefix,
 }: AttacherArgs): (ast: any) => any {
   // register custom languages
-  lowlight.registerLanguage(
-    "solidity",
-    () => ({ language: solidityDefiner })
-  );
+  lowlight.registerLanguage("solidity", () => ({
+    language: solidityDefiner,
+  }));
   lowlight.registerLanguage(
     "xml",
     require("highlight.js/lib/languages/xml")
