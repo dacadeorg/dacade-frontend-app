@@ -58,6 +58,7 @@
     "remark-rehype": "^10.1.0",
     "remark-toc": "^8.0.1",
     "remark-unwrap-all-images": "^1.0.1",
+    "sass": "^1.62.0",
     "typescript": "5.0.2",
     "unified": "^10.1.2",
     "unist-util-visit": "^2.0.0",

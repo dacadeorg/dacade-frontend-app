@@ -13,6 +13,7 @@ import { updateNavigationMarkdownMenu } from "@/store/feature/communities/naviga
 import ReactMarkdown from "react-markdown";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeSlug from "rehype-slug";
+import Loader from "@/components/ui/Loader";
 
 /**
  * Markdown props interface
@@ -77,26 +78,22 @@ export default function Markdown({
     fetchData();
   }, [fetchData]);
 
+  if (loading)
+    return <Loader communityStyles={true} className="py-32" />;
   return (
     <div>
-      {!loading ? (
-        <div>
-          {content && (
-            <div
-              style={{ ...(themeStyles as CSSProperties) }}
-              className="prose"
-            >
-              <ReactMarkdown
-                rehypePlugins={[rehypeExternalLinks, rehypeSlug]}
-                remarkPlugins={[remarkGfm]}
-              >
-                {content}
-              </ReactMarkdown>
-            </div>
-          )}
+      {content && (
+        <div
+          style={{ ...(themeStyles as CSSProperties) }}
+          className="prose"
+        >
+          <ReactMarkdown
+            rehypePlugins={[rehypeExternalLinks, rehypeSlug]}
+            remarkPlugins={[remarkGfm]}
+          >
+            {content}
+          </ReactMarkdown>
         </div>
-      ) : (
-        <></>
       )}
     </div>
   );

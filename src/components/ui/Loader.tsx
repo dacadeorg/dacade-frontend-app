@@ -42,6 +42,7 @@ export default function Loader({
       "text-primary": !communityStyles,
     }
   );
+
   return (
     <div
       className={loaderClasses}
