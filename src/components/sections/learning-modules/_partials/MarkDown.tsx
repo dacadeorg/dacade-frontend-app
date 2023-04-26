@@ -66,7 +66,6 @@ export default function Markdown({
       const tree = processor.runSync(node) as any;
 
       const data = cloneDeep(menus);
-      console.log(menus);
       const slugger = new Slugger();
       const list = data.map((menu) => {
         if (menu.id !== "learning-modules") {
