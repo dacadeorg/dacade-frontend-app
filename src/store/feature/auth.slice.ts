@@ -1,11 +1,5 @@
-import { IRootState } from "..";
-import { User } from "@/types/bounty";
-import { fetchUser } from "../services/user.service";
 import { auth as firebaseAuth } from "@/config/firebase";
-import {
-  createAsyncThunk,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -18,6 +12,9 @@ import {
   setError,
   setJobDone,
 } from "./index.slice";
+import { IRootState } from "..";
+import { User } from "@/types/bounty";
+import { fetchUser } from "../services/user.service";
 
 // Define the interface for the auth state
 interface AuthState {
@@ -58,7 +55,6 @@ export const authVerify = (state: IRootState) =>
 // Export the auth actions
 export const { setAuthData, clearAuthData } = authSlice.actions;
 export default authSlice;
-
 
 // Define the login async thunks using Redux Toolkit
 export const login = createAsyncThunk(

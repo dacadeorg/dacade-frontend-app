@@ -2,6 +2,7 @@ import { wrapper } from "@/store";
 import Section from "@/components/ui/Section";
 import { Community } from "@/types/community";
 import { setColors } from "@/store/feature/ui.slice";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import MainHeader from "@/components/sections/communities/overview/MainHeader";
 import { CoursesOverview } from "@/components/sections/communities/overview/Courses";
@@ -9,16 +10,15 @@ import ScoreboardOverview from "@/components/sections/communities/overview/score
 import CommunityLayout from "@/layouts/Community";
 import { ReactElement, useEffect } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import { setCourseList } from "@/store/feature/course.slice";
 import { Course } from "@/types/course";
 import {
   fetchAllScoreboards,
   setScoreboardList,
 } from "@/store/feature/communities/scoreboard.slice";
 import { Scoreboard } from "@/types/scoreboard";
-import { fetchAllCourses } from "@/store/services/course.service";
-import { setCourseList } from "@/store/feature/course.slice";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
-import { setCurrentCommunity } from "@/store/feature/community.slice";
+import { fetchAllCourses } from "@/store/services/course.service";
 
 export default function Slug(props: {
   pageProps: {
@@ -41,7 +41,7 @@ export default function Slug(props: {
     <div>
       <MainHeader />
       <Section type="default">
-        <div className="w-full mx-auto divide-y divide-solid divide-gray-200">
+        <div className="w-full mx-auto divide-y divide-gray-200 divide-solid">
           <CoursesOverview />
           <ScoreboardOverview />
         </div>

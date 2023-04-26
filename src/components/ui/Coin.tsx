@@ -95,7 +95,7 @@ const coins = [
 export default function Coin({
   bgColor,
   textColor,
-  size = "normal",
+  size = "medium",
   shape = "circle",
   token,
   className = "",

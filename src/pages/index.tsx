@@ -10,7 +10,6 @@ import { Community } from "@/types/community";
 import CommunitiesSection from "@/components/sections/homepage/Communities";
 import MainSection from "@/components/sections/homepage/Main";
 import TestimonialsSection from "@/components/sections/homepage/Testimonials";
-import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchAllCommunities } from "@/store/services/community.service";
 
 const Home = (props: { pageProps: { communities: Community[] } }) => {

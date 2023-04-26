@@ -71,7 +71,7 @@ export const fetchCourse = ({
 }: {
   locale?: string;
   slug: string;
-}) => coursesService.endpoints.getCourse.initiate({ locale, slug });
+}) => coursesService.endpoints.findCourse.initiate({ locale, slug });
 
 export const fetchAllCourses = ({
   locale,

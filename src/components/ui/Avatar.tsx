@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CSSProperties, ReactElement, ReactNode } from "react";
+import {
+  CSSProperties,
+  ReactElement,
+  ReactNode,
+  useState,
+} from "react";
 import classNames from "classnames";
 
 /**
@@ -88,6 +93,7 @@ export default function Avatar({
   style,
   className,
 }: AvatarProps): ReactElement {
+  const [userAvatarLoaded, setUserAvatarLoaded] = useState(true);
   const initials = user?.displayName ? user?.displayName[0] : null;
 
   const link =
@@ -129,16 +135,20 @@ export default function Avatar({
       className={componentClassName}
       style={{ backgroundColor: color, ...style }}
     >
-      {user && user.avatar ? (
+      {user && user.avatar && userAvatarLoaded ? (
         <Image
           src={user.avatar}
           alt="img"
           fill={true}
           className="object-cover w-full h-full"
+          onError={() => {
+            setUserAvatarLoaded(false);
+          }}
         />
       ) : (
         <span>{initials}</span>
       )}
+
       {icon && (
         <Image
           fill={true}

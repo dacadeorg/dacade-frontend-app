@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "@/config/api";
 import { Course } from "@/types/course";
+import { List } from "@/utilities/CommunityNavigation";
 
 // Define initial state
 interface CourseState {
@@ -9,7 +9,7 @@ interface CourseState {
   current: Course | null;
   // TODO: Those type should be improved whenever they are known
   content: any | null;
-  menus: any[];
+  menus: List[];
 }
 
 const initialState: CourseState = {

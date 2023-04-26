@@ -1,7 +1,7 @@
 import { referralSlice } from "./feature/referrals.slice";
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
-import community from "./feature/community.slice";
+import communities from "./feature/community.slice";
 import ui from "./feature/ui.slice";
 import { bannerSlice } from "./feature/banner.slice";
 import { notificationsSlice } from "./feature/notification.slice";
@@ -17,11 +17,18 @@ import reputationService from "./services/reputation.service";
 import referralsService from "./services/referrals.service";
 import notificationsService from "./services/notification.service";
 import scoreboardSlice from "./feature/communities/scoreboard.slice";
+import challengeSlice from "./feature/communities/challenges";
 import courseSlice from "./feature/course.slice";
 import userSlice from "./feature/user.slice";
+import learningModulesSlice from "./feature/learningModules.slice";
+import { navigationSlice } from "./feature/communities/navigation.slice";
+import submissionSlice from "./feature/communities/challenges/submissions";
+import eventsSlice from "./feature/events.slice";
+import communitySlice from "./feature/community.slice";
 
 export interface IRootState {
-  communities: ReturnType<typeof community.reducer>;
+  communities: ReturnType<typeof communities.reducer>;
+  community: ReturnType<typeof communitySlice.reducer>;
   ui: ReturnType<typeof ui.reducer>;
   referrals: ReturnType<typeof referralSlice.reducer>;
   user: ReturnType<typeof userSlice.reducer>;
@@ -40,7 +47,12 @@ export interface IRootState {
     typeof notificationsService.reducer
   >;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
+  navigation: ReturnType<typeof navigationSlice.reducer>;
+  submission: ReturnType<typeof submissionSlice.reducer>;
+  events: ReturnType<typeof eventsSlice.reducer>;
+  challenges: ReturnType<typeof challengeSlice.reducer>;
   courses: ReturnType<typeof courseSlice.reducer>;
+  learningModules: ReturnType<typeof learningModulesSlice.reducer>;
 }
 
 export const store = configureStore({
@@ -53,9 +65,12 @@ export const store = configureStore({
     [walletSlice.name]: walletSlice.reducer,
     [reputationSlice.name]: reputationSlice.reducer,
     [indexSlice.name]: indexSlice.reducer,
-    [community.name]: community.reducer,
     [authSlice.name]: authSlice.reducer,
     [courseSlice.name]: courseSlice.reducer,
+    [navigationSlice.name]: navigationSlice.reducer,
+    [submissionSlice.name]: submissionSlice.reducer,
+    [communitySlice.name]: communitySlice.reducer,
+    [learningModulesSlice.name]: learningModulesSlice.reducer,
     [communityService.reducerPath]: communityService.reducer,
     [coursesService.reducerPath]: coursesService.reducer,
     [walletService.reducerPath]: walletService.reducer,
@@ -65,6 +80,7 @@ export const store = configureStore({
     [notificationsService.reducerPath]: notificationsService.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
   },
+
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
       coursesService.middleware,

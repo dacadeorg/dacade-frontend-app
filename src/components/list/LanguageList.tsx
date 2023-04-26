@@ -3,13 +3,7 @@ import classNames from "classnames";
 import { useRouter } from "next/router";
 import { ReactElement, useMemo } from "react";
 import { useTranslation } from "next-i18next";
-
-const languages: { [key: string]: string } = {
-  en: "English",
-  es: "Español",
-  bg: "Bulgarian",
-  hr: "Croatian",
-};
+import { languages } from "@/constants/languages";
 
 interface LanguageSwitcherProps {
   onSelect?: () => void;

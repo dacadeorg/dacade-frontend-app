@@ -15,6 +15,7 @@ import classNames from "classnames";
 import Checkbox from "@/components/ui/Checkbox";
 import ReferralsList from "@/components/popups/referral/List";
 import { signUp } from "@/store/services/auth.service";
+import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 
 /**
  * Signup form values
@@ -199,7 +200,7 @@ export default function Signup(): ReactElement {
                       />
                     </div>
                     <div className="max-w-none test">
-                      <p>I agree to {t("app.name")}s</p>
+                      <p>I agree to {t("app.name")}&#8217;s</p>
                       <Link
                         className="underline"
                         href="/terms-conditions"
@@ -232,6 +233,8 @@ export default function Signup(): ReactElement {
     </>
   );
 }
-
+Signup.getLayout = function (page: ReactElement) {
+  return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
+};
 export const getStaticProps: GetStaticProps = async ({ locale }) =>
   i18Translate(locale as string);

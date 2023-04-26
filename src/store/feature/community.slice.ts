@@ -1,9 +1,6 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Community } from "@/types/community";
+import { Course } from "@/types/course";
 
 /**
  * CommunitiesState interface
@@ -15,6 +12,7 @@ import { Community } from "@/types/community";
  */
 export interface CommunitiesState {
   list: Community[];
+  courses: Course[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: object | null | string;
   current: Community | null;
@@ -28,6 +26,7 @@ export interface CommunitiesState {
  */
 const initialState: CommunitiesState = {
   list: [],
+  courses: [],
   status: "idle",
   error: null,
   current: null,

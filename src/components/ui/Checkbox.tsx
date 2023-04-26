@@ -1,5 +1,12 @@
 import classNames from "classnames";
-import { useState, useEffect, useRef, ReactElement, forwardRef } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  ReactElement,
+  forwardRef,
+  CSSProperties,
+} from "react";
 
 /**
  * Interface for checbox props
@@ -16,6 +23,7 @@ interface CheckboxProps {
   id?: string;
   name?: string;
   communityStyles?: boolean;
+  className?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
@@ -36,43 +44,48 @@ interface CheckboxProps {
 }
  * @returns {ReactElement}
  */
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>( function ({
-  checked ,
-  disabled,
-  value,
-  required,
-  id,
-  name,
-  communityStyles,
-  onChange
-}, ref) {
-
-  const styles = communityStyles ? { color: "#0000FF" } : undefined;
-
-  const checkboxClassName: string = classNames(
-    "w-5 h-5 bg-gray-100 rounded border-gray-200 text-primary",
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
+  function (
     {
-      "cursor-not-allowed": disabled,
-      "cursor-pointer": !disabled,
-    }
-  );
+      checked,
+      disabled,
+      value,
+      required,
+      id,
+      name,
+      communityStyles,
+      className = "",
+      onChange,
+    },
+    ref
+  ) {
+    const styles = communityStyles ? { color: "#0000FF" } : undefined;
 
-  return (
-    <input
-      ref={ref}
-      id={id}
-      type="checkbox"
-      checked={checked}
-      value={value}
-      name={name}
-      required={required}
-      disabled={disabled}
-      className={checkboxClassName}
-      style={styles}
-      onChange={onChange}
-    />
-  );
-})
+    const checkboxClassName: string = classNames(
+      `w-5 h-5 bg-gray-100 rounded border-gray-200 text-primary ${className}`,
+      {
+        "cursor-not-allowed": disabled,
+        "cursor-pointer": !disabled,
+      }
+    );
+
+    return (
+      <input
+        ref={ref}
+        id={id}
+        type="checkbox"
+        checked={checked}
+        value={value}
+        name={name}
+        required={required}
+        disabled={disabled}
+        className={checkboxClassName}
+        style={styles}
+        onChange={onChange}
+      />
+    );
+  }
+);
 
 Checkbox.displayName = "Checkbox";
 export default Checkbox;

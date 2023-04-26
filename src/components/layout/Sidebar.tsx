@@ -27,7 +27,7 @@ import { readNotification } from "@/store/services/notification.service";
  * @typedef {SidebarProps}
  */
 interface SidebarProps {
-  burgerColor: boolean;
+  burgerColor?: boolean;
 }
 
 /**

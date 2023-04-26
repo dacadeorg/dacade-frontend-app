@@ -1,6 +1,4 @@
-// Those types are temporary
-// TODO: Should be improved with the extact types
-import { Metadata, Reward } from "./course";
+import { Challenge, Metadata, Reward } from "./course";
 
 export interface Community {
   id: string;
@@ -20,7 +18,9 @@ export interface Community {
   rewards: Reward[];
   reward: Reward;
   courses: number;
-  duration:number
+  duration: number;
+  items?: any[];
+  challenge: Challenge;
 }
 
 export interface Colors {
@@ -28,6 +28,9 @@ export interface Colors {
   text: string;
   accent: string;
   primary: string;
+  secondary: string;
+  highlight: string;
+  muted: string;
 }
 export interface Referral {
   id: string;

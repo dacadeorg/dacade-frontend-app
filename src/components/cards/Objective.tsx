@@ -1,8 +1,7 @@
 import { ReactElement } from "react";
-// TODO: Should be uncommented when redux is implemented
-// import { useSelector } from "react-redux";
 import Checkmark from "@/icons/checkmark.svg";
 import Crossmark from "@/icons/crossmark.svg";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * Objective card component props
@@ -36,15 +35,13 @@ export default function ObjectiveCard({
   crossmark = false,
   objective,
 }: ObjectiveCardProps): ReactElement {
-  // TODO: Should be uncommented when redux is implemented
-  //   const colors = useSelector((state) => state.ui.colors);
+  const colors = useSelector((state) => state.ui.colors);
 
   return (
     <div className="flex">
       <div
-        className="mr-2 py-0 pt-px mt-px"
-        // TODO: Should be uncommented when redux is implemented
-        // style={{ color: iconcolor || colors.primary }}
+        className="py-0 pt-px mt-px mr-2"
+        style={{ color: iconcolor || colors.primary }}
       >
         {crossmark ? <Crossmark /> : <Checkmark />}
       </div>
