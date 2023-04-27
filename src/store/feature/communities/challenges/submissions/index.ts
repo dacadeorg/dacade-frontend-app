@@ -53,8 +53,14 @@ export const submissionsSlice = createSlice({
       state.current = current || null;
     },
   },
-});
+  extraReducers: (builder) => {
+    builder.addCase(fetchAllSubmission.fulfilled, (state, action) => {
+      console.log(action.payload);
 
+      state.list = action.payload;
+    });
+  },
+});
 
 /**
  * Find submission by id
@@ -82,7 +88,6 @@ export const findSubmssionById = createAsyncThunk(
   }
 );
 
-
 /**
  * Fetch all submission
  * @date 4/25/2023 - 8:20:21 PM
@@ -105,18 +110,17 @@ export const fetchAllSubmission = createAsyncThunk(
       {
         params: { start_after: startAfter },
       }
-    );    
+    );
     const list = [];
     if (startAfter) {
-      const selectedList = selectList(state as IRootState)
+      const selectedList = selectList(state as IRootState);
       list.push(...selectedList);
+      // console.log(list);
     }
     list.push(...(data || []));
-    dispatch(setList(list));
-    return data;
+    return list;
   }
 );
-
 
 /**
  * Create a submission
@@ -153,7 +157,6 @@ export const createSubmission = createAsyncThunk(
   }
 );
 
-
 /**
  * Find challenge with it's relation ["evaluation","course","community"]
  * @date 4/25/2023 - 8:22:20 PM
@@ -187,8 +190,13 @@ export const findWithRelations = createAsyncThunk(
   }
 );
 
-export const { setCurrent, setList, setText, setSubmission , showSubmission } =
-  submissionsSlice.actions;
+export const {
+  setCurrent,
+  setList,
+  setText,
+  setSubmission,
+  showSubmission,
+} = submissionsSlice.actions;
 export const selectCurrent = (state: IRootState) =>
   state.submissions.current;
 export const selectList = (state: IRootState) =>

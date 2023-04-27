@@ -26,6 +26,8 @@ import Head from "next/head";
 
 export default function Submission() {
   const [selectedSubmission, setSelectedSubmission] = useState("");
+  console.log(selectedSubmission);
+
   const dispatch = useDispatch();
   const router = useRouter();
   const { submission_id, slug, course_slug, challenge_id } =
@@ -37,10 +39,7 @@ export default function Submission() {
 
   const challenge = useSelector((state) => state.challenges.current);
   const { t } = useTranslation();
-  const metadata = {
-    title: getMetadataTitle(),
-    // description: getMetadataDescription(challenge.description),
-  };
+
   const handleDisplaySubmission = useCallback(() => {
     setSelectedSubmission(submission_id as string);
     dispatch(showSubmission(selectedSubmission));
