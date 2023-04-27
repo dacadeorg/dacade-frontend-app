@@ -170,3 +170,10 @@ export const verifyEmail = async (payload: { code: string }) => {
   const res = await api().client.post("auth/verify-email", payload);
   return res;
 };
+
+export const verifyEmailUpdate = async (code: string) => {
+  const res = await api().server.post("auth/verify-email-update", {
+    code,
+  });
+  return res;
+};
