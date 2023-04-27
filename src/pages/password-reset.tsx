@@ -9,7 +9,6 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import i18Translate from "@/utilities/I18Translate";
 import { GetStaticProps } from "next";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { passwordResetRequest } from "@/store/feature/auth.slice";
 
 interface FormValues {
@@ -21,7 +20,6 @@ export default function PasswordReset() {
   const router = useRouter();
   const [form, setForm] = useState({ email: "" });
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -59,7 +57,6 @@ export default function PasswordReset() {
 
             <Input
               id="input-1"
-              value={form.email}
               placeholder={
                 t("login-page.email.placeholder") as string
               }
