@@ -4,17 +4,13 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import Input from "@/components/ui/Input";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import { ReactElement, useState } from "react";
-import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
-import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import classNames from "classnames";
 import Checkbox from "@/components/ui/Checkbox";
 import { singUp } from "@/store/feature/auth.slice";
-import ReferralsList from "@/components/popups/referral/List";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 
 /**

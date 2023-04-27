@@ -7,7 +7,7 @@ import { ReactElement, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
-import { GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
@@ -215,5 +215,7 @@ export default function SignupWithInvite(): ReactElement {
 SignupWithInvite.getLayout = function (page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
-export const getStaticProps: GetStaticProps = async ({ locale }) =>
-  i18Translate(locale as string);
+
+export const getServerSideProps: GetServerSideProps = async ({
+  locale,
+}) => i18Translate(locale as string);
