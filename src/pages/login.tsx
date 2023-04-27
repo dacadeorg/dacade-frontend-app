@@ -20,7 +20,7 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
  * @typedef {FormValues}
  */
 
-interface FormValues {
+export interface FormValues {
   email: string;
   password: string;
 }
