@@ -36,6 +36,8 @@ import Header from "@/components/sections/learning-modules/Header";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import { setColors } from "@/store/feature/ui.slice";
 import useNavigation from "@/hooks/useNavigation";
+import api from "@/config/api";
+import { GetStaticProps } from "next";
 
 /**
  * Learning module page props interfae
@@ -141,26 +143,21 @@ LearningModulePage.getLayout = function (page: ReactElement) {
   );
 };
 
-export async function getStaticProps({ res, params, locale }: any) {
-  const { slug, course_slug, id } = params;
-
-  const headers = {
-    "Accept-Language": "en",
-  };
-  const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  locale,
+}) => {
+  const slug = params?.slug as string;
+  const course_slug = params?.course_slug as string;
+  const id = params?.id as string;
 
   const [community, course, learningModule] = await Promise.all([
-    fetch(`${API_URL}/communities/${slug}`, { headers }),
-    fetch(`${API_URL}/courses/${course_slug}`, { headers }),
-    fetch(`${API_URL}/learning-modules/${id}`, { headers }),
-  ]).then((responses) =>
-    Promise.all(responses.map(async (res) => await res.json()))
-  );
+    api(locale).server.get<Community>(`/communities/${slug}`),
+    api(locale).server.get<Course>(`/courses/${course_slug}`),
+    api(locale).server.get<LearningModule>(`/learning-modules/${id}`),
+  ]).then((responses) => responses.map((response) => response.data));
 
   if (
-    course.status === 404 ||
-    community.status === 404 ||
-    learningModule.status === 404 ||
     Object.entries(learningModule).length === 0 ||
     Object.entries(course).length === 0 ||
     Object.entries(community).length === 0
@@ -179,33 +176,36 @@ export async function getStaticProps({ res, params, locale }: any) {
       revalidate: 60,
     };
   }
+};
+
+interface Path {
+  params: {
+    slug: string;
+    course_slug: string;
+    id: string;
+  };
+  locale: string;
 }
 
 export async function getStaticPaths() {
-  const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const communities = await fetch(`${API_URL}/communities`).then(
-    (res) => res.json()
+  const { data: communities } = await api().server.get<Community[]>(
+    `/communities`
   );
 
   const getPathes = async () => {
     const paths = await Promise.all(
-      communities.map(async (community: any) => {
-        const courses = await fetch(
-          `${API_URL}/communities/${community.slug}/courses`
-        ).then((res) => res.json());
+      communities.map(async (community) => {
+        const { data: courses } = await api().server.get<Course[]>(
+          `/courses`
+        );
         const coursePaths = await Promise.all(
-          courses.map(async (course: any) => {
-            const modules = await fetch(
-              `${API_URL}/courses/${course.slug}/learning-modules`
-            )
-              .then((res) => res.json())
-              .catch((err) => {
-                console.log(err);
-                return [];
-              });
+          courses.map(async (course) => {
+            const { data: modules } = await api().server.get<
+              Course[]
+            >(`/courses`);
 
-            const modulePaths: any = [];
-            // check if module is array type
+            const modulePaths: Path[] = [];
+
             if (Array.isArray(modules)) {
               modules.forEach(({ id }) => {
                 ["bg", "en", "es", "hr"].forEach((locale) => {

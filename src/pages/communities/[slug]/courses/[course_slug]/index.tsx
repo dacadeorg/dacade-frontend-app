@@ -24,6 +24,7 @@ import {
 import DefaultLayout from "@/components/layout/Default";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import useNavigation from "@/hooks/useNavigation";
+import api from "@/config/api";
 
 export default function CourseViewPage(props: {
   pageProps: {
@@ -75,61 +76,46 @@ CourseViewPage.getLayout = function (page: ReactElement) {
   );
 };
 
-export async function getStaticProps({ res, params, locale }: any) {
+export async function getStaticProps({ params, locale }: any) {
   const { slug, course_slug } = params;
 
-  const headers = {
-    "Accept-Language": "en",
-  };
-
   const [community, course] = await Promise.all([
-    fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/communities/${slug}`,
-      { headers }
-    ),
-    fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/${course_slug}`,
-      { headers }
-    ),
-  ]).then((responses) =>
-    Promise.all(responses.map(async (res) => await res.json()))
-  );
+    api(locale).server.get<Community>(`/communities/${slug}`),
+    api(locale).server.get<Community>(`/courses/${course_slug}`),
+  ]).then((res) => res.map(({ data }) => data));
 
-  if (
-    course.status === 404 ||
-    community.status === 404 ||
-    Object.entries(course).length === 0 ||
-    Object.entries(community).length === 0
-  ) {
-    return {
-      notFound: true,
-    };
-  } else {
-    return {
-      props: {
-        community,
-        course,
-        ...(await serverSideTranslations(locale as string)),
-      },
-      revalidate: 60,
-    };
-  }
+  return {
+    props: {
+      community,
+      course,
+      ...(await serverSideTranslations(locale as string)),
+    },
+    revalidate: 60,
+  };
+}
+
+interface Path {
+  params: {
+    slug: string;
+    course_slug: string;
+  };
+  locale: string;
 }
 
 export async function getStaticPaths() {
-  const communities = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/communities`
-  ).then((res) => res.json());
+  const { data: communities } = await api().server.get<Community[]>(
+    `/communities`
+  );
 
   const getPathes = async () => {
-    const paths: any = await Promise.all(
-      communities.map(async (e: any) => {
-        const courses = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/communities/${e.slug}/courses`
-        ).then((res) => res.json());
+    const paths = await Promise.all(
+      communities.map(async (e) => {
+        const { data: courses } = await api().server.get<Course[]>(
+          `/courses`
+        );
+        const coursePaths: Path[] = [];
 
-        const coursePaths: any = [];
-        courses.forEach(({ slug }: any) => {
+        courses.forEach(({ slug }) => {
           ["bg", "en", "es", "hr"].forEach((locale) => {
             coursePaths.push({
               params: {
@@ -146,7 +132,7 @@ export async function getStaticPaths() {
     return paths.flat();
   };
 
-  const paths = await getPathes();
+  const paths: Path[] = await getPathes();
 
   return {
     paths,
