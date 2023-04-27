@@ -71,7 +71,7 @@ export const singUp = createAsyncThunk(
     dispatch(setBusy(true));
     dispatch(clearError());
     try {
-      const { data: user } = await api().client.post<User>(
+      const { data: user } = await api().server.post<User>(
         "auth/signup",
         {
           ...payload,

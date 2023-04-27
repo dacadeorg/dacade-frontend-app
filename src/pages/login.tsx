@@ -4,13 +4,14 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import Input from "@/components/ui/Input";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import { ReactElement, ReactNode, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
+import { login } from "@/store/feature/auth.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  * Login form values
@@ -46,20 +47,19 @@ export default function Login(): ReactElement {
   const [passwordValue, setPasswordValue] = useState("");
   const emailValue = watch("email");
 
-  const onSubmit = (form: FormValues) => {
+  const onSubmit = async (form: FormValues) => {
     const loginData = {
       email: form.email,
       password: form.password,
     };
 
-    // setLoading(true);
-    // replace 'auth/login' with your actual login action
-    // dispatch(login(loginData))
     try {
-      // TODO: Should be uncommented after the homepage being merged
-      //   await dispatch(login(loginData));
+      setLoading(true);
+      dispatch(login(loginData));
       router.replace("/bounties");
     } catch (err) {
+      console.error(err);
+    } finally {
       setLoading(false);
     }
   };

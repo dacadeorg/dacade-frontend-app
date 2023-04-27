@@ -40,7 +40,7 @@ interface FormValues {
  * @export
  * @returns {ReactElement}
  */
-export default function Signup(): ReactElement {
+export default function SignupWithInvite(): ReactElement {
   const {
     register,
     handleSubmit,
@@ -48,6 +48,7 @@ export default function Signup(): ReactElement {
   } = useForm<FormValues>();
   const { query } = useRouter();
   const referrer = query.invite;
+  console.log(referrer);
   const referrals = useSelector((state) => state.referrals.list);
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
@@ -64,12 +65,14 @@ export default function Signup(): ReactElement {
       referralCode,
       referrer,
     };
-
+    console.log(signupData);
     try {
       if (!checkTerms) return;
       setLoading(false);
       dispatch(singUp(signupData));
     } catch (error) {
+      console.error(error);
+    } finally {
       setLoading(false);
     }
   };
@@ -108,12 +111,6 @@ export default function Signup(): ReactElement {
                   </div>
                 )}
               </div>
-            )}
-
-            {!referrer && (
-              <h1 className="text-5xl my-5">
-                {t("login-page.signup.title")}
-              </h1>
             )}
 
             <div className="mb-5 relative">
@@ -166,24 +163,6 @@ export default function Signup(): ReactElement {
                 })}
               />
             </div>
-            {!referrer && (
-              <div className="mb-5 relative">
-                <Input
-                  id="referralCode"
-                  placeholder={`${t(
-                    "login-page.refcode.placeholder"
-                  )}`}
-                  label={`${t("login-page.refcode.label")}`}
-                  error={errors.referralCode?.message}
-                  {...register("referralCode", {
-                    minLength: {
-                      value: 3,
-                      message: "The referral code is too short",
-                    },
-                  })}
-                />
-              </div>
-            )}
 
             <div className="flex justify-between mt-4">
               <div className="flex flex-col self-start">
@@ -233,7 +212,7 @@ export default function Signup(): ReactElement {
     </>
   );
 }
-Signup.getLayout = function (page: ReactElement) {
+SignupWithInvite.getLayout = function (page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
 export const getStaticProps: GetStaticProps = async ({ locale }) =>
