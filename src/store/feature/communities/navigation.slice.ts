@@ -4,7 +4,6 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { NextRouter } from "next/router";
-import navigation from "@/config/navigation";
 import { store } from "@/store";
 import { Course } from "@/types/course";
 import { Community } from "@/types/community";
@@ -87,12 +86,8 @@ export const navigationSlice = createSlice({
   },
 });
 
-
-export const {
-  setNavigationList,
-  setShowPageNavigation,
-} = navigationSlice.actions;
-
+export const { setNavigationList, setShowPageNavigation } =
+  navigationSlice.actions;
 
 export const communityPath = (link: string, router: NextRouter) => {
   return `/communities/${router.query.slug}/courses/${router.query.course_slug}/${link}`;
@@ -111,17 +106,18 @@ export const learningModulePath = (
  *
  * @returns {(dispatch: any) => void}
  */
-export const initNavigationMenu = () => (dispatch: Dispatch) => {
-  const course = store.getState().courses.current as Course;
-  const community = store.getState().communities.current as Community;
-  const menus: List[] = navigation.community.init({
-    course,
-    community,
-  });
-  dispatch(setNavigationList(menus));
-};
-
-
+export const initNavigationMenu =
+  (navigation: any) => (dispatch: Dispatch) => {
+    const course = store.getState().courses.current as Course;
+    const community = store.getState().communities
+      .current as Community;
+    const menus: List[] = navigation.init({
+      course,
+      community,
+    });
+    console.log(menus);
+    dispatch(setNavigationList(menus));
+  };
 
 /**
  * Hide navigation action
@@ -141,12 +137,6 @@ export const hidePageNavigation = () => (dispatch: Dispatch) => {
  * @returns {(dispatch: Dispatch) => void}
  */
 
-
 export const showPageNavigation = () => (dispatch: Dispatch) => {
   dispatch(setShowPageNavigation(true));
 };
-
-
-
-
-

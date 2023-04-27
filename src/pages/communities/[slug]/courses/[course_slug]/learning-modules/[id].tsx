@@ -1,4 +1,9 @@
-import { useMemo, useEffect, ReactElement } from "react";
+import {
+  useMemo,
+  useEffect,
+  ReactElement,
+  useLayoutEffect,
+} from "react";
 import PageNavigation from "@/components/sections/courses/PageNavigation";
 import InteractiveModule from "@/components/sections/learning-modules/InteractiveModule";
 import AdditionalMaterialsSection from "@/components/sections/learning-modules/AdditionalMaterials";
@@ -30,6 +35,7 @@ import DefaultLayout from "@/components/layout/Default";
 import Header from "@/components/sections/learning-modules/Header";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import { setColors } from "@/store/feature/ui.slice";
+import useNavigation from "@/hooks/useNavigation";
 
 /**
  * Learning module page props interfae
@@ -60,12 +66,14 @@ export default function LearningModulePage(
   const { community, course, learningModule } = props.pageProps;
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
     dispatch(setCurrentCommunity(community));
     dispatch(setCurrentCourse(course));
     dispatch(setCurrentLearningModule(learningModule));
     dispatch(setColors(community.colors));
-    initNavigationMenu()(dispatch);
+    initNavigationMenu(navigation.community)(dispatch);
   }, [community, course, dispatch, learningModule]);
 
   const materials = useMemo(
@@ -133,49 +141,98 @@ LearningModulePage.getLayout = function (page: ReactElement) {
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async (data) => {
-    const { query } = data;
-    const slug = query.slug as string;
-    const courseSlug = query.course_slug as string;
-    const learningModuleId = query.id as string;
-    const locale = data.locale as string;
+export async function getStaticProps({ res, params, locale }: any) {
+  const { slug, course_slug, id } = params;
 
-    const getCurrentCommunty = store.dispatch(
-      fetchCurrentCommunity({
-        slug: slug,
-        locale,
-      })
-    );
+  const headers = {
+    "Accept-Language": "en",
+  };
+  const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-    const getCurrentCourse = store.dispatch(
-      fetchCourse({
-        slug: courseSlug,
-        locale,
-      })
-    );
+  const [community, course, learningModule] = await Promise.all([
+    fetch(`${API_URL}/communities/${slug}`, { headers }),
+    fetch(`${API_URL}/courses/${course_slug}`, { headers }),
+    fetch(`${API_URL}/learning-modules/${id}`, { headers }),
+  ]).then((responses) =>
+    Promise.all(responses.map(async (res) => await res.json()))
+  );
 
-    const getLearningModule = store.dispatch(
-      findLearningModule(learningModuleId)
-    );
-
-    const results = await Promise.all([
-      getCurrentCommunty,
-      getCurrentCourse,
-      getLearningModule,
-    ]);
-
-    const community = results[0].payload;
-    const course = results[1].payload;
-    const learningModule = results[2].payload;
-
+  if (
+    course.status === 404 ||
+    community.status === 404 ||
+    learningModule.status === 404 ||
+    Object.entries(learningModule).length === 0 ||
+    Object.entries(course).length === 0 ||
+    Object.entries(community).length === 0
+  ) {
+    return {
+      notFound: true,
+    };
+  } else {
     return {
       props: {
-        ...(await serverSideTranslations(locale)),
         community,
         course,
         learningModule,
+        ...(await serverSideTranslations(locale as string)),
       },
+      revalidate: 60,
     };
   }
-);
+}
+
+export async function getStaticPaths() {
+  const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const communities = await fetch(`${API_URL}/communities`).then(
+    (res) => res.json()
+  );
+
+  const getPathes = async () => {
+    const paths = await Promise.all(
+      communities.map(async (community: any) => {
+        const courses = await fetch(
+          `${API_URL}/communities/${community.slug}/courses`
+        ).then((res) => res.json());
+        const coursePaths = await Promise.all(
+          courses.map(async (course: any) => {
+            const modules = await fetch(
+              `${API_URL}/courses/${course.slug}/learning-modules`
+            )
+              .then((res) => res.json())
+              .catch((err) => {
+                console.log(err);
+                return [];
+              });
+
+            const modulePaths: any = [];
+            // check if module is array type
+            if (Array.isArray(modules)) {
+              modules.forEach(({ id }) => {
+                ["bg", "en", "es", "hr"].forEach((locale) => {
+                  modulePaths.push({
+                    params: {
+                      slug: community.slug,
+                      course_slug: course.slug,
+                      id: id,
+                    },
+                    locale: locale,
+                  });
+                });
+              });
+            }
+            return modulePaths;
+          })
+        );
+        return coursePaths.flat();
+      })
+    );
+    return paths.flat();
+  };
+
+  const paths = await getPathes();
+
+  return {
+    paths,
+    fallback: "blocking",
+  };
+}

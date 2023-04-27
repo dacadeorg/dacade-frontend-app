@@ -87,8 +87,6 @@ export default function Markdown({
         });
         return menu;
       });
-
-      dispatch(setNavigationList(list));
     },
     [dispatch, menus, route.query.id]
   );

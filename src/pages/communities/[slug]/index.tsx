@@ -11,7 +11,7 @@ import MainHeader from "@/components/sections/communities/overview/MainHeader";
 import { CoursesOverview } from "@/components/sections/communities/overview/Courses";
 import ScoreboardOverview from "@/components/sections/communities/overview/scoreboard";
 import CommunityLayout from "@/layouts/Community";
-import { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect, useLayoutEffect } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import {
   fetchAllCourses,
@@ -34,7 +34,7 @@ export default function Slug(props: {
   const { community, courses, scoreboards } = props.pageProps;
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(setCurrentCommunity(community));
     dispatch(setColors(community.colors));
     dispatch(setCoursesList(courses));
@@ -58,41 +58,66 @@ Slug.getLayout = function (page: ReactElement) {
   return <CommunityLayout>{page}</CommunityLayout>;
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async (data) => {
-    const { query } = data;
-    const slug = query?.slug;
+export async function getStaticProps({ res, params, locale }: any) {
+  const { slug } = params;
 
-    const fetchArgs = {
-      slug: slug as string,
-      locale: data.locale as string,
+  const headers = {
+    "Accept-Language": locale,
+  };
+
+  const [community, scoreboards, courses] = await Promise.all([
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/communities/${slug}`,
+      { headers }
+    ),
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/communities/${slug}/scoreboard`,
+      { headers }
+    ),
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/communities/${slug}/courses`,
+      { headers }
+    ),
+  ]).then((responses) =>
+    Promise.all(responses.map(async (res) => await res.json()))
+  );
+
+  if (community.status === 404) {
+    return {
+      notFound: true,
     };
-
-    const getCurrentCommunty = store.dispatch(
-      fetchCurrentCommunity(fetchArgs)
-    );
-    const getAllCourses = store.dispatch(fetchAllCourses(fetchArgs));
-    const getAllScoreboards = store.dispatch(
-      fetchAllScoreboards(fetchArgs)
-    );
-
-    const results = await Promise.all([
-      getCurrentCommunty,
-      getAllCourses,
-      getAllScoreboards,
-    ]);
-
-    const community = results[0].payload;
-    const courses = results[1].payload;
-    const scoreboards = results[2].payload;
-
+  } else {
     return {
       props: {
-        ...(await serverSideTranslations(data.locale as string)),
         community,
-        courses,
         scoreboards,
+        courses,
+        ...(await serverSideTranslations(locale as string)),
       },
+      revalidate: 60,
     };
   }
-);
+}
+
+export async function getStaticPaths() {
+  const communities: Community[] = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/communities`
+  ).then((res) => res.json());
+
+  const paths: { params: { slug: string }; locale: string }[] = [];
+  communities.forEach(({ slug }) => {
+    ["bg", "en", "es", "hr"].forEach((locale) => {
+      paths.push({
+        params: {
+          slug,
+        },
+        locale: locale,
+      });
+    });
+  });
+
+  return {
+    paths,
+    fallback: "blocking",
+  };
+}
