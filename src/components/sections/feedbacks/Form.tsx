@@ -10,6 +10,8 @@ import { useForm } from "react-hook-form";
 import api from "@/config/api";
 import { createEvent } from "@/store/feature/events.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import { Feedback } from "@/types/feedback";
+import { createFeedback } from "@/store/feature/communities/challenges/submissions/feedback.slice";
 
 /**
  * FormValues Intercase
@@ -50,13 +52,16 @@ export default function Form({ save }: FormProps): ReactElement {
     formState: { errors },
   } = useForm<FormValues>();
 
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const [saving, setsaving] = useState(false);
   const community = useSelector((state) => state.community.current);
   const user = useSelector((state) => state.user.data);
   const colors = useSelector((state) => state.ui.colors);
-  const submission = useSelector( state => state.submissions.current);
-  const challenge = useSelector(state => state.challenges.current)
+  const submission = useSelector(
+    (state) => state.submissions.current
+  );
+  const challenge = useSelector((state) => state.challenges.current);
 
   const activeButtonStyle = useMemo(
     () => ({
@@ -70,11 +75,10 @@ export default function Form({ save }: FormProps): ReactElement {
     [colors]
   );
 
-
   // const dispatch = useDispatch();
 
   const onSubmit = async (form: FormValues) => {
-    const { feedback , githubLink } = form;
+    const { feedback, githubLink } = form;
 
     if (!saving) {
       setsaving(true);
@@ -106,6 +110,35 @@ export default function Form({ save }: FormProps): ReactElement {
       //       // form.setErrors(error.details);
       //     }
       //   });
+      if (saving) return;
+
+      try {
+        setsaving(true);
+        const result = await dispatch(
+          createFeedback({
+            submission_id: challenge?.id as string,
+            text: form.feedback,
+            link: form.githubLink,
+          })
+        );
+        const response = result.payload as Feedback;
+        dispatch(
+          createEvent({
+            name: "Feedback-created",
+            attributes: {
+              submissionId: submission?.id,
+              community: community?.slug,
+              feedbackId: response.id,
+            },
+          })
+        );
+        reset();
+        save(response);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setsaving(false);
+      }
     }
   };
 
@@ -127,7 +160,7 @@ export default function Form({ save }: FormProps): ReactElement {
                 ) || ""
               }
               inputClass="border-t-0"
-              error={errors.feedback?.message}            
+              error={errors.feedback?.message}
               {...register("feedback", {
                 required: "This field is required",
                 minLength: {
@@ -142,7 +175,7 @@ export default function Form({ save }: FormProps): ReactElement {
               <GithubLinkInput
                 id="input-github"
                 error={errors.githubLink?.message || ""}
-                className="p-0 border border-t-0 border-solid border-gray-200 focus:outline-none outline-none active:border-none focus:border-none block m-0 flex-grow w-full placeholder-gray-400 placeholder-opacity-100"
+                className="flex-grow block w-full p-0 m-0 placeholder-gray-400 placeholder-opacity-100 border border-t-0 border-gray-200 border-solid outline-none focus:outline-none active:border-none focus:border-none"
                 placeholder={
                   t(
                     "communities.challenge.submission.githubLink.placeholder.github"
@@ -162,7 +195,7 @@ export default function Form({ save }: FormProps): ReactElement {
           <div>
             <MarkdownIcon />
           </div>
-          <div className="text-right mt-5">
+          <div className="mt-5 text-right">
             <ArrowButton
               disabled={saving}
               customStyle={activeButtonStyle}

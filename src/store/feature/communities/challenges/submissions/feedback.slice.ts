@@ -1,7 +1,7 @@
-import api from '@/config/api';
-import { Feedback } from '@/types/feedback';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
+import api from "@/config/api";
+import { Feedback } from "@/types/feedback";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { setSubmission } from ".";
 
 /**
  * Feedback state interface
@@ -15,16 +15,42 @@ interface FeedbackState {
   list: Feedback[];
 }
 
-
 const initialState: FeedbackState = {
   current: null,
   list: [],
 };
 
-
+export const createFeedback = createAsyncThunk(
+  "feedbacks/create",
+  async (
+    {
+      text,
+      link,
+      submission_id,
+      locale,
+    }: {
+      text: string;
+      link: string;
+      submission_id: string;
+      locale?: string;
+    },
+    { dispatch }
+  ) => {
+    const { data } = await api(locale).server.post(
+      "feedbacks/create",
+      {
+        submission_id,
+        text,
+        link,
+      }
+    );
+    dispatch(setSubmission(data));
+    return data;
+  }
+);
 // Define the slice
 export const feedbackSlice = createSlice({
-  name: 'feedback',
+  name: "feedback",
   initialState,
   reducers: {
     setCurrent: (state, action) => {
@@ -45,24 +71,20 @@ export const feedbackSlice = createSlice({
   },
 });
 
-
 export const { setCurrent, setList } = feedbackSlice.actions;
 
 /**
- * Find feedback by id 
+ * Find feedback by id
  * @date 4/25/2023 - 8:26:22 PM
  *
  */
 export const findFeedbackById = createAsyncThunk(
-  'feedback/findById',
-  async ({id , locale}:{id: string , locale?: string}) => {
-    const response = await api(locale).server.get(
-        `feedbacks/${id}`
-      );
+  "feedback/findById",
+  async ({ id, locale }: { id: string; locale?: string }) => {
+    const response = await api(locale).server.get(`feedbacks/${id}`);
     return response.data;
   }
 );
-
 
 /**
  * Fetch feedback by submission id
@@ -70,11 +92,17 @@ export const findFeedbackById = createAsyncThunk(
  *
  */
 export const fetchFeedbacks = createAsyncThunk(
-  'feedback/all',
-  async ({submissionId , locale}: {submissionId: string , locale?: string}) => {
+  "feedback/all",
+  async ({
+    submissionId,
+    locale,
+  }: {
+    submissionId: string;
+    locale?: string;
+  }) => {
     const response = await api(locale).server.get(
-        `submissions/${submissionId}/feedbacks`
-      );
+      `submissions/${submissionId}/feedbacks`
+    );
     return response.data;
   }
 );
