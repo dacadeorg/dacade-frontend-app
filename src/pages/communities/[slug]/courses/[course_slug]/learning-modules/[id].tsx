@@ -147,33 +147,43 @@ export const getStaticProps: GetStaticProps = async ({
   params,
   locale,
 }) => {
-  const slug = params?.slug as string;
-  const course_slug = params?.course_slug as string;
-  const id = params?.id as string;
+  try {
+    const slug = params?.slug as string;
+    const course_slug = params?.course_slug as string;
+    const id = params?.id as string;
 
-  const [community, course, learningModule] = await Promise.all([
-    api(locale).server.get<Community>(`/communities/${slug}`),
-    api(locale).server.get<Course>(`/courses/${course_slug}`),
-    api(locale).server.get<LearningModule>(`/learning-modules/${id}`),
-  ]).then((responses) => responses.map((response) => response.data));
+    const [community, course, learningModule] = await Promise.all([
+      api(locale).server.get<Community>(`/communities/${slug}`),
+      api(locale).server.get<Course>(`/courses/${course_slug}`),
+      api(locale).server.get<LearningModule>(
+        `/learning-modules/${id}`
+      ),
+    ]).then((responses) =>
+      responses.map((response) => response.data)
+    );
 
-  if (
-    Object.entries(learningModule).length === 0 ||
-    Object.entries(course).length === 0 ||
-    Object.entries(community).length === 0
-  ) {
+    if (
+      Object.entries(learningModule).length === 0 ||
+      Object.entries(course).length === 0 ||
+      Object.entries(community).length === 0
+    ) {
+      return {
+        notFound: true,
+      };
+    } else {
+      return {
+        props: {
+          community,
+          course,
+          learningModule,
+          ...(await serverSideTranslations(locale as string)),
+        },
+        revalidate: 60,
+      };
+    }
+  } catch (error) {
     return {
       notFound: true,
-    };
-  } else {
-    return {
-      props: {
-        community,
-        course,
-        learningModule,
-        ...(await serverSideTranslations(locale as string)),
-      },
-      revalidate: 60,
     };
   }
 };
@@ -196,31 +206,35 @@ export async function getStaticPaths() {
     const paths = await Promise.all(
       communities.map(async (community) => {
         const { data: courses } = await api().server.get<Course[]>(
-          `/courses`
+          `/communities/${community.slug}/courses`
         );
         const coursePaths = await Promise.all(
           courses.map(async (course) => {
-            const { data: modules } = await api().server.get<
-              Course[]
-            >(`/courses`);
+            try {
+              const { data: modules } = await api().server.get<
+                Course[]
+              >(`/courses/${course.slug}/learning-modules`);
 
-            const modulePaths: Path[] = [];
+              const modulePaths: Path[] = [];
 
-            if (Array.isArray(modules)) {
-              modules.forEach(({ id }) => {
-                ["bg", "en", "es", "hr"].forEach((locale) => {
-                  modulePaths.push({
-                    params: {
-                      slug: community.slug,
-                      course_slug: course.slug,
-                      id: id,
-                    },
-                    locale: locale,
+              if (Array.isArray(modules)) {
+                modules.forEach(({ id }) => {
+                  ["bg", "en", "es", "hr"].forEach((locale) => {
+                    modulePaths.push({
+                      params: {
+                        slug: community.slug,
+                        course_slug: course.slug,
+                        id: id,
+                      },
+                      locale: locale,
+                    });
                   });
                 });
-              });
+              }
+              return modulePaths;
+            } catch (error) {
+              return [];
             }
-            return modulePaths;
           })
         );
         return coursePaths.flat();

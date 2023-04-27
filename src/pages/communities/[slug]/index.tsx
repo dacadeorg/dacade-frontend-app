@@ -58,25 +58,35 @@ export const getStaticProps: GetStaticProps = async ({
   params,
   locale,
 }) => {
-  const slug = params?.slug as string;
+  try {
+    const slug = params?.slug as string;
 
-  const [community, scoreboards, courses] = await Promise.all([
-    api(locale).server.get<Community>(`/communities/${slug}`),
-    api(locale).server.get<Scoreboard>(
-      `/communities/${slug}/scoreboard`
-    ),
-    api(locale).server.get<Course[]>(`/communities/${slug}/courses`),
-  ]).then((responses) => responses.map((response) => response.data));
+    const [community, scoreboards, courses] = await Promise.all([
+      api(locale).server.get<Community>(`/communities/${slug}`),
+      api(locale).server.get<Scoreboard>(
+        `/communities/${slug}/scoreboard`
+      ),
+      api(locale).server.get<Course[]>(
+        `/communities/${slug}/courses`
+      ),
+    ]).then((responses) =>
+      responses.map((response) => response.data)
+    );
 
-  return {
-    props: {
-      community,
-      scoreboards,
-      courses,
-      ...(await serverSideTranslations(locale as string)),
-    },
-    revalidate: 60,
-  };
+    return {
+      props: {
+        community,
+        scoreboards,
+        courses,
+        ...(await serverSideTranslations(locale as string)),
+      },
+      revalidate: 60,
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export async function getStaticPaths() {

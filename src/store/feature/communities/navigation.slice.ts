@@ -115,7 +115,6 @@ export const initNavigationMenu =
       course,
       community,
     });
-    console.log(menus);
     dispatch(setNavigationList(menus));
   };
 

@@ -38,8 +38,6 @@ export default function CourseViewPage(props: {
 
   const navigation = useNavigation();
 
-  console.log(course);
-
   const list = navigation.community.init({ community, course });
 
   useLayoutEffect(() => {
@@ -77,21 +75,27 @@ CourseViewPage.getLayout = function (page: ReactElement) {
 };
 
 export async function getStaticProps({ params, locale }: any) {
-  const { slug, course_slug } = params;
+  try {
+    const { slug, course_slug } = params;
 
-  const [community, course] = await Promise.all([
-    api(locale).server.get<Community>(`/communities/${slug}`),
-    api(locale).server.get<Community>(`/courses/${course_slug}`),
-  ]).then((res) => res.map(({ data }) => data));
+    const [community, course] = await Promise.all([
+      api(locale).server.get<Community>(`/communities/${slug}`),
+      api(locale).server.get<Community>(`/courses/${course_slug}`),
+    ]).then((res) => res.map(({ data }) => data));
 
-  return {
-    props: {
-      community,
-      course,
-      ...(await serverSideTranslations(locale as string)),
-    },
-    revalidate: 60,
-  };
+    return {
+      props: {
+        community,
+        course,
+        ...(await serverSideTranslations(locale as string)),
+      },
+      revalidate: 60,
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 }
 
 interface Path {
@@ -109,9 +113,9 @@ export async function getStaticPaths() {
 
   const getPathes = async () => {
     const paths = await Promise.all(
-      communities.map(async (e) => {
+      communities.map(async (community) => {
         const { data: courses } = await api().server.get<Course[]>(
-          `/courses`
+          `/communities/${community.slug}/courses`
         );
         const coursePaths: Path[] = [];
 
@@ -119,7 +123,7 @@ export async function getStaticPaths() {
           ["bg", "en", "es", "hr"].forEach((locale) => {
             coursePaths.push({
               params: {
-                slug: e.slug,
+                slug: community.slug,
                 course_slug: slug,
               },
               locale: locale,
