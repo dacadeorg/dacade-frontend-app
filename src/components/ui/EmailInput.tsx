@@ -8,6 +8,7 @@ import { FormValues } from "@/pages/signup";
 interface EmailInputProps {
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
+  emailValue?: string;
 }
 
 /**
@@ -24,6 +25,7 @@ interface EmailInputProps {
 export default function EmailInput({
   errors,
   register,
+  emailValue,
 }: EmailInputProps): ReactElement {
   const { t } = useTranslation();
   const error = useSelector((state) => state.store.error);
@@ -34,6 +36,7 @@ export default function EmailInput({
       type="email"
       placeholder={`${t("login-page.email.placeholder")}`}
       label={`${t("login-page.email.label")}`}
+      value={emailValue}
       error={
         errors?.email?.message || error?.response?.data.details.email
       }

@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 import ArrowButton from "@/components/ui/button/Arrow";
 import Input from "@/components/ui/Input";
 import { getMetadataTitle } from "@/utilities/Metadata";
-import { ReactElement, ReactNode, useState } from "react";
+import { ReactElement, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
@@ -23,11 +23,6 @@ import { FormValues } from "./signup";
  * @typedef {FormValues}
  */
 
-// export interface LoginFormValues {
-//   email: string;
-//   password: string;
-// }
-
 /**
  * Login page
  * @date 4/6/2023 - 4:15:13 PM
@@ -45,7 +40,9 @@ export default function Login(): ReactElement {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const router = useRouter();
   const [passwordValue, setPasswordValue] = useState("");
+  const emailValue = watch("email");
 
   const onSubmit = async (form: FormValues) => {
     const loginData = {
@@ -56,7 +53,7 @@ export default function Login(): ReactElement {
     try {
       setLoading(true);
       dispatch(login(loginData));
-      // router.replace("/bounties");
+      router.replace("/bounties");
     } catch (err) {
       console.error(err);
     } finally {
@@ -84,22 +81,11 @@ export default function Login(): ReactElement {
             </div>
             <div className="mb-5 relative">
               <div>
-                <EmailInput errors={errors} register={register} />
-                {/* <Input
-                  placeholder={`${t("login-page.email.placeholder")}`}
-                  label={`${t("login-page.email.label")}`}
-                  error={errors.email?.message}
-                  type="email"
-                  value={emailValue}
-                  {...register("email", {
-                    required: "This field is required",
-                    pattern: {
-                      value:
-                        /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
-                      message: "This must be a valid email address",
-                    },
-                  })}
-                /> */}
+                <EmailInput
+                  errors={errors}
+                  register={register}
+                  emailValue={emailValue}
+                />
               </div>
             </div>
             <div>
