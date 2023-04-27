@@ -1,13 +1,12 @@
 import { CSSProperties, ReactElement, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "@/hooks/useTypedSelector";
-// TODO: Should be uncommented when the ui.slice is updated.
-// import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 import Dropdown from "./Dropdown";
 import Avatar from "@/components/ui/Avatar";
 import Button from "@/components/ui/button";
 import Currency from "@/components/ui/Currency";
 import { User } from "@/types/bounty";
+import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 
 /**
  * User popup component
@@ -37,22 +36,19 @@ export default function UserPopup({
 
   const toggle = () => {
     setShow(!show);
-    // TODO: Should be uncommented when the ui.slice is updated.
-    // dispatch(toggleBodyScrolling(show));
+    toggleBodyScrolling(show)(dispatch);
   };
 
   const toggleInvite = () => {
     setShowReferral(!showReferral);
     setShow(!show);
-    // TODO: Should be uncommented when the ui.slice is updated.
-    // dispatch(toggleBodyScrolling(showReferral));
+    toggleBodyScrolling(showReferral)(dispatch);
   };
 
   const externalClick = () => {
     if (show) {
       setShow(false);
-      // TODO: Should be uncommented when the ui.slice is updated.
-      //   dispatch(toggleBodyScrolling(show));
+      toggleBodyScrolling(show)(dispatch);
     }
   };
 
