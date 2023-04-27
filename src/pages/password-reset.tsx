@@ -11,14 +11,26 @@ import { GetStaticProps } from "next";
 import { useForm } from "react-hook-form";
 import { passwordResetRequest } from "@/store/feature/auth.slice";
 
+/**
+ * Password reset form values
+ * @date 4/27/2023 - 11:45:55 AM
+ *
+ * @interface FormValues
+ * @typedef {FormValues}
+ */
 interface FormValues {
   email: string;
 }
 
-export default function PasswordReset() {
+/**
+ * Password reset page
+ * @date 4/27/2023 - 11:45:07 AM
+ *
+ * @returns {ReactElement}
+ */
+export default function PasswordReset(): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
-  const [form, setForm] = useState({ email: "" });
   const [loading, setLoading] = useState(false);
   const {
     register,
