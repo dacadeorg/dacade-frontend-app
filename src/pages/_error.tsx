@@ -26,12 +26,11 @@ export const getServerSideProps: GetServerSideProps = async ({
   locale,
   res,
 }) => {
-  
-  const translations = await serverSideTranslations(locale as string ||  "en");
+  // const translations = await serverSideTranslations(locale as string ||  "en");
 
   return {
     props: {
-      ...translations,
+      // ...translations,
       error: {
         statusCode: res.statusCode,
         message: res.statusMessage ? res.statusMessage : null,

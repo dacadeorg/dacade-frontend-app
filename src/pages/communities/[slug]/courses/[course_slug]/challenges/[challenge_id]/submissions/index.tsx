@@ -1,5 +1,10 @@
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+import {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import Header from "@/components/sections/communities/_partials/Header";
 import List from "@/components/sections/submissions/List";
 import Wrapper from "@/components/sections/courses/Wrapper";
@@ -14,6 +19,10 @@ import {
   fetchAllSubmission,
   showSubmission,
 } from "@/store/feature/communities/challenges/submissions";
+import DefaultLayout from "@/components/layout/Default";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import MetaData from "@/components/ui/MetaData";
+import Head from "next/head";
 
 export default function Submission() {
   const [selectedSubmission, setSelectedSubmission] = useState("");
@@ -26,22 +35,17 @@ export default function Submission() {
     (state) => state.submissions.current
   );
 
-  const { t } = useTranslation("communities");
+  const challenge = useSelector((state) => state.challenges.current);
+  const { t } = useTranslation();
   const metadata = {
-    title: getMetadataTitle(
-      t("submission.title"),
-      course?.name as string
-    ),
+    title: getMetadataTitle(),
     // description: getMetadataDescription(challenge.description),
   };
-  const handleDisplaySubmission = useCallback(
-    () => {
-      setSelectedSubmission(submission_id as string);
-      dispatch(showSubmission(selectedSubmission));
-      // window.history.pushState({}, null, route.path)
-    },
-    [dispatch, selectedSubmission, submission_id]
-  );
+  const handleDisplaySubmission = useCallback(() => {
+    setSelectedSubmission(submission_id as string);
+    dispatch(showSubmission(selectedSubmission));
+    // window.history.pushState({}, null, route.path)
+  }, [dispatch, selectedSubmission, submission_id]);
 
   const handleCloseSubmission = () => {
     setSelectedSubmission("");
@@ -80,19 +84,45 @@ export default function Submission() {
   }, [slug, course_slug, challenge_id, dispatch, router.locale]);
 
   return (
-    <Wrapper>
-      <div className="py-4 flex flex-col space-y-8 text-gray-700">
-        <Header
-          title={course?.name}
-          subtitle={t("submission.title")}
+    <>
+      <Head>
+        <title>{`${t("communities.submission.title")} ${
+          course?.name
+        }`}</title>
+        <MetaData description={challenge?.description as string} />
+      </Head>
+      <Wrapper>
+        <div className="flex flex-col py-4 space-y-8 text-gray-700">
+          <Header
+            title={course?.name}
+            subtitle={t("communities.submission.title")}
+          />
+          <List />
+        </div>
+        <SubmissionPopup
+          show={!!selectedSubmission}
+          submissionId={selectedSubmission}
+          onClose={handleCloseSubmission}
         />
-        <List />
-      </div>
-      <SubmissionPopup
-        show={!!selectedSubmission}
-        submissionId={selectedSubmission}
-        onClose={handleCloseSubmission}
-      />
-    </Wrapper>
+      </Wrapper>
+    </>
   );
 }
+
+Submission.getLayout = function (page: ReactElement) {
+  return (
+    <DefaultLayout footerBackgroundColor="default">
+      {page}
+    </DefaultLayout>
+  );
+};
+
+export const getServerSideProps = async ({
+  locale,
+}: {
+  locale: string;
+}) => ({
+  props: {
+    ...(await serverSideTranslations(locale as string)),
+  },
+});

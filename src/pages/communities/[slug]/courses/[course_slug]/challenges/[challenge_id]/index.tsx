@@ -31,7 +31,6 @@ import {
   setCurrentCommunity,
 } from "@/store/feature/community.slice";
 
-
 /**
  * Challenge view page 
  * @date 4/25/2023 - 8:12:39 PM
@@ -73,7 +72,7 @@ export default function ChallengePage(props: {
     (state) => state.challenges.submission
   );
   const isAuthenticated = useSelector((state) => authCheck(state));
-  
+
   return (
     <>
       <Head>
@@ -81,7 +80,7 @@ export default function ChallengePage(props: {
         <MetaData description={challenge?.description} />
       </Head>
       <Wrapper>
-        <div className="py-4 flex flex-col divide-y divide-solid divide-gray-200 space-y-8 text-gray-700">
+        <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
           <Header />
           <Rewards />
           <RatingRubric ratingCriteria={challenge?.ratingCriteria} />
@@ -93,9 +92,7 @@ export default function ChallengePage(props: {
                   <h4 className="my-8 text-.5xl font-medium">
                     {t("communities.challenge.your-submission")}
                   </h4>
-                  <SubmissionCard
-                    submission={submission}
-                  />
+                  <SubmissionCard submission={submission} />
                 </div>
               ) : (
                 <SubmissionForm />

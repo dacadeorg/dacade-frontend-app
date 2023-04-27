@@ -116,7 +116,7 @@ export default function ArrowButton({
           >
             {!loading ? (
               <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} text-white transform`}
+                className={`${directionClass} ${arrowClassNames} transform`}
               />
             ) : (
               <Spinner
@@ -135,7 +135,7 @@ export default function ArrowButton({
         </span>
 
         {!isLeft && (
-          <span className="block">
+          <span className="relative block">
             {loading ? (
               <Spinner
                 className={`${arrowClassNames} animate-spin`}
