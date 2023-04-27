@@ -1,13 +1,12 @@
 import { ReactElement, useMemo, useState } from "react";
-import GithubLinkInput from "../../ui/GithubLinkInput";
-import MarkdownIcon from "../../ui/MarkdownIcon";
-import ArrowButton from "../../ui/button/Arrow";
+import GithubLinkInput from "@/components/ui/GithubLinkInput";
+import MarkdownIcon from "@/components/ui/MarkdownIcon";
+import ArrowButton from "@/components/ui/button/Arrow";
 import { useTranslation } from "next-i18next";
-import TextInput from "../../ui/TextInput";
-import Avatar from "../../ui/Avatar";
+import TextInput from "@/components/ui/TextInput";
+import Avatar from "@/components/ui/Avatar";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useForm } from "react-hook-form";
-import api from "@/config/api";
 import { createEvent } from "@/store/feature/events.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { Feedback } from "@/types/feedback";
@@ -54,7 +53,7 @@ export default function Form({ save }: FormProps): ReactElement {
 
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const [saving, setsaving] = useState(false);
+  const [saving, setSaving] = useState(false);
   const community = useSelector((state) => state.community.current);
   const user = useSelector((state) => state.user.data);
   const colors = useSelector((state) => state.ui.colors);
@@ -62,7 +61,6 @@ export default function Form({ save }: FormProps): ReactElement {
     (state) => state.submissions.current
   );
   const challenge = useSelector((state) => state.challenges.current);
-
   const activeButtonStyle = useMemo(
     () => ({
       borderColor: colors.textAccent,
@@ -75,50 +73,18 @@ export default function Form({ save }: FormProps): ReactElement {
     [colors]
   );
 
-  // const dispatch = useDispatch();
-
   const onSubmit = async (form: FormValues) => {
     const { feedback, githubLink } = form;
-
     if (!saving) {
-      setsaving(true);
-      // TODO Dispatch feedback create thunk
-      // await api()
-      //   .client.post(`feedbacks/create`, {
-      //     submission_id: submission?.id,
-      //     text: feedback,
-      //     link: githubLink,
-      //   })
-      //   .then((response: any) => {
-      //     const data = {
-      //       name: "feedback-created",
-      //       attributes: {
-      //         feedbackId: response.id,
-      //         submissionId: submission?.id,
-      //         community: community!.slug,
-      //       },
-      //     };
-      //     dispatch(createEvent(data));
-      //     reset();
-      //     setsaving(false);
-      //     save(response);
-      //   })
-      //   .catch((error) => {
-      //     //   setErros(error.details);
-      //     setsaving(false);
-      //     if (error.details) {
-      //       // form.setErrors(error.details);
-      //     }
-      //   });
+      setSaving(true);
       if (saving) return;
-
       try {
-        setsaving(true);
+        setSaving(true);
         const result = await dispatch(
           createFeedback({
             submission_id: challenge?.id as string,
-            text: form.feedback,
-            link: form.githubLink,
+            text: feedback,
+            link: githubLink,
           })
         );
         const response = result.payload as Feedback;
@@ -137,7 +103,7 @@ export default function Form({ save }: FormProps): ReactElement {
       } catch (error) {
         console.error(error);
       } finally {
-        setsaving(false);
+        setSaving(false);
       }
     }
   };

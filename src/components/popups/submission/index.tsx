@@ -3,6 +3,9 @@ import Popup from "@/components/ui/Popup";
 import Header from "./_partials/Header";
 import Section from "@/components/ui/Section";
 import SubmissionView from "@/components/sections/submissions/View";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { useRouter } from "next/router";
+import { findSubmssionById } from "@/store/feature/communities/challenges/submissions";
 
 /**
  * Submission interface props
@@ -22,12 +25,13 @@ export default function SubmissionPopup({
   submissionId,
   onClose,
 }: SubmissionPopup): ReactElement {
+  const dispatch = useDispatch()
+  const router = useRouter()
   useEffect(() => {
     if (submissionId) {
-      // Dispatch the 'communities/challenges/submissions/find' action
-      // using your Redux store
+      dispatch(findSubmssionById({id: submissionId , locale: router.locale }))
     }
-  }, [submissionId]);
+  }, [dispatch, router.locale, submissionId]);
 
   return (
     <Popup show={show} onClose={onClose} className="">

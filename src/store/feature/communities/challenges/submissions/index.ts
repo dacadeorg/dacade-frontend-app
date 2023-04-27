@@ -102,7 +102,7 @@ export const fetchAllSubmission = createAsyncThunk(
       startAfter,
       locale,
     }: { challengeId: string; startAfter?: string; locale?: string },
-    { getState, dispatch }
+    { getState }
   ) => {
     const state = getState();
     const { data } = await api(locale).server.get(
@@ -115,7 +115,6 @@ export const fetchAllSubmission = createAsyncThunk(
     if (startAfter) {
       const selectedList = selectList(state as IRootState);
       list.push(...selectedList);
-      // console.log(list);
     }
     list.push(...(data || []));
     return list;

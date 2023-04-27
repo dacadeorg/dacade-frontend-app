@@ -42,7 +42,7 @@ export default function BestSubmissions(): ReactElement {
         <div className="text-right ml-auto xl:m-0 pt-6">
           <Link href={navigation.submissionsPath()}>
             <ArrowButton
-              communityStyles={true}
+              communityStyles
               variant="outline-primary"
             >
               {t("challenge.best-submissions.button")}

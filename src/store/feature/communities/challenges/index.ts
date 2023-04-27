@@ -79,7 +79,7 @@ export const fetchChallenge: any = createAsyncThunk(
  *
  * @type {*}
  */
-export const fetchAllChallenges: any = createAsyncThunk(
+export const fetchAllChallenges = createAsyncThunk(
   "challenges/all",
   async ({ slug }: { slug: string }) => {
     const { data } = await api().server.get(
