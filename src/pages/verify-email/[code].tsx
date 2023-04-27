@@ -7,7 +7,6 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import Head from "next/head";
-import { useDispatch } from "react-redux";
 import { verifyEmail } from "@/store/feature/auth.slice";
 import { useRouter } from "next/router";
 
@@ -21,7 +20,6 @@ import { useRouter } from "next/router";
 export default function EmailVerification(): ReactElement {
   const { t } = useTranslation();
   const [verified, setVerified] = useState(true);
-  const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
