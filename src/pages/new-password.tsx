@@ -140,7 +140,7 @@ export default function PasswordReset(): ReactElement {
                 disabled={loading}
                 min-width-class="min-w-40"
               >
-                password-reset.submit
+                {t("password-reset.submit")}
               </ArrowButton>
             </div>
           </div>
