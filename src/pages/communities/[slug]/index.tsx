@@ -72,7 +72,7 @@ export const getStaticProps: GetStaticProps = async ({
     ]).then((responses) =>
       responses.map((response) => response.data)
     );
-
+    //
     return {
       props: {
         community,
