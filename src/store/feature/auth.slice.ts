@@ -1,8 +1,4 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -20,6 +16,7 @@ import { fetchUser } from "./user.slice";
 import { IRootState } from "..";
 import { User } from "@/types/bounty";
 import { createEvent } from "./events.slice";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 // Define the interface for the auth state
 interface AuthState {

@@ -12,6 +12,8 @@ import i18Translate from "@/utilities/I18Translate";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import { login } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import EmailInput from "@/components/ui/EmailInput";
+import { FormValues } from "./signup";
 
 /**
  * Login form values
@@ -21,10 +23,10 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
  * @typedef {FormValues}
  */
 
-interface FormValues {
-  email: string;
-  password: string;
-}
+// export interface LoginFormValues {
+//   email: string;
+//   password: string;
+// }
 
 /**
  * Login page
@@ -43,9 +45,7 @@ export default function Login(): ReactElement {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const router = useRouter();
   const [passwordValue, setPasswordValue] = useState("");
-  const emailValue = watch("email");
 
   const onSubmit = async (form: FormValues) => {
     const loginData = {
@@ -56,7 +56,7 @@ export default function Login(): ReactElement {
     try {
       setLoading(true);
       dispatch(login(loginData));
-      router.replace("/bounties");
+      // router.replace("/bounties");
     } catch (err) {
       console.error(err);
     } finally {
@@ -84,10 +84,8 @@ export default function Login(): ReactElement {
             </div>
             <div className="mb-5 relative">
               <div>
-                <Input
-                  /* In backticks `` because placeholder requires a string.
-                   * Same for label
-                   */
+                <EmailInput errors={errors} register={register} />
+                {/* <Input
                   placeholder={`${t("login-page.email.placeholder")}`}
                   label={`${t("login-page.email.label")}`}
                   error={errors.email?.message}
@@ -101,7 +99,7 @@ export default function Login(): ReactElement {
                       message: "This must be a valid email address",
                     },
                   })}
-                />
+                /> */}
               </div>
             </div>
             <div>

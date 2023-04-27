@@ -12,6 +12,9 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import Checkbox from "@/components/ui/Checkbox";
 import { singUp } from "@/store/feature/auth.slice";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
+import { useSelector } from "@/hooks/useTypedSelector";
+import EmailInput from "@/components/ui/EmailInput";
+import UsernameInput from "@/components/ui/UsernameInput";
 
 /**
  * Signup form values
@@ -21,7 +24,7 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
  * @typedef {FormValues}
  */
 
-interface FormValues {
+export interface FormValues {
   email: string;
   username: string;
   password: string;
@@ -43,6 +46,7 @@ export default function Signup(): ReactElement {
     formState: { errors },
   } = useForm<FormValues>();
   const { t } = useTranslation();
+  const error = useSelector((state) => state.store.error);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -56,7 +60,7 @@ export default function Signup(): ReactElement {
       password,
       referralCode,
     };
-    console.log(signupData);
+
     try {
       if (!checkTerms) return;
       setLoading(false);
@@ -87,37 +91,11 @@ export default function Signup(): ReactElement {
 
             <div className="mb-5 relative">
               <div>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder={`${t("login-page.email.placeholder")}`}
-                  label={`${t("login-page.email.label")}`}
-                  error={errors.email?.message}
-                  {...register("email", {
-                    required: "This field is required",
-                    pattern: {
-                      value:
-                        /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
-                      message: "This must be a valid email address",
-                    },
-                  })}
-                />
+                <EmailInput errors={error} register={register} />
               </div>
             </div>
             <div className="mb-5 relative">
-              <Input
-                id="username"
-                placeholder={`${t("login-page.username.placeholde")}`}
-                label={`${t("login-page.username.label")}`}
-                error={errors.username?.message}
-                {...register("username", {
-                  required: "This field is required",
-                  minLength: {
-                    value: 3,
-                    message: "The username is too short",
-                  },
-                })}
-              />
+              <UsernameInput errors={errors} register={register} />
             </div>
             <div className="mb-5 relative">
               <Input
