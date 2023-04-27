@@ -1,5 +1,5 @@
 import { useState, useEffect, ReactElement } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import Loader from "@/components/ui/Loader";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { getMetadataTitle } from "@/utilities/Metadata";
