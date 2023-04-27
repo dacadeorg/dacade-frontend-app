@@ -107,8 +107,8 @@ export const fetchAllSubmission = createAsyncThunk(
     );    
     const list = [];
     if (startAfter) {
-      const list = selectList(state as IRootState)
-      list.push(...list);
+      const selectedList = selectList(state as IRootState)
+      list.push(...selectedList);
     }
     list.push(...(data || []));
     dispatch(setList(list));

@@ -16,7 +16,7 @@ import {
  * @typedef {Props}
  */
 interface TextInputProps extends HTMLProps<HTMLInputElement> {
-  value: string;
+  value?: string;
   label?: string;
   disabled?: boolean;
   placeholder?: string;
@@ -34,7 +34,6 @@ interface TextInputProps extends HTMLProps<HTMLInputElement> {
  */
 export default forwardRef<HTMLInputElement, TextInputProps>(
   function TextInput({
-    value = "",
     label,
     disabled = false,
     placeholder,
@@ -43,8 +42,10 @@ export default forwardRef<HTMLInputElement, TextInputProps>(
     handleInput,
   }: TextInputProps): ReactElement {
     const [isFocused, setIsFocused] = useState(false);
-
+    const [value, setValue] = useState("");
+  
     const isFilled = useMemo(() => value.trim().length > 0, [value]);
+
 
     const labelClassName = classNames(
       "absolute top-0 left-0 text-lg px-5 py-5 z-10 h-full pointer-events-none transform origin-left transition-all duration-100 ease-in-out items-center",

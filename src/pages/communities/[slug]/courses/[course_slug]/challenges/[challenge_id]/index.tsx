@@ -5,23 +5,12 @@ import RatingRubric from "@/components/sections/challenges/Rubric";
 import { OverviewRewards as Rewards } from "@/components/sections/challenges/Rewards";
 import SubmissionForm from "@/components/sections/challenges/Submission";
 import SubmissionCard from "@/components/cards/SubmissionView";
-import {
-  getMetadataDescription,
-  getMetadataTitle,
-} from "@/utilities/Metadata";
+import { getMetadataTitle } from "@/utilities/Metadata";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { wrapper } from "@/store";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
-import {
-  fetchCurrentCommunity,
-  setCurrentCommunity,
-} from "@/store/feature/community.slice";
 import { useRouter } from "next/router";
-import {
-  fetchChallenge,
-  setCurrentChallenge,
-} from "@/store/feature/communities/challenges";
 import { useTranslation } from "next-i18next";
 import { authCheck } from "@/store/feature/auth.slice";
 import { Challenge } from "@/types/course";
@@ -32,6 +21,15 @@ import DefaultLayout from "@/components/layout/Default";
 import { setColors } from "@/store/feature/ui.slice";
 import { Colors, Community } from "@/types/community";
 import Head from "next/head";
+import MetaData from "@/components/ui/MetaData";
+import {
+  fetchChallenge,
+  setCurrentChallenge,
+} from "@/store/feature/communities/challenges";
+import {
+  fetchCurrentCommunity,
+  setCurrentCommunity,
+} from "@/store/feature/community.slice";
 
 
 /**
@@ -72,21 +70,15 @@ export default function ChallengePage(props: {
     dispatch(setCurrentChallenge(challenge));
   }, [dispatch, route, community, challenge]);
   const submission = useSelector(
-    (state) => state.challenges.submissions
+    (state) => state.challenges.submission
   );
   const isAuthenticated = useSelector((state) => authCheck(state));
   
-  const metaData = () => {
-    const metas = getMetadataDescription(challenge?.description);
-    return metas.map((meta , index) => (
-      <meta key={index} content={meta.content} name={meta.name} />
-    ))
-  }
   return (
     <>
       <Head>
         <title>{title}</title>
-        {metaData()}
+        <MetaData description={challenge?.description} />
       </Head>
       <Wrapper>
         <div className="py-4 flex flex-col divide-y divide-solid divide-gray-200 space-y-8 text-gray-700">
@@ -103,7 +95,6 @@ export default function ChallengePage(props: {
                   </h4>
                   <SubmissionCard
                     submission={submission}
-                    // link={`${submission.id}`}
                   />
                 </div>
               ) : (
@@ -119,7 +110,7 @@ export default function ChallengePage(props: {
 
 ChallengePage.getLayout = function (page: ReactElement) {
   return (
-    <DefaultLayout footerBackgroundColor={"default"}>
+    <DefaultLayout footerBackgroundColor="default">
       {page}
     </DefaultLayout>
   );

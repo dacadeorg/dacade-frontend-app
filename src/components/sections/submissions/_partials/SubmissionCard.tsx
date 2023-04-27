@@ -1,12 +1,13 @@
 import Badge from "@/components/ui/Badge";
 import Currency from "@/components/ui/Currency";
 import { useSelector } from "@/hooks/useTypedSelector";
+import { Submission } from "@/types/bounty";
 import CommunityNavigation from "@/utilities/CommunityNavigation";
 import DateManager from "@/utilities/DateManager";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useMemo } from "react";
+import { ReactElement, useMemo } from "react";
 
 /**
  * SubmissionCardProps InterfaceProps
@@ -16,10 +17,7 @@ import React, { useMemo } from "react";
  * @typedef {SubmissionCard}
  */
 interface SubmissionCard {
-  submission: any;
-  preview?: any;
-  link?: any;
-  last?: any;
+  submission: Submission;
 }
 
 /**
@@ -29,23 +27,24 @@ interface SubmissionCard {
  * @export
  * @param {SubmissionCard} {
   submission,
-  preview,
 }
- * @returns {*}
+ * @returns {ReactElement}
  */
 export default function SubmissionCard({
   submission,
-  preview,
-}: SubmissionCard) {
+}: SubmissionCard): ReactElement {
   const router = useRouter();
   const navigation = new CommunityNavigation(router);
   const colors = useSelector((state) => state.ui.colors);
-
   const { t } = useTranslation();
+  const createAt = useMemo(
+    () => new Date(submission.created_at),
+    [submission.created_at]
+  );
 
   const date = useMemo(
-    () => DateManager.fromNow(submission.created_at, router.locale),
-    [router.locale, submission.created_at]
+    () => DateManager.fromNow(createAt, router.locale),
+    [createAt, router.locale]
   );
   return (
     <div className="bg-gray-50 text-sm text-gray-700 border-solid border border-gray-200 rounded-3xl mb-5 md:mb-0">
@@ -82,7 +81,7 @@ export default function SubmissionCard({
               size="medium"
               className="relative left-0"
               value={submission.metadata.evaluation.points}
-            ></Badge>
+            />
             <span className="ml-1 text-sm">
               {t("submissions.evaluation.points")}
             </span>

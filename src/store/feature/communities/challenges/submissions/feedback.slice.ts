@@ -39,7 +39,7 @@ export const feedbackSlice = createSlice({
       .addCase(findFeedbackById.fulfilled, (state, action) => {
         state.current = action.payload;
       })
-      .addCase(fetchFeedbacksBySubmissionId.fulfilled, (state, action) => {
+      .addCase(fetchFeedbacks.fulfilled, (state, action) => {
         state.list = action.payload;
       });
   },
@@ -48,16 +48,14 @@ export const feedbackSlice = createSlice({
 
 export const { setCurrent, setList } = feedbackSlice.actions;
 
-
 /**
- * Find feed by id 
+ * Find feedback by id 
  * @date 4/25/2023 - 8:26:22 PM
  *
- * @type {*}
  */
 export const findFeedbackById = createAsyncThunk(
   'feedback/findById',
-  async ({id , locale}:{id: string , locale: string}) => {
+  async ({id , locale}:{id: string , locale?: string}) => {
     const response = await api(locale).server.get(
         `feedbacks/${id}`
       );
@@ -70,11 +68,10 @@ export const findFeedbackById = createAsyncThunk(
  * Fetch feedback by submission id
  * @date 4/25/2023 - 8:29:47 PM
  *
- * @type {*}
  */
-export const fetchFeedbacksBySubmissionId = createAsyncThunk(
-  'feedback/getBySubmissionId',
-  async ({submissionId , locale}: {submissionId: string , locale: string}) => {
+export const fetchFeedbacks = createAsyncThunk(
+  'feedback/all',
+  async ({submissionId , locale}: {submissionId: string , locale?: string}) => {
     const response = await api(locale).server.get(
         `submissions/${submissionId}/feedbacks`
       );

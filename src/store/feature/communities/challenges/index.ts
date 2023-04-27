@@ -13,20 +13,19 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 interface ChallengeState {
   current: Challenge | null;
   list: Challenge[];
-  submissions: Submission | null;
+  submission: Submission | null;
 }
 
 const initialState: ChallengeState = {
   current: null,
   list: [],
-  submissions: null,
+  submission: null,
 };
 
 /**
  * Challenge slice
  * @date 4/18/2023 - 12:00:16 PM
  *
- * @type {*}
  */
 export const challengeSlice = createSlice({
   name: "challenges",
@@ -39,14 +38,14 @@ export const challengeSlice = createSlice({
       state.list = action.payload;
     },
     setChallengeSubmission(state, action) {
-      state.submissions = action.payload;
+      state.submission = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchChallenge.fulfilled, (state, action) => {
         state.current = action.payload;
-        state.submissions = action.payload.submission;
+        state.submission = action.payload.submission;
       })
       .addCase(fetchAllChallenges.fulfilled, (state, action) => {
         state.list = action.payload;
@@ -66,11 +65,10 @@ export const {
  *
  * @type {*}
  */
-export const fetchChallenge = createAsyncThunk(
+export const fetchChallenge: any = createAsyncThunk(
   "challenges/find",
   async ({ id }: { id: string , locale?: string }) => {
     const { data } = await api().server.get(`challenges/${id}`);
-    
     return data;
   }
 );
@@ -81,7 +79,7 @@ export const fetchChallenge = createAsyncThunk(
  *
  * @type {*}
  */
-export const fetchAllChallenges = createAsyncThunk(
+export const fetchAllChallenges: any = createAsyncThunk(
   "challenges/all",
   async ({ slug }: { slug: string }) => {
     const { data } = await api().server.get(

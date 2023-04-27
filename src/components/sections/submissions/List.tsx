@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { ReactElement, useMemo, useState } from "react";
 import Section from "@/components/ui/Section";
 import SubmissionCard from "./_partials/SubmissionCard";
 import Loader from "@/components/ui/button/Loader";
@@ -13,9 +13,9 @@ import { useSelector } from "@/hooks/useTypedSelector";
  * @date 4/25/2023 - 2:21:17 PM
  *
  * @export
- * @returns {*}
+ * @returns {ReactElement}
  */
-export default function List() {
+export default function List(): ReactElement {
   const router = useRouter();
   const navigation = new CommunityNavigation(router);
   const [page, setpage] = useState();
@@ -40,12 +40,7 @@ export default function List() {
                 return (
                   <SubmissionCard
                     key={submission.id}
-                    preview={true}
-                    link={navigation.submissionPath(submission.id)}
                     submission={submission}
-                    last={
-                      i === submissions.length - 1 && !showLoadMore
-                    }
                   />
                 );
               })}

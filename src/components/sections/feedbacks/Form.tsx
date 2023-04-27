@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { ReactElement, useMemo, useState } from "react";
 import GithubLinkInput from "../../ui/GithubLinkInput";
 import MarkdownIcon from "../../ui/MarkdownIcon";
 import ArrowButton from "../../ui/button/Arrow";
@@ -40,25 +40,23 @@ interface FormProps {
  *
  * @export
  * @param {FormProps} { save }
- * @returns {*}
+ * @returns {ReactElement}
  */
-export default function Form({ save }: FormProps) {
+export default function Form({ save }: FormProps): ReactElement {
   const {
     register,
+    handleSubmit,
     reset,
     formState: { errors },
   } = useForm<FormValues>();
 
   const { t } = useTranslation();
-
-  const [githubLink, setgithubLink] = useState("");
   const [saving, setsaving] = useState(false);
-
   const community = useSelector((state) => state.community.current);
-
   const user = useSelector((state) => state.user.data);
-
   const colors = useSelector((state) => state.ui.colors);
+  const submission = useSelector( state => state.submissions.current);
+  const challenge = useSelector(state => state.challenges.current)
 
   const activeButtonStyle = useMemo(
     () => ({
@@ -72,52 +70,48 @@ export default function Form({ save }: FormProps) {
     [colors]
   );
 
-  const submission: any = [];
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const submit = async () => {
+  const onSubmit = async (form: FormValues) => {
+    const { feedback , githubLink } = form;
+
     if (!saving) {
       setsaving(true);
-      await api()
-        .client.post(`feedbacks/create`, {
-          submission_id: submission.id,
-          text: feedback,
-          link: githubLink,
-        })
-        .then((response: any) => {
-          const data = {
-            name: "feedback-created",
-            attributes: {
-              feedbackId: response.id,
-              submissionId: submission.id,
-              community: community!.slug,
-            },
-          };
-          dispatch(createEvent(data));
-          reset();
-          setsaving(false);
-          save(response);
-        })
-        .catch((error) => {
-          //   setErros(error.details);
-          setsaving(false);
-          if (error.details) {
-            // form.setErrors(error.details);
-          }
-        });
+      // TODO Dispatch feedback create thunk
+      // await api()
+      //   .client.post(`feedbacks/create`, {
+      //     submission_id: submission?.id,
+      //     text: feedback,
+      //     link: githubLink,
+      //   })
+      //   .then((response: any) => {
+      //     const data = {
+      //       name: "feedback-created",
+      //       attributes: {
+      //         feedbackId: response.id,
+      //         submissionId: submission?.id,
+      //         community: community!.slug,
+      //       },
+      //     };
+      //     dispatch(createEvent(data));
+      //     reset();
+      //     setsaving(false);
+      //     save(response);
+      //   })
+      //   .catch((error) => {
+      //     //   setErros(error.details);
+      //     setsaving(false);
+      //     if (error.details) {
+      //       // form.setErrors(error.details);
+      //     }
+      //   });
     }
   };
 
-  const [feedback, setfeedback] = useState("");
   return (
     <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          submit();
-        }}
-      >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="relative w-full">
           <div className="relative">
             <div className="absolute z-50 left-3 md:-left-7 top-3">
@@ -127,34 +121,27 @@ export default function Form({ save }: FormProps) {
           <div label-for="input-text">
             <TextInput
               id="input-text"
-              value={feedback || ""}
               placeholder={
                 t(
                   "communities.challenge.submission.feedback.placeholder.text"
                 ) || ""
               }
               inputClass="border-t-0"
-              error={errors.feedback?.message}
-              onInput={(value) =>
-                setfeedback(value.currentTarget.value)
-              }
+              error={errors.feedback?.message}            
               {...register("feedback", {
                 required: "This field is required",
                 minLength: {
-                  value: 6,
-                  message: "The password is too short",
+                  value: 15,
+                  message: "The feedback is too short",
                 },
               })}
             />
           </div>
-          {submission.challenge.format.githubLink && (
+          {challenge?.format.githubLink && (
             <div label-for="input-github">
               <GithubLinkInput
                 id="input-github"
-                value={githubLink}
-                is-github-link
                 error={errors.githubLink?.message || ""}
-                handleInput={(e) => setgithubLink(e.target.value)}
                 className="p-0 border border-t-0 border-solid border-gray-200 focus:outline-none outline-none active:border-none focus:border-none block m-0 flex-grow w-full placeholder-gray-400 placeholder-opacity-100"
                 placeholder={
                   t(
@@ -165,7 +152,7 @@ export default function Form({ save }: FormProps) {
                   required: "This field is required",
                   minLength: {
                     value: 6,
-                    message: "The password is too short",
+                    message: "The github link is too short",
                   },
                 })}
               />

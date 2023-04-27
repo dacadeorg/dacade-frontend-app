@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import SubmissionCard from "./_partials/SubmissionCard";
@@ -6,20 +6,21 @@ import { useRouter } from "next/router";
 import CommunityNavigation from "@/utilities/CommunityNavigation";
 import Section from "../communities/_partials/Section";
 import ArrowButton from "@/components/ui/button/Arrow";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * BestSubmissions Component
  * @date 4/25/2023 - 2:21:45 PM
  *
  * @export
- * @returns {*}
+ * @returns {ReactElement}
  */
 export default function BestSubmissions(): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
   const navigation = new CommunityNavigation(router);
-  const challenge: any = {};
-  return challenge.bestSubmissions &&
+  const challenge = useSelector(state => state.challenges.current);
+  return challenge?.bestSubmissions &&
     challenge.bestSubmissions.length ? (
     <Section
       title={t("communities.challenge.best-submissions.title")}
@@ -29,10 +30,10 @@ export default function BestSubmissions(): ReactElement {
       </p>
       <div className="text-xl md:text-.5xl px-0">
         <div className="md:grid grid-cols-2 gap-5 pt-7 flex-wrap">
-          {challenge.bestSubmissions.map((submission: any) => {
+          {challenge?.bestSubmissions.map((submission , index) => {
             return (
               <SubmissionCard
-                key={submission.id}
+                key={`submission-${index}`}
                 submission={submission}
               />
             );

@@ -12,7 +12,7 @@ interface EmptyStateProps {
   subtitle?: string | null;
 }
 
-function EmptyState({
+export default function EmptyState({
   title,
   subtitle,
 }: EmptyStateProps): ReactElement {
@@ -29,4 +29,3 @@ function EmptyState({
   );
 }
 
-export default EmptyState;

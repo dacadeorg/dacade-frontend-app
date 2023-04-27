@@ -22,6 +22,7 @@ import communitySlice from "./feature/community.slice";
 import { learningModules } from "./feature/learningModules.slice";
 import { challengeSlice } from "./feature/communities/challenges";
 import { submissionsSlice } from "./feature/communities/challenges/submissions";
+import { feedbackSlice } from "./feature/communities/challenges/submissions/feedback.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -43,6 +44,7 @@ export interface IRootState {
   challenges: ReturnType<typeof challengeSlice.reducer>;
   courses: ReturnType<typeof courseSlice.reducer>;
   learningModules: ReturnType<typeof learningModules.reducer>;
+  feedback: ReturnType<typeof feedbackSlice.reducer>
 }
 
 export const store = configureStore({
@@ -67,7 +69,7 @@ export const store = configureStore({
     [referralsApi.reducerPath]: referralsApi.reducer,
     [navigationSlice.name]: navigationSlice.reducer,
     [learningModules.name]: learningModules.reducer,
-    [challengeSlice.name]: challengeSlice.reducer,
+    [feedbackSlice.name]: feedbackSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
