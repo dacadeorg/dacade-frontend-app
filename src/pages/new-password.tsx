@@ -29,7 +29,7 @@ interface Form {
  * @export
  * @returns
  */
-export default function PasswordReset() {
+export default function PasswordReset(): ReactElement {
   const { t } = useTranslation();
   const {
     handleSubmit,
