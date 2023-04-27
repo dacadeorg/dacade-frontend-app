@@ -46,7 +46,7 @@ export const submissionsSlice = createSlice({
     setSubmission: (state, action: PayloadAction<Submission>) => {
       state.submission = action.payload;
     },
-    show: (state, action: PayloadAction<string>) => {
+    showSubmission: (state, action: PayloadAction<string>) => {
       const current = state.list.find(
         (submission: Submission) => submission.id === action.payload
       );
@@ -60,11 +60,12 @@ export const submissionsSlice = createSlice({
  * Find submission by id
  * @date 4/25/2023 - 8:19:35 PM
  *
- * @type {*}
  */
+
 export const findSubmssionById = createAsyncThunk(
   "submissions/find",
   async (
+    // TODO: rename id to more descriptive name like submission_id
     { id, locale }: { id: string; locale?: string },
     { dispatch }
   ) => {
@@ -186,7 +187,7 @@ export const findWithRelations = createAsyncThunk(
   }
 );
 
-export const { setCurrent, setList, setText, setSubmission } =
+export const { setCurrent, setList, setText, setSubmission , showSubmission } =
   submissionsSlice.actions;
 export const selectCurrent = (state: IRootState) =>
   state.submissions.current;
