@@ -38,20 +38,7 @@ export default function DefaultLayout({
     <Wrapper>
       <div className="relative min-h-screen flex flex-col">
         <div className="relative flex-grow-0">
-          <Navbar
-            settings={{
-              colors: {
-                textAccent: "",
-                primary: "var(--tm-primary)",
-                secondary: "var(--tm-secondary)",
-                text: "var(--tm-text)",
-                highlight: "var(--tm-highlight)",
-                accent: "var(--tm-accent)",
-                muted: "var(--tm-muted)",
-              },
-            }}
-            sidebarBurgerColor={false}
-          />
+          <Navbar />
           <NotificationBar />
         </div>
         <div className="relative flex-grow">{children}</div>

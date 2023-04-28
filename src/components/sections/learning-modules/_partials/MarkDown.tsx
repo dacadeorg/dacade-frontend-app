@@ -59,7 +59,6 @@ export default function Markdown({
   const handleNavigation = useCallback(
     (markdown: Compatible | undefined) => {
       const processor = unified().use(remarkParse).use(withToc);
-      // console.log(processor);
       const node = processor.parse(markdown);
 
       // Casting with any because processor.runSync has not arrays methods type infered.

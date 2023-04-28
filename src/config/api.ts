@@ -92,7 +92,6 @@ export default function api(locale = "en"): {
       ...data,
       statusCode: error.response.status,
     };
-    console.log({ output });
     return Promise.reject(output);
   };
 

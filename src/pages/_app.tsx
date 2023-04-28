@@ -6,6 +6,7 @@ import { wrapper } from "@/store";
 import { Provider } from "react-redux";
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
+import UserAuthProvider from "@/contexts/UserAuthProvider";
 
 /**
  * Represents a Next.js page with a custom layout.
@@ -44,7 +45,11 @@ const App = ({ Component, ...rest }: AppPropsWithLayout) => {
 
   return (
     <Provider store={store}>
-      {getLayout(<Component {...pageProps} />)}
+      {getLayout(
+        <UserAuthProvider>
+          <Component {...pageProps} />
+        </UserAuthProvider>
+      )}
     </Provider>
   );
 };

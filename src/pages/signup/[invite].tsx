@@ -50,7 +50,6 @@ export default function SignupWithInvite(): ReactElement {
   } = useForm<FormValues>();
   const { query } = useRouter();
   const referrer = query.invite;
-  console.log(referrer);
   const referrals = useSelector((state) => state.referrals.list);
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
@@ -67,7 +66,6 @@ export default function SignupWithInvite(): ReactElement {
       referralCode,
       referrer,
     };
-    console.log(signupData);
     try {
       if (!checkTerms) return;
       setLoading(false);

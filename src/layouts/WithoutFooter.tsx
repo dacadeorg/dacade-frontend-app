@@ -29,7 +29,7 @@ export default function LayoutWithoutFooter({
     <Wrapper>
       <div className="relative min-h-screen">
         <div className="relative z-99">
-          <Navbar sidebarBurgerColor={true} />
+          <Navbar />
           <NotificationBar />
         </div>
         <div>{children}</div>

@@ -53,7 +53,7 @@ export default function UserPopup({
   };
 
   return (
-    <div className="">
+    <div>
       <div>
         <span onClick={externalClick}>
           <li
@@ -64,14 +64,14 @@ export default function UserPopup({
           >
             <Button
               type="button"
-              custom-style={buttonStyles}
+              customStyle={buttonStyles}
               padding={false}
               variant="secondary"
-              className={`p-0.5 bg-gray-100 bg-opacity-75 hover:bg-gray-50 text-primary ${
+              className={`p-0.5 bg-gray-100 bg-opacity-75 hover:bg-gray-50 ${
                 mainWallet ? "pr-5" : ""
               }`}
             >
-              <Avatar user={user as User} use-link={false} />
+              <Avatar user={user as User} useLink={false} />
               {mainWallet && (
                 <span
                   style={{
