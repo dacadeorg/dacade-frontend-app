@@ -30,10 +30,6 @@ export default function ObjectiveList({
   objectives = [],
   feedback = [],
 }: ObjectiveProps): ReactElement {
-  // TODO: will be uncommented when we apply the redux
-  //   const community = useSelector((state) => state.communities.current);
-  //   const colors = useSelector((state) => state.ui.colors);
-
   return (
     <div className="flex flex-col gap-y-3 md:grid md:w-99 md:gap-x-3 md:items-stretch pt-2 md:pt-5 md:pb-2 md:mb-2">
       {objectives.map((objective, index) => (

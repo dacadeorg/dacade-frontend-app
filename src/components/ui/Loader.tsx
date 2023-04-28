@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import Spinner from "@/icons/spinner.svg";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * Loader Props Interface
@@ -24,33 +25,30 @@ interface LoaderProps {
 }
  * @returns {*}
  */
-const colors = {
-  text: "#0D61FF",
-  accent: "#0D61FF",
-  textAccent: "#fff",
-  primary: "#0D61FF",
-};
 
 export default function Loader({
   communityStyles = false,
   className = "",
 }: LoaderProps) {
+  const colors = useSelector((state) => state.ui.colors);
+
   const styles = {
     color: colors.textAccent,
   };
 
   const loaderClasses = classNames(
-    `flex items-center relative justify-center !h-12 !w-12 ${className}`,
+    `flex items-center relative justify-center ${className}`,
     {
       "text-primary": !communityStyles,
     }
   );
+
   return (
     <div
       className={loaderClasses}
       style={{ ...(communityStyles ? styles : {}) }}
     >
-      <Spinner height={18} width={18} className="animate-spin" />
+      <Spinner className="animate-spin h-12 w-12" />
     </div>
   );
 }

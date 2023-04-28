@@ -43,7 +43,7 @@ const courseSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchCourse.fulfilled, (state, action) => {
-        state.current = action.payload;
+        state.current = action.payload as Course;
       })
       .addCase(fetchAllCourses.fulfilled, (state, action) => {
         state.list = action.payload;
@@ -64,7 +64,7 @@ export const fetchCourse = createAsyncThunk(
   "courses/find",
   async ({ slug, locale }: { slug?: string; locale?: string }) => {
     try {
-      const { data } = await api(locale).server.get(
+      const { data } = await api(locale).server.get<Course>(
         `courses/${slug}`
       );
       return data;

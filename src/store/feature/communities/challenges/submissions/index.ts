@@ -30,7 +30,6 @@ const initialState: SubmissionState = {
   text: "",
 };
 
-export const submissionsSlice = createSlice({
   name: "submissions",
   initialState,
   reducers: {

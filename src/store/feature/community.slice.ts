@@ -1,4 +1,3 @@
-import { Scoreboard } from "@/types/scoreboard";
 import {
   createAsyncThunk,
   createSlice,

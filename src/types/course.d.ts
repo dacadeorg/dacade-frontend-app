@@ -136,7 +136,39 @@ export type LearningModule = {
   timestamp: number;
   order: number;
   course: string;
+  interactiveModules: InteractiveModule[];
 };
+
+export type InteractiveModule = {
+  ref: string;
+  title: string;
+  text: string;
+  closing: {
+    text: string;
+    title: string;
+  };
+  items: {
+    text: string;
+    title: string;
+    options: {
+      text: string;
+      isCorrect: boolean;
+    };
+    question: {
+      title: string;
+      answers: string[];
+      correct: number;
+    };
+  }[];
+};
+
+enum MaterialType {
+  ADDITIONAL = "ADDITIONAL",
+  MARKDOWN = "MARKDOWN",
+  TEXT = "TEXT",
+  ARTICLE = "ARTICLE",
+  "EMBEDDED-VIDEO" = "EMBEDDED-VIDEO",
+}
 
 export type Material = {
   duration: number;
@@ -144,5 +176,6 @@ export type Material = {
   link: string;
   description?: string;
   title: string;
-  type: string;
+  type: MaterialType;
+  list: { link: string }[];
 };

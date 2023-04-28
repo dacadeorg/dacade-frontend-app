@@ -33,7 +33,7 @@
     color: var(--text-accent-color);
     &::before,
     &::after {
-      content: '' !important;
+      content: "" !important;
     }
 
     max-width: fit-content;
@@ -47,10 +47,12 @@
 
   img {
     max-width: 100%;
+    position: static;
   }
 
   pre {
     margin: 28px 0;
+    max-width: 730px;
   }
   ol > li::before {
     color: var(--text-primary-color);
@@ -80,7 +82,7 @@
     color: var(--text-accent-color);
     &::before,
     &::after {
-      content: '' !important;
+      content: "" !important;
     }
 
     max-width: fit-content;

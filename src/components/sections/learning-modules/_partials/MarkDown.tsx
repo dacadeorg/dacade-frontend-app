@@ -1,31 +1,25 @@
 import {
   CSSProperties,
+  ReactElement,
   useCallback,
   useEffect,
   useState,
 } from "react";
-import matter from "gray-matter";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeExternalLinks from "rehype-external-links";
-import rehypeStringify from "rehype-stringify";
-import remarkUnwrapAllImages from "remark-unwrap-all-images";
-import rehypeSlug from "rehype-slug";
 import Slugger from "github-slugger";
 import Highlighter from "@/utilities/Highlighter";
-import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
-import remarkBreaks from "remark-breaks";
-import rehypeFormat from "rehype-format";
 import withToc from "@stefanprobst/remark-extract-toc";
 import { cloneDeep } from "lodash";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useRouter } from "next/router";
 import { Compatible } from "vfile";
-import { ReactElement } from "react-markdown/lib/react-markdown";
 import { setNavigationList } from "@/store/feature/communities/navigation.slice";
+import ReactMarkdown from "react-markdown";
+import Loader from "@/components/ui/Loader";
+import CodeHighlighter from "./CodeHighlighter";
 
 /**
  * Markdown props interface
@@ -46,27 +40,31 @@ interface MarkDownProps {
  * @param {MarkDownProps} { url }
  * @returns {ReactElement}
  */
-export function Markdown({ url }: MarkDownProps): ReactElement {
+export default function Markdown({
+  url,
+}: MarkDownProps): ReactElement {
   const dispatch = useDispatch();
-  const [markdown, setMarkdown] = useState<{ [key: string]: any }>();
+  const [markdown, setMarkdown] = useState<string>("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const route = useRouter();
   const colors = useSelector((state) => state.ui.colors);
-  const menus = useSelector(
-    (state) => state.navigation.list
-  );
+  const menus = useSelector((state) => state.navigation.list);
 
   const themeStyles = {
     "--text-accent-color": colors.textAccent,
   };
 
+  // TODO Should be adapted to the react-markdown
   const handleNavigation = useCallback(
     (markdown: Compatible | undefined) => {
       const processor = unified().use(remarkParse).use(withToc);
+      // console.log(processor);
       const node = processor.parse(markdown);
+
       // Casting with any because processor.runSync has not arrays methods type infered.
       const tree = processor.runSync(node) as any;
+
       const data = cloneDeep(menus);
       const slugger = new Slugger();
       const list = data.map((menu) => {
@@ -102,26 +100,9 @@ export function Markdown({ url }: MarkDownProps): ReactElement {
         const responseText = await fetch(url).then((response) =>
           response.text()
         );
-        const { data } = matter(responseText);
-        setMarkdown(data);
-        handleNavigation(markdown);
 
-        unified()
-          .use(remarkParse)
-          .use(remarkBreaks)
-          .use(remarkGfm)
-          .use(() => Highlighter)
-          .use(remarkRehype, { allowDangerousHtml: true })
-          .use(remarkUnwrapAllImages)
-          .use(rehypeRaw)
-          .use(rehypeExternalLinks, { target: "_blank" })
-          .use(rehypeSlug)
-          .use(rehypeStringify)
-          .use(rehypeFormat)
-          .use(rehypeStringify)
-          .process(content, (error, file) => {
-            if (!error) setContent(file?.value as string);
-          });
+        setMarkdown(responseText);
+        handleNavigation(markdown);
       } catch (error: unknown) {
         if (error instanceof Error) {
           setContent(
@@ -137,27 +118,37 @@ export function Markdown({ url }: MarkDownProps): ReactElement {
       }
     };
     fetchData();
-  }, [content, handleNavigation, markdown, markdown?.content, url]);
+  }, [content, handleNavigation, markdown, url]);
 
+  if (loading)
+    return <Loader communityStyles={true} className="py-32" />;
   return (
     <div>
-      {!loading ? (
-        <div>
-          {markdown && (
-            <div
-              style={{ ...(themeStyles as CSSProperties) }}
-              className="prose"
-            >
-              {markdown.title && <h2>{markdown.title}</h2>}
-              <div
-                className="markdown-content"
-                dangerouslySetInnerHTML={{ __html: content }}
-              />
-            </div>
-          )}
+      {markdown && (
+        <div
+          style={{ ...(themeStyles as CSSProperties) }}
+          className="prose"
+        >
+          <ReactMarkdown
+            className="markdown-content"
+            remarkPlugins={[remarkGfm, remarkParse]}
+            components={{
+              code: ({ inline, className, children, ...props }) => {
+                return (
+                  <CodeHighlighter
+                    inline={inline}
+                    className={className}
+                    {...props}
+                  >
+                    {children}
+                  </CodeHighlighter>
+                );
+              },
+            }}
+          >
+            {markdown}
+          </ReactMarkdown>
         </div>
-      ) : (
-        <></>
       )}
     </div>
   );

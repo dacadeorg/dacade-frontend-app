@@ -1,22 +1,9 @@
 import { ReactElement } from "react";
 import Section from "@/components/sections/communities/_partials/Section";
-// TODO this will be uncommented after duration commponent has been merged
-// import Duration from "@/components/sections/courses/_partials/Duration";
+import Duration from "@/components/sections/courses/_partials/Duration";
 import Slugger from "github-slugger";
 import Link from "next/link";
-
-/**
- * Material interface
- * @date 4/18/2023 - 8:16:26 PM
- *
- * @interface Material
- * @typedef {Material}
- */
-interface Material {
-  link: string;
-  title: string;
-  duration: string;
-}
+import { Material } from "@/types/course";
 
 /**
  * AdditionalMaterialSection component props
@@ -63,8 +50,7 @@ export default function AdditionalMaterialSection({
             {material.title}
           </p>
           <span className="ml-2 leading-normal">
-            {/* TODO this will be uncommented after duration commponent has been merged */}
-            {/* <Duration value={material.duration} /> */}
+            <Duration value={material.duration} text="" />
           </span>
         </Link>
       ))}

@@ -17,12 +17,13 @@ import authSlice from "./feature/auth.slice";
 import scoreboardSlice from "./feature/communities/scoreboard.slice";
 import courseSlice from "./feature/course.slice";
 import { eventsSlice } from "./feature/events.slice";
-import { navigationSlice } from "./feature/communities/navigation.slice";
 import communitySlice from "./feature/community.slice";
-import { learningModules } from "./feature/learningModules.slice";
+import { learningModulesSlice } from "./feature/learningModules.slice";
 import { challengeSlice } from "./feature/communities/challenges";
 import { submissionsSlice } from "./feature/communities/challenges/submissions";
 import { feedbackSlice } from "./feature/communities/challenges/submissions/feedback.slice";
+import { navigationSlice } from "./feature/communities/navigation.slice";
+import { submissionSlice } from "./feature/communities/challenges/submissions";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -43,8 +44,8 @@ export interface IRootState {
   communityApi: ReturnType<typeof communitiesApi.reducer>;
   challenges: ReturnType<typeof challengeSlice.reducer>;
   courses: ReturnType<typeof courseSlice.reducer>;
-  learningModules: ReturnType<typeof learningModules.reducer>;
-  feedback: ReturnType<typeof feedbackSlice.reducer>
+  feedback: ReturnType<typeof feedbackSlice.reducer>;
+  learningModules: ReturnType<typeof learningModulesSlice.reducer>;
 }
 
 export const store = configureStore({
@@ -62,14 +63,19 @@ export const store = configureStore({
     [scoreboardSlice.name]: scoreboardSlice.reducer,
     [challengeSlice.name]: challengeSlice.reducer,
     [courseSlice.name]: courseSlice.reducer,
+    [navigationSlice.name]: navigationSlice.reducer,
+    [communitySlice.name]: communitySlice.reducer,
+    [eventsSlice.name]: eventsSlice.reducer,
+    [submissionSlice.name]: submissionSlice.reducer,
     [eventsSlice.name]: eventsSlice.reducer,
     [submissionsSlice.name]: submissionsSlice.reducer,
     [communitySlice.name]: communitySlice.reducer,
     [communitiesApi.reducerPath]: communitiesApi.reducer,
     [referralsApi.reducerPath]: referralsApi.reducer,
     [navigationSlice.name]: navigationSlice.reducer,
-    [learningModules.name]: learningModules.reducer,
+    [learningModulesSlice.name]: learningModulesSlice.reducer,
     [feedbackSlice.name]: feedbackSlice.reducer,
+    [learningModulesSlice.name]: learningModulesSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
