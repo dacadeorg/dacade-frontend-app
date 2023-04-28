@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from "react";
+import { CSSProperties, ChangeEvent, useState } from "react";
 import Section from "@/components/sections/communities/_partials/Section";
 import Avatar from "@/components/ui/Avatar";
 import TextInput from "@/components/ui/TextInput";
@@ -144,6 +144,7 @@ export default function Submission(): ReactElement {
               >
                 <div label-for="input-github">
                   <GithubLinkInput
+                    handleInput={() => null}
                     id="input-github"
                     value={githubLinkValue}
                     error={errors.githubLink?.message as string}
