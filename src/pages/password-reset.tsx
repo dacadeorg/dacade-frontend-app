@@ -62,7 +62,7 @@ export default function PasswordReset(): ReactElement {
           <h3 className="text-5xl my-5">
             {t("password-reset.title")}
           </h3>
-          <div label-for="input-1">
+          <div>
             <label htmlFor="input-1" className="text-sm">
               {t("password-reset.description")}
             </label>
