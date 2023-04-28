@@ -33,9 +33,10 @@ export default function EmailVerification(): ReactElement {
         await verifyEmail({ code });
         setVerified(true);
       } catch (e) {
-        // Handle error
+        // TODO: add error handling functionality.
       }
     };
+    // TODO: TO BE Uncommented when verify email functionality is implemented
     // verify();
   }, []);
 
