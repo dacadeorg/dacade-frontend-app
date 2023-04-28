@@ -23,7 +23,6 @@ import { challengeSlice } from "./feature/communities/challenges";
 import { submissionsSlice } from "./feature/communities/challenges/submissions";
 import { feedbackSlice } from "./feature/communities/challenges/submissions/feedback.slice";
 import { navigationSlice } from "./feature/communities/navigation.slice";
-import { submissionSlice } from "./feature/communities/challenges/submissions";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -66,7 +65,7 @@ export const store = configureStore({
     [navigationSlice.name]: navigationSlice.reducer,
     [communitySlice.name]: communitySlice.reducer,
     [eventsSlice.name]: eventsSlice.reducer,
-    [submissionSlice.name]: submissionSlice.reducer,
+    [submissionsSlice.name]: submissionsSlice.reducer,
     [eventsSlice.name]: eventsSlice.reducer,
     [submissionsSlice.name]: submissionsSlice.reducer,
     [communitySlice.name]: communitySlice.reducer,
