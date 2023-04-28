@@ -27,33 +27,30 @@ export default function UserPopup({
 }): ReactElement {
   const [show, setShow] = useState(false);
   const [showReferral, setShowReferral] = useState(false);
-  const { main: mainWallet, list: wallets } = useSelector(
-    (state) => state.wallets
-  );
-  const reputations = useSelector((state) => state.reputations.list);
+  const { main: mainWallet } = useSelector((state) => state.wallets);
   const user = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
 
   const toggle = () => {
     setShow(!show);
-    toggleBodyScrolling(show)(dispatch);
+    toggleBodyScrolling(!show)(dispatch);
   };
 
   const toggleInvite = () => {
     setShowReferral(!showReferral);
     setShow(!show);
-    toggleBodyScrolling(showReferral)(dispatch);
+    toggleBodyScrolling(!showReferral)(dispatch);
   };
 
   const externalClick = () => {
     if (show) {
       setShow(false);
-      toggleBodyScrolling(show)(dispatch);
+      toggleBodyScrolling(false)(dispatch);
     }
   };
 
   return (
-    <div>
+    <div className="">
       <div>
         <span onClick={externalClick}>
           <li
@@ -63,7 +60,6 @@ export default function UserPopup({
             onClick={toggle}
           >
             <Button
-              type="button"
               customStyle={buttonStyles}
               padding={false}
               variant="secondary"
@@ -72,7 +68,7 @@ export default function UserPopup({
               }`}
             >
               <Avatar user={user as User} useLink={false} />
-              {mainWallet && (
+              {mainWallet ? (
                 <span
                   style={{
                     color: buttonStyles.color
@@ -86,6 +82,8 @@ export default function UserPopup({
                     token={mainWallet.token}
                   />
                 </span>
+              ) : (
+                <></>
               )}
             </Button>
           </li>

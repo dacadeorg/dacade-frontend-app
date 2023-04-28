@@ -13,7 +13,7 @@ import { wrapper } from "@/store";
 import { Community } from "@/types/community";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HomeLayout from "@/layouts/Home";
-import { result } from "lodash";
+import DefaultLayout from "@/components/layout/Default";
 
 /**
  * Interface for community view page
@@ -88,5 +88,9 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
 );
 
 CommunitiesPage.getLayout = function (page: ReactElement) {
-  return <HomeLayout>{page}</HomeLayout>;
+  return (
+    <DefaultLayout footerBackgroundColor={false}>
+      {page}
+    </DefaultLayout>
+  );
 };
