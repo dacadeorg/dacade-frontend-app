@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import Popup from "@/components/ui/Popup";
 import Header from "./_partials/Header";
 import Section from "@/components/ui/Section";

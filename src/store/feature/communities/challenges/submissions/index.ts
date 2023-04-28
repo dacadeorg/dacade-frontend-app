@@ -30,6 +30,7 @@ const initialState: SubmissionState = {
   text: "",
 };
 
+export const submissionsSlice = createSlice({
   name: "submissions",
   initialState,
   reducers: {
@@ -59,8 +60,7 @@ const initialState: SubmissionState = {
       state.list = action.payload;
     });
   },
-});
-
+})
 /**
  * Find submission by id
  * @date 4/25/2023 - 8:19:35 PM
