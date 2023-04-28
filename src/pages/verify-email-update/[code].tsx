@@ -19,7 +19,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
  */
 export default function EmailVerification(props: {
   verified: boolean;
-}) {
+}): ReactElement {
   const { verified } = props;
   const router = useRouter();
   const { t } = useTranslation();
