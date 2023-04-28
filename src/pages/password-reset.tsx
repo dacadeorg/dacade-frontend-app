@@ -63,7 +63,7 @@ export default function PasswordReset(): ReactElement {
             {t("password-reset.title")}
           </h3>
           <div label-for="input-1">
-            <label htmlFor="input-2" className="text-sm">
+            <label htmlFor="input-1" className="text-sm">
               {t("password-reset.description")}
             </label>
 
@@ -90,7 +90,7 @@ export default function PasswordReset(): ReactElement {
               loading={loading}
               type="submit"
               disabled={loading}
-              min-width-class="min-w-40"
+              minWidthClass="min-w-40"
             >
               {t("submit")}
             </ArrowButton>
