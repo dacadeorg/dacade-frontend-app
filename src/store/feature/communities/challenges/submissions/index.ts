@@ -55,8 +55,6 @@ export const submissionsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAllSubmission.fulfilled, (state, action) => {
-      console.log(action.payload);
-
       state.list = action.payload;
     });
   },

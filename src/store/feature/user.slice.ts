@@ -106,7 +106,6 @@ export const getToken = createAsyncThunk(
       dispatch(setToken(token));
       return token;
     } catch (e) {
-      console.log(e);
       dispatch(clear());
       return null;
     }

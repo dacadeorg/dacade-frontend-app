@@ -26,8 +26,6 @@ import Head from "next/head";
 
 export default function Submission() {
   const [selectedSubmission, setSelectedSubmission] = useState("");
-  console.log(selectedSubmission);
-
   const dispatch = useDispatch();
   const router = useRouter();
   const { submission_id, slug, course_slug, challenge_id } =
