@@ -34,7 +34,7 @@ const initialState: WalletState = {
  *
  * @returns {Promise<Wallet[]>} - The list of wallets.
  */
-export const allWallets = createAsyncThunk(
+export const fetchAllWallets = createAsyncThunk(
   "wallets/all",
   async () => {
     const { data } = await api().client.get<Wallet[]>("wallets");
@@ -74,7 +74,7 @@ export const updateWallet = createAsyncThunk(
   }
 );
 
-export const walletSlice = createSlice({
+export const userWalletsSlice = createSlice({
   name: "wallets",
   initialState,
   reducers: {
@@ -89,7 +89,7 @@ export const walletSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(allWallets.fulfilled, (state, action) => {
+      .addCase(fetchAllWallets.fulfilled, (state, action) => {
         state.list = action.payload;
         state.main = action.payload.length
           ? action.payload.find((wallet: Wallet) => wallet.main) ||
@@ -106,6 +106,6 @@ export const walletSlice = createSlice({
   },
 });
 
-export const { setCurrent, clear } = walletSlice.actions;
+export const { setCurrent, clear } = userWalletsSlice.actions;
 
-export default walletSlice;
+export default userWalletsSlice;

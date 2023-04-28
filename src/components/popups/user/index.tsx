@@ -1,5 +1,9 @@
-import { CSSProperties, ReactElement, useState } from "react";
-import { useDispatch } from "react-redux";
+import {
+  CSSProperties,
+  ReactElement,
+  useEffect,
+  useState,
+} from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import Dropdown from "./Dropdown";
 import Avatar from "@/components/ui/Avatar";
@@ -7,6 +11,8 @@ import Button from "@/components/ui/button";
 import Currency from "@/components/ui/Currency";
 import { User } from "@/types/bounty";
 import { toggleBodyScrolling } from "@/store/feature/ui.slice";
+import { fetchAllWallets } from "@/store/feature/user/wallets.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  * User popup component
@@ -31,6 +37,10 @@ export default function UserPopup({
   const user = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchAllWallets());
+  }, [dispatch]);
+
   const toggle = () => {
     setShow(!show);
     toggleBodyScrolling(!show)(dispatch);
@@ -39,7 +49,7 @@ export default function UserPopup({
   const toggleInvite = () => {
     setShowReferral(!showReferral);
     setShow(!show);
-    toggleBodyScrolling(!showReferral)(dispatch);
+    toggleBodyScrolling(false)(dispatch);
   };
 
   const externalClick = () => {

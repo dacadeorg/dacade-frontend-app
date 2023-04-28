@@ -30,11 +30,14 @@ export const notificationsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(allNotifications.fulfilled, (state, action) => {
-      state.notifications = action.payload.list;
-      state.count = action.payload.list.length;
-      state.unread = action.payload.unread;
-    });
+    builder.addCase(
+      fetchAllNotifications.fulfilled,
+      (state, action) => {
+        state.notifications = action.payload.list;
+        state.count = action.payload.list.length;
+        state.unread = action.payload.unread;
+      }
+    );
   },
 });
 
@@ -44,7 +47,7 @@ export const {
   setUnreadNotifications,
 } = notificationsSlice.actions;
 
-export const allNotifications = createAsyncThunk(
+export const fetchAllNotifications = createAsyncThunk(
   "notifications/all",
   async (_, { dispatch }) => {
     try {
@@ -66,7 +69,7 @@ export const readNotification = createAsyncThunk(
   async (_, { dispatch }) => {
     try {
       await api().client.post("notifications/read");
-      dispatch(allNotifications());
+      dispatch(fetchAllNotifications());
     } catch (error) {
       console.error(error);
     }
