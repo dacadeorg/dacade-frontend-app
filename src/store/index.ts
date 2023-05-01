@@ -9,7 +9,7 @@ import ui from "./feature/ui.slice";
 import userSlice from "./feature/user.slice";
 import { bannerSlice } from "./feature/banner.slice";
 import { notificationsSlice } from "./feature/notification.slice";
-import walletSlice from "./feature/wallet.slice";
+import userWalletsSlice from "./feature/user/wallets.slice";
 import reputationSlice from "./feature/reputation.slice";
 import indexSlice from "./feature/index.slice";
 import { communitiesApi } from "./feature/communities.slice";
@@ -32,7 +32,7 @@ export interface IRootState {
   user: ReturnType<typeof userSlice.reducer>;
   banner: ReturnType<typeof bannerSlice.reducer>;
   notifications: ReturnType<typeof notificationsSlice.reducer>;
-  wallets: ReturnType<typeof walletSlice.reducer>;
+  wallets: ReturnType<typeof userWalletsSlice.reducer>;
   reputations: ReturnType<typeof reputationSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
@@ -54,7 +54,7 @@ export const store = configureStore({
     [userSlice.name]: userSlice.reducer,
     [notificationsSlice.name]: notificationsSlice.reducer,
     [bannerSlice.name]: bannerSlice.reducer,
-    [walletSlice.name]: walletSlice.reducer,
+    [userWalletsSlice.name]: userWalletsSlice.reducer,
     [reputationSlice.name]: reputationSlice.reducer,
     [indexSlice.name]: indexSlice.reducer,
     [authSlice.name]: authSlice.reducer,

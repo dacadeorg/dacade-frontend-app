@@ -19,10 +19,10 @@ import Sidebar from "./Sidebar";
 import { Colors } from "@/types/community";
 
 interface NavbarProps {
-  settings: {
+  settings?: {
     colors: Colors;
   };
-  sidebarBurgerColor: boolean;
+  sidebarBurgerColor?: boolean;
 }
 
 export default function Navbar({
@@ -40,19 +40,24 @@ export default function Navbar({
 
   const containerStyle = useMemo(() => {
     return {
-      backgroundColor: settings.colors.primary,
-      color: settings.colors.text,
+      backgroundColor: settings?.colors.primary,
+      color: settings?.colors.text,
     };
-  }, [settings.colors.primary, settings.colors.text]);
+  }, [settings?.colors.primary, settings?.colors.text]);
 
-  const buttonStyle = {
-    backgroundColor: hexToRgba(settings.colors.text, 0.3),
-    color: settings.colors.text,
-  };
+  const buttonStyle = useMemo(() => {
+    if (!settings || !settings.colors) {
+      return {};
+    }
+    return {
+      backgroundColor: hexToRgba(settings?.colors.text || "", 0.3),
+      color: settings?.colors.text,
+    };
+  }, [settings]);
 
   const badgeStyle = {
-    backgroundColor: settings.colors.accent,
-    color: settings.colors.primary,
+    backgroundColor: settings?.colors.accent,
+    color: settings?.colors.primary,
   };
 
   const onLogOut = () => {

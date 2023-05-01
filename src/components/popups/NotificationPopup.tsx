@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import Badge from "@/components/ui/Badge";
 import NotificationList from "@/components/list/Notification";
-
 import Button from "@/components/ui/button";
 import BellIcon from "@/icons/notification-bell.svg";
+import { useSelector } from "@/hooks/useTypedSelector";
+import {
+  fetchAllNotifications,
+  readNotification,
+} from "@/store/feature/notification.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 
 /**
  * Notification Popup Interface
@@ -35,37 +41,28 @@ export default function NotificationPopup({
   buttonStyles,
   badgeStyles,
 }: NotificationPopupProps) {
+  const dispatch = useDispatch();
   const [isNotificationVisible, setIsNotificationVisible] =
     useState(false);
 
-  // TODO: will be uncommented when the redux store is ready
-  //   const unread = useSelector(
-  //     (state) => state.user.notifications.unread
-  //   );
-
-  // TODO: We will add corresponding type when the redux store is ready
-  const unread: any = [];
+  const unread = useSelector((state) => state.notifications.unread);
 
   useEffect(() => {
-    // TODO: will be uncommented when the redux store is ready
-    // dispatch("user/notifications/all");
-  }, []);
+    dispatch(fetchAllNotifications());
+  }, [dispatch]);
 
   const toggle = () => {
     setIsNotificationVisible(!isNotificationVisible);
     if (unread && isNotificationVisible) {
-      // TODO: will be uncommented when the redux store is ready
-      //   dispatch("user/notifications/read");
+      dispatch(readNotification());
     }
-    // TODO: will be uncommented when the redux store is ready
-    // dispatch("ui/toggleBodyScrolling", isNotificationVisible);
+    toggleBodyScrolling(!isNotificationVisible)(dispatch);
   };
 
   const externalClick = () => {
     if (!isNotificationVisible) return;
     setIsNotificationVisible(false);
-    // TODO: will be uncommented when the redux store is ready
-    // dispatch("ui/toggleBodyScrolling", isNotificationVisible);
+    toggleBodyScrolling(false)(dispatch);
   };
 
   return (
@@ -76,9 +73,7 @@ export default function NotificationPopup({
             isNotificationVisible ? "z-50" : "z-10"
           }`}
           style={{ width: "calc(100vw - 40px)", maxWidth: "340px" }}
-          onClick={() =>
-            setIsNotificationVisible(!isNotificationVisible)
-          }
+          onClick={toggle}
         >
           <Button
             type="button"
@@ -110,7 +105,10 @@ export default function NotificationPopup({
         )}
       </span>
       {isNotificationVisible && (
-        <div className="opacity-25 fixed inset-0 z-30 bg-black" />
+        <div
+          onClick={externalClick}
+          className="opacity-25 fixed inset-0 z-30 bg-black"
+        />
       )}
     </div>
   );

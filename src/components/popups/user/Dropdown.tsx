@@ -71,7 +71,7 @@ const UserProfileDropdown = ({
    * @date 4/4/2023 - 11:56:40 PM
    */
   const toggleInvite = () => {
-    dispatch(setShowReferralPopup(true));
+    dispatch(setShowReferralPopup(false));
   };
 
   useEffect(() => {
@@ -119,15 +119,19 @@ const UserProfileDropdown = ({
             <span>{t("nav.sign-out")}</span>
           </div>
         </div>
-        {wallets.length && (
+        {wallets.length ? (
           <div className="p-4">
             <BalanceList />
           </div>
+        ) : (
+          <></>
         )}
-        {reputations.length && (
+        {reputations.length ? (
           <div className="p-4">
             <ReputationList />
           </div>
+        ) : (
+          <></>
         )}
         {showLanguageSwitcher && <LanguageList />}
         <div className="p-4 flex justify-center bg-indigo-50">
