@@ -80,7 +80,7 @@ export const getStaticProps: GetStaticProps = async ({
         courses,
         ...(await serverSideTranslations(locale as string)),
       },
-      // revalidate: 60,
+      revalidate: 60,
     };
   } catch (error) {
     return {

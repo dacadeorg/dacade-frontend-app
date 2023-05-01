@@ -89,7 +89,7 @@ export async function getStaticProps({ params, locale }: any) {
         course,
         ...(await serverSideTranslations(locale as string)),
       },
-      // revalidate: 60,
+      revalidate: 60,
     };
   } catch (error) {
     return {
