@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 import FeedbackCard from "@/components/cards/Feedback";
 import Loader from "@/components/ui/button/Loader";
 import { useSelector } from "@/hooks/useTypedSelector";
@@ -27,9 +27,13 @@ export default function Feedback(): ReactElement {
     (state) => state.submissions.current
   );
   const challenge = useSelector((state) => state.challenges.current);
-  const fetchList = () => {
-    dispatch(fetchFeedbacks({ submissionId: submission?.id as string, locale: route.locale }))
-  };
+  const fetchList = useCallback( () => {
+    dispatch(fetchFeedbacks({ submissionId: submission?.id as string, locale: route.locale }));
+  },[dispatch, route.locale, submission?.id])
+
+  useEffect(() => {
+    fetchList()
+  },[fetchList])
   return (
     <div className="relative">
       {feedbacks.map((feedback, index) => (

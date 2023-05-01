@@ -13,6 +13,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
  */
 export default function View():ReactElement {
   const submission = useSelector(state =>  state.submissions.current) ;
+  
   return submission ? (
     <div>
       <SubmissionViewCard submission={submission} />

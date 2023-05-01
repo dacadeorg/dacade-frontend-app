@@ -13,7 +13,6 @@ import { fetchCourse } from "@/store/feature/course.slice";
 import { findSubmssionById } from "@/store/feature/communities/challenges/submissions";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import DefaultLayout from "@/components/layout/Default";
-import i18Translate from "@/utilities/I18Translate";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function SubmissionPage() {
@@ -34,7 +33,7 @@ export default function SubmissionPage() {
         locale: router.locale,
       })
     );
-    dispatch(findSubmssionById({ id: submission_id as string }));
+    dispatch(findSubmssionById({ id: submission_id as string }));    
   }, [dispatch, slug, course_slug, submission_id, router.locale]);
 
   const title = getMetadataTitle(

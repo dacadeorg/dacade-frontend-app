@@ -53,16 +53,18 @@ export default function SubmissionCard({
           <span className="text-lg leading-loose font-medium text-gray-900 pb-1">
             {submission.user.displayName}
           </span>
-          {submission.user.reputation && (
+          {submission.user.reputation ? (
             <span className="text-xs px-2.5 bg-secondary leading-none py-1 rounded-full font-medium">
               <Currency
                 value={submission.user.reputation}
                 token="REP"
               />
             </span>
+          ) : (
+            <></>
           )}
           <span className="block text-sm leading-snug text-gray-700 pb-4">
-            {t("submissions.submitted")}
+            {t("submissions.submitted")}{" "}
             <span
               className="font-medium"
               style={{

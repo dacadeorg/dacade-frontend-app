@@ -72,7 +72,7 @@ export default function FeedbackCard({
     "--button-background-color--hover": colors.accent,
     "--button-border-color--hover": colors.accent,
   };
-
+  
   return (
     <UserCard
       user={value.user}

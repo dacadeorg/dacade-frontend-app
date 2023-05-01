@@ -135,13 +135,14 @@ export default function TranslationBox({
 
   return (
     <div className="w-full relative">
-      {currentText && (
+      {currentText ? (
         <div className={`-my-5 ${textContainerCssClasses}`}>
           <Markdown
-            className={textCssClasses as string}
             value={currentText}
           />
         </div>
+      ) : (
+        <></>
       )}
 
       {translatable && (

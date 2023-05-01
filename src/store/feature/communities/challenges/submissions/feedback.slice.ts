@@ -102,7 +102,7 @@ export const fetchFeedbacks = createAsyncThunk(
   }) => {
     const response = await api(locale).server.get(
       `submissions/${submissionId}/feedbacks`
-    );
+    );    
     return response.data;
   }
 );
