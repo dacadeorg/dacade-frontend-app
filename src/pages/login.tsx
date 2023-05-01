@@ -13,7 +13,6 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import { login } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import EmailInput from "@/components/ui/EmailInput";
-import { FormValues } from "./signup";
 
 /**
  * Login form values
@@ -22,6 +21,11 @@ import { FormValues } from "./signup";
  * @interface FormValues
  * @typedef {FormValues}
  */
+
+export interface FormValues {
+  email: string;
+  password: string;
+}
 
 /**
  * Login page
