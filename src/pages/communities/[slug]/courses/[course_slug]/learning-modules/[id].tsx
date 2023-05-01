@@ -76,7 +76,13 @@ export default function LearningModulePage(
     dispatch(setCurrentLearningModule(learningModule));
     dispatch(setColors(community.colors));
     initNavigationMenu(navigation.community)(dispatch);
-  }, [community, course, dispatch, learningModule, navigation.community]);
+  }, [
+    community,
+    course,
+    dispatch,
+    learningModule,
+    navigation.community,
+  ]);
 
   const materials = useMemo(
     () =>
@@ -219,16 +225,18 @@ export async function getStaticPaths() {
 
               if (Array.isArray(modules)) {
                 modules.forEach(({ id }) => {
-                  ["bg", "en", "es", "hr"].forEach((locale) => {
-                    modulePaths.push({
-                      params: {
-                        slug: community.slug,
-                        course_slug: course.slug,
-                        id: id,
-                      },
-                      locale: locale,
+                  ["en", "bg", "es", "hr"]
+                    .slice(0, 1)
+                    .forEach((locale) => {
+                      modulePaths.push({
+                        params: {
+                          slug: community.slug,
+                          course_slug: course.slug,
+                          id: id,
+                        },
+                        locale: locale,
+                      });
                     });
-                  });
                 });
               }
               return modulePaths;

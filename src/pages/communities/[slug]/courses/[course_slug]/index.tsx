@@ -120,7 +120,7 @@ export async function getStaticPaths() {
         const coursePaths: Path[] = [];
 
         courses.forEach(({ slug }) => {
-          ["bg", "en", "es", "hr"].forEach((locale) => {
+          ["en", "bg", "es", "hr"].slice(0, 1).forEach((locale) => {
             coursePaths.push({
               params: {
                 slug: community.slug,
