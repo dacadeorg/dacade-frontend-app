@@ -46,7 +46,7 @@ export default function CourseViewPage(props: {
     dispatch(setColors(community.colors));
     dispatch(setCourseNavigation({ list }));
     initNavigationMenu(navigation.community)(dispatch);
-  }, [community, course, dispatch, list]);
+  }, [community, course, dispatch, list, navigation.community]);
 
   const title = getMetadataTitle(course.name);
   const descriptions = getMetadataDescription(course.description);

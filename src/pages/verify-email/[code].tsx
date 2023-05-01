@@ -38,7 +38,7 @@ export default function EmailVerification(): ReactElement {
     };
     // TODO: TO BE Uncommented when verify email functionality is implemented
     // verify();
-  }, []);
+  }, [router.query.code]);
 
   const goHome = () => {
     router.push("/login");

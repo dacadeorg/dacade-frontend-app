@@ -76,7 +76,7 @@ export default function LearningModulePage(
     dispatch(setCurrentLearningModule(learningModule));
     dispatch(setColors(community.colors));
     initNavigationMenu(navigation.community)(dispatch);
-  }, [community, course, dispatch, learningModule]);
+  }, [community, course, dispatch, learningModule, navigation.community]);
 
   const materials = useMemo(
     () =>
