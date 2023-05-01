@@ -135,7 +135,7 @@ export default function ArrowButton({
         </span>
 
         {!isLeft && (
-          <span className="block">
+          <span className="relative block">
             {loading ? (
               <Spinner
                 className={`${arrowClassNames} animate-spin`}

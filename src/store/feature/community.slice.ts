@@ -113,7 +113,7 @@ export const fetchAllCommunities = createAsyncThunk(
 export const fetchCurrentCommunity = createAsyncThunk(
   "communities/current",
   async (
-    { slug, locale }: { slug: string; locale: string },
+    { slug, locale }: { slug: string; locale?: string },
     { rejectWithValue }
   ) => {
     try {

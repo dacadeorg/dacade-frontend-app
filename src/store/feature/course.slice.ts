@@ -62,7 +62,7 @@ export const {
 // Define Redux Thunk async actions
 export const fetchCourse = createAsyncThunk(
   "courses/find",
-  async ({ slug, locale }: { slug?: string; locale: string }) => {
+  async ({ slug, locale }: { slug?: string; locale?: string }) => {
     try {
       const { data } = await api(locale).server.get<Course>(
         `courses/${slug}`

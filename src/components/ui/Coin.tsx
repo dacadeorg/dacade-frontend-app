@@ -104,9 +104,8 @@ export default function Coin({
   const sizeClasses = getSizeClasses(size);
   const shapeClasses = getShapeClasses(shape);
 
-  function getCoin(token: string = "") {
-    const value = token.toUpperCase();
-    return coins.find((coin) => coin.token.toUpperCase() === value);
+  function getCoin(token: string="") {
+    return coins.find((coin) => coin.token.toUpperCase() === token.toUpperCase());
   }
 
   function getSizeClasses(size: string) {
