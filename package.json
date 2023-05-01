@@ -28,6 +28,7 @@
     "eslint-config-next": "13.2.4",
     "firebase": "^9.19.1",
     "front-matter": "^4.0.2",
+    "fs": "^0.0.1-security",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
     "hex-to-rgba": "^2.0.1",
@@ -68,6 +69,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
+    "@netlify/plugin-nextjs": "^4.36.0",
     "@svgr/webpack": "^6.5.1",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.9",

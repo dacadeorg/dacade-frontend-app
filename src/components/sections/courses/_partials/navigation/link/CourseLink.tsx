@@ -3,6 +3,7 @@ import { NavItem as LinkContent } from "./Content";
 import SubLink from "./Sub";
 import { ActivableLink as LinkAction } from "./Action";
 import { ReactElement, useMemo, useState } from "react";
+import { useRouter } from "next/router";
 
 /**
  * Course link props interface
@@ -57,6 +58,8 @@ export default function CourseLink({
     color: colors.primary,
   };
 
+  const router = useRouter();
+
   const goToLink = () => {
     if (!item?.link) return;
 
@@ -64,7 +67,7 @@ export default function CourseLink({
       setExpanded(!expanded);
       return;
     }
-    window.location.href = item.link;
+    router.push(item.link);
   };
 
   return (

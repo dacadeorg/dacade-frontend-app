@@ -11,18 +11,14 @@ import MainHeader from "@/components/sections/communities/overview/MainHeader";
 import { CoursesOverview } from "@/components/sections/communities/overview/Courses";
 import ScoreboardOverview from "@/components/sections/communities/overview/scoreboard";
 import CommunityLayout from "@/layouts/Community";
-import { ReactElement, useEffect } from "react";
+import { ReactElement, useLayoutEffect } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import {
-  fetchAllCourses,
-  setCoursesList,
-} from "@/store/feature/course.slice";
+import { setCoursesList } from "@/store/feature/course.slice";
 import { Course } from "@/types/course";
-import {
-  fetchAllScoreboards,
-  setScoreboardList,
-} from "@/store/feature/communities/scoreboard.slice";
+import { setScoreboardList } from "@/store/feature/communities/scoreboard.slice";
 import { Scoreboard } from "@/types/scoreboard";
+import api from "@/config/api";
+import { GetStaticProps } from "next";
 
 export default function Slug(props: {
   pageProps: {
@@ -34,7 +30,7 @@ export default function Slug(props: {
   const { community, courses, scoreboards } = props.pageProps;
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(setCurrentCommunity(community));
     dispatch(setColors(community.colors));
     dispatch(setCoursesList(courses));
@@ -58,41 +54,61 @@ Slug.getLayout = function (page: ReactElement) {
   return <CommunityLayout>{page}</CommunityLayout>;
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async (data) => {
-    const { query } = data;
-    const slug = query?.slug;
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  locale,
+}) => {
+  try {
+    const slug = params?.slug as string;
 
-    const fetchArgs = {
-      slug: slug as string,
-      locale: data.locale as string,
-    };
-
-    const getCurrentCommunty = store.dispatch(
-      fetchCurrentCommunity(fetchArgs)
+    const [community, scoreboards, courses] = await Promise.all([
+      api(locale).server.get<Community>(`/communities/${slug}`),
+      api(locale).server.get<Scoreboard>(
+        `/communities/${slug}/scoreboard`
+      ),
+      api(locale).server.get<Course[]>(
+        `/communities/${slug}/courses`
+      ),
+    ]).then((responses) =>
+      responses.map((response) => response.data)
     );
-    const getAllCourses = store.dispatch(fetchAllCourses(fetchArgs));
-    const getAllScoreboards = store.dispatch(
-      fetchAllScoreboards(fetchArgs)
-    );
-
-    const results = await Promise.all([
-      getCurrentCommunty,
-      getAllCourses,
-      getAllScoreboards,
-    ]);
-
-    const community = results[0].payload;
-    const courses = results[1].payload;
-    const scoreboards = results[2].payload;
-
+    //
     return {
       props: {
-        ...(await serverSideTranslations(data.locale as string)),
         community,
-        courses,
         scoreboards,
+        courses,
+        ...(await serverSideTranslations(locale as string)),
       },
+      revalidate: 60,
+    };
+  } catch (error) {
+    return {
+      notFound: true,
     };
   }
-);
+};
+
+export async function getStaticPaths() {
+  const communities: Community[] = await api()
+    .server.get<Community[]>(`/communities`)
+    .then((res) => res.data);
+
+  const paths: { params: { slug: string }; locale: string }[] = [];
+
+  communities.forEach(({ slug }) => {
+    ["bg", "en", "es", "hr"].forEach((locale) => {
+      paths.push({
+        params: {
+          slug,
+        },
+        locale: locale,
+      });
+    });
+  });
+
+  return {
+    paths,
+    fallback: "blocking",
+  };
+}
