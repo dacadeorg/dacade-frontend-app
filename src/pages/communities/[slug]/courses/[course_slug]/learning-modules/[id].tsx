@@ -184,7 +184,7 @@ export const getStaticProps: GetStaticProps = async ({
           learningModule,
           ...(await serverSideTranslations(locale as string)),
         },
-        revalidate: 60,
+        // revalidate: 60,
       };
     }
   } catch (error) {
