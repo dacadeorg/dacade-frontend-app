@@ -19,6 +19,7 @@ import { setScoreboardList } from "@/store/feature/communities/scoreboard.slice"
 import { Scoreboard } from "@/types/scoreboard";
 import api from "@/config/api";
 import { GetStaticProps } from "next";
+import LOCALES from "@/constants/locales";
 
 export default function Slug(props: {
   pageProps: {
@@ -97,7 +98,7 @@ export async function getStaticPaths() {
   const paths: { params: { slug: string }; locale: string }[] = [];
 
   communities.forEach(({ slug }) => {
-    ["bg", "en", "es", "hr"].forEach((locale) => {
+    LOCALES.forEach((locale) => {
       paths.push({
         params: {
           slug,

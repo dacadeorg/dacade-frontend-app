@@ -25,6 +25,7 @@ import DefaultLayout from "@/components/layout/Default";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import useNavigation from "@/hooks/useNavigation";
 import api from "@/config/api";
+import LOCALES from "@/constants/locales";
 
 export default function CourseViewPage(props: {
   pageProps: {
@@ -120,7 +121,7 @@ export async function getStaticPaths() {
         const coursePaths: Path[] = [];
 
         courses.forEach(({ slug }) => {
-          ["bg", "en", "es", "hr"].forEach((locale) => {
+          LOCALES.forEach((locale) => {
             coursePaths.push({
               params: {
                 slug: community.slug,

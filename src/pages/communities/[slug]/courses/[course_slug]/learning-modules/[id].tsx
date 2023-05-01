@@ -38,6 +38,7 @@ import { setColors } from "@/store/feature/ui.slice";
 import useNavigation from "@/hooks/useNavigation";
 import api from "@/config/api";
 import { GetStaticProps } from "next";
+import LOCALES from "@/constants/locales";
 
 /**
  * Learning module page props interfae
@@ -219,7 +220,7 @@ export async function getStaticPaths() {
 
               if (Array.isArray(modules)) {
                 modules.forEach(({ id }) => {
-                  ["bg", "en", "es", "hr"].forEach((locale) => {
+                  LOCALES.forEach((locale) => {
                     modulePaths.push({
                       params: {
                         slug: community.slug,
