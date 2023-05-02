@@ -65,7 +65,6 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
-    "@netlify/esbuild-linux-64": "^0.14.39",
     "@commitlint/config-conventional": "^17.4.4",
     "@netlify/plugin-nextjs": "^4.36.0",
     "@svgr/webpack": "^6.5.1",
