@@ -53,8 +53,6 @@ export default function PasswordReset(): ReactElement {
       password: formData.password,
     };
     setLoading(true);
-    // Dispatch password reset request action
-    // .then() and .catch() methods are not used here
   };
 
   return (
@@ -66,7 +64,7 @@ export default function PasswordReset(): ReactElement {
           className="content-wrapper"
         >
           <div className="lg:w-98 xl:w-98 mx-auto">
-            <h3 className="text-5xl my-5">password-reset.title</h3>
+            <h3 className="text-5xl my-5">{t("password-reset.title")}</h3>
             <div>
               <Input
                 /* In backticks `` because placeholder requires a string.
