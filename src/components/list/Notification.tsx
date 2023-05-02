@@ -56,7 +56,7 @@ export default function Notification({
             <NotificationCard
               key={notification.id}
               user={user as User}
-              details={notification}
+              notification={notification}
               extended={extended}
             />
           );
