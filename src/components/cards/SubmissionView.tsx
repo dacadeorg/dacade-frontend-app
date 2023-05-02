@@ -4,7 +4,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { useTranslation } from "next-i18next";
 import UserCard from "@/components/cards/User";
 import TranslationBox from "@/components/cards/TranslationBox";
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 
 /**
  * Type for the default locale
@@ -33,6 +33,7 @@ interface SubmissionViewCardProps {
       language: string;
     };
   };
+  children: ReactNode
 }
 
 /**

@@ -45,7 +45,7 @@ export type Challenge = {
   hint: string;
   format: Format;
   description: string;
-  course: string;
+  course: Course;
   objectives: string[];
   threshold: number;
   community: string;
