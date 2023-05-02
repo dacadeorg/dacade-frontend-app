@@ -1,7 +1,5 @@
 import { ReactElement } from "react";
 
-
-
 /**
  * Interface for the empty states props
  * @date 3/23/2023 - 11:44:34 AM
@@ -21,6 +19,6 @@ function EmptyState({ title, subtitle }: EmptyStateProps): ReactElement {
       {subtitle && <p className="text-sm" dangerouslySetInnerHTML={{ __html: subtitle }} />}
     </div>
   );
-};
+}
 
 export default EmptyState;

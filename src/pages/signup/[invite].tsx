@@ -13,8 +13,8 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import classNames from "classnames";
 import Checkbox from "@/components/ui/Checkbox";
-import { singUp } from "@/store/feature/auth.slice";
 import ReferralsList from "@/components/popups/referral/List";
+import { signUp } from "@/store/services/auth.service";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import EmailInput from "@/components/ui/EmailInput";
 import UsernameInput from "@/components/ui/UsernameInput";
@@ -48,7 +48,7 @@ export default function SignupWithInvite(): ReactElement {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
-  const { query } = useRouter();
+  const { query, locale } = useRouter();
   const referrer = query.invite;
   const referrals = useSelector((state) => state.referrals.list);
   const { t } = useTranslation();
@@ -57,8 +57,7 @@ export default function SignupWithInvite(): ReactElement {
 
   const onSubmit = async (form: FormValues) => {
     setLoading(true);
-    const { email, username, password, referralCode, checkTerms } =
-      form;
+    const { email, username, password, referralCode, checkTerms } = form;
     const signupData = {
       email,
       username,
@@ -68,7 +67,7 @@ export default function SignupWithInvite(): ReactElement {
     };
     try {
       if (!checkTerms) return;
-      await dispatch(singUp(signupData));
+      await dispatch(signUp({ locale, payload: { ...signupData } }));
     } catch (error) {
       console.error(error);
     } finally {
@@ -79,15 +78,10 @@ export default function SignupWithInvite(): ReactElement {
   return (
     <>
       <Head>
-        <title>
-          {getMetadataTitle(t("login-page.signup.title"))}
-        </title>
+        <title>{getMetadataTitle(t("login-page.signup.title"))}</title>
       </Head>
       <div className="absolute w-full top-0 min-h-screen flex items-center">
-        <form
-          className="content-wrapper pt-24"
-          onSubmit={handleSubmit(onSubmit)}
-        >
+        <form className="content-wrapper pt-24" onSubmit={handleSubmit(onSubmit)}>
           <div className="lg:w-98 xl:w-98 mx-auto">
             {referrer && (
               <div className="p-px">
@@ -145,36 +139,23 @@ export default function SignupWithInvite(): ReactElement {
                       <Checkbox
                         id="terms-checkbox"
                         {...register("checkTerms", {
-                          required: `${t(
-                            "signup-page.terms.warning"
-                          )}`,
+                          required: `${t("signup-page.terms.warning")}`,
                         })}
                       />
                     </div>
                     <div className="max-w-none test">
                       <p>I agree to {t("app.name")}&#8217;s</p>
-                      <Link
-                        className="underline"
-                        href="/terms-conditions"
-                      >
+                      <Link className="underline" href="/terms-conditions">
                         {t("signup-page.terms")}
                       </Link>
                     </div>
                   </div>
-                  <span className="text-red-600">
-                    {errors.checkTerms?.message}
-                  </span>
+                  <span className="text-red-600">{errors.checkTerms?.message}</span>
                 </div>
               </div>
 
               <div className="flex text-right self-start">
-                <ArrowButton
-                  loading={loading}
-                  type="submit"
-                  minWidthClass="min-w-40"
-                  arrowClasses="text-white"
-                  disabled={loading}
-                >
+                <ArrowButton loading={loading} type="submit" minWidthClass="min-w-40" arrowClasses="text-white" disabled={loading}>
                   {t("login-page.signup.button")}
                 </ArrowButton>
               </div>
@@ -189,6 +170,4 @@ SignupWithInvite.getLayout = function (page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({
-  locale,
-}) => i18Translate(locale as string);
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => i18Translate(locale as string);

@@ -30,9 +30,7 @@ interface TermsConditionsProps {
 }
  * @returns {*}
  */
-export default function TermsConditions({
-  pageProps: { terms },
-}: TermsConditionsProps) {
+export default function TermsConditions({ pageProps: { terms } }: TermsConditionsProps) {
   return (
     <div className="content-wrapper mt-11 ">
       <article className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl">
@@ -43,22 +41,12 @@ export default function TermsConditions({
 }
 
 TermsConditions.getLayout = function (page: ReactElement) {
-  return (
-    <DefaultLayout footerBackgroundColor={"default"}>
-      {page}
-    </DefaultLayout>
-  );
+  return <DefaultLayout footerBackgroundColor={"default"}>{page}</DefaultLayout>;
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const markdownFilePath = path.join(
-    process.cwd(),
-    "src/content/legal/terms.md"
-  );
-  const markdownFileContents = fs.readFileSync(
-    markdownFilePath,
-    "utf8"
-  );
+  const markdownFilePath = path.join(process.cwd(), "src/content/legal/terms.md");
+  const markdownFileContents = fs.readFileSync(markdownFilePath, "utf8");
 
   return {
     props: {

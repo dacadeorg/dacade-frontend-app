@@ -1,19 +1,37 @@
-import api from "@/config/api";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { Notification } from "@/types/notification";
 
+/**
+ * Notification interface
+ * @date 5/2/2023 - 6:08:25 PM
+ *
+ * @interface NotificationState
+ * @typedef {NotificationState}
+ */
 interface NotificationState {
   notifications: Notification[];
   count: number;
   unread: number;
 }
 
+/**
+ * Notification initial state
+ * @date 5/2/2023 - 6:08:06 PM
+ *
+ * @type {NotificationState}
+ */
 const initialState: NotificationState = {
   notifications: [],
   count: 0,
   unread: 0,
 };
 
+/**
+ * Notifications slice
+ * @date 5/2/2023 - 6:07:50 PM
+ *
+ * @type {*}
+ */
 export const notificationsSlice = createSlice({
   name: "notifications",
   initialState,
@@ -29,49 +47,6 @@ export const notificationsSlice = createSlice({
       state.unread = action.payload.unread;
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(
-      fetchAllNotifications.fulfilled,
-      (state, action) => {
-        state.notifications = action.payload.list;
-        state.count = action.payload.list.length;
-        state.unread = action.payload.unread;
-      }
-    );
-  },
 });
 
-export const {
-  clearNotifications,
-  setNotifications,
-  setUnreadNotifications,
-} = notificationsSlice.actions;
-
-export const fetchAllNotifications = createAsyncThunk(
-  "notifications/all",
-  async (_, { dispatch }) => {
-    try {
-      const { data } = await api().client.get<{
-        list: Notification[];
-        unread: number;
-      }>("notifications");
-      dispatch(setNotifications({ list: data.list }));
-      return { list: data.list, unread: data.unread };
-    } catch (error) {
-      dispatch(clearNotifications());
-      throw error;
-    }
-  }
-);
-
-export const readNotification = createAsyncThunk(
-  "notifications/read",
-  async (_, { dispatch }) => {
-    try {
-      await api().client.post("notifications/read");
-      dispatch(fetchAllNotifications());
-    } catch (error) {
-      console.error(error);
-    }
-  }
-);
+export const { clearNotifications, setNotifications, setUnreadNotifications } = notificationsSlice.actions;

@@ -1,10 +1,8 @@
-const aeAllowedChars =
-  "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+const aeAllowedChars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 
 const ethRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
 const aeRegex = `^(ak_)([${aeAllowedChars}]+)$`;
-const nearRegex =
-  /^([a-fA-F0-9]{5})+([a-fA-F0-9]{49})+([a-fA-F0-9]{10})$/;
+const nearRegex = /^([a-fA-F0-9]{5})+([a-fA-F0-9]{49})+([a-fA-F0-9]{10})$/;
 const algoRegex = /^([A-Z2-7]{6})+([A-Z2-7]{46})+([A-Z2-7]{6})$/;
 
 /**
@@ -16,11 +14,7 @@ const algoRegex = /^([A-Z2-7]{6})+([A-Z2-7]{46})+([A-Z2-7]{6})$/;
  * @param {(match: RegExpMatchArray | null) => string} callback - callback to return truncated address
  * @returns {string} truncated address
  */
-const truncateHandler = (
-  address: string,
-  regex: RegExp | string,
-  callback: (match: RegExpMatchArray | null) => string
-): string => {
+const truncateHandler = (address: string, regex: RegExp | string, callback: (match: RegExpMatchArray | null) => string): string => {
   const match = address.match(regex);
   if (!match) return address;
   return callback(match);
@@ -34,11 +28,7 @@ const truncateHandler = (
  * @returns {string} truncated address
  */
 export const truncateEthAddress = (address: string): string => {
-  return truncateHandler(
-    address,
-    ethRegex,
-    (match) => `${match?.[1]}…${match?.[2]}`
-  );
+  return truncateHandler(address, ethRegex, (match) => `${match?.[1]}…${match?.[2]}`);
 };
 
 /**
@@ -49,15 +39,7 @@ export const truncateEthAddress = (address: string): string => {
  */
 
 export const truncateAEAddress = (address: string): string => {
-  return truncateHandler(
-    address,
-    aeRegex,
-    () =>
-      `${address.slice(0, 8)}…${address.slice(
-        address.length - 8,
-        address.length
-      )}`
-  );
+  return truncateHandler(address, aeRegex, () => `${address.slice(0, 8)}…${address.slice(address.length - 8, address.length)}`);
 };
 
 /**
@@ -68,11 +50,7 @@ export const truncateAEAddress = (address: string): string => {
  * @returns {string} truncated address
  */
 export const truncateNearAddress = (address: string): string => {
-  return truncateHandler(
-    address,
-    nearRegex,
-    (match) => `${match?.[1]}…${match?.[3]}`
-  );
+  return truncateHandler(address, nearRegex, (match) => `${match?.[1]}…${match?.[3]}`);
 };
 
 /**
@@ -83,11 +61,7 @@ export const truncateNearAddress = (address: string): string => {
  * @returns {string} truncated address
  */
 export const truncateAlgoAddress = (address: string): string => {
-  return truncateHandler(
-    address,
-    algoRegex,
-    (match) => `${match?.[1]}…${match?.[3]}`
-  );
+  return truncateHandler(address, algoRegex, (match) => `${match?.[1]}…${match?.[3]}`);
 };
 
 /**
@@ -98,10 +72,7 @@ export const truncateAlgoAddress = (address: string): string => {
  * @param {string} [token='eth']
  * @returns {string}
  */
-export const truncateAddress = (
-  rawAddress: string,
-  token: string = "eth"
-): string | undefined => {
+export const truncateAddress = (rawAddress: string, token: string = "eth"): string | undefined => {
   if (!rawAddress) return;
 
   const address = rawAddress.trim();

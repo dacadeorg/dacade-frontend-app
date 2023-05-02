@@ -41,15 +41,7 @@ interface UserProps {
 }
  * @returns {ReactElement}
  */
-export default function UserCard({
-  boxLayout,
-  link,
-  bordered,
-  user,
-  badge = "",
-  timestamp,
-  children,
-}: UserProps): ReactElement {
+export default function UserCard({ boxLayout, link, bordered, user, badge = "", timestamp, children }: UserProps): ReactElement {
   const { locale } = useRouter();
   const colors = useSelector((state) => state.ui.colors);
   // TODO: to be uncommented when community slice is implemented.
@@ -65,18 +57,8 @@ export default function UserCard({
   }, [timestamp, user, locale]);
 
   return (
-    <div
-      className={`group bg-gradient-to-trw-full relative ${
-        boxLayout ? "sm:p-6" : "pl-5 sm:pl-7.5"
-      } ${link ? "cursor-pointer" : ""} ${
-        boxLayout ? "flex space-x-3" : ""
-      }`}
-    >
-      <div
-        className={`z-10 ${
-          boxLayout ? "relative flex-none" : "absolute top-0 left-0"
-        }`}
-      >
+    <div className={`group bg-gradient-to-trw-full relative ${boxLayout ? "sm:p-6" : "pl-5 sm:pl-7.5"} ${link ? "cursor-pointer" : ""} ${boxLayout ? "flex space-x-3" : ""}`}>
+      <div className={`z-10 ${boxLayout ? "relative flex-none" : "absolute top-0 left-0"}`}>
         <Avatar user={user} size="medium" />
         {badge && (
           <Badge
@@ -91,13 +73,7 @@ export default function UserCard({
           />
         )}
       </div>
-      <div
-        className={`relative z-0 flex-1 ${
-          bordered
-            ? "group-hover:border-gray-50 border-l border-solid border-gray-200"
-            : ""
-        } ${!boxLayout ? "pl-10.5 pb-12" : ""}`}
-      >
+      <div className={`relative z-0 flex-1 ${bordered ? "group-hover:border-gray-50 border-l border-solid border-gray-200" : ""} ${!boxLayout ? "pl-10.5 pb-12" : ""}`}>
         <div className="pb-4">
           <div className="flex items-center space-x-1.5 pb-1.5 pt-1">
             <div className="text-lg leading-tight font-medium">
