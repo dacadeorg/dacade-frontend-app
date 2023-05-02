@@ -50,7 +50,7 @@ export default function Signup(): ReactElement {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const onSubmit = (form: FormValues) => {
+  const onSubmit = async (form: FormValues) => {
     setLoading(true);
     const { email, username, password, referralCode, checkTerms } =
       form;
@@ -63,7 +63,6 @@ export default function Signup(): ReactElement {
 
     try {
       if (!checkTerms) return;
-      setLoading(false);
       dispatch(singUp(signupData));
     } catch (error) {
       console.error(error);
@@ -90,9 +89,7 @@ export default function Signup(): ReactElement {
             </h1>
 
             <div className="mb-5 relative">
-              <div>
-                <EmailInput errors={error} register={register} />
-              </div>
+              <EmailInput errors={error} register={register} />
             </div>
             <div className="mb-5 relative">
               <UsernameInput errors={errors} register={register} />

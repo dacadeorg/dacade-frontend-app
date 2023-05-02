@@ -26,7 +26,7 @@ interface User {
  */
 interface NotificationCardProps {
   user: User;
-  details: Notification;
+  notification: Notification;
   extended?: boolean;
 }
 
@@ -54,14 +54,14 @@ enum TYPES {
  * @export
  * @param {NotificationCardProps} {
   user = {},
-  details,
+  notification,
   extended = false,
 }
  * @returns {ReactElement}
  */
 export default function NotificationCard({
   user = {},
-  details,
+  notification,
   extended = false,
 }: NotificationCardProps): ReactElement {
   const router = useRouter();
@@ -74,13 +74,17 @@ export default function NotificationCard({
    */
   const humanizedDate: string = useMemo(
     () =>
-      DateManager.fromNow(details.created_at as Date, router.locale),
-    [details.created_at, router.locale]
+      DateManager.fromNow(
+        notification.created_at as Date,
+        router.locale
+      ),
+    [notification.created_at, router.locale]
   );
 
   const date = useMemo(
-    () => DateManager.intlFormat(details.created_at, router.locale),
-    [details.created_at, router.locale]
+    () =>
+      DateManager.intlFormat(notification.created_at, router.locale),
+    [notification.created_at, router.locale]
   );
 
   /**
@@ -90,18 +94,18 @@ export default function NotificationCard({
    * @type {string}
    */
   const link: string = useMemo(() => {
-    const { type } = details;
+    const { type } = notification;
 
     if (
       type === TYPES.SUBMISSION ||
       type === TYPES.REFERRAL ||
       type === TYPES.FEEDBACK
     ) {
-      return `/${details.metadata.submissions}`;
+      return `/${notification.metadata.submissions}`;
     } else {
-      return details.link;
+      return notification.link;
     }
-  }, [details]);
+  }, [notification]);
 
   const notificationsLink = useMemo(() => {
     if (!link) return "";
@@ -129,7 +133,7 @@ export default function NotificationCard({
       </div>
       <div className="pt-1 -mt-2">
         <span className="block text-base text-gray-700">
-          {details.message}
+          {notification.message}
         </span>
         <span
           title={date}

@@ -55,7 +55,7 @@ export default function SignupWithInvite(): ReactElement {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const onSubmit = (form: FormValues) => {
+  const onSubmit = async (form: FormValues) => {
     setLoading(true);
     const { email, username, password, referralCode, checkTerms } =
       form;
@@ -68,8 +68,7 @@ export default function SignupWithInvite(): ReactElement {
     };
     try {
       if (!checkTerms) return;
-      setLoading(false);
-      dispatch(singUp(signupData));
+      await dispatch(singUp(signupData));
     } catch (error) {
       console.error(error);
     } finally {

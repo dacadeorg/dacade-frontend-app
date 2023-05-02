@@ -18,7 +18,10 @@ interface EmailInputProps {
  * @date 4/27/2023 - 2:47:56 PM
  *
  * @export
- * @param {{ errors: any; register: any; }} {errors, register}
+ * @param {{
+ * errors: FieldErrors<FormValues>;
+ * register: UseFormRegister<FormValues>;
+ * emailValue: string | undefined }} {errors, register}
  * @returns {ReactElement}
  */
 

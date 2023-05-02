@@ -19,9 +19,7 @@ export default function UserAuthProvider({
       dispatch(setAuthData(user));
       await dispatch(getToken());
     });
-  }, [dispatch]);
 
-  useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       dispatch(setAuthData(user));
       dispatch(fetchUser());
