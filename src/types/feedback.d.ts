@@ -1,4 +1,5 @@
 import { User } from "./bounty";
+import { Reward } from "./course";
 
 export type Feedback = {
   id: string;
@@ -11,12 +12,12 @@ export type Feedback = {
   challenge: string;
   timestamp: timestamp;
   description?: string;
-  user: User,
+  user: User;
   ranking: number;
   text: string;
   metadata?: {
     evaluation?: {
-      reward: string;
+      reward: Reward;
       points: number;
     };
     language: "en" | "fr";
