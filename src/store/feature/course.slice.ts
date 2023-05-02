@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "@/config/api";
 import { Course } from "@/types/course";
 import { List } from "@/utilities/CommunityNavigation";
 
@@ -29,7 +28,7 @@ const courseSlice = createSlice({
     setCurrentCourse: (state, action) => {
       state.current = action.payload;
     },
-    setCoursesList: (state, action) => {
+    setCourseList: (state, action) => {
       state.list = action.payload;
     },
     setCourseContent: (state, action) => {
@@ -40,52 +39,14 @@ const courseSlice = createSlice({
       state.menus = list;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchCourse.fulfilled, (state, action) => {
-        state.current = action.payload as Course;
-      })
-      .addCase(fetchAllCourses.fulfilled, (state, action) => {
-        state.list = action.payload;
-      });
-  },
 });
 
 // Extract actions and reducer
 export const {
   setCurrentCourse,
-  setCoursesList,
+  setCourseList,
   setCourseContent,
   setCourseNavigation,
 } = courseSlice.actions;
-
-// Define Redux Thunk async actions
-export const fetchCourse = createAsyncThunk(
-  "courses/find",
-  async ({ slug, locale }: { slug?: string; locale: string }) => {
-    try {
-      const { data } = await api(locale).server.get<Course>(
-        `courses/${slug}`
-      );
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-);
-
-export const fetchAllCourses = createAsyncThunk(
-  "courses/all",
-  async ({ slug, locale }: { slug?: string; locale: string }) => {
-    try {
-      const { data } = await api(locale).server.get(
-        `communities/${slug}/courses`
-      );
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-);
 
 export default courseSlice;

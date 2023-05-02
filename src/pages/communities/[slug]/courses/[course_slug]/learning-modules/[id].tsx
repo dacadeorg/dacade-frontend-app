@@ -9,18 +9,12 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Community } from "@/types/community";
 import { wrapper } from "@/store";
 import { Course, LearningModule } from "@/types/course";
-import {
-  fetchCourse,
-  setCurrentCourse,
-} from "@/store/feature/course.slice";
+import { setCurrentCourse } from "@/store/feature/course.slice";
 import {
   findLearningModule,
   setCurrentLearningModule,
 } from "@/store/feature/learningModules.slice";
-import {
-  fetchCurrentCommunity,
-  setCurrentCommunity,
-} from "@/store/feature/community.slice";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
 import {
   getMetadataDescription,
   getMetadataTitle,
@@ -30,6 +24,8 @@ import DefaultLayout from "@/components/layout/Default";
 import Header from "@/components/sections/learning-modules/Header";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import { setColors } from "@/store/feature/ui.slice";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { fetchCourse } from "@/store/services/course.service";
 
 /**
  * Learning module page props interfae
@@ -165,8 +161,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
       getLearningModule,
     ]);
 
-    const community = results[0].payload;
-    const course = results[1].payload;
+    const community = results[0].data;
+    const course = results[1].data;
     const learningModule = results[2].payload;
 
     return {
