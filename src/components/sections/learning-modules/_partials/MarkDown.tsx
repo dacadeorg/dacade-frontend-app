@@ -14,6 +14,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeSlug from "rehype-slug";
 import Loader from "@/components/ui/Loader";
+import CodeHighlighter from "./CodeHighlighter";
 
 /**
  * Markdown props interface
@@ -90,6 +91,19 @@ export default function Markdown({
           <ReactMarkdown
             rehypePlugins={[rehypeExternalLinks, rehypeSlug]}
             remarkPlugins={[remarkGfm]}
+            components={{
+              code: ({ inline, className, children, ...props }) => {
+                return (
+                  <CodeHighlighter
+                    inline={inline}
+                    className={className}
+                    {...props}
+                  >
+                    {children}
+                  </CodeHighlighter>
+                );
+              },
+            }}
           >
             {content}
           </ReactMarkdown>

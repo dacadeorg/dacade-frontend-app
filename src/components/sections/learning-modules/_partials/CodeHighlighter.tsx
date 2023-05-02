@@ -1,6 +1,5 @@
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import darcula from "react-syntax-highlighter/dist/cjs/styles/prism/coldark-dark";
-
+import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { ReactElement } from "react";
 import { CodeProps } from "react-markdown/lib/ast-to-react";
 import { useSelector } from "@/hooks/useTypedSelector";
@@ -32,10 +31,11 @@ export default function CodeHighlighter({
     return (
       <SyntaxHighlighter
         {...props}
-        showLineNumbers={true}
+        showLineNumbers
+        wrapLongLines
         language={match[1]}
         PreTag="div"
-        style={darcula}
+        style={oneDark}
       >
         {String(children).replace(/\n$/, "")}
       </SyntaxHighlighter>
