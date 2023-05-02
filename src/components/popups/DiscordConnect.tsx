@@ -13,10 +13,8 @@ import { useDispatch } from "react-redux";
  * @export
  * @returns {ReactElement}
  */
-export default function DiscordConnect():ReactElement {
-  const [discordError, setDiscordError] = useState<string | boolean>(
-    false
-  );
+export default function DiscordConnect(): ReactElement {
+  const [discordError, setDiscordError] = useState<string | boolean>(false);
   const [discordSuccess, setDiscordSuccess] = useState(false);
   const [discordLoading, setDiscordLoading] = useState(false);
   const [showDiscordModal, setShowDiscordModal] = useState(false);
@@ -44,7 +42,7 @@ export default function DiscordConnect():ReactElement {
   };
 
   /**
-   * Connect or disconnect user from discord 
+   * Connect or disconnect user from discord
    * @date 4/4/2023 - 9:39:06 AM
    *
    * @type {Function}
@@ -90,22 +88,14 @@ export default function DiscordConnect():ReactElement {
     <Modal show={showDiscordModal} size="medium" onClose={closeModal}>
       <div className="px-6 pt-6">
         <div className="pb-7">
-          <p className="text-.5xl font-medium leading-snug">
-            {t("profile.header.discord")}
-          </p>
+          <p className="text-.5xl font-medium leading-snug">{t("profile.header.discord")}</p>
         </div>
 
         <div className="pb-7 flex space-x-3">
-          {discordLoading && (
-            <Loader className="h-6 w-6 text-green-400 pt-6" />
-          )}
+          {discordLoading && <Loader className="h-6 w-6 text-green-400 pt-6" />}
           <p
             className={`p-3 rounded text-.2xl font-medium leading-snug flex-1 ${
-              discordError
-                ? "bg-red-50 text-red-700"
-                : discordSuccess
-                ? "bg-green-50 text-green-700"
-                : "bg-white"
+              discordError ? "bg-red-50 text-red-700" : discordSuccess ? "bg-green-50 text-green-700" : "bg-white"
             }`}
           >
             {getDiscordMessage()}
@@ -113,13 +103,7 @@ export default function DiscordConnect():ReactElement {
         </div>
 
         <div className="pb-7">
-          <Button
-            disabled={discordLoading}
-            className="-ml-4 font-semibold border-none!"
-            variant="outline-primary"
-            onClick={closeModal}
-            type="button"
-          >
+          <Button disabled={discordLoading} className="-ml-4 font-semibold border-none!" variant="outline-primary" onClick={closeModal} type="button">
             {t("profile.header.discord.close")}
           </Button>
         </div>

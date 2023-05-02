@@ -11,8 +11,7 @@ import classNames from "classnames";
  * @interface ArrowButtonProps
  * @typedef {ArrowButtonProps}
  */
-interface ArrowButtonProps
-  extends Pick<HTMLProps<HTMLButtonElement>, "onClick"> {
+interface ArrowButtonProps extends Pick<HTMLProps<HTMLButtonElement>, "onClick"> {
   loading?: boolean;
   disabled?: boolean;
   rounded?: boolean;
@@ -111,17 +110,11 @@ export default function ArrowButton({
     >
       <span className="flex items-center justify-between h-full text-left">
         {isLeft && (
-          <span
-            className={classNames("block", { "pr-2.5": children })}
-          >
+          <span className={classNames("block", { "pr-2.5": children })}>
             {!loading ? (
-              <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} text-white transform`}
-              />
+              <ArrowRightIcon className={`${directionClass} ${arrowClassNames} text-white transform`} />
             ) : (
-              <Spinner
-                className={`${arrowClassNames} text-white animate-spin`}
-              />
+              <Spinner className={`${arrowClassNames} text-white animate-spin`} />
             )}
           </span>
         )}
@@ -136,15 +129,7 @@ export default function ArrowButton({
 
         {!isLeft && (
           <span className="block">
-            {loading ? (
-              <Spinner
-                className={`${arrowClassNames} animate-spin`}
-              />
-            ) : (
-              <ArrowRightIcon
-                className={`${directionClass} ${arrowClassNames} transform`}
-              />
-            )}
+            {loading ? <Spinner className={`${arrowClassNames} animate-spin`} /> : <ArrowRightIcon className={`${directionClass} ${arrowClassNames} transform`} />}
           </span>
         )}
       </span>

@@ -31,12 +31,8 @@ interface NotificationPopupProps {
  *
  * */
 
-export default function NotificationPopup({
-  buttonStyles,
-  badgeStyles,
-}: NotificationPopupProps) {
-  const [isNotificationVisible, setIsNotificationVisible] =
-    useState(false);
+export default function NotificationPopup({ buttonStyles, badgeStyles }: NotificationPopupProps) {
+  const [isNotificationVisible, setIsNotificationVisible] = useState(false);
 
   // TODO: will be uncommented when the redux store is ready
   //   const unread = useSelector(
@@ -72,28 +68,13 @@ export default function NotificationPopup({
     <div>
       <span onClick={externalClick}>
         <li
-          className={`inline-block align-middle mr-2 relative text-gray-500 ${
-            isNotificationVisible ? "z-50" : "z-10"
-          }`}
+          className={`inline-block align-middle mr-2 relative text-gray-500 ${isNotificationVisible ? "z-50" : "z-10"}`}
           style={{ width: "calc(100vw - 40px)", maxWidth: "340px" }}
-          onClick={() =>
-            setIsNotificationVisible(!isNotificationVisible)
-          }
+          onClick={() => setIsNotificationVisible(!isNotificationVisible)}
         >
-          <Button
-            type="button"
-            padding={false}
-            variant="secondary"
-            className="p-2 bg-gray-100 bg-opacity-75 hover:bg-gray-50 text-primary"
-            customStyle={buttonStyles}
-          >
+          <Button type="button" padding={false} variant="secondary" className="p-2 bg-gray-100 bg-opacity-75 hover:bg-gray-50 text-primary" customStyle={buttonStyles}>
             <BellIcon />
-            {unread > 0 && (
-              <Badge
-                value={unread}
-                className="top-0 -right-1 absolute"
-              />
-            )}
+            {unread > 0 && <Badge value={unread} className="top-0 -right-1 absolute" />}
           </Button>
         </li>
         {isNotificationVisible && (
@@ -109,9 +90,7 @@ export default function NotificationPopup({
           </div>
         )}
       </span>
-      {isNotificationVisible && (
-        <div className="opacity-25 fixed inset-0 z-30 bg-black" />
-      )}
+      {isNotificationVisible && <div className="opacity-25 fixed inset-0 z-30 bg-black" />}
     </div>
   );
 }

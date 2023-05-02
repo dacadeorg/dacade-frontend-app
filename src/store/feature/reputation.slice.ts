@@ -19,35 +19,15 @@ const reputationSlice = createSlice({
     list: [],
   } as ReputationState,
   reducers: {
-    setList(state, action) {
+    setReputationList(state, action) {
       state.list = action.payload;
     },
-    clear(state) {
+    clearReputationList(state) {
       state.list = [];
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(fetchReputations.fulfilled, (state, action) => {
-      state.list = action.payload;
-    });
-  },
 });
 
-export const { clear, setList } = reputationSlice.actions;
-
-/**
- * Fetch all reputations from API
- */
-export const fetchReputations = createAsyncThunk(
-  "reputations/fetchAll",
-  async (_, { dispatch }) => {
-    try {
-      const { data } = await api().client.get("reputations");
-      return data;
-    } catch (err) {
-      dispatch(clear());
-    }
-  }
-);
+export const { clearReputationList, setReputationList } = reputationSlice.actions;
 
 export default reputationSlice;

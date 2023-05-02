@@ -17,18 +17,11 @@ interface ErrorPageProps {
     message?: string;
   };
 }
-export default function ErrorPage({
-  error,
-}: ErrorPageProps): ReactElement {
+export default function ErrorPage({ error }: ErrorPageProps): ReactElement {
   return <Error error={error} />;
 }
-export const getServerSideProps: GetServerSideProps = async ({
-  locale,
-  res,
-}) => {
-  const translations = await serverSideTranslations(
-    (locale as string) || "en"
-  );
+export const getServerSideProps: GetServerSideProps = async ({ locale, res }) => {
+  const translations = await serverSideTranslations((locale as string) || "en");
 
   return {
     props: {

@@ -27,30 +27,16 @@ export default function ScoreboardOverview(): ReactElement {
   return (
     <>
       {(list && list.length) || filterBy !== "all" ? (
-        <SectionWrapperCol
-          title={`${t("communities.overview.scoreboard.title")}`}
-          description={`${t(
-            "communities.overview.scoreboard.description"
-          )}`}
-        >
+        <SectionWrapperCol title={`${t("communities.overview.scoreboard.title")}`} description={`${t("communities.overview.scoreboard.description")}`}>
           <div className="flex flex-row w-full mt-10">
             <ScoreboardFilter />
             <div className="flex flex-col w-full overflow-hidden border border-gray-200 border-solid divide-y divide-gray-200 divide-solid rounded-3xl">
               {list.slice(0, items).map((item, i) => (
-                <ScoreboardCard
-                  key={`list-element-${i}`}
-                  index={i + 1}
-                  value={item}
-                />
+                <ScoreboardCard key={`list-element-${i}`} index={i + 1} value={item} />
               ))}
               {items < list.length && (
                 <div className="flex items-center w-full p-6 space-x-5 space-y-0 overflow-hidden sm:flex sm:flex-row-reverse bg-gray-50 sm:px-4 sm:py-7 sm:justify-center">
-                  <ArrowButton
-                    communityStyles={true}
-                    variant="outline-primary"
-                    direction="down"
-                    onClick={loadMore}
-                  >
+                  <ArrowButton communityStyles={true} variant="outline-primary" direction="down" onClick={loadMore}>
                     {t("course.scoreboard.button")}
                   </ArrowButton>
                 </div>

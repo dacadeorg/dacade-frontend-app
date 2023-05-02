@@ -8,8 +8,7 @@ import classNames from "classnames";
  * @interface Props
  * @typedef {Props}
  */
-interface InputProps
-  extends Omit<HTMLProps<HTMLInputElement>, "onInput"> {
+interface InputProps extends Omit<HTMLProps<HTMLInputElement>, "onInput"> {
   type?: string;
   label?: string;
   disabled?: boolean;
@@ -38,17 +37,7 @@ interface InputProps
  * @returns {ReactElement}
  */
 const Input = forwardRef<HTMLInputElement, InputProps>(function (
-  {
-    type = "text",
-    label,
-    disabled = false,
-    placeholder = null!,
-    error,
-    inputClass,
-    fontSize = "lg",
-    onInput,
-    ...props
-  },
+  { type = "text", label, disabled = false, placeholder = null!, error, inputClass, fontSize = "lg", onInput, ...props },
   ref
 ) {
   const [isFocused, setIsFocused] = useState(false);
@@ -88,15 +77,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (
     "floating-input": label,
   });
 
-  const inputElementClassName = classNames(
-    `rounded-md focus:outline-none focus:shadow-sm w-full ${inputClass} ${fontSizeClasses()}`,
-    {
-      "text-gray-400 scale-75 -translate-y-3 translate-x-1 bg-gray-50":
-        disabled,
-      "border-red-100 rounded-b-none": error,
-      "focus:border-gray-200 border-gray-200": !error,
-    }
-  );
+  const inputElementClassName = classNames(`rounded-md focus:outline-none focus:shadow-sm w-full ${inputClass} ${fontSizeClasses()}`, {
+    "text-gray-400 scale-75 -translate-y-3 translate-x-1 bg-gray-50": disabled,
+    "border-red-100 rounded-b-none": error,
+    "focus:border-gray-200 border-gray-200": !error,
+  });
 
   return (
     <div className="relative">

@@ -4,7 +4,6 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import { verifyEmailUpdate } from "@/store/feature/auth.slice";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import Head from "next/head";
@@ -17,22 +16,12 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
  * @param {{ verified: boolean }} props
  * @returns
  */
-export default function EmailVerification(props: {
-  verified: boolean;
-}): ReactElement {
+export default function EmailVerification(props: { verified: boolean }): ReactElement {
   const { verified } = props;
   const router = useRouter();
   const { t } = useTranslation();
 
-  const title = useMemo(
-    () =>
-      getMetadataTitle(
-        verified
-          ? t("email-verification.success.title")
-          : t("email-verification.processing")
-      ),
-    [t, verified]
-  );
+  const title = useMemo(() => getMetadataTitle(verified ? t("email-verification.success.title") : t("email-verification.processing")), [t, verified]);
 
   const goHome = () => {
     router.push("/login");
@@ -47,28 +36,18 @@ export default function EmailVerification(props: {
         {!verified ? (
           <>
             <Loader />
-            <p className="mt-5">
-              {t("email-verification.processing")}
-            </p>
+            <p className="mt-5">{t("email-verification.processing")}</p>
           </>
         ) : (
           <>
             <div>
-              <h1 className="text-3xl font-medium mb-7">
-                {t("email-verification.success.title")}
-              </h1>
-              <p className="text-lg">
-                {t("email-verification.success.subtitle")}
-              </p>
-              <p className="text-lg">
-                {t("email-verification.success.message")}
-              </p>
+              <h1 className="text-3xl font-medium mb-7">{t("email-verification.success.title")}</h1>
+              <p className="text-lg">{t("email-verification.success.subtitle")}</p>
+              <p className="text-lg">{t("email-verification.success.message")}</p>
             </div>
 
             <div className="text-center pt-8">
-              <ArrowButton onClick={goHome}>
-                {t("email-verification.success.button")}
-              </ArrowButton>
+              <ArrowButton onClick={goHome}>{t("email-verification.success.button")}</ArrowButton>
             </div>
           </>
         )}
@@ -81,10 +60,7 @@ EmailVerification.getLayout = function (page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
 
-export const getServerSideProps = async (data: {
-  locale: string;
-  query: any;
-}) => {
+export const getServerSideProps = async (data: { locale: string; query: any }) => {
   const { query } = data;
 
   if (!query?.code) {
@@ -108,3 +84,6 @@ export const getServerSideProps = async (data: {
     };
   }
 };
+function verifyEmailUpdate(arg0: string) {
+  throw new Error("Function not implemented.");
+}
