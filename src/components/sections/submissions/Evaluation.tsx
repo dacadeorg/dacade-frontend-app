@@ -15,10 +15,12 @@ import { ReactElement } from "react";
 export default function Evaluation(): ReactElement {
   const { t } = useTranslation();
   const colors = useSelector((state) => state.ui.colors);
-  const submission = useSelector(state => state.submissions.current);
-  const challenge = useSelector(state => state.challenges.current)
+  const submission = useSelector(
+    (state) => state.submissions.current
+  );
+  const challenge = useSelector((state) => state.challenges.current);
   const evaluation = submission?.evaluation;
-  
+
   return (
     <EvaluationCard evaluation={evaluation}>
       <>
@@ -29,7 +31,7 @@ export default function Evaluation(): ReactElement {
             selected={evaluation.criteria}
           />
         )}
-        <div className="grid grid-cols-1 space-y-4 md:space-y-0 md:grid-cols-2 lg:grid-cols-4 mt-3 gap-y-5 gap-x-5">
+        <div className="grid grid-cols-1 mt-3 space-y-4 md:space-y-0 md:grid-cols-2 lg:grid-cols-4 gap-y-5 gap-x-5">
           <div className="text-sm">
             <span className="block font-medium">
               {t("communities.challenge.evaluation.total")}
@@ -52,7 +54,7 @@ export default function Evaluation(): ReactElement {
             </span>
           </div>
           {evaluation.reward && (
-            <div className="text-sm relative">
+            <div className="relative text-sm">
               <span className="block font-medium">
                 {t("communities.challenge.evaluation.total")}
               </span>
@@ -70,7 +72,9 @@ export default function Evaluation(): ReactElement {
                 </span>
                 <span>{evaluation.reward.token}</span>
               </div>
-              <div>{t("communities.challenge.evaluation.message")}</div>
+              <div>
+                {t("communities.challenge.evaluation.message")}
+              </div>
             </div>
           )}
         </div>

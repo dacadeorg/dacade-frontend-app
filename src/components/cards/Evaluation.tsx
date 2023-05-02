@@ -53,7 +53,7 @@ export default function EvaluationCard({
       }}
       link={link}
       bordered={!last}
-      boxLayout={true}
+      boxLayout={false}
     >
       <TranslationBox
         text={evaluation.comment}

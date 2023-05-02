@@ -9,6 +9,7 @@ import { useTranslation } from "next-i18next";
 import classNames from "classnames";
 import { User } from "@/types/bounty";
 import { useSelector } from "@/hooks/useTypedSelector";
+import { Reward } from "@/types/course";
 
 /**
  * Props for the feedback card
@@ -25,7 +26,7 @@ interface FeedbackProps {
     text: string;
     metadata?: {
       evaluation?: {
-        reward: string;
+        reward: Reward;
         points: number;
       };
       language: "en" | "fr";
@@ -72,7 +73,7 @@ export default function FeedbackCard({
     "--button-background-color--hover": colors.accent,
     "--button-border-color--hover": colors.accent,
   };
-  
+
   return (
     <UserCard
       user={value.user}
@@ -94,11 +95,11 @@ export default function FeedbackCard({
       {value.metadata &&
         value.metadata.evaluation &&
         value.metadata.evaluation.points && (
-          <div className="pt-5 flex space-x-1">
+          <div className="flex pt-5 space-x-1">
             {value.metadata.evaluation.reward && (
               <RewardBadge
                 type="light-gray"
-                reward={{ token: value.metadata.evaluation.reward }}
+                reward={value.metadata.evaluation.reward}
               />
             )}
             <Tag

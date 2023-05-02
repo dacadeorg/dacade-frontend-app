@@ -11,15 +11,18 @@ import { useSelector } from "@/hooks/useTypedSelector";
  * @export
  * @returns {ReactElement}
  */
-export default function View():ReactElement {
-  const submission = useSelector(state =>  state.submissions.current) ;
-  
+export default function View(): ReactElement {
+  const submission = useSelector(
+    (state) => state.submissions.current
+  );
+
   return submission ? (
-    <div>
+    <>
       <SubmissionViewCard submission={submission} />
+
       {submission.evaluation && <Evaluation />}
       <Feedback />
-    </div>
+    </>
   ) : (
     <></>
   );
