@@ -118,6 +118,8 @@ export default function Coin({
   const shapeClasses = getShapeClasses(shape);
 
   function getCoin(_token: Token | string = "") {
+   
+    
     const value =
       typeof _token === "object"
         ? _token?.token.toUpperCase()
