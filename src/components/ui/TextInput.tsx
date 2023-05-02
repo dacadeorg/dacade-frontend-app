@@ -40,12 +40,10 @@ export default forwardRef<HTMLInputElement, TextInputProps>(
     inputClass = "",
     error = null,
     handleInput,
-  }: TextInputProps): ReactElement {
+  }, ref): ReactElement {
     const [isFocused, setIsFocused] = useState(false);
     const [value, setValue] = useState("");
-  
     const isFilled = useMemo(() => value.trim().length > 0, [value]);
-
 
     const labelClassName = classNames(
       "absolute top-0 left-0 text-lg px-5 py-5 z-10 h-full pointer-events-none transform origin-left transition-all duration-100 ease-in-out items-center",
@@ -75,7 +73,7 @@ export default forwardRef<HTMLInputElement, TextInputProps>(
             className={textareaClassName}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            onChange={handleInput}
+            onChange={(e) => setValue(e.target.value)}
           />
         </div>
         {error && (
