@@ -47,11 +47,13 @@ export default function RewardBadge({
   return (
     <span className={badgeClassnames}>
       {token && <Coin token={token} size="small" />}
-      {amount && (
-        <div className="font-medium pl-0 pr-2">
+      {amount ? (
+        <div className="pl-0 pr-2 font-medium">
           {amount}
           {token}
         </div>
+      ) : (
+        <>{JSON.stringify(reward)}</>
       )}
     </span>
   );
