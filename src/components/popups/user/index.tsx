@@ -97,12 +97,7 @@ export default function UserPopup({
               )}
             </Button>
           </li>
-          {show && (
-            <Dropdown
-              toggle-invite={toggleInvite}
-              close={externalClick}
-            />
-          )}
+          {show && <Dropdown close={externalClick} />}
         </span>
         {show && (
           <div className="opacity-25 fixed inset-0 z-30 bg-black" />
