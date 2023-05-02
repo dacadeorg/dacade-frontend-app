@@ -1,28 +1,32 @@
+import { referralSlice } from "./feature/referrals.slice";
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 import communities from "./feature/community.slice";
-import {
-  referralsApi,
-  referralSlice,
-} from "./feature/referrals.slice";
 import ui from "./feature/ui.slice";
-import userSlice from "./feature/user.slice";
 import { bannerSlice } from "./feature/banner.slice";
 import { notificationsSlice } from "./feature/notification.slice";
-import walletSlice from "./feature/wallet.slice";
 import reputationSlice from "./feature/reputation.slice";
+import { coursesService } from "./services/course.service";
+import { communityService } from "./services/community.service";
+import walletSlice from "./feature/wallet.slice";
 import indexSlice from "./feature/index.slice";
-import { communitiesApi } from "./feature/communities.slice";
 import authSlice from "./feature/auth.slice";
+import walletService from "./services/wallet.service";
+import userService from "./services/user.service";
+import reputationService from "./services/reputation.service";
+import referralsService from "./services/referrals.service";
+import notificationsService from "./services/notification.service";
 import scoreboardSlice from "./feature/communities/scoreboard.slice";
 import courseSlice from "./feature/course.slice";
 import { eventsSlice } from "./feature/events.slice";
-import communitySlice from "./feature/community.slice";
-import { learningModulesSlice } from "./feature/learningModules.slice";
-import { challengeSlice } from "./feature/communities/challenges";
-import { submissionsSlice } from "./feature/communities/challenges/submissions";
-import { feedbackSlice } from "./feature/communities/challenges/submissions/feedback.slice";
+import userSlice from "./feature/user.slice";
+import learningModulesSlice from "./feature/learningModules.slice";
 import { navigationSlice } from "./feature/communities/navigation.slice";
+import { submissionsSlice } from "./feature/communities/challenges/submissions";
+import communitySlice from "./feature/community.slice";
+import { challengeSlice } from "./feature/communities/challenges";
+import { feedbackSlice } from "./feature/communities/challenges/submissions/feedback.slice";
+
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -36,11 +40,18 @@ export interface IRootState {
   reputations: ReturnType<typeof reputationSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
-  navigation: ReturnType<typeof navigationSlice.reducer>;
+  coursesService: ReturnType<typeof coursesService.reducer>;
+  communityService: ReturnType<typeof communityService.reducer>;
+  walletService: ReturnType<typeof walletService.reducer>;
+  userService: ReturnType<typeof userSlice.reducer>;
+  reputationService: ReturnType<typeof reputationService.reducer>;
+  notificationService: ReturnType<
+    typeof notificationsService.reducer
+  >;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   submissions: ReturnType<typeof submissionsSlice.reducer>;
+  navigation: ReturnType<typeof navigationSlice.reducer>;
   events: ReturnType<typeof eventsSlice.reducer>;
-  communityApi: ReturnType<typeof communitiesApi.reducer>;
   challenges: ReturnType<typeof challengeSlice.reducer>;
   courses: ReturnType<typeof courseSlice.reducer>;
   feedback: ReturnType<typeof feedbackSlice.reducer>;
@@ -59,31 +70,36 @@ export const store = configureStore({
     [indexSlice.name]: indexSlice.reducer,
     [authSlice.name]: authSlice.reducer,
     [courseSlice.name]: courseSlice.reducer,
-    [scoreboardSlice.name]: scoreboardSlice.reducer,
-    [challengeSlice.name]: challengeSlice.reducer,
-    [courseSlice.name]: courseSlice.reducer,
     [navigationSlice.name]: navigationSlice.reducer,
     [communitySlice.name]: communitySlice.reducer,
     [eventsSlice.name]: eventsSlice.reducer,
     [submissionsSlice.name]: submissionsSlice.reducer,
     [eventsSlice.name]: eventsSlice.reducer,
-    [submissionsSlice.name]: submissionsSlice.reducer,
     [communitySlice.name]: communitySlice.reducer,
-    [communitiesApi.reducerPath]: communitiesApi.reducer,
-    [referralsApi.reducerPath]: referralsApi.reducer,
-    [navigationSlice.name]: navigationSlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
     [feedbackSlice.name]: feedbackSlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
+    [communityService.reducerPath]: communityService.reducer,
+    [coursesService.reducerPath]: coursesService.reducer,
+    [walletService.reducerPath]: walletService.reducer,
+    [userService.reducerPath]: userService.reducer,
+    [reputationService.reducerPath]: reputationService.reducer,
+    [referralsService.reducerPath]: referralsService.reducer,
+    [notificationsService.reducerPath]: notificationsService.reducer,
+    [scoreboardSlice.name]: scoreboardSlice.reducer,
   },
+
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
-      referralsApi.middleware,
-      communitiesApi.middleware,
-      communitiesApi.middleware
+      coursesService.middleware,
+      communityService.middleware,
+      walletService.middleware,
+      userService.middleware,
+      reputationService.middleware,
+      referralsService.middleware,
+      notificationsService.middleware
     );
   },
-  devTools: true,
 });
 
 export const wrapper = createWrapper(() => store);
