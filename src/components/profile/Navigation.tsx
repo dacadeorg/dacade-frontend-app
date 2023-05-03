@@ -66,14 +66,12 @@ export default function ProfileMenu(): ReactElement {
     return items;
   }, [isCurrentUser, router.asPath, username]);
 
-useEffect(()=>{
-  menus.push({
-    title: "navigation.profile.title",
-    items: mainItems,
-  });
-}, [mainItems, menus])
-
-  
+  useEffect(() => {
+    menus.push({
+      title: "navigation.profile.title",
+      items: mainItems,
+    });
+  }, [mainItems, menus]);
 
   const linkStyleClassName = (exact: boolean) => {
     return classNames("relative text-gray-500", {
