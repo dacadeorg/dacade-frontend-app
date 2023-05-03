@@ -1,4 +1,3 @@
-
 import { ReactElement } from "react";
 import Error from "@/layouts/Error";
 import { GetStaticProps } from "next";
