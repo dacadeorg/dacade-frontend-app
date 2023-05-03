@@ -1,6 +1,11 @@
 import api from "@/config/api";
 import { Bounty } from "@/types/bounty";
-import { createSlice, createAsyncThunk, Dispatch, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  Dispatch,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { store } from "..";
 
 interface InitialState {
@@ -26,7 +31,10 @@ const bountiesSlice = createSlice({
     setBountiesList: (state, action: PayloadAction<Bounty[]>) => {
       state.bountiesList = action.payload;
     },
-    setFilteredBountiesList: (state, action: PayloadAction<Bounty[]>) => {
+    setFilteredBountiesList: (
+      state,
+      action: PayloadAction<Bounty[]>
+    ) => {
       state.filteredBountyList = action.payload;
     },
   },
@@ -43,12 +51,16 @@ const bountiesSlice = createSlice({
  *
  * @type {AsyncThunk<Bounty, void, AsyncThunkConfig>}
  */
-export const fetchAllBounties = createAsyncThunk("bounties/fetchAll", async () => {
-  const { data } = await api().client.get<Bounty[]>("bounties");
-  return data;
-});
+export const fetchAllBounties = createAsyncThunk(
+  "bounties/fetchAll",
+  async () => {
+    const { data } = await api().client.get<Bounty[]>("bounties");
+    return data;
+  }
+);
 
-export const { setBountiesList, setFilteredBountiesList } = bountiesSlice.actions;
+export const { setBountiesList, setFilteredBountiesList } =
+  bountiesSlice.actions;
 
 /**
  * Find bouties by slug
@@ -57,10 +69,11 @@ export const { setBountiesList, setFilteredBountiesList } = bountiesSlice.action
  * @param {string} slug
  * @returns {(dispatch: Dispatch) => void}
  */
-export const findBountiesBySlug = (slug: string) => (dispatch: Dispatch) => {
-  const allBounties = store.getState().bounties.bountiesList;
-  allBounties.filter((bounty) => bounty.slug === slug);
-  dispatch(setFilteredBountiesList(allBounties));
-};
+export const findBountiesBySlug =
+  (slug: string) => (dispatch: Dispatch) => {
+    const allBounties = store.getState().bounties.bountiesList;
+    allBounties.filter((bounty) => bounty.slug === slug);
+    dispatch(setFilteredBountiesList(allBounties));
+  };
 
 export default bountiesSlice;

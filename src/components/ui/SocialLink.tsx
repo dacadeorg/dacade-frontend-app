@@ -29,7 +29,9 @@ interface SocialLinkProps {
  *    icon: string; }; }} { link }
  * @returns {ReactElement}
  */
-export default function SocialLink({ link }: SocialLinkProps): ReactElement {
+export default function SocialLink({
+  link,
+}: SocialLinkProps): ReactElement {
   const icons = {
     discord: <DiscordIcon />,
     twitter: <TwitterIcon />,

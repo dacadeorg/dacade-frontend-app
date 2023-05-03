@@ -42,6 +42,11 @@ const courseSlice = createSlice({
 });
 
 // Extract actions and reducer
-export const { setCurrentCourse, setCourseList, setCourseContent, setCourseNavigation } = courseSlice.actions;
+export const {
+  setCurrentCourse,
+  setCourseList,
+  setCourseContent,
+  setCourseNavigation,
+} = courseSlice.actions;
 
 export default courseSlice;

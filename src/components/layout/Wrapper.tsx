@@ -25,11 +25,17 @@ interface LayoutWrapperProps {
  * @returns {ReactElement}
  */
 
-export default function LayoutWrapper({ children }: LayoutWrapperProps): ReactElement {
-  const showReferral = useSelector((state) => state.ui.showReferralPopup);
+export default function LayoutWrapper({
+  children,
+}: LayoutWrapperProps): ReactElement {
+  const showReferral = useSelector(
+    (state) => state.ui.showReferralPopup
+  );
 
   return (
-    <div className={`relative w-full h-full ${graphik.variable} font-sans`}>
+    <div
+      className={`relative w-full h-full ${graphik.variable} font-sans`}
+    >
       {children}
       {showReferral && <ReferralPopup />}
     </div>

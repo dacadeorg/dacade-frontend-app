@@ -30,15 +30,25 @@ interface ObjectiveCardProps {
  * @returns {ReactElement}
  */
 
-export default function ObjectiveCard({ iconcolor = "", crossmark = false, objective }: ObjectiveCardProps): ReactElement {
+export default function ObjectiveCard({
+  iconcolor = "",
+  crossmark = false,
+  objective,
+}: ObjectiveCardProps): ReactElement {
   const colors = useSelector((state) => state.ui.colors);
 
   return (
     <div className="flex">
-      <div className="py-0 pt-px mt-px mr-2" style={{ color: iconcolor || colors.primary }}>
+      <div
+        className="py-0 pt-px mt-px mr-2"
+        style={{ color: iconcolor || colors.primary }}
+      >
         {crossmark ? <Crossmark /> : <Checkmark />}
       </div>
-      <div className="text-sm font-normal leading-5 contains-ordered-list" dangerouslySetInnerHTML={{ __html: objective as string }} />
+      <div
+        className="text-sm font-normal leading-5 contains-ordered-list"
+        dangerouslySetInnerHTML={{ __html: objective as string }}
+      />
     </div>
   );
 }

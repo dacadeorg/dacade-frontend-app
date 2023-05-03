@@ -24,7 +24,11 @@ export default function FaqCard(): ReactElement {
           <div>{t("faq.title")}</div>
           <div className="hidden text-gray-500 text-base font-normal lg:inline-block mt-2 max-w-xs">
             {t("faq.subtitle")}
-            <a className="hover:text-gray-700 underline" href="https://discord.gg/U38KQHDtHe" target="_blank">
+            <a
+              className="hover:text-gray-700 underline"
+              href="https://discord.gg/U38KQHDtHe"
+              target="_blank"
+            >
               {t("faq.discord")}
             </a>
           </div>

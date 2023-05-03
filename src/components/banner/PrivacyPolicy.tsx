@@ -4,7 +4,10 @@ import CloseIcon from "@/icons/close-icon.svg";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { ReactElement, useEffect } from "react";
-import { checkCookiePolicy, acceptCookiePolicy } from "@/store/feature/banner.slice";
+import {
+  checkCookiePolicy,
+  acceptCookiePolicy,
+} from "@/store/feature/banner.slice";
 
 /**
  * PrivacyPolicyBanner component.
@@ -17,7 +20,9 @@ export default function PrivacyPolicyBanner(): ReactElement {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const showBanner = useSelector((state) => state.banner.showCookiePolicy);
+  const showBanner = useSelector(
+    (state) => state.banner.showCookiePolicy
+  );
 
   useEffect(() => {
     dispatch(checkCookiePolicy());

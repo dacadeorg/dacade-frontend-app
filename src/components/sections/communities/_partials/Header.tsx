@@ -28,18 +28,34 @@ interface HeaderProps {
 }
  * @returns {ReactElement}
  */
-export default function Header({ hideTitleOnMobile = false, title = null, subtitle = null, description = null }: HeaderProps): ReactElement {
-  const headerClassName = classNames("text-4xl md:text-5xl leading-none", {
-    "hidden md:flex": hideTitleOnMobile,
-    "text-gray-400": subtitle,
-    "text-gray-900": !subtitle,
-  });
+export default function Header({
+  hideTitleOnMobile = false,
+  title = null,
+  subtitle = null,
+  description = null,
+}: HeaderProps): ReactElement {
+  const headerClassName = classNames(
+    "text-4xl md:text-5xl leading-none",
+    {
+      "hidden md:flex": hideTitleOnMobile,
+      "text-gray-400": subtitle,
+      "text-gray-900": !subtitle,
+    }
+  );
 
   return (
     <div>
       <h1 className={headerClassName}>{title}</h1>
-      {subtitle && <h2 className="text-4xl md:text-5xl leading-none text-default font-normal">{subtitle}</h2>}
-      {description && <p className="lg:w-99 my-2 md:my-5 text-base md:text-.5xl w-full md:w-10/12 leading-loose md:leading-snug text-gray-700">{description}</p>}
+      {subtitle && (
+        <h2 className="text-4xl md:text-5xl leading-none text-default font-normal">
+          {subtitle}
+        </h2>
+      )}
+      {description && (
+        <p className="lg:w-99 my-2 md:my-5 text-base md:text-.5xl w-full md:w-10/12 leading-loose md:leading-snug text-gray-700">
+          {description}
+        </p>
+      )}
     </div>
   );
 }

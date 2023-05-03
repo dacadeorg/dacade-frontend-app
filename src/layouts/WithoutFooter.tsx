@@ -23,7 +23,9 @@ interface LayoutWithoutFooterProps {
  * @export
  * @returns {ReactElement}
  */
-export default function LayoutWithoutFooter({ children }: LayoutWithoutFooterProps): ReactElement {
+export default function LayoutWithoutFooter({
+  children,
+}: LayoutWithoutFooterProps): ReactElement {
   const colors = useSelector((state) => state?.ui.colors);
   return (
     <Wrapper>

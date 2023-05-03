@@ -34,7 +34,9 @@ interface courseLinkProps {
 }
  * @returns {ReactElement}
  */
-export default function CourseLink({ item }: courseLinkProps): ReactElement {
+export default function CourseLink({
+  item,
+}: courseLinkProps): ReactElement {
   const colors = useSelector((state) => state.ui.colors);
   const [expanded, setExpanded] = useState(true);
 
@@ -67,15 +69,29 @@ export default function CourseLink({ item }: courseLinkProps): ReactElement {
 
   return (
     <span className="relative block text-sm">
-      <LinkAction item={item} isActive={isActive} activeLinkStyle={activeLinkStyle} goToLink={goToLink}>
-        <LinkContent item={item} isActive={isActive} expanded={expanded} />
+      <LinkAction
+        item={item}
+        isActive={isActive}
+        activeLinkStyle={activeLinkStyle}
+        goToLink={goToLink}
+      >
+        <LinkContent
+          item={item}
+          isActive={isActive}
+          expanded={expanded}
+        />
       </LinkAction>
       {item.subitems && item.subitems.length ? (
         isCurrentLink(item.link, false) &&
         expanded && (
           <ul>
             {item.subitems.map((subitem, j) => (
-              <SubLink key={`course-item-${j}`} item={item} subitem={subitem} activeLinkStyle={activeLinkStyle} />
+              <SubLink
+                key={`course-item-${j}`}
+                item={item}
+                subitem={subitem}
+                activeLinkStyle={activeLinkStyle}
+              />
             ))}
           </ul>
         )

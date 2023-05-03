@@ -27,7 +27,10 @@ interface BountyListProps {
 }
  * @returns {ReactElement}
  */
-export default function BountyList({ bounties = [], referrals = [] }: BountyListProps): ReactElement {
+export default function BountyList({
+  bounties = [],
+  referrals = [],
+}: BountyListProps): ReactElement {
   return (
     <div>
       {bounties && (

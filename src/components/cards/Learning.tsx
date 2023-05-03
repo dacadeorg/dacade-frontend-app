@@ -50,7 +50,9 @@ interface LearningProps {
  * @param {LearningProps} { learningModule }
  * @returns {ReactElement}
  */
-export default function Learning({ learningModule }: LearningProps): ReactElement {
+export default function Learning({
+  learningModule,
+}: LearningProps): ReactElement {
   const router = useRouter();
   const navigation = new CommunityNavigation(router);
 
@@ -58,10 +60,15 @@ export default function Learning({ learningModule }: LearningProps): ReactElemen
     if (!value) {
       return 0;
     }
-    return DateManager.humanize(value, router.locale as LocaleDateFormat);
+    return DateManager.humanize(
+      value,
+      router.locale as LocaleDateFormat
+    );
   };
   const navigate = () => {
-    const courseLink = navigation.learningModulePath(learningModule.id);
+    const courseLink = navigation.learningModulePath(
+      learningModule.id
+    );
     router.push(courseLink);
   };
 
@@ -69,14 +76,20 @@ export default function Learning({ learningModule }: LearningProps): ReactElemen
     <div className="px-5 pt-5 pb-8 bg-gray-50 rounded-3xl min-h-2xs w-full border-solid border-2 border-gray-100 md:mt-0">
       <div onClick={navigate} className="flex flex-col">
         <div className="w-full">
-          <h4 className="font-medium block text-xl">{learningModule.title}</h4>
+          <h4 className="font-medium block text-xl">
+            {learningModule.title}
+          </h4>
           {learningModule.duration && (
-            <span className="text-xxs mt-4 uppercase font-semibold px-2 mb-2 bg-gray-200 rounded-3xl inline-block text-gray-500">{duration(learningModule.duration)}</span>
+            <span className="text-xxs mt-4 uppercase font-semibold px-2 mb-2 bg-gray-200 rounded-3xl inline-block text-gray-500">
+              {duration(learningModule.duration)}
+            </span>
           )}
         </div>
         {learningModule.description && (
           <span className="text-sm mt-4 rounded-3xl">
-            <p className="line-clamp-3">{learningModule.description}</p>
+            <p className="line-clamp-3">
+              {learningModule.description}
+            </p>
           </span>
         )}
       </div>

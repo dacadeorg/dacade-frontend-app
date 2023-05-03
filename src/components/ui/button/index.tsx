@@ -1,6 +1,12 @@
 import classNames from "classnames";
 import Link from "next/link";
-import { CSSProperties, MouseEvent, ReactNode, ReactElement, useMemo } from "react";
+import {
+  CSSProperties,
+  MouseEvent,
+  ReactNode,
+  ReactElement,
+  useMemo,
+} from "react";
 
 import { useSelector } from "@/hooks/useTypedSelector";
 
@@ -38,7 +44,10 @@ interface ButtonProps {
  * @returns {ReactElement}
  */
 
-type ComponentProps = Pick<ButtonProps, "link" | "disabled" | "padding" | "target" | "onClick" | "type"> & {
+type ComponentProps = Pick<
+  ButtonProps,
+  "link" | "disabled" | "padding" | "target" | "onClick" | "type"
+> & {
   children?: ReactNode;
   className: string;
   style: CSSProperties;
@@ -101,7 +110,9 @@ export default function Button({
       communityStylesObj = {
         borderColor: colors.textAccent,
         color: isOutline ? colors.textAccent : colors.text,
-        backgroundColor: isOutline ? "transparent" : colors.textAccent,
+        backgroundColor: isOutline
+          ? "transparent"
+          : colors.textAccent,
         "--button-color--hover": colors.text,
         "--button-background-color--hover": colors.textAccent,
         "--button-border-color--hover": colors.textAccent,
@@ -123,14 +134,21 @@ export default function Button({
   const componentClassName: string = classNames(
     `btn outline-none focus:outline-none hover:outline-none cursor-pointer relative disabled:border-opacity-60 disabled:cursor-not-allowed ${className}`,
     {
-      "disabled:bg-gray-100 disabled:text-gray-400": variant === "primary" || variant === "secondary",
-      "disabled:border-gray-400 disabled:text-gray-400 disabled:bg-transparent": variant.includes("outline"),
-      "bg-primary hover:bg-primary-dark text-white": variant === "primary",
+      "disabled:bg-gray-100 disabled:text-gray-400":
+        variant === "primary" || variant === "secondary",
+      "disabled:border-gray-400 disabled:text-gray-400 disabled:bg-transparent":
+        variant.includes("outline"),
+      "bg-primary hover:bg-primary-dark text-white":
+        variant === "primary",
       "bg-secondary": variant === "secondary",
-      "text-primary border border-solid border-primary bg-transparent hover:bg-primary hover:text-white": variant === "outline-primary",
-      "text-secondary border border-solid border-secondary bg-transparent hover:bg-secondary hover:text-gray-900": variant === "outline-secondary",
-      "text-white border border-solid border-white bg-transparent hover:bg-white hover:text-primary": variant === "outline-white",
-      "text-gray-400 border border-solid border-gray-400 bg-transparent hover:bg-gray-500 hover:text-gray-200": variant === "outline-gray",
+      "text-primary border border-solid border-primary bg-transparent hover:bg-primary hover:text-white":
+        variant === "outline-primary",
+      "text-secondary border border-solid border-secondary bg-transparent hover:bg-secondary hover:text-gray-900":
+        variant === "outline-secondary",
+      "text-white border border-solid border-white bg-transparent hover:bg-white hover:text-primary":
+        variant === "outline-white",
+      "text-gray-400 border border-solid border-gray-400 bg-transparent hover:bg-gray-500 hover:text-gray-200":
+        variant === "outline-gray",
       "bg-transparent text-primary": variant === "link",
       "rounded-full": rounded,
       "community-button": communityStyles,
@@ -157,10 +175,22 @@ export default function Button({
    * @returns {ReactElement}
    */
 
-  function Component({ className, style, target, onClick, type, children }: ComponentProps): ReactElement {
+  function Component({
+    className,
+    style,
+    target,
+    onClick,
+    type,
+    children,
+  }: ComponentProps): ReactElement {
     if (!link)
       return (
-        <button onClick={onClick} type={type} style={style} className={className}>
+        <button
+          onClick={onClick}
+          type={type}
+          style={style}
+          className={className}
+        >
           {children}
         </button>
       );
@@ -173,14 +203,27 @@ export default function Button({
       );
 
     return (
-      <a style={style} href={link} target={target} className={className}>
+      <a
+        style={style}
+        href={link}
+        target={target}
+        className={className}
+      >
         {children}
       </a>
     );
   }
 
   return (
-    <Component className={componentClassName} disabled={disabled} padding={padding} style={!disabled ? styles : {}} type={type} target={target} onClick={onClick}>
+    <Component
+      className={componentClassName}
+      disabled={disabled}
+      padding={padding}
+      style={!disabled ? styles : {}}
+      type={type}
+      target={target}
+      onClick={onClick}
+    >
       {text || children}
     </Component>
   );

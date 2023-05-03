@@ -24,9 +24,16 @@ export function CoursesOverview(): ReactElement {
   const { t } = useTranslation();
 
   return (
-    <SectionWrapper title={`${t("communities.overview.courses.title")}`} description={`${t("communities.overview.courses.description")}`}>
+    <SectionWrapper
+      title={`${t("communities.overview.courses.title")}`}
+      description={`${t("communities.overview.courses.description")}`}
+    >
       {courseList?.map((course: Course) => (
-        <CourseCard key={course.id} course={course} community={community as Community} />
+        <CourseCard
+          key={course.id}
+          course={course}
+          community={community as Community}
+        />
       ))}
     </SectionWrapper>
   );

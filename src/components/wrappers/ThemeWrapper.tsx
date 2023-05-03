@@ -1,4 +1,10 @@
-import { CSSProperties, ReactElement, ReactNode, useEffect, useMemo } from "react";
+import {
+  CSSProperties,
+  ReactElement,
+  ReactNode,
+  useEffect,
+  useMemo,
+} from "react";
 
 /**
  * Theme wrapper property interface
@@ -45,7 +51,11 @@ interface CSSVars extends CSSProperties {
  * @param {ThemeWrapperProps} { colors = {}, children }
  * @returns {ReactElement}
  */
-export default function ThemeWrapper({ colors = {}, className = "", children }: ThemeWrapperProps): ReactElement {
+export default function ThemeWrapper({
+  colors = {},
+  className = "",
+  children,
+}: ThemeWrapperProps): ReactElement {
   const cssVars: CSSVars = useMemo(() => {
     return {
       "--tm-primary": colors.primary,

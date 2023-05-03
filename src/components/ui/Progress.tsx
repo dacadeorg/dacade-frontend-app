@@ -33,7 +33,10 @@ interface ProgressProps {
  * @returns {ReactElement}
  */
 
-export default function Progress({ communityStyles, percentage }: ProgressProps): ReactElement {
+export default function Progress({
+  communityStyles,
+  percentage,
+}: ProgressProps): ReactElement {
   // TODO: Should be uncommented when redux will be implemented
   // const colors = useSelector((state) => state.ui.colors);
   // const styles = communityStyles ? { backgroundColor: colors.textAccent } : {};
@@ -43,7 +46,9 @@ export default function Progress({ communityStyles, percentage }: ProgressProps)
       <div
         // TODO: Should be uncommented when redux will be implemented
         // style={styles}
-        className={`h-full w-full absolute top-0 left-0 bg-gray-100  z-0 ${communityStyles ? "opacity-20" : ""}`}
+        className={`h-full w-full absolute top-0 left-0 bg-gray-100  z-0 ${
+          communityStyles ? "opacity-20" : ""
+        }`}
       />
       <div
         style={{
