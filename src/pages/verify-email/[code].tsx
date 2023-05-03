@@ -7,8 +7,8 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import Head from "next/head";
-import { verifyEmail } from "@/store/feature/auth.slice";
 import { useRouter } from "next/router";
+import { verifyEmail } from "@/store/services/auth.service";
 
 /**
  * Email verification page
@@ -25,20 +25,16 @@ export default function EmailVerification(): ReactElement {
   useEffect(() => {
     const verify = async () => {
       const code = router.query.code as string;
-      if (!code) {
-        // Handle error
-        return;
-      }
+      if (!code) return;
       try {
-        await verifyEmail({ code });
+        await verifyEmail(code);
         setVerified(true);
-      } catch (e) {
-        // TODO: add error handling functionality.
+      } catch (error) {
+        console.error(error);
       }
     };
-    // TODO: TO BE Uncommented when verify email functionality is implemented
-    // verify();
-  }, []);
+    verify();
+  }, [router.query.code]);
 
   const goHome = () => {
     router.push("/login");
