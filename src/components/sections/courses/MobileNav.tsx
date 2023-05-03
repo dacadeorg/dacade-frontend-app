@@ -24,7 +24,9 @@ interface MobileNavProps {
  * @param {MobileNavProps} { showTopBorder }
  * @returns {ReactElement}
  */
-export default function MobileNav({ showTopBorder }: MobileNavProps): ReactElement {
+export default function MobileNav({
+  showTopBorder,
+}: MobileNavProps): ReactElement {
   const [visiblity, setvisiblity] = useState(false);
 
   const { t } = useTranslation();
@@ -36,7 +38,12 @@ export default function MobileNav({ showTopBorder }: MobileNavProps): ReactEleme
   };
 
   return (
-    <div style={activeLinkStyle} className={`text-sm font-medium -mt-4 relative pt-4 py-4 md:py-7 border-b-2 border-t-2 ${!showTopBorder ? "border-t-2" : "-mt-10"}`}>
+    <div
+      style={activeLinkStyle}
+      className={`text-sm font-medium -mt-4 relative pt-4 py-4 md:py-7 border-b-2 border-t-2 ${
+        !showTopBorder ? "border-t-2" : "-mt-10"
+      }`}
+    >
       <div className="flex">
         {visiblity ? (
           <div className="pr-1 mt-2">

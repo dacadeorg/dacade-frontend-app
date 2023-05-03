@@ -45,7 +45,14 @@ const App = ({ Component, ...rest }: AppPropsWithLayout) => {
 
   return (
     <Provider store={store}>
-      <NextNProgress color="#1B66F8" startPosition={0.2} stopDelayMs={100} height={2.5} showOnShallow={true} options={{ showSpinner: false, easing: "ease", speed: 500 }} />
+      <NextNProgress
+        color="#1B66F8"
+        startPosition={0.2}
+        stopDelayMs={100}
+        height={2.5}
+        showOnShallow={true}
+        options={{ showSpinner: false, easing: "ease", speed: 500 }}
+      />
       {getLayout(<Component {...pageProps} />)}
     </Provider>
   );

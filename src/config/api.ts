@@ -1,4 +1,7 @@
-import axios, { AxiosInstance, InternalAxiosRequestConfig } from "axios";
+import axios, {
+  AxiosInstance,
+  InternalAxiosRequestConfig,
+} from "axios";
 import Package from "../../package.json";
 import { getUserToken } from "@/store/feature/user.slice";
 import { i18n } from "../../next-i18next.config";
@@ -41,11 +44,16 @@ export default function api(locale = "en"): {
    * @param {InternalAxiosRequestConfig} config
    * @returns {Promise<InternalAxiosRequestConfig<any>>}
    */
-  const requestHandlerClient = async (config: InternalAxiosRequestConfig): Promise<InternalAxiosRequestConfig<any>> => {
+  const requestHandlerClient = async (
+    config: InternalAxiosRequestConfig
+  ): Promise<InternalAxiosRequestConfig<any>> => {
     const token = await getUserToken();
     config.headers["authorization"] = token;
     config.headers["app-name"] = Package.name;
-    config.headers["app-domain"] = typeof window !== undefined ? window.location.hostname : "dacade.org";
+    config.headers["app-domain"] =
+      typeof window !== undefined
+        ? window.location.hostname
+        : "dacade.org";
     config.headers["Accept-Language"] = locale;
     return config;
   };
@@ -59,7 +67,9 @@ export default function api(locale = "en"): {
    * @returns {Promise<InternalAxiosRequestConfig<any>>}
    */
 
-  const requestHandlerServer = async (config: InternalAxiosRequestConfig): Promise<InternalAxiosRequestConfig<any>> => {
+  const requestHandlerServer = async (
+    config: InternalAxiosRequestConfig
+  ): Promise<InternalAxiosRequestConfig<any>> => {
     // Adding firebase token
     config.headers["app-name"] = Package.name;
     config.headers["app-domain"] = "dacade.org";
@@ -85,8 +95,14 @@ export default function api(locale = "en"): {
     return Promise.reject(output);
   };
 
-  apiServer.interceptors.request.use(requestHandlerServer, errorHandler);
-  apiClient.interceptors.request.use(requestHandlerClient, errorHandler);
+  apiServer.interceptors.request.use(
+    requestHandlerServer,
+    errorHandler
+  );
+  apiClient.interceptors.request.use(
+    requestHandlerClient,
+    errorHandler
+  );
   return {
     server: apiServer,
     client: apiClient,

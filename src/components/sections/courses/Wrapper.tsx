@@ -23,7 +23,9 @@ interface WrapperProps {
  * @param {WrapperProps} { children }
  * @returns {ReactElement}
  */
-export default function Wrapper({ children }: WrapperProps): ReactElement {
+export default function Wrapper({
+  children,
+}: WrapperProps): ReactElement {
   return (
     <Section type="default">
       <div className="h-auto lg:flex">

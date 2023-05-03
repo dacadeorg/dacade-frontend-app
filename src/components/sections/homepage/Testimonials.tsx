@@ -29,7 +29,9 @@ interface Testimonial {
  * @returns {ReactElement}
  */
 
-const stories = (t: TFunction<"translation", undefined, "translation">): Testimonial[] => {
+const stories = (
+  t: TFunction<"translation", undefined, "translation">
+): Testimonial[] => {
   return [
     {
       icon: "/assets/img/moritz-pic.png",

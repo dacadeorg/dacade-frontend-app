@@ -32,7 +32,9 @@ export const getMetadataTitle = (...args: string[]): string => {
  * @returns {MetadataDescription[]}
  */
 
-export const getMetadataDescription = (description: string): MetadataDescription[] => {
+export const getMetadataDescription = (
+  description: string
+): MetadataDescription[] => {
   if (!description) return [];
   return [
     {

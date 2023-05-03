@@ -17,7 +17,9 @@ interface LanguageSwitcherProps {
  * @returns {ReactElement}
  */
 
-export default function LanguageList({ onSelect }: LanguageSwitcherProps): ReactElement {
+export default function LanguageList({
+  onSelect,
+}: LanguageSwitcherProps): ReactElement {
   const router = useRouter();
   const availableLocales: string[] | undefined = router.locales;
   const selected = useMemo(() => router.locale, [router.locale]);
@@ -36,15 +38,20 @@ export default function LanguageList({ onSelect }: LanguageSwitcherProps): React
 
   return (
     <div className="text-left p-4">
-      <span className="uppercase block text-xs font-semibold text-gray-500 leading-relaxed">{t("nav.language")}</span>
+      <span className="uppercase block text-xs font-semibold text-gray-500 leading-relaxed">
+        {t("nav.language")}
+      </span>
       <div className="space-y-4 mt-2">
         {availableLocales?.map((locale) => (
           <div
             key={locale}
             onClick={() => switchLocalePath(locale)}
-            className={classNames("flex justify-between cursor-pointer", {
-              "text-gray-500": locale !== selected,
-            })}
+            className={classNames(
+              "flex justify-between cursor-pointer",
+              {
+                "text-gray-500": locale !== selected,
+              }
+            )}
           >
             <div>
               <span

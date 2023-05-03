@@ -23,7 +23,10 @@ export default function Overview(): ReactElement {
   if (course)
     return (
       <div className="flex flex-col divide-y divide-solid divide-gray-200 lg:py-5 space-y-8 text-gray-700">
-        <Header title={course.name} description={course.description} />
+        <Header
+          title={course.name}
+          description={course.description}
+        />
         <RewardsSection />
         <ObjectivesSection />
         <PrerequisiteSection />

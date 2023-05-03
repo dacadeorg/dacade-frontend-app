@@ -26,8 +26,12 @@ interface BalanceProps {
 }
  * @returns {ReactElement}
  */
-export default function Balance({ details }: BalanceProps): ReactElement {
-  const address = details.address ? truncateAddress(details.address, details.token) : null;
+export default function Balance({
+  details,
+}: BalanceProps): ReactElement {
+  const address = details.address
+    ? truncateAddress(details.address, details.token)
+    : null;
 
   return (
     <Link href={`/profile/wallets`}>
@@ -36,10 +40,15 @@ export default function Balance({ details }: BalanceProps): ReactElement {
         <div className="w-3/4 pt-1">
           <div className="flex justify-between">
             <span className="block text-base font-medium leading-normal">
-              <Currency value={details.balance} token={details.token} />
+              <Currency
+                value={details.balance}
+                token={details.token}
+              />
             </span>
           </div>
-          <span className="block text-sm text-gray-500 truncate">{address || details.title}</span>
+          <span className="block text-sm text-gray-500 truncate">
+            {address || details.title}
+          </span>
         </div>
       </div>
     </Link>

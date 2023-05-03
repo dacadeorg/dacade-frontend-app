@@ -26,7 +26,9 @@ interface AdditionalMaterialSectionProps {
 }
  * @returns {ReactElement}
  */
-export default function AdditionalMaterialSection({ materials }: AdditionalMaterialSectionProps): ReactElement {
+export default function AdditionalMaterialSection({
+  materials,
+}: AdditionalMaterialSectionProps): ReactElement {
   const sluggify = (text: string) => {
     const slugger = new Slugger();
     return slugger.slug(text);
@@ -35,8 +37,16 @@ export default function AdditionalMaterialSection({ materials }: AdditionalMater
   return materials.length ? (
     <Section title="Additional Material">
       {materials.map((material, index) => (
-        <Link key={`material-${index}`} href={material.link} target="__blank" className="mt-3 flex flex-wrap items-center">
-          <p id={sluggify(material.title)} className="text-lg font-normal leading-normal">
+        <Link
+          key={`material-${index}`}
+          href={material.link}
+          target="__blank"
+          className="mt-3 flex flex-wrap items-center"
+        >
+          <p
+            id={sluggify(material.title)}
+            className="text-lg font-normal leading-normal"
+          >
             {material.title}
           </p>
           <span className="ml-2 leading-normal">

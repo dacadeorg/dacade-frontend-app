@@ -19,7 +19,9 @@ export default function Navigation(): ReactElement {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const community = useSelector((state) => state.communities?.current);
+  const community = useSelector(
+    (state) => state.communities?.current
+  );
 
   const menus = useSelector((state) => state.navigation.menus);
 
@@ -31,12 +33,19 @@ export default function Navigation(): ReactElement {
             menus.map((menu, index) => {
               return (
                 <li key={`menu-${index}`} className="relative mb-8">
-                  {!menu.hideTitle && <span className="relative text-xs font-semibold uppercase">{t(menu.title)}</span>}
+                  {!menu.hideTitle && (
+                    <span className="relative text-xs font-semibold uppercase">
+                      {t(menu.title)}
+                    </span>
+                  )}
                   <ul>
                     {menu.items.length ? (
                       menu.items.map((item, index: number) => {
                         return (
-                          <li key={`menu-item-${index}`} className="relative mt-4">
+                          <li
+                            key={`menu-item-${index}`}
+                            className="relative mt-4"
+                          >
                             <CourseLink item={item} />
                           </li>
                         );

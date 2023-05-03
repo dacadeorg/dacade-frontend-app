@@ -1,5 +1,10 @@
 import baseQuery from "@/config/baseQuery";
-import { clearUserState, getUserToken, setUserToken, setUserdata } from "../feature/user.slice";
+import {
+  clearUserState,
+  getUserToken,
+  setUserToken,
+  setUserdata,
+} from "../feature/user.slice";
 import { User } from "@/types/bounty";
 import { createApi } from "@reduxjs/toolkit/dist/query";
 
@@ -52,13 +57,15 @@ const userService = createApi({
 /**
  * Get user function
  */
-export const fetchUser = () => userService.endpoints.getUser.initiate("en");
+export const fetchUser = () =>
+  userService.endpoints.getUser.initiate("en");
 
 /**
  * Update user function
  * @param user
  * @returns
  */
-export const updateUser = (user: User) => userService.endpoints.updateUser.initiate(user);
+export const updateUser = (user: User) =>
+  userService.endpoints.updateUser.initiate(user);
 
 export default userService;

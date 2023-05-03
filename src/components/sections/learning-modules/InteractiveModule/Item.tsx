@@ -30,7 +30,9 @@ interface InteractiveModuleItemProps {
  * @param {*} { data }
  * @returns {ReactElement}
  */
-export default function InteractiveModuleItem({ data }: InteractiveModuleItemProps): ReactElement {
+export default function InteractiveModuleItem({
+  data,
+}: InteractiveModuleItemProps): ReactElement {
   const [answering, setAnswering] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const dispatch = useDispatch();
@@ -52,14 +54,24 @@ export default function InteractiveModuleItem({ data }: InteractiveModuleItemPro
         <>
           <Markdown value={data.text} />
           <div className="mx-auto w-full text-center mt-8">
-            <Button variant="outline-primary" communityStyles onClick={start}>
+            <Button
+              variant="outline-primary"
+              communityStyles
+              onClick={start}
+            >
               Understood
             </Button>
           </div>
         </>
       ) : (
         <div className="relative">
-          <InteractiveModuleQuestion data={data.question} disable={disabled} onRetry={() => setDisabled(false)} onWrong={() => setDisabled(true)} onCorrect={completed} />
+          <InteractiveModuleQuestion
+            data={data.question}
+            disable={disabled}
+            onRetry={() => setDisabled(false)}
+            onWrong={() => setDisabled(true)}
+            onCorrect={completed}
+          />
         </div>
       )}
     </div>
