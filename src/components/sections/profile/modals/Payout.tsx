@@ -20,6 +20,18 @@ interface PayoutProps {
   onClose: (event: any) => void;
 }
 
+/**
+ * Payout component
+ * @date 5/3/2023 - 3:26:35 PM
+ *
+ * @export
+ * @param {PayoutProps} {
+  show,
+  wallet,
+  onClose,
+}
+ * @returns {ReactElement}
+ */
 export default function Payout({
   show,
   wallet,
