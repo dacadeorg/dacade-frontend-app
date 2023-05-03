@@ -4,7 +4,7 @@ import { fetchUserProfile } from "@/store/feature/profile/user.slice";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-const profile = () => {
+const Profile = () => {
   const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 
@@ -21,4 +21,4 @@ const profile = () => {
   );
 };
 
-export default profile;
+export default Profile;
