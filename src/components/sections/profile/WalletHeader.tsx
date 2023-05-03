@@ -1,15 +1,19 @@
 import { ReactElement } from "react";
 import { useTranslation } from "next-i18next";
 import Tag from "@/components/ui/Tag";
+import { Wallet } from "@/types/wallet";
 
+/**
+ * Interface for the wallet props
+ */
 interface WalletHeaderProps {
-  wallet: {
-    title: string;
-    address: string;
-    token: string;
-  };
+  wallet: Wallet;
 }
 
+/**
+ * Wallet header component
+ * @returns {ReactElement}
+ */
 export default function WalletHeader({
   wallet,
 }: WalletHeaderProps): ReactElement {
