@@ -18,6 +18,7 @@ export default function ProfileMenu(): ReactElement {
   const username = router.asPath || authUser?.displayName;
   const isCurrentUser =
     username?.toLowerCase() === authUser?.displayName?.toLowerCase();
+
   const menus = useMemo(() => {
     if (communities?.length) {
       return [
@@ -64,12 +65,12 @@ export default function ProfileMenu(): ReactElement {
     }
     return items;
   }, [isCurrentUser, router.asPath, username]);
-  
+
   menus.push({
     title: "navigation.profile.title",
     items: mainItems,
   });
-  
+
   const linkStyleClassName = (exact: boolean) => {
     return classNames("relative text-gray-500", {
       "nuxt-link-exact-active": exact,
