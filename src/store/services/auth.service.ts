@@ -109,7 +109,6 @@ export const resendEmailVerification = (locale?: string) =>
  * @date 4/18/2023 - 12:46:07 PM
  *
  * @param {?string} [locale]
- * @returns {*}
  */
 
 export const verifyEmail = async ({

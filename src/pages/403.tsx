@@ -1,4 +1,3 @@
-
 import { ReactElement } from "react";
 import Error from "@/layouts/Error";
 import { GetStaticProps } from "next";
@@ -13,7 +12,7 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
  * @returns {ReactElement}
  */
 export default function Page403(): ReactElement {
-  return <Error error={{ statusCode: 404 }} />;
+  return <Error error={{ statusCode: 403 }} />;
 }
 
 Page403.getLayout = function (page: ReactElement) {

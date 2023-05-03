@@ -29,7 +29,11 @@ export function OverviewRewards(): ReactElement {
 
   return (
     <Section
-      title={t("communities.challenge.rewards.description") as string}
+      title={t("communities.challenge.rewards.description", {
+        maxPoints: challenge?.maxPoints,
+        minPoints: challenge?.minPoints,
+        reward: rewardsDescription,
+      }) as string}
     >
       <div className="pt-8 grid grid-cols-1 md:grid-cols-2">
         <RewardsList rewards={rewards} />

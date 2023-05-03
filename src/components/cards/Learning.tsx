@@ -31,7 +31,7 @@ interface LearningModule {
   description: string;
 }
 /**
- * 
+ *
  * Learning component props interface
  * @date 3/29/2023 - 6:35:38 PM
  *

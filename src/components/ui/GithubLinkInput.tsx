@@ -2,6 +2,7 @@ import {
   ChangeEvent,
   HTMLProps,
   ReactElement,
+  forwardRef,
   useMemo,
   useState,
 } from "react";
@@ -18,12 +19,11 @@ import classNames from "classnames";
 
 interface GithubLinkInputProps extends HTMLProps<HTMLInputElement> {
   type?: string;
-  value: string;
   label?: string;
   disabled?: boolean;
   placeholder?: string;
-  error: string | null;
-  handleInput: (event: ChangeEvent<HTMLInputElement>) => void;
+  error?: string | null;
+  handleInput?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 /**
@@ -47,16 +47,21 @@ interface GithubLinkInputProps extends HTMLProps<HTMLInputElement> {
  * @returns {ReactElement}
  */
 
-export default function GithubLinkInput({
-  type = "text",
-  value = "",
-  label,
-  disabled = false,
-  placeholder,
-  error = null,
-  handleInput,
-}: GithubLinkInputProps): ReactElement {
+export default forwardRef<HTMLInputElement, GithubLinkInputProps>(function GithubLinkInput(
+  {
+    type = "text",
+    label,
+    disabled = false,
+    placeholder,
+    error = null,
+    handleInput,
+    ...props
+  },
+  ref
+): ReactElement {
   const [isFocused, setIsFocused] = useState(false);
+
+  const [value, setValue] = useState("");
 
   const isFilled = useMemo(() => value.trim().length > 0, [value]);
 
@@ -102,13 +107,15 @@ export default function GithubLinkInput({
       <div className="relative flex-1 pl-2 pr-10.75">
         <label className={labelClassName}>{label}</label>
         <input
+          {...props}
+          ref={ref}
           className={inputClassName}
           type={type}
-          value={value}
           placeholder={placeholder}
           disabled={disabled}
           onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          onChange={(e) => setValue(e.target.value)}
+          onBlurCapture={() => setIsFocused(false)}
           onInput={handleInput}
           autoComplete="off"
         />
@@ -120,4 +127,4 @@ export default function GithubLinkInput({
       </div>
     </div>
   );
-}
+});

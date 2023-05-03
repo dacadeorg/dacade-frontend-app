@@ -45,26 +45,24 @@ export default function EvaluationCard({
   // TODO: this line will be uncommented once community slice is available
   // const community = useSelector((state) => state.community);
   return (
-    <>
-      <UserCard
-        user={evaluation.evaluator}
-        timestamp={{
-          date: evaluation.created_at,
-          text: t("submissions.evaluation.evaluated"),
-        }}
-        link={link}
-        bordered={!last}
-        boxLayout={true}
-      >
-        <TranslationBox
-          text={evaluation.comment}
-          textCssClasses="text-base md:text-lg leading-normal"
-          defaultLocale={"en"}
-          disabled={false}
-          textContainerCssClasses=""
-        />
-        {children}
-      </UserCard>
-    </>
+    <UserCard
+      user={evaluation.evaluator}
+      timestamp={{
+        date: evaluation.created_at,
+        text: t("submissions.evaluation.evaluated"),
+      }}
+      link={link}
+      bordered={!last}
+      boxLayout={false}
+    >
+      <TranslationBox
+        text={evaluation.comment}
+        textCssClasses="text-base md:text-lg leading-normal"
+        defaultLocale={"en"}
+        disabled={false}
+        textContainerCssClasses=""
+      />
+      {children}
+    </UserCard>
   );
 }

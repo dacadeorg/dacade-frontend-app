@@ -1,4 +1,9 @@
-import { useState, useEffect, useCallback, ReactElement } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  ReactElement,
+} from "react";
 import Modal from "@/components/ui/Modal";
 import Loader from "@/components/ui/Loader";
 import Button from "@/components/ui/button";
@@ -13,7 +18,7 @@ import { useDispatch } from "react-redux";
  * @export
  * @returns {ReactElement}
  */
-export default function DiscordConnect():ReactElement {
+export default function DiscordConnect(): ReactElement {
   const [discordError, setDiscordError] = useState<string | boolean>(
     false
   );
@@ -44,7 +49,7 @@ export default function DiscordConnect():ReactElement {
   };
 
   /**
-   * Connect or disconnect user from discord 
+   * Connect or disconnect user from discord
    * @date 4/4/2023 - 9:39:06 AM
    *
    * @type {Function}
