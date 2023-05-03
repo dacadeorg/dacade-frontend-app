@@ -7,8 +7,8 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import Head from "next/head";
-import { verifyEmail } from "@/store/feature/auth.slice";
 import { useRouter } from "next/router";
+import { verifyEmail } from "@/store/services/auth.service";
 
 /**
  * Email verification page
@@ -30,7 +30,7 @@ export default function EmailVerification(): ReactElement {
         return;
       }
       try {
-        await verifyEmail({ code });
+        await verifyEmail();
         setVerified(true);
       } catch (e) {
         // TODO: add error handling functionality.
