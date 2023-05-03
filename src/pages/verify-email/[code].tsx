@@ -7,8 +7,8 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import Head from "next/head";
-import { verifyEmail } from "@/store/feature/auth.slice";
 import { useRouter } from "next/router";
+import { verifyEmail } from "@/store/services/auth.service";
 
 /**
  * Email verification page
@@ -25,27 +25,23 @@ export default function EmailVerification(): ReactElement {
   useEffect(() => {
     const verify = async () => {
       const code = router.query.code as string;
-      if (!code) {
-        // Handle error
-        return;
-      }
+      if (!code) return;
       try {
-        await verifyEmail({ code });
+        await verifyEmail(code);
         setVerified(true);
-      } catch (e) {
-        // TODO: add error handling functionality.
+      } catch (error) {
+        console.error(error);
       }
     };
-    // TODO: TO BE Uncommented when verify email functionality is implemented
-    // verify();
-  }, []);
+    verify();
+  }, [router.query.code]);
 
   const goHome = () => {
     router.push("/login");
   };
 
   return (
-    <div className="flex items-center justify-center absolute min-h-screen top-0 w-full">
+    <div className="absolute top-0 flex items-center justify-center w-full min-h-screen">
       <Head>
         <title>
           {getMetadataTitle(
@@ -77,7 +73,7 @@ export default function EmailVerification(): ReactElement {
               </p>
             </div>
 
-            <div className="text-center pt-8">
+            <div className="pt-8 text-center">
               <ArrowButton onClick={goHome}>
                 {t("email-verification.success.button")}
               </ArrowButton>
