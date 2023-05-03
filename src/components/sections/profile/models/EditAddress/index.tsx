@@ -13,7 +13,6 @@ import { useTranslation } from "next-i18next";
 import { CustomError } from "@/types/error";
 import { updateWallet } from "@/store/services/wallet.service";
 
-
 /**
  * Inferface for form's inputs values
  * @date 5/3/2023 - 3:14:14 PM
@@ -25,7 +24,6 @@ interface FormValues {
   address: string;
   newAddress: string;
 }
-
 
 /**
  * Edit profile component
@@ -47,7 +45,9 @@ export default function EditProfile({
   const { t } = useTranslation();
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<CustomError | undefined | null>();
+  const [error, setError] = useState<
+    CustomError | undefined | null
+  >();
   const [showEditModal, setShowEditModal] = useState(false);
   const [showEditAddress, setShowEditAddress] = useState(false);
   const [showWalletConnectionMethod, setShowWalletConnectionMethod] =
@@ -77,16 +77,16 @@ export default function EditProfile({
     // const signature = await getSignature()
     try {
       const validAddress = validateAddress(address, wallet?.token);
-      if(!validAddress) return;
-      
+      if (!validAddress) return;
+
       await updateWallet({
         id: wallet?.id,
         address: newAddress || address,
-        // TODO:  Replace signature: "", with signature as soon as web3 is intergrated in the wallet servce 
+        // TODO:  Replace signature: "", with signature as soon as web3 is intergrated in the wallet servce
         signature: "",
         // signature
-      }) 
-      closeModal()
+      });
+      closeModal();
     } catch (err) {
       const error = err as CustomError;
       if (error.details) {
@@ -120,12 +120,13 @@ export default function EditProfile({
     if (connectionMethod === "manual") {
       return "Enter new address";
     }
-    if (connectionMethod === "wallet") {
+    if (
+      connectionMethod === "wallet" ||
+      (requireWalletConnection && isFirstTimeAddressSetup)
+    ) {
       return "New address";
     }
-    if (requireWalletConnection && isFirstTimeAddressSetup) {
-      return "New address";
-    }
+
     return "";
   }, [
     connectionMethod,
@@ -158,7 +159,6 @@ export default function EditProfile({
       <div className="px-6 pt-6">
         {/* // TODO WalletHeader will be uncomment as soon as it's implementation is megred */}
         {/* <WalletHeader wallet={wallet} /> */}
-        {/* display wallet modal when showWalletConnectionMethod is true */}
         {showWalletConnectionMethod && (
           <div>
             <p className="font-medium text-base mb-5">
@@ -180,50 +180,43 @@ export default function EditProfile({
           </div>
         )}
         {/* </WalletHeader> */}
-        <div
-          v-if="showWalletInfo && !showWalletConnectionMethod"
-          className="flex flex-col space-y-3"
-        >
-          <div className="flex">
-            {currentAddress ? (
-              <p className="font-medium text-base">
-                Current Address:
-              </p>
-            ) : (
-              <p v-else className="font-medium text-base">
-                Enter Address:
-              </p>
-            )}
+        {showWalletInfo && !showWalletConnectionMethod && (
+          <div className="flex flex-col space-y-3">
+            <div className="flex">
+              {currentAddress ? (
+                <p className="font-medium text-base">
+                  Current Address:
+                </p>
+              ) : (
+                <p className="font-medium text-base">
+                  Enter Address:
+                </p>
+              )}
 
-            {currentAddress ? (
-              <span
-                className="font-medium cursor-pointer text-base ml-auto text-primary"
-                onClick={openEditAddress}
-              >
-                Change
-              </span>
-            ) : (
-              <></>
+              {currentAddress ? (
+                <span
+                  className="font-medium cursor-pointer text-base ml-auto text-primary"
+                  onClick={openEditAddress}
+                >
+                  Change
+                </span>
+              ) : (
+                <></>
+              )}
+            </div>
+
+            {currentAddress && (
+              <>
+                <p className="text-base mb-3">{currentAddress}</p>
+                <div className="pb-2">
+                  <p className="font-medium text-base">
+                    {newAddressTitle}
+                  </p>
+                </div>
+              </>
             )}
           </div>
-
-          <p
-            v-if="currentAddress && !showWalletConnectionMethod"
-            className="text-base mb-3"
-          >
-            {currentAddress}
-          </p>
-
-          {currentAddress ? (
-            <div className="pb-2">
-              <p className="font-medium text-base">
-                {newAddressTitle}
-              </p>
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
+        )}
       </div>
       <form
         className="flex flex-col space-y-4"
