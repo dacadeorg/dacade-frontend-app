@@ -1,5 +1,3 @@
-// import Header from '@/components/sections/profile/Header';
-// import Navigation from '@/components/sections/profile/Navigation';
 import Section from "@/components/ui/Section";
 import { ReactElement, ReactNode } from "react";
 
