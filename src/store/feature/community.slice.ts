@@ -1,6 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Community } from "@/types/community";
 import { Course } from "@/types/course";
+import api from "@/config/api";
 
 /**
  * CommunitiesState interface
@@ -59,5 +60,50 @@ const communitiesSlice = createSlice({
 
 export const { setCurrentCommunity, setAllCommunities } =
   communitiesSlice.actions;
+
+
+// TODO: createAsyncThunk will be replaced by services.
+/**
+ * Fetches all communities from the API.
+ * @date 4/6/2023 - 12:09:48 PM
+ *
+ */
+export const fetchAllCommunities = createAsyncThunk(
+  "communities/all",
+  async ({ locale }: { locale: string }, { rejectWithValue }) => {
+    try {
+      const { data } = await api(locale).server.get<Community[]>(
+        "communities"
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+/**
+ * Fetch a community by name
+ * @date 4/14/2023 - 1:00:03 PM
+ *
+ * @type {*}
+ */
+
+export const fetchCurrentCommunity = createAsyncThunk(
+  "communities/current",
+  async (
+    { slug, locale }: { slug: string; locale?: string },
+    { rejectWithValue }
+  ) => {
+    try {
+      const { data } = await api(locale).server.get<Community>(
+        `communities/${slug}`
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 
 export default communitiesSlice;
