@@ -1,15 +1,11 @@
 import { wrapper } from "@/store";
 import { ReactElement, useEffect, useLayoutEffect } from "react";
 import OverviewSection from "@/components/sections/courses/overview";
-import {
-  fetchCurrentCommunity,
-  setCurrentCommunity,
-} from "@/store/feature/community.slice";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useDispatch } from "react-redux";
 import {
   setCurrentCourse,
-  fetchCourse,
   setCourseNavigation,
 } from "@/store/feature/course.slice";
 import { Community } from "@/types/community";

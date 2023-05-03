@@ -1,8 +1,5 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+// TODO: The async thunk should moved in services
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IRootState } from "@/store";
 import api from "@/config/api";
 import { Scoreboard } from "@/types/scoreboard";

@@ -14,18 +14,12 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Community } from "@/types/community";
 import { wrapper } from "@/store";
 import { Course, LearningModule } from "@/types/course";
-import {
-  fetchCourse,
-  setCurrentCourse,
-} from "@/store/feature/course.slice";
+import { setCurrentCourse } from "@/store/feature/course.slice";
 import {
   findLearningModule,
   setCurrentLearningModule,
 } from "@/store/feature/learningModules.slice";
-import {
-  fetchCurrentCommunity,
-  setCurrentCommunity,
-} from "@/store/feature/community.slice";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
 import {
   getMetadataDescription,
   getMetadataTitle,
@@ -39,6 +33,8 @@ import useNavigation from "@/hooks/useNavigation";
 import api from "@/config/api";
 import { GetStaticProps } from "next";
 import LOCALES from "@/constants/locales";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { fetchCourse } from "@/store/services/course.service";
 
 /**
  * Learning module page props interfae
