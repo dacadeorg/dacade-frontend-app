@@ -3,7 +3,7 @@ import ChevronRightIcon from "@/icons/chevron-right.svg";
 import { useSelector } from "@/hooks/useTypedSelector";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ReactElement } from "react";
+import { ReactElement, useMemo } from "react";
 
 /**
  * Profile menu component
@@ -18,51 +18,58 @@ export default function ProfileMenu(): ReactElement {
   const username = router.asPath || authUser?.displayName;
   const isCurrentUser =
     username?.toLowerCase() === authUser?.displayName?.toLowerCase();
-  const menus = [];
+  const menus = useMemo(() => {
+    if (communities?.length) {
+      return [
+        {
+          title: "navigation.profile.communities",
+          items: communities?.map((community) => ({
+            label: community.name,
+            link: `/profile/${username}/communities/${community.slug}`,
+            exact: true,
+          })),
+        },
+      ];
+    } else {
+      return [];
+    }
+  }, [communities, username]);
 
-  if (communities?.length) {
-    menus.push({
-      title: "navigation.profile.communities",
-      items: communities?.map((community) => ({
-        label: community.name,
-        link: `/profile/${username}/communities/${community.slug}`,
-        exact: true,
-      })),
-    });
-  }
-
-  const mainItems = [];
-  if (isCurrentUser) {
-    mainItems.push(
-      {
+  const mainItems = useMemo(() => {
+    const items = [];
+    if (isCurrentUser) {
+      items.push(
+        {
+          label: "navigation.profile.overview",
+          link: router.asPath ? `/profile/${username}` : "/profile",
+          exact: true,
+        },
+        {
+          label: "navigation.profile.wallets",
+          link: "/profile/wallets",
+          exact: true,
+        },
+        {
+          label: "navigation.profile.referrals",
+          link: "/profile/referrals",
+          exact: true,
+        }
+      );
+    } else {
+      items.push({
         label: "navigation.profile.overview",
-        link: router.asPath ? `/profile/${username}` : "/profile",
+        link: `/profile/${username}`,
         exact: true,
-      },
-      {
-        label: "navigation.profile.wallets",
-        link: "/profile/wallets",
-        exact: true,
-      },
-      {
-        label: "navigation.profile.referrals",
-        link: "/profile/referrals",
-        exact: true,
-      }
-    );
-  } else {
-    mainItems.push({
-      label: "navigation.profile.overview",
-      link: `/profile/${username}`,
-      exact: true,
-    });
-  }
+      });
+    }
+    return items;
+  }, [isCurrentUser, router.asPath, username]);
+  
   menus.push({
     title: "navigation.profile.title",
     items: mainItems,
-    id: "",
   });
-
+  
   const linkStyleClassName = (exact: boolean) => {
     return classNames("relative text-gray-500", {
       "nuxt-link-exact-active": exact,
