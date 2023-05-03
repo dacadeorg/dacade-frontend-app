@@ -2,39 +2,15 @@ import classNames from "classnames";
 import Link from "next/link";
 import {
   CSSProperties,
-  MouseEvent,
   ReactNode,
   ReactElement,
   useMemo,
 } from "react";
 
 import { useSelector } from "@/hooks/useTypedSelector";
+import { ButtonProps } from "@/types/button";
 
-/**
- * Button props interface
- * @date 3/23/2023 - 7:28:52 PM
- *
- * @interface ButtonProps
- * @typedef {ButtonProps}
- */
 
-interface ButtonProps {
-  text?: number | string;
-  loading?: boolean;
-  disabled?: boolean;
-  rounded?: boolean;
-  type?: "submit" | "button" | "reset" | undefined;
-  variant?: string;
-  padding?: boolean | string;
-  margin?: string;
-  customStyle?: CSSProperties | null;
-  link?: string;
-  target?: string;
-  className?: string;
-  communityStyles?: boolean;
-  children: ReactNode;
-  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
-}
 
 /**
  * Component props type.
