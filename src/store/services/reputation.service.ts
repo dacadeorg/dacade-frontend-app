@@ -1,6 +1,9 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query";
-import { clearReputationList, setReputationList } from "../feature/reputation.slice";
+import {
+  clearReputationList,
+  setReputationList,
+} from "../feature/reputation.slice";
 import { Reputation } from "@/types/bounty";
 
 /**
@@ -41,6 +44,7 @@ const reputationService = createApi({
  * @param locale - The locale language
  * @returns
  */
-export const fetchReputations = (locale = "en") => reputationService.endpoints.fetchReputation.initiate(locale);
+export const fetchReputations = (locale = "en") =>
+  reputationService.endpoints.fetchReputation.initiate(locale);
 
 export default reputationService;

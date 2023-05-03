@@ -36,17 +36,30 @@ interface interactiveModuleQuestionProps {
 }
  * @returns {ReactElement}
  */
-export default function InteractiveModuleQuestion({ data, disable = false, onCorrect, onWrong, onRetry }: interactiveModuleQuestionProps): ReactElement {
+export default function InteractiveModuleQuestion({
+  data,
+  disable = false,
+  onCorrect,
+  onWrong,
+  onRetry,
+}: interactiveModuleQuestionProps): ReactElement {
   const [selected, setSelected] = useState<number | null>(null);
   const [timerCount, setTimerCount] = useState<number>(0);
-  const [randomizedAnswers, setRandomizedAnswers] = useState<{ text: string; id: number }[]>([]);
+  const [randomizedAnswers, setRandomizedAnswers] = useState<
+    { text: string; id: number }[]
+  >([]);
 
   const shuffleAnswers = (answers: string[]) => {
-    const randomized = [...answers].map((value, index) => ({ text: value, id: index })).sort(() => Math.random() - 0.5);
+    const randomized = [...answers]
+      .map((value, index) => ({ text: value, id: index }))
+      .sort(() => Math.random() - 0.5);
     return randomized;
   };
 
-  const memoizedRandomizedAnswers = useMemo(() => shuffleAnswers(data.answers), [data.answers]);
+  const memoizedRandomizedAnswers = useMemo(
+    () => shuffleAnswers(data.answers),
+    [data.answers]
+  );
 
   useEffect(() => {
     setRandomizedAnswers(memoizedRandomizedAnswers);

@@ -40,7 +40,9 @@ export default function MainSection(): ReactElement {
   return (
     <Section type="default" padding="p-0">
       <div className="w-full lg:py-24 pt-24 pb-8">
-        <h1 className="lg:text-8xl md:text-6xl text-5xl leading-none tracking-tighter">{t("page.index.main.title")}</h1>
+        <h1 className="lg:text-8xl md:text-6xl text-5xl leading-none tracking-tighter">
+          {t("page.index.main.title")}
+        </h1>
         <p className="lg:text-8xl md:text-6xl text-2xl py-2 lg:py-0 md:py-0 sm:py-0 text-black lg:text-gray-400 md:text-gray-400 sm:text-gray-400 tracking-tighter leading-none">
           {t("page.index.main.subtitle")}
         </p>
@@ -48,7 +50,11 @@ export default function MainSection(): ReactElement {
       <div className="flex justify-between">
         <div className="w-full max-w-xs hidden lg:block">
           <Link href="/communities">
-            <ArrowButton minWidthClass="min-w-62" className="py-4 pl-7.5 pr-5.75" arrowClasses="text-white">
+            <ArrowButton
+              minWidthClass="min-w-62"
+              className="py-4 pl-7.5 pr-5.75"
+              arrowClasses="text-white"
+            >
               {t("page.index.main.button")}
             </ArrowButton>
           </Link>
@@ -56,8 +62,15 @@ export default function MainSection(): ReactElement {
         </div>
         <div className="flex flex-col md:flex-row md:divide-y-0 divide-y divide-gray-900 divide-dotted space-y-5 md:space-y-0 space-x-0 md:space-x-5 justify-end">
           {cards.map((card, i) => (
-            <div key={`numbered-card-${i}`} className="w-full lg:max-w-.5xs pt-5 md:pt-0">
-              <NumberedCard index={i + 1} title={t(card.title) as string} text={t(card.body) as string} />
+            <div
+              key={`numbered-card-${i}`}
+              className="w-full lg:max-w-.5xs pt-5 md:pt-0"
+            >
+              <NumberedCard
+                index={i + 1}
+                title={t(card.title) as string}
+                text={t(card.body) as string}
+              />
             </div>
           ))}
         </div>
@@ -65,7 +78,10 @@ export default function MainSection(): ReactElement {
 
       <div className="lg:hidden pt-10">
         <Link href="/communities">
-          <ArrowButton minWidthClass="min-w-62" className="py-4 pl-7.5 pr-5.75">
+          <ArrowButton
+            minWidthClass="min-w-62"
+            className="py-4 pl-7.5 pr-5.75"
+          >
             {t("page.index.main.button")}
           </ArrowButton>
         </Link>

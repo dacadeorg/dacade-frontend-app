@@ -22,7 +22,9 @@ interface LayoutWithoutFooterProps {
  * @export
  * @returns {ReactElement}
  */
-export default function LayoutWithoutFooter({ children }: LayoutWithoutFooterProps): ReactElement {
+export default function LayoutWithoutFooter({
+  children,
+}: LayoutWithoutFooterProps): ReactElement {
   return (
     <Wrapper>
       <div className="relative min-h-screen">

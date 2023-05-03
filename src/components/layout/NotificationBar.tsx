@@ -36,8 +36,13 @@ export default function Notification(): ReactElement {
   return (
     <div className="w-full flex justify-center">
       {error && (
-        <div className="bg-red-50 border border-red-100 text-red-900 px-4 py-3 rounded-md relative w-full max-w-md justify-center flex" role="alert">
-          <span className="block sm:inline">{t(error.response?.data.message || error?.code)}</span>
+        <div
+          className="bg-red-50 border border-red-100 text-red-900 px-4 py-3 rounded-md relative w-full max-w-md justify-center flex"
+          role="alert"
+        >
+          <span className="block sm:inline">
+            {t(error.response?.data.message || error?.code)}
+          </span>
         </div>
       )}
     </div>

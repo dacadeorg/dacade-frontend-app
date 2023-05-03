@@ -22,8 +22,14 @@ const Home = (props: { pageProps: { communities: Community[] } }) => {
     <>
       <Head>
         <title>Dacade</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content={`${t("page.index.main.title")}`} />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+        />
+        <meta
+          name="description"
+          content={`${t("page.index.main.title")}`}
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
@@ -39,25 +45,30 @@ Home.getLayout = function (page: ReactElement) {
   return <HomeLayout>{page}</HomeLayout>;
 };
 
-export const getStaticProps: GetStaticProps = wrapper.getStaticProps((store: any) => async ({ locale }: any) => {
-  await i18Translate(locale as string);
-  const result = await store.dispatch(fetchAllCommunities(locale));
+export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
+  (store: any) =>
+    async ({ locale }: any) => {
+      await i18Translate(locale as string);
+      const result = await store.dispatch(
+        fetchAllCommunities(locale)
+      );
 
-  if (result.status !== "fulfilled")
-    return {
-      props: {
-        ...(await serverSideTranslations(locale as string)),
-        communities: [],
-      },
-    };
+      if (result.status !== "fulfilled")
+        return {
+          props: {
+            ...(await serverSideTranslations(locale as string)),
+            communities: [],
+          },
+        };
 
-  const communities = result.data;
+      const communities = result.data;
 
-  return {
-    props: {
-      ...(await serverSideTranslations(locale as string)),
-      communities,
-    },
-  };
-});
+      return {
+        props: {
+          ...(await serverSideTranslations(locale as string)),
+          communities,
+        },
+      };
+    }
+);
 export default Home;

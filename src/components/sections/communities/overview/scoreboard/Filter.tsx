@@ -1,6 +1,16 @@
-import { ChangeEvent, ReactElement, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  ReactElement,
+  useEffect,
+  useState,
+} from "react";
 import FilterOption from "./_partials/FilterOption";
-import { filterScoreboards, selectList, setScoreboardList, sortScoreboards } from "@/store/feature/communities/scoreboard.slice";
+import {
+  filterScoreboards,
+  selectList,
+  setScoreboardList,
+  sortScoreboards,
+} from "@/store/feature/communities/scoreboard.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useRouter } from "next/router";
 import { useSelector } from "@/hooks/useTypedSelector";
@@ -95,13 +105,17 @@ export default function Filters(): ReactElement {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, sortBy]);
 
-  const handleFilterByChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFilterByChange = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
     const newValue = event.target.value;
     if (newValue === filterBy) return;
     setFilterBy(newValue);
   };
 
-  const handleSortByChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleSortByChange = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
     const newValue = event.target.value;
     if (newValue === sortBy) return;
     setSortBy(newValue);

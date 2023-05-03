@@ -25,7 +25,11 @@ interface EmailInputProps {
  * @returns {ReactElement}
  */
 
-export default function EmailInput({ errors, register, emailValue }: EmailInputProps): ReactElement {
+export default function EmailInput({
+  errors,
+  register,
+  emailValue,
+}: EmailInputProps): ReactElement {
   const { t } = useTranslation();
   const error = useSelector((state) => state.store.error);
 
@@ -36,11 +40,14 @@ export default function EmailInput({ errors, register, emailValue }: EmailInputP
       placeholder={`${t("login-page.email.placeholder")}`}
       label={`${t("login-page.email.label")}`}
       value={emailValue}
-      error={errors?.email?.message || error?.response?.data.details.email}
+      error={
+        errors?.email?.message || error?.response?.data.details.email
+      }
       {...register("email", {
         required: "This field is required",
         pattern: {
-          value: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
+          value:
+            /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
           message: "This must be a valid email address",
         },
       })}

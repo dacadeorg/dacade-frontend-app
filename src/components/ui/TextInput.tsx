@@ -1,5 +1,11 @@
 import classNames from "classnames";
-import { useState, ChangeEvent, ReactElement, useMemo, HTMLProps } from "react";
+import {
+  useState,
+  ChangeEvent,
+  ReactElement,
+  useMemo,
+  HTMLProps,
+} from "react";
 
 /**
  * Interface for TextInput component props
@@ -25,7 +31,15 @@ interface TextInputProps extends HTMLProps<HTMLInputElement> {
  * @param {TextInputProps} props
  * @returns {ReactElement}
  */
-export default function TextInput({ value = "", label, disabled = false, placeholder, inputClass = "", error = null, handleInput }: TextInputProps): ReactElement {
+export default function TextInput({
+  value = "",
+  label,
+  disabled = false,
+  placeholder,
+  inputClass = "",
+  error = null,
+  handleInput,
+}: TextInputProps): ReactElement {
   const [isFocused, setIsFocused] = useState(false);
 
   const isFilled = useMemo(() => value.trim().length > 0, [value]);
@@ -34,7 +48,8 @@ export default function TextInput({ value = "", label, disabled = false, placeho
     "absolute top-0 left-0 text-lg px-5 py-5 z-10 h-full pointer-events-none transform origin-left transition-all duration-100 ease-in-out items-center",
     {
       "text-gray-400 flex items-center": !isFilled && !isFocused,
-      "text-gray-400 scale-75 -translate-y-3 translate-x-1": isFocused || isFilled,
+      "text-gray-400 scale-75 -translate-y-3 translate-x-1":
+        isFocused || isFilled,
       "text-red-600": error,
       "text-blue-500": isFocused && !error,
     }

@@ -25,7 +25,11 @@ type Translate = {
  * @returns {Promise<string>}
  */
 
-export const Translate = async ({ currentLocale, newLocale, text }: Translate): Promise<string> => {
+export const Translate = async ({
+  currentLocale,
+  newLocale,
+  text,
+}: Translate): Promise<string> => {
   const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_TRANSLATE_API_KEY;
 
   if (currentLocale === newLocale) return text;

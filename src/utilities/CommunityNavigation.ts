@@ -87,8 +87,14 @@ export default class CommunityNavigation {
    * @returns {string}
    */
 
-  coursePath(link: string = "", courseSlug: string | undefined = this.params().course_slug, communitySlug: string | undefined = this.params().slug): string {
-    return this.cleanupUrl(`/communities/${communitySlug}/courses/${courseSlug}/${link}`);
+  coursePath(
+    link: string = "",
+    courseSlug: string | undefined = this.params().course_slug,
+    communitySlug: string | undefined = this.params().slug
+  ): string {
+    return this.cleanupUrl(
+      `/communities/${communitySlug}/courses/${courseSlug}/${link}`
+    );
   }
 
   /**
@@ -101,8 +107,18 @@ export default class CommunityNavigation {
    * @returns {string}
    */
 
-  learningModulePath(path: string, courseSlug: string | undefined = this.params().course_slug, communitySlug: string | undefined = this.params().slug): string {
-    return this.cleanupUrl(this.coursePath(`learning-modules/${path}`, courseSlug, communitySlug));
+  learningModulePath(
+    path: string,
+    courseSlug: string | undefined = this.params().course_slug,
+    communitySlug: string | undefined = this.params().slug
+  ): string {
+    return this.cleanupUrl(
+      this.coursePath(
+        `learning-modules/${path}`,
+        courseSlug,
+        communitySlug
+      )
+    );
   }
 
   /**
@@ -115,8 +131,14 @@ export default class CommunityNavigation {
    * @returns {string}
    */
 
-  challengePath(path: string, courseSlug: string | undefined = this.params().course_slug, communitySlug: string | undefined = this.params().slug): string {
-    return this.cleanupUrl(this.coursePath(`challenges/${path}`, courseSlug, communitySlug));
+  challengePath(
+    path: string,
+    courseSlug: string | undefined = this.params().course_slug,
+    communitySlug: string | undefined = this.params().slug
+  ): string {
+    return this.cleanupUrl(
+      this.coursePath(`challenges/${path}`, courseSlug, communitySlug)
+    );
   }
 
   /**
@@ -136,7 +158,13 @@ export default class CommunityNavigation {
     courseSlug: string | undefined = this.params().course_slug,
     communitySlug: string | undefined = this.params().slug
   ): string {
-    return this.cleanupUrl(this.challengePath(`${challengeId}/submissions/${path}`, courseSlug, communitySlug));
+    return this.cleanupUrl(
+      this.challengePath(
+        `${challengeId}/submissions/${path}`,
+        courseSlug,
+        communitySlug
+      )
+    );
   }
 
   /**
@@ -154,7 +182,13 @@ export default class CommunityNavigation {
     courseSlug: string | undefined = this.params().course_slug,
     communitySlug: string | undefined = this.params().slug
   ): string {
-    return this.cleanupUrl(this.challengePath(`${challengeId}/submissions`, courseSlug, communitySlug));
+    return this.cleanupUrl(
+      this.challengePath(
+        `${challengeId}/submissions`,
+        courseSlug,
+        communitySlug
+      )
+    );
   }
 
   /**
@@ -166,7 +200,10 @@ export default class CommunityNavigation {
    * @returns {LearningModuleLink[]}
    */
 
-  learningModuleLinks(course: Course, communitySlug: string | undefined = this.params().slug): LearningModuleLink[] {
+  learningModuleLinks(
+    course: Course,
+    communitySlug: string | undefined = this.params().slug
+  ): LearningModuleLink[] {
     if (!course?.learningModules) return [];
 
     const slugger = new Slugger();
@@ -174,7 +211,11 @@ export default class CommunityNavigation {
     return course.learningModules?.map((learningModule, i) => ({
       id: learningModule.id,
       label: learningModule.title,
-      link: this.learningModulePath(learningModule.id, course.slug, communitySlug),
+      link: this.learningModulePath(
+        learningModule.id,
+        course.slug,
+        communitySlug
+      ),
       exact: false,
       subitems: learningModule.materials
         ? learningModule.materials.map((material) => {
@@ -198,20 +239,32 @@ export default class CommunityNavigation {
    * @returns {BountyLink[]}
    */
 
-  bountyLinks(course: Course, communitySlug: string | undefined = this.params().slug): BountyLink[] {
+  bountyLinks(
+    course: Course,
+    communitySlug: string | undefined = this.params().slug
+  ): BountyLink[] {
     if (!course?.challenge) return [];
 
     return [
       {
         id: "challenge",
         label: "communities.navigation.challenge.overview",
-        link: this.challengePath(course.challenge.id, course.slug, communitySlug),
+        link: this.challengePath(
+          course.challenge.id,
+          course.slug,
+          communitySlug
+        ),
         exact: true,
       },
       {
         id: "submissions",
         label: "communities.navigation.submissions",
-        link: this.submissionPath("", course.challenge.id, course.slug, communitySlug),
+        link: this.submissionPath(
+          "",
+          course.challenge.id,
+          course.slug,
+          communitySlug
+        ),
         exact: false,
       },
     ];
@@ -225,9 +278,18 @@ export default class CommunityNavigation {
    * @returns {List}
    */
 
-  init({ course, community }: { course: Course; community: Community }): List[] {
+  init({
+    course,
+    community,
+  }: {
+    course: Course;
+    community: Community;
+  }): List[] {
     const challenges = this.bountyLinks(course, community?.slug);
-    const learningModules = this.learningModuleLinks(course, community?.slug);
+    const learningModules = this.learningModuleLinks(
+      course,
+      community?.slug
+    );
 
     // TODO: improve the naming of the List
     const list: List[] = [

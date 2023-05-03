@@ -35,11 +35,15 @@ interface ShowingBubble {
   grid: number | null;
 }
 
-export default function TestimonialsSection({ list }: TestimonialsSectionProps): ReactElement {
-  const [showingBubble, setShowingBubble] = useState<ShowingBubble>(() => ({
-    card: 4,
-    grid: 0,
-  }));
+export default function TestimonialsSection({
+  list,
+}: TestimonialsSectionProps): ReactElement {
+  const [showingBubble, setShowingBubble] = useState<ShowingBubble>(
+    () => ({
+      card: 4,
+      grid: 0,
+    })
+  );
 
   const gridSize = 90;
 
@@ -102,7 +106,10 @@ export default function TestimonialsSection({ list }: TestimonialsSectionProps):
           style={{
             width: `${getSize(gridIndex)}vh`,
             height: `${getSize(gridIndex)}vh`,
-            zIndex: showingBubble.grid === gridIndex ? 99 : grids.length - gridIndex,
+            zIndex:
+              showingBubble.grid === gridIndex
+                ? 99
+                : grids.length - gridIndex,
           }}
         >
           {grid.map((story, storyIndex) => (

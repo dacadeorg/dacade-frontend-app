@@ -17,7 +17,11 @@ export default function MarkdownIcon(): ReactElement {
         <Markdown />
       </span>
       <span className="text-sm text-gray-500">
-        <a href="https://www.markdownguide.org/cheat-sheet/" className="underline cursor-pointer" target="__blank">
+        <a
+          href="https://www.markdownguide.org/cheat-sheet/"
+          className="underline cursor-pointer"
+          target="__blank"
+        >
           Markdown
         </a>
         is supported

@@ -31,7 +31,10 @@ interface DefaultLayoutProps {
  * @returns {ReactElement}
  */
 
-export default function DefaultLayout({ footerBackgroundColor, children }: DefaultLayoutProps): ReactElement {
+export default function DefaultLayout({
+  footerBackgroundColor,
+  children,
+}: DefaultLayoutProps): ReactElement {
   return (
     <Wrapper>
       <div className="relative min-h-screen flex flex-col">

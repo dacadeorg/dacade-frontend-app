@@ -1,4 +1,10 @@
-import { CSSProperties, ReactElement, useCallback, useEffect, useState } from "react";
+import {
+  CSSProperties,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import Slugger from "github-slugger";
@@ -34,7 +40,9 @@ interface MarkDownProps {
  * @param {MarkDownProps} { url }
  * @returns {ReactElement}
  */
-export default function Markdown({ url }: MarkDownProps): ReactElement {
+export default function Markdown({
+  url,
+}: MarkDownProps): ReactElement {
   const dispatch = useDispatch();
   const [markdown, setMarkdown] = useState<string>("");
   const [content, setContent] = useState("");
@@ -88,15 +96,21 @@ export default function Markdown({ url }: MarkDownProps): ReactElement {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const responseText = await fetch(url).then((response) => response.text());
+        const responseText = await fetch(url).then((response) =>
+          response.text()
+        );
 
         setMarkdown(responseText);
         handleNavigation(markdown);
       } catch (error: unknown) {
         if (error instanceof Error) {
-          setContent(`<span style="color: red;">Error: ${error.message}</span>`);
+          setContent(
+            `<span style="color: red;">Error: ${error.message}</span>`
+          );
         } else {
-          setContent(`<span style="color: red;">An unknown error occurred</span>`);
+          setContent(
+            `<span style="color: red;">An unknown error occurred</span>`
+          );
         }
       } finally {
         setLoading(false);
@@ -105,18 +119,26 @@ export default function Markdown({ url }: MarkDownProps): ReactElement {
     fetchData();
   }, [content, handleNavigation, markdown, url]);
 
-  if (loading) return <Loader communityStyles={true} className="py-32" />;
+  if (loading)
+    return <Loader communityStyles={true} className="py-32" />;
   return (
     <div>
       {markdown && (
-        <div style={{ ...(themeStyles as CSSProperties) }} className="prose">
+        <div
+          style={{ ...(themeStyles as CSSProperties) }}
+          className="prose"
+        >
           <ReactMarkdown
             className="markdown-content"
             remarkPlugins={[remarkGfm, remarkParse]}
             components={{
               code: ({ inline, className, children, ...props }) => {
                 return (
-                  <CodeHighlighter inline={inline} className={className} {...props}>
+                  <CodeHighlighter
+                    inline={inline}
+                    className={className}
+                    {...props}
+                  >
                     {children}
                   </CodeHighlighter>
                 );

@@ -58,7 +58,9 @@ export default function Submission(): ReactElement {
     backgroundColor: colors.textAccent,
   };
 
-  const disabled = submitting || (challenge?.format.disclaimer ? !checkedTerms : false);
+  const disabled =
+    submitting ||
+    (challenge?.format.disclaimer ? !checkedTerms : false);
 
   /**
    * Submit form function
@@ -69,7 +71,8 @@ export default function Submission(): ReactElement {
    * @returns {*}
    */
   const onSubmit = async (form: FormValues) => {
-    const isValid = form.text.length > 0 && form.githubLink.length > 0;
+    const isValid =
+      form.text.length > 0 && form.githubLink.length > 0;
 
     if (isValid) {
       if (submitting) return;
@@ -117,7 +120,9 @@ export default function Submission(): ReactElement {
               <TextInput
                 id="input-text"
                 value={textValue}
-                placeholder={`${t("communities.challenge.submission.placeholder.text")}`}
+                placeholder={`${t(
+                  "communities.challenge.submission.placeholder.text"
+                )}`}
                 error={errors.text?.message as string}
                 {...register("text", {
                   required: "This field is required",
@@ -130,9 +135,12 @@ export default function Submission(): ReactElement {
             </div>
             {challenge.format.githubLink && (
               <div
-                className={classNames("w-full border border-solid border-gray-200 m-0 rounded-b text-lg py-0 leading-none items-center space-x-2", {
-                  "border-t-0": challenge.format.text,
-                })}
+                className={classNames(
+                  "w-full border border-solid border-gray-200 m-0 rounded-b text-lg py-0 leading-none items-center space-x-2",
+                  {
+                    "border-t-0": challenge.format.text,
+                  }
+                )}
               >
                 <div label-for="input-github">
                   <GithubLinkInput
@@ -141,7 +149,9 @@ export default function Submission(): ReactElement {
                     value={githubLinkValue}
                     error={errors.githubLink?.message as string}
                     className="p-0 border-none border-transparent focus:outline-none outline-none active:border-none focus:border-none block m-0 flex-grow w-full placeholder-gray-400 placeholder-opacity-100"
-                    placeholder={`${t("communities.challenge.submission.placeholder.github")}`}
+                    placeholder={`${t(
+                      "communities.challenge.submission.placeholder.github"
+                    )}`}
                     {...register("githubLink", {
                       required: "This field is required",
                     })}
@@ -158,13 +168,27 @@ export default function Submission(): ReactElement {
           <div className="flex xl:pl-10.75 flex-col self-center">
             {challenge?.format.disclaimer && (
               <div className="flex flex-row max-w-xm space-x-3 items-center">
-                <input type="checkbox" className="xl:w-5 w-10 h-5" name="agree" required checked={checkedTerms} />
-                <span className="max-w-none text-sm leading-none">{challenge.format.disclaimer}</span>
+                <input
+                  type="checkbox"
+                  className="xl:w-5 w-10 h-5"
+                  name="agree"
+                  required
+                  checked={checkedTerms}
+                />
+                <span className="max-w-none text-sm leading-none">
+                  {challenge.format.disclaimer}
+                </span>
               </div>
             )}
           </div>
           <div className="flex text-right self-start">
-            <ArrowButton variant="primary" type="submit" disabled={disabled} customStyle={activeButtonStyle} loading={submitting}>
+            <ArrowButton
+              variant="primary"
+              type="submit"
+              disabled={disabled}
+              customStyle={activeButtonStyle}
+              loading={submitting}
+            >
               submit
             </ArrowButton>
           </div>

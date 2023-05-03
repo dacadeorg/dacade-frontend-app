@@ -37,7 +37,9 @@ export const walletsSlice = createSlice({
     setWalletList(state, action) {
       const list = action.payload;
       state.list = list;
-      state.main = list.length ? list.find((wallet: Wallet) => wallet.main) || list[0] : null;
+      state.main = list.length
+        ? list.find((wallet: Wallet) => wallet.main) || list[0]
+        : null;
     },
     clear: (state) => {
       state.list = [];
@@ -47,6 +49,7 @@ export const walletsSlice = createSlice({
   },
 });
 
-export const { setCurrentWallet, clear, setWalletList } = walletsSlice.actions;
+export const { setCurrentWallet, clear, setWalletList } =
+  walletsSlice.actions;
 
 export default walletsSlice;

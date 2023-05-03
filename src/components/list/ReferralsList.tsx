@@ -26,7 +26,9 @@ interface ReferralsListProps {
 }
  * @returns {ReactElement}
  */
-export default function ReferralsList({ text }: ReferralsListProps): ReactElement {
+export default function ReferralsList({
+  text,
+}: ReferralsListProps): ReactElement {
   //   const dispatch = useDispatch();
   const { t } = useTranslation("common");
 
@@ -38,7 +40,9 @@ export default function ReferralsList({ text }: ReferralsListProps): ReactElemen
   return (
     <div className="bg-blue-lighter border border-solid border-blue-light w-full rounded-3.5xl items-center justify-between flex md:flex-row flex-col py-6 px-5">
       <div className="md:w-96">
-        <p className="inline-block px-2 text-primary text-lg font-medium pb-3 md:pb-0">{text}</p>
+        <p className="inline-block px-2 text-primary text-lg font-medium pb-3 md:pb-0">
+          {text}
+        </p>
       </div>
 
       <div className="flex-none">

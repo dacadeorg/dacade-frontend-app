@@ -39,7 +39,10 @@ export default function Request() {
           />
         ))} */}
       </div>
-      <div className="text-sm md:flex text-gray-500 md:font-medium font-normal relative cursor-pointer" onClick={onClick}>
+      <div
+        className="text-sm md:flex text-gray-500 md:font-medium font-normal relative cursor-pointer"
+        onClick={onClick}
+      >
         <span className="md:inline-block">
           {/* TODO: to be uncommented when redux is ready
              {referrals.length} Friends have used your invite code 
