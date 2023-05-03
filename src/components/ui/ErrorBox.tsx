@@ -1,16 +1,5 @@
+import { CustomError } from "@/types/error";
 import { ReactElement, ReactNode } from "react";
-
-/**
- * Custom error interface that extends Error
- * @date 3/23/2023 - 10:25:20 AM
- *
- * @interface CustomError
- * @typedef {CustomError}
- * @extends {Error}
- */
-interface CustomError extends Error {
-  details: { [key: string]: string };
-}
 
 
 /**
