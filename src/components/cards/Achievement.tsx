@@ -1,9 +1,10 @@
-import React, { ReactElement, useMemo } from "react";
-// import { useSelector } from "react-redux";
+import { ReactElement, useMemo } from "react";
 import Checkmark from "@/icons/checkMarkIcon.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 interface AchievementCardProps {
   // TODO: The type should be improved after having a clear idea about the data type
@@ -17,10 +18,9 @@ export default function AchievementCard({
 }: AchievementCardProps): ReactElement {
   const { t } = useTranslation();
 
-  // TODO: These lines should be uncommented when the redux is implemented
-  // const router = useRouter();
-  // const authUser = useSelector((state) => state.user.get);
-  // const username = router.query.username || authUser?.displayName;
+  const router = useRouter();
+  const authUser = useSelector((state) => state.user.data);
+  const username = router.query.username || authUser?.displayName;
 
   const minted: boolean =
     !!data?.minting?.tx && data?.community?.can_mint_certificates;
@@ -44,10 +44,10 @@ export default function AchievementCard({
     <div className="border border-solid rounded-3.5xl pt-9 overflow-hidden w-full h-full">
       <Link
         href={`/achievements/${data.id}`}
-        className="block h-full relative"
+        className="relative block h-full"
       >
-        <div className="h-full flex flex-col">
-          <div className="mx-auto flex-grow w-full text-left px-7">
+        <div className="flex flex-col h-full">
+          <div className="flex-grow w-full mx-auto text-left px-7">
             <div
               className={`mx-auto rounded-full mb-5 ${
                 isSVG ? "w-20 h-20 p-5" : ""
@@ -77,7 +77,7 @@ export default function AchievementCard({
             }`}
           >
             {minted && <Checkmark />}
-            <p className="text-base text-center font-normal">
+            <p className="text-base font-normal text-center">
               {badgeText}
             </p>
           </div>

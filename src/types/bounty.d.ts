@@ -1,5 +1,5 @@
 import { Course, Metadata, Reward } from "./course";
-import { Colors } from "./community";
+import { Colors, Community } from "./community";
 import { ReactNode } from "react";
 
 export interface Bounty {
@@ -124,6 +124,8 @@ export interface UserMetadata {
 export interface Reputation {
   total: number;
   list: string[];
+  community: Community;
+  score: number;
 }
 
 export interface BountyAuthor {

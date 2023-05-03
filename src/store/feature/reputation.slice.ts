@@ -1,4 +1,5 @@
 import api from "@/config/api";
+import { Reputation } from "@/types/bounty";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 /**
@@ -6,8 +7,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
  *
  */
 interface ReputationState {
-  //TODO This type should be imporved after having the actual reputation type
-  list: any;
+  list: Reputation[];
 }
 
 /**
