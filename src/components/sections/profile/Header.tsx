@@ -7,13 +7,11 @@ import DiscordIcon from "@/icons/discordIcon.svg";
 import KYCVerificationPopup from "@/components/layout/KYCVerification";
 import CompassIcon from "@/icons/compass.svg";
 import { useDispatch } from "react-redux";
+import { ReactElement } from "react";
 
-const ProfileHeader = () => {
+export default function ProfileHeader(): ReactElement {
   const dispatch = useDispatch();
-  //   const authUser = useSelector((state) => state.user.get);
-  //   const profileUser = useSelector(
-  //     (state) => state.profile.users.current
-  //   );
+  // TODO: dummy profile user to be removed when authentication is fully implemented
   const profileUser = {
     displayName: "mbukeprince",
     joined: "2021",
@@ -21,6 +19,8 @@ const ProfileHeader = () => {
       connected: true,
     },
   };
+
+  //TODO: dummy authUser to be removed when authentication is fully implemented
   const authUser = {
     displayName: "mbukeprince",
     joined: "2021",
@@ -28,8 +28,13 @@ const ProfileHeader = () => {
       connected: true,
     },
   };
+
+  // TODO: dummy isKycVerified to be removed when kyc slice is fully implemented
   const isKycVerified = true;
+
+  // TODO: dummy joined to be removed when authentication is fully implemented
   const joined = "2021";
+  // TODO: dummy user to be removed when authentication is fully implemented
   const user = {
     displayName: "mbukeprince",
     joined: "2021",
@@ -65,11 +70,15 @@ const ProfileHeader = () => {
   //     );
   //   };
 
-  const isCurrentUser = true;
-
   //   const canConnectDiscord = () => {
   //     return isCurrentUser && !user?.discord?.connected;
   //   };
+
+  // TODO: to be uncommented when authentication is fully implemented
+  //   const authUser = useSelector((state) => state.user.get);
+  //   const profileUser = useSelector(
+  //     (state) => state.profile.users.current
+  //   );
 
   const triggerDiscordOauth = () => {
     window.location.href = `${process.env.NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL}?response_type=code&client_id=${process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID}&scope=${process.env.NEXT_PUBLIC_DISCORD_SCOPE}&state=15773059ghq9183habn&redirect_uri=${process.env.NEXT_PUBLIC_DISCORD_CALLBACK_URL}&prompt=consent`;
@@ -135,6 +144,4 @@ const ProfileHeader = () => {
       />
     </div>
   );
-};
-
-export default ProfileHeader;
+}
