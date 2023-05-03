@@ -25,6 +25,19 @@ interface CoinProps {
 }
 
 /**
+ * Token interface
+ * added here for better visibility
+ * @date 5/2/2023 - 12:10:42 PM
+ *
+ * @interface Token
+ * @typedef {Token}
+ */
+interface Token {
+  token: string;
+  amount: number;
+  ref: string;
+}
+/**
  * Array for coins information
  * @date 3/23/2023 - 11:33:07 AM
  *
@@ -70,7 +83,7 @@ const coins = [
   {
     token: "NEAR",
     icon: (
-      <span className="w-full h-auto max-h-full relative">
+      <span className="relative w-full h-auto max-h-full">
         <NEARIcon />
       </span>
     ),
@@ -104,8 +117,13 @@ export default function Coin({
   const sizeClasses = getSizeClasses(size);
   const shapeClasses = getShapeClasses(shape);
 
-  function getCoin(token: string = "") {
-    const value = token.toUpperCase();
+  function getCoin(_token: Token | string = "") {
+   
+    
+    const value =
+      typeof _token === "object"
+        ? _token?.token.toUpperCase()
+        : _token.toUpperCase();
     return coins.find((coin) => coin.token.toUpperCase() === value);
   }
 

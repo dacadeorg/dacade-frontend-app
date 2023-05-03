@@ -11,6 +11,7 @@ import RefreshIcon from "@/icons/refresh.svg";
  */
 interface LoaderProps {
   loading: boolean;
+  className?: string;
   onClick?: (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => void;
@@ -34,6 +35,7 @@ export default function Loader({
   loading,
   onClick,
   onInput,
+  className,
 }: LoaderProps): ReactElement {
   const loadingClassName = classNames({
     "bg-gray-50": loading,
@@ -44,7 +46,7 @@ export default function Loader({
   });
   return (
     <div
-      className={`h-15 w-15 rounded-full border border-solid cursor-pointer flex items-center justify-center text-gray-400 bg-white ${loadingClassName}`}
+      className={`h-15 w-15 rounded-full border border-solid cursor-pointer flex items-center justify-center text-gray-400 bg-white ${loadingClassName} ${className}`}
       onClick={onClick}
       onInput={onInput}
     >

@@ -12,7 +12,7 @@ export const createEvent = createAsyncThunk(
   }
 );
 
-const eventsSlice = createSlice({
+export const eventsSlice = createSlice({
   name: "event",
   initialState: {
     colors: [],
@@ -25,4 +25,4 @@ const eventsSlice = createSlice({
   },
 });
 
-export default eventsSlice;
+export default eventsSlice.reducer;
