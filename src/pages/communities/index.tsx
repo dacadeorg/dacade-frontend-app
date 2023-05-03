@@ -1,10 +1,7 @@
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { getMetadataTitle } from "@/utilities/Metadata";
-import {
-  fetchAllCommunities,
-  setCurrentCommunity,
-} from "@/store/feature/community.slice";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { ReactElement } from "react";
 import CommunityListCard from "@/components/cards/community/List";
@@ -13,7 +10,7 @@ import { wrapper } from "@/store";
 import { Community } from "@/types/community";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HomeLayout from "@/layouts/Home";
-import { result } from "lodash";
+import { fetchAllCommunities } from "@/store/services/community.service";
 
 /**
  * Interface for community view page
@@ -75,12 +72,12 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
   (store) => async (data) => {
     const { locale } = data;
     const results = await store.dispatch(
-      fetchAllCommunities({ locale: locale as string })
+      fetchAllCommunities(locale as string)
     );
     return {
       props: {
         ...(await serverSideTranslations(locale as string)),
-        communities: results.payload,
+        communities: results.data,
         revalidate: 60 * 60 * 12,
       },
     };

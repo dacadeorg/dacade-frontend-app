@@ -4,13 +4,14 @@
 */
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { resendEmailVerification } from "@/store/feature/auth.slice";
 import i18Translate from "@/utilities/I18Translate";
 import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { resendEmailVerification } from "@/store/services/auth.service";
 
 /**
  * Email verification page
@@ -25,7 +26,7 @@ export default function EmailVerification(): ReactElement {
   const router = useRouter();
   const [loading, setloading] = useState(false);
   const user = useSelector((state) => state.auth.data);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (!user) {
       router.push("/login");
@@ -35,7 +36,7 @@ export default function EmailVerification(): ReactElement {
   const resendEmail = async () => {
     setloading(true);
     try {
-      await resendEmailVerification();
+      dispatch(resendEmailVerification());
     } catch (e) {
       console.error(e);
     } finally {
