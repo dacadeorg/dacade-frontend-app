@@ -22,7 +22,7 @@
 }
 
 .nav-brand {
-  @apply font-semibold mr-1.5;
+  @apply font-semibold mx-1.5;
 }
 
 .content-wrapper {

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ReactElement, ReactNode } from "react";
 
-type NavType = "item" | "logo" | "brand";
 /**
  * Interface for NavItem component props
  * @date 3/22/2023 - 5:33:20 PM
@@ -10,7 +9,7 @@ type NavType = "item" | "logo" | "brand";
  * @typedef {NavItemProps}
  */
 interface NavItemProps {
-  type: NavType;
+  type?: string;
   to: string;
   children: ReactNode;
 }
