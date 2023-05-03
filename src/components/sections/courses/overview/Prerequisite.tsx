@@ -19,12 +19,7 @@ export default function Prerequisite(): ReactElement {
   return (
     <>
       {course && course.prerequisite ? (
-        <Section
-          title={t("communities.overview.info.prerequisite.title")}
-          subtitle={t(
-            "communities.overview.info.prerequisite.subtitle"
-          )}
-        >
+        <Section title={t("communities.overview.info.prerequisite.title")} subtitle={t("communities.overview.info.prerequisite.subtitle")}>
           <div className="mb-5">
             <ObjectiveList objectives={course.prerequisite.items} />
           </div>

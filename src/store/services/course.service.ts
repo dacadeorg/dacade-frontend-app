@@ -1,7 +1,4 @@
-import {
-  createApi,
-  fetchBaseQuery,
-} from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { HYDRATE } from "next-redux-wrapper";
 import { setCourseList } from "../feature/course.slice";
 
@@ -56,34 +53,10 @@ export const coursesService = createApi({
     }),
 });
 
-export const getCourse = ({
-  locale,
-  current,
-}: {
-  locale?: string;
-  current: string;
-}) =>
-  coursesService.endpoints.getCourse.initiate({ current, locale });
+export const getCourse = ({ locale, current }: { locale?: string; current: string }) => coursesService.endpoints.getCourse.initiate({ current, locale });
 
-export const fetchCourse = ({
-  locale,
-  slug,
-}: {
-  locale?: string;
-  slug: string;
-}) => coursesService.endpoints.findCourse.initiate({ locale, slug });
+export const fetchCourse = ({ locale, slug }: { locale?: string; slug: string }) => coursesService.endpoints.findCourse.initiate({ locale, slug });
 
-export const fetchAllCourses = ({
-  locale,
-  slug,
-}: {
-  locale?: string;
-  slug: string;
-}) =>
-  coursesService.endpoints.fetchAllCourse.initiate({ locale, slug });
+export const fetchAllCourses = ({ locale, slug }: { locale?: string; slug: string }) => coursesService.endpoints.fetchAllCourse.initiate({ locale, slug });
 
-export const {
-  useGetCourseQuery,
-  useFetchAllCourseQuery,
-  useFindCourseQuery,
-} = coursesService;
+export const { useGetCourseQuery, useFetchAllCourseQuery, useFindCourseQuery } = coursesService;

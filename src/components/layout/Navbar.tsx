@@ -10,11 +10,7 @@ import { useRouter } from "next/router";
 import LanguageSwitcherPopup from "@/components/popups/LanguageSwitcher";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import {
-  authCheck,
-  authVerify,
-  logout,
-} from "@/store/feature/auth.slice";
+import { authCheck, authVerify, logout } from "@/store/feature/auth.slice";
 import Sidebar from "./Sidebar";
 import { Colors } from "@/types/community";
 
@@ -25,17 +21,12 @@ interface NavbarProps {
   sidebarBurgerColor: boolean;
 }
 
-export default function Navbar({
-  settings,
-  sidebarBurgerColor = false,
-}: NavbarProps): ReactElement {
+export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarProps): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.data);
-  const isAuthenticatedAndVerified = useSelector((state) =>
-    authVerify(state)
-  );
+  const isAuthenticatedAndVerified = useSelector((state) => authVerify(state));
   const isAuthenticated = useSelector(authCheck);
 
   const containerStyle = useMemo(() => {
@@ -104,36 +95,18 @@ export default function Navbar({
           <ul className="ml-auto text-right relative hidden lg:block">
             {router.pathname !== "/login" && (
               <div className="inline-block">
-                {router.pathname === "/signup" && (
-                  <span className="text-sm">
-                    {t("nav.signup.already-exist")}
-                  </span>
-                )}
+                {router.pathname === "/signup" && <span className="text-sm">{t("nav.signup.already-exist")}</span>}
                 <NavItem type="item" to="/login">
-                  <span
-                    className={
-                      router.pathname === "/signup"
-                        ? "py-2 text-sm text-primary"
-                        : "py-2 text-sm inherit"
-                    }
-                  >
-                    {t("nav.login")}
-                  </span>
+                  <span className={router.pathname === "/signup" ? "py-2 text-sm text-primary" : "py-2 text-sm inherit"}>{t("nav.login")}</span>
                 </NavItem>
               </div>
             )}
             {router.pathname !== "/signup" && (
               <div className="inline-block">
-                {router.pathname === "/login" && (
-                  <span className="text-sm">
-                    {t("nav.signin.new-accout")}
-                  </span>
-                )}
+                {router.pathname === "/login" && <span className="text-sm">{t("nav.signin.new-accout")}</span>}
                 <NavItem type="item" to="/signup">
                   {router.pathname === "/login" ? (
-                    <span className="py-2 text-sm text-primary">
-                      {t("nav.sign-up")}
-                    </span>
+                    <span className="py-2 text-sm text-primary">{t("nav.sign-up")}</span>
                   ) : (
                     <Button
                       variant="secondary"
@@ -143,11 +116,7 @@ export default function Navbar({
                       type="button"
                       rounded={false}
                       onClick={() => null}
-                      className={
-                        router.pathname === "/login"
-                          ? "text-sm py-2 text-primary"
-                          : "text-sm py-2 text-gray-900"
-                      }
+                      className={router.pathname === "/login" ? "text-sm py-2 text-primary" : "text-sm py-2 text-gray-900"}
                     >
                       {t("nav.sign-up")}
                     </Button>
@@ -162,10 +131,7 @@ export default function Navbar({
         )}
         {isAuthenticated && (
           <ul className="hidden lg:flex ml-auto text-right relative">
-            <NotificationPopup
-              buttonStyles={buttonStyle}
-              badgeStyles={badgeStyle}
-            />
+            <NotificationPopup buttonStyles={buttonStyle} badgeStyles={badgeStyle} />
             <UserPopup buttonStyles={buttonStyle} />
           </ul>
         )}

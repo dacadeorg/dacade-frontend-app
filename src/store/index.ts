@@ -44,9 +44,7 @@ export interface IRootState {
   walletService: ReturnType<typeof walletService.reducer>;
   userService: ReturnType<typeof userSlice.reducer>;
   reputationService: ReturnType<typeof reputationService.reducer>;
-  notificationService: ReturnType<
-    typeof notificationsService.reducer
-  >;
+  notificationService: ReturnType<typeof notificationsService.reducer>;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   bounties: ReturnType<typeof bountiesSlice.reducer>;
   navigation: ReturnType<typeof navigationSlice.reducer>;

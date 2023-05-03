@@ -28,7 +28,6 @@ const reputationSlice = createSlice({
   },
 });
 
-export const { clearReputationList, setReputationList } =
-  reputationSlice.actions;
+export const { clearReputationList, setReputationList } = reputationSlice.actions;
 
 export default reputationSlice;

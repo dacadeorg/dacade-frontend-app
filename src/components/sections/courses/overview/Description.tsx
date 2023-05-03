@@ -10,10 +10,7 @@ import { ReactElement } from "react";
  */
 export default function Description(): ReactElement {
   const htmlTagsCleanup = (value: string) => {
-    return value.replace(
-      /<[^>]*(>|$)|&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/g,
-      ""
-    );
+    return value.replace(/<[^>]*(>|$)|&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/g, "");
   };
 
   const course = useSelector((state) => state.courses.current);

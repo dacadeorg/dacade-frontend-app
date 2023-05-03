@@ -41,11 +41,5 @@ export const storeSlice = createSlice({
 });
 
 // Export actions from the slice
-export const {
-  setError,
-  clearError,
-  setBusy,
-  setJobDone,
-  setForwardRoute,
-} = storeSlice.actions;
+export const { setError, clearError, setBusy, setJobDone, setForwardRoute } = storeSlice.actions;
 export default storeSlice;

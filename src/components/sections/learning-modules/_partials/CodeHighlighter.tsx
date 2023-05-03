@@ -19,24 +19,13 @@ import { useSelector } from "@/hooks/useTypedSelector";
  * @returns {ReactElement}
  */
 
-export default function CodeHighlighter({
-  inline,
-  className,
-  children,
-  ...props
-}: CodeProps): ReactElement {
+export default function CodeHighlighter({ inline, className, children, ...props }: CodeProps): ReactElement {
   const colors = useSelector((state) => state.ui.colors);
   const match = /language-(\w+)/.exec(className || "");
 
   if (!inline && match)
     return (
-      <SyntaxHighlighter
-        {...props}
-        showLineNumbers={true}
-        language={match[1]}
-        PreTag="div"
-        style={darcula}
-      >
+      <SyntaxHighlighter {...props} showLineNumbers={true} language={match[1]} PreTag="div" style={darcula}>
         {String(children).replace(/\n$/, "")}
       </SyntaxHighlighter>
     );

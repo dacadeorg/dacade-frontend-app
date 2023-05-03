@@ -33,12 +33,7 @@ interface EvaluationCardProps {
   last?: boolean;
   children: ReactElement;
 }
-export default function EvaluationCard({
-  evaluation,
-  link = "",
-  last,
-  children,
-}: EvaluationCardProps): ReactElement {
+export default function EvaluationCard({ evaluation, link = "", last, children }: EvaluationCardProps): ReactElement {
   const language = evaluation?.metadata?.language || "en";
   const colors = useSelector((state) => state.ui.colors);
   const { t } = useTranslation();
@@ -56,13 +51,7 @@ export default function EvaluationCard({
         bordered={!last}
         boxLayout={true}
       >
-        <TranslationBox
-          text={evaluation.comment}
-          textCssClasses="text-base md:text-lg leading-normal"
-          defaultLocale={"en"}
-          disabled={false}
-          textContainerCssClasses=""
-        />
+        <TranslationBox text={evaluation.comment} textCssClasses="text-base md:text-lg leading-normal" defaultLocale={"en"} disabled={false} textContainerCssClasses="" />
         {children}
       </UserCard>
     </>

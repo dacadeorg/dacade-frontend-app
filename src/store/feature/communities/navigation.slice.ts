@@ -1,8 +1,4 @@
-import {
-  createSlice,
-  Dispatch,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import { NextRouter } from "next/router";
 import navigation from "@/config/navigation";
 import { store } from "@/store";
@@ -78,26 +74,19 @@ export const navigationSlice = createSlice({
     setNavigationList: (state, action: PayloadAction<any[]>) => {
       state.menus = action.payload;
     },
-    setShowPageNavigation: (
-      state,
-      action: PayloadAction<boolean>
-    ) => {
+    setShowPageNavigation: (state, action: PayloadAction<boolean>) => {
       state.showPageNavigation = action.payload;
     },
   },
 });
 
-export const { setNavigationList, setShowPageNavigation } =
-  navigationSlice.actions;
+export const { setNavigationList, setShowPageNavigation } = navigationSlice.actions;
 
 export const communityPath = (link: string, router: NextRouter) => {
   return `/communities/${router.query.slug}/courses/${router.query.course_slug}/${link}`;
 };
 
-export const learningModulePath = (
-  link: string,
-  router: NextRouter
-) => {
+export const learningModulePath = (link: string, router: NextRouter) => {
   return `/communities/${router.query.slug}/courses/${router.query.course_slug}/${link}`;
 };
 

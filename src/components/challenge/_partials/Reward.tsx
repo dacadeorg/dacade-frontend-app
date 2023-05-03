@@ -20,10 +20,7 @@ interface OverviewRewardsProps {
 }
  * @returns {ReactElement}
  */
-export default function OverviewRewards({
-  reward,
-  size,
-}: OverviewRewardsProps): ReactElement {
+export default function OverviewRewards({ reward, size }: OverviewRewardsProps): ReactElement {
   const { t } = useTranslation();
 
   return (
@@ -33,20 +30,12 @@ export default function OverviewRewards({
           <Coin token={reward.token} size={size} />
           <div className="text-base lg:pl-2 lg:pr-3 md:px-2 max-w-max">
             <div className="flex">
-              <span className="block font-medium text-md pr-1">
-                {reward.amount}
-              </span>
-              <span className="block font-medium text-md">
-                {reward.token}
-              </span>
+              <span className="block font-medium text-md pr-1">{reward.amount}</span>
+              <span className="block font-medium text-md">{reward.token}</span>
             </div>
             <div className="flex">
-              <div className="text-gray-500 text-base font-normal pr-1">
-                {t("reward.type.prefix")}
-              </div>
-              <div className="text-gray-500 text-base font-normal">
-                {t("communities.challenge.submission")}
-              </div>
+              <div className="text-gray-500 text-base font-normal pr-1">{t("reward.type.prefix")}</div>
+              <div className="text-gray-500 text-base font-normal">{t("communities.challenge.submission")}</div>
             </div>
           </div>
         </div>

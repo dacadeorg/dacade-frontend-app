@@ -3,13 +3,7 @@
  * because redux and its features are not implemented yet.
  */
 
-import {
-  useState,
-  useEffect,
-  ReactElement,
-  useCallback,
-  HTMLProps,
-} from "react";
+import { useState, useEffect, ReactElement, useCallback, HTMLProps } from "react";
 
 // TODO: Should be uncommented when redux will be implemented
 // import { useSelector } from "react-redux";
@@ -38,10 +32,7 @@ interface MarkdownProps extends HTMLProps<HTMLDivElement> {
  * @returns {ReactElement}
  */
 
-export default function Markdown({
-  value,
-  ...props
-}: MarkdownProps): ReactElement {
+export default function Markdown({ value, ...props }: MarkdownProps): ReactElement {
   const [content, setContent] = useState("");
 
   //TODO: Should be uncommented when redux will be implemented
@@ -98,10 +89,7 @@ export default function Markdown({
       className="prose"
       data-testid="markdown"
     >
-      <div
-        className="markdown-content"
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
+      <div className="markdown-content" dangerouslySetInnerHTML={{ __html: content }} />
     </div>
   );
 }

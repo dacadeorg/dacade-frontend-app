@@ -28,17 +28,11 @@ interface RewardBadgeProps {
 }
  * @returns {ReactElement}
  */
-export default function RewardBadge({
-  reward = {},
-  type = "transparent",
-}: RewardBadgeProps): ReactElement {
-  const rewardClassname = classNames(
-    "font-semibold leading-none text-center inline-flex items-center justify-between rounded-full text-xs p-0.5 h-5 space-x-2",
-    {
-      "bg-white bg-opacity-25 text-white": type === "transparent",
-      "bg-gray-200 text-gray-500": type !== "transparent",
-    }
-  );
+export default function RewardBadge({ reward = {}, type = "transparent" }: RewardBadgeProps): ReactElement {
+  const rewardClassname = classNames("font-semibold leading-none text-center inline-flex items-center justify-between rounded-full text-xs p-0.5 h-5 space-x-2", {
+    "bg-white bg-opacity-25 text-white": type === "transparent",
+    "bg-gray-200 text-gray-500": type !== "transparent",
+  });
 
   return (
     <span className={rewardClassname}>

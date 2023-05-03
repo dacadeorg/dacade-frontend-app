@@ -60,6 +60,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { clearUserState, setUserdata, setUserToken } =
-  userSlice.actions;
+export const { clearUserState, setUserdata, setUserToken } = userSlice.actions;
 export default userSlice;

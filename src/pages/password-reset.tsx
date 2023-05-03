@@ -54,14 +54,9 @@ export default function PasswordReset(): ReactElement {
       <Head>
         <title>{getMetadataTitle(t("password-reset.title"))}</title>
       </Head>
-      <form
-        className="content-wrapper"
-        onSubmit={handleSubmit(onPasswordResetRequest)}
-      >
+      <form className="content-wrapper" onSubmit={handleSubmit(onPasswordResetRequest)}>
         <div className="lg:w-98 xl:w-98 mx-auto">
-          <h3 className="text-5xl my-5">
-            {t("password-reset.title")}
-          </h3>
+          <h3 className="text-5xl my-5">{t("password-reset.title")}</h3>
           <div>
             <label htmlFor="input-1" className="text-sm">
               {t("password-reset.description")}
@@ -69,29 +64,21 @@ export default function PasswordReset(): ReactElement {
 
             <Input
               id="input-1"
-              placeholder={
-                t("login-page.email.placeholder") as string
-              }
+              placeholder={t("login-page.email.placeholder") as string}
               label={t("login-page.email.label") as string}
               className="mb-5"
               error={errors.email?.message}
               {...register("email", {
                 required: "This field is required",
                 pattern: {
-                  value:
-                    /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
+                  value: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
                   message: "This must be a valid email address",
                 },
               })}
             />
           </div>
           <div className="text-right mt-4">
-            <ArrowButton
-              loading={loading}
-              type="submit"
-              disabled={loading}
-              minWidthClass="min-w-40"
-            >
+            <ArrowButton loading={loading} type="submit" disabled={loading} minWidthClass="min-w-40">
               {t("submit")}
             </ArrowButton>
           </div>
@@ -105,5 +92,4 @@ PasswordReset.getLayout = function getLayout(page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) =>
-  i18Translate(locale as string);
+export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);

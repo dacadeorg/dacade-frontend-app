@@ -35,13 +35,7 @@ const walletService = createApi({
      *  - locale: The local language which is by default 'en'
      */
     updateWallet: builder.mutation<UpdateWalletPayload, any>({
-      query: ({
-        payload,
-        locale,
-      }: {
-        payload: UpdateWalletPayload;
-        locale: string;
-      }) => ({
+      query: ({ payload, locale }: { payload: UpdateWalletPayload; locale: string }) => ({
         url: `wallets/update/${payload.id}`,
         method: "PATCH",
         body: payload,
@@ -83,11 +77,7 @@ const walletService = createApi({
  * @param {string} locale
  * @returns {*}
  */
-export const updateWallet = (
-  payload: UpdateWalletPayload,
-  locale: string = "en"
-) =>
-  walletService.endpoints.updateWallet.initiate({ payload, locale });
+export const updateWallet = (payload: UpdateWalletPayload, locale: string = "en") => walletService.endpoints.updateWallet.initiate({ payload, locale });
 
 /**
  * Get all wallets function
@@ -96,7 +86,6 @@ export const updateWallet = (
  * @param {string} locale
  * @returns {*}
  */
-export const getAllWallets = (locale = "en") =>
-  walletService.endpoints.getAllWallets.initiate(locale);
+export const getAllWallets = (locale = "en") => walletService.endpoints.getAllWallets.initiate(locale);
 
 export default walletService;

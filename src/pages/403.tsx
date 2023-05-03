@@ -1,4 +1,3 @@
-
 import { ReactElement } from "react";
 import Error from "@/layouts/Error";
 import { GetStaticProps } from "next";
@@ -20,5 +19,4 @@ Page403.getLayout = function (page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) =>
-  i18Translate(locale as string);
+export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);

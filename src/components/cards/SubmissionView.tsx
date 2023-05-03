@@ -45,14 +45,11 @@ interface SubmissionViewCardProps {
 }
  * @returns {ReactElement}
  */
-export default function SubmissionViewCard({
-  submission,
-}: SubmissionViewCardProps): ReactElement {
+export default function SubmissionViewCard({ submission }: SubmissionViewCardProps): ReactElement {
   const { t } = useTranslation();
   const colors = useSelector((state) => state.ui.colors);
 
-  const language = (submission?.metadata?.language ||
-    "en") as DefaultLocale;
+  const language = (submission?.metadata?.language || "en") as DefaultLocale;
   const primaryButtonStyles = {
     borderColor: colors.textAccent,
     color: colors.text,
@@ -70,20 +67,10 @@ export default function SubmissionViewCard({
         text: t("submissions.submitted"),
       }}
     >
-      <TranslationBox
-        textContainerCssClasses="pb-5"
-        text={submission.text}
-        defaultLocale={language}
-        textCssClasses="text-base md:text-lg leading-normal text-gray-700"
-      />
+      <TranslationBox textContainerCssClasses="pb-5" text={submission.text} defaultLocale={language} textCssClasses="text-base md:text-lg leading-normal text-gray-700" />
       <div className="inline-grid space-y-2 md:space-y-5 md:contents space-x-0 md:space-x-2">
         {submission.link && (
-          <ArrowButton
-            link={submission.link}
-            target="__blank"
-            customStyle={primaryButtonStyles}
-            variant="outline-primary"
-          >
+          <ArrowButton link={submission.link} target="__blank" customStyle={primaryButtonStyles} variant="outline-primary">
             {t("submissions.link.github")}
           </ArrowButton>
         )}

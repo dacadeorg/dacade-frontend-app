@@ -29,24 +29,19 @@ interface BountyProps {
  * @returns {ReactElement}
  */
 
-export default function Bounty({
-  bounty,
-}: BountyProps): ReactElement {
+export default function Bounty({ bounty }: BountyProps): ReactElement {
   const { t } = useTranslation();
   const { locale } = useRouter();
 
-  const convertDate = (date: Date) =>
-    DateManager.fromNow(date, locale);
+  const convertDate = (date: Date) => DateManager.fromNow(date, locale);
 
   const type = () => {
-    if (bounty.reward.type === RewardType.submission)
-      return t("bounties.reward.challenge");
+    if (bounty.reward.type === RewardType.submission) return t("bounties.reward.challenge");
 
     return t("bounties.reward.feedback");
   };
 
-  const isChallenge = () =>
-    bounty.reward.type === RewardType.submission;
+  const isChallenge = () => bounty.reward.type === RewardType.submission;
 
   const link = () => {
     if (bounty.url) {
@@ -71,23 +66,11 @@ export default function Bounty({
   return (
     <div className="cursor-pointer flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative">
       <div className="bg-theme-accent flex-col w-full h-full justify-between md:-space-y-1 pl-3 pr-5 mt-7 mb-5">
-        <Component
-          ref={link}
-          className="relative w-full block"
-          href="#"
-        >
-          <div className="font-medium text-md md:pt-1.5">
-            {bounty.course ? bounty.course.name : bounty.name}
-          </div>
+        <Component ref={link} className="relative w-full block" href="#">
+          <div className="font-medium text-md md:pt-1.5">{bounty.course ? bounty.course.name : bounty.name}</div>
         </Component>
-        <Component
-          ref={link}
-          className="inline-flex md:flex h-2/3 md:flex-row flex-col-reverse justify-between"
-          href="#"
-        >
-          <div className="text-sm pt-8 md:pt-2 md:pb-4 text-gray-600">
-            {type()}
-          </div>
+        <Component ref={link} className="inline-flex md:flex h-2/3 md:flex-row flex-col-reverse justify-between" href="#">
+          <div className="text-sm pt-8 md:pt-2 md:pb-4 text-gray-600">{type()}</div>
           <div>
             <Reward type="gray" reward={bounty.reward}></Reward>
           </div>
@@ -96,12 +79,7 @@ export default function Bounty({
           <div className="mt-4 space-y-0 divide-y divide-gray-200 border-t border-t-solid border-gray-200">
             {bounty.submissions.map((submission) => (
               <Link
-                href={navigation.community.submissionPath(
-                  submission.id,
-                  bounty.challenge,
-                  bounty.course.slug,
-                  bounty.slug
-                )}
+                href={navigation.community.submissionPath(submission.id, bounty.challenge, bounty.course.slug, bounty.slug)}
                 className="flex space-x-1 relative text-sm font-medium py-3"
                 key={submission.id}
               >
@@ -110,10 +88,7 @@ export default function Bounty({
                     <Avatar user={submission.user} size="mini" />
                     <div>{submission.user.displayName}</div>
                     <div className="flex align-middle text-gray-500 text-middle bg-gray-200 px-2 text-xxs rounded-xl m-0 h-5">
-                      {submission.metadata &&
-                      submission.metadata.feedbacks
-                        ? submission.metadata.feedbacks
-                        : 0}
+                      {submission.metadata && submission.metadata.feedbacks ? submission.metadata.feedbacks : 0}
                     </div>
                   </div>
                   <div className="text-gray-500 text-base font-normal">
@@ -130,11 +105,7 @@ export default function Bounty({
           </div>
         )}
       </div>
-      <Component
-        ref={link}
-        className="self-start relative mt-15 md:mt-7"
-        href="#"
-      >
+      <Component ref={link} className="self-start relative mt-15 md:mt-7" href="#">
         <Avatar
           icon={bounty.icon}
           image={bounty.image}

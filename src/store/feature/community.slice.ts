@@ -42,22 +42,15 @@ const communitiesSlice = createSlice({
   name: "communities",
   initialState,
   reducers: {
-    setAllCommunities: (
-      state,
-      action: PayloadAction<Community[]>
-    ) => {
+    setAllCommunities: (state, action: PayloadAction<Community[]>) => {
       state.list = action.payload;
     },
-    setCurrentCommunity: (
-      state,
-      action: PayloadAction<Community>
-    ) => {
+    setCurrentCommunity: (state, action: PayloadAction<Community>) => {
       state.current = action.payload;
     },
   },
 });
 
-export const { setCurrentCommunity, setAllCommunities } =
-  communitiesSlice.actions;
+export const { setCurrentCommunity, setAllCommunities } = communitiesSlice.actions;
 
 export default communitiesSlice;

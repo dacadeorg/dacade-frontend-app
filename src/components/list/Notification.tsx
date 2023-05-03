@@ -26,9 +26,7 @@ interface NotificationProps {
  *
  */
 
-export default function Notification({
-  extended,
-}: NotificationProps): ReactElement {
+export default function Notification({ extended }: NotificationProps): ReactElement {
   //  TODO:  to be uncommented when user notifications slice is implemented
   //  const notifications = useSelector((state) => state.user.notifications);
   const notifications: any[] = [];
@@ -41,11 +39,7 @@ export default function Notification({
 
   return (
     <div className="text-left relative">
-      {!extended && (
-        <span className="uppercase block text-xs font-semibold text-gray-500 leading-relaxed">
-          {t("nav.notification")}
-        </span>
-      )}
+      {!extended && <span className="uppercase block text-xs font-semibold text-gray-500 leading-relaxed">{t("nav.notification")}</span>}
       <div
         className={classNames({
           "space-y-4 mt-3": !extended,
@@ -53,14 +47,7 @@ export default function Notification({
         })}
       >
         {notifications.map((notification) => {
-          return (
-            <NotificationCard
-              key={notification.id}
-              user={user}
-              details={notification}
-              extended={extended}
-            />
-          );
+          return <NotificationCard key={notification.id} user={user} details={notification} extended={extended} />;
         })}
       </div>
     </div>
