@@ -28,11 +28,11 @@ export default function AchievementLinkField({
   link,
 }: AchievementLinkFieldProps): ReactElement {
   const { t } = useTranslation();
-  const authUser = useSelector((state) => state.user.get);
+  const authUser = useSelector((state) => state.user.data);
   const current = useSelector(
     (state) => state.profile.certificates.current
   );
-  const username = useSelector((state) => authUser?.displayName);
+  const username = authUser?.displayName;
   const currentSubmissionId = current?.submission?.id;
 
   const copy = () => {

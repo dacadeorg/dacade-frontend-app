@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
+import profileReducer from "./feature/profile";
 import communities from "./feature/community.slice";
 import {
   referralsApi,
@@ -43,6 +44,7 @@ export interface IRootState {
   challenges: ReturnType<typeof challengeSlice.reducer>;
   courses: ReturnType<typeof courseSlice.reducer>;
   learningModules: ReturnType<typeof learningModulesSlice.reducer>;
+  profile: ReturnType<typeof profileReducer>;
 }
 
 export const store = configureStore({
@@ -72,6 +74,7 @@ export const store = configureStore({
     [referralsApi.reducerPath]: referralsApi.reducer,
     [navigationSlice.name]: navigationSlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
+    profile: profileReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
