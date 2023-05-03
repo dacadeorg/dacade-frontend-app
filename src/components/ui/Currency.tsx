@@ -13,7 +13,6 @@ interface CurrencyProps {
   token?: string;
 }
 
-
 /**
  * Currency component
  * @date 3/24/2023 - 6:26:28 PM

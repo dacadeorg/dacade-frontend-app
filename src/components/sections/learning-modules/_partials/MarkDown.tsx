@@ -5,21 +5,15 @@ import {
   useEffect,
   useState,
 } from "react";
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import Slugger from "github-slugger";
-import Highlighter from "@/utilities/Highlighter";
 import remarkGfm from "remark-gfm";
-import withToc from "@stefanprobst/remark-extract-toc";
-import { cloneDeep } from "lodash";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useRouter } from "next/router";
-import { Compatible } from "vfile";
-import { setNavigationList } from "@/store/feature/communities/navigation.slice";
+import { updateNavigationMarkdownMenu } from "@/store/feature/communities/navigation.slice";
 import ReactMarkdown from "react-markdown";
+import rehypeExternalLinks from "rehype-external-links";
+import rehypeSlug from "rehype-slug";
 import Loader from "@/components/ui/Loader";
-import CodeHighlighter from "./CodeHighlighter";
 
 /**
  * Markdown props interface
@@ -44,107 +38,60 @@ export default function Markdown({
   url,
 }: MarkDownProps): ReactElement {
   const dispatch = useDispatch();
-  const [markdown, setMarkdown] = useState<string>("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const route = useRouter();
   const colors = useSelector((state) => state.ui.colors);
-  const menus = useSelector((state) => state.navigation.list);
 
   const themeStyles = {
     "--text-accent-color": colors.textAccent,
   };
 
-  // TODO Should be adapted to the react-markdown
-  const handleNavigation = useCallback(
-    (markdown: Compatible | undefined) => {
-      const processor = unified().use(remarkParse).use(withToc);
-      // console.log(processor);
-      const node = processor.parse(markdown);
+  const fetchData = useCallback(async () => {
+    try {
+      setLoading(true);
+      const responseText = await fetch(url).then((response) =>
+        response.text()
+      );
 
-      // Casting with any because processor.runSync has not arrays methods type infered.
-      const tree = processor.runSync(node) as any;
-
-      const data = cloneDeep(menus);
-      const slugger = new Slugger();
-      const list = data.map((menu) => {
-        if (menu.id !== "learning-modules") {
-          return menu;
-        }
-        menu.items = menu.items.map((item) => {
-          if (item.id !== route.query.id) {
-            return item;
-          }
-          slugger.reset();
-          item.subitems = tree.map((el: { value: string }) => {
-            return {
-              label: String(el.value).replace(/^\d+\.+\d\s*/, ""),
-              link: `${slugger.slug(el.value)}`,
-              exact: false,
-            };
-          });
-          return item;
-        });
-        return menu;
-      });
-    },
-    [dispatch, menus, route.query.id]
-  );
+      setContent(responseText);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setContent(
+          `<span style="color: red;">Error: ${error.message}</span>`
+        );
+      } else {
+        setContent(
+          `<span style="color: red;">An unknown error occurred</span>`
+        );
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, [url]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const responseText = await fetch(url).then((response) =>
-          response.text()
-        );
+    updateNavigationMarkdownMenu()(content, route, dispatch);
+  }, [content, dispatch, route, url]);
 
-        setMarkdown(responseText);
-        handleNavigation(markdown);
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          setContent(
-            `<span style="color: red;">Error: ${error.message}</span>`
-          );
-        } else {
-          setContent(
-            `<span style="color: red;">An unknown error occurred</span>`
-          );
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
+  useEffect(() => {
     fetchData();
-  }, [content, handleNavigation, markdown, url]);
+  }, [fetchData]);
 
   if (loading)
     return <Loader communityStyles={true} className="py-32" />;
   return (
     <div>
-      {markdown && (
+      {content && (
         <div
           style={{ ...(themeStyles as CSSProperties) }}
           className="prose"
         >
           <ReactMarkdown
-            className="markdown-content"
-            remarkPlugins={[remarkGfm, remarkParse]}
-            components={{
-              code: ({ inline, className, children, ...props }) => {
-                return (
-                  <CodeHighlighter
-                    inline={inline}
-                    className={className}
-                    {...props}
-                  >
-                    {children}
-                  </CodeHighlighter>
-                );
-              },
-            }}
+            rehypePlugins={[rehypeExternalLinks, rehypeSlug]}
+            remarkPlugins={[remarkGfm]}
           >
-            {markdown}
+            {content}
           </ReactMarkdown>
         </div>
       )}

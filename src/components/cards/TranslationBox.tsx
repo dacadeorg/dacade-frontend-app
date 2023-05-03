@@ -165,9 +165,9 @@ export default function TranslationBox({
                   className="pl-3 underline cursor-pointer"
                   onClick={revert}
                 >
-                  <span>
-                    {`Original (${getLocaleName(defaultLocale)})`}
-                  </span>
+                  <span>{`Original (${getLocaleName(
+                    defaultLocale
+                  )})`}</span>
                 </div>
               )}
             </div>
