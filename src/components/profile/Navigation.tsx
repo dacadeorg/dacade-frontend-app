@@ -3,7 +3,7 @@ import ChevronRightIcon from "@/icons/chevron-right.svg";
 import { useSelector } from "@/hooks/useTypedSelector";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ReactElement, useMemo } from "react";
+import { ReactElement, useEffect, useMemo } from "react";
 
 /**
  * Profile menu component
@@ -66,10 +66,14 @@ export default function ProfileMenu(): ReactElement {
     return items;
   }, [isCurrentUser, router.asPath, username]);
 
+useEffect(()=>{
   menus.push({
     title: "navigation.profile.title",
     items: mainItems,
   });
+}, [mainItems, menus])
+
+  
 
   const linkStyleClassName = (exact: boolean) => {
     return classNames("relative text-gray-500", {
