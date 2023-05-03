@@ -151,7 +151,6 @@ export default function Submission(): ReactElement {
                     placeholder={`${t(
                       "communities.challenge.submission.placeholder.github"
                     )}`}
-                    handleInput={(e) => console.log(e)}
                     {...register("githubLink", {
                       required: "This field is required",
                     })}

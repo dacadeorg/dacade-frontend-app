@@ -36,6 +36,7 @@ export default function RewardBadge({
   type = "transparent",
 }: RewardBadgeProps): ReactElement {
   const { token, amount } = reward;
+  
   const badgeClassnames = classNames(
     "font-semibold leading-none text-center inline-flex items-center justify-between rounded-full text-xs p-0.5 h-5 space-x-2",
     {

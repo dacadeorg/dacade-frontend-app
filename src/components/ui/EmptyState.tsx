@@ -8,11 +8,11 @@ import { ReactElement } from "react";
  * @typedef {EmptyStateProps}
  */
 interface EmptyStateProps {
-  title?: string;
-  subtitle?: string;
+  title?: string | null;
+  subtitle?: string | null;
 }
 
-function EmptyState({
+export default function EmptyState({
   title,
   subtitle,
 }: EmptyStateProps): ReactElement {
@@ -28,5 +28,3 @@ function EmptyState({
     </div>
   );
 }
-
-export default EmptyState;
