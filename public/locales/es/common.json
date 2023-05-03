@@ -116,7 +116,7 @@
   "communities.challenge.best-submissions.title": "Mejores propuestas",
   "communities.challenge.best-submissions.description": "Aquí tiene dos ejemplos de las mejores propuestas para este reto.",
   "communities.challenge.your-submission": "Su Propuesta",
-  "communities.challenge.rewards.description": "Para ganar {reward} debe conseguir al menos {minPoints} puntos de {maxPoints} en este reto.",
+  "communities.challenge.rewards.description": "Para ganar {{reward}} debe conseguir al menos {{minPoints}} puntos de {{maxPoints}} en este reto.",
   "communities.challenge.submission.placeholder.text": "Introduzca el texto para su propuesta",
   "communities.challenge.submission.placeholder.github": "Introduzca el texto a su repositorio de GitHub",
   "communities.challenge.submission.feedback.placeholder.text": "Introduzca su feedback",
