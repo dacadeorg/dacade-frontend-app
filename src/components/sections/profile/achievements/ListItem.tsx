@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactElement } from "react";
 
 /**
  * AchievementViewItem component props
@@ -35,7 +35,7 @@ export default function AchievementViewItem({
   mobileBlock = false,
   itemsStart = false,
   children,
-}: AchievementViewItemProps) {
+}: AchievementViewItemProps): ReactElement {
   const gridClasses = !mobileBlock
     ? [`grid`, `grid-cols-${columns}`]
     : [

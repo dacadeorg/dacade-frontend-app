@@ -1,6 +1,7 @@
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
+import { ReactElement } from "react";
 
 /**
  * Achievement link field props
@@ -25,7 +26,7 @@ interface AchievementLinkFieldProps {
  */
 export default function AchievementLinkField({
   link,
-}: AchievementLinkFieldProps) {
+}: AchievementLinkFieldProps): ReactElement {
   const { t } = useTranslation();
   const authUser = useSelector((state) => state.user.get);
   const current = useSelector(
