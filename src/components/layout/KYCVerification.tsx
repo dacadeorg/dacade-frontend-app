@@ -23,9 +23,7 @@ interface KYCVerificationProps {
 }
  * @returns {*}
  */
-export default function KYCVerification({
-  onCompleted,
-}: KYCVerificationProps) {
+export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
   const { t } = useTranslation();
 
   // TODO: This will be fetched from the store once the store is ready
@@ -74,37 +72,19 @@ export default function KYCVerification({
       <div className="px-6 py-6">
         {!verifying && (
           <div className="text-left flex flex-col">
-            <h1 className="text-.5xl leading-snug font-medium">
-              {title || t("kyc.default.title")}
-            </h1>
-            <p className="pt-8">
-              {completed
-                ? completedText || t("kyc.default.completed")
-                : reasonText || t("kyc.default.reason")}
-            </p>
+            <h1 className="text-.5xl leading-snug font-medium">{title || t("kyc.default.title")}</h1>
+            <p className="pt-8">{completed ? completedText || t("kyc.default.completed") : reasonText || t("kyc.default.reason")}</p>
           </div>
         )}
-        {verifying && (
-          <div id="sumsub-websdk-container" className="pb-5"></div>
-        )}
+        {verifying && <div id="sumsub-websdk-container" className="pb-5"></div>}
       </div>
       <div className="flex items-center justify-between pt-4 pl-6 pr-2 pb-2">
-        <span
-          className="cursor-pointer text-sm font-medium text-primary"
-          onClick={closeModal}
-        >
+        <span className="cursor-pointer text-sm font-medium text-primary" onClick={closeModal}>
           {t("profile.edit.close")}
         </span>
         {!verifying && (
-          <ArrowButton
-            loading={loading}
-            disabled={loading}
-            onClick={verify}
-          >
-            {completed
-              ? completedActionText ||
-                t("kyc.default.button.completed")
-              : actionText || t("kyc.default.button")}
+          <ArrowButton loading={loading} disabled={loading} onClick={verify}>
+            {completed ? completedActionText || t("kyc.default.button.completed") : actionText || t("kyc.default.button")}
           </ArrowButton>
         )}
       </div>

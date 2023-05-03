@@ -39,6 +39,7 @@
     "next-i18next": "^13.2.2",
     "next-mdx-remote": "^4.4.1",
     "next-redux-wrapper": "^8.1.0",
+    "nextjs-progressbar": "^0.0.16",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",

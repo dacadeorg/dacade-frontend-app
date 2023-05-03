@@ -74,31 +74,17 @@ enum TYPES {
 }
  * @returns {ReactElement}
  */
-export default function NotificationCard({
-  user = {},
-  details,
-  extended = false,
-}: NotificationCardProps): ReactElement {
+export default function NotificationCard({ user = {}, details, extended = false }: NotificationCardProps): ReactElement {
   const router = useRouter();
 
-  const humanizedDate = useMemo(
-    () => DateManager.fromNow(details.created_at, router.locale),
-    [details.created_at, router.locale]
-  );
+  const humanizedDate = useMemo(() => DateManager.fromNow(details.created_at, router.locale), [details.created_at, router.locale]);
 
-  const date = useMemo(
-    () => DateManager.intlFormat(details.created_at, router.locale),
-    [details.created_at, router.locale]
-  );
+  const date = useMemo(() => DateManager.intlFormat(details.created_at, router.locale), [details.created_at, router.locale]);
 
   const link = useMemo(() => {
     const { type } = details;
 
-    if (
-      type === TYPES.SUBMISSION ||
-      type === TYPES.REFERRAL ||
-      type === TYPES.FEEDBACK
-    ) {
+    if (type === TYPES.SUBMISSION || type === TYPES.REFERRAL || type === TYPES.FEEDBACK) {
       return `/${details.metadata.submissions}`;
     } else {
       return details.link;
@@ -120,23 +106,13 @@ export default function NotificationCard({
   };
 
   return (
-    <div
-      onClick={goToLink}
-      className={`flex hover:bg-gray-50 py-4 -mx-5 px-5 cursor-pointer ${
-        extended ? "rounded-3xl" : ""
-      }`}
-    >
+    <div onClick={goToLink} className={`flex hover:bg-gray-50 py-4 -mx-5 px-5 cursor-pointer ${extended ? "rounded-3xl" : ""}`}>
       <div className="flex mr-2 w-10 h-10 overflow-hidden relative">
         <Avatar user={user} />
       </div>
       <div className="pt-1 -mt-2">
-        <span className="block text-base text-gray-700">
-          {details.message}
-        </span>
-        <span
-          title={date}
-          className="block text-gray-900 font-medium text-sm"
-        >
+        <span className="block text-base text-gray-700">{details.message}</span>
+        <span title={date} className="block text-gray-900 font-medium text-sm">
           {humanizedDate}
         </span>
       </div>

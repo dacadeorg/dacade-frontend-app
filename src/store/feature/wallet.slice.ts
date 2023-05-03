@@ -1,5 +1,4 @@
-import api from "@/config/api";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { Wallet } from "@/types/wallet";
 
 /**
@@ -9,7 +8,6 @@ import { Wallet } from "@/types/wallet";
  * @property {string} signature - The wallet signature.
  * @property {boolean} main - Indicates if this is the main wallet.
  */
-
 interface WalletState {
   list: Wallet[];
   current: Wallet | null;
@@ -29,57 +27,17 @@ const initialState: WalletState = {
   main: null,
 };
 
-/**
- * Fetches all wallets.
- *
- * @returns {Promise<Wallet[]>} - The list of wallets.
- */
-export const allWallets = createAsyncThunk(
-  "wallets/all",
-  async () => {
-    const { data } = await api().client.get<Wallet[]>("wallets");
-    return data;
-  }
-);
-
-/**
- * Updates a wallet.
- *
- * @param {Object} payload - The payload for the updateWallet action.
- * @param {number} payload.id - The ID of the wallet to update.
- * @param {string} payload.address - The new address for the wallet.
- * @param {string} payload.signature - The new signature for the wallet.
- * @returns {Promise<Wallet[]>} - The updated list of wallets.
- */
-
-export const updateWallet = createAsyncThunk(
-  "wallets/update",
-  async (
-    payload: {
-      id: number;
-      address: string;
-      signature: string;
-    },
-    { rejectWithValue }
-  ) => {
-    try {
-      const { data } = await api().client.patch(
-        `wallets/update/${payload.id}`,
-        payload
-      );
-      return data;
-    } catch (err) {
-      rejectWithValue(err);
-    }
-  }
-);
-
 export const walletSlice = createSlice({
   name: "wallets",
   initialState,
   reducers: {
-    setCurrent: (state, action) => {
+    setCurrentWallet: (state, action) => {
       state.current = action.payload;
+    },
+    setWalletList(state, action) {
+      const list = action.payload;
+      state.list = list;
+      state.main = list.length ? list.find((wallet: Wallet) => wallet.main) || list[0] : null;
     },
     clear: (state) => {
       state.list = [];
@@ -87,25 +45,8 @@ export const walletSlice = createSlice({
       state.main = null;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(allWallets.fulfilled, (state, action) => {
-        state.list = action.payload;
-        state.main = action.payload.length
-          ? action.payload.find((wallet: Wallet) => wallet.main) ||
-            action.payload[0]
-          : null;
-      })
-      .addCase(updateWallet.fulfilled, (state, action) => {
-        state.list = action.payload;
-        state.main = action.payload.length
-          ? action.payload.find((wallet: Wallet) => wallet.main) ||
-            action.payload[0]
-          : null;
-      });
-  },
 });
 
-export const { setCurrent, clear } = walletSlice.actions;
+export const { setCurrentWallet, clear, setWalletList } = walletSlice.actions;
 
 export default walletSlice;

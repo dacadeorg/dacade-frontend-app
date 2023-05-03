@@ -31,9 +31,7 @@ interface PrivacyPolicyProps {
 }
  * @returns {*}
  */
-export default function PrivacyPolicy({
-  pageProps: { privacy },
-}: PrivacyPolicyProps) {
+export default function PrivacyPolicy({ pageProps: { privacy } }: PrivacyPolicyProps) {
   return (
     <div className="content-wrapper">
       <article className="prose prose-sm mt-11 sm:prose lg:prose-lg xl:prose-xl">
@@ -44,22 +42,12 @@ export default function PrivacyPolicy({
 }
 
 PrivacyPolicy.getLayout = function (page: ReactElement) {
-  return (
-    <DefaultLayout footerBackgroundColor={"default"}>
-      {page}
-    </DefaultLayout>
-  );
+  return <DefaultLayout footerBackgroundColor={"default"}>{page}</DefaultLayout>;
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const markdownFilePath = path.join(
-    process.cwd(),
-    "src/content/legal/privacy.md"
-  );
-  const markdownFileContents = fs.readFileSync(
-    markdownFilePath,
-    "utf8"
-  );
+  const markdownFilePath = path.join(process.cwd(), "src/content/legal/privacy.md");
+  const markdownFileContents = fs.readFileSync(markdownFilePath, "utf8");
 
   return {
     props: {

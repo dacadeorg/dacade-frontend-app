@@ -67,20 +67,13 @@ export default function Login(): ReactElement {
   return (
     <>
       <Head>
-        <title>
-          {getMetadataTitle(t("login-page.signin.title"))}
-        </title>
+        <title>{getMetadataTitle(t("login-page.signin.title"))}</title>
       </Head>
       <div className="absolute h-full w-full -justify-center top-0 flex items-center">
-        <form
-          className="content-wrapper"
-          onSubmit={handleSubmit(onSubmit)}
-        >
+        <form className="content-wrapper" onSubmit={handleSubmit(onSubmit)}>
           <div className="lg:w-98 xl:w-98 mx-auto">
             <div>
-              <h1 className="text-5xl my-5">
-                {t("login-page.signin.title")}
-              </h1>
+              <h1 className="text-5xl my-5">{t("login-page.signin.title")}</h1>
             </div>
             <div className="mb-5 relative">
               <div>
@@ -96,8 +89,7 @@ export default function Login(): ReactElement {
                   {...register("email", {
                     required: "This field is required",
                     pattern: {
-                      value:
-                        /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
+                      value: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
                       message: "This must be a valid email address",
                     },
                   })}
@@ -110,9 +102,7 @@ export default function Login(): ReactElement {
                   /* In backticks `` because placeholder requires a string.
                    * Same for label
                    */
-                  placeholder={`${t(
-                    "login-page.password.placeholder"
-                  )}`}
+                  placeholder={`${t("login-page.password.placeholder")}`}
                   label={`${t("login-page.password.label")}`}
                   error={errors.password?.message}
                   type="password"
@@ -131,22 +121,13 @@ export default function Login(): ReactElement {
             <div className="flex flex-col justify-between mt-4">
               <div>
                 <span className="text-primary text-sm">
-                  <Link
-                    href="/password-reset"
-                    className="fs-1 dark-white"
-                  >
+                  <Link href="/password-reset" className="fs-1 dark-white">
                     {t("login-page.forget-password")}
                   </Link>
                 </span>
               </div>
               <div className="text-right self-end">
-                <ArrowButton
-                  type="submit"
-                  minWidthClass="min-w-40"
-                  arrowClasses="text-white"
-                  loading={loading}
-                  disabled={loading}
-                >
+                <ArrowButton type="submit" minWidthClass="min-w-40" arrowClasses="text-white" loading={loading} disabled={loading}>
                   {t("login-page.signin.button")}
                 </ArrowButton>
               </div>
@@ -162,5 +143,4 @@ Login.getLayout = function (page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) =>
-  i18Translate(locale as string);
+export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);

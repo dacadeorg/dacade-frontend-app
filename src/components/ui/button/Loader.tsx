@@ -11,9 +11,7 @@ import RefreshIcon from "@/icons/refresh.svg";
  */
 interface LoaderProps {
   loading: boolean;
-  onClick?: (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => void;
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -30,11 +28,7 @@ interface LoaderProps {
  * @returns {ReactElement}
  */
 
-export default function Loader({
-  loading,
-  onClick,
-  onInput,
-}: LoaderProps): ReactElement {
+export default function Loader({ loading, onClick, onInput }: LoaderProps): ReactElement {
   const loadingClassName = classNames({
     "bg-gray-50": loading,
     "hover:bg-gray-200": !loading,

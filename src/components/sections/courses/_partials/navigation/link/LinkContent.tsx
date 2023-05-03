@@ -28,11 +28,7 @@ interface LinkContentProps {
 }
  * @returns {ReactElement}
  */
-export default function LinkContent({
-  isActive,
-  expanded,
-  item,
-}: LinkContentProps): ReactElement {
+export default function LinkContent({ isActive, expanded, item }: LinkContentProps): ReactElement {
   const { t } = useTranslation();
   return (
     <span>
@@ -41,11 +37,7 @@ export default function LinkContent({
           <ChevronRightIcon
             className={classNames(
               {
-                "transform rotate-90":
-                  item.subitems &&
-                  item.subitems.length &&
-                  isActive &&
-                  expanded,
+                "transform rotate-90": item.subitems && item.subitems.length && isActive && expanded,
               },
               "transition-transform duration-200"
             )}

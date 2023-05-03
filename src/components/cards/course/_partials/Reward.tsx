@@ -18,17 +18,12 @@ interface OverviewRewardsProps {
  * @returns {ReactElement}
  */
 
-export default function OverviewRewards({
-  reward,
-  ...props
-}: OverviewRewardsProps): ReactElement {
+export default function OverviewRewards({ reward, ...props }: OverviewRewardsProps): ReactElement {
   const { t } = useTranslation();
 
   return (
     <div className="text-base text-left flex sm:flex-start flex-row justify-between sm:flex-col sm:space-y-4">
-      <div className="text-xxs tracking-wider px-1 font-semibold uppercase text-gray-500">
-        {t("course.challenge.reward")}
-      </div>
+      <div className="text-xxs tracking-wider px-1 font-semibold uppercase text-gray-500">{t("course.challenge.reward")}</div>
       <div>
         <div className="font-normal text-5xl text-gray-900">
           {reward.stable && "$"}
@@ -36,10 +31,7 @@ export default function OverviewRewards({
         </div>
         {reward && (
           <div className="text-right sm:text-left mt-3">
-            <RewardBadge
-              reward={{ token: reward.token }}
-              type="gray"
-            />
+            <RewardBadge reward={{ token: reward.token }} type="gray" />
           </div>
         )}
       </div>

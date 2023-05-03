@@ -4,13 +4,14 @@
 */
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { resendEmailVerification } from "@/store/feature/auth.slice";
 import i18Translate from "@/utilities/I18Translate";
 import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { resendEmailVerification } from "@/store/services/auth.service";
 
 /**
  * Email verification page
@@ -25,7 +26,7 @@ export default function EmailVerification(): ReactElement {
   const router = useRouter();
   const [loading, setloading] = useState(false);
   const user = useSelector((state) => state.auth.data);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (!user) {
       router.push("/login");
@@ -35,7 +36,7 @@ export default function EmailVerification(): ReactElement {
   const resendEmail = async () => {
     setloading(true);
     try {
-      await resendEmailVerification();
+      dispatch(resendEmailVerification());
     } catch (e) {
       console.error(e);
     } finally {
@@ -47,12 +48,8 @@ export default function EmailVerification(): ReactElement {
     <div className="flex items-center justify-center absolute min-h-screen top-0 w-full">
       <div className="relative p-6 text-center">
         <div>
-          <h1 className="text-3xl font-medium mb-7">
-            {t("email-verification.title")}
-          </h1>
-          <p className="text-lg">
-            {t("email-verification.subtitle")}
-          </p>
+          <h1 className="text-3xl font-medium mb-7">{t("email-verification.title")}</h1>
+          <p className="text-lg">{t("email-verification.subtitle")}</p>
           <p className="text-base font-bold mb-4">{user?.email}</p>
           <p
             className="text-lg py-4"
@@ -60,9 +57,7 @@ export default function EmailVerification(): ReactElement {
               __html: t("email-verification.message"),
             }}
           />
-          <p className="text-sm py-4">
-            {t("email-verification.foot-note")}
-          </p>
+          <p className="text-sm py-4">{t("email-verification.foot-note")}</p>
         </div>
 
         <div className="text-center mt-1">
@@ -75,5 +70,4 @@ export default function EmailVerification(): ReactElement {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) =>
-  i18Translate(locale as string);
+export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);
