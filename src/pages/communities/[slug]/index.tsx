@@ -1,3 +1,4 @@
+import { wrapper } from "@/store";
 import Section from "@/components/ui/Section";
 import { Community } from "@/types/community";
 import { setColors } from "@/store/feature/ui.slice";
@@ -9,13 +10,13 @@ import ScoreboardOverview from "@/components/sections/communities/overview/score
 import CommunityLayout from "@/layouts/Community";
 import { ReactElement, useLayoutEffect } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { setCourseList } from "@/store/feature/course.slice";
 import { Course } from "@/types/course";
 import { setScoreboardList } from "@/store/feature/communities/scoreboard.slice";
 import { Scoreboard } from "@/types/scoreboard";
 import api from "@/config/api";
 import { GetStaticProps } from "next";
 import LOCALES from "@/constants/locales";
+import { setCourseList } from "@/store/feature/course.slice";
 
 export default function Slug(props: {
   pageProps: {
