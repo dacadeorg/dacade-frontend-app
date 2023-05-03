@@ -48,7 +48,7 @@ export const submissionsSlice = createSlice({
     },
     showSubmission: (state, action: PayloadAction<string>) => {
       const current = state.list.find(
-        (submission: Submission) => submission.id === action.payload
+        (submission) => submission.id === action.payload
       );
       state.current = current || null;
     },
@@ -58,7 +58,7 @@ export const submissionsSlice = createSlice({
       state.list = action.payload;
     });
   },
-})
+});
 /**
  * Find submission by id
  * @date 4/25/2023 - 8:19:35 PM
