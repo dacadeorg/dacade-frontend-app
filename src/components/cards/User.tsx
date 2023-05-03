@@ -54,7 +54,6 @@ export default function UserCard({
 }: UserProps): ReactElement {
   const { locale } = useRouter();
   const colors = useSelector((state) => state.ui.colors);
-  // TODO: to be uncommented when community slice is implemented.
   const community = useSelector((state) => state.communities.current);
   const [humanizedDate, setHumanizedDate] = useState("");
   const [date, setDate] = useState("");

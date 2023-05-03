@@ -1,6 +1,8 @@
 // Those types are temporary
 // TODO: Should be improved with the extact types
 
+import { Community } from "./community";
+
 export type Course = {
   id: string;
   ref: string;
@@ -48,7 +50,7 @@ export type Challenge = {
   course: Course;
   objectives: string[];
   threshold: number;
-  community: string;
+  community: Community;
   reviewTime: number;
   metadata: Metadata;
   level: number;

@@ -30,7 +30,7 @@ export default function SubmissionList(): ReactElement {
               {submissions.map((submission, i) => (
                 <SubmissionCard
                   key={submission.id}
-                  stats={true}
+                  stats
                   link={navigation.community.submissionPath(
                     submission.id,
                     submission.challenge.id,
