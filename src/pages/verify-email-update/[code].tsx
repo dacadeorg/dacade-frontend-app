@@ -1,40 +1,37 @@
-import { useState, useEffect, ReactElement } from "react";
-import { useTranslation } from "next-i18next";
+import { useMemo } from "react";
 import Loader from "@/components/ui/Loader";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { getMetadataTitle } from "@/utilities/Metadata";
-import LayoutWithoutFooter from "@/layouts/WithoutFooter";
-import { GetStaticProps } from "next";
-import i18Translate from "@/utilities/I18Translate";
-import Head from "next/head";
 import { useRouter } from "next/router";
-import { verifyEmail } from "@/store/services/auth.service";
+import { useTranslation } from "next-i18next";
+import { ReactElement } from "react-markdown/lib/react-markdown";
+import LayoutWithoutFooter from "@/layouts/WithoutFooter";
+import Head from "next/head";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 /**
- * Email verification page
- * @date 4/27/2023 - 12:20:36 PM
+ * Email verification update page
+ * @date 4/27/2023 - 8:19:02 PM
  *
- * @export
- * @returns {ReactElement}
+ * @param {{ verified: boolean }} props
+ * @returns
  */
-export default function EmailVerification(): ReactElement {
-  const { t } = useTranslation();
-  const [verified, setVerified] = useState(true);
+export default function EmailVerification(props: {
+  verified: boolean;
+}): ReactElement {
+  const { verified } = props;
   const router = useRouter();
+  const { t } = useTranslation();
 
-  useEffect(() => {
-    const verify = async () => {
-      const code = router.query.code as string;
-      if (!code) return;
-      try {
-        await verifyEmail({ payload: code });
-        setVerified(true);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    verify();
-  }, [router.query.code]);
+  const title = useMemo(
+    () =>
+      getMetadataTitle(
+        verified
+          ? t("email-verification.success.title")
+          : t("email-verification.processing")
+      ),
+    [t, verified]
+  );
 
   const goHome = () => {
     router.push("/login");
@@ -43,13 +40,7 @@ export default function EmailVerification(): ReactElement {
   return (
     <div className="flex items-center justify-center absolute min-h-screen top-0 w-full">
       <Head>
-        <title>
-          {getMetadataTitle(
-            verified
-              ? t("email-verification.success.title")
-              : t("email-verification.processing")
-          )}
-        </title>
+        <title>{title}</title>
       </Head>
       <div className="relative p-6 text-center">
         {!verified ? (
@@ -85,16 +76,37 @@ export default function EmailVerification(): ReactElement {
   );
 }
 
-EmailVerification.getLayout = function getLayout(page: ReactElement) {
+EmailVerification.getLayout = function (page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
 
-export const getStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: true,
-  };
-};
+export const getServerSideProps = async (data: {
+  locale: string;
+  query: any;
+}) => {
+  const { query } = data;
 
-export const getStaticProps: GetStaticProps = async ({ locale }) =>
-  i18Translate(locale as string);
+  if (!query?.code) {
+    return {
+      redirect: "/403",
+    };
+  }
+
+  try {
+    await verifyEmailUpdate(query?.code as string);
+
+    return {
+      props: {
+        ...(await serverSideTranslations(data.locale as string)),
+        verified: false,
+      },
+    };
+  } catch (err) {
+    return {
+      notFound: true,
+    };
+  }
+};
+function verifyEmailUpdate(arg0: string) {
+  throw new Error("Function not implemented.");
+}
