@@ -5,8 +5,19 @@ import {
   setUserToken,
   setUserdata,
 } from "../feature/user.slice";
-import { User } from "@/types/bounty";
 import { createApi } from "@reduxjs/toolkit/dist/query";
+
+/**
+ * User interface for payload request payload
+ * @date 5/3/2023 - 12:29:14 PM
+ *
+ * @interface User
+ * @typedef {User}
+ */
+interface User {
+  firstName: string;
+  lastName: string;
+}
 
 /**
  * User API service
@@ -65,7 +76,9 @@ export const fetchUser = () =>
  * @param user
  * @returns
  */
-export const updateUser = (user: User) =>
-  userService.endpoints.updateUser.initiate(user);
+export const updateUser = (user: {
+  firstName: string;
+  lastName: string;
+}) => userService.endpoints.updateUser.initiate(user);
 
 export default userService;

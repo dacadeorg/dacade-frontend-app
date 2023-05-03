@@ -2,10 +2,23 @@ const aeAllowedChars =
   "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 
 const ethRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
-const aeRegex = `^(ak_)([${aeAllowedChars}]+)$`;
+const aeRegex = /^(ak_)([${aeAllowedChars}]+)$/;
 const nearRegex =
   /^([a-fA-F0-9]{5})+([a-fA-F0-9]{49})+([a-fA-F0-9]{10})$/;
 const algoRegex = /^([A-Z2-7]{6})+([A-Z2-7]{46})+([A-Z2-7]{6})$/;
+
+/**
+ * Validates the regex pattern
+ * @date 5/3/2023 - 11:19:24 AM
+ *
+ * @param {string} address
+ * @param {RegExp} regex
+ * @returns {Boolean}
+ */
+const validateRegex = (address: string, regex: RegExp) => {
+  const match = address.match(regex);
+  return Boolean(match);
+};
 
 /**
  * Transform address to truncated address
@@ -116,4 +129,36 @@ export const truncateAddress = (
     default:
       return truncateEthAddress(address);
   }
+};
+
+/**
+ * Validates wallet address
+ * @date 5/3/2023 - 11:21:15 AM
+ *
+ * @param {string} address
+ * @param {string} token
+ * @returns {Boolean}
+ */
+export const validateAddress = (
+  address: string,
+  token: string = "eth"
+): Boolean => {
+  if (!address) return false;
+
+  const trimmedAddress = address.trim();
+  const tokenLowerCase = token.toLowerCase();
+
+  if (tokenLowerCase === "near") {
+    return validateRegex(trimmedAddress, nearRegex);
+  }
+
+  if (tokenLowerCase === "ae") {
+    return validateRegex(trimmedAddress, aeRegex);
+  }
+
+  if (tokenLowerCase === "algo") {
+    return validateRegex(trimmedAddress, algoRegex);
+  }
+
+  return validateRegex(trimmedAddress, ethRegex);
 };
