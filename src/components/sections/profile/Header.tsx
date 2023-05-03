@@ -9,6 +9,13 @@ import CompassIcon from "@/icons/compass.svg";
 import { useDispatch } from "react-redux";
 import { ReactElement } from "react";
 
+/**
+ *  Profile header component
+ * @date 5/3/2023 - 5:22:43 PM
+ *
+ * @export
+ * @returns {ReactElement}
+ */
 export default function ProfileHeader(): ReactElement {
   const dispatch = useDispatch();
   // TODO: dummy profile user to be removed when authentication is fully implemented
