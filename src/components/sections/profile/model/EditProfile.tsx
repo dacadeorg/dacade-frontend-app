@@ -82,7 +82,7 @@ export default function EditProfile({
 
                 minLength: {
                   value: 2,
-                  message: "",
+                  message: "The firstname is too short",
                 },
               })}
             />
@@ -96,7 +96,7 @@ export default function EditProfile({
                 required: "This field is required",
                 minLength: {
                   value: 2,
-                  message: "",
+                  message: "The lastname is too short",
                 },
               })}
             />
