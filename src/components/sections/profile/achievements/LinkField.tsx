@@ -2,11 +2,30 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 
-interface Props {
+/**
+ * Achievement link field props
+ * @date 5/3/2023 - 1:27:56 PM
+ *
+ * @interface AchievementLinkFieldProps
+ * @typedef {AchievementLinkFieldProps}
+ */
+interface AchievementLinkFieldProps {
   link: string | null;
 }
 
-const AchievementLinkField: React.FC<Props> = ({ link }) => {
+/**
+ * Achievement link field
+ * @date 5/3/2023 - 1:27:40 PM
+ *
+ * @export
+ * @param {AchievementLinkFieldProps} {
+  link,
+}
+ * @returns {*}
+ */
+export default function AchievementLinkField({
+  link,
+}: AchievementLinkFieldProps) {
   const { t } = useTranslation();
   const authUser = useSelector((state) => state.user.get);
   const current = useSelector(
@@ -36,4 +55,4 @@ const AchievementLinkField: React.FC<Props> = ({ link }) => {
       </div>
     </div>
   );
-};
+}

@@ -1,6 +1,13 @@
 import React from "react";
 
-interface Props {
+/**
+ * AchievementViewItem component props
+ * @date 5/3/2023 - 1:26:47 PM
+ *
+ * @interface AchievementViewItemProps
+ * @typedef {AchievementViewItemProps}
+ */
+interface AchievementViewItemProps {
   name?: string;
   columns?: number;
   mobileBlock?: boolean;
@@ -8,13 +15,27 @@ interface Props {
   children?: React.ReactNode;
 }
 
+/**
+ * AchievementViewItem component
+ * @date 5/3/2023 - 1:27:03 PM
+ *
+ * @export
+ * @param {AchievementViewItemProps} {
+  name,
+  columns = 3,
+  mobileBlock = false,
+  itemsStart = false,
+  children,
+}
+ * @returns {*}
+ */
 export default function AchievementViewItem({
   name,
   columns = 3,
   mobileBlock = false,
   itemsStart = false,
   children,
-}: Props) {
+}: AchievementViewItemProps) {
   const gridClasses = !mobileBlock
     ? [`grid`, `grid-cols-${columns}`]
     : [
