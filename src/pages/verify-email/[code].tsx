@@ -43,40 +43,24 @@ export default function EmailVerification(): ReactElement {
   return (
     <div className="flex items-center justify-center absolute min-h-screen top-0 w-full">
       <Head>
-        <title>
-          {getMetadataTitle(
-            verified
-              ? t("email-verification.success.title")
-              : t("email-verification.processing")
-          )}
-        </title>
+        <title>{getMetadataTitle(verified ? t("email-verification.success.title") : t("email-verification.processing"))}</title>
       </Head>
       <div className="relative p-6 text-center">
         {!verified ? (
           <>
             <Loader />
-            <p className="mt-5">
-              {t("email-verification.processing")}
-            </p>
+            <p className="mt-5">{t("email-verification.processing")}</p>
           </>
         ) : (
           <>
             <div>
-              <h1 className="text-3xl font-medium mb-7">
-                {t("email-verification.success.title")}
-              </h1>
-              <p className="text-lg">
-                {t("email-verification.success.subtitle")}
-              </p>
-              <p className="text-lg">
-                {t("email-verification.success.message")}
-              </p>
+              <h1 className="text-3xl font-medium mb-7">{t("email-verification.success.title")}</h1>
+              <p className="text-lg">{t("email-verification.success.subtitle")}</p>
+              <p className="text-lg">{t("email-verification.success.message")}</p>
             </div>
 
             <div className="text-center pt-8">
-              <ArrowButton onClick={goHome}>
-                {t("email-verification.success.button")}
-              </ArrowButton>
+              <ArrowButton onClick={goHome}>{t("email-verification.success.button")}</ArrowButton>
             </div>
           </>
         )}
@@ -96,5 +80,4 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) =>
-  i18Translate(locale as string);
+export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);

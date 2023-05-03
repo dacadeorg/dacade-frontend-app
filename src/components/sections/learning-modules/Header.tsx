@@ -21,7 +21,7 @@ export default function LearningModuleHeader(): ReactElement {
   return (
     <div>
       <Header
-        hideTitleOnMobile={true}
+        hideTitleOnMobile
         title={course?.name}
         subtitle={learningModule?.title}
         description={learningModule?.description}
@@ -29,7 +29,7 @@ export default function LearningModuleHeader(): ReactElement {
       <Section
         title={`${t("communities.overview.objective.title")}`}
         subtitle={`${t("communities.chapter.objective.subtitle")}`}
-        hideSubtitleOnMobile={true}
+        hideSubtitleOnMobile
       >
         <ObjectiveList objectives={learningModule?.objectives} />
       </Section>
