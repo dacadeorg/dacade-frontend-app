@@ -41,30 +41,47 @@ const learningModulesSlice = createSlice({
   },
 });
 
-export const findLearningModule = createAsyncThunk("learningModules/find", async (id: string) => {
-  const { data } = await api().server.get<LearningModule>(`learning-modules/${id}`);
-  return data;
-});
+export const findLearningModule = createAsyncThunk(
+  "learningModules/find",
+  async (id: string) => {
+    const { data } = await api().server.get<LearningModule>(
+      `learning-modules/${id}`
+    );
+    return data;
+  }
+);
 
-export const getAllLearningModules = createAsyncThunk("learningModules/all", async (slug: string) => {
-  const { data } = await api().server.get<LearningModule[]>(`courses/${slug}/learning-modules`);
-  return data;
-});
+export const getAllLearningModules = createAsyncThunk(
+  "learningModules/all",
+  async (slug: string) => {
+    const { data } = await api().server.get<LearningModule[]>(
+      `courses/${slug}/learning-modules`
+    );
+    return data;
+  }
+);
 
-export const submitModuleAnswer = createAsyncThunk("learningModules/submitAnswer", async ({ ref, course }: { ref: string; course: string }) => {
-  await api().server.put("interactive-modules/answer", {
-    module: ref,
-    course,
-    score: 100,
-  });
-});
+export const submitModuleAnswer = createAsyncThunk(
+  "learningModules/submitAnswer",
+  async ({ ref, course }: { ref: string; course: string }) => {
+    await api().server.put("interactive-modules/answer", {
+      module: ref,
+      course,
+      score: 100,
+    });
+  }
+);
 
 export const checkAnswer = async (ref: string) => {
-  const { data } = await api().server.post<any[]>("interactive-modules/check-answer", {
-    module: ref,
-  });
+  const { data } = await api().server.post<any[]>(
+    "interactive-modules/check-answer",
+    {
+      module: ref,
+    }
+  );
   return data;
 };
 
-export const { setCurrentLearningModule, setLearningModuleList } = learningModulesSlice.actions;
+export const { setCurrentLearningModule, setLearningModuleList } =
+  learningModulesSlice.actions;
 export default learningModulesSlice;

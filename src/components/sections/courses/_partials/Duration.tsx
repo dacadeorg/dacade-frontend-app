@@ -25,7 +25,10 @@ interface DurationProps {
 }
  * @returns {ReactElement}
  */
-export default function Duration({ text, value }: DurationProps): ReactElement {
+export default function Duration({
+  text,
+  value,
+}: DurationProps): ReactElement {
   const colors = useSelector((state) => state.ui.colors);
   const duration = value ? DateManager.humanize(value, "en") : 0;
 
@@ -33,7 +36,8 @@ export default function Duration({ text, value }: DurationProps): ReactElement {
     <div>
       {duration && (
         <span className="text-sm text-gray-500">
-          <span style={{ color: colors.textAccent }}>{duration}</span> {text}
+          <span style={{ color: colors.textAccent }}>{duration}</span>{" "}
+          {text}
         </span>
       )}
     </div>

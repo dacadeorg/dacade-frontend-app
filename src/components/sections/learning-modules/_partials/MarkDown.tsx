@@ -1,4 +1,10 @@
-import { CSSProperties, ReactElement, useCallback, useEffect, useState } from "react";
+import {
+  CSSProperties,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import remarkGfm from "remark-gfm";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
@@ -28,7 +34,9 @@ interface MarkDownProps {
  * @param {MarkDownProps} { url }
  * @returns {ReactElement}
  */
-export default function Markdown({ url }: MarkDownProps): ReactElement {
+export default function Markdown({
+  url,
+}: MarkDownProps): ReactElement {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
@@ -42,14 +50,20 @@ export default function Markdown({ url }: MarkDownProps): ReactElement {
   const fetchData = useCallback(async () => {
     try {
       setLoading(true);
-      const responseText = await fetch(url).then((response) => response.text());
+      const responseText = await fetch(url).then((response) =>
+        response.text()
+      );
 
       setContent(responseText);
     } catch (error: unknown) {
       if (error instanceof Error) {
-        setContent(`<span style="color: red;">Error: ${error.message}</span>`);
+        setContent(
+          `<span style="color: red;">Error: ${error.message}</span>`
+        );
       } else {
-        setContent(`<span style="color: red;">An unknown error occurred</span>`);
+        setContent(
+          `<span style="color: red;">An unknown error occurred</span>`
+        );
       }
     } finally {
       setLoading(false);
@@ -64,12 +78,19 @@ export default function Markdown({ url }: MarkDownProps): ReactElement {
     fetchData();
   }, [fetchData]);
 
-  if (loading) return <Loader communityStyles={true} className="py-32" />;
+  if (loading)
+    return <Loader communityStyles={true} className="py-32" />;
   return (
     <div>
       {content && (
-        <div style={{ ...(themeStyles as CSSProperties) }} className="prose">
-          <ReactMarkdown rehypePlugins={[rehypeExternalLinks, rehypeSlug]} remarkPlugins={[remarkGfm]}>
+        <div
+          style={{ ...(themeStyles as CSSProperties) }}
+          className="prose"
+        >
+          <ReactMarkdown
+            rehypePlugins={[rehypeExternalLinks, rehypeSlug]}
+            remarkPlugins={[remarkGfm]}
+          >
             {content}
           </ReactMarkdown>
         </div>

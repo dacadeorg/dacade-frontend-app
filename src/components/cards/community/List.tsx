@@ -30,7 +30,9 @@ interface CommunityListCardProps {
 }
  * @returns {ReactElement}
  */
-export default function CommunityListCard({ community }: CommunityListCardProps): ReactElement {
+export default function CommunityListCard({
+  community,
+}: CommunityListCardProps): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
   const path = `/communities/${community.slug}`;
@@ -40,18 +42,27 @@ export default function CommunityListCard({ community }: CommunityListCardProps)
     amount: accumulator.amount + reward.amount,
   }));
 
-  const duration = DateManager.millisecondsToMinutes(community.duration);
+  const duration = DateManager.millisecondsToMinutes(
+    community.duration
+  );
 
-  const reward = community.rewards.find((reward) => reward.type === "SUBMISSION");
+  const reward = community.rewards.find(
+    (reward) => reward.type === "SUBMISSION"
+  );
 
   return (
     <ThemeWrapper className="w-full" colors={community.colors}>
-      <div onClick={() => router.push(path)} className="cursor-pointer">
+      <div
+        onClick={() => router.push(path)}
+        className="cursor-pointer"
+      >
         <div className="group w-full bg-gray-200 lg:flex min-w-full mx-0 rounded-3xl relative">
           <ListIcon community={community} />
           <div className="flex-col justify-between flex p-3 md:p-7 text-gray-700 flex-1 divide-y divide-dotted divide-gray-500">
             <div className="min-w-full">
-              <div className="xl:pr-52 w-full text-base md:text-lg pb-10">{community.summary}</div>
+              <div className="xl:pr-52 w-full text-base md:text-lg pb-10">
+                {community.summary}
+              </div>
             </div>
             <div className="space-y-5">
               <div className="md:flex flex-row justify-between">
@@ -61,10 +72,18 @@ export default function CommunityListCard({ community }: CommunityListCardProps)
                       <Coin token={reward?.token} size="normal" />
                       <div className="flex flex-col text-sm leading-tight pt-1">
                         <div className="font-normal leading-tight">
-                          {t("communities.list-card.earn")} <span className="font-bold">{reward?.token}</span>
+                          {t("communities.list-card.earn")}{" "}
+                          <span className="font-bold">
+                            {reward?.token}
+                          </span>
                         </div>
                         <div className="font-light leading-tight">
-                          {t(community.courses !== 1 ? "communities.card.courses" : "communities.card.course", { count: community.courses })}
+                          {t(
+                            community.courses !== 1
+                              ? "communities.card.courses"
+                              : "communities.card.course",
+                            { count: community.courses }
+                          )}
                         </div>
                       </div>
                     </div>

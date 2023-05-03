@@ -12,10 +12,13 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
  * @returns {ReactElement}
  */
 export default function Page404(): ReactElement {
-  return <Error error={{ statusCode: 404, message: "Page not found" }} />;
+  return (
+    <Error error={{ statusCode: 404, message: "Page not found" }} />
+  );
 }
 
 Page404.getLayout = function (page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
-export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);
+export const getStaticProps: GetStaticProps = async ({ locale }) =>
+  i18Translate(locale as string);

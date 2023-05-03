@@ -29,7 +29,8 @@ export default function LanguageSelector(): ReactElement {
   const course = useSelector((state) => state.courses.current);
   const selected = useMemo(() => i18n.language, [i18n.language]);
   const [locales, setLocales] = useState<Locale[]>([]);
-  const show = process.env.NEXT_PUBLIC_SHOW_LANGUAGE_SELECTOR === "true";
+  const show =
+    process.env.NEXT_PUBLIC_SHOW_LANGUAGE_SELECTOR === "true";
 
   /**
    * Setup the available course languages
@@ -63,7 +64,9 @@ export default function LanguageSelector(): ReactElement {
    *
    * @param {React.ChangeEvent<HTMLSelectElement>} event
    */
-  const handleLocaleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleLocaleChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const locale = event.target.value;
     if (locale !== selected) {
       router.push(router.asPath, router.asPath, { locale: locale });
@@ -73,11 +76,21 @@ export default function LanguageSelector(): ReactElement {
   if (locales.length > 1 && show)
     return (
       <div className="message-rectangle flex flex-col divide-y divide-solid divide-yellow-100">
-        <div className="pb-4">{t("communities.navigation.language.text")}</div>
+        <div className="pb-4">
+          {t("communities.navigation.language.text")}
+        </div>
         <div>
-          <select value={course?.locale} onChange={handleLocaleChange} className="translation outline-none focus:outline-none">
+          <select
+            value={course?.locale}
+            onChange={handleLocaleChange}
+            className="translation outline-none focus:outline-none"
+          >
             {locales.map((locale) => (
-              <option selected={i18n.language === locale.code} key={locale.id} value={locale.code}>
+              <option
+                selected={i18n.language === locale.code}
+                key={locale.id}
+                value={locale.code}
+              >
                 {locale.name}
               </option>
             ))}

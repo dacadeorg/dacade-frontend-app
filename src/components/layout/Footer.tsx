@@ -65,7 +65,9 @@ const partners = [
 }
  * @returns {ReactElement}
  */
-export default function Footer({ backgroundColor }: FooterProps): ReactElement {
+export default function Footer({
+  backgroundColor,
+}: FooterProps): ReactElement {
   const { t } = useTranslation();
 
   const getFooterTheme = useCallback(() => {
@@ -88,10 +90,19 @@ export default function Footer({ backgroundColor }: FooterProps): ReactElement {
     <Section padding="pt-20" type={getFooterTheme()}>
       <div className="py-8 text-base text-center text-gray-400 border-t border-gray-200 border-t-solid lg:flex md:flex lg:text-left">
         <div className="w-full border-b border-gray-200 lg:w-1/2 lg:border-none md:border-none border-b-solid">
-          <p className="block text-with-links" dangerouslySetInnerHTML={{ __html: t("footer.text") }} />
+          <p
+            className="block text-with-links"
+            dangerouslySetInnerHTML={{ __html: t("footer.text") }}
+          />
           <div className="flex items-center justify-center mt-8 mb-12 lg:mb-0 lg:justify-start space-x-9">
             {partners.map((partner) => (
-              <Link key={partner.name} href={partner.url} title={partner.name} target="__blank" className="inline-block">
+              <Link
+                key={partner.name}
+                href={partner.url}
+                title={partner.name}
+                target="__blank"
+                className="inline-block"
+              >
                 <partner.logo />
               </Link>
             ))}

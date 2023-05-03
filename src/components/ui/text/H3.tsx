@@ -21,7 +21,13 @@ interface H3Props {
  * @param {H3Props} { bold = true, children }
  * @returns {ReactElement}
  */
-export default function H3({ bold = true, children }: H3Props): ReactElement {
-  const h3ClassName = classNames("leading-normal text-default capitalize text-xl md:text-.5xl", { "font-medium": bold, "font-normal": !bold });
+export default function H3({
+  bold = true,
+  children,
+}: H3Props): ReactElement {
+  const h3ClassName = classNames(
+    "leading-normal text-default capitalize text-xl md:text-.5xl",
+    { "font-medium": bold, "font-normal": !bold }
+  );
   return <h3 className={h3ClassName}>{children}</h3>;
 }

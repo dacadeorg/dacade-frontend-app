@@ -10,7 +10,11 @@ import DiscordButtonIcon from "@/icons/discordButton.svg";
  */
 export default function DiscordButton(): ReactElement {
   return (
-    <a className="fixed bottom-5 right-5 z-999 md:w-16 w-14 cursor-pointer" href="https://discord.gg/eHYZr9dzan" target="_blank">
+    <a
+      className="fixed bottom-5 right-5 z-999 md:w-16 w-14 cursor-pointer"
+      href="https://discord.gg/eHYZr9dzan"
+      target="_blank"
+    >
       <DiscordButtonIcon />
     </a>
   );

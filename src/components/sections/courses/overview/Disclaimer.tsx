@@ -21,8 +21,12 @@ export default function Disclaimer(): ReactElement {
       {course && course.disclaimer ? (
         <Section>
           <Hint>
-            <strong>{t("communities.overview.info.disclaimer.title")}:</strong>
-            <span dangerouslySetInnerHTML={{ __html: course.disclaimer }} />
+            <strong>
+              {t("communities.overview.info.disclaimer.title")}:
+            </strong>
+            <span
+              dangerouslySetInnerHTML={{ __html: course.disclaimer }}
+            />
           </Hint>
         </Section>
       ) : (

@@ -10,9 +10,15 @@ import { Community } from "@/types/community";
 import { wrapper } from "@/store";
 import { Course, LearningModule } from "@/types/course";
 import { setCurrentCourse } from "@/store/feature/course.slice";
-import { findLearningModule, setCurrentLearningModule } from "@/store/feature/learningModules.slice";
+import {
+  findLearningModule,
+  setCurrentLearningModule,
+} from "@/store/feature/learningModules.slice";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
-import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
+import {
+  getMetadataDescription,
+  getMetadataTitle,
+} from "@/utilities/Metadata";
 import MaterialSection from "@/components/sections/learning-modules/MaterialSection";
 import DefaultLayout from "@/components/layout/Default";
 import Header from "@/components/sections/learning-modules/Header";
@@ -44,7 +50,9 @@ interface LearningModulePageProps {
  * @param {LearningModulePageProps} props
  * @returns
  */
-export default function LearningModulePage(props: LearningModulePageProps) {
+export default function LearningModulePage(
+  props: LearningModulePageProps
+) {
   const { community, course, learningModule } = props.pageProps;
   const dispatch = useDispatch();
 
@@ -56,13 +64,30 @@ export default function LearningModulePage(props: LearningModulePageProps) {
     initNavigationMenu()(dispatch);
   }, [community, course, dispatch, learningModule]);
 
-  const materials = useMemo(() => learningModule?.materials?.filter((material) => material.type !== "ADDITIONAL") || [], [learningModule?.materials]);
-  const additionalMaterials = useMemo(() => learningModule?.materials?.filter((material) => material.type === "ADDITIONAL") || [], [learningModule?.materials]);
+  const materials = useMemo(
+    () =>
+      learningModule?.materials?.filter(
+        (material) => material.type !== "ADDITIONAL"
+      ) || [],
+    [learningModule?.materials]
+  );
+  const additionalMaterials = useMemo(
+    () =>
+      learningModule?.materials?.filter(
+        (material) => material.type === "ADDITIONAL"
+      ) || [],
+    [learningModule?.materials]
+  );
 
   const interactiveModules = learningModule?.interactiveModules || [];
 
-  const title = getMetadataTitle(learningModule?.title!, course?.name!);
-  const descriptions = getMetadataDescription(learningModule?.description!);
+  const title = getMetadataTitle(
+    learningModule?.title!,
+    course?.name!
+  );
+  const descriptions = getMetadataDescription(
+    learningModule?.description!
+  );
 
   return (
     <>
@@ -77,10 +102,17 @@ export default function LearningModulePage(props: LearningModulePageProps) {
           <Header />
           <div className="w-full divide-y divide-solid divide-gray-200">
             {materials.map((material, i) => (
-              <MaterialSection key={`material-section-${i}`} material={material} />
+              <MaterialSection
+                key={`material-section-${i}`}
+                material={material}
+              />
             ))}
-            <AdditionalMaterialsSection materials={additionalMaterials} />
-            {interactiveModules.length > 0 && <InteractiveModule data={interactiveModules[0]} />}
+            <AdditionalMaterialsSection
+              materials={additionalMaterials}
+            />
+            {interactiveModules.length > 0 && (
+              <InteractiveModule data={interactiveModules[0]} />
+            )}
             <PageNavigation />
           </div>
         </div>
@@ -90,44 +122,56 @@ export default function LearningModulePage(props: LearningModulePageProps) {
 }
 
 LearningModulePage.getLayout = function (page: ReactElement) {
-  return <DefaultLayout footerBackgroundColor={"default"}>{page}</DefaultLayout>;
+  return (
+    <DefaultLayout footerBackgroundColor={"default"}>
+      {page}
+    </DefaultLayout>
+  );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async (data) => {
-  const { query } = data;
-  const slug = query.slug as string;
-  const courseSlug = query.course_slug as string;
-  const learningModuleId = query.id as string;
-  const locale = data.locale as string;
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (data) => {
+    const { query } = data;
+    const slug = query.slug as string;
+    const courseSlug = query.course_slug as string;
+    const learningModuleId = query.id as string;
+    const locale = data.locale as string;
 
-  const getCurrentCommunty = store.dispatch(
-    fetchCurrentCommunity({
-      slug: slug,
-      locale,
-    })
-  );
+    const getCurrentCommunty = store.dispatch(
+      fetchCurrentCommunity({
+        slug: slug,
+        locale,
+      })
+    );
 
-  const getCurrentCourse = store.dispatch(
-    fetchCourse({
-      slug: courseSlug,
-      locale,
-    })
-  );
+    const getCurrentCourse = store.dispatch(
+      fetchCourse({
+        slug: courseSlug,
+        locale,
+      })
+    );
 
-  const getLearningModule = store.dispatch(findLearningModule(learningModuleId));
+    const getLearningModule = store.dispatch(
+      findLearningModule(learningModuleId)
+    );
 
-  const results = await Promise.all([getCurrentCommunty, getCurrentCourse, getLearningModule]);
+    const results = await Promise.all([
+      getCurrentCommunty,
+      getCurrentCourse,
+      getLearningModule,
+    ]);
 
-  const community = results[0].data;
-  const course = results[1].data;
-  const learningModule = results[2].payload;
+    const community = results[0].data;
+    const course = results[1].data;
+    const learningModule = results[2].payload;
 
-  return {
-    props: {
-      ...(await serverSideTranslations(locale)),
-      community,
-      course,
-      learningModule,
-    },
-  };
-});
+    return {
+      props: {
+        ...(await serverSideTranslations(locale)),
+        community,
+        course,
+        learningModule,
+      },
+    };
+  }
+);

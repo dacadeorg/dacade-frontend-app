@@ -47,7 +47,11 @@ const challengeSlice = createSlice({
   },
 });
 
-export const { setCurrentChallenge, setChallengesList, setChallengeSubmission } = challengeSlice.actions;
+export const {
+  setCurrentChallenge,
+  setChallengesList,
+  setChallengeSubmission,
+} = challengeSlice.actions;
 
 /**
  * Fetch challenge async action
@@ -55,10 +59,13 @@ export const { setCurrentChallenge, setChallengesList, setChallengeSubmission } 
  *
  * @type {*}
  */
-export const fetchChallenge = createAsyncThunk("challenges/find", async ({ id }: { id: string }) => {
-  const { data } = await api().server.get(`challenges/${id}`);
-  return data;
-});
+export const fetchChallenge = createAsyncThunk(
+  "challenges/find",
+  async ({ id }: { id: string }) => {
+    const { data } = await api().server.get(`challenges/${id}`);
+    return data;
+  }
+);
 
 /**
  * fetch all challenges async action
@@ -66,9 +73,14 @@ export const fetchChallenge = createAsyncThunk("challenges/find", async ({ id }:
  *
  * @type {*}
  */
-export const fetchAllChallenges = createAsyncThunk("challenges/all", async ({ slug }: { slug: string }) => {
-  const { data } = await api().server.get(`/communities/${slug}/challenges`);
-  return data;
-});
+export const fetchAllChallenges = createAsyncThunk(
+  "challenges/all",
+  async ({ slug }: { slug: string }) => {
+    const { data } = await api().server.get(
+      `/communities/${slug}/challenges`
+    );
+    return data;
+  }
+);
 
 export default challengeSlice;

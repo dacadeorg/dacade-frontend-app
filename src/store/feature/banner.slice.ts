@@ -1,4 +1,8 @@
-import { createSlice, configureStore, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  configureStore,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 
 // Define initial state
 interface AppState {
@@ -21,7 +25,8 @@ export const bannerSlice = createSlice({
 });
 
 // Define selectors
-export const getShowCookiePolicy = (state: AppState) => state.showCookiePolicy;
+export const getShowCookiePolicy = (state: AppState) =>
+  state.showCookiePolicy;
 
 // Define thunks
 export const checkCookiePolicy = () => {
@@ -33,7 +38,9 @@ export const checkCookiePolicy = () => {
 };
 
 export const acceptCookiePolicy = () => {
-  document.cookie = `privacy-policy-banner=true; path=/; max-age=${60 * 60 * 24 * 365}`;
+  document.cookie = `privacy-policy-banner=true; path=/; max-age=${
+    60 * 60 * 24 * 365
+  }`;
 
   return bannerSlice.actions.setCookiePolicyVisibility(false);
 };

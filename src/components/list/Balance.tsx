@@ -17,7 +17,9 @@ export default function BalanceList(): ReactElement {
 
   return (
     <div className="text-left">
-      <span className="uppercase block text-xs font-semibold text-gray-500 leading-relaxed">{t("nav.balance")}</span>
+      <span className="uppercase block text-xs font-semibold text-gray-500 leading-relaxed">
+        {t("nav.balance")}
+      </span>
       <div className="space-y-4 mt-2">
         {wallets.map((wallet: Wallet) => (
           <BalanceCard key={wallet.id} details={wallet} />

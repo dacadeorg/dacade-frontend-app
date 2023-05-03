@@ -13,13 +13,24 @@ import { ReactElement } from "react";
  */
 export default function LearningModuleHeader(): ReactElement {
   const course = useSelector((state) => state.courses.current);
-  const learningModule = useSelector((state) => state.learningModules.current);
+  const learningModule = useSelector(
+    (state) => state.learningModules.current
+  );
   const { t } = useTranslation();
 
   return (
     <div>
-      <Header hideTitleOnMobile title={course?.name} subtitle={learningModule?.title} description={learningModule?.description} />
-      <Section title={`${t("communities.overview.objective.title")}`} subtitle={`${t("communities.chapter.objective.subtitle")}`} hideSubtitleOnMobile>
+      <Header
+        hideTitleOnMobile
+        title={course?.name}
+        subtitle={learningModule?.title}
+        description={learningModule?.description}
+      />
+      <Section
+        title={`${t("communities.overview.objective.title")}`}
+        subtitle={`${t("communities.chapter.objective.subtitle")}`}
+        hideSubtitleOnMobile
+      >
         <ObjectiveList objectives={learningModule?.objectives} />
       </Section>
     </div>

@@ -53,8 +53,16 @@ export default function Error({ error }: ErrorPageProps) {
       <div className="flex items-center justify-center absolute min-h-screen top-0 w-full">
         <div className="relative p-6 text-center">
           <h1 className="text-3xl font-medium mb-6">{title}</h1>
-          <p className={`text-lg ${!showRefresh() ? "mb-6" : "mb-2"}`}>{message}</p>
-          {showRefresh() && <p className="text-lg mb-6">{t("error.page.button.refresh")}</p>}
+          <p
+            className={`text-lg ${!showRefresh() ? "mb-6" : "mb-2"}`}
+          >
+            {message}
+          </p>
+          {showRefresh() && (
+            <p className="text-lg mb-6">
+              {t("error.page.button.refresh")}
+            </p>
+          )}
           <div className="text-center">
             <ArrowButton padding={true} link="/" target="_self">
               {t("error.page.button.home")}
