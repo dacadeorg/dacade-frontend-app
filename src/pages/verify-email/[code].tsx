@@ -21,20 +21,24 @@ export default function EmailVerification(): ReactElement {
   const { t } = useTranslation();
   const [verified, setVerified] = useState(true);
   const router = useRouter();
+  const { locale } = useRouter();
 
   useEffect(() => {
     const verify = async () => {
       const code = router.query.code as string;
       if (!code) return;
       try {
-        await verifyEmail({ payload: code });
+        await verifyEmail({
+          locale: locale as string,
+          payload: { code },
+        });
         setVerified(true);
       } catch (error) {
         console.error(error);
       }
     };
     verify();
-  }, [router.query.code]);
+  }, [locale, router.query.code]);
 
   const goHome = () => {
     router.push("/login");
