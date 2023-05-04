@@ -3,11 +3,11 @@ import Badge from "@/components/ui/Badge";
 import Avatar from "@/components/ui/Avatar";
 import Reward from "@/components/badges/RewardBadge";
 import Link from "next/link";
-import navigation from "@/config/navigation";
 import { Bounty, RewardType } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import { useRouter } from "next/router";
+import useNavigation from "@/hooks/useNavigation";
 
 /**
  * Bounty card component props
@@ -68,6 +68,7 @@ export default function Bounty({
 
   const Component = isExternalLink() ? "a" : Link;
 
+  const navigation = useNavigation();
   return (
     <div className="cursor-pointer flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative">
       <div className="bg-theme-accent flex-col w-full h-full justify-between md:-space-y-1 pl-3 pr-5 mt-7 mb-5">

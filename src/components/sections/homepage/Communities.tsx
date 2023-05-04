@@ -27,7 +27,7 @@ export default function CommunitiesSection({
   const { t } = useTranslation();
 
   return (
-    <Section type="default"  padding="pt-20 lg:pb-24 md:pb-24">
+    <Section type="default" padding="pt-20 lg:pb-24 md:pb-24">
       <div id="communities" className="md:flex relative items-end">
         <div className="pr-5">
           <p className="uppercase font-semibold leading-none text-base">
