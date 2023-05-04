@@ -46,7 +46,7 @@ export default function Navbar({
   }, [settings?.colors.primary, settings?.colors.text]);
 
   const buttonStyle = useMemo(() => {
-    if (!settings || !settings?.colors) {
+    if (!settings?.colors) {
       return {};
     }
     return {
