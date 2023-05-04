@@ -41,7 +41,7 @@ export default function Notification(): ReactElement {
           role="alert"
         >
           <span className="block sm:inline">
-            {t(error.response?.data.message || error?.code)}
+            {t(error.response?.data?.message || error?.code)}
           </span>
         </div>
       )}
