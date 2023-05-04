@@ -76,8 +76,6 @@ export interface Submission {
   user: User;
   reviewable: boolean;
   status: string;
-  rewards?: Reward[],
-  evaluation?: any
 }
 
 export interface SubmissionMetadata {
@@ -117,6 +115,10 @@ export interface User {
   avatar?: string;
   metadata?: UserMetadata;
   discordConnected?: boolean;
+  isKycVerified?: boolean;
+  discord?: {
+    connected?: boolean;
+  };
 }
 
 export interface UserMetadata {
