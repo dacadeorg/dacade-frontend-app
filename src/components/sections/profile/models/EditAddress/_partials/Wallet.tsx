@@ -3,7 +3,7 @@ import ArrowRightIcon from "@/icons/arrow-right.svg";
 import { CSSProperties, ReactElement, ReactNode } from "react";
 import { useRouter } from "next/router";
 import classNames from "classnames";
-import { ButtonProps } from "@/types/button";
+import { ButtonProps } from "@/components/ui/button";
 
 /**
  * Component props type.
@@ -68,7 +68,7 @@ export default function WalletButton({
   ...props
 }: WalletButtonProps): ReactElement {
   const router = useRouter();
-  const wallatClassname = classNames(
+  const wallatClassName = classNames(
     `py-5.5 pl-5 pr-3.5 w-full rounded-none text-gray-400 bg-transparent z-999 hover:bg-gray-100 hover:text-gray-800 ${margin}`,
     {
       "rounded-full": rounded,
@@ -80,15 +80,11 @@ export default function WalletButton({
     <button
       {...props}
       disabled={disabled}
-      className={wallatClassname}
+      className={wallatClassName}
       style={customStyle as CSSProperties}
       type={type}
       onClick={(event) => {
-        if (!link) {
-          onClick?.(event);
-        } else {
-          router.push(link);
-        }
+        !link ? onClick?.(event) : router.push(link);
       }}
     >
       <span className="flex h-full text-left items-center justify-between">
