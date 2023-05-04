@@ -24,7 +24,6 @@ import learningModulesSlice from "./feature/learningModules.slice";
 import { navigationSlice } from "./feature/communities/navigation.slice";
 import { submissionsSlice } from "./feature/communities/challenges/submissions";
 import communitySlice from "./feature/community.slice";
-import { certificatesProfile as certificateSlice } from "./feature/certificates.slice";
 import { challengeSlice } from "./feature/communities/challenges";
 import { feedbackSlice } from "./feature/communities/challenges/submissions/feedback.slice";
 
@@ -56,7 +55,6 @@ export interface IRootState {
   courses: ReturnType<typeof courseSlice.reducer>;
   feedback: ReturnType<typeof feedbackSlice.reducer>;
   learningModules: ReturnType<typeof learningModulesSlice.reducer>;
-  certificates: ReturnType<typeof certificateSlice.reducer>;
 }
 
 export const store = configureStore({
@@ -78,7 +76,6 @@ export const store = configureStore({
     [eventsSlice.name]: eventsSlice.reducer,
     [communitySlice.name]: communitySlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
-    [certificateSlice.name]: certificateSlice.reducer,
     [feedbackSlice.name]: feedbackSlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
     [communityService.reducerPath]: communityService.reducer,
