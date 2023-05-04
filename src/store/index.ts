@@ -27,7 +27,6 @@ import communitySlice from "./feature/community.slice";
 import { challengeSlice } from "./feature/communities/challenges";
 import { feedbackSlice } from "./feature/communities/challenges/submissions/feedback.slice";
 
-
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
   community: ReturnType<typeof communitySlice.reducer>;
@@ -78,6 +77,7 @@ export const store = configureStore({
     [communitySlice.name]: communitySlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
     [feedbackSlice.name]: feedbackSlice.reducer,
+    [challengeSlice.name]: challengeSlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
     [communityService.reducerPath]: communityService.reducer,
     [coursesService.reducerPath]: coursesService.reducer,

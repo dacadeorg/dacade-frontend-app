@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import Header from "@/components/sections/challenges/Header";
 import RatingRubric from "@/components/sections/challenges/Rubric";
@@ -56,22 +56,28 @@ export default function ChallengePage(props: {
   const dispatch = useDispatch();
   const route = useRouter();
   const { t } = useTranslation();
-  const course = useSelector((state) => state.courses.current);
-  const title = getMetadataTitle(
-    t("communities.challenge.title"),
-    course?.name as string
+  const { course, submission, isAuthenticated } = useSelector(
+    (state) => ({
+      course: state.courses.current,
+      submission: state.submissions.current,
+      isAuthenticated: authCheck(state),
+    })
+  );
+
+  const title = useMemo(
+    () =>
+      getMetadataTitle(
+        t("communities.challenge.title"),
+        course?.name as string
+      ),
+    [course?.name, t]
   );
 
   useEffect(() => {
     dispatch(setColors(community?.colors as Colors));
     dispatch(setCurrentCommunity(community as Community));
-    dispatch(setColors(community?.colors as Colors));
     dispatch(setCurrentChallenge(challenge));
-  }, [dispatch, route, community, challenge]);
-  const submission = useSelector(
-    (state) => state.challenges.submission
-  );
-  const isAuthenticated = useSelector((state) => authCheck(state));
+  }, [challenge, community, dispatch]);
 
   return (
     <>

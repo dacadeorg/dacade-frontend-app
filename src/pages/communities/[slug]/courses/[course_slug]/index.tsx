@@ -94,8 +94,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const community = results[0].data;
     const course = results[1].data;
 
-    console.log({ community, course });
-
     if (course) {
       return {
         props: {
