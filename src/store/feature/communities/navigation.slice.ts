@@ -4,7 +4,6 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { NextRouter } from "next/router";
-import navigation from "@/config/navigation";
 import { store } from "@/store";
 import { Course } from "@/types/course";
 import { Community } from "@/types/community";
@@ -104,15 +103,17 @@ export const learningModulePath = (
  *
  * @returns {(dispatch: any) => void}
  */
-export const initNavigationMenu = () => (dispatch: Dispatch) => {
-  const course = store.getState().courses.current as Course;
-  const community = store.getState().communities.current as Community;
-  const menus: List[] = navigation.community.init({
-    course,
-    community,
-  });
-  dispatch(setNavigationList(menus));
-};
+export const initNavigationMenu =
+  (navigation: any) => (dispatch: Dispatch) => {
+    const course = store.getState().courses.current as Course;
+    const community = store.getState().communities
+      .current as Community;
+    const menus: List[] = navigation.init({
+      course,
+      community,
+    });
+    dispatch(setNavigationList(menus));
+  };
 
 /**
  * Hide navigation action

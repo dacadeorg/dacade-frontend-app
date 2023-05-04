@@ -27,7 +27,7 @@ export default function EmailVerification(): ReactElement {
       const code = router.query.code as string;
       if (!code) return;
       try {
-        await verifyEmail(code);
+        await verifyEmail({ payload: code });
         setVerified(true);
       } catch (error) {
         console.error(error);
