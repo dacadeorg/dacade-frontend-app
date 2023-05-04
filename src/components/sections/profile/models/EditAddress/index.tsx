@@ -11,7 +11,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "next-i18next";
 import { CustomError } from "@/types/error";
-import { updateWallet } from "@/store/services/wallet.service";
+import { updateWallet } from "@/store/services/wallets.service";
 
 /**
  * Inferface for form's inputs values
