@@ -19,7 +19,7 @@ const initialState: LearningModulesState = {
   current: null,
 };
 
-const learningModulesSlice = createSlice({
+export const learningModulesSlice = createSlice({
   name: "learningModules",
   initialState,
   reducers: {

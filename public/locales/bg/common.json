@@ -116,7 +116,7 @@
   "communities.challenge.best-submissions.title": "Best submissions",
   "communities.challenge.best-submissions.description": "Here are two examples of the best submissions to this challenge.",
   "communities.challenge.your-submission": "Your submission",
-  "communities.challenge.rewards.description": "In order to earn {reward} you must get at least {minPoints} out of {maxPoints} Points in this challenge.",
+  "communities.challenge.rewards.description": "In order to earn {{reward}} you must get at least {{minPoints}} out of {{maxPoints}} Points in this challenge.",
   "communities.challenge.submission.placeholder.text": "Enter Submission Text",
   "communities.challenge.submission.placeholder.github": "Enter link to GitHub Repository",
   "communities.challenge.submission.feedback.placeholder.text": "Enter your feedback",

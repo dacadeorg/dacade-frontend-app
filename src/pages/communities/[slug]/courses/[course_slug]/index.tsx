@@ -1,15 +1,11 @@
 import { wrapper } from "@/store";
 import { ReactElement, useEffect } from "react";
 import OverviewSection from "@/components/sections/courses/overview";
-import {
-  fetchCurrentCommunity,
-  setCurrentCommunity,
-} from "@/store/feature/community.slice";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useDispatch } from "react-redux";
 import {
   setCurrentCourse,
-  fetchCourse,
   setCourseNavigation,
 } from "@/store/feature/course.slice";
 import { Community } from "@/types/community";
@@ -24,6 +20,8 @@ import {
 import DefaultLayout from "@/components/layout/Default";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import navigation from "@/config/navigation";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { fetchCourse } from "@/store/services/course.service";
 
 export default function CourseViewPage(props: {
   pageProps: {
@@ -93,8 +91,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
       getCurrentCourse,
     ]);
 
-    const community = results[0].payload;
-    const course = results[1].payload;
+    const community = results[0].data;
+    const course = results[1].data;
+
+    console.log({ community, course });
 
     if (course) {
       return {

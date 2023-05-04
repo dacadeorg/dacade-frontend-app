@@ -13,8 +13,8 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import classNames from "classnames";
 import Checkbox from "@/components/ui/Checkbox";
-import { singUp } from "@/store/feature/auth.slice";
 import ReferralsList from "@/components/popups/referral/List";
+import { signUp } from "@/store/services/auth.service";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 
 /**
@@ -46,7 +46,7 @@ export default function Signup(): ReactElement {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
-  const { query } = useRouter();
+  const { query, locale } = useRouter();
   const referrer = query.invite;
   const referrals = useSelector((state) => state.referrals.list);
   const { t } = useTranslation();
@@ -68,7 +68,7 @@ export default function Signup(): ReactElement {
     try {
       if (!checkTerms) return;
       setLoading(false);
-      dispatch(singUp(signupData));
+      dispatch(signUp({ locale, payload: { ...signupData } }));
     } catch (error) {
       setLoading(false);
     }

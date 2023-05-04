@@ -3,7 +3,6 @@ import { ReactElement } from "react";
 import Image from "next/image";
 import { Community } from "@/types/community";
 
-
 /**
  * Interface for CommunityCardSmall props
  * @date 3/30/2023 - 1:18:26 PM
