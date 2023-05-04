@@ -56,7 +56,7 @@ export default function EditProfile({
     setLoading(true);
     try {
       const { firstName, lastName } = form;
-      updateUser({ firstName, lastName });
+      await updateUser({ firstName, lastName });
       onClose();
     } catch (error) {
       console.error(error);

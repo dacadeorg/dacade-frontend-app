@@ -76,9 +76,9 @@ export const fetchUser = () =>
  * @param user
  * @returns
  */
-export const updateUser = (user: {
+export const updateUser = async (user: {
   firstName: string;
   lastName: string;
-}) => userService.endpoints.updateUser.initiate(user);
+}) => await userService.endpoints.updateUser.initiate(user);
 
 export default userService;
