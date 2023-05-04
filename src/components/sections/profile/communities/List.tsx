@@ -15,7 +15,7 @@ export default function SubmissionList(): ReactElement {
     community: state.communities.current,
     // TODO: Will be uncommented when the feedback slice in implemented
     //   feedbacks: state.feedback.list,
-    submissions: state.submission.list,
+    submissions: state.submissions.list,
   }));
 
   return (

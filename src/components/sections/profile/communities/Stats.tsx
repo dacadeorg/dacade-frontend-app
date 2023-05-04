@@ -23,7 +23,7 @@ const {community, submissions, reputation} = useSelector((state) => ({
      community :state.communities.current,
      // TODO: Will be uncommented when the feedback slice is implemented
   //    feedbacks :state.communities.feedbacks,
-   submissions : state.submission.list,
+   submissions : state.submissions.list,
    reputation : state.reputations.list
 })
 )

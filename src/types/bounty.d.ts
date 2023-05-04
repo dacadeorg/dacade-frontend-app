@@ -77,6 +77,7 @@ export interface Submission {
   reviewable: boolean;
   status: string;
   reward: Reward;
+  evaluation: any;
 }
 
 export interface SubmissionMetadata {
