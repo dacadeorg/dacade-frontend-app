@@ -47,7 +47,7 @@ export default function Question({
   };
 
   /**
-   * Sanitize html string passed into details.description 
+   * Sanitize html string passed into details.description
    * @date 3/29/2023 - 2:18:59 PM
    *
    * @type {string}

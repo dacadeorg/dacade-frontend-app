@@ -101,17 +101,19 @@ export default function UserCard({
       >
         <div className="pb-4">
           <div className="flex items-center space-x-1.5 pb-1.5 pt-1">
-            <div className="text-lg leading-tight font-medium">
-              <a href={profileURL}>{user.displayName}</a>
+            <div className="text-lg font-medium leading-tight">
+              <Link href={profileURL}>{user.displayName}</Link>
             </div>
-            {user.reputation && (
+            {user.reputation ? (
               <Tag type="light-gray" className="leading-tight">
                 <Currency value={user.reputation} token="REP" />
               </Tag>
+            ) : (
+              <></>
             )}
           </div>
-          <span className="block text-sm leading-snug text-gray-700">
-            {timestamp.text}
+          <span className="block text-sm leading-snug text-gray-700 ">
+            {timestamp.text}{" "}
             <span
               title={date}
               className="font-medium"
@@ -123,9 +125,8 @@ export default function UserCard({
             </span>
           </span>
         </div>
-        {link ? <a href={link}>{children}</a> : <>{children}</>}
+        {link ? <Link href={link}>{children}</Link> : <>{children}</>}
       </div>
-      {children}
     </div>
   );
 }

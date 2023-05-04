@@ -52,7 +52,10 @@ export default function CommunityListCard({
 
   return (
     <ThemeWrapper className="w-full" colors={community.colors}>
-      <div onClick={() => router.push(path)} className="cursor-pointer">
+      <div
+        onClick={() => router.push(path)}
+        className="cursor-pointer"
+      >
         <div className="group w-full bg-gray-200 lg:flex min-w-full mx-0 rounded-3xl relative">
           <ListIcon community={community} />
           <div className="flex-col justify-between flex p-3 md:p-7 text-gray-700 flex-1 divide-y divide-dotted divide-gray-500">

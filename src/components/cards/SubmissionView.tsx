@@ -1,4 +1,3 @@
-// import { useSelector } from 'react-redux';
 import { useSelector } from "@/hooks/useTypedSelector";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useTranslation } from "next-i18next";
@@ -62,6 +61,7 @@ export default function SubmissionViewCard({
     "--button-background-color--hover": colors.accent,
     "--button-border-color--hover": colors.accent,
   };
+
 
   return (
     <UserCard

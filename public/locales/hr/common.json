@@ -116,7 +116,7 @@
   "communities.challenge.best-submissions.title": "Best submissions",
   "communities.challenge.best-submissions.description": "Here are two examples of the best submissions to this challenge.",
   "communities.challenge.your-submission": "Your submission",
-  "communities.challenge.rewards.description": "Da biste zaradili {reward} potrebno je dobiti najmanje {minPoints} od {maxPoints} bodova u ovom izazovu.",
+  "communities.challenge.rewards.description": "Da biste zaradili {{reward}} potrebno je dobiti najmanje {{minPoints}} od {{maxPoints}} bodova u ovom izazovu.",
   "communities.challenge.submission.placeholder.text": "Enter Submission Text",
   "communities.challenge.submission.placeholder.github": "Enter link to GitHub Repository",
   "communities.challenge.submission.feedback.placeholder.text": "Enter your feedback",
