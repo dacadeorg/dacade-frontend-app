@@ -5,6 +5,10 @@ import {
   createSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
+// import {
+//   createApi,
+//   fetchBaseQuery,
+// } from "@reduxjs/toolkit/query/react";
 
 interface ICertificateSlice {
   list: Certificate[];
@@ -79,6 +83,21 @@ export const certificatesProfile = createSlice({
     );
   },
 });
+// Transform the above code into createApi from RTK Query
+// const slice = createApi({
+//   reducerPath: "certificates",
+//   baseQuery: fetchBaseQuery({
+//     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
+//   }),
+//   endpoints: (builder) => ({
+//     fetchAllCertificates: builder.query<Certificate[], string>({
+//       query: (username) => `/certificates/${username}`,
+//     }),
+//     findCertificate: builder.query<Certificate, string>({
+//       query: (id) => `/certificates/${id}`,
+//     }),
+//   }),
+// });
 
 export const { setCurrent, setList, clear, setCurrentMintingStatus } =
   certificatesProfile.actions;
