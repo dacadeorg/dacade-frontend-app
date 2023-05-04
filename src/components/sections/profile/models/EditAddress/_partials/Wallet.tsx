@@ -14,11 +14,10 @@ import { ButtonProps } from "@/components/ui/button";
  */
 
 interface WalletButtonProps extends ButtonProps {
-  className: string;
-  style: CSSProperties;
-  minWidthClass: string;
-  direction: string;
-  arrowClasses: string;
+  style?: CSSProperties;
+  minWidthClass?: string;
+  direction?: string;
+  arrowClasses?: string;
 }
 
 /**
