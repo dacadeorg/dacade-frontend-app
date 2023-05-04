@@ -74,21 +74,17 @@ export default function Navbar({
     <div className="text-gray-900 " style={containerStyle}>
       <div className="content-wrapper lg:py-12 py-6 flex relative">
         <ul className="relative">
-          <NavItem to="/" type="logo">
-            <span>
-              <Logo className="w-8 h-8 md:w-11 md:h-11" />
-            </span>
+          <NavItem to="/" type="logo w-8 h-8 md:w-11 md:h-11">
+            <Logo />
           </NavItem>
-          <NavItem to="/" type="brand">
-            <span className="mx-1 font-black">{t("app.name")}</span>
+          <NavItem to="/" type="brand mx-0.5">
+            {t("app.name")}
           </NavItem>
         </ul>
         {isAuthenticatedAndVerified && (
           <ul className="hidden lg:block relative self-center">
-            <NavItem type="item" to="/bounties">
-              {t("nav.bounties")}
-            </NavItem>
-            <NavItem type="item" to={"/communities"}>
+            <NavItem to="/bounties">{t("nav.bounties")}</NavItem>
+            <NavItem to={"/communities"}>
               {t("nav.communities")}
             </NavItem>
           </ul>
