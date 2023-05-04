@@ -5,6 +5,48 @@ import {
   setReputationList,
 } from "../feature/reputation.slice";
 import { Reputation } from "@/types/bounty";
+import { setReputationList as setProfileReputationList } from "../feature/profile.slice";
+
+const reputationProfileService = createApi({
+  reducerPath: "reputationProfileService",
+  baseQuery: baseQuery(),
+  endpoints: (builder) => ({
+    getProfileReputation: builder.query({
+      query: ({
+        username,
+        locale,
+      }: {
+        username: string;
+        locale?: string;
+      }) => ({
+        url: `/profile/${username}/reputations`,
+        headers: {
+          "accept-language": locale,
+        },
+      }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setProfileReputationList(data));
+        } catch (error) {
+          console.log("error", error);
+        }
+      },
+    }),
+  }),
+});
+
+const fetchProfileReputation = ({
+  locale,
+  username,
+}: {
+  locale?: string;
+  username: string;
+}) =>
+  reputationProfileService.endpoints.getProfileReputation.initiate({
+    username,
+    locale,
+  });
 
 /**
  * Reputation API service
