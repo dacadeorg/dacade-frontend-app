@@ -116,5 +116,9 @@ export const verifyEmail = async ({
   locale,
 }: {
   payload: { code: string };
-  locale: string;
-}) => await authService.endpoints.verifyEmail.initiate(locale);
+  locale?: string;
+}) =>
+  await authService.endpoints.verifyEmail.initiate({
+    locale,
+    payload,
+  });
