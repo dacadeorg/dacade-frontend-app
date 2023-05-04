@@ -1,5 +1,5 @@
 import { referralSlice } from "./feature/referrals.slice";
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 import communities from "./feature/community.slice";
 import ui from "./feature/ui.slice";
@@ -26,7 +26,13 @@ import { submissionsSlice } from "./feature/communities/challenges/submissions";
 import communitySlice from "./feature/community.slice";
 import { challengeSlice } from "./feature/communities/challenges";
 import { feedbackSlice } from "./feature/communities/challenges/submissions/feedback.slice";
+import profileSlice from "./feature/profile.slice";
+import { certificateSlice } from "./feature/certificate.slice";
 
+const profileReducer = combineReducers({
+  certificates: certificateSlice.reducer,
+  ...profileSlice,
+});
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -56,6 +62,7 @@ export interface IRootState {
   courses: ReturnType<typeof courseSlice.reducer>;
   feedback: ReturnType<typeof feedbackSlice.reducer>;
   learningModules: ReturnType<typeof learningModulesSlice.reducer>;
+  profile: ReturnType<typeof profileReducer>;
 }
 
 export const store = configureStore({
@@ -87,6 +94,7 @@ export const store = configureStore({
     [referralsService.reducerPath]: referralsService.reducer,
     [notificationsService.reducerPath]: notificationsService.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
+    profile: profileReducer,
   },
 
   middleware: (getDefaultMiddleware) => {
