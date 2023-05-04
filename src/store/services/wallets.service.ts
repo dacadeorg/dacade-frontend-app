@@ -12,7 +12,7 @@ import { setWalletList } from "../feature/user/wallets.slice";
  * @typedef {UpdateWalletPayload}
  */
 interface UpdateWalletPayload {
-  id: number;
+  id?: string;
   address: string;
   signature: string;
 }
@@ -83,11 +83,11 @@ const walletsService = createApi({
  * @param {string} locale
  * @returns {*}
  */
-export const updateWallet = (
+export const updateWallet = async (
   payload: UpdateWalletPayload,
   locale: string = "en"
 ) =>
-  walletsService.endpoints.updateWallet.initiate({ payload, locale });
+  await walletsService.endpoints.updateWallet.initiate({ payload, locale });
 
 /**
  * Get all wallets function

@@ -140,7 +140,7 @@ export const truncateAddress = (
  * @returns {Boolean}
  */
 export const validateAddress = (
-  address: string,
+  address?: string,
   token: string = "eth"
 ): Boolean => {
   if (!address) return false;
