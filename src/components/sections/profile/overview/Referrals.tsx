@@ -15,7 +15,6 @@ import { useRouter } from "next/router";
  */
 export default function ProfileOverviewReferrals(): ReactElement {
   const dispatch = useDispatch();
-
   const router = useRouter();
 
   useEffect(() => {

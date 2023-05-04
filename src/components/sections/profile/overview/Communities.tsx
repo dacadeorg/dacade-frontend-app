@@ -12,15 +12,16 @@ import { useRouter } from "next/router";
  * @returns {ReactElement}
  */
 export default function ProfileOverviewCommunities(): ReactElement {
-  const reputations = useSelector((state) => state.reputations.list);
-
-  const authUser = useSelector((state) => state.user.data);
+  const { reputations, authUser } = useSelector((state) => ({
+    reputations: state.reputations.list,
+    authUser: state.user.data,
+  }));
   const router = useRouter();
   const username = router.asPath || authUser?.displayName;
 
   return (
     <ProfileOverviewSection title="Communities">
-      {reputations && reputations.length > 0 ? (
+      {reputations && reputations.length > 0 && (
         <div className="grid gap-4 md:grid-cols-2">
           {reputations.map((reputation, i) => (
             <div key={`reputation-${i}`} className="block">
@@ -28,8 +29,6 @@ export default function ProfileOverviewCommunities(): ReactElement {
             </div>
           ))}
         </div>
-      ) : (
-        <></>
       )}
     </ProfileOverviewSection>
   );
