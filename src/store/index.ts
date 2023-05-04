@@ -24,9 +24,9 @@ import learningModulesSlice from "./feature/learningModules.slice";
 import { navigationSlice } from "./feature/communities/navigation.slice";
 import { submissionsSlice } from "./feature/communities/challenges/submissions";
 import communitySlice from "./feature/community.slice";
+import bountiesSlice from "./feature/bouties.slice";
 import { challengeSlice } from "./feature/communities/challenges";
 import { feedbackSlice } from "./feature/communities/challenges/submissions/feedback.slice";
-
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -49,6 +49,7 @@ export interface IRootState {
     typeof notificationsService.reducer
   >;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
+  bounties: ReturnType<typeof bountiesSlice.reducer>;
   submissions: ReturnType<typeof submissionsSlice.reducer>;
   navigation: ReturnType<typeof navigationSlice.reducer>;
   events: ReturnType<typeof eventsSlice.reducer>;
@@ -70,6 +71,10 @@ export const store = configureStore({
     [indexSlice.name]: indexSlice.reducer,
     [authSlice.name]: authSlice.reducer,
     [courseSlice.name]: courseSlice.reducer,
+    [navigationSlice.name]: navigationSlice.reducer,
+    [submissionsSlice.name]: submissionsSlice.reducer,
+    [eventsSlice.name]: eventsSlice.reducer,
+    [bountiesSlice.name]: bountiesSlice.reducer,
     [navigationSlice.name]: navigationSlice.reducer,
     [communitySlice.name]: communitySlice.reducer,
     [eventsSlice.name]: eventsSlice.reducer,
