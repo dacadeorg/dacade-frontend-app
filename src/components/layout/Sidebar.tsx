@@ -15,10 +15,9 @@ import {
   toggleBodyScrolling,
   toggleShowReferralPopup,
 } from "@/store/feature/ui.slice";
-import { readNotification } from "@/store/feature/notification.slice";
 import { logout } from "@/store/feature/auth.slice";
 import { authVerify } from "@/store/feature/auth.slice";
-import ReputationList from "../list/Reputation";
+import { readNotification } from "@/store/services/notification.service";
 
 /**
  * Sidebar props interface
@@ -115,7 +114,7 @@ export default function Sidebar({
                 >
                   <Link
                     className="font-medium text-lg text-gray-900"
-                    href={"/bounties"}
+                    href="/bounties"
                   >
                     {t("nav.bounties")}
                   </Link>
@@ -131,7 +130,7 @@ export default function Sidebar({
                 >
                   <Link
                     className="font-medium text-lg text-gray-900"
-                    href={"/communities"}
+                    href="/communities"
                   >
                     {t("nav.communities")}
                   </Link>
@@ -148,7 +147,7 @@ export default function Sidebar({
                   >
                     <Link
                       className="font-medium text-lg text-gray-900"
-                      href={"/profile/wallets"}
+                      href="/profile/wallets"
                     >
                       {t("nav.wallet")}
                     </Link>
@@ -161,7 +160,7 @@ export default function Sidebar({
                   <div onClick={toggle}>
                     <Link
                       className="flex text-sm leading-normal"
-                      href={"/profile"}
+                      href="/profile"
                     >
                       <Avatar user={user} useLink={false} />
                       <div className="py-2 px-2">

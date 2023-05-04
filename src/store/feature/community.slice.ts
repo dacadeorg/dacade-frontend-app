@@ -1,8 +1,4 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Community } from "@/types/community";
 import { Course } from "@/types/course";
 import api from "@/config/api";
@@ -47,7 +43,7 @@ const communitiesSlice = createSlice({
   name: "communities",
   initialState,
   reducers: {
-    setAllCommuninities: (
+    setAllCommunities: (
       state,
       action: PayloadAction<Community[]>
     ) => {
@@ -60,30 +56,13 @@ const communitiesSlice = createSlice({
       state.current = action.payload;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchAllCommunities.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(
-        fetchAllCommunities.fulfilled,
-        (state, action: PayloadAction<Community[]>) => {
-          state.status = "succeeded";
-          state.list = action.payload;
-        }
-      )
-      .addCase(fetchAllCommunities.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload as string;
-      })
-      .addCase(fetchCurrentCommunity.fulfilled, (state, action) => {
-        state.current = action.payload;
-      });
-  },
 });
-export const { setCurrentCommunity, setAllCommuninities } =
+
+export const { setCurrentCommunity, setAllCommunities } =
   communitiesSlice.actions;
 
+
+// TODO: createAsyncThunk will be replaced by services.
 /**
  * Fetches all communities from the API.
  * @date 4/6/2023 - 12:09:48 PM
@@ -113,7 +92,7 @@ export const fetchAllCommunities = createAsyncThunk(
 export const fetchCurrentCommunity = createAsyncThunk(
   "communities/current",
   async (
-    { slug, locale }: { slug: string; locale: string },
+    { slug, locale }: { slug: string; locale?: string },
     { rejectWithValue }
   ) => {
     try {

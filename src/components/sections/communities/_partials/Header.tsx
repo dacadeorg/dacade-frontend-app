@@ -47,7 +47,7 @@ export default function Header({
     <div>
       <h1 className={headerClassName}>{title}</h1>
       {subtitle && (
-        <h2 className="text-4xl md:text-5xl leading-none text-default font-normal">
+        <h2 className="text-4xl font-normal leading-none md:text-5xl text-default">
           {subtitle}
         </h2>
       )}

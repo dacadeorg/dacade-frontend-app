@@ -39,8 +39,6 @@ export default function CourseCard({
   course,
   community,
 }: CourseCardProps): ReactElement {
-  // TODO: Should be uncommented when redux is implemented
-  //   const colors = useSelector((state: RootState) => state.ui.colors);
   const { t } = useTranslation();
   const path = `/communities/${community.slug}/courses/${course.slug}`;
 
@@ -54,7 +52,7 @@ export default function CourseCard({
       <div className="flex flex-col sm:pr-20 justify-between w-full sm:w-3/5 lg:w-2/3 pb-6 sm:pb-0">
         <div className="flex flex-col">
           <div className="text-lg font-medium leading-normal">
-            {course.name}
+            {t(course.name)}
           </div>
           {course.level && (
             <div className="mt-2 text-xxs px-2.5 py-0.5 bg-gray-200 text-gray-500 rounded-3xl max-w-max tracking-wider uppercase font-medium">
