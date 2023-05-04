@@ -55,6 +55,25 @@ export interface Faq {
   title: string;
 }
 
+/**
+ * @property {string} ref - The unique identifier of the bounty.
+ */
+export interface Evaluation {
+  evaluator: string;
+  created_at: string;
+  comment: string;
+  criteria?: Rebric[];
+  metadata: {
+    language: string;
+  };
+  points?: number;
+  totalPoints?: number;
+  reward?: {
+    amount: number;
+    token: string;
+  };
+}
+
 export interface Submission {
   length: Submission | undefined;
   /**
@@ -76,6 +95,8 @@ export interface Submission {
   user: User;
   reviewable: boolean;
   status: string;
+  // TODO: to be strictly typed later
+  evaluation?: Evaluation;
 }
 
 export interface SubmissionMetadata {

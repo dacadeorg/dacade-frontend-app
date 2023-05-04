@@ -2,6 +2,8 @@ import EvaluationCard from "@/components/cards/Evaluation";
 import RatingRubric from "@/components/sections/challenges/Rubric";
 import Coin from "@/components/ui/Coin";
 import { useSelector } from "@/hooks/useTypedSelector";
+import { Evaluation } from "@/types/bounty";
+import { Rebric } from "@/types/challenge";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 
@@ -19,7 +21,7 @@ export default function Evaluation(): ReactElement {
     (state) => state.submissions.current
   );
   const challenge = useSelector((state) => state.challenges.current);
-  const evaluation = submission?.evaluation;
+  const evaluation = submission?.evaluation as Evaluation;
 
   return (
     <EvaluationCard evaluation={evaluation}>
