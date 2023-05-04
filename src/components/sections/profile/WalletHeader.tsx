@@ -4,20 +4,15 @@ import Tag from "@/components/ui/Tag";
 import { Wallet } from "@/types/wallet";
 
 /**
- * Interface for the wallet props
- */
-interface WalletHeaderProps {
-  wallet: Wallet;
-}
-
-/**
  * Wallet header component
  * @returns {ReactElement}
  */
 export default function WalletHeader({
   wallet,
-}: WalletHeaderProps): ReactElement {
-    const {t} = useTranslation()
+}: {
+  wallet: Wallet;
+}): ReactElement {
+  const { t } = useTranslation();
   return (
     <div className="pb-7">
       <p className="text-.5xl leading-snug font-medium">
