@@ -2,11 +2,13 @@ import Badge from "@/components/ui/Badge";
 import UserCard from "@/components/cards/User";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { ReactNode } from "react";
 import { Submission } from "@/types/bounty";
-import { Reward } from "@/types/course";
 import { useTranslation } from "next-i18next";
+import { ReactElement } from "react";
 
+/**
+ * Submission card interface props
+ */
 interface SubmissionCardProps {
   submission: Submission;
   preview?: boolean;
@@ -20,6 +22,10 @@ interface SubmissionCardProps {
   };
 }
 
+/**
+ * Submission card component
+ * @return {ReactElement}
+ */
 export default function SubmissionCard({
   submission,
   preview = false,
@@ -28,10 +34,12 @@ export default function SubmissionCard({
   buttons = false,
   last = false,
   timestamp = { text: "", date: "" },
-}: SubmissionCardProps) {
+}: SubmissionCardProps): ReactElement {
   const { t } = useTranslation();
-  const colors = useSelector((state) => state.ui.colors);
-  const community = useSelector((state) => state.communities.current);
+  const {colors, community} = useSelector((state) => ({
+    colors: state.ui.colors,
+    community: state.communities.current
+}))
 
   const reviewed = submission?.metadata?.evaluation || submission?.metadata?.reviewed;
 
