@@ -17,6 +17,7 @@ import {
 } from "@/store/feature/auth.slice";
 import Sidebar from "./Sidebar";
 import { Colors } from "@/types/community";
+import classNames from "classnames";
 
 interface NavbarProps {
   settings?: {
@@ -25,18 +26,29 @@ interface NavbarProps {
   sidebarBurgerColor?: boolean;
 }
 
+/**
+ * Navbar componet
+ * @date 5/4/2023 - 1:20:07 PM
+ *
+ * @export
+ * @param {NavbarProps} {
+  settings,
+  sidebarBurgerColor = false,
+}
+ * @returns {ReactElement}
+ */
 export default function Navbar({
   settings,
   sidebarBurgerColor = false,
 }: NavbarProps): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.data);
-  const isAuthenticatedAndVerified = useSelector((state) =>
-    authVerify(state)
+  const { isAuthenticated, isAuthenticatedAndVerified } = useSelector(
+    (state) => ({
+      isAuthenticatedAndVerified: authVerify(state),
+      isAuthenticated: authCheck(state),
+    })
   );
-  const isAuthenticated = useSelector(authCheck);
 
   const containerStyle = useMemo(() => {
     return {
@@ -46,9 +58,7 @@ export default function Navbar({
   }, [settings?.colors.primary, settings?.colors.text]);
 
   const buttonStyle = useMemo(() => {
-    if (!settings?.colors) {
-      return {};
-    }
+    if (!settings?.colors) return {};
     return {
       backgroundColor: hexToRgba(settings?.colors.text || "", 0.3),
       color: settings?.colors.text,
@@ -58,25 +68,6 @@ export default function Navbar({
   const badgeStyle = {
     backgroundColor: settings?.colors.accent,
     color: settings?.colors.primary,
-  };
-
-  const onLogOut = () => {
-    dispatch(logout());
-  };
-
-  const getSectionName = (route: any) => {
-    switch (route.name) {
-      case "notifications":
-        return "Notifications";
-      case "communities":
-        return "Communities";
-      case "bounties":
-        return "Bounties";
-      case "profile":
-        return "Profile";
-      default:
-        return null;
-    }
   };
 
   return (
@@ -116,11 +107,10 @@ export default function Navbar({
                 )}
                 <NavItem type="item" to="/login">
                   <span
-                    className={
-                      router.pathname === "/signup"
-                        ? "py-2 text-sm text-primary"
-                        : "py-2 text-sm inherit"
-                    }
+                    className={classNames("py-2 text-sm", {
+                      "text-primary": router.pathname === "/signup",
+                      inherit: router.pathname !== "/signup",
+                    })}
                   >
                     {t("nav.login")}
                   </span>
@@ -148,11 +138,10 @@ export default function Navbar({
                       type="button"
                       rounded={false}
                       onClick={() => null}
-                      className={
-                        router.pathname === "/login"
-                          ? "text-sm py-2 text-primary"
-                          : "text-sm py-2 text-gray-900"
-                      }
+                      className={classNames("text-sm py-2", {
+                        "text-primary": router.pathname === "/login",
+                        "text-gray-900": router.pathname !== "/login",
+                      })}
                     >
                       {t("nav.sign-up")}
                     </Button>
