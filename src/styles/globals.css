@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  @apply !scroll-smooth;
+}
+
 .floating-input > input::placeholder {
   color: transparent;
 }

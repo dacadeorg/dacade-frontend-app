@@ -120,7 +120,7 @@ export default function ArrowButton({
               />
             ) : (
               <Spinner
-                className={`${arrowClassNames} text-white animate-spin`}
+                className={`${arrowClassNames} animate-spin`}
               />
             )}
           </span>
