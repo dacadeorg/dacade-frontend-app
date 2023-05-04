@@ -1,0 +1,84 @@
+import api from "@/config/api";
+import { Certificate } from "@/types/certificate";
+import {
+  createAsyncThunk,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
+
+interface ICertificateSlice {
+  list: Certificate[];
+  current: Certificate | null;
+  currentMinted: boolean;
+}
+
+const initialState: ICertificateSlice = {
+  list: [],
+  current: null,
+  currentMinted: false,
+};
+
+export const findCertificate = createAsyncThunk(
+  "certificates/findCertificate",
+  async (id: string) => {
+    const { data } = await api().server.get(`/certificates/${id}`);
+    return data as Certificate;
+  }
+);
+
+export const fetchAllCertificates = createAsyncThunk(
+  "certificates/fetchAllCertificates",
+  async (username: string, thunkAPI) => {
+    const { data } = await api().server.get(
+      `/certificates/${username}`
+    );
+    return data as Certificate[];
+  }
+);
+
+export const certificatesProfile = createSlice({
+  name: "certificates",
+  initialState,
+  reducers: {
+    setCurrent(state, action: PayloadAction<Certificate>) {
+      state.current = action.payload;
+    },
+
+    setCurrentMintingStatus(state, action: PayloadAction<boolean>) {
+      state.currentMinted = action.payload;
+    },
+
+    setList(state, action: PayloadAction<Certificate[]>) {
+      state.list = action.payload;
+    },
+
+    clear(state) {
+      state.list = [];
+      state.current = null;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(
+      findCertificate.fulfilled,
+      (state, action: PayloadAction<Certificate>) => {
+        state.current = action.payload;
+        state.currentMinted = !!action.payload?.minting?.tx;
+      }
+    );
+
+    builder.addCase(fetchAllCertificates.pending, (state) => {
+      state.list = [];
+      state.current = null;
+    });
+
+    builder.addCase(
+      fetchAllCertificates.fulfilled,
+      (state, action: PayloadAction<Certificate[]>) => {
+        state.list = action.payload;
+      }
+    );
+  },
+});
+
+export const { setCurrent, setList, clear, setCurrentMintingStatus } =
+  certificatesProfile.actions;
