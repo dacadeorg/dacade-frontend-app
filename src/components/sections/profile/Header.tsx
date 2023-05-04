@@ -7,18 +7,18 @@ import DiscordIcon from "@/icons/discordIcon.svg";
 import KYCVerificationPopup from "@/components/layout/KYCVerification";
 import CompassIcon from "@/icons/compass.svg";
 import { useDispatch } from "react-redux";
-import { ReactElement } from "react";
+import { useRouter } from "next/router";
+import { useMemo } from "react";
 
-/**
- *  Profile header component
- * @date 5/3/2023 - 5:22:43 PM
- *
- * @export
- * @returns {ReactElement}
- */
-export default function ProfileHeader(): ReactElement {
+const ProfileHeader = () => {
   const dispatch = useDispatch();
-  // TODO: dummy profile user to be removed when authentication is fully implemented
+  const authUser = useSelector((state) => state.user.data);
+  const router = useRouter();
+
+  // TODO: profile slice not yet implemented
+  //   const profileUser = useSelector(
+  //     (state) => state.profile.users.current
+  //   );
   const profileUser = {
     displayName: "mbukeprince",
     joined: "2021",
@@ -26,66 +26,41 @@ export default function ProfileHeader(): ReactElement {
       connected: true,
     },
   };
+  const user = useMemo(() => {
+    if (
+      (router.query as { username: string }).username &&
+      (
+        router.query as { username: string }
+      ).username?.toLowerCase() !==
+        authUser?.displayName?.toLowerCase()
+    ) {
+      return profileUser;
+    }
+    return authUser;
+  }, [authUser, profileUser, router.query]);
 
-  //TODO: dummy authUser to be removed when authentication is fully implemented
-  const authUser = {
-    displayName: "mbukeprince",
-    joined: "2021",
-    discord: {
-      connected: true,
-    },
-  };
+  const isKycVerified = useSelector(
+    (state) => state.user.data?.isKycVerified
+  );
 
-  // TODO: dummy isKycVerified to be removed when kyc slice is fully implemented
-  const isKycVerified = true;
+  const joined = useMemo(() => {
+    if (!authUser?.joined) return null;
+    return DateManager.format(authUser?.joined, "MMMM yyyy", "en");
+  }, [authUser]);
 
-  // TODO: dummy joined to be removed when authentication is fully implemented
-  const joined = "2021";
-  // TODO: dummy user to be removed when authentication is fully implemented
-  const user = {
-    displayName: "mbukeprince",
-    joined: "2021",
-    discord: {
-      connected: true,
-    },
-  };
+  const username = useMemo(() => {
+    return user?.displayName;
+  }, [user]);
 
-  //   const isKycVerified = useSelector((state) => state.user.isKycVerified);
+  const isCurrentUser = useMemo(() => {
+    return (
+      username?.toLowerCase() === authUser?.displayName?.toLowerCase()
+    );
+  }, [authUser, username]);
 
-  //   const joined = () => {
-  //     if (!user?.joined) return null;
-  //     return DateManager.format(user?.joined, 'MMMM yyyy', 'en');
-  //   };
-
-  //   const user = () => {
-  //     if (
-  //       route.params?.username &&
-  //       route.params?.username?.toLowerCase() !== authUser?.displayName?.toLowerCase()
-  //     ) {
-  //       return profileUser;
-  //     }
-  //     return authUser;
-  //   };
-
-  //   const username = () => {
-  //     return user?.displayName;
-  //   };
-
-  //   const isCurrentUser = () => {
-  //     return (
-  //       username?.toLowerCase() === authUser?.displayName?.toLowerCase()
-  //     );
-  //   };
-
-  //   const canConnectDiscord = () => {
-  //     return isCurrentUser && !user?.discord?.connected;
-  //   };
-
-  // TODO: to be uncommented when authentication is fully implemented
-  //   const authUser = useSelector((state) => state.user.get);
-  //   const profileUser = useSelector(
-  //     (state) => state.profile.users.current
-  //   );
+  const canConnectDiscord = useMemo(() => {
+    return isCurrentUser && !user?.discord?.connected;
+  }, [isCurrentUser, user]);
 
   const triggerDiscordOauth = () => {
     window.location.href = `${process.env.NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL}?response_type=code&client_id=${process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID}&scope=${process.env.NEXT_PUBLIC_DISCORD_SCOPE}&state=15773059ghq9183habn&redirect_uri=${process.env.NEXT_PUBLIC_DISCORD_CALLBACK_URL}&prompt=consent`;
@@ -93,10 +68,9 @@ export default function ProfileHeader(): ReactElement {
 
   const triggerKYCVerification = () => {
     console.log("Hello world!");
+    // TODO: to be uncommented when kyc slice is implemented
     //   dispatch("kyc/openVerificationModal");
   };
-  const canConnectDiscord = true;
-  const username = "Mbuke prince";
 
   return (
     <div className="text-center font-sans pb-24 relative">
@@ -151,4 +125,6 @@ export default function ProfileHeader(): ReactElement {
       />
     </div>
   );
-}
+};
+
+export default ProfileHeader;
