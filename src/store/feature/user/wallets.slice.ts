@@ -27,7 +27,7 @@ const initialState: WalletState = {
   main: null,
 };
 
-export const walletSlice = createSlice({
+export const walletsSlice = createSlice({
   name: "wallets",
   initialState,
   reducers: {
@@ -50,6 +50,6 @@ export const walletSlice = createSlice({
 });
 
 export const { setCurrentWallet, clear, setWalletList } =
-  walletSlice.actions;
+  walletsSlice.actions;
 
-export default walletSlice;
+export default walletsSlice;

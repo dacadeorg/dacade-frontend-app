@@ -1,3 +1,4 @@
+import useNavigation from "@/hooks/useNavigation";
 import CommunityNavigation from "@/utilities/CommunityNavigation";
 import DateManager from "@/utilities/DateManager";
 import { useRouter } from "next/router";
@@ -54,7 +55,7 @@ export default function Learning({
   learningModule,
 }: LearningProps): ReactElement {
   const router = useRouter();
-  const navigation = new CommunityNavigation(router);
+  const navigation = useNavigation();
 
   const duration = (value: number) => {
     if (!value) {
@@ -66,7 +67,7 @@ export default function Learning({
     );
   };
   const navigate = () => {
-    const courseLink = navigation.learningModulePath(
+    const courseLink = navigation.community.learningModulePath(
       learningModule.id
     );
     router.push(courseLink);

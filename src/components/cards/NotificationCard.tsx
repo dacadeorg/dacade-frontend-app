@@ -2,7 +2,7 @@ import { ReactElement, useMemo } from "react";
 import { useRouter } from "next/router";
 import Avatar from "@/components/ui/Avatar";
 import DateManager from "@/utilities/DateManager";
-import { Metadata } from "@/types/course";
+import { Notification } from "@/types/notification";
 
 /**
  * User interface
@@ -18,21 +18,6 @@ interface User {
 }
 
 /**
- * Details interface
- * @date 3/28/2023 - 9:03:50 PM
- *
- * @interface Details
- * @typedef {Details}
- */
-interface Details {
-  message: string;
-  created_at: Date;
-  metadata: Metadata;
-  link: string;
-  type: string;
-}
-
-/**
  * Interface for notification component props
  * @date 3/28/2023 - 8:57:52 PM
  *
@@ -41,7 +26,7 @@ interface Details {
  */
 interface NotificationCardProps {
   user: User;
-  details: Details;
+  notification: Notification;
   extended?: boolean;
 }
 
@@ -69,41 +54,58 @@ enum TYPES {
  * @export
  * @param {NotificationCardProps} {
   user = {},
-  details,
+  notification,
   extended = false,
 }
  * @returns {ReactElement}
  */
 export default function NotificationCard({
   user = {},
-  details,
+  notification,
   extended = false,
 }: NotificationCardProps): ReactElement {
   const router = useRouter();
 
-  const humanizedDate = useMemo(
-    () => DateManager.fromNow(details.created_at, router.locale),
-    [details.created_at, router.locale]
+  /**
+   * Format the date to a human-readable string
+   * @date 4/28/2023 - 8:39:18 PM
+   *
+   * @type {string}
+   */
+  const humanizedDate: string = useMemo(
+    () =>
+      DateManager.fromNow(
+        notification.created_at as Date,
+        router.locale
+      ),
+    [notification.created_at, router.locale]
   );
 
   const date = useMemo(
-    () => DateManager.intlFormat(details.created_at, router.locale),
-    [details.created_at, router.locale]
+    () =>
+      DateManager.intlFormat(notification.created_at, router.locale),
+    [notification.created_at, router.locale]
   );
 
-  const link = useMemo(() => {
-    const { type } = details;
+  /**
+   * Generate the notification link according to the type of notification
+   * @date 4/28/2023 - 8:40:01 PM
+   *
+   * @type {string}
+   */
+  const link: string = useMemo(() => {
+    const { type } = notification;
 
     if (
       type === TYPES.SUBMISSION ||
       type === TYPES.REFERRAL ||
       type === TYPES.FEEDBACK
     ) {
-      return `/${details.metadata.submissions}`;
+      return `/${notification.metadata.submissions}`;
     } else {
-      return details.link;
+      return notification.link;
     }
-  }, [details]);
+  }, [notification]);
 
   const notificationsLink = useMemo(() => {
     if (!link) return "";
@@ -126,12 +128,12 @@ export default function NotificationCard({
         extended ? "rounded-3xl" : ""
       }`}
     >
-      <div className="flex mr-2 w-10 h-10 overflow-hidden relative">
-        <Avatar user={user} />
+      <div className="flex mr-2">
+        <Avatar user={user} size="small" className="!w-10 !h-10" />
       </div>
       <div className="pt-1 -mt-2">
         <span className="block text-base text-gray-700">
-          {details.message}
+          {notification.message}
         </span>
         <span
           title={date}
