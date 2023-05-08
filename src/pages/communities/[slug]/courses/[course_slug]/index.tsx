@@ -1,5 +1,5 @@
 import { wrapper } from "@/store";
-import { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect, useLayoutEffect } from "react";
 import OverviewSection from "@/components/sections/courses/overview";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -19,28 +19,30 @@ import {
 } from "@/utilities/Metadata";
 import DefaultLayout from "@/components/layout/Default";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
-import navigation from "@/config/navigation";
-import { fetchCurrentCommunity } from "@/store/services/community.service";
-import { fetchCourse } from "@/store/services/course.service";
+import useNavigation from "@/hooks/useNavigation";
+import api from "@/config/api";
+import LOCALES from "@/constants/locales";
 
 export default function CourseViewPage(props: {
   pageProps: {
     community: Community;
     course: Course;
-    courses: Course[];
   };
 }) {
   const { community, course } = props.pageProps;
 
   const dispatch = useDispatch();
+
+  const navigation = useNavigation();
+
   const list = navigation.community.init({ community, course });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(setCurrentCommunity(community));
     dispatch(setCurrentCourse(course));
     dispatch(setColors(community.colors));
     dispatch(setCourseNavigation({ list }));
-    initNavigationMenu()(dispatch);
+    initNavigationMenu(navigation.community)(dispatch);
   }, [community, course, dispatch, list]);
 
   const title = getMetadataTitle(course.name);
@@ -69,45 +71,72 @@ CourseViewPage.getLayout = function (page: ReactElement) {
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async (data) => {
-    const { query } = data;
-    const slug = query?.slug as string;
-    const course_slug = query?.course_slug as string;
+export async function getStaticProps({ params, locale }: any) {
+  try {
+    const { slug, course_slug } = params;
 
-    const fetchArgs = {
-      locale: data.locale as string,
+    const [community, course] = await Promise.all([
+      api(locale).server.get<Community>(`/communities/${slug}`),
+      api(locale).server.get<Community>(`/courses/${course_slug}`),
+    ]).then((res) => res.map(({ data }) => data));
+
+    return {
+      props: {
+        community,
+        course,
+        ...(await serverSideTranslations(locale as string)),
+      },
+      revalidate: 60,
     };
-
-    const getCurrentCommunty = store.dispatch(
-      fetchCurrentCommunity({ ...fetchArgs, slug })
-    );
-    const getCurrentCourse = store.dispatch(
-      fetchCourse({ ...fetchArgs, slug: course_slug })
-    );
-
-    const results = await Promise.all([
-      getCurrentCommunty,
-      getCurrentCourse,
-    ]);
-
-    const community = results[0].data;
-    const course = results[1].data;
-
-    console.log({ community, course });
-
-    if (course) {
-      return {
-        props: {
-          ...(await serverSideTranslations(data.locale as string)),
-          community,
-          course,
-        },
-      };
-    } else {
-      return {
-        notFound: true,
-      };
-    }
+  } catch (error) {
+    return {
+      notFound: true,
+    };
   }
-);
+}
+
+interface Path {
+  params: {
+    slug: string;
+    course_slug: string;
+  };
+  locale: string;
+}
+
+export async function getStaticPaths() {
+  const { data: communities } = await api().server.get<Community[]>(
+    `/communities`
+  );
+
+  const getPathes = async () => {
+    const paths = await Promise.all(
+      communities.map(async (community) => {
+        const { data: courses } = await api().server.get<Course[]>(
+          `/communities/${community.slug}/courses`
+        );
+        const coursePaths: Path[] = [];
+
+        courses.forEach(({ slug }) => {
+          LOCALES.forEach((locale) => {
+            coursePaths.push({
+              params: {
+                slug: community.slug,
+                course_slug: slug,
+              },
+              locale: locale,
+            });
+          });
+        });
+        return coursePaths;
+      })
+    );
+    return paths.flat();
+  };
+
+  const paths: Path[] = await getPathes();
+
+  return {
+    paths,
+    fallback: "blocking",
+  };
+}
