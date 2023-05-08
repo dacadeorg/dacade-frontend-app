@@ -6,6 +6,8 @@ import { wrapper } from "@/store";
 import { Provider } from "react-redux";
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
+import UserAuthProvider from "@/contexts/UserAuthProvider";
+import NextNProgress from "nextjs-progressbar";
 
 /**
  * Represents a Next.js page with a custom layout.
@@ -44,7 +46,23 @@ const App = ({ Component, ...rest }: AppPropsWithLayout) => {
 
   return (
     <Provider store={store}>
-      {getLayout(<Component {...pageProps} />)}
+      {getLayout(
+        <UserAuthProvider>
+          <NextNProgress
+            color="#1B66F8"
+            startPosition={0.2}
+            stopDelayMs={100}
+            height={2.5}
+            showOnShallow={true}
+            options={{
+              showSpinner: false,
+              easing: "ease",
+              speed: 500,
+            }}
+          />
+          <Component {...pageProps} />
+        </UserAuthProvider>
+      )}
     </Provider>
   );
 };

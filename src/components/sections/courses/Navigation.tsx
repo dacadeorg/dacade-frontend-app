@@ -5,9 +5,6 @@ import LanguageSwitcher from "./_partials/LanguageSwitcher";
 import CourseLink from "./_partials/navigation/link/CourseLink";
 import { ReactElement, useEffect, useState } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
-import { List } from "@/utilities/CommunityNavigation";
-
 /**
  * Navigation component
  * @date 4/18/2023 - 12:23:40 PM

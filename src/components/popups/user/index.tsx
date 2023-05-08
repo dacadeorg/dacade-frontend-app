@@ -1,13 +1,19 @@
-import { CSSProperties, ReactElement, useState } from "react";
-import { useDispatch } from "react-redux";
+import {
+  CSSProperties,
+  ReactElement,
+  useEffect,
+  useState,
+} from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
-// TODO: Should be uncommented when the ui.slice is updated.
-// import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 import Dropdown from "./Dropdown";
 import Avatar from "@/components/ui/Avatar";
 import Button from "@/components/ui/button";
 import Currency from "@/components/ui/Currency";
 import { User } from "@/types/bounty";
+import { toggleBodyScrolling } from "@/store/feature/ui.slice";
+// import { fetchAllWallets } from "@/store/feature/user/wallets.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { fetchAllWallets } from "@/store/services/wallets.service";
 
 /**
  * User popup component
@@ -28,31 +34,29 @@ export default function UserPopup({
 }): ReactElement {
   const [show, setShow] = useState(false);
   const [showReferral, setShowReferral] = useState(false);
-  const { main: mainWallet, list: wallets } = useSelector(
-    (state) => state.wallets
-  );
-  const reputations = useSelector((state) => state.reputations.list);
+  const { main: mainWallet } = useSelector((state) => state.wallets);
   const user = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchAllWallets());
+  }, [dispatch]);
+
   const toggle = () => {
     setShow(!show);
-    // TODO: Should be uncommented when the ui.slice is updated.
-    // dispatch(toggleBodyScrolling(show));
+    toggleBodyScrolling(!show)(dispatch);
   };
 
   const toggleInvite = () => {
     setShowReferral(!showReferral);
     setShow(!show);
-    // TODO: Should be uncommented when the ui.slice is updated.
-    // dispatch(toggleBodyScrolling(showReferral));
+    toggleBodyScrolling(false)(dispatch);
   };
 
   const externalClick = () => {
     if (show) {
       setShow(false);
-      // TODO: Should be uncommented when the ui.slice is updated.
-      //   dispatch(toggleBodyScrolling(show));
+      toggleBodyScrolling(false)(dispatch);
     }
   };
 
@@ -67,16 +71,15 @@ export default function UserPopup({
             onClick={toggle}
           >
             <Button
-              type="button"
-              custom-style={buttonStyles}
+              customStyle={buttonStyles}
               padding={false}
               variant="secondary"
-              className={`p-0.5 bg-gray-100 bg-opacity-75 hover:bg-gray-50 text-primary ${
+              className={`p-0.5 bg-gray-100 bg-opacity-75 hover:bg-gray-50 ${
                 mainWallet ? "pr-5" : ""
               }`}
             >
-              <Avatar user={user as User} use-link={false} />
-              {mainWallet && (
+              <Avatar user={user as User} useLink={false} />
+              {mainWallet ? (
                 <span
                   style={{
                     color: buttonStyles.color
@@ -90,15 +93,12 @@ export default function UserPopup({
                     token={mainWallet.token}
                   />
                 </span>
+              ) : (
+                <></>
               )}
             </Button>
           </li>
-          {show && (
-            <Dropdown
-              toggle-invite={toggleInvite}
-              close={externalClick}
-            />
-          )}
+          {show && <Dropdown close={externalClick} />}
         </span>
         {show && (
           <div className="opacity-25 fixed inset-0 z-30 bg-black" />

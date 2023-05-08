@@ -19,7 +19,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
  */
 
 interface I18Translate {
-  props: SSRConfig
+  props: SSRConfig;
 }
 
 const i18Translate = async (

@@ -1,4 +1,9 @@
-import { useMemo, useEffect, ReactElement } from "react";
+import {
+  useMemo,
+  useEffect,
+  ReactElement,
+  useLayoutEffect,
+} from "react";
 import PageNavigation from "@/components/sections/courses/PageNavigation";
 import InteractiveModule from "@/components/sections/learning-modules/InteractiveModule";
 import AdditionalMaterialsSection from "@/components/sections/learning-modules/AdditionalMaterials";
@@ -9,18 +14,12 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Community } from "@/types/community";
 import { wrapper } from "@/store";
 import { Course, LearningModule } from "@/types/course";
-import {
-  fetchCourse,
-  setCurrentCourse,
-} from "@/store/feature/course.slice";
+import { setCurrentCourse } from "@/store/feature/course.slice";
 import {
   findLearningModule,
   setCurrentLearningModule,
 } from "@/store/feature/learningModules.slice";
-import {
-  fetchCurrentCommunity,
-  setCurrentCommunity,
-} from "@/store/feature/community.slice";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
 import {
   getMetadataDescription,
   getMetadataTitle,
@@ -30,6 +29,12 @@ import DefaultLayout from "@/components/layout/Default";
 import Header from "@/components/sections/learning-modules/Header";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import { setColors } from "@/store/feature/ui.slice";
+import useNavigation from "@/hooks/useNavigation";
+import api from "@/config/api";
+import { GetStaticProps } from "next";
+import LOCALES from "@/constants/locales";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { fetchCourse } from "@/store/services/course.service";
 
 /**
  * Learning module page props interfae
@@ -60,12 +65,14 @@ export default function LearningModulePage(
   const { community, course, learningModule } = props.pageProps;
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
     dispatch(setCurrentCommunity(community));
     dispatch(setCurrentCourse(course));
     dispatch(setCurrentLearningModule(learningModule));
     dispatch(setColors(community.colors));
-    initNavigationMenu()(dispatch);
+    initNavigationMenu(navigation.community)(dispatch);
   }, [community, course, dispatch, learningModule]);
 
   const materials = useMemo(
@@ -133,49 +140,110 @@ LearningModulePage.getLayout = function (page: ReactElement) {
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async (data) => {
-    const { query } = data;
-    const slug = query.slug as string;
-    const courseSlug = query.course_slug as string;
-    const learningModuleId = query.id as string;
-    const locale = data.locale as string;
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  locale,
+}) => {
+  try {
+    const slug = params?.slug as string;
+    const course_slug = params?.course_slug as string;
+    const id = params?.id as string;
 
-    const getCurrentCommunty = store.dispatch(
-      fetchCurrentCommunity({
-        slug: slug,
-        locale,
-      })
+    const [community, course, learningModule] = await Promise.all([
+      api(locale).server.get<Community>(`/communities/${slug}`),
+      api(locale).server.get<Course>(`/courses/${course_slug}`),
+      api(locale).server.get<LearningModule>(
+        `/learning-modules/${id}`
+      ),
+    ]).then((responses) =>
+      responses.map((response) => response.data)
     );
 
-    const getCurrentCourse = store.dispatch(
-      fetchCourse({
-        slug: courseSlug,
-        locale,
-      })
-    );
-
-    const getLearningModule = store.dispatch(
-      findLearningModule(learningModuleId)
-    );
-
-    const results = await Promise.all([
-      getCurrentCommunty,
-      getCurrentCourse,
-      getLearningModule,
-    ]);
-
-    const community = results[0].payload;
-    const course = results[1].payload;
-    const learningModule = results[2].payload;
-
+    if (
+      Object.entries(learningModule).length === 0 ||
+      Object.entries(course).length === 0 ||
+      Object.entries(community).length === 0
+    ) {
+      return {
+        notFound: true,
+      };
+    } else {
+      return {
+        props: {
+          community,
+          course,
+          learningModule,
+          ...(await serverSideTranslations(locale as string)),
+        },
+        revalidate: 60,
+      };
+    }
+  } catch (error) {
     return {
-      props: {
-        ...(await serverSideTranslations(locale)),
-        community,
-        course,
-        learningModule,
-      },
+      notFound: true,
     };
   }
-);
+};
+
+interface Path {
+  params: {
+    slug: string;
+    course_slug: string;
+    id: string;
+  };
+  locale: string;
+}
+
+export async function getStaticPaths() {
+  const { data: communities } = await api().server.get<Community[]>(
+    `/communities`
+  );
+
+  const getPathes = async () => {
+    const paths = await Promise.all(
+      communities.map(async (community) => {
+        const { data: courses } = await api().server.get<Course[]>(
+          `/communities/${community.slug}/courses`
+        );
+        const coursePaths = await Promise.all(
+          courses.map(async (course) => {
+            try {
+              const { data: modules } = await api().server.get<
+                Course[]
+              >(`/courses/${course.slug}/learning-modules`);
+
+              const modulePaths: Path[] = [];
+
+              if (Array.isArray(modules)) {
+                modules.forEach(({ id }) => {
+                  LOCALES.forEach((locale) => {
+                    modulePaths.push({
+                      params: {
+                        slug: community.slug,
+                        course_slug: course.slug,
+                        id: id,
+                      },
+                      locale: locale,
+                    });
+                  });
+                });
+              }
+              return modulePaths;
+            } catch (error) {
+              return [];
+            }
+          })
+        );
+        return coursePaths.flat();
+      })
+    );
+    return paths.flat();
+  };
+
+  const paths = await getPathes();
+
+  return {
+    paths,
+    fallback: "blocking",
+  };
+}

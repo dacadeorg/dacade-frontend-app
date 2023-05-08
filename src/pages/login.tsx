@@ -3,14 +3,17 @@ import { useTranslation } from "next-i18next";
 import ArrowButton from "@/components/ui/button/Arrow";
 import Input from "@/components/ui/Input";
 import { getMetadataTitle } from "@/utilities/Metadata";
-import { ReactElement, ReactNode, useState } from "react";
-import { useDispatch } from "react-redux";
+import { ReactElement, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
+import { login } from "@/store/feature/auth.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import EmailInput from "@/components/ui/EmailInput";
+import { FormValues } from "./signup";
 
 /**
  * Login form values
@@ -19,11 +22,6 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
  * @interface FormValues
  * @typedef {FormValues}
  */
-
-export interface FormValues {
-  email: string;
-  password: string;
-}
 
 /**
  * Login page
@@ -46,20 +44,19 @@ export default function Login(): ReactElement {
   const [passwordValue, setPasswordValue] = useState("");
   const emailValue = watch("email");
 
-  const onSubmit = (form: FormValues) => {
+  const onSubmit = async (form: FormValues) => {
     const loginData = {
       email: form.email,
       password: form.password,
     };
 
-    // setLoading(true);
-    // replace 'auth/login' with your actual login action
-    // dispatch(login(loginData))
     try {
-      // TODO: Should be uncommented after the homepage being merged
-      //   await dispatch(login(loginData));
+      setLoading(true);
+      await dispatch(login(loginData));
       router.replace("/bounties");
     } catch (err) {
+      console.error(err);
+    } finally {
       setLoading(false);
     }
   };
@@ -84,23 +81,10 @@ export default function Login(): ReactElement {
             </div>
             <div className="mb-5 relative">
               <div>
-                <Input
-                  /* In backticks `` because placeholder requires a string.
-                   * Same for label
-                   */
-                  placeholder={`${t("login-page.email.placeholder")}`}
-                  label={`${t("login-page.email.label")}`}
-                  error={errors.email?.message}
-                  type="email"
-                  value={emailValue}
-                  {...register("email", {
-                    required: "This field is required",
-                    pattern: {
-                      value:
-                        /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
-                      message: "This must be a valid email address",
-                    },
-                  })}
+                <EmailInput
+                  errors={errors}
+                  register={register}
+                  emailValue={emailValue}
                 />
               </div>
             </div>

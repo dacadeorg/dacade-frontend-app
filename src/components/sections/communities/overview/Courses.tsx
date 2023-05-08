@@ -19,8 +19,8 @@ import { useSelector } from "@/hooks/useTypedSelector";
 export function CoursesOverview(): ReactElement {
   const {
     communities: { current: community },
-    courses: { list: courseList },
   } = useSelector((state) => state);
+  const courseList = useSelector((state) => state.courses.list);
   const { t } = useTranslation();
 
   return (

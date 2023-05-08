@@ -3,7 +3,6 @@ import Navbar from "@/components/layout/Navbar";
 import PrivacyPolicyBanner from "@/components/banner/PrivacyPolicy";
 import NotificationBar from "@/components/layout/NotificationBar";
 import { ReactElement, ReactNode } from "react";
-import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * Interface for Layout without footer
@@ -26,12 +25,11 @@ interface LayoutWithoutFooterProps {
 export default function LayoutWithoutFooter({
   children,
 }: LayoutWithoutFooterProps): ReactElement {
-  const colors = useSelector((state) => state?.ui.colors);
   return (
     <Wrapper>
       <div className="relative min-h-screen">
         <div className="relative z-99">
-          <Navbar settings={{ colors }} sidebarBurgerColor={true} />
+          <Navbar />
           <NotificationBar />
         </div>
         <div>{children}</div>
