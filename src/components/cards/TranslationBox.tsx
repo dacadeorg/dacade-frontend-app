@@ -125,7 +125,7 @@ export default function TranslationBox({
   };
 
   const getLocaleName = (code: "en" | "fr") => {
-    return locales[code].name;
+    return locales[code]?.name;
   };
 
   const translatable =
@@ -134,14 +134,13 @@ export default function TranslationBox({
     getLocaleName(defaultLocale);
 
   return (
-    <div className="w-full relative">
-      {currentText && (
+    <div className="relative w-full">
+      {currentText ? (
         <div className={`-my-5 ${textContainerCssClasses}`}>
-          <Markdown
-            className={textCssClasses as string}
-            value={currentText}
-          />
+          <Markdown value={currentText} />
         </div>
+      ) : (
+        <></>
       )}
 
       {translatable && (
@@ -163,12 +162,12 @@ export default function TranslationBox({
               </div>
               {translated && (
                 <div
-                  className="pl-3 cursor-pointer underline"
+                  className="pl-3 underline cursor-pointer"
                   onClick={revert}
                 >
-                  <span>
-                    {`Original (${getLocaleName(defaultLocale)})`}
-                  </span>
+                  <span>{`Original (${getLocaleName(
+                    defaultLocale
+                  )})`}</span>
                 </div>
               )}
             </div>

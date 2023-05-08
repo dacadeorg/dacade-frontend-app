@@ -1,5 +1,5 @@
 import { auth as firebaseAuth } from "@/config/firebase";
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { User } from "@/types/bounty";
 
 /**
@@ -41,6 +41,30 @@ export const getUserToken = async () => {
   return token;
 };
 
+export const clearNotifications = () => {
+  return {
+    type: "user/notifications/clear",
+  };
+};
+
+export const clearReputations = () => {
+  return {
+    type: "user/reputations/clear",
+  };
+};
+
+export const clearWallets = () => {
+  return {
+    type: "user/wallets/clear",
+  };
+};
+
+export const clearAuth = () => {
+  return {
+    type: "auth/clear",
+  };
+};
+
 const userSlice = createSlice({
   name: "user",
   initialState: defaultState,
@@ -62,4 +86,24 @@ const userSlice = createSlice({
 
 export const { clearUserState, setUserdata, setUserToken } =
   userSlice.actions;
+
+/**
+ * An async action creator that gets the current user's token and sets it in the state.
+ * @return {AsyncThunk<string|null, undefined, {}>}
+ */
+export const getToken = createAsyncThunk(
+  "user/getToken",
+  async (_, { dispatch }) => {
+    const token = await getUserToken();
+
+    try {
+      if (!token) throw new Error("Couldn't fetch the token");
+      dispatch(setUserToken(token));
+      return token;
+    } catch (e) {
+      console.log(e);
+      dispatch(clearUserState());
+    }
+  }
+);
 export default userSlice;

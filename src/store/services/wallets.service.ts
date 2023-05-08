@@ -2,7 +2,7 @@
 
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
-import { setWalletList } from "../feature/wallet.slice";
+import { setWalletList } from "../feature/user/wallets.slice";
 
 /**
  * Update wallet payload interface
@@ -12,7 +12,7 @@ import { setWalletList } from "../feature/wallet.slice";
  * @typedef {UpdateWalletPayload}
  */
 interface UpdateWalletPayload {
-  id: number;
+  id?: string;
   address: string;
   signature: string;
 }
@@ -23,7 +23,7 @@ interface UpdateWalletPayload {
  *
  * @type {*}
  */
-const walletService = createApi({
+const walletsService = createApi({
   reducerPath: "walletService",
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
@@ -83,11 +83,11 @@ const walletService = createApi({
  * @param {string} locale
  * @returns {*}
  */
-export const updateWallet = (
+export const updateWallet = async (
   payload: UpdateWalletPayload,
   locale: string = "en"
 ) =>
-  walletService.endpoints.updateWallet.initiate({ payload, locale });
+  await walletsService.endpoints.updateWallet.initiate({ payload, locale });
 
 /**
  * Get all wallets function
@@ -96,7 +96,7 @@ export const updateWallet = (
  * @param {string} locale
  * @returns {*}
  */
-export const getAllWallets = (locale = "en") =>
-  walletService.endpoints.getAllWallets.initiate(locale);
+export const fetchAllWallets = (locale = "en") =>
+  walletsService.endpoints.getAllWallets.initiate(locale);
 
-export default walletService;
+export default walletsService;

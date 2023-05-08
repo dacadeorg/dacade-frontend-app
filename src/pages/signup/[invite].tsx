@@ -7,7 +7,7 @@ import { ReactElement, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
@@ -16,6 +16,8 @@ import Checkbox from "@/components/ui/Checkbox";
 import ReferralsList from "@/components/popups/referral/List";
 import { signUp } from "@/store/services/auth.service";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
+import EmailInput from "@/components/ui/EmailInput";
+import UsernameInput from "@/components/ui/UsernameInput";
 
 /**
  * Signup form values
@@ -40,7 +42,7 @@ interface FormValues {
  * @export
  * @returns {ReactElement}
  */
-export default function Signup(): ReactElement {
+export default function SignupWithInvite(): ReactElement {
   const {
     register,
     handleSubmit,
@@ -53,7 +55,7 @@ export default function Signup(): ReactElement {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const onSubmit = (form: FormValues) => {
+  const onSubmit = async (form: FormValues) => {
     setLoading(true);
     const { email, username, password, referralCode, checkTerms } =
       form;
@@ -64,12 +66,12 @@ export default function Signup(): ReactElement {
       referralCode,
       referrer,
     };
-
     try {
       if (!checkTerms) return;
-      setLoading(false);
-      dispatch(signUp({ locale, payload: { ...signupData } }));
+      await dispatch(signUp({ locale, payload: { ...signupData } }));
     } catch (error) {
+      console.error(error);
+    } finally {
       setLoading(false);
     }
   };
@@ -110,45 +112,13 @@ export default function Signup(): ReactElement {
               </div>
             )}
 
-            {!referrer && (
-              <h1 className="text-5xl my-5">
-                {t("login-page.signup.title")}
-              </h1>
-            )}
-
             <div className="mb-5 relative">
               <div>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder={`${t("login-page.email.placeholder")}`}
-                  label={`${t("login-page.email.label")}`}
-                  error={errors.email?.message}
-                  {...register("email", {
-                    required: "This field is required",
-                    pattern: {
-                      value:
-                        /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
-                      message: "This must be a valid email address",
-                    },
-                  })}
-                />
+                <EmailInput errors={errors} register={register} />
               </div>
             </div>
             <div className="mb-5 relative">
-              <Input
-                id="username"
-                placeholder={`${t("login-page.username.placeholde")}`}
-                label={`${t("login-page.username.label")}`}
-                error={errors.username?.message}
-                {...register("username", {
-                  required: "This field is required",
-                  minLength: {
-                    value: 3,
-                    message: "The username is too short",
-                  },
-                })}
-              />
+              <UsernameInput errors={errors} register={register} />
             </div>
             <div className="mb-5 relative">
               <Input
@@ -166,24 +136,6 @@ export default function Signup(): ReactElement {
                 })}
               />
             </div>
-            {!referrer && (
-              <div className="mb-5 relative">
-                <Input
-                  id="referralCode"
-                  placeholder={`${t(
-                    "login-page.refcode.placeholder"
-                  )}`}
-                  label={`${t("login-page.refcode.label")}`}
-                  error={errors.referralCode?.message}
-                  {...register("referralCode", {
-                    minLength: {
-                      value: 3,
-                      message: "The referral code is too short",
-                    },
-                  })}
-                />
-              </div>
-            )}
 
             <div className="flex justify-between mt-4">
               <div className="flex flex-col self-start">
@@ -233,8 +185,10 @@ export default function Signup(): ReactElement {
     </>
   );
 }
-Signup.getLayout = function (page: ReactElement) {
+SignupWithInvite.getLayout = function (page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
-export const getStaticProps: GetStaticProps = async ({ locale }) =>
-  i18Translate(locale as string);
+
+export const getServerSideProps: GetServerSideProps = async ({
+  locale,
+}) => i18Translate(locale as string);
