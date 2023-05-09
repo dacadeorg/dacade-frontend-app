@@ -1,3 +1,4 @@
+import { Reputation } from "@/types/bounty";
 import { createSlice } from "@reduxjs/toolkit";
 
 /**

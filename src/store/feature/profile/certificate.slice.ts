@@ -14,6 +14,12 @@ const initialState: ICertificateSlice = {
   currentMinted: false,
 };
 
+/**
+ * Certificate slice
+ * @date 5/9/2023 - 6:05:47 PM
+ *
+ * @type {*}
+ */
 export const certificateSlice = createSlice({
   name: "certificates",
   initialState,
