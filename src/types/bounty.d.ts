@@ -1,5 +1,5 @@
-import { Course, Metadata, Reward } from "./course";
-import { Colors, Community } from "./community";
+import { Challenge, Course, Metadata, Reward } from "./course";
+import { Colors } from "./community";
 import { ReactNode } from "react";
 
 export interface Bounty {
@@ -68,7 +68,7 @@ export interface Submission {
   link: string;
   community: string;
   user_id: string;
-  challenge: string;
+  challenge: Challenge;
   text: string;
   reviewDeadline: Date;
   metadata: SubmissionMetadata;
@@ -76,8 +76,8 @@ export interface Submission {
   user: User;
   reviewable: boolean;
   status: string;
-  rewards?: Reward[],
-  evaluation?: any
+  reward: Reward;
+  evaluation: any;
 }
 
 export interface SubmissionMetadata {

@@ -94,7 +94,6 @@ export async function getStaticProps({ params, locale }: any) {
     };
   }
 }
-
 interface Path {
   params: {
     slug: string;

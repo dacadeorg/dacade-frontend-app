@@ -1,11 +1,7 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { login, setAuthData } from "../feature/auth.slice";
-import {
-  clearError,
-  setBusy,
-  setError,
-} from "../feature/index.slice";
+import { clearError, setBusy, setError } from "../feature/index.slice";
 
 /**
  * Auth service
@@ -86,13 +82,7 @@ export const authService = createApi({
  * @param {{locale?: string, payload: {}}} {locale, payload}
  * @returns {*}
  */
-export const signUp = ({
-  locale,
-  payload,
-}: {
-  locale?: string;
-  payload: {};
-}) => authService.endpoints.signUp.initiate({ locale, payload });
+export const signUp = ({ locale, payload }: { locale?: string; payload: {} }) => authService.endpoints.signUp.initiate({ locale, payload });
 
 /**
  * Resend email verification function
@@ -101,8 +91,7 @@ export const signUp = ({
  * @param {?string} [locale]
  * @returns {*}
  */
-export const resendEmailVerification = (locale?: string) =>
-  authService.endpoints.resendEmailVerification.initiate(locale);
+export const resendEmailVerification = (locale?: string) => authService.endpoints.resendEmailVerification.initiate(locale);
 
 /**
  * Verify email function
@@ -111,11 +100,11 @@ export const resendEmailVerification = (locale?: string) =>
  * @param {?string} [locale]
  */
 export const verifyEmail = async ({
-  locale,
   payload,
+  locale,
 }: {
+  payload: { code: string };
   locale?: string;
-  payload: string;
 }) =>
   await authService.endpoints.verifyEmail.initiate({
     locale,
