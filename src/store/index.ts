@@ -83,6 +83,7 @@ export const store = configureStore({
     [communitySlice.name]: communitySlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
     [feedbackSlice.name]: feedbackSlice.reducer,
+    [challengeSlice.name]: challengeSlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
     [communityService.reducerPath]: communityService.reducer,
     [coursesService.reducerPath]: coursesService.reducer,
