@@ -23,6 +23,7 @@ interface UserProps {
   badge?: string;
   timestamp: any;
   children?: ReactNode;
+  className?: string;
 }
 
 /**
@@ -49,6 +50,7 @@ export default function UserCard({
   badge = "",
   timestamp,
   children,
+  className
 }: UserProps): ReactElement {
   const { locale } = useRouter();
   const colors = useSelector((state) => state.ui.colors);
@@ -65,7 +67,7 @@ export default function UserCard({
 
   return (
     <div
-      className={`group bg-gradient-to-trw-full relative ${
+      className={`group bg-gradient-to-trw-full relative ${className} ${
         boxLayout ? "sm:p-6" : "pl-5 sm:pl-7.5"
       } ${link ? "cursor-pointer" : ""} ${
         boxLayout ? "flex space-x-3" : ""

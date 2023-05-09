@@ -47,9 +47,7 @@ export const submissionsSlice = createSlice({
       state.submission = action.payload;
     },
     showSubmission: (state, action: PayloadAction<string>) => {
-      const current = state.list.find(
-        (submission: Submission) => submission.id === action.payload
-      );
+      const current = state.list.find((submission)=> submission.id === action.payload);
       state.current = current || null;
     },
   },

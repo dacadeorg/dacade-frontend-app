@@ -2,25 +2,15 @@ import Badge from "@/components/ui/Badge";
 import UserCard from "@/components/cards/User";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { ReactElement } from "react-markdown/lib/react-markdown";
+import { Submission } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
-import { User } from "@/types/bounty";
-import { Reward } from "@/types/course";
+import { ReactElement } from "react";
 
-interface Props {
-  submission: {
-    user: User;
-    created_at: string;
-    text: string;
-    reward: Reward;
-    metadata: {
-      evaluation: {
-        points: number;
-      };
-      feedbacks: number;
-      reviewed: boolean;
-    };
-  };
+/**
+ * Submission card interface props
+ */
+interface SubmissionCardProps {
+  submission: Submission;
   preview?: boolean;
   stats?: boolean;
   link?: string;
@@ -32,16 +22,26 @@ interface Props {
   };
 }
 
+/**
+ * Submission card component
+ * @return {ReactElement}
+ */
 export default function SubmissionCard({
   submission,
+  preview = false,
+  stats = false,
   link = "",
-}: Props): ReactElement {
+  buttons = false,
+  last = false,
+  timestamp = { text: "", date: "" },
+}: SubmissionCardProps): ReactElement {
   const { t } = useTranslation();
-  const colors = useSelector((state) => state.ui.colors);
+  const {colors, community} = useSelector((state) => ({
+    colors: state.ui.colors,
+    community: state.communities.current
+}))
 
-  const reviewed =
-    submission?.metadata?.evaluation ||
-    submission?.metadata?.reviewed;
+  const reviewed = submission?.metadata?.evaluation || submission?.metadata?.reviewed;
 
   const badgeButtonStyles = {
     backgroundColor: colors.textAccent,
@@ -63,56 +63,43 @@ export default function SubmissionCard({
       }}
       link={link}
       bordered={false}
+      className="pt-6"
       boxLayout
     >
-      <div className="flex flex-col divide-y divide-gray-200">
+      <div className="divide-y divide-gray-200 flex flex-col">
         <div className="pb-6">
-          <p className="text-base leading-normal text-gray-700 break-words sm:text-lg line-clamp-3">
-            {submission.text}
-          </p>
+          <p className="text-base sm:text-lg line-clamp-3 leading-normal text-gray-700 break-words">{submission.text}</p>
         </div>
-        <div className="flex items-center justify-between w-full py-4">
-          <div className="flex items-center space-x-4">
-            {submission.reward && !reviewed && (
+        <div className="flex items-center py-4 w-full justify-between">
+          <div className="flex space-x-4 items-center">
+            {submission.reward && !reviewed ? (
               <div className="bg-yellow-50 text-yellow-900 text-sm border border-solid border-yellow-100 rounded px-3 py-0.5 inline-block">
                 <span className="font-semibold">
                   {submission.reward.amount} {submission.reward.token}
                 </span>
                 {t("submissions.feedback.bounty")}
               </div>
-            )}
-            {submission.metadata &&
-              submission.metadata.evaluation && (
-                <div className="inline-flex items-center flex-1 space-x-1">
-                  <Badge
-                    customStyle={badgeButtonStyles}
-                    size="medium"
-                    className="relative"
-                    value={submission.metadata.evaluation.points}
-                  />
-                  <span className="text-sm leading">
-                    {t("submissions.evaluation.points")}
-                  </span>
-                </div>
-              )}
-            {submission.metadata && submission.metadata.feedbacks && (
-              <div className="relative inline-block mr-2 text-sm leading-snug text-gray-700">
-                <span className="font-semibold">
-                  {submission.metadata.feedbacks}{" "}
-                </span>
+            ):<></>}
+            {submission.metadata && submission.metadata.evaluation ? (
+              <div className="inline-flex flex-1 items-center space-x-1">
+                <Badge custom-style={badgeButtonStyles} size="medium" className="relative" value={submission.metadata.evaluation.points} />
+                <span className="text-sm leading">{"submissions.evaluation.points"}</span>
+              </div>
+            ): <></>}
+            {submission.metadata && submission.metadata.feedbacks ? (
+              <div className="mr-2 text-sm relative leading-snug text-gray-700 inline-block">
+                <span className="font-semibold">{submission.metadata.feedbacks}</span>
                 {t("submissions.feedback.feedbacks")}
               </div>
-            )}
+            ): <></>}
           </div>
 
-          <div className="hidden ml-auto text-right xl:m-0 sm:block">
+          <div className="text-right ml-auto xl:m-0 hidden sm:block">
             <ArrowButton
               padding={false}
-              className="inline-flex w-10 h-10 text-2xl text-gray-500 bg-gray-100 rounded-full action-button sm:w-11 sm:h-11"
+              className="action-button inline-flex bg-gray-100 text-gray-500 w-10 h-10 sm:w-11 sm:h-11 text-2xl rounded-full"
               variant="none"
-              arrowClasses="block "
-              minWidthClass=""
-              rounded
+              arrowClasses="w-full"
               customStyle={arrowButtonStyles}
             />
           </div>
