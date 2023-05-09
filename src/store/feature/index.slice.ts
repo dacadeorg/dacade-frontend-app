@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 // Define initial state interface
 
 interface InitialState {
-  error: AxiosError | null;
+  error: any;
   busy: boolean;
   jobDone: boolean;
   forwardRoute: string | null;

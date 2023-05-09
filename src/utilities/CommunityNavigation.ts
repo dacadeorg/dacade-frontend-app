@@ -1,7 +1,7 @@
 import { Community } from "@/types/community";
 import { Course } from "@/types/course";
 import Slugger from "github-slugger";
-import { NextRouter } from "next/router";
+// import { NextRouter } from "next/router";
 
 type QueryRoute = {
   course_slug?: string;
@@ -39,7 +39,7 @@ export type List = {
 type BountyLink = Omit<LearningModuleLink, "subitems">;
 
 export default class CommunityNavigation {
-  private router: NextRouter;
+  private router: any;
 
   /**
    * @date 3/21/2023 - 12:20:30 PM
@@ -48,7 +48,7 @@ export default class CommunityNavigation {
    * @param {NextRouter} router
    */
 
-  constructor(router: NextRouter) {
+  constructor(router: any) {
     this.router = router;
   }
 

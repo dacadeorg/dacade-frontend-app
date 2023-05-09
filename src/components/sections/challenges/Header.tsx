@@ -15,8 +15,10 @@ import { ReactElement } from "react";
  */
 export default function ChallengeHeader(): ReactElement {
   const { t } = useTranslation();
-  const course = useSelector((state) => state.courses.current);
-  const challenge = useSelector((state) => state.challenges.current);
+  const { course, challenge } = useSelector((state) => ({
+    course: state.courses.current,
+    challenge: state.challenges.current,
+  }));
 
   return (
     <div>

@@ -15,6 +15,7 @@ export default function LearningModules(): ReactElement {
   const { t } = useTranslation();
   const course = useSelector((state) => state.courses.current);
 
+  // console.log(course);
   return (
     <>
       {course ? (
@@ -30,14 +31,15 @@ export default function LearningModules(): ReactElement {
                 )}
               </span>
             </div>
-            {course.learningModules.map((learningModule, index) => {
-              return (
-                <LearningModuleCard
-                  key={`module-${index}`}
-                  learningModule={learningModule}
-                />
-              );
-            })}
+            {course.learningModules &&
+              course.learningModules.map((learningModule, index) => {
+                return (
+                  <LearningModuleCard
+                    key={`module-${index}`}
+                    learningModule={learningModule}
+                  />
+                );
+              })}
           </div>
         </Section>
       ) : (
