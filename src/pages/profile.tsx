@@ -1,6 +1,6 @@
 import ProfileHeader from "@/components/sections/profile/Header";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { fetchUserProfile } from "@/store/feature/profile/user.slice";
+import { fetchUserProfile } from "@/store/feature/profile/users.slice";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 

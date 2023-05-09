@@ -4,7 +4,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useDispatch } from "react-redux";
 import { useSelector } from "@/hooks/useTypedSelector";
 import BalanceList from "@/components/list/Balance";
 import ReputationList from "@/components/list/Reputation";
@@ -19,6 +18,7 @@ import { setShowReferralPopup } from "@/store/feature/ui.slice";
 import { logout } from "@/store/feature/auth.slice";
 import { setBusy, setError } from "@/store/feature/index.slice";
 import Link from "next/link";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  * User profile dropdown component
@@ -46,13 +46,16 @@ const UserProfileDropdown = ({
       process.env.NEXT_PUBLIC_SHOW_LANGUAGE_SELECTOR === "true"
     );
 
-  const wallets = useSelector((state) => state.wallets.list);
+  const { wallets, reputations, user, error, busy } = useSelector(
+    (state) => ({
+      wallets: state.wallets.list,
+      reputations: state.reputations.list,
+      user: state.user.data,
+      busy: state.store.busy,
+      error: state.store.error,
+    })
+  );
 
-  const reputations = useSelector((state) => state.reputations.list);
-
-  const { busy, error } = useSelector((state) => state.store);
-
-  const user = useSelector((state) => state.user.data);
   const username = user?.displayName;
 
   /**
@@ -61,7 +64,7 @@ const UserProfileDropdown = ({
    * @date 4/4/2023 - 11:55:42 PM
    */
   const onLogout = () => {
-    logout();
+    dispatch(logout());
     router.push("/");
   };
 
@@ -72,7 +75,7 @@ const UserProfileDropdown = ({
    * @date 4/4/2023 - 11:56:40 PM
    */
   const toggleInvite = () => {
-    dispatch(setShowReferralPopup(true));
+    dispatch(setShowReferralPopup(false));
   };
 
   useEffect(() => {
@@ -120,15 +123,19 @@ const UserProfileDropdown = ({
             <span>{t("nav.sign-out")}</span>
           </div>
         </div>
-        {wallets.length && (
+        {wallets.length ? (
           <div className="p-4">
             <BalanceList />
           </div>
+        ) : (
+          <></>
         )}
-        {reputations.length && (
+        {reputations.length ? (
           <div className="p-4">
             <ReputationList />
           </div>
+        ) : (
+          <></>
         )}
         {showLanguageSwitcher && <LanguageList />}
         <div className="p-4 flex justify-center bg-indigo-50">

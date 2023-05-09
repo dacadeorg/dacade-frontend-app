@@ -127,7 +127,7 @@ export default function Avatar({
     }
   );
 
-  const Component = useLink ? Link : Span;
+  const Component = useLink ? Link : "span";
 
   return (
     <Component

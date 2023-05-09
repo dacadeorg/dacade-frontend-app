@@ -66,28 +66,15 @@ const partners = [
  * @returns {ReactElement}
  */
 export default function Footer({
-  backgroundColor,
+  backgroundColor = false,
 }: FooterProps): ReactElement {
   const { t } = useTranslation();
 
-  const getFooterTheme = useCallback(() => {
-    let theme;
-    switch (backgroundColor) {
-      case true:
-        theme = "secondary";
-        break;
-      case false:
-        theme = "";
-        break;
-      default:
-        theme = backgroundColor;
-        break;
-    }
-    return theme;
-  }, [backgroundColor]);
-
   return (
-    <Section padding="pt-20" type={getFooterTheme()}>
+    <Section
+      padding="pt-20"
+      type={backgroundColor ? "secondary-light" : "default"}
+    >
       <div className="py-8 text-base text-center text-gray-400 border-t border-gray-200 border-t-solid lg:flex md:flex lg:text-left">
         <div className="w-full border-b border-gray-200 lg:w-1/2 lg:border-none md:border-none border-b-solid">
           <p

@@ -2,6 +2,8 @@ import { ReactElement } from "react";
 import classNames from "classnames";
 import { useTranslation } from "next-i18next";
 import NotificationCard from "@/components/cards/NotificationCard";
+import { useSelector } from "@/hooks/useTypedSelector";
+import { User } from "@/types/bounty";
 
 /**
  * Notification props interface
@@ -29,13 +31,10 @@ interface NotificationProps {
 export default function Notification({
   extended,
 }: NotificationProps): ReactElement {
-  //  TODO:  to be uncommented when user notifications slice is implemented
-  //  const notifications = useSelector((state) => state.user.notifications);
-  const notifications: any[] = [];
-
-  //  TODO:  to be uncommented when user slice is implemented
-  //  const user = useSelector((state) => state.user);
-  const user = {};
+  const notifications = useSelector(
+    (state) => state.notifications.notifications
+  );
+  const user = useSelector((state) => state.user.data);
 
   const { t } = useTranslation();
 
@@ -56,8 +55,8 @@ export default function Notification({
           return (
             <NotificationCard
               key={notification.id}
-              user={user}
-              details={notification}
+              user={user as User}
+              notification={notification}
               extended={extended}
             />
           );

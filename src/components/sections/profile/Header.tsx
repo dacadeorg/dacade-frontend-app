@@ -6,38 +6,28 @@ import TimeIcon from "@/icons/time.svg";
 import DiscordIcon from "@/icons/discordIcon.svg";
 import KYCVerificationPopup from "@/components/layout/KYCVerification";
 import CompassIcon from "@/icons/compass.svg";
-import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 
 const ProfileHeader = () => {
-  const dispatch = useDispatch();
-  const authUser = useSelector((state) => state.user.data);
   const router = useRouter();
 
-  // TODO: profile slice not yet implemented
-  //   const profileUser = useSelector(
-  //     (state) => state.profile.users.current
-  //   );
-  const profileUser = {
-    displayName: "mbukeprince",
-    joined: "2021",
-    discord: {
-      connected: true,
-    },
-  };
+  const { authUser, profileUser } = useSelector((state) => ({
+    authUser: state.user.data,
+    profileUser: state.profile.current,
+  }));
+
   const user = useMemo(() => {
+    const username = (router.query?.username as string) || "";
+
     if (
-      (router.query as { username: string }).username &&
-      (
-        router.query as { username: string }
-      ).username?.toLowerCase() !==
-        authUser?.displayName?.toLowerCase()
+      username &&
+      username?.toLowerCase() !== authUser?.displayName?.toLowerCase()
     ) {
       return profileUser;
     }
     return authUser;
-  }, [authUser, profileUser, router.query]);
+  }, [authUser, profileUser, router.query?.username]);
 
   const isKycVerified = useSelector(
     (state) => state.user.data?.isKycVerified
@@ -48,19 +38,23 @@ const ProfileHeader = () => {
     return DateManager.format(authUser?.joined, "MMMM yyyy", "en");
   }, [authUser]);
 
-  const username = useMemo(() => {
-    return user?.displayName;
-  }, [user]);
+  const username = useMemo(
+    () => user?.displayName,
+    [user?.displayName]
+  );
 
-  const isCurrentUser = useMemo(() => {
-    return (
-      username?.toLowerCase() === authUser?.displayName?.toLowerCase()
-    );
-  }, [authUser, username]);
+  const isCurrentUser = useMemo(
+    () =>
+      username?.toLowerCase() ===
+      authUser?.displayName?.toLowerCase(),
 
-  const canConnectDiscord = useMemo(() => {
-    return isCurrentUser && !user?.discord?.connected;
-  }, [isCurrentUser, user]);
+    [authUser, username]
+  );
+
+  const canConnectDiscord = useMemo(
+    () => isCurrentUser && !user?.discord?.connected,
+    [isCurrentUser, user]
+  );
 
   const triggerDiscordOauth = () => {
     window.location.href = `${process.env.NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL}?response_type=code&client_id=${process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID}&scope=${process.env.NEXT_PUBLIC_DISCORD_SCOPE}&state=15773059ghq9183habn&redirect_uri=${process.env.NEXT_PUBLIC_DISCORD_CALLBACK_URL}&prompt=consent`;
@@ -119,10 +113,7 @@ const ProfileHeader = () => {
           )}
         </div>
       )}
-      <KYCVerificationPopup
-        onCompleted={() => console.log("Hello world")}
-        key="Hello world"
-      />
+      <KYCVerificationPopup />
     </div>
   );
 };
