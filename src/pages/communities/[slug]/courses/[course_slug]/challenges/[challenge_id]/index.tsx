@@ -54,7 +54,6 @@ export default function ChallengePage(props: {
 }): ReactElement {
   const { challenge, community } = props.pageProps;
   const dispatch = useDispatch();
-  const route = useRouter();
   const { t } = useTranslation();
   const { course, submission, isAuthenticated } = useSelector(
     (state) => ({
@@ -68,7 +67,7 @@ export default function ChallengePage(props: {
     () =>
       getMetadataTitle(
         t("communities.challenge.title"),
-        course?.name as string
+        course?.name || ""
       ),
     [course?.name, t]
   );
