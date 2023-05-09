@@ -1,4 +1,4 @@
-import { Course, Metadata, Reward } from "./course";
+import { Challenge, Course, Metadata, Reward } from "./course";
 import { Colors } from "./community";
 import { ReactNode } from "react";
 
@@ -87,7 +87,7 @@ export interface Submission {
   link: string;
   community: string;
   user_id: string;
-  challenge: string;
+  challenge: Challenge;
   text: string;
   reviewDeadline: Date;
   metadata: SubmissionMetadata;
@@ -95,8 +95,10 @@ export interface Submission {
   user: User;
   reviewable: boolean;
   status: string;
-  // TODO: to be strictly typed later
   evaluation?: Evaluation;
+  reward: Reward;
+  // TODO: to be strictly typed later
+  evaluation: any;
 }
 
 export interface SubmissionMetadata {

@@ -4,7 +4,7 @@ import { Challenge } from "@/types/course";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 /**
- * Challenge state interface 
+ * Challenge state interface
  * @date 4/25/2023 - 8:18:04 PM
  *
  * @interface ChallengeState
@@ -65,10 +65,10 @@ export const {
  *
  * @type {*}
  */
-export const fetchChallenge: any = createAsyncThunk(
+export const fetchChallenge = createAsyncThunk(
   "challenges/find",
-  async ({ id }: { id: string , locale?: string }) => {
-    const { data } = await api().server.get(`challenges/${id}`);
+  async ({ id, locale }: { id: string; locale?: string }) => {
+    const { data } = await api(locale).server.get(`challenges/${id}`);
     return data;
   }
 );

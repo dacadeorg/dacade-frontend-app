@@ -1,4 +1,4 @@
-import EvaluationCard from "@/components/cards/Evaluation";
+import EvaluationCard from "@/components/cards/EvaluationCard";
 import RatingRubric from "@/components/sections/challenges/Rubric";
 import Coin from "@/components/ui/Coin";
 import { useSelector } from "@/hooks/useTypedSelector";
@@ -14,30 +14,20 @@ import { ReactElement } from "react";
  * @export
  * @returns {ReactElement}
  */
-export default function Evaluation(): ReactElement {
+export default function Evaluations(): ReactElement {
   const { t } = useTranslation();
   const colors = useSelector((state) => state.ui.colors);
-  const submission = useSelector(
-    (state) => state.submissions.current
-  );
+  const submission = useSelector((state) => state.submissions.current);
   const challenge = useSelector((state) => state.challenges.current);
   const evaluation = submission?.evaluation as Evaluation;
 
   return (
     <EvaluationCard evaluation={evaluation}>
       <>
-        {challenge && (
-          <RatingRubric
-            hideTitle
-            ratingCriteria={challenge.ratingCriteria}
-            selected={evaluation.criteria}
-          />
-        )}
+        {challenge && <RatingRubric hideTitle ratingCriteria={challenge.ratingCriteria} selected={evaluation.criteria} />}
         <div className="grid grid-cols-1 mt-3 space-y-4 md:space-y-0 md:grid-cols-2 lg:grid-cols-4 gap-y-5 gap-x-5">
           <div className="text-sm">
-            <span className="block font-medium">
-              {t("communities.challenge.evaluation.total")}
-            </span>
+            <span className="block font-medium">{t("communities.challenge.evaluation.total")}</span>
             <span
               className="text-xl"
               style={{
@@ -57,9 +47,7 @@ export default function Evaluation(): ReactElement {
           </div>
           {evaluation.reward && (
             <div className="relative text-sm">
-              <span className="block font-medium">
-                {t("communities.challenge.evaluation.total")}
-              </span>
+              <span className="block font-medium">{t("communities.challenge.evaluation.total")}</span>
               <div className="absolute -left-5 top-7">
                 <Coin token={evaluation.reward.token} size="small" />
               </div>
@@ -69,14 +57,10 @@ export default function Evaluation(): ReactElement {
                   color: colors.textAccent,
                 }}
               >
-                <span className="text-xl">
-                  {evaluation.reward.amount}
-                </span>
+                <span className="text-xl">{evaluation.reward.amount}</span>
                 <span>{evaluation.reward.token}</span>
               </div>
-              <div>
-                {t("communities.challenge.evaluation.message")}
-              </div>
+              <div>{t("communities.challenge.evaluation.message")}</div>
             </div>
           )}
         </div>
