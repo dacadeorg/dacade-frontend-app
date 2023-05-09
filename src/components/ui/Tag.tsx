@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { HTMLProps } from "react";
+import { HTMLProps, ReactElement } from "react";
 
 /**
  * Tag Props Interface
@@ -27,7 +27,7 @@ interface TagProps extends HTMLProps<HTMLDivElement> {
   value,
   children,
 }
- * @returns {*}
+ * @returns {ReactElement}
  */
 export default function Tag({
   rounded = true,
@@ -35,7 +35,7 @@ export default function Tag({
   value,
   children,
   ...props
-}: TagProps) {
+}: TagProps): ReactElement {
   const tagClassNames = classNames(
     "text-center px-2 p-0.5 h-5 inline-flex items-center",
     {
