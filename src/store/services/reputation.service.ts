@@ -3,9 +3,8 @@ import { createApi } from "@reduxjs/toolkit/dist/query";
 import {
   clearReputationList,
   setReputationList,
-} from "../feature/reputation.slice";
+} from "../feature/profile/reputation.slice";
 import { Reputation } from "@/types/bounty";
-import { setReputationList as setProfileReputationList } from "../feature/profile.slice";
 
 const reputationProfileService = createApi({
   reducerPath: "reputationProfileService",
@@ -27,7 +26,7 @@ const reputationProfileService = createApi({
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
-          dispatch(setProfileReputationList(data));
+          dispatch(setReputationList(data));
         } catch (error) {
           console.log("error", error);
         }
@@ -36,7 +35,7 @@ const reputationProfileService = createApi({
   }),
 });
 
-const fetchProfileReputation = ({
+export const fetchProfileReputation = ({
   locale,
   username,
 }: {

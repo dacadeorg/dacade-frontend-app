@@ -1,33 +1,10 @@
-import api from "@/config/api";
 import { Submission } from "@/types/bounty";
 import { Community } from "@/types/community";
 import { Feedback } from "@/types/feedback";
-import {
-  combineReducers,
-  createSlice,
-  PayloadAction,
-} from "@reduxjs/toolkit";
-import { setColors } from "./ui.slice";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { setColors } from "../ui.slice";
 
-export const profileReputation = createSlice({
-  name: "reputation",
-  initialState: {
-    list: [],
-  },
-  reducers: {
-    setReputationList(state, action) {
-      state.list = action.payload;
-    },
-    clearReputations(state, action) {
-      state.list = [];
-    },
-  },
-});
-
-export const { setReputationList, clearReputations } =
-  profileReputation.actions;
-
-interface IState {
+interface InitialState {
   list: Community[];
   current: Community | null;
   feedbacks: Feedback[];
@@ -36,7 +13,7 @@ interface IState {
   reputation: number;
 }
 
-const initialState: IState = {
+const initialState: InitialState = {
   list: [],
   reputation: 0,
   current: null,
@@ -45,30 +22,45 @@ const initialState: IState = {
   listDataUsername: [],
 };
 
+/**
+ * Profile communities slice
+ * @date 5/9/2023 - 11:18:03 AM
+ *
+ * @type {*}
+ */
 const communitiesProfile = createSlice({
   name: "communities",
   initialState,
   reducers: {
-    setCurrent(state, action: PayloadAction<Community>) {
+    setCurrentProfileCommunity(
+      state,
+      action: PayloadAction<Community>
+    ) {
       setColors(action.payload.colors);
       state.current = action.payload;
     },
-    setList(state, action: PayloadAction<Community[]>) {
+    setListProfileCommunity(
+      state,
+      action: PayloadAction<Community[]>
+    ) {
       state.list = action.payload;
     },
     setListDataUsername(state, action: PayloadAction<string[]>) {
       state.listDataUsername = action.payload;
     },
-    setFeedbacks(state, action: PayloadAction<Feedback[]>) {
+    setProfileCommunityFeedbacks(
+      state,
+      action: PayloadAction<Feedback[]>
+    ) {
       state.feedbacks = action.payload;
     },
-    setSubmissions(state, action) {
+    setProfileCommunitySubmissions(state, action) {
       state.submissions = action.payload;
     },
-    setReputation(state, action) {
+    setProfileCommunityReputation(state, action) {
       state.reputation = action.payload;
     },
-    clear(state) {
+    clearProfileCommunity(state) {
       state.list = [];
       state.reputation = 0;
       state.current = null;
@@ -79,16 +71,13 @@ const communitiesProfile = createSlice({
 });
 
 export const {
-  clear,
-  setCurrent,
-  setFeedbacks,
-  setList,
+  clearProfileCommunity,
+  setCurrentProfileCommunity,
+  setProfileCommunityFeedbacks,
+  setListProfileCommunity,
   setListDataUsername,
-  setReputation,
-  setSubmissions,
+  setProfileCommunityReputation,
+  setProfileCommunitySubmissions,
 } = communitiesProfile.actions;
 
-export default combineReducers({
-  communities: communitiesProfile.reducer,
-  reputation: profileReputation.reducer,
-});
+export default communitiesProfile;

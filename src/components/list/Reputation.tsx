@@ -11,7 +11,9 @@ import { Community } from "@/types/community";
 
 export default function ReputationList(): ReactElement {
   const { t } = useTranslation();
-  const reputations = useSelector((state) => state.reputations.list);
+  const reputations = useSelector(
+    (state) => state.profile.reputations.list
+  );
 
   return (
     <div className="text-left">

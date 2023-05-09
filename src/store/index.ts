@@ -1,11 +1,11 @@
 import { referralSlice } from "./feature/referrals.slice";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 import communities from "./feature/community.slice";
 import ui from "./feature/ui.slice";
 import { bannerSlice } from "./feature/banner.slice";
 import { notificationsSlice } from "./feature/notification.slice";
-import reputationSlice from "./feature/reputation.slice";
+// import reputationSlice from "./feature/profile/reputation.slice";
 import { coursesService } from "./services/course.service";
 import { communityService } from "./services/community.service";
 import indexSlice from "./feature/index.slice";
@@ -25,15 +25,10 @@ import communitySlice from "./feature/community.slice";
 import bountiesSlice from "./feature/bouties.slice";
 import { challengeSlice } from "./feature/communities/challenges";
 import { feedbackSlice } from "./feature/communities/challenges/submissions/feedback.slice";
-import profileSlice from "./feature/profile.slice";
-import { certificateSlice } from "./feature/certificate.slice";
 import walletsSlice from "./feature/user/wallets.slice";
 import walletsService from "./services/wallets.service";
+import profileReducer from "./feature/profile";
 
-const profileReducer = combineReducers({
-  certificates: certificateSlice.reducer,
-  ...profileSlice,
-});
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
   community: ReturnType<typeof communitySlice.reducer>;
@@ -43,7 +38,7 @@ export interface IRootState {
   banner: ReturnType<typeof bannerSlice.reducer>;
   notifications: ReturnType<typeof notificationsSlice.reducer>;
   wallets: ReturnType<typeof walletsSlice.reducer>;
-  reputations: ReturnType<typeof reputationSlice.reducer>;
+  // reputations: ReturnType<typeof reputationSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
   coursesService: ReturnType<typeof coursesService.reducer>;
@@ -51,7 +46,9 @@ export interface IRootState {
   walletService: ReturnType<typeof walletsService.reducer>;
   userService: ReturnType<typeof userSlice.reducer>;
   reputationService: ReturnType<typeof reputationService.reducer>;
-  notificationService: ReturnType<typeof notificationsService.reducer>;
+  notificationService: ReturnType<
+    typeof notificationsService.reducer
+  >;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   bounties: ReturnType<typeof bountiesSlice.reducer>;
   submissions: ReturnType<typeof submissionsSlice.reducer>;
@@ -72,7 +69,7 @@ export const store = configureStore({
     [notificationsSlice.name]: notificationsSlice.reducer,
     [bannerSlice.name]: bannerSlice.reducer,
     [walletsSlice.name]: walletsSlice.reducer,
-    [reputationSlice.name]: reputationSlice.reducer,
+    // [reputationSlice.name]: reputationSlice.reducer,
     [indexSlice.name]: indexSlice.reducer,
     [authSlice.name]: authSlice.reducer,
     [courseSlice.name]: courseSlice.reducer,

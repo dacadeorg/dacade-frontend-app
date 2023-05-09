@@ -11,7 +11,11 @@ import { useTranslation } from "next-i18next";
  * community stats component
  * @returns {ReactElement}
  */
-export default function CommunityStats ({ params }: { params: string }): ReactElement {
+export default function CommunityStats({
+  params,
+}: {
+  params: string;
+}): ReactElement {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -19,14 +23,15 @@ export default function CommunityStats ({ params }: { params: string }): ReactEl
     dispatch(fetchCurrentCommunity({ slug: params }));
   }, [dispatch, params]);
 
-const {community, submissions, reputation} = useSelector((state) => ({
-     community :state.communities.current,
-     // TODO: Will be uncommented when the feedback slice is implemented
-  //    feedbacks :state.communities.feedbacks,
-   submissions : state.submissions.list,
-   reputation : state.reputations.list
-})
-)
+  const { community, submissions, reputation } = useSelector(
+    (state) => ({
+      community: state.communities.current,
+      // TODO: Will be uncommented when the feedback slice is implemented
+      //    feedbacks :state.communities.feedbacks,
+      submissions: state.submissions.list,
+      reputation: state.profile.reputations.list,
+    })
+  );
 
   return (
     <div className="bg-gray-100 sm:flex sm:justify-between rounded-3xl lg:max-w-lg">
@@ -48,7 +53,7 @@ const {community, submissions, reputation} = useSelector((state) => ({
       </div>
       <div className="p-7 md:text-right justify-self-stretch space-y-2">
         <div className="whitespace-nowrap">
-            {/* TODO: Will be uncommented when the feedback slice is implemented */}
+          {/* TODO: Will be uncommented when the feedback slice is implemented */}
           {/* <span className="font-bold">{feedbacks.length}</span> */}
           {t("feedbacks")}
         </div>
@@ -59,4 +64,4 @@ const {community, submissions, reputation} = useSelector((state) => ({
       </div>
     </div>
   );
-};
+}

@@ -1,14 +1,6 @@
 import api from "@/config/api";
 import { Certificate } from "@/types/certificate";
-import {
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-} from "@reduxjs/toolkit";
-// import {
-//   createApi,
-//   fetchBaseQuery,
-// } from "@reduxjs/toolkit/query/react";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ICertificateSlice {
   list: Certificate[];
@@ -47,3 +39,5 @@ export const certificateSlice = createSlice({
 
 export const { setCurrent, setList, clear, setCurrentMintingStatus } =
   certificateSlice.actions;
+
+export default certificateSlice;

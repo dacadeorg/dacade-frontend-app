@@ -48,7 +48,7 @@ const UserProfileDropdown = ({
   const { wallets, reputations, user, error, busy } = useSelector(
     (state) => ({
       wallets: state.wallets.list,
-      reputations: state.reputations.list,
+      reputations: state.profile.reputations.list,
       user: state.user.data,
       busy: state.store.busy,
       error: state.store.error,

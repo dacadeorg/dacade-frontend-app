@@ -1,13 +1,13 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import {
-  setCurrent,
-  setFeedbacks,
-  setList,
+  setCurrentProfileCommunity,
   setListDataUsername,
-  setReputation,
-  setSubmissions,
-} from "@/store/feature/profile.slice";
+  setListProfileCommunity,
+  setProfileCommunityFeedbacks,
+  setProfileCommunityReputation,
+  setProfileCommunitySubmissions,
+} from "../feature/profile/communities.slice";
 
 const fetchProfileCommunityService = createApi({
   reducerPath: "fetchProfileCommunities",
@@ -32,10 +32,12 @@ const fetchProfileCommunityService = createApi({
         try {
           const { data } = await queryFulfilled;
           await Promise.all([
-            dispatch(setCurrent(data.community)),
-            dispatch(setFeedbacks(data.feedbacks)),
-            dispatch(setSubmissions(data.submissions)),
-            dispatch(setReputation(data.reputation)),
+            dispatch(setCurrentProfileCommunity(data.community)),
+            dispatch(setProfileCommunityFeedbacks(data.feedbacks)),
+            dispatch(
+              setProfileCommunitySubmissions(data.submissions)
+            ),
+            dispatch(setProfileCommunityReputation(data.reputation)),
           ]);
         } catch (error) {
           console.log("error", error);
@@ -72,7 +74,7 @@ const fetchProfileCommunitiesService = createApi({
         try {
           const { data } = await queryFulfilled;
           await Promise.all([
-            dispatch(setList(data)),
+            dispatch(setListProfileCommunity(data)),
             dispatch(setListDataUsername([username])),
           ]);
         } catch (error) {
