@@ -151,6 +151,8 @@ export interface UserMetadata {
 export interface Reputation {
   total: number;
   list: string[];
+  community: Community;
+  score: number;
 }
 
 export interface BountyAuthor {
