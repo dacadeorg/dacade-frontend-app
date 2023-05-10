@@ -7,19 +7,7 @@ const aspectRatio = require("@tailwindcss/aspect-ratio");
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: false,
-  safelist: [
-    "grid-cols-1",
-    "grid-cols-2",
-    "grid-cols-3",
-    "grid-cols-4",
-    "grid-cols-5",
-    "gap-0",
-    "gap-1",
-    "gap-2",
-    "gap-3",
-    "gap-y-3",
-    "gap-y-0",
-  ],
+  safelist: ["grid-cols-1", "grid-cols-2", "grid-cols-3", "grid-cols-4", "grid-cols-5", "gap-0", "gap-1", "gap-2", "gap-3", "gap-y-3", "gap-y-0"],
   theme: {
     extend: {
       fontFamily: {

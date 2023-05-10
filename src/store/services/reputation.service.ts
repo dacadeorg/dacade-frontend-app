@@ -1,9 +1,6 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query";
-import {
-  clearReputationList,
-  setReputationList,
-} from "../feature/profile/reputation.slice";
+import { clearReputationList, setReputationList } from "../feature/profile/reputation.slice";
 import { Reputation } from "@/types/bounty";
 
 const reputationProfileService = createApi({
@@ -11,13 +8,7 @@ const reputationProfileService = createApi({
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
     getProfileReputation: builder.query({
-      query: ({
-        username,
-        locale,
-      }: {
-        username: string;
-        locale?: string;
-      }) => ({
+      query: ({ username, locale }: { username: string; locale?: string }) => ({
         url: `/profile/${username}/reputations`,
         headers: {
           "accept-language": locale,
@@ -35,13 +26,7 @@ const reputationProfileService = createApi({
   }),
 });
 
-export const fetchProfileReputation = ({
-  locale,
-  username,
-}: {
-  locale?: string;
-  username: string;
-}) =>
+export const fetchProfileReputation = ({ locale, username }: { locale?: string; username: string }) =>
   reputationProfileService.endpoints.getProfileReputation.initiate({
     username,
     locale,
@@ -85,7 +70,6 @@ const reputationService = createApi({
  * @param locale - The locale language
  * @returns
  */
-export const fetchReputations = (locale = "en") =>
-  reputationService.endpoints.fetchReputation.initiate(locale);
+export const fetchReputations = (locale = "en") => reputationService.endpoints.fetchReputation.initiate(locale);
 
 export default reputationService;

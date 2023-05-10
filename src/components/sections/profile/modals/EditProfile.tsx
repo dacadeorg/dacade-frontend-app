@@ -39,10 +39,7 @@ interface FormValues {
  * @param {EditProfileProps} { show, onClose }
  * @returns {ReactElement}
  */
-export default function EditProfile({
-  show,
-  onClose,
-}: EditProfileProps): ReactElement {
+export default function EditProfile({ show, onClose }: EditProfileProps): ReactElement {
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
   const {
@@ -68,9 +65,7 @@ export default function EditProfile({
   return (
     <Modal show={show} onClose={onClose}>
       <div className="px-6 pt-6 relative">
-        <h1 className="text-.5xl leading-none font-medium mb-12">
-          {t("profile.edit.profile")}
-        </h1>
+        <h1 className="text-.5xl leading-none font-medium mb-12">{t("profile.edit.profile")}</h1>
         <form onSubmit={handleSubmit(onSave)}>
           <div className="mb-2.5">
             <Input
@@ -102,17 +97,10 @@ export default function EditProfile({
             />
           </div>
           <div className="flex pb-2 items-center justify-between">
-            <span
-              className="cursor-pointer text-sm font-medium text-primary"
-              onClick={onClose}
-            >
+            <span className="cursor-pointer text-sm font-medium text-primary" onClick={onClose}>
               {t("profile.edit.close")}
             </span>
-            <ArrowButton
-              loading={loading}
-              disabled={loading}
-              variant="outline-primary"
-            >
+            <ArrowButton loading={loading} disabled={loading} variant="outline-primary">
               {t("profile.edit.save")}
             </ArrowButton>
           </div>

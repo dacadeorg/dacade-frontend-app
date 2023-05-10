@@ -37,9 +37,7 @@ interface QuestionProps {
 }
  * @returns {ReactElement}
  */
-export default function Question({
-  details,
-}: QuestionProps): ReactElement {
+export default function Question({ details }: QuestionProps): ReactElement {
   const [show, setShow] = useState(false);
 
   const toggle = () => {
@@ -52,14 +50,9 @@ export default function Question({
    *
    * @type {string}
    */
-  const sanitazedDescription: string = DOMPurify.sanitize(
-    details.description
-  );
+  const sanitazedDescription: string = DOMPurify.sanitize(details.description);
 
-  const questionClassName = classNames(
-    "flex justify-between space-x-5 align-middle hover:text-gray-900 font-medium cursor-pointer",
-    { "text-gray-900 font-medium": show }
-  );
+  const questionClassName = classNames("flex justify-between space-x-5 align-middle hover:text-gray-900 font-medium cursor-pointer", { "text-gray-900 font-medium": show });
 
   return (
     <div className="text-gray-500 text-base md:text-lg pt-4">
@@ -68,12 +61,7 @@ export default function Question({
         {show && <ChevronTopIcon class="ml-4 mt-2" />}
         {!show && <ChevronBottomIcon class="ml-4 mt-2" />}
       </div>
-      {show && (
-        <div
-          className="mt-3 text-gray-700 pr-5 prose"
-          dangerouslySetInnerHTML={{ __html: sanitazedDescription }}
-        />
-      )}
+      {show && <div className="mt-3 text-gray-700 pr-5 prose" dangerouslySetInnerHTML={{ __html: sanitazedDescription }} />}
     </div>
   );
 }

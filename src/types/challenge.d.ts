@@ -17,5 +17,3 @@ export type Rebric = {
   timestamp: timestamp;
   typeSlug: string;
 };
-
-

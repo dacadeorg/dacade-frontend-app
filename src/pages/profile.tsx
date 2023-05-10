@@ -13,7 +13,6 @@ const Profile = () => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) =>
-  i18Translate(locale as string);
+export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);
 
 export default Profile;

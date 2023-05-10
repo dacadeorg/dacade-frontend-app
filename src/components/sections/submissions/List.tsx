@@ -23,13 +23,9 @@ export default function List(): ReactElement {
   const { t } = useTranslation();
   const submissions = useSelector((state) => state.submissions.list);
   const router = useRouter();
-  const showLoadMore = useMemo(
-    () => showButton && submissions.length >= 30,
-    [showButton, submissions.length]
-  );
+  const showLoadMore = useMemo(() => showButton && submissions.length >= 30, [showButton, submissions.length]);
 
-  const submissionId =
-    submissions[submissions.length - 1]?.id || null;
+  const submissionId = submissions[submissions.length - 1]?.id || null;
   const dispatch = useDispatch();
 
   const nextPage = async () => {
@@ -57,10 +53,7 @@ export default function List(): ReactElement {
       {submissions && submissions.length ? (
         <div className="text-xl md:text-.5xl px-0 py-5 md:py-10 md:pb-5">
           <div className="sm:border sm:border-gray-200 sm:border-solid rounded-3.5xl relative">
-            <div
-              className="flex flex-col divide-y"
-              id="scrollableDiv"
-            >
+            <div className="flex flex-col divide-y" id="scrollableDiv">
               <InfiniteScroll
                 dataLength={submissions.length}
                 next={nextPage}
@@ -69,28 +62,16 @@ export default function List(): ReactElement {
                 loader={<></>}
               >
                 {submissions.map((submission: any, i: number) => (
-                  <SubmissionCard
-                    key={`submission-${i}`}
-                    submission={submission}
-                  />
+                  <SubmissionCard key={`submission-${i}`} submission={submission} />
                 ))}
               </InfiniteScroll>
             </div>
-            {loading && (
-              <Loader
-                loading={loading}
-                className="sm:absolute sm:left-6 sm:-bottom-7.5"
-                onClick={() => nextPage()}
-              />
-            )}
+            {loading && <Loader loading={loading} className="sm:absolute sm:left-6 sm:-bottom-7.5" onClick={() => nextPage()} />}
           </div>
         </div>
       ) : (
         <div className="lg:w-2/3">
-          <EmptyState
-            title={t("submissions.empty-state.title")}
-            subtitle={t("submissions.empty-state.subtitle")}
-          />
+          <EmptyState title={t("submissions.empty-state.title")} subtitle={t("submissions.empty-state.subtitle")} />
         </div>
       )}
     </>

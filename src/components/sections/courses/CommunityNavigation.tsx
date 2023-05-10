@@ -11,34 +11,21 @@ import { useSelector } from "@/hooks/useTypedSelector";
  * @returns {ReactElement}
  */
 export default function CommunityNavigation(): ReactElement {
-  const community = useSelector(
-    (state) => state.communities?.current
-  );
+  const community = useSelector((state) => state.communities?.current);
 
   const course = useSelector((state) => state.courses?.current);
 
-  const path = useMemo(
-    () => (community ? `/communities/${community.slug}` : ""),
-    [community]
-  );
+  const path = useMemo(() => (community ? `/communities/${community.slug}` : ""), [community]);
 
   const submissions = useMemo(() => {
-    if (
-      community &&
-      community.metadata &&
-      community.metadata.submissions
-    ) {
+    if (community && community.metadata && community.metadata.submissions) {
       return community.metadata.submissions;
     }
     return 0;
   }, [community]);
 
   const feedbacks = useMemo(() => {
-    if (
-      community &&
-      community.metadata &&
-      community.metadata.feedbacks
-    ) {
+    if (community && community.metadata && community.metadata.feedbacks) {
       return community.metadata.feedbacks;
     }
     return 0;

@@ -24,12 +24,7 @@ interface ModalProps {
  * @param {ModalProps} { show, size = '', onClose, children }
  * @returns {ReactElement}
  */
-export default function Modal({
-  show,
-  size = "",
-  onClose,
-  children,
-}: ModalProps): ReactElement {
+export default function Modal({ show, size = "", onClose, children }: ModalProps): ReactElement {
   const sizeClasses = useMemo(() => {
     switch (size) {
       case "medium":
@@ -39,10 +34,7 @@ export default function Modal({
     }
   }, [size]);
 
-  const modalClassName = classNames(
-    "bg-white my-auto rounded-3.5xl relative mx-auto max-w-5xl",
-    { sizeClasses }
-  );
+  const modalClassName = classNames("bg-white my-auto rounded-3.5xl relative mx-auto max-w-5xl", { sizeClasses });
 
   return (
     <Popup show={show} className="py-8" onClose={onClose}>

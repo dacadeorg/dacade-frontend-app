@@ -59,10 +59,7 @@ export default function PasswordReset(): ReactElement {
     <>
       <Head>{getMetadataTitle(t("password-reset.title"))}</Head>
       <div>
-        <form
-          onSubmit={handleSubmit(onPasswordResetRequest)}
-          className="content-wrapper"
-        >
+        <form onSubmit={handleSubmit(onPasswordResetRequest)} className="content-wrapper">
           <div className="lg:w-98 xl:w-98 mx-auto">
             <h3 className="text-5xl my-5">{t("password-reset.title")}</h3>
             <div>
@@ -78,8 +75,7 @@ export default function PasswordReset(): ReactElement {
                 {...register("email", {
                   required: "This field is required",
                   pattern: {
-                    value:
-                      /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
+                    value: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
                     message: "This must be a valid email address",
                   },
                 })}
@@ -90,9 +86,7 @@ export default function PasswordReset(): ReactElement {
                 /* In backticks `` because placeholder requires a string.
                  * Same for label
                  */
-                placeholder={`${t(
-                  "login-page.password.placeholder"
-                )}`}
+                placeholder={`${t("login-page.password.placeholder")}`}
                 label={`${t("login-page.password.label")}`}
                 error={errors.password?.message}
                 type="password"
@@ -111,15 +105,9 @@ export default function PasswordReset(): ReactElement {
                 /* In backticks `` because placeholder requires a string.
                  * Same for label
                  */
-                placeholder={`${t(
-                  "login-page.password.placeholder"
-                )}`}
+                placeholder={`${t("login-page.password.placeholder")}`}
                 label={`${t("login-page.password.label")}`}
-                error={
-                  errors.password?.message || !passwordMatch
-                    ? "password mismatch"
-                    : ""
-                }
+                error={errors.password?.message || !passwordMatch ? "password mismatch" : ""}
                 type="password"
                 value={newPassword}
                 {...register("newPassword", {
@@ -132,12 +120,7 @@ export default function PasswordReset(): ReactElement {
               />
             </div>
             <div className="text-right">
-              <ArrowButton
-                loading={loading}
-                type="submit"
-                disabled={loading}
-                min-width-class="min-w-40"
-              >
+              <ArrowButton loading={loading} type="submit" disabled={loading} min-width-class="min-w-40">
                 {t("password-reset.submit")}
               </ArrowButton>
             </div>
@@ -152,5 +135,4 @@ PasswordReset.getLayout = (page: ReactElement) => {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) =>
-  i18Translate(locale as string);
+export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);

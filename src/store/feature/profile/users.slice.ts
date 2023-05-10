@@ -1,8 +1,4 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "@/types/bounty";
 
 interface InialState {
@@ -19,13 +15,10 @@ const initialState: InialState = {
  *
  * @type {*}
  */
-export const clearProfile = createAsyncThunk(
-  "profile/clear",
-  async (_, { dispatch }) => {
-    // TODO: Will be uncommented after the migration of /store/profile/
-    // dispatch(clearCommunities());
-  }
-);
+export const clearProfile = createAsyncThunk("profile/clear", async (_, { dispatch }) => {
+  // TODO: Will be uncommented after the migration of /store/profile/
+  // dispatch(clearCommunities());
+});
 
 /**
  * User profile slice
@@ -46,7 +39,6 @@ const userProfileSlice = createSlice({
   },
 });
 
-export const { setCurrentUserProfile, clearUserProfile } =
-  userProfileSlice.actions;
+export const { setCurrentUserProfile, clearUserProfile } = userProfileSlice.actions;
 
 export default userProfileSlice;
