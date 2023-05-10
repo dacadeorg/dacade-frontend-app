@@ -5,11 +5,33 @@ import DateManager from "@/utilities/DateManager";
 import { useTranslation } from "next-i18next";
 import { Reward } from "@/types/course";
 import { useRouter } from "next/router";
-import { Referral } from "@/types/community";
 
 // TODO: This interface should be refactored
 interface ReferralProps {
-  referral: Referral
+  referral: {
+    user: {
+      displayName: string;
+      created_at: Date;
+    };
+    challenge?: string;
+    community?: {
+      name: string;
+    };
+    submission?: {
+      metadata?: {
+        evaluation?: {
+          points: number;
+          totalPoints: number;
+        };
+      };
+      created_at: Date;
+    };
+    rewarded?: boolean;
+    metadata?: {
+      reward: Reward;
+    };
+    updated_at: Date;
+  };
 }
 
 /**
