@@ -1,4 +1,3 @@
-import api from "@/config/api";
 import { Certificate } from "@/types/certificate";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
