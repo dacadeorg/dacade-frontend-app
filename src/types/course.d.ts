@@ -63,7 +63,7 @@ export type Challenge = {
   minPoints: number;
   rewards: Reward[];
   ratingCriteria?: RatingCriteria[];
-  feedbackInfo?: Feedback[]
+  feedbackInfo?: Feedback[];
   bestSubmissions: Submission[];
 };
 

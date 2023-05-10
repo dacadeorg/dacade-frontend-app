@@ -17,15 +17,10 @@ import Section from "../communities/_partials/Section";
 export default function PageNavigation(): ReactElement {
   const colors = useSelector((state) => state.ui?.colors);
   const { t } = useTranslation();
-  const { menus, showPageNavigation: show } = useSelector(
-    (state) => state.navigation
-  );
+  const { menus, showPageNavigation: show } = useSelector((state) => state.navigation);
   const router = useRouter();
 
-  const list = useMemo(
-    () => menus?.map((menu) => menu?.items).flat(),
-    [menus]
-  );
+  const list = useMemo(() => menus?.map((menu) => menu?.items).flat(), [menus]);
 
   /**
    * A function that removes trailing slashes from a given string, and removes any hash (#) fragments from the end of the string.
@@ -48,15 +43,7 @@ export default function PageNavigation(): ReactElement {
    *
    * @type {number}
    */
-  const currentIndex: number = useMemo(
-    () =>
-      list?.findIndex(
-        (el) =>
-          stripTrailingSlash(el.link) ===
-          stripTrailingSlash(router.asPath)
-      ),
-    [list, router.asPath]
-  );
+  const currentIndex: number = useMemo(() => list?.findIndex((el) => stripTrailingSlash(el.link) === stripTrailingSlash(router.asPath)), [list, router.asPath]);
 
   /**
    * Get the previous url
@@ -99,19 +86,10 @@ export default function PageNavigation(): ReactElement {
   if (show)
     return (
       <Section>
-        <div
-          className={classNames(
-            "text-center justify-center space-x-10 pt-3",
-            { flex: prevUrl, "w-full sm:flex": !prevUrl }
-          )}
-        >
+        <div className={classNames("text-center justify-center space-x-10 pt-3", { flex: prevUrl, "w-full sm:flex": !prevUrl })}>
           {prevUrl && (
             <Link href={prevUrl}>
-              <ArrowButton
-                customStyle={buttonStyle}
-                direction="left"
-                minWidthClass="null"
-              >
+              <ArrowButton customStyle={buttonStyle} direction="left" minWidthClass="null">
                 {t("nav.page.prev")}
               </ArrowButton>
             </Link>
@@ -122,14 +100,10 @@ export default function PageNavigation(): ReactElement {
                 className={classNames({
                   "text-.5xl py-4.5 pl-6 pr-5.5": !prevUrl,
                 })}
-                minWidthClass={
-                  prevUrl ? "min-w-28" : "min-w-3/4 sm:min-w-64"
-                }
+                minWidthClass={prevUrl ? "min-w-28" : "min-w-3/4 sm:min-w-64"}
                 customStyle={activeButtonStyle}
               >
-                {!prevUrl
-                  ? t("navigation.start")
-                  : t("navigation.next")}
+                {!prevUrl ? t("navigation.start") : t("navigation.next")}
               </ArrowButton>
             </Link>
           )}

@@ -21,11 +21,7 @@ interface NavItemProps {
  * @param {{ type?: string; to?: string; children: any; }} { type = "item", to = "/", children }
  * @returns {ReactElement}
  */
-export default function NavItem({
-  type = "item",
-  to = "/",
-  children,
-}: NavItemProps): ReactElement {
+export default function NavItem({ type = "item", to = "/", children }: NavItemProps): ReactElement {
   return (
     <li className={`nav-${type}`}>
       <Link href={to}>{children}</Link>

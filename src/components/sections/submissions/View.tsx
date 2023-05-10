@@ -12,9 +12,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
  * @returns {ReactElement}
  */
 export default function View(): ReactElement {
-  const submission = useSelector(
-    (state) => state.submissions.current
-  );
+  const submission = useSelector((state) => state.submissions.current);
 
   return submission ? (
     <>

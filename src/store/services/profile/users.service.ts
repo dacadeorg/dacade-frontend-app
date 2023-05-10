@@ -1,9 +1,6 @@
 import baseQuery from "@/config/baseQuery";
 import { store } from "@/store";
-import {
-  clearProfile,
-  setCurrentUserProfile,
-} from "@/store/feature/profile/users.slice";
+import { clearProfile, setCurrentUserProfile } from "@/store/feature/profile/users.slice";
 import { createApi } from "@reduxjs/toolkit/query";
 
 const userProfileService = createApi({
@@ -12,13 +9,10 @@ const userProfileService = createApi({
   endpoints: (builder) => ({
     fetchUserProfile: builder.query({
       query: (username: string) => `users/${username}`,
-      onQueryStarted: async (
-        username: string,
-        { dispatch, queryFulfilled }
-      ) => {
+      onQueryStarted: async (username: string, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
-          const current = store.getState().profile.current;
+          const current = store.getState().profile.user.current;
           if (!current || current?.username !== username) {
             dispatch(clearProfile());
           }

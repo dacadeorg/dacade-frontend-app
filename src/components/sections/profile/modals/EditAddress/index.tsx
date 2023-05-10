@@ -37,21 +37,14 @@ interface FormValues {
 }
  * @returns {ReactElement}
  */
-export default function EditProfile({
-  show,
-}: {
-  show: boolean;
-}): ReactElement {
+export default function EditProfile({ show }: { show: boolean }): ReactElement {
   const { t } = useTranslation();
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<
-    CustomError | undefined | null
-  >();
+  const [error, setError] = useState<CustomError | undefined | null>();
   const [showEditModal, setShowEditModal] = useState(false);
   const [showEditAddress, setShowEditAddress] = useState(false);
-  const [showWalletConnectionMethod, setShowWalletConnectionMethod] =
-    useState(false);
+  const [showWalletConnectionMethod, setShowWalletConnectionMethod] = useState(false);
   const [showWalletInfo, setShowWalletInfo] = useState(false);
   const [connectionMethod, setConnectionMethod] = useState("");
   const {
@@ -120,35 +113,20 @@ export default function EditProfile({
     if (connectionMethod === "manual") {
       return "Enter new address";
     }
-    if (
-      connectionMethod === "wallet" ||
-      (requireWalletConnection && isFirstTimeAddressSetup)
-    ) {
+    if (connectionMethod === "wallet" || (requireWalletConnection && isFirstTimeAddressSetup)) {
       return "New address";
     }
 
     return "";
-  }, [
-    connectionMethod,
-    isFirstTimeAddressSetup,
-    requireWalletConnection,
-  ]);
+  }, [connectionMethod, isFirstTimeAddressSetup, requireWalletConnection]);
 
-  const isMatchingTheExistingOne =
-    currentAddress && currentAddress === address;
+  const isMatchingTheExistingOne = currentAddress && currentAddress === address;
 
   const filled = useMemo(() => {
     if (isMatchingTheExistingOne) return false;
-    if (connectionMethod === "wallet")
-      return validateAddress(newAddress, wallet?.token);
+    if (connectionMethod === "wallet") return validateAddress(newAddress, wallet?.token);
     return validateAddress(address, wallet?.token);
-  }, [
-    address,
-    connectionMethod,
-    isMatchingTheExistingOne,
-    newAddress,
-    wallet?.token,
-  ]);
+  }, [address, connectionMethod, isMatchingTheExistingOne, newAddress, wallet?.token]);
 
   const getChangeAddressText = useMemo(() => {
     return filled ? "Save Address" : "Change address";
@@ -161,21 +139,11 @@ export default function EditProfile({
         {/* <WalletHeader wallet={wallet} /> */}
         {showWalletConnectionMethod && (
           <div>
-            <p className="font-medium text-base mb-5">
-              How would you like to add your address?
-            </p>
+            <p className="font-medium text-base mb-5">How would you like to add your address?</p>
             <div className="border border-solid border-gray-400 rounded-xl divide-y overflow-hidden">
-              <WalletButton
-                onClick={() => setConnectionMethod("manual")}
-              >
-                Enter address manually
-              </WalletButton>
+              <WalletButton onClick={() => setConnectionMethod("manual")}>Enter address manually</WalletButton>
 
-              <WalletButton
-                onClick={() => setConnectionMethod("wallet")}
-              >
-                Connect a wallet
-              </WalletButton>
+              <WalletButton onClick={() => setConnectionMethod("wallet")}>Connect a wallet</WalletButton>
             </div>
           </div>
         )}
@@ -183,21 +151,10 @@ export default function EditProfile({
         {showWalletInfo && !showWalletConnectionMethod && (
           <div className="flex flex-col space-y-3">
             <div className="flex">
-              {currentAddress ? (
-                <p className="font-medium text-base">
-                  Current Address:
-                </p>
-              ) : (
-                <p className="font-medium text-base">
-                  Enter Address:
-                </p>
-              )}
+              {currentAddress ? <p className="font-medium text-base">Current Address:</p> : <p className="font-medium text-base">Enter Address:</p>}
 
               {currentAddress ? (
-                <span
-                  className="font-medium cursor-pointer text-base ml-auto text-primary"
-                  onClick={openEditAddress}
-                >
+                <span className="font-medium cursor-pointer text-base ml-auto text-primary" onClick={openEditAddress}>
                   Change
                 </span>
               ) : (
@@ -209,38 +166,31 @@ export default function EditProfile({
               <>
                 <p className="text-base mb-3">{currentAddress}</p>
                 <div className="pb-2">
-                  <p className="font-medium text-base">
-                    {newAddressTitle}
-                  </p>
+                  <p className="font-medium text-base">{newAddressTitle}</p>
                 </div>
               </>
             )}
           </div>
         )}
       </div>
-      <form
-        className="flex flex-col space-y-4"
-        onSubmit={handleSubmit(onSave)}
-      >
+      <form className="flex flex-col space-y-4" onSubmit={handleSubmit(onSave)}>
         <div className="px-6">
-          {showEditAddress &&
-            !showWalletConnectionMethod &&
-            connectionMethod === "wallet" && (
-              <Input
-                /* In backticks `` because label requires a string.*/
-                label={`${t("profile.edit.label.account-address")}`}
-                error={errors.newAddress?.message}
-                type="newAddress"
-                required
-                {...register("newAddress", {
-                  required: "This field is required",
-                  minLength: {
-                    value: 2,
-                    message: "The new address is too short",
-                  },
-                })}
-              />
-            )}
+          {showEditAddress && !showWalletConnectionMethod && connectionMethod === "wallet" && (
+            <Input
+              /* In backticks `` because label requires a string.*/
+              label={`${t("profile.edit.label.account-address")}`}
+              error={errors.newAddress?.message}
+              type="newAddress"
+              required
+              {...register("newAddress", {
+                required: "This field is required",
+                minLength: {
+                  value: 2,
+                  message: "The new address is too short",
+                },
+              })}
+            />
+          )}
           {connectionMethod === "manual" && (
             <Input
               /* In backticks `` because label requires a string.*/
@@ -259,28 +209,18 @@ export default function EditProfile({
           )}
           {isMatchingTheExistingOne && (
             <div className="pt-4">
-              <p className="text-base">
-                New address matches the existing one
-              </p>
+              <p className="text-base">New address matches the existing one</p>
             </div>
           )}
-          {isWalletConnected && !currentAddress && (
-            <p className="text-base mb-3">{newAddress}</p>
-          )}
+          {isWalletConnected && !currentAddress && <p className="text-base mb-3">{newAddress}</p>}
           {error && <ErrorBox error={error} />}
         </div>
         <div className="flex items-center justify-between pt-4 pl-6 pr-2 pb-2">
-          <span
-            className="cursor-pointer text-sm font-medium text-primary"
-            onClick={closeModal}
-          >
+          <span className="cursor-pointer text-sm font-medium text-primary" onClick={closeModal}>
             {t("profile.edit.close")}
           </span>
 
-          <ArrowButton
-            disabled={loading || !filled}
-            loading={loading}
-          >
+          <ArrowButton disabled={loading || !filled} loading={loading}>
             {getChangeAddressText}
           </ArrowButton>
         </div>

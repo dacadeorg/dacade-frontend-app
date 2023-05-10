@@ -27,24 +27,14 @@ interface SectionWrapperProps {
  * @returns {ReactElement}
  */
 
-export default function SectionWrapper({
-  title = "",
-  description = "",
-  children,
-}: SectionWrapperProps): ReactElement {
+export default function SectionWrapper({ title = "", description = "", children }: SectionWrapperProps): ReactElement {
   return (
     <div className="py-12 flex flex-col">
       <div className="w-full lg:w-3/12 xl:w-2/5 flex flex-col text-gray-700 space-y-2">
-        <div className="font-medium text-.5xl leading-snug">
-          {title}
-        </div>
-        <div className="text-sm font-light w-3/4 xl:w-3/4 lg:w-full lg:pr-7">
-          {description}
-        </div>
+        <div className="font-medium text-.5xl leading-snug">{title}</div>
+        <div className="text-sm font-light w-3/4 xl:w-3/4 lg:w-full lg:pr-7">{description}</div>
       </div>
-      <div className="w-full mt-5 items-center md:flex md:flex-col">
-        {children}
-      </div>
+      <div className="w-full mt-5 items-center md:flex md:flex-col">{children}</div>
     </div>
   );
 }

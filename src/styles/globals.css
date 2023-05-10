@@ -251,11 +251,7 @@ div {
 }
 
 .input-background {
-  background: linear-gradient(
-    270deg,
-    #f9fafb 53.08%,
-    rgba(249, 250, 251, 0) 133.61%
-  );
+  background: linear-gradient(270deg, #f9fafb 53.08%, rgba(249, 250, 251, 0) 133.61%);
 }
 
 .achievement-content {

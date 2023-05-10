@@ -18,11 +18,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/components/sections/learning-modules/_partials/MarkDown.jsx"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/sections/learning-modules/_partials/MarkDown.jsx"],
   "exclude": ["node_modules"]
 }

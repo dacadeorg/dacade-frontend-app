@@ -1,9 +1,4 @@
-import {
-  useMemo,
-  useEffect,
-  ReactElement,
-  useLayoutEffect,
-} from "react";
+import { useMemo, useEffect, ReactElement, useLayoutEffect } from "react";
 import PageNavigation from "@/components/sections/courses/PageNavigation";
 import InteractiveModule from "@/components/sections/learning-modules/InteractiveModule";
 import AdditionalMaterialsSection from "@/components/sections/learning-modules/AdditionalMaterials";
@@ -15,15 +10,9 @@ import { Community } from "@/types/community";
 import { wrapper } from "@/store";
 import { Course, LearningModule } from "@/types/course";
 import { setCurrentCourse } from "@/store/feature/course.slice";
-import {
-  findLearningModule,
-  setCurrentLearningModule,
-} from "@/store/feature/learningModules.slice";
+import { findLearningModule, setCurrentLearningModule } from "@/store/feature/learningModules.slice";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
-import {
-  getMetadataDescription,
-  getMetadataTitle,
-} from "@/utilities/Metadata";
+import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import MaterialSection from "@/components/sections/learning-modules/MaterialSection";
 import DefaultLayout from "@/components/layout/Default";
 import Header from "@/components/sections/learning-modules/Header";
@@ -59,9 +48,7 @@ interface LearningModulePageProps {
  * @param {LearningModulePageProps} props
  * @returns
  */
-export default function LearningModulePage(
-  props: LearningModulePageProps
-) {
+export default function LearningModulePage(props: LearningModulePageProps) {
   const { community, course, learningModule } = props.pageProps;
   const dispatch = useDispatch();
 
@@ -75,30 +62,13 @@ export default function LearningModulePage(
     initNavigationMenu(navigation.community)(dispatch);
   }, [community, course, dispatch, learningModule]);
 
-  const materials = useMemo(
-    () =>
-      learningModule?.materials?.filter(
-        (material) => material.type !== "ADDITIONAL"
-      ) || [],
-    [learningModule?.materials]
-  );
-  const additionalMaterials = useMemo(
-    () =>
-      learningModule?.materials?.filter(
-        (material) => material.type === "ADDITIONAL"
-      ) || [],
-    [learningModule?.materials]
-  );
+  const materials = useMemo(() => learningModule?.materials?.filter((material) => material.type !== "ADDITIONAL") || [], [learningModule?.materials]);
+  const additionalMaterials = useMemo(() => learningModule?.materials?.filter((material) => material.type === "ADDITIONAL") || [], [learningModule?.materials]);
 
   const interactiveModules = learningModule?.interactiveModules || [];
 
-  const title = getMetadataTitle(
-    learningModule?.title!,
-    course?.name!
-  );
-  const descriptions = getMetadataDescription(
-    learningModule?.description!
-  );
+  const title = getMetadataTitle(learningModule?.title!, course?.name!);
+  const descriptions = getMetadataDescription(learningModule?.description!);
 
   return (
     <>
@@ -113,17 +83,10 @@ export default function LearningModulePage(
           <Header />
           <div className="w-full divide-y divide-solid divide-gray-200">
             {materials.map((material, i) => (
-              <MaterialSection
-                key={`material-section-${i}`}
-                material={material}
-              />
+              <MaterialSection key={`material-section-${i}`} material={material} />
             ))}
-            <AdditionalMaterialsSection
-              materials={additionalMaterials}
-            />
-            {interactiveModules.length > 0 && (
-              <InteractiveModule data={interactiveModules[0]} />
-            )}
+            <AdditionalMaterialsSection materials={additionalMaterials} />
+            {interactiveModules.length > 0 && <InteractiveModule data={interactiveModules[0]} />}
             <PageNavigation />
           </div>
         </div>
@@ -133,17 +96,10 @@ export default function LearningModulePage(
 }
 
 LearningModulePage.getLayout = function (page: ReactElement) {
-  return (
-    <DefaultLayout footerBackgroundColor={"default"}>
-      {page}
-    </DefaultLayout>
-  );
+  return <DefaultLayout footerBackgroundColor={"default"}>{page}</DefaultLayout>;
 };
 
-export const getStaticProps: GetStaticProps = async ({
-  params,
-  locale,
-}) => {
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   try {
     const slug = params?.slug as string;
     const course_slug = params?.course_slug as string;
@@ -152,18 +108,10 @@ export const getStaticProps: GetStaticProps = async ({
     const [community, course, learningModule] = await Promise.all([
       api(locale).server.get<Community>(`/communities/${slug}`),
       api(locale).server.get<Course>(`/courses/${course_slug}`),
-      api(locale).server.get<LearningModule>(
-        `/learning-modules/${id}`
-      ),
-    ]).then((responses) =>
-      responses.map((response) => response.data)
-    );
+      api(locale).server.get<LearningModule>(`/learning-modules/${id}`),
+    ]).then((responses) => responses.map((response) => response.data));
 
-    if (
-      Object.entries(learningModule).length === 0 ||
-      Object.entries(course).length === 0 ||
-      Object.entries(community).length === 0
-    ) {
+    if (Object.entries(learningModule).length === 0 || Object.entries(course).length === 0 || Object.entries(community).length === 0) {
       return {
         notFound: true,
       };
@@ -195,22 +143,16 @@ interface Path {
 }
 
 export async function getStaticPaths() {
-  const { data: communities } = await api().server.get<Community[]>(
-    `/communities`
-  );
+  const { data: communities } = await api().server.get<Community[]>(`/communities`);
 
   const getPathes = async () => {
     const paths = await Promise.all(
       communities.map(async (community) => {
-        const { data: courses } = await api().server.get<Course[]>(
-          `/communities/${community.slug}/courses`
-        );
+        const { data: courses } = await api().server.get<Course[]>(`/communities/${community.slug}/courses`);
         const coursePaths = await Promise.all(
           courses.map(async (course) => {
             try {
-              const { data: modules } = await api().server.get<
-                Course[]
-              >(`/courses/${course.slug}/learning-modules`);
+              const { data: modules } = await api().server.get<Course[]>(`/courses/${course.slug}/learning-modules`);
 
               const modulePaths: Path[] = [];
 

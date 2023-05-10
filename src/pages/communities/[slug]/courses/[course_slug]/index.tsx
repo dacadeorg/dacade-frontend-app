@@ -4,19 +4,13 @@ import OverviewSection from "@/components/sections/courses/overview";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useDispatch } from "react-redux";
-import {
-  setCurrentCourse,
-  setCourseNavigation,
-} from "@/store/feature/course.slice";
+import { setCurrentCourse, setCourseNavigation } from "@/store/feature/course.slice";
 import { Community } from "@/types/community";
 import { Course } from "@/types/course";
 import { setColors } from "@/store/feature/ui.slice";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import Head from "next/head";
-import {
-  getMetadataDescription,
-  getMetadataTitle,
-} from "@/utilities/Metadata";
+import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import DefaultLayout from "@/components/layout/Default";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import useNavigation from "@/hooks/useNavigation";
@@ -64,21 +58,16 @@ export default function CourseViewPage(props: {
 }
 
 CourseViewPage.getLayout = function (page: ReactElement) {
-  return (
-    <DefaultLayout footerBackgroundColor={"default"}>
-      {page}
-    </DefaultLayout>
-  );
+  return <DefaultLayout footerBackgroundColor={"default"}>{page}</DefaultLayout>;
 };
 
 export async function getStaticProps({ params, locale }: any) {
   try {
     const { slug, course_slug } = params;
 
-    const [community, course] = await Promise.all([
-      api(locale).server.get<Community>(`/communities/${slug}`),
-      api(locale).server.get<Community>(`/courses/${course_slug}`),
-    ]).then((res) => res.map(({ data }) => data));
+    const [community, course] = await Promise.all([api(locale).server.get<Community>(`/communities/${slug}`), api(locale).server.get<Community>(`/courses/${course_slug}`)]).then(
+      (res) => res.map(({ data }) => data)
+    );
 
     return {
       props: {
@@ -103,16 +92,12 @@ interface Path {
 }
 
 export async function getStaticPaths() {
-  const { data: communities } = await api().server.get<Community[]>(
-    `/communities`
-  );
+  const { data: communities } = await api().server.get<Community[]>(`/communities`);
 
   const getPathes = async () => {
     const paths = await Promise.all(
       communities.map(async (community) => {
-        const { data: courses } = await api().server.get<Course[]>(
-          `/communities/${community.slug}/courses`
-        );
+        const { data: courses } = await api().server.get<Course[]>(`/communities/${community.slug}/courses`);
         const coursePaths: Path[] = [];
 
         courses.forEach(({ slug }) => {

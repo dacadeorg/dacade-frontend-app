@@ -53,13 +53,7 @@ interface FeedbackProps {
 }
  * @returns {ReactElement}
  */
-export default function FeedbackCard({
-  value,
-  preview = false,
-  buttons = false,
-  last = false,
-  link = "",
-}: FeedbackProps): ReactElement {
+export default function FeedbackCard({ value, preview = false, buttons = false, last = false, link = "" }: FeedbackProps): ReactElement {
   const { t } = useTranslation();
   const language = value?.metadata?.language || "en";
 
@@ -92,30 +86,15 @@ export default function FeedbackCard({
           "line-clamp-3 pb-3": preview,
         })}
       />
-      {value.metadata &&
-        value.metadata.evaluation &&
-        value.metadata.evaluation.points && (
-          <div className="flex pt-5 space-x-1">
-            {value.metadata.evaluation.reward && (
-              <RewardBadge
-                type="light-gray"
-                reward={value.metadata.evaluation.reward}
-              />
-            )}
-            <Tag
-              value={`${value.metadata.evaluation.points} REP`}
-              className="text-sm font-bold"
-              type="light-gray"
-            />
-          </div>
-        )}
+      {value.metadata && value.metadata.evaluation && value.metadata.evaluation.points && (
+        <div className="flex pt-5 space-x-1">
+          {value.metadata.evaluation.reward && <RewardBadge type="light-gray" reward={value.metadata.evaluation.reward} />}
+          <Tag value={`${value.metadata.evaluation.points} REP`} className="text-sm font-bold" type="light-gray" />
+        </div>
+      )}
       {!preview && value.link && (
         <div className="pt-6">
-          <ArrowButton
-            link={value.link}
-            target="__blank"
-            customStyle={primaryButtonStyles}
-          >
+          <ArrowButton link={value.link} target="__blank" customStyle={primaryButtonStyles}>
             {t("submissions.feedback.link.github")}
           </ArrowButton>
         </div>

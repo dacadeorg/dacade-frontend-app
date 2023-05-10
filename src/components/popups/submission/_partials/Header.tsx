@@ -22,26 +22,16 @@ interface SubmissionPopup {
  * @param {SubmissionPopup} { onClose }
  * @returns {ReactElement}
  */
-export default function SubmissionPopup({
-  onClose,
-}: SubmissionPopup): ReactElement {
+export default function SubmissionPopup({ onClose }: SubmissionPopup): ReactElement {
   const { t } = useTranslation();
   return (
     <div className="flex justify-between items-center border-b border-solid border-gray-200">
-      <div
-        className="text-left pl-5 flex items-center space-x-6 cursor-pointer"
-        onClick={onClose}
-      >
+      <div className="text-left pl-5 flex items-center space-x-6 cursor-pointer" onClick={onClose}>
         <ArrowLeftIcon className="block" />
-        <span className="text-lg font-medium block">
-          {t("communities.submissions")}
-        </span>
+        <span className="text-lg font-medium block">{t("communities.submissions")}</span>
       </div>
       <div className="p-2">
-        <button
-          className="bg-gray-100 self-start px-2.5 py-2.5"
-          onClick={onClose}
-        >
+        <button className="bg-gray-100 self-start px-2.5 py-2.5" onClick={onClose}>
           <Crossmark className="text-xl text-gray-600 w-6" />
         </button>
       </div>

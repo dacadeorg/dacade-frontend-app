@@ -1,4 +1,4 @@
-import { Submission, User} from "./bounty";
+import { Submission } from "./bounty";
 import { Challenge, Metadata, Reward } from "./course";
 
 export interface Community {
@@ -22,7 +22,7 @@ export interface Community {
   duration: number;
   items?: any[];
   challenge: Challenge;
-  submission: Submission
+  submission: Submission;
 }
 
 export interface Colors {
@@ -38,18 +38,10 @@ export interface Referral {
   id: string;
   name: string;
   ref: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   title: string;
-  user: User;
   community: Community;
   timestamp: number;
   reward: Reward;
-  challenge: Challenge;
-  submission: Submission;
-  rewarded: boolean;
-  metadata:  {
-    reward: Reward;
-  };
-
 }

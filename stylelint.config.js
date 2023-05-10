@@ -1,27 +1,16 @@
 module.exports = {
-  customSyntax: 'postcss-html',
-  extends: [
-    'stylelint-config-standard',
-    'stylelint-config-recommended-vue',
-    'stylelint-config-prettier',
-  ],
+  customSyntax: "postcss-html",
+  extends: ["stylelint-config-standard", "stylelint-config-recommended-vue", "stylelint-config-prettier"],
   // add your custom config here
   // https://stylelint.io/user-guide/configuration
   rules: {
-    'at-rule-no-unknown': [
+    "at-rule-no-unknown": [
       true,
       {
-        ignoreAtRules: [
-          'tailwind',
-          'apply',
-          'variants',
-          'responsive',
-          'screen',
-          'layer',
-        ],
+        ignoreAtRules: ["tailwind", "apply", "variants", "responsive", "screen", "layer"],
       },
     ],
-    'declaration-block-trailing-semicolon': null,
-    'no-descending-specificity': null,
+    "declaration-block-trailing-semicolon": null,
+    "no-descending-specificity": null,
   },
-}
+};

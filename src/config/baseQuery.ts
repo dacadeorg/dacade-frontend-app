@@ -1,8 +1,5 @@
 import { getUserToken } from "@/store/feature/user.slice";
-import {
-  BaseQueryFn,
-  fetchBaseQuery,
-} from "@reduxjs/toolkit/dist/query";
+import { BaseQueryFn, fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
 import Package from "../../package.json";
 
 /**
@@ -20,12 +17,7 @@ const baseQuery = (locale: string = "en"): BaseQueryFn =>
       headers.set("Content-Type", "application/json");
       headers.set("app-name", Package.name);
       headers.set("Accept-Language", locale);
-      headers.set(
-        "app-domain",
-        typeof window !== "undefined"
-          ? window.location.hostname
-          : "dacade.org"
-      );
+      headers.set("app-domain", typeof window !== "undefined" ? window.location.hostname : "dacade.org");
 
       try {
         const token = await getUserToken();
