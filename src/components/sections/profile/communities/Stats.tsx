@@ -47,7 +47,8 @@ export default function CommunityStats({
             {community?.name}
           </div>
           <Tag>
-            <Currency value={reputation} token="REP" />
+            {/* TODO: Value is given zero as a placeholder, the value will come from the feedbacks */}
+            <Currency value={0} token="REP" />
           </Tag>
         </div>
       </div>

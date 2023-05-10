@@ -17,6 +17,7 @@ import { User } from "@/types/bounty";
 import { setShowReferralPopup } from "@/store/feature/ui.slice";
 import { logout } from "@/store/feature/auth.slice";
 import { setBusy, setError } from "@/store/feature/index.slice";
+import Link from "next/link";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
@@ -107,12 +108,12 @@ const UserProfileDropdown = ({
               <span className="font-medium text-base block leading-normal capitalize">
                 {username}
               </span>
-              <a
+              <Link
                 className="self-end text-sm block leading-normal"
                 href="/profile"
               >
                 {t("nav.view-profile")}
-              </a>
+              </Link>
             </div>
           </div>
           <div

@@ -6,8 +6,7 @@ import { createSlice } from "@reduxjs/toolkit";
  *
  */
 interface ReputationState {
-  //TODO This type should be imporved after having the actual reputation type
-  list: any;
+  list: Reputation[];
 }
 
 /**

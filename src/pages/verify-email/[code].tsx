@@ -45,7 +45,7 @@ export default function EmailVerification(): ReactElement {
   };
 
   return (
-    <div className="flex items-center justify-center absolute min-h-screen top-0 w-full">
+    <div className="absolute top-0 flex items-center justify-center w-full min-h-screen">
       <Head>
         <title>
           {getMetadataTitle(
@@ -77,7 +77,7 @@ export default function EmailVerification(): ReactElement {
               </p>
             </div>
 
-            <div className="text-center pt-8">
+            <div className="pt-8 text-center">
               <ArrowButton onClick={goHome}>
                 {t("email-verification.success.button")}
               </ArrowButton>
