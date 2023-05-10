@@ -1,9 +1,6 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query";
-import {
-  clearNotifications,
-  setNotifications,
-} from "../feature/notification.slice";
+import { clearNotifications, setNotifications } from "../feature/notification.slice";
 
 /**
  * Get notifications result type
@@ -55,11 +52,7 @@ const notificationsService = createApi({
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         try {
           await queryFulfilled;
-          dispatch(
-            notificationsService.endpoints.getAllNotifications.initiate(
-              "en"
-            )
-          );
+          dispatch(notificationsService.endpoints.getAllNotifications.initiate("en"));
         } catch (error) {
           console.log(error);
         }
@@ -74,8 +67,7 @@ const notificationsService = createApi({
  *
  * @returns {*}
  */
-export const fetchAllNotifications = () =>
-  notificationsService.endpoints.getAllNotifications.initiate("");
+export const fetchAllNotifications = () => notificationsService.endpoints.getAllNotifications.initiate("");
 
 /**
  * Read notification function
@@ -83,7 +75,6 @@ export const fetchAllNotifications = () =>
  *
  * @returns {*}
  */
-export const readNotification = () =>
-  notificationsService.endpoints.readNotification.initiate("");
+export const readNotification = () => notificationsService.endpoints.readNotification.initiate("");
 
 export default notificationsService;

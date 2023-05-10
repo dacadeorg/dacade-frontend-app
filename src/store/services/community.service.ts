@@ -16,13 +16,7 @@ export const communityService = createApi({
     }),
 
     getCurrentCommunity: builder.query({
-      query: ({
-        locale,
-        slug,
-      }: {
-        locale?: string;
-        slug: string;
-      }) => ({
+      query: ({ locale, slug }: { locale?: string; slug: string }) => ({
         url: `/communities/${slug}`,
         headers: {
           "accept-language": locale,
@@ -32,16 +26,9 @@ export const communityService = createApi({
   }),
 });
 
-export const fetchAllCommunities = (locale?: string) =>
-  communityService.endpoints.getCommunities.initiate(locale);
+export const fetchAllCommunities = (locale?: string) => communityService.endpoints.getCommunities.initiate(locale);
 
-export const fetchCurrentCommunity = ({
-  slug,
-  locale,
-}: {
-  slug: string;
-  locale?: string;
-}) =>
+export const fetchCurrentCommunity = ({ slug, locale }: { slug: string; locale?: string }) =>
   communityService.endpoints.getCurrentCommunity.initiate({
     locale,
     slug,

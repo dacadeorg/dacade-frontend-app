@@ -23,16 +23,11 @@ interface ProfileOverviewSectionProps {
 }
  * @returns {ReactElement}
  */
-export default function ProfileOverviewSection({
-  title,
-  children,
-}: ProfileOverviewSectionProps): ReactElement {
+export default function ProfileOverviewSection({ title, children }: ProfileOverviewSectionProps): ReactElement {
   return (
     <div className="py-5.5">
       <div className="flex items-center">
-        <h6 className="pb-5 text-xs font-semibold leading-relaxed text-gray-500 uppercase">
-          {title}
-        </h6>
+        <h6 className="pb-5 text-xs font-semibold leading-relaxed text-gray-500 uppercase">{title}</h6>
       </div>
       {children}
     </div>

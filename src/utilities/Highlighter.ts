@@ -29,47 +29,19 @@ type AttacherArgs = {
  * @returns {(ast: any) => any}
  */
 
-export default function attacher({
-  include,
-  exclude,
-  prefix,
-}: AttacherArgs): (ast: any) => any {
+export default function attacher({ include, exclude, prefix }: AttacherArgs): (ast: any) => any {
   // register custom languages
   lowlight.registerLanguage("solidity", () => ({
     language: solidityDefiner,
   }));
-  lowlight.registerLanguage(
-    "xml",
-    require("highlight.js/lib/languages/xml")
-  );
-  lowlight.registerLanguage(
-    "css",
-    require("highlight.js/lib/languages/css")
-  );
-  lowlight.registerLanguage(
-    "toml",
-    require("highlight.js/lib/languages/ini")
-  );
-  lowlight.registerLanguage(
-    "rust",
-    require("highlight.js/lib/languages/rust")
-  );
-  lowlight.registerLanguage(
-    "bash",
-    require("highlight.js/lib/languages/bash")
-  );
-  lowlight.registerLanguage(
-    "python",
-    require("highlight.js/lib/languages/python")
-  );
-  lowlight.registerLanguage(
-    "javascript",
-    require("highlight.js/lib/languages/javascript")
-  );
-  lowlight.registerLanguage(
-    "json",
-    require("highlight.js/lib/languages/json")
-  );
+  lowlight.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
+  lowlight.registerLanguage("css", require("highlight.js/lib/languages/css"));
+  lowlight.registerLanguage("toml", require("highlight.js/lib/languages/ini"));
+  lowlight.registerLanguage("rust", require("highlight.js/lib/languages/rust"));
+  lowlight.registerLanguage("bash", require("highlight.js/lib/languages/bash"));
+  lowlight.registerLanguage("python", require("highlight.js/lib/languages/python"));
+  lowlight.registerLanguage("javascript", require("highlight.js/lib/languages/javascript"));
+  lowlight.registerLanguage("json", require("highlight.js/lib/languages/json"));
 
   /**
    * Visit the code node and highlight the code using the language specified in the code block
@@ -82,11 +54,7 @@ export default function attacher({
     const { lang } = node;
     let { data } = node;
 
-    if (
-      !lang ||
-      (include && !include.includes(lang)) ||
-      (exclude && exclude.includes(lang))
-    ) {
+    if (!lang || (include && !include.includes(lang)) || (exclude && exclude.includes(lang))) {
       return;
     }
 
@@ -102,11 +70,7 @@ export default function attacher({
     data.hChildren = lowlight.highlight(lang, node.value, {
       prefix,
     }).value;
-    data.hProperties.className = [
-      "hljs",
-      ...(data.hProperties.className || []),
-      "language-" + lang,
-    ];
+    data.hProperties.className = ["hljs", ...(data.hProperties.className || []), "language-" + lang];
   }
 
   return (ast: Node<Data>) => visit(ast, "code", visitor);

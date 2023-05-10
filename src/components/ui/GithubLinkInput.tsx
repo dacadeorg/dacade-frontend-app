@@ -1,11 +1,4 @@
-import {
-  ChangeEvent,
-  HTMLProps,
-  ReactElement,
-  forwardRef,
-  useMemo,
-  useState,
-} from "react";
+import { ChangeEvent, HTMLProps, ReactElement, forwardRef, useMemo, useState } from "react";
 import GithubIcon from "@/icons/github.svg";
 import classNames from "classnames";
 
@@ -48,15 +41,7 @@ interface GithubLinkInputProps extends HTMLProps<HTMLInputElement> {
  */
 
 export default forwardRef<HTMLInputElement, GithubLinkInputProps>(function GithubLinkInput(
-  {
-    type = "text",
-    label,
-    disabled = false,
-    placeholder,
-    error = null,
-    handleInput,
-    ...props
-  },
+  { type = "text", label, disabled = false, placeholder, error = null, handleInput, ...props },
   ref
 ): ReactElement {
   const [isFocused, setIsFocused] = useState(false);
@@ -76,8 +61,7 @@ export default forwardRef<HTMLInputElement, GithubLinkInputProps>(function Githu
     "absolute top-0 left-0 text-lg px-0 py-5 z-10 w-full h-full pointer-events-none transform origin-left transition-all duration-100 ease-in-out outline-none border-none items-center",
     {
       "text-gray-400 flex items-center": !isFilled && !isFocused,
-      "text-gray-400 scale-75 -translate-y-3 translate-x-1":
-        isFocused || isFilled,
+      "text-gray-400 scale-75 -translate-y-3 translate-x-1": isFocused || isFilled,
       "text-red-600": error,
       "text-blue-500": isFocused && !error,
     }
@@ -93,8 +77,7 @@ export default forwardRef<HTMLInputElement, GithubLinkInputProps>(function Githu
   const inputClassName: string = classNames(
     "rounded-b w-full focus:outline-none active:outline-none active:shadow-none focus:shadow-none px-0 h-16.25 border-none focus:border-none outline-none active:border-none text-lg active:border-0 leading-7",
     {
-      "text-gray-400 scale-75 -translate-y-3 translate-x-1 bg-gray-50":
-        disabled,
+      "text-gray-400 scale-75 -translate-y-3 translate-x-1 bg-gray-50": disabled,
       "border-red-100": error,
     }
   );

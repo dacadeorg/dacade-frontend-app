@@ -32,26 +32,17 @@ const communitiesProfile = createSlice({
   name: "communities",
   initialState,
   reducers: {
-    setCurrentProfileCommunity(
-      state,
-      action: PayloadAction<Community>
-    ) {
+    setCurrentProfileCommunity(state, action: PayloadAction<Community>) {
       setColors(action.payload.colors);
       state.current = action.payload;
     },
-    setListProfileCommunity(
-      state,
-      action: PayloadAction<Community[]>
-    ) {
+    setListProfileCommunity(state, action: PayloadAction<Community[]>) {
       state.list = action.payload;
     },
     setListDataUsername(state, action: PayloadAction<string[]>) {
       state.listDataUsername = action.payload;
     },
-    setProfileCommunityFeedbacks(
-      state,
-      action: PayloadAction<Feedback[]>
-    ) {
+    setProfileCommunityFeedbacks(state, action: PayloadAction<Feedback[]>) {
       state.feedbacks = action.payload;
     },
     setProfileCommunitySubmissions(state, action) {

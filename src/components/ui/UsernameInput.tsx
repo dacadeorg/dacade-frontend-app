@@ -23,10 +23,7 @@ interface UsernameInputProps {
  * @returns {ReactElement}
  */
 
-export default function UsernameInput({
-  register,
-  errors,
-}: UsernameInputProps): ReactElement {
+export default function UsernameInput({ register, errors }: UsernameInputProps): ReactElement {
   const { t } = useTranslation();
   const error = useSelector((state) => state.store.error);
 
@@ -35,10 +32,7 @@ export default function UsernameInput({
       id="username"
       placeholder={`${t("login-page.username.placeholde")}`}
       label={`${t("login-page.username.label")}`}
-      error={
-        errors.username?.message ||
-        (error?.response?.data.details.username as string)
-      }
+      error={errors.username?.message || (error?.response?.data.details.username as string)}
       {...register("username", {
         required: "This field is required",
         minLength: {

@@ -24,10 +24,7 @@ interface CurrencyProps {
 }
  * @returns {ReactElement}
  */
-export default function Currency({
-  value = 0,
-  token = "",
-}: CurrencyProps): ReactElement {
+export default function Currency({ value = 0, token = "" }: CurrencyProps): ReactElement {
   const currency = useMemo(() => {
     return formatCurrency(value, token, "en", true, {
       decimalPlaces: 2,
