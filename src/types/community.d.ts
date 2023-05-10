@@ -22,7 +22,7 @@ export interface Community {
   duration: number;
   items?: any[];
   challenge: Challenge;
-  submission: Submission
+  submission: Submission;
 }
 
 export interface Colors {

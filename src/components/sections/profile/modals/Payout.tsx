@@ -32,11 +32,7 @@ interface PayoutProps {
 }
  * @returns {ReactElement}
  */
-export default function Payout({
-  show,
-  wallet,
-  onClose,
-}: PayoutProps): ReactElement {
+export default function Payout({ show, wallet, onClose }: PayoutProps): ReactElement {
   const [loading, setLoading] = useState(false);
 
   const save = () => {
@@ -52,12 +48,8 @@ export default function Payout({
     <Modal show={show} onClose={onClose}>
       <div className="relative px-6 pt-6">
         <div className="mb-6">
-          <p className="text-.5xl leading-snug font-medium">
-            {wallet.title}
-          </p>
-          <p className="text-.5xl font-medium text-gray-400 leading-snug">
-            {t("profile.wallet.payout.request")}
-          </p>
+          <p className="text-.5xl leading-snug font-medium">{wallet.title}</p>
+          <p className="text-.5xl font-medium text-gray-400 leading-snug">{t("profile.wallet.payout.request")}</p>
           <Tag className="text-gray-500" value={wallet.token} />
         </div>
         <div className="border-b border-dotted">
@@ -77,18 +69,10 @@ export default function Payout({
         </div>
       </div>
       <div className="flex items-center justify-between pb-2 pl-6 pr-2">
-        <span
-          className="text-sm font-medium cursor-pointer text-primary"
-          onClick={() => onClose(true)}
-        >
+        <span className="text-sm font-medium cursor-pointer text-primary" onClick={() => onClose(true)}>
           {t("profile.edit.close")}
         </span>
-        <ArrowButton
-          loading={loading}
-          disabled={loading}
-          variant="outline-primary"
-          onClick={save}
-        >
+        <ArrowButton loading={loading} disabled={loading} variant="outline-primary" onClick={save}>
           {t("profile.wallet.payout.send")}
         </ArrowButton>
       </div>

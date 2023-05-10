@@ -1,9 +1,4 @@
-import {
-  CSSProperties,
-  ReactElement,
-  useEffect,
-  useState,
-} from "react";
+import { CSSProperties, ReactElement, useEffect, useState } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import BalanceList from "@/components/list/Balance";
 import ReputationList from "@/components/list/Reputation";
@@ -31,30 +26,19 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 }
  * @returns {ReactElement}
  */
-const UserProfileDropdown = ({
-  buttonStyles,
-  close,
-}: {
-  buttonStyles?: CSSProperties;
-  close?: () => void;
-}): ReactElement => {
+const UserProfileDropdown = ({ buttonStyles, close }: { buttonStyles?: CSSProperties; close?: () => void }): ReactElement => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const router = useRouter();
-  const [showLanguageSwitcher, setShowLanguageSwitcher] =
-    useState<boolean>(
-      process.env.NEXT_PUBLIC_SHOW_LANGUAGE_SELECTOR === "true"
-    );
+  const [showLanguageSwitcher, setShowLanguageSwitcher] = useState<boolean>(process.env.NEXT_PUBLIC_SHOW_LANGUAGE_SELECTOR === "true");
 
-  const { wallets, reputations, user, error, busy } = useSelector(
-    (state) => ({
-      wallets: state.wallets.list,
-      reputations: state.reputations.list,
-      user: state.user.data,
-      busy: state.store.busy,
-      error: state.store.error,
-    })
-  );
+  const { wallets, reputations, user, error, busy } = useSelector((state) => ({
+    wallets: state.wallets.list,
+    reputations: state.profile.reputations.list,
+    user: state.user.data,
+    busy: state.store.busy,
+    error: state.store.error,
+  }));
 
   const username = user?.displayName;
 
@@ -98,28 +82,16 @@ const UserProfileDropdown = ({
         <div className="flex justify-between hover:bg-gray-50">
           <div className="w-full p-4 text-left flex">
             <div className="pr-3.5">
-              <Avatar
-                user={user as User}
-                size="medium"
-                useLink={false}
-              />
+              <Avatar user={user as User} size="medium" useLink={false} />
             </div>
             <div className="pt-2">
-              <span className="font-medium text-base block leading-normal capitalize">
-                {username}
-              </span>
-              <Link
-                className="self-end text-sm block leading-normal"
-                href="/profile"
-              >
+              <span className="font-medium text-base block leading-normal capitalize">{username}</span>
+              <Link className="self-end text-sm block leading-normal" href="/profile">
                 {t("nav.view-profile")}
               </Link>
             </div>
           </div>
-          <div
-            className="mr-4 mb-6 text-gray-500 self-end text-right whitespace-nowrap align-text-bottom font-normal cursor-pointer text-sm"
-            onClick={onLogout}
-          >
+          <div className="mr-4 mb-6 text-gray-500 self-end text-right whitespace-nowrap align-text-bottom font-normal cursor-pointer text-sm" onClick={onLogout}>
             <span>{t("nav.sign-out")}</span>
           </div>
         </div>

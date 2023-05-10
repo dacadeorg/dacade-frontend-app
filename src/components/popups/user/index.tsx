@@ -1,9 +1,4 @@
-import {
-  CSSProperties,
-  ReactElement,
-  useEffect,
-  useState,
-} from "react";
+import { CSSProperties, ReactElement, useEffect, useState } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import Dropdown from "./Dropdown";
 import Avatar from "@/components/ui/Avatar";
@@ -27,11 +22,7 @@ import { fetchAllWallets } from "@/store/services/wallets.service";
 }
  * @returns {ReactElement}
  */
-export default function UserPopup({
-  buttonStyles,
-}: {
-  buttonStyles: CSSProperties;
-}): ReactElement {
+export default function UserPopup({ buttonStyles }: { buttonStyles: CSSProperties }): ReactElement {
   const [show, setShow] = useState(false);
   const [showReferral, setShowReferral] = useState(false);
   const { main: mainWallet } = useSelector((state) => state.wallets);
@@ -64,34 +55,17 @@ export default function UserPopup({
     <div className="">
       <div>
         <span onClick={externalClick}>
-          <li
-            className={`inline-block align-middle relative ${
-              show === true ? "z-50" : "z-10"
-            }`}
-            onClick={toggle}
-          >
-            <Button
-              customStyle={buttonStyles}
-              padding={false}
-              variant="secondary"
-              className={`p-0.5 bg-gray-100 bg-opacity-75 hover:bg-gray-50 ${
-                mainWallet ? "pr-5" : ""
-              }`}
-            >
+          <li className={`inline-block align-middle relative ${show === true ? "z-50" : "z-10"}`} onClick={toggle}>
+            <Button customStyle={buttonStyles} padding={false} variant="secondary" className={`p-0.5 bg-gray-100 bg-opacity-75 hover:bg-gray-50 ${mainWallet ? "pr-5" : ""}`}>
               <Avatar user={user as User} useLink={false} />
               {mainWallet ? (
                 <span
                   style={{
-                    color: buttonStyles.color
-                      ? buttonStyles.color
-                      : undefined,
+                    color: buttonStyles.color ? buttonStyles.color : undefined,
                   }}
                   className="align-middle ml-2.5 font-medium text-gray-500"
                 >
-                  <Currency
-                    value={mainWallet.balance}
-                    token={mainWallet.token}
-                  />
+                  <Currency value={mainWallet.balance} token={mainWallet.token} />
                 </span>
               ) : (
                 <></>
@@ -100,9 +74,7 @@ export default function UserPopup({
           </li>
           {show && <Dropdown close={externalClick} />}
         </span>
-        {show && (
-          <div className="opacity-25 fixed inset-0 z-30 bg-black" />
-        )}
+        {show && <div className="opacity-25 fixed inset-0 z-30 bg-black" />}
       </div>
     </div>
   );

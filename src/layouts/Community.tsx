@@ -20,11 +20,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 }
  * @returns {ReactElement}
  */
-export function CommunityLayout({
-  children,
-}: {
-  children: ReactElement;
-}): ReactElement {
+export function CommunityLayout({ children }: { children: ReactElement }): ReactElement {
   const colors = useSelector((state) => state.ui.colors);
 
   return (

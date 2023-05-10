@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
  */
 export default function ProfileOverviewCommunities(): ReactElement {
   const { reputations, authUser } = useSelector((state) => ({
-    reputations: state.reputations.list,
+    reputations: state.profile.reputations.list,
     authUser: state.user.data,
   }));
   const router = useRouter();

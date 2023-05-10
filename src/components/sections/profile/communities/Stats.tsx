@@ -24,7 +24,7 @@ export default function CommunityStats({ params }: { params: string }): ReactEle
     // TODO: Will be uncommented when the feedback slice is implemented
     //    feedbacks :state.communities.feedbacks,
     submissions: state.submissions.list,
-    reputation: state.reputations.list,
+    reputation: state.profile.reputations.list,
   }));
 
   return (

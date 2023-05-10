@@ -52,24 +52,15 @@ Slug.getLayout = function (page: ReactElement) {
   return <CommunityLayout>{page}</CommunityLayout>;
 };
 
-export const getStaticProps: GetStaticProps = async ({
-  params,
-  locale,
-}) => {
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   try {
     const slug = params?.slug as string;
 
     const [community, scoreboards, courses] = await Promise.all([
       api(locale).server.get<Community>(`/communities/${slug}`),
-      api(locale).server.get<Scoreboard>(
-        `/communities/${slug}/scoreboard`
-      ),
-      api(locale).server.get<Course[]>(
-        `/communities/${slug}/courses`
-      ),
-    ]).then((responses) =>
-      responses.map((response) => response.data)
-    );
+      api(locale).server.get<Scoreboard>(`/communities/${slug}/scoreboard`),
+      api(locale).server.get<Course[]>(`/communities/${slug}/courses`),
+    ]).then((responses) => responses.map((response) => response.data));
     //
     return {
       props: {

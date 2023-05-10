@@ -38,10 +38,7 @@ interface ScoreboardListProps {
  * @returns {ReactElement}
  */
 
-export default function ScoreboardList({
-  badgeStyles = { backgroundColor: "purple" },
-  users = [],
-}: ScoreboardListProps): ReactElement {
+export default function ScoreboardList({ badgeStyles = { backgroundColor: "purple" }, users = [] }: ScoreboardListProps): ReactElement {
   const { t } = useTranslation();
 
   // TODO: Should uncommented when redux is implemented
@@ -61,15 +58,11 @@ export default function ScoreboardList({
               </div>
             </div>
             <div className="w-full md:w-auto">
-              <div className="text-lg font-medium">
-                {user.displayName}
-              </div>
+              <div className="text-lg font-medium">{user.displayName}</div>
               <div className="whitespace-nowrap text-base">
                 <span className="font-medium">
                   {user.feedbacks}
-                  <span className="font-normal">
-                    {t("feedbacks")}
-                  </span>
+                  <span className="font-normal">{t("feedbacks")}</span>
                 </span>
               </div>
             </div>
@@ -77,11 +70,7 @@ export default function ScoreboardList({
             <div className="relative">
               <div className="absolute md:relative right-2 md:-bottom-10 -bottom-14 md:top-0">
                 <Avatar user={user} size="large" />
-                <Badge
-                  className="absolute left-9 top-10 w-6 h-6"
-                  value="1"
-                  customStyle={badgeStyles}
-                />
+                <Badge className="absolute left-9 top-10 w-6 h-6" value="1" customStyle={badgeStyles} />
               </div>
             </div>
           </div>

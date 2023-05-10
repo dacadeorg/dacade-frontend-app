@@ -16,8 +16,7 @@ export default function ProfileMenu(): ReactElement {
   }));
   const router = useRouter();
   const username = router.asPath || authUser?.displayName;
-  const isCurrentUser =
-    username?.toLowerCase() === authUser?.displayName?.toLowerCase();
+  const isCurrentUser = username?.toLowerCase() === authUser?.displayName?.toLowerCase();
 
   const menus = useMemo(() => {
     if (communities?.length) {
@@ -88,14 +87,8 @@ export default function ProfileMenu(): ReactElement {
           {/* <ProfileOverviewSection title={menu.title} className="pb-0"> */}
           <ul className="space-y-4 flex flex-col">
             {menu.items.map((item, k) => (
-              <li
-                key={`profile-menu-item-${k}`}
-                className="text-sm relative text-primary"
-              >
-                <Link
-                  href={item.link}
-                  className={linkStyleClassName(item.exact)}
-                >
+              <li key={`profile-menu-item-${k}`} className="text-sm relative text-primary">
+                <Link href={item.link} className={linkStyleClassName(item.exact)}>
                   <span className="inline-block absolute -left-6 nav-icon">
                     <ChevronRightIcon />
                   </span>

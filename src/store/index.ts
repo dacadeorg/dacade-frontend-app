@@ -13,7 +13,6 @@ import { eventsSlice } from "./feature/events.slice";
 
 import communities from "./feature/community.slice";
 import ui from "./feature/ui.slice";
-import reputationSlice from "./feature/reputation.slice";
 import indexSlice from "./feature/index.slice";
 import authSlice from "./feature/auth.slice";
 import userService from "./services/user.service";
@@ -29,6 +28,7 @@ import userProfileSlice from "./feature/profile/users.slice";
 import bountiesSlice from "./feature/bouties.slice";
 import walletsSlice from "./feature/user/wallets.slice";
 import walletsService from "./services/wallets.service";
+import profileReducer from "./feature/profile";
 import userProfileService from "./services/profile/users.service";
 
 export interface IRootState {
@@ -40,7 +40,6 @@ export interface IRootState {
   banner: ReturnType<typeof bannerSlice.reducer>;
   notifications: ReturnType<typeof notificationsSlice.reducer>;
   wallets: ReturnType<typeof walletsSlice.reducer>;
-  reputations: ReturnType<typeof reputationSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
   coursesService: ReturnType<typeof coursesService.reducer>;
@@ -48,9 +47,8 @@ export interface IRootState {
   walletService: ReturnType<typeof walletsService.reducer>;
   userService: ReturnType<typeof userSlice.reducer>;
   reputationService: ReturnType<typeof reputationService.reducer>;
-  notificationService: ReturnType<
-    typeof notificationsService.reducer
-  >;
+  userProfileService: ReturnType<typeof userProfileService.reducer>;
+  notificationService: ReturnType<typeof notificationsService.reducer>;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   bounties: ReturnType<typeof bountiesSlice.reducer>;
   submissions: ReturnType<typeof submissionsSlice.reducer>;
@@ -60,8 +58,7 @@ export interface IRootState {
   courses: ReturnType<typeof courseSlice.reducer>;
   feedback: ReturnType<typeof feedbackSlice.reducer>;
   learningModules: ReturnType<typeof learningModulesSlice.reducer>;
-  profile: ReturnType<typeof userProfileSlice.reducer>;
-  profileService: ReturnType<typeof userProfileService.reducer>;
+  profile: ReturnType<typeof profileReducer>;
 }
 
 export const store = configureStore({
@@ -72,7 +69,6 @@ export const store = configureStore({
     [notificationsSlice.name]: notificationsSlice.reducer,
     [bannerSlice.name]: bannerSlice.reducer,
     [walletsSlice.name]: walletsSlice.reducer,
-    [reputationSlice.name]: reputationSlice.reducer,
     [indexSlice.name]: indexSlice.reducer,
     [authSlice.name]: authSlice.reducer,
     [courseSlice.name]: courseSlice.reducer,
@@ -95,11 +91,12 @@ export const store = configureStore({
     [coursesService.reducerPath]: coursesService.reducer,
     [walletsService.reducerPath]: walletsService.reducer,
     [userService.reducerPath]: userService.reducer,
+    [userProfileService.reducerPath]: userProfileService.reducer,
     [reputationService.reducerPath]: reputationService.reducer,
     [referralsService.reducerPath]: referralsService.reducer,
     [notificationsService.reducerPath]: notificationsService.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
-    [userProfileService.reducerPath]: userProfileService.reducer,
+    profile: profileReducer,
   },
 
   middleware: (getDefaultMiddleware) => {
