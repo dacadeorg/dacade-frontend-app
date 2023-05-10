@@ -28,8 +28,8 @@ import userProfileSlice from "./feature/profile/users.slice";
 import bountiesSlice from "./feature/bouties.slice";
 import walletsSlice from "./feature/user/wallets.slice";
 import walletsService from "./services/wallets.service";
-import profileReducer from "./feature/profile";
 import userProfileService from "./services/profile/users.service";
+import profileReducer from "./feature/profile";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
