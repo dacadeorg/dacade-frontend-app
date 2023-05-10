@@ -50,9 +50,7 @@ export interface IRootState {
   userService: ReturnType<typeof userSlice.reducer>;
   reputationService: ReturnType<typeof reputationService.reducer>;
   userProfileService: ReturnType<typeof userProfileService.reducer>;
-  notificationService: ReturnType<
-    typeof notificationsService.reducer
-  >;
+  notificationService: ReturnType<typeof notificationsService.reducer>;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   bounties: ReturnType<typeof bountiesSlice.reducer>;
   submissions: ReturnType<typeof submissionsSlice.reducer>;

@@ -54,17 +54,10 @@ export default function BountiesNavigation(): ReactElement {
       <ul className="sticky top-10">
         {menus.map((menu, i) => (
           <li key={`bounties-menu-${i}`} className="relative mb-8">
-            {!menu.hideTitle && (
-              <span className="relative text-xs font-semibold uppercase">
-                {menu.title}
-              </span>
-            )}
+            {!menu.hideTitle && <span className="relative text-xs font-semibold uppercase">{menu.title}</span>}
             <ul>
               {menu.items.map((item, k) => (
-                <li
-                  key={`bounties-menu-item-${k}`}
-                  className="relative mt-4 text-sm text-blue-600"
-                >
+                <li key={`bounties-menu-item-${k}`} className="relative mt-4 text-sm text-blue-600">
                   <a
                     href={item.link}
                     className={classNames("relative text-gray-500", {

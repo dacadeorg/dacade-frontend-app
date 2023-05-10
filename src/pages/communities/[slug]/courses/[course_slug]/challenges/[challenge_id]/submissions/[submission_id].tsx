@@ -20,9 +20,7 @@ export default function SubmissionPage() {
   const router = useRouter();
   const { t } = useTranslation();
   const course = useSelector((state) => state.courses.current);
-  const submission = useSelector(
-    (state) => state.submissions.current
-  );
+  const submission = useSelector((state) => state.submissions.current);
   const { slug, course_slug, submission_id } = router.query;
 
   useEffect(() => {
@@ -33,39 +31,25 @@ export default function SubmissionPage() {
         locale: router.locale,
       })
     );
-    dispatch(findSubmssionById({ id: submission_id as string }));    
+    dispatch(findSubmssionById({ id: submission_id as string }));
   }, [dispatch, slug, course_slug, submission_id, router.locale]);
 
-  const title = getMetadataTitle(
-    t("communities.submission.title"),
-    course?.name as string
-  );
+  const title = getMetadataTitle(t("communities.submission.title"), course?.name as string);
 
   return (
     <Wrapper>
       <div className="flex flex-col py-4 space-y-8 text-gray-700">
-        <Header
-          title={course?.name}
-          subtitle={t("communities.submission.title")}
-        />
+        <Header title={course?.name} subtitle={t("communities.submission.title")} />
         <SubmissionView />
       </div>
     </Wrapper>
   );
 }
 SubmissionPage.getLayout = function (page: ReactElement) {
-  return (
-    <DefaultLayout footerBackgroundColor="default">
-      {page}
-    </DefaultLayout>
-  );
+  return <DefaultLayout footerBackgroundColor="default">{page}</DefaultLayout>;
 };
 
-export const getServerSideProps = async ({
-  locale,
-}: {
-  locale: string;
-}) => ({
+export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
     ...(await serverSideTranslations(locale as string)),
   },

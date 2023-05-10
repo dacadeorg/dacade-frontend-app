@@ -30,9 +30,7 @@ interface ReferralProps {
  * @returns {ReactElement}
  */
 
-export default function Referral({
-  referral,
-}: ReferralProps): ReactElement {
+export default function Referral({ referral }: ReferralProps): ReactElement {
   const { t } = useTranslation();
 
   // TODO: Should be uncommented when redux is implemented
@@ -48,29 +46,18 @@ export default function Referral({
     >
       <div className="bg-theme-accent flex-col w-full h-full justify-between md:-space-y-1 pl-3 pr-5 mt-7 mb-5">
         <div className="relative w-full md:flex md:justify-between">
-          <div className="font-medium text-md md:pt-1.5">
-            {referral.title || referral.community.name}
-          </div>
+          <div className="font-medium text-md md:pt-1.5">{referral.title || referral.community.name}</div>
         </div>
 
         <div className="inline-flex md:flex h-2/3 md:flex-row flex-col-reverse justify-between">
-          <div className="text-sm pt-8 md:pt-2 md:pb-4 text-gray-600">
-            {t("bounties.reward.referral")}
-          </div>
+          <div className="text-sm pt-8 md:pt-2 md:pb-4 text-gray-600">{t("bounties.reward.referral")}</div>
           <div>
             <Reward reward={referral.reward} />
           </div>
         </div>
       </div>
       <div className="self-start relative mt-15 md:mt-7">
-        <Avatar
-          icon={referral.community.icon}
-          image={referral.community.image}
-          color={referral.community.colors.primary}
-          size="large"
-          shape="rounded"
-          user={null}
-        />
+        <Avatar icon={referral.community.icon} image={referral.community.image} color={referral.community.colors.primary} size="large" shape="rounded" user={null} />
       </div>
     </div>
   );

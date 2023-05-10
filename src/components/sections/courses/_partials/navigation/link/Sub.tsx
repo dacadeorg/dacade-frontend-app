@@ -32,22 +32,10 @@ interface subLinkProps {
 }
  * @returns {ReactElement}
  */
-export default function SubLink({
-  item,
-  activeLinkStyle,
-  subitem,
-}: subLinkProps): ReactElement {
+export default function SubLink({ item, activeLinkStyle, subitem }: subLinkProps): ReactElement {
   return (
-    <li
-      className="relative mt-4 text-sm text-gray-500"
-      style={activeLinkStyle}
-    >
-      <Link
-        href={{ pathname: item.link, hash: subitem.link }}
-        className={`relative text-gray-500 opacity-50 hover:opacity-100 ${
-          !subitem.exact ? "activable-link" : ""
-        }`}
-      >
+    <li className="relative mt-4 text-sm text-gray-500" style={activeLinkStyle}>
+      <Link href={{ pathname: item.link, hash: subitem.link }} className={`relative text-gray-500 opacity-50 hover:opacity-100 ${!subitem.exact ? "activable-link" : ""}`}>
         <span className="nav-label">{subitem.label}</span>
       </Link>
     </li>

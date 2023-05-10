@@ -73,22 +73,16 @@ const scoreboardSlice = createSlice({
   },
 });
 
-export const { setScoreboardList, setLoading } =
-  scoreboardSlice.actions;
+export const { setScoreboardList, setLoading } = scoreboardSlice.actions;
 
-export const fetchAllScoreboards = createAsyncThunk(
-  "communities/scoreboard/all",
-  async ({ slug, locale }: { slug: string; locale: string }) => {
-    try {
-      const { data } = await api(locale).server.get<Scoreboard[]>(
-        `communities/${slug}/scoreboard`
-      );
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
+export const fetchAllScoreboards = createAsyncThunk("communities/scoreboard/all", async ({ slug, locale }: { slug: string; locale: string }) => {
+  try {
+    const { data } = await api(locale).server.get<Scoreboard[]>(`communities/${slug}/scoreboard`);
+    return data;
+  } catch (error) {
+    console.error(error);
   }
-);
+});
 
 interface FilterScoreboardsArgs {
   slug: string;
@@ -104,37 +98,23 @@ interface FilterScoreboardsArgs {
  * @type {*}
  */
 
-export const filterScoreboards = createAsyncThunk(
-  "communities/scoreboard/filter",
-  async ({
-    slug,
-    filterBy,
-    sortBy,
-    locale,
-  }: FilterScoreboardsArgs) => {
-    try {
-      const { data } = await api(locale).server.get<Scoreboard[]>(
-        `communities/${slug}/scoreboard`,
-        {
-          params: {
-            "filter-by": filterBy,
-          },
-        }
-      );
+export const filterScoreboards = createAsyncThunk("communities/scoreboard/filter", async ({ slug, filterBy, sortBy, locale }: FilterScoreboardsArgs) => {
+  try {
+    const { data } = await api(locale).server.get<Scoreboard[]>(`communities/${slug}/scoreboard`, {
+      params: {
+        "filter-by": filterBy,
+      },
+    });
 
-      if (sortBy) {
-        data.sort(
-          (firstItem, secondItem) =>
-            secondItem[sortBy] - firstItem[sortBy]
-        );
-      }
-
-      return { list: data, filterBy };
-    } catch (error) {
-      console.error(error);
+    if (sortBy) {
+      data.sort((firstItem, secondItem) => secondItem[sortBy] - firstItem[sortBy]);
     }
+
+    return { list: data, filterBy };
+  } catch (error) {
+    console.error(error);
   }
-);
+});
 
 interface SortScoreboardsArgs {
   sortBy: string;
@@ -147,17 +127,12 @@ interface SortScoreboardsArgs {
  *
  * @param {string} sortBy
  */
-export const sortScoreboards = ({
-  sortBy,
-  list,
-}: SortScoreboardsArgs): Scoreboard[] => {
+export const sortScoreboards = ({ sortBy, list }: SortScoreboardsArgs): Scoreboard[] => {
   const sortedList = [...list].sort((a, b) => b[sortBy] - a[sortBy]);
   return sortedList;
 };
 
-export const selectList = (state: IRootState) =>
-  state.scoreboard.list;
-export const selectLoading = (state: IRootState) =>
-  state.scoreboard.loading;
+export const selectList = (state: IRootState) => state.scoreboard.list;
+export const selectLoading = (state: IRootState) => state.scoreboard.loading;
 
 export default scoreboardSlice;

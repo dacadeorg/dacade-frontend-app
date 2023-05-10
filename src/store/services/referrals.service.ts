@@ -31,6 +31,5 @@ const referralsService = createApi({
  * @param {string} locale
  * @returns {*}
  */
-export const fetchReferrals = (locale: string) =>
-  referralsService.endpoints.getReferrals.initiate(locale);
+export const fetchReferrals = (locale: string) => referralsService.endpoints.getReferrals.initiate(locale);
 export default referralsService;

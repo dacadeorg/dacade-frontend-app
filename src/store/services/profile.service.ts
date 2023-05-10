@@ -14,15 +14,7 @@ const fetchProfileCommunityService = createApi({
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
     getProfileCommunity: builder.query({
-      query: ({
-        username,
-        slug,
-        locale,
-      }: {
-        locale?: string;
-        username: string;
-        slug: string;
-      }) => ({
+      query: ({ username, slug, locale }: { locale?: string; username: string; slug: string }) => ({
         url: `/profile/${username}/communities/${slug}`,
         headers: {
           "accept-language": locale,
@@ -34,9 +26,7 @@ const fetchProfileCommunityService = createApi({
           await Promise.all([
             dispatch(setCurrentProfileCommunity(data.community)),
             dispatch(setProfileCommunityFeedbacks(data.feedbacks)),
-            dispatch(
-              setProfileCommunitySubmissions(data.submissions)
-            ),
+            dispatch(setProfileCommunitySubmissions(data.submissions)),
             dispatch(setProfileCommunityReputation(data.reputation)),
           ]);
         } catch (error) {
@@ -47,36 +37,23 @@ const fetchProfileCommunityService = createApi({
   }),
 });
 
-export const { useGetProfileCommunityQuery } =
-  fetchProfileCommunityService;
+export const { useGetProfileCommunityQuery } = fetchProfileCommunityService;
 
 const fetchProfileCommunitiesService = createApi({
   reducerPath: "fetchProfileCommunities",
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
     getProfileCommunities: builder.query({
-      query: ({
-        username,
-        locale,
-      }: {
-        locale?: string;
-        username: string;
-      }) => ({
+      query: ({ username, locale }: { locale?: string; username: string }) => ({
         url: `/profile/${username}/communities`,
         headers: {
           "accept-language": locale,
         },
       }),
-      onQueryStarted: async (
-        { username },
-        { dispatch, queryFulfilled }
-      ) => {
+      onQueryStarted: async ({ username }, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
-          await Promise.all([
-            dispatch(setListProfileCommunity(data)),
-            dispatch(setListDataUsername([username])),
-          ]);
+          await Promise.all([dispatch(setListProfileCommunity(data)), dispatch(setListDataUsername([username]))]);
         } catch (error) {
           console.log("error", error);
         }
@@ -84,29 +61,10 @@ const fetchProfileCommunitiesService = createApi({
     }),
   }),
 });
-export const { useGetProfileCommunitiesQuery } =
-  fetchProfileCommunitiesService;
+export const { useGetProfileCommunitiesQuery } = fetchProfileCommunitiesService;
 
-export const fetchProfileCommunities = ({
-  username,
-  locale,
-}: {
-  locale?: string;
-  username: string;
-}) =>
-  fetchProfileCommunitiesService.endpoints.getProfileCommunities.initiate(
-    { username, locale }
-  );
+export const fetchProfileCommunities = ({ username, locale }: { locale?: string; username: string }) =>
+  fetchProfileCommunitiesService.endpoints.getProfileCommunities.initiate({ username, locale });
 
-export const fetchProfileCommunity = ({
-  username,
-  slug,
-  locale,
-}: {
-  locale?: string;
-  username: string;
-  slug: string;
-}) =>
-  fetchProfileCommunityService.endpoints.getProfileCommunity.initiate(
-    { username, locale, slug }
-  );
+export const fetchProfileCommunity = ({ username, slug, locale }: { locale?: string; username: string; slug: string }) =>
+  fetchProfileCommunityService.endpoints.getProfileCommunity.initiate({ username, locale, slug });

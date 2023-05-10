@@ -43,11 +43,6 @@ export const certificateSlice = createSlice({
   },
 });
 
-export const {
-  setCurrentCertificate,
-  setCertificateList,
-  clear,
-  setCurrentMintingStatus,
-} = certificateSlice.actions;
+export const { setCurrentCertificate, setCertificateList, clear, setCurrentMintingStatus } = certificateSlice.actions;
 
 export default certificateSlice;

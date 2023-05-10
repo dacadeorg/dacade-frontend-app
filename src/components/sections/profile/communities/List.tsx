@@ -22,21 +22,14 @@ export default function SubmissionList(): ReactElement {
     <div>
       {submissions && submissions.length ? (
         <div className="py-10">
-          <p className="font-medium text-xs text-gray-600 uppercase">
-            {t("communities.submissions")}
-          </p>
+          <p className="font-medium text-xs text-gray-600 uppercase">{t("communities.submissions")}</p>
           <div className="my-5 sm:border sm:border-gray-200 sm:border-solid rounded-3.5xl relative">
             <div className="flex flex-col divide-y">
               {submissions.map((submission, i) => (
                 <SubmissionCard
                   key={submission.id}
                   stats
-                  link={navigation.community.submissionPath(
-                    submission.id,
-                    submission.challenge.id,
-                    submission.challenge.course.slug,
-                    community?.slug
-                  )}
+                  link={navigation.community.submissionPath(submission.id, submission.challenge.id, submission.challenge.course.slug, community?.slug)}
                   submission={submission}
                   last={i === submissions.length - 1}
                 />

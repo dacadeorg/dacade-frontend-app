@@ -1,10 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import baseQuery from "@/config/baseQuery";
-import {
-  setCurrentCertificate,
-  setCurrentMintingStatus,
-  setCertificateList,
-} from "../feature/profile/certificate.slice";
+import { setCurrentCertificate, setCurrentMintingStatus, setCertificateList } from "../feature/profile/certificate.slice";
 import { store } from "..";
 import { Dispatch } from "@reduxjs/toolkit";
 
@@ -13,13 +9,7 @@ const certificateService = createApi({
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
     fetchAllCertificates: builder.query({
-      query: ({
-        username,
-        locale,
-      }: {
-        username: string;
-        locale?: string;
-      }) => ({
+      query: ({ username, locale }: { username: string; locale?: string }) => ({
         url: `/certificates/${username}`,
         headers: {
           "accept-language": locale,
@@ -66,8 +56,7 @@ const certificateService = createApi({
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
         if (data.certificate) {
-          const currentCertificate =
-            store.getState().profile.certificate.current;
+          const currentCertificate = store.getState().profile.certificate.current;
           dispatch(
             setCurrentCertificate({
               ...(currentCertificate || data.certificate),
@@ -84,10 +73,7 @@ interface FetchAllCertificatesArgs {
   locale?: string;
   username: string;
 }
-export const fetchAllCertificates = ({
-  locale,
-  username,
-}: FetchAllCertificatesArgs) =>
+export const fetchAllCertificates = ({ locale, username }: FetchAllCertificatesArgs) =>
   certificateService.endpoints.fetchAllCertificates.initiate({
     locale,
     username,
@@ -97,10 +83,7 @@ interface FindCertificateArgs {
   id: string;
   locale?: string;
 }
-export const findCertificate = ({
-  id,
-  locale,
-}: FindCertificateArgs) =>
+export const findCertificate = ({ id, locale }: FindCertificateArgs) =>
   certificateService.endpoints.findCertificate.initiate({
     id,
     locale,
@@ -122,7 +105,4 @@ export const mintCertificate =
       })
     );
 
-export const {
-  useFetchAllCertificatesQuery,
-  useFindCertificateQuery,
-} = certificateService;
+export const { useFetchAllCertificatesQuery, useFindCertificateQuery } = certificateService;

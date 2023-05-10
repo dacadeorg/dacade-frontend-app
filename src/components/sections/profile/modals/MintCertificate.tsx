@@ -8,11 +8,7 @@ import Input from "@/components/ui/Input";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useTranslation } from "next-i18next";
-import {
-  connectWallet,
-  disconnectWallet,
-  getSignature,
-} from "@/store/feature/wallet.slice";
+import { connectWallet, disconnectWallet, getSignature } from "@/store/feature/wallet.slice";
 import { mintCertificate } from "@/store/services/certificate.service";
 import { isError } from "lodash";
 
@@ -36,15 +32,7 @@ interface Wallet {
 }
  * @returns {void; }) => any}
  */
-export default function MintCertificate({
-  show,
-  wallet,
-  close,
-}: {
-  show: boolean;
-  wallet?: Wallet;
-  close?: (value: boolean) => void;
-}) {
+export default function MintCertificate({ show, wallet, close }: { show: boolean; wallet?: Wallet; close?: (value: boolean) => void }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [amount, setAmount] = useState(0);
@@ -60,20 +48,13 @@ export default function MintCertificate({
   const connected = useMemo(() => false, []);
 
   // User wallet address
-  const address = useMemo(
-    () => walletAddress?.toLowerCase(),
-    [walletAddress]
-  );
+  const address = useMemo(() => walletAddress?.toLowerCase(), [walletAddress]);
 
   // Mint status
   const minted = useMemo(() => !!txData?.tx, [txData?.tx]);
 
   // Transaction url
-  const txURL = useMemo(
-    () =>
-      `${process.env.NEXT_PUBLIC_BLOCK_EXPLORER_URL}/tx/${txData?.tx}`,
-    [txData?.tx]
-  );
+  const txURL = useMemo(() => `${process.env.NEXT_PUBLIC_BLOCK_EXPLORER_URL}/tx/${txData?.tx}`, [txData?.tx]);
 
   /**
    * Button text according to the address or the loading state
@@ -152,9 +133,7 @@ export default function MintCertificate({
     <Modal show={show} size="medium">
       <div className="px-6 pt-6">
         <div className="pb-7">
-          <p className="text-.5xl font-medium leading-snug">
-            {achievement?.metadata?.name}
-          </p>
+          <p className="text-.5xl font-medium leading-snug">{achievement?.metadata?.name}</p>
         </div>
         <div className="flex flex-col md:flex-row gap-5">
           <div className="w-2/3 md:w-1/3 2xl:w-1/4 flex-none mx-auto md:mx-0">
@@ -166,18 +145,12 @@ export default function MintCertificate({
             {minted ? (
               <div className="flex flex-col gap-3">
                 <div className="text-green-700 bg-green-100 p-3 border border-solid border-green-200 rounded">
-                  <p>
-                    Your NFT has been successfully minted on chain
-                  </p>
+                  <p>Your NFT has been successfully minted on chain</p>
                 </div>
                 <div className="px-3.5 py-2.5 border border-solid rounded">
                   <p>Transaction ID</p>
                   <p className="text-gray-400">
-                    <a
-                      href={txURL}
-                      target="_blank"
-                      className="underline cursor-pointer"
-                    >
+                    <a href={txURL} target="_blank" className="underline cursor-pointer">
                       {txData?.tx}
                     </a>
                   </p>
@@ -185,31 +158,16 @@ export default function MintCertificate({
               </div>
             ) : (
               <>
-                <p className="pb-4 pt-3">
-                  This certificate is awarded for passing the{" "}
-                  {achievement?.metadata?.name} course.
-                </p>
+                <p className="pb-4 pt-3">This certificate is awarded for passing the {achievement?.metadata?.name} course.</p>
                 {!connected ? (
                   <div className="border-t border-gray-100 border-solid">
-                    <p className="pt-4">
-                      Minting this certificate will not cost you gas
-                      fees.
-                    </p>
-                    <Input
-                      value={address}
-                      placeholder="Wallet address"
-                      inputClass="h-12 mt-6 text-sm text-slate-500"
-                      fontSize="sm"
-                      required
-                      disabled
-                    />
+                    <p className="pt-4">Minting this certificate will not cost you gas fees.</p>
+                    <Input value={address} placeholder="Wallet address" inputClass="h-12 mt-6 text-sm text-slate-500" fontSize="sm" required disabled />
                   </div>
                 ) : (
                   <div className="bg-yellow-50 text-yellow-900 text-sm border border-solid border-yellow-100 w-full rounded px-3 py-0.5 inline-block">
                     <p className="font-bold">No wallet connected</p>
-                    <p>
-                      Please connect a wallet to mint the certificate.
-                    </p>
+                    <p>Please connect a wallet to mint the certificate.</p>
                   </div>
                 )}
               </>
@@ -217,19 +175,11 @@ export default function MintCertificate({
           </div>
         </div>
         <div className="flex my-8 items-center justify-between">
-          <a
-            className="cursor-pointer text-sm font-medium text-primary"
-            onClick={onClose}
-          >
+          <a className="cursor-pointer text-sm font-medium text-primary" onClick={onClose}>
             Close
           </a>
           {!minted ? (
-            <ArrowButton
-              loading={loading}
-              disabled={loading}
-              variant="primary"
-              onClick={handleSave}
-            >
+            <ArrowButton loading={loading} disabled={loading} variant="primary" onClick={handleSave}>
               {buttonText}
             </ArrowButton>
           ) : (

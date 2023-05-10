@@ -39,10 +39,7 @@ interface ReferralListItemProps {
 }
  * @returns {ReactElement}
  */
-export default function ReferralListItem({
-  referral,
-  bounty = false,
-}: ReferralListItemProps): ReactElement {
+export default function ReferralListItem({ referral, bounty = false }: ReferralListItemProps): ReactElement {
   return (
     <div className="flex justify-between w-full items-center text-gray-900">
       <div className="flex items-center">
@@ -54,19 +51,10 @@ export default function ReferralListItem({
           size="mini"
           shape="squared"
         />
-        <div className="font-medium text-sm leading-relaxed ml-2">
-          {!bounty
-            ? referral.title || referral.community.name
-            : referral.community.name}
-        </div>
+        <div className="font-medium text-sm leading-relaxed ml-2">{!bounty ? referral.title || referral.community.name : referral.community.name}</div>
       </div>
       <div>
-        <Reward
-          type="gray"
-          reward={
-            !bounty ? referral.reward : referral.community.reward
-          }
-        />
+        <Reward type="gray" reward={!bounty ? referral.reward : referral.community.reward} />
       </div>
     </div>
   );

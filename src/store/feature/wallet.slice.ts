@@ -1,9 +1,4 @@
-import {
-  AsyncThunk,
-  Slice,
-  createAsyncThunk,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { AsyncThunk, Slice, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { providers } from "ethers";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
@@ -75,14 +70,7 @@ export const web3WalletSlice = createSlice({
   },
 });
 
-export const {
-  clearWeb3WalletState,
-  setWeb3WalletData,
-  setConnectWallet,
-  setChainId,
-  setNetworkName,
-  setWeb3Address,
-} = web3WalletSlice.actions;
+export const { clearWeb3WalletState, setWeb3WalletData, setConnectWallet, setChainId, setNetworkName, setWeb3Address } = web3WalletSlice.actions;
 
 /**
  * Web3 provider options
@@ -117,27 +105,24 @@ if (typeof window !== "undefined") {
  *
  * @type {*}
  */
-export const connectWallet = createAsyncThunk(
-  "web3/connect",
-  async () => {
-    provider = await web3Modal?.connect();
-    // We plug the initial `provider` into ethers.js and get back
-    // a Web3Provider. This will add on methods from ethers.js and
-    // event listeners such as `.on()` will be different.
-    const web3Provider = new providers.Web3Provider(provider);
-    const signer = web3Provider.getSigner();
-    const address = await signer.getAddress();
-    const network = await web3Provider.getNetwork();
-    const networkName = network.name;
-    currentChainId = network.chainId;
+export const connectWallet = createAsyncThunk("web3/connect", async () => {
+  provider = await web3Modal?.connect();
+  // We plug the initial `provider` into ethers.js and get back
+  // a Web3Provider. This will add on methods from ethers.js and
+  // event listeners such as `.on()` will be different.
+  const web3Provider = new providers.Web3Provider(provider);
+  const signer = web3Provider.getSigner();
+  const address = await signer.getAddress();
+  const network = await web3Provider.getNetwork();
+  const networkName = network.name;
+  currentChainId = network.chainId;
 
-    return {
-      address,
-      chainId: currentChainId,
-      networkName,
-    };
-  }
-);
+  return {
+    address,
+    chainId: currentChainId,
+    networkName,
+  };
+});
 
 /**
  * Get wallet signature action
@@ -158,24 +143,18 @@ export const getSignature = async () => {
  *
  * @type {*}
  */
-export const disconnectWallet = createAsyncThunk(
-  "web3/disconnect",
-  async (_, { dispatch }) => {
-    if (!web3Modal) return;
-    // const provider_ = await web3Modal.cachedProvider;
-    await web3Modal.clearCachedProvider();
-    if (
-      provider?.disconnect &&
-      typeof provider.disconnect === "function"
-    ) {
-      await provider.disconnect();
-    }
-    dispatch(clearWeb3WalletState());
-    return {
-      connected: false,
-    };
+export const disconnectWallet = createAsyncThunk("web3/disconnect", async (_, { dispatch }) => {
+  if (!web3Modal) return;
+  // const provider_ = await web3Modal.cachedProvider;
+  await web3Modal.clearCachedProvider();
+  if (provider?.disconnect && typeof provider.disconnect === "function") {
+    await provider.disconnect();
   }
-);
+  dispatch(clearWeb3WalletState());
+  return {
+    connected: false,
+  };
+});
 
 /**
  * Check wallet action
@@ -183,14 +162,11 @@ export const disconnectWallet = createAsyncThunk(
  *
  * @type {*}
  */
-export const check = createAsyncThunk(
-  "web3/check",
-  async (_, { dispatch }) => {
-    if (web3Modal && web3Modal.cachedProvider) {
-      await dispatch(connectWallet());
-    }
+export const check = createAsyncThunk("web3/check", async (_, { dispatch }) => {
+  if (web3Modal && web3Modal.cachedProvider) {
+    await dispatch(connectWallet());
   }
-);
+});
 
 /**
  * Subscribe to the wallet action
@@ -198,28 +174,20 @@ export const check = createAsyncThunk(
  *
  * @type {*}
  */
-export const subscribe = createAsyncThunk(
-  "web3/subscribe",
-  async (_, { dispatch }) => {
-    if (!provider?.on) return;
-    provider.on("disconnect", () => dispatch(disconnectWallet()));
-    provider.on(
-      "accountsChanged",
-      async (accounts: string | any[]) => {
-        if (!accounts.length) return dispatch(disconnectWallet());
-        setWeb3WalletData(accounts[0]);
-      }
-    );
+export const subscribe = createAsyncThunk("web3/subscribe", async (_, { dispatch }) => {
+  if (!provider?.on) return;
+  provider.on("disconnect", () => dispatch(disconnectWallet()));
+  provider.on("accountsChanged", async (accounts: string | any[]) => {
+    if (!accounts.length) return dispatch(disconnectWallet());
+    setWeb3WalletData(accounts[0]);
+  });
 
-    provider.on("chainChanged", async (chainId: string) => {
-      currentChainId = chainId;
-      setChainId(chainId);
-      const { name } = await new providers.Web3Provider(
-        provider
-      ).getNetwork();
-      setNetworkName(name);
-    });
-  }
-);
+  provider.on("chainChanged", async (chainId: string) => {
+    currentChainId = chainId;
+    setChainId(chainId);
+    const { name } = await new providers.Web3Provider(provider).getNetwork();
+    setNetworkName(name);
+  });
+});
 
 export default web3WalletSlice;
