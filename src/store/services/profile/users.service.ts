@@ -18,7 +18,7 @@ const userProfileService = createApi({
       ) => {
         try {
           const { data } = await queryFulfilled;
-          const current = store.getState().profile.current;
+          const current = store.getState().profile.user.current;
           if (!current || current?.username !== username) {
             dispatch(clearProfile());
           }

@@ -1,6 +1,5 @@
-import api from "@/config/api";
 import { Reputation } from "@/types/bounty";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 /**
  * Reputation state interface

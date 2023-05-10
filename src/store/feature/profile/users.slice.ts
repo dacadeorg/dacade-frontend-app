@@ -34,7 +34,7 @@ export const clearProfile = createAsyncThunk(
  * @type {*}
  */
 const userProfileSlice = createSlice({
-  name: "profile",
+  name: "userProfile",
   initialState,
   reducers: {
     setCurrentUserProfile(state, action: PayloadAction<any>) {

@@ -14,7 +14,7 @@ const ProfileHeader = () => {
 
   const { authUser, profileUser } = useSelector((state) => ({
     authUser: state.user.data,
-    profileUser: state.profile.current,
+    profileUser: state.profile.user.current,
   }));
 
   const user = useMemo(() => {
