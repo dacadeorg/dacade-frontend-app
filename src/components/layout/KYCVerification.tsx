@@ -10,7 +10,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
  * @typedef {KYCVerificationProps}
  */
 interface KYCVerificationProps {
-  onCompleted: () => void;
+  onCompleted?: () => void;
 }
 
 /**
@@ -64,7 +64,7 @@ export default function KYCVerification({
 
   const handleCompleted = () => {
     closeModal();
-    onCompleted();
+    onCompleted?.();
     // TODO: This will be dispatched to the store once the store is ready
     // dispatch("kyc/triggerCompleteAction");
   };
