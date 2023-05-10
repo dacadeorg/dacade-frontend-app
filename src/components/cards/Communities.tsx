@@ -1,5 +1,4 @@
-import { ReactElement, useState } from "react";
-import EthereumLogo from "@icons/partners/ethereum.svg";
+import { ReactElement } from "react";
 import CeloLogo from "../../../public/assets/img/celo-logo.png";
 import Image from "next/image";
 
