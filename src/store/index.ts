@@ -30,6 +30,7 @@ import bountiesSlice from "./feature/bouties.slice";
 import walletsSlice from "./feature/user/wallets.slice";
 import walletsService from "./services/wallets.service";
 import userProfileService from "./services/profile/users.service";
+import userReferralsSlice from "./feature/user/referrals.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -37,6 +38,7 @@ export interface IRootState {
   ui: ReturnType<typeof ui.reducer>;
   referrals: ReturnType<typeof referralSlice.reducer>;
   user: ReturnType<typeof userSlice.reducer>;
+  userReferrals: ReturnType<typeof referralSlice.reducer>;
   banner: ReturnType<typeof bannerSlice.reducer>;
   notifications: ReturnType<typeof notificationsSlice.reducer>;
   wallets: ReturnType<typeof walletsSlice.reducer>;
@@ -100,6 +102,7 @@ export const store = configureStore({
     [notificationsService.reducerPath]: notificationsService.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
     [userProfileService.reducerPath]: userProfileService.reducer,
+    [userReferralsSlice.name]: userReferralsSlice.reducer
   },
 
   middleware: (getDefaultMiddleware) => {
@@ -111,7 +114,7 @@ export const store = configureStore({
       reputationService.middleware,
       referralsService.middleware,
       notificationsService.middleware,
-      userProfileService.middleware
+      userProfileService.middleware,
     );
   },
 });
