@@ -9,7 +9,7 @@ import { Referral as Referrals } from "@/types/community";
 import { userFetchReferrals } from "@/store/feature/user/referrals.slice";
 
 /**
- * Refferrals component for profile
+ * Refferrals component for user profile
  * 
  * @returns {ReactElement}
  */
