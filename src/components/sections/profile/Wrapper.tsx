@@ -1,5 +1,6 @@
 import Section from "@/components/ui/Section";
 import { ReactElement, ReactNode } from "react";
+import ProfileHeader from "./Header";
 
 /**
  * Profile wrapper interface props
@@ -15,8 +16,7 @@ interface ProfileWrapperProps {
 export default function ProfileWrapper({ children }: ProfileWrapperProps): ReactElement {
   return (
     <Section padding="py-12">
-      {/* TODO: Will be uncommented when the Header component is migrated */}
-      {/* <Header /> */}
+      <ProfileHeader />
       <div className="lg:flex relative">
         <div className="lg:w-1/4 relative">
           <div className="sticky top-0">
