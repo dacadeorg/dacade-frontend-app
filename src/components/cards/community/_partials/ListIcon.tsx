@@ -59,7 +59,7 @@ export default function CommunityListCardIcon({ community }: CommunityListCardIc
               <p className="tracking-tight max-w-text-2xs md:max-w-text-md text-theme-accent">{community.description || ""}</p>
             </div>
             <div className="self-end w-auto sm:h-full md:h-auto">
-              <Image src={`/static${community.icon}`} className="relative h-44 w-44 mb-5" alt="Community icon" width={176} height={176} />
+              <Image src={`${community.icon}`} className="relative h-44 w-44 mb-5" alt="Community icon" width={176} height={176} />
             </div>
           </div>
           <div className="flex md:flex-row lg:flex-col justify-start flex-col max-w-xs -mt-4 md:-mt-7 md:max-w-lg items-start">

@@ -2,9 +2,12 @@ import UniqBy from "lodash.uniqby";
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import ChevronRightIcon from "@/icons/chevron-right.svg";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { ReactElement, useMemo } from "react";
+import { ReactElement, useEffect, useMemo } from "react";
 import { List } from "@/utilities/CommunityNavigation";
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 /**
  * Bounties Navigation component
@@ -14,6 +17,8 @@ import classNames from "classnames";
  * @returns {ReactElement}
  */
 export default function BountiesNavigation(): ReactElement {
+  const { t } = useTranslation();
+  const router = useRouter();
   const { colors, bounties } = useSelector((state) => ({
     colors: state.ui.colors,
     bounties: state.bounties.bountiesList,
@@ -26,10 +31,10 @@ export default function BountiesNavigation(): ReactElement {
   const menus: Omit<List, "id">[] = useMemo(
     () => [
       {
-        title: "bounties.navigation",
+        title: t("bounties.navigation"),
         items: [
           {
-            label: "bounties.navigation.all",
+            label: t("bounties.navigation.all"),
             exact: true,
             link: "/bounties",
           },
@@ -46,7 +51,7 @@ export default function BountiesNavigation(): ReactElement {
         ],
       },
     ],
-    [bounties]
+    [bounties, t]
   );
 
   return (
@@ -58,17 +63,18 @@ export default function BountiesNavigation(): ReactElement {
             <ul>
               {menu.items.map((item, k) => (
                 <li key={`bounties-menu-item-${k}`} className="relative mt-4 text-sm text-blue-600">
-                  <a
+                  <Link
                     href={item.link}
                     className={classNames("relative text-gray-500", {
                       "activable-link": !item.exact,
+                      "!text-blue-600": router.query.slug === item.link.split("/")[2],
                     })}
                   >
                     <span className="absolute inline-block -left-6 nav-icon">
                       <ChevronRightIcon />
                     </span>
                     <span className="nav-label">{item.label}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

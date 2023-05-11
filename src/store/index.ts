@@ -30,6 +30,7 @@ import walletsSlice from "./feature/user/wallets.slice";
 import walletsService from "./services/wallets.service";
 import profileReducer from "./feature/profile";
 import userProfileService from "./services/profile/users.service";
+import bountiesService from "./services/bounties.service";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -49,6 +50,7 @@ export interface IRootState {
   reputationService: ReturnType<typeof reputationService.reducer>;
   userProfileService: ReturnType<typeof userProfileService.reducer>;
   notificationService: ReturnType<typeof notificationsService.reducer>;
+  bountiesService: ReturnType<typeof bountiesService.reducer>;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   bounties: ReturnType<typeof bountiesSlice.reducer>;
   submissions: ReturnType<typeof submissionsSlice.reducer>;
@@ -90,6 +92,7 @@ export const store = configureStore({
     [communityService.reducerPath]: communityService.reducer,
     [coursesService.reducerPath]: coursesService.reducer,
     [walletsService.reducerPath]: walletsService.reducer,
+    [bountiesService.reducerPath]: bountiesService.reducer,
     [userService.reducerPath]: userService.reducer,
     [userProfileService.reducerPath]: userProfileService.reducer,
     [reputationService.reducerPath]: reputationService.reducer,
@@ -108,7 +111,8 @@ export const store = configureStore({
       reputationService.middleware,
       referralsService.middleware,
       notificationsService.middleware,
-      userProfileService.middleware
+      userProfileService.middleware,
+      bountiesService.middleware
     );
   },
 });
