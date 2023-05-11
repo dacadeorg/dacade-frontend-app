@@ -1,5 +1,5 @@
 import { Challenge, Course, Metadata, Reward } from "./course";
-import { Colors } from "./community";
+import { Colors, Referral } from "./community";
 import { ReactNode } from "react";
 
 export interface Bounty {
@@ -82,8 +82,8 @@ export interface Submission {
   map(arg0: (submission: Submission) => JSX.Element): ReactNode;
   id: string;
   ref: string;
-  created_at: string;
-  updated_at: string;
+  created_at: Date;
+  updated_at: Date;
   link: string;
   community: string;
   user_id: string;
@@ -126,7 +126,7 @@ export interface ApplicableReward {
 export interface User {
   id: string;
   ref: string;
-  created_at: string;
+  created_at: Date;
   displayName: string;
   uid: string;
   joined: string;
@@ -142,6 +142,7 @@ export interface User {
   discord?: {
     connected?: boolean;
   };
+  referrals: Referral;
 }
 
 export interface UserMetadata {
