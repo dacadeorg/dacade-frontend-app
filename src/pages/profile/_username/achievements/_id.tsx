@@ -1,7 +1,13 @@
-import { useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-export default function AchievementRedirect () {
+/**
+ * AchievementRedirect component
+ * 
+ * @returns {ReactElement}
+ */
+
+export default function AchievementRedirect (): ReactElement {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
