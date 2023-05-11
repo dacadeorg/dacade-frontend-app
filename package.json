@@ -49,6 +49,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-markdown": "^8.0.6",
     "react-redux": "^8.0.5",
+    "react-router-dom": "^6.11.1",
     "react-syntax-highlighter": "^15.5.0",
     "rehype-external-links": "^2.0.1",
     "rehype-format": "^4.0.1",
