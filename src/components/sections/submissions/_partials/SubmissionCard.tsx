@@ -77,9 +77,10 @@ export default function SubmissionCard({
           <p className="line-clamp-3">{submission.text}</p>
           <div className="pt-5">
             <Badge
-              custom-style={{
+              customStyle={{
                 backgroundColor: colors.textAccent,
               }}
+              rounded
               size="medium"
               className="relative left-0"
               value={submission.metadata.evaluation.points}

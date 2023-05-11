@@ -21,14 +21,23 @@ export default function Feedback(): ReactElement {
   const dispatch = useDispatch()
   const route = useRouter()
   const feedbacks = useSelector((state) => state.feedback.list);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const isAuthenticated = useSelector((state) => authCheck(state));
   const submission = useSelector(
     (state) => state.submissions.current
   );
   const challenge = useSelector((state) => state.challenges.current);
-  const fetchList = useCallback( () => {
-    dispatch(fetchFeedbacks({ submissionId: submission?.id as string, locale: route.locale }));
+  const fetchList = useCallback( async () => {
+    try {
+      const di = await dispatch(fetchFeedbacks({ submissionId: submission?.id as string, locale: route.locale }))
+      console.log(di)
+    } catch (error) {
+      console.log(error)
+    }
+    finally{
+      setLoading(false)
+    }
+
   },[dispatch, route.locale, submission?.id])
 
   useEffect(() => {
@@ -36,7 +45,7 @@ export default function Feedback(): ReactElement {
   },[fetchList])
   return (
     <div className="relative">
-      {feedbacks.map((feedback, index) => (
+      {!loading && feedbacks.map((feedback, index) => (
         <FeedbackCard
           key={feedback.id}
           value={feedback}

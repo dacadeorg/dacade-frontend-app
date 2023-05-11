@@ -94,7 +94,7 @@ export default function Submission() {
             title={course?.name}
             subtitle={t("communities.submission.title")}
           />
-          <List />
+          <List setSelectedSubmission={setSelectedSubmission}/>
         </div>
         <SubmissionPopup
           show={!!selectedSubmission}

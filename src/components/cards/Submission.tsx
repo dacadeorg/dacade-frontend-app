@@ -20,6 +20,7 @@ interface SubmissionCardProps {
     text: string;
     date: string;
   };
+  setSelectedSubmission: any
 }
 
 /**
@@ -34,6 +35,7 @@ export default function SubmissionCard({
   buttons = false,
   last = false,
   timestamp = { text: "", date: "" },
+  setSelectedSubmission = () => ""
 }: SubmissionCardProps): ReactElement {
   const { t } = useTranslation();
   const {colors, community} = useSelector((state) => ({
@@ -53,6 +55,9 @@ export default function SubmissionCard({
     "--button-background-color--hover": colors.textAccent,
     "--button-border-color--hover": colors.textAccent,
   };
+
+
+  // TODO: Set current submition submission
 
   return (
     <UserCard
@@ -101,6 +106,10 @@ export default function SubmissionCard({
               variant="none"
               arrowClasses="w-full"
               customStyle={arrowButtonStyles}
+              onClick={() =>{
+                setSelectedSubmission(submission.id)
+                console.log("Select")
+              }}
             />
           </div>
         </div>
