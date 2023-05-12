@@ -21,20 +21,14 @@ export default function ReferralPopup(): ReactElement {
   const dispatch = useDispatch();
   const [referralLink, setReferralLink] = useState("");
 
-  // Get user data and show referral popup status from the redux store
-  const user = useSelector((state) => state.user.data);
-
-  // Get the referral visibility status from the redux store
-  const showReferral = useSelector((state) => state.ui.showReferralPopup);
+  const { user, showReferral } = useSelector((state) => ({
+    user: state.user.data,
+    showReferral: state.ui.showReferralPopup,
+  }));
 
   useEffect(() => {
     // Construct referral link using the user's display name
-    if (window !== undefined) {
-      setReferralLink(
-        () => `${window.location.origin}
-    /signup?invite=${user?.displayName}`
-      );
-    }
+    if (window !== undefined) setReferralLink(() => `${window.location.origin}/signup?invite=${user?.displayName}`);
   }, [user?.displayName]);
 
   const referralCode = user?.displayName;

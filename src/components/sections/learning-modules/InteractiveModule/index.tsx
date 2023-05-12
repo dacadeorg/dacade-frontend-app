@@ -41,9 +41,11 @@ export default function InteractiveModule({ data }: interactiveModuleProps): Rea
   const [answering, setAnswering] = useState(false);
   const dispatch = useDispatch();
 
-  const isLoggedIn = useSelector((state) => authCheck(state));
+  const { isLoggedIn, course } = useSelector((state) => ({
+    isLoggedIn: authCheck(state),
+    course: state.courses.current,
+  }));
   const items = data?.items?.length ? data.items : [];
-  const course = useSelector((state) => state.courses.current);
 
   const checkIfAnswered = useCallback(async () => {
     try {

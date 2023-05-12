@@ -1,6 +1,7 @@
 import { Challenge, Course, Metadata, Reward } from "./course";
 import { Colors } from "./community";
 import { ReactNode } from "react";
+import { Feedback } from "./feedback";
 
 export interface Bounty {
   url: string;
@@ -139,6 +140,7 @@ export interface User {
   metadata?: UserMetadata;
   discordConnected?: boolean;
   isKycVerified?: boolean;
+  feedbacks?: Feedback;
   discord?: {
     connected?: boolean;
   };
@@ -149,6 +151,7 @@ export interface UserMetadata {
 }
 
 export interface Reputation {
+  id: Key | null | undefined;
   total: number;
   list: string[];
   community: Community;

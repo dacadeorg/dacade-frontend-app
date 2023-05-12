@@ -15,10 +15,14 @@ import Section from "../communities/_partials/Section";
  * @returns {ReactElement}
  */
 export default function PageNavigation(): ReactElement {
-  const colors = useSelector((state) => state.ui?.colors);
   const { t } = useTranslation();
-  const { menus, showPageNavigation: show } = useSelector((state) => state.navigation);
   const router = useRouter();
+
+  const { menus, show, colors } = useSelector((state) => ({
+    menus: state.navigation.menus,
+    show: state.navigation.showPageNavigation,
+    colors: state.ui?.colors,
+  }));
 
   const list = useMemo(() => menus?.map((menu) => menu?.items).flat(), [menus]);
 
