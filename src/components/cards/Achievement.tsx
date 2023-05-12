@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { ReactElement, useMemo } from "react";
 import Checkmark from "@/icons/checkMarkIcon.svg";
 import Image from "next/image";
@@ -38,13 +39,8 @@ export default function AchievementCard({ data, minting }: AchievementCardProps)
       <Link href={`/achievements/${data.id}`} className="relative block h-full">
         <div className="flex flex-col h-full">
           <div className="flex-grow w-full mx-auto text-left px-7">
-            <div
-              className={`mx-auto rounded-full mb-5 ${isSVG ? "w-20 h-20 p-5" : ""}`}
-              style={{
-                backgroundColor: isSVG && data.community.colors.primary,
-              }}
-            >
-              <Image src={data.metadata.image} className="relative" alt="image" />
+            <div className={`mx-auto relative rounded-full mb-5 ${isSVG ? "w-20 h-20 p-5" : ""}`} style={{ backgroundColor: isSVG && data.community.colors.primary }}>
+              <img src={data.metadata.image} className="relative" alt="image" />
             </div>
 
             {isSVG && <p className="text-sm font-medium text-center">{data.metadata.name}</p>}

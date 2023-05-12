@@ -21,6 +21,7 @@ const ProfileHeader = () => {
     const username = (router.query?.username as string) || "";
 
     if (username && username?.toLowerCase() !== authUser?.displayName?.toLowerCase()) {
+      console.log(profileUser);
       return profileUser;
     }
     return authUser;
@@ -55,7 +56,7 @@ const ProfileHeader = () => {
 
   return (
     <div className="text-center font-sans pb-24 relative">
-      <Avatar size="extra" user={user} use-link={false} />
+      <Avatar size="extra" user={user} useLink={false} />
       <span className="block capitalize text-5xl mt-5 leading-none">{username}</span>
       <div className="flex justify-center mt-2 leading-snug text-sm divide-x divide-solid">
         <div className="flex items-center px-2">
