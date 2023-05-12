@@ -3,6 +3,9 @@ import { Referral } from '@/types/community';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { IRootState as RootState } from '@/store';
 
+/**
+ * User Referral state interface
+ */
 
 interface UserReferralsState {
   userReferralList: Referral[];
@@ -31,6 +34,10 @@ export const userFetchReferrals = createAsyncThunk(
       return data;
     }
   );
+
+/**
+ * User referral slice
+ */
 
 const userReferralsSlice = createSlice({
   name: 'referrals',

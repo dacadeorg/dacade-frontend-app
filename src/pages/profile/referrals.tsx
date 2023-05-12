@@ -7,6 +7,9 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { Referral as Referrals } from "@/types/community";
 import { userFetchReferrals } from "@/store/feature/user/referrals.slice";
+import { GetStaticProps } from "next";
+import i18Translate from "@/utilities/I18Translate";
+import DefaultLayout from "@/components/layout/Default";
 
 /**
  * Refferrals component for user profile
@@ -22,7 +25,7 @@ export default function UserReferrals(): ReactElement {
   const referrals = useSelector((state) => state.referrals.list);
   const user = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
-  const showLoadMore = useMemo(() => showButton && referrals.length >= 30, [referrals.length, showButton]);
+  const showLoadMore = useMemo(() => showButton && referrals?.length >= 30, [referrals?.length, showButton]);
   useEffect(() => {
     dispatch(userFetchReferrals({}));
   }, [dispatch, user?.referrals]);
@@ -67,3 +70,9 @@ export default function UserReferrals(): ReactElement {
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);
+
+UserReferrals.getLayout = function (page: ReactElement) {
+  return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
+};
