@@ -59,7 +59,7 @@ export default function UserReferrals(): ReactElement {
               loader={<></>}
             >
               {referrals.map((referral: Referrals, i: number) => (
-                <Referral key={i} referral={referral} />
+                <Referral key={`user-referral-${i}`} referral={referral} />
               ))}
             </InfiniteScroll>
           </div>
