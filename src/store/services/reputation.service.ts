@@ -3,7 +3,7 @@ import { createApi } from "@reduxjs/toolkit/dist/query";
 import { clearReputationList, setReputationList } from "../feature/profile/reputation.slice";
 import { Reputation } from "@/types/bounty";
 
-const reputationProfileService = createApi({
+export const reputationProfileService = createApi({
   reducerPath: "reputationProfileService",
   baseQuery: baseQuery(),
   endpoints: (builder) => ({

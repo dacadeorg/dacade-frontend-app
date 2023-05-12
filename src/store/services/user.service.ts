@@ -1,6 +1,6 @@
 import baseQuery from "@/config/baseQuery";
 import { clearUserState, getUserToken, setUserToken, setUserdata } from "../feature/user.slice";
-import { createApi } from "@reduxjs/toolkit/dist/query";
+import { createApi } from "@reduxjs/toolkit/dist/query/react";
 
 /**
  * User interface for payload request payload
@@ -20,7 +20,7 @@ interface User {
  *
  * @type {*}
  */
-const userService = createApi({
+const userService: any = createApi({
   reducerPath: "userService",
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
@@ -28,7 +28,7 @@ const userService = createApi({
      * Get user endpoint
      * @method GET
      */
-    getUser: builder.query<User, any>({
+    getUser: builder.query({
       query: () => "users/current",
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
@@ -59,6 +59,8 @@ const userService = createApi({
     }),
   }),
 });
+
+export const { useGetUserQuery } = userService;
 
 /**
  * Get user function

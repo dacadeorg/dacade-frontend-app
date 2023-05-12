@@ -54,3 +54,5 @@ export const findCertificate = ({ id, locale }: { id: string; locale?: string })
     locale,
   });
 export const { useFetchAllCertificatesQuery, useFindCertificateQuery } = certificateService;
+
+export default certificateService;
