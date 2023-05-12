@@ -12,7 +12,7 @@ import MainSection from "@/components/sections/homepage/Main";
 import TestimonialsSection from "@/components/sections/homepage/Testimonials";
 import { fetchAllCommunities } from "@/store/services/community.service";
 
-const Home = (props: { pageProps: { communities: Community[] } }) => {
+const Home = (props: { pageProps: { communities: Community[]} }) => {
   const { t } = useTranslation();
   const {
     pageProps: { communities },

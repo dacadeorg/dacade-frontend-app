@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "next-i18next";
 import { CustomError } from "@/types/error";
 import { updateWallet } from "@/store/services/wallets.service";
+import { Wallet } from "@/types/wallet";
 
 /**
  * Inferface for form's inputs values
@@ -23,6 +24,14 @@ import { updateWallet } from "@/store/services/wallets.service";
 interface FormValues {
   address: string;
   newAddress: string;
+  onClose: (event: any) => void;
+  // wallet: Wallet;
+}
+
+interface Props {
+  show: boolean;
+  wallet: Wallet;
+  onClose: (event: any) => void;
 }
 
 /**
@@ -37,7 +46,7 @@ interface FormValues {
 }
  * @returns {ReactElement}
  */
-export default function EditProfile({ show }: { show: boolean }): ReactElement {
+export default function EditProfile({ show, wallet, onClose }: Props): ReactElement {
   const { t } = useTranslation();
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
@@ -59,21 +68,21 @@ export default function EditProfile({ show }: { show: boolean }): ReactElement {
   const openEditAddress = () => {
     setShowEditAddress(true);
   };
-  const wallet = useSelector((state) => state.wallets.current);
+  // const wallet = useSelector((state) => state.wallets.current);
   const currentAddress = wallet?.address;
 
   const onSave = async () => {
     setLoading(true);
     setError(null);
-
+onClose(true);
     // TODO this line will be uncommented when web3 is intergrated
     // const signature = await getSignature()
     try {
-      const validAddress = validateAddress(address, wallet?.token);
+      const validAddress = validateAddress(address, wallet.token);
       if (!validAddress) return;
 
       await updateWallet({
-        id: wallet?.id,
+        id: wallet.id,
         address: newAddress || address,
         // TODO:  Replace signature: "", with signature as soon as web3 is intergrated in the wallet servce
         signature: "",
