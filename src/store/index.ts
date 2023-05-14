@@ -30,6 +30,7 @@ import walletsSlice from "./feature/user/wallets.slice";
 import walletsService from "./services/wallets.service";
 import profileReducer from "./feature/profile";
 import userProfileService from "./services/profile/users.service";
+import web3WalletSlice from "./feature/wallet.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -40,6 +41,7 @@ export interface IRootState {
   banner: ReturnType<typeof bannerSlice.reducer>;
   notifications: ReturnType<typeof notificationsSlice.reducer>;
   wallets: ReturnType<typeof walletsSlice.reducer>;
+  web3Wallet: ReturnType<typeof web3WalletSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
   coursesService: ReturnType<typeof coursesService.reducer>;
@@ -86,6 +88,7 @@ export const store = configureStore({
     [userProfileSlice.name]: userProfileSlice.reducer,
     [feedbackSlice.name]: feedbackSlice.reducer,
     [challengeSlice.name]: challengeSlice.reducer,
+    [web3WalletSlice.name]: web3WalletSlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
     [communityService.reducerPath]: communityService.reducer,
     [coursesService.reducerPath]: coursesService.reducer,

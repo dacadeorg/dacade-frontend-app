@@ -22,6 +22,11 @@ const certificateService = createApi({
         }
       },
     }),
+    mint: builder.mutation({
+      query: ({ id, address, signature }) => ({}),
+
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {},
+    }),
     findCertificate: builder.query({
       query: ({ id, locale }: { id: string; locale?: string }) => ({
         url: `/certificates/${id}`,
@@ -53,4 +58,21 @@ export const findCertificate = ({ id, locale }: { id: string; locale?: string })
     id,
     locale,
   });
+
+interface MintCertificateArgs {
+  id: string;
+  address: string;
+  signature: string;
+}
+export const mintCertificate =
+  async ({ id, address, signature }: MintCertificateArgs) =>
+  (dispatch: any) =>
+    dispatch(
+      certificateService.endpoints.mint.initiate({
+        id,
+        address,
+        signature,
+      })
+    );
+
 export const { useFetchAllCertificatesQuery, useFindCertificateQuery } = certificateService;
