@@ -20,7 +20,7 @@ interface User {
  *
  * @type {*}
  */
-const userService: any = createApi({
+const userService = createApi({
   reducerPath: "userService",
   baseQuery: baseQuery(),
   endpoints: (builder) => ({

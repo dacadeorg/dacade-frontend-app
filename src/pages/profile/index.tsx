@@ -2,7 +2,7 @@ import { useEffect, ReactElement, useMemo } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchAllCertificates } from "@/store/services/certificate.service";
-import { fetchProfileReputation } from "@/store/services/reputation.service";
+import { fetchProfileReputation } from "@/store/services/profile/reputation.service";
 import { getMetadataTitle } from "@/utilities/Metadata";
 
 import NotificationList from "@/components/list/Notification";

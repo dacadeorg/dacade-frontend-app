@@ -2,7 +2,7 @@ import { useEffect, ReactElement, useMemo } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchAllCertificates } from "@/store/services/certificate.service";
-import { fetchProfileReputation } from "@/store/services/reputation.service";
+import { fetchProfileReputation } from "@/store/services/profile/reputation.service";
 import { getMetadataTitle } from "@/utilities/Metadata";
 
 import NotificationList from "@/components/list/Notification";
@@ -13,7 +13,7 @@ import ProfileOverviewSection from "@/components/sections/profile/overview/Secti
 import DiscordConnect from "@/components/popups/DiscordConnect";
 import Head from "next/head";
 import ProfileLayout from "@/layouts/ProfileLayout";
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import { useRouter } from "next/router";
 import { fetchUserProfile } from "@/store/services/profile/users.service";
@@ -26,7 +26,6 @@ export default function ProfileOverview() {
   useEffect(() => {
     (async () => {
       const username = router.query.username;
-      console.log(username);
       await Promise.all([
         dispatch(fetchUserProfile((username as string) || "")),
         dispatch(fetchAllCertificates({ username: (username as string) || "" })),
