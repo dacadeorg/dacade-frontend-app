@@ -1,5 +1,5 @@
 // TODO: Should be fully tested
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, ReactElement } from "react";
 import Modal from "@/components/ui/Modal";
 import AchievementCard from "@/components/cards/Achievement";
 import ArrowButton from "@/components/ui/button/Arrow";
@@ -12,6 +12,7 @@ import { connectWallet, disconnectWallet, getSignature } from "@/store/feature/w
 import { mintCertificate } from "@/store/services/certificate.service";
 import { isError } from "lodash";
 
+// Wallet interface
 interface Wallet {
   address: string;
 }
@@ -30,9 +31,9 @@ interface Wallet {
   wallet,
   close,
 }
- * @returns {void; }) => any}
+ * @returns {ReactElement}
  */
-export default function MintCertificate({ show, wallet, close }: { show: boolean; wallet?: Wallet; close?: (value: boolean) => void }) {
+export default function MintCertificate({ show, wallet, close }: { show: boolean; wallet?: Wallet; close?: (value: boolean) => void }): ReactElement {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [amount, setAmount] = useState(0);
