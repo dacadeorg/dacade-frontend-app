@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import UserCard from "@/components/cards/User";
 import TranslationBox from "@/components/cards/TranslationBox";
@@ -31,14 +31,17 @@ interface EvaluationCardProps {
   evaluation: Evaluation;
   link?: string;
   last?: boolean;
-  children: ReactElement;
+  children: ReactNode;
 }
 export default function EvaluationCard({ evaluation, link = "", last, children }: EvaluationCardProps): ReactElement {
-  const language = evaluation?.metadata?.language || "en";
-  const colors = useSelector((state) => state.ui.colors);
   const { t } = useTranslation();
-  // TODO: this line will be uncommented once community slice is available
-  // const community = useSelector((state) => state.community);
+  const language = evaluation?.metadata?.language || "en";
+
+  const { colors, community } = useSelector((state) => ({
+    colors: state.ui.colors,
+    community: state.community,
+  }));
+
   return (
     <UserCard
       user={evaluation.evaluator}

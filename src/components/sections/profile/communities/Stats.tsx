@@ -12,12 +12,15 @@ import { useTranslation } from "next-i18next";
 export default function CommunityStats(): ReactElement {
   const { t } = useTranslation();
 
-  const { community, submissions } = useSelector((state) => ({
+  useEffect(() => {
+    dispatch(fetchCurrentCommunity({ slug: params }));
+  }, [dispatch, params]);
+
+  const { community, submissions, reputation, feedbacks } = useSelector((state) => ({
     community: state.communities.current,
-    // TODO: Will be uncommented when the feedback slice is implemented
     feedbacks: state.feedback.list,
     submissions: state.submissions.list,
-    reputation: state.profile.reputations.list,
+    reputation: state.profile.communities.reputation,
   }));
 
   console.log("community", community);
@@ -29,15 +32,13 @@ export default function CommunityStats(): ReactElement {
         <div className="py-7 px-10 sm:px-7 md:px-0 md:pl-7">
           <div className="text-lg font-medium text-gray-800 pb-2">{community?.name}</div>
           <Tag>
-            {/* TODO: Value is given zero as a placeholder, the value will come from the feedbacks */}
-            <Currency value={0} token="REP" />
+            <Currency value={reputation} token="REP" />
           </Tag>
         </div>
       </div>
       <div className="p-7 md:text-right justify-self-stretch space-y-2">
         <div className="whitespace-nowrap">
-          {/* TODO: Will be uncommented when the feedback slice is implemented */}
-          {/* <span className="font-bold">{feedbacks.length}</span> */}
+          <span className="font-bold">{feedbacks.length}</span>
           {t("feedbacks")}
         </div>
         <div className="whitespace-nowrap">

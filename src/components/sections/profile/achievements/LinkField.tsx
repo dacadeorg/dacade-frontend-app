@@ -26,19 +26,14 @@ interface AchievementLinkFieldProps {
  */
 export default function AchievementLinkField({ link }: AchievementLinkFieldProps): ReactElement {
   const { t } = useTranslation();
-  const authUser = useSelector((state) => state.user.data);
+  const { authUser, current } = useSelector((state) => ({
+    authUser: state.user.data,
+    current: state.profile.certificate.current,
+  }));
 
-  // TODO: to be uncommented when profile slice is implemented
-  // const current = useSelector(
-  //   (state) => state.profile.certificates.current
-  // );
   const username = authUser?.displayName;
-  // TODO: to be uncommented when profile slice is implemented
-  // const currentSubmissionId = current?.submission?.id;
-  const currentSubmissionId = "1234";
-  const copy = () => {
-    navigator.clipboard.writeText(link as string);
-  };
+  const currentSubmissionId = current?.submission?.id;
+  const copy = () => navigator.clipboard.writeText(link as string);
 
   return (
     <div className="border relative p-2 rounded">

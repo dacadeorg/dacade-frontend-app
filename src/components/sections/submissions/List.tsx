@@ -24,7 +24,6 @@ export default function List(): ReactElement {
   const submissions = useSelector((state) => state.submissions.list);
   const router = useRouter();
   const showLoadMore = useMemo(() => showButton && submissions.length >= 30, [showButton, submissions.length]);
-
   const submissionId = submissions[submissions.length - 1]?.id || null;
   const dispatch = useDispatch();
 

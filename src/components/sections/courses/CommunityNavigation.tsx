@@ -11,9 +11,10 @@ import { useSelector } from "@/hooks/useTypedSelector";
  * @returns {ReactElement}
  */
 export default function CommunityNavigation(): ReactElement {
-  const community = useSelector((state) => state.communities?.current);
-
-  const course = useSelector((state) => state.courses?.current);
+  const { community, course } = useSelector((state) => ({
+    community: state.communities?.current,
+    course: state.courses?.current,
+  }));
 
   const path = useMemo(() => (community ? `/communities/${community.slug}` : ""), [community]);
 
@@ -30,6 +31,7 @@ export default function CommunityNavigation(): ReactElement {
     }
     return 0;
   }, [community]);
+
   return community && course ? (
     <div>
       <div className="relative flex items-center py-4 pt-4 text-sm border-b-2 md:pt-7 lg:border-0">
