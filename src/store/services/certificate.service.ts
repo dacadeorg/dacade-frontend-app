@@ -48,11 +48,8 @@ const certificateService = createApi({
 });
 
 
-export const fetchAllCertificates = ({ locale, username }: { locale?: string; username: string }) =>
-  certificateService.endpoints.fetchAllCertificates.initiate({
-    locale,
-    username,
-  });
+export const fetchAllCertificates_ = ({ locale, username }: { locale?: string; username: string }) =>
+  certificateService.endpoints.fetchAllCertificates.initiate({locale,username});
 
 export const findCertificate = ({ id, locale }: { id: string; locale?: string }) =>
   certificateService.endpoints.findCertificate.initiate({

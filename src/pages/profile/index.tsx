@@ -1,7 +1,6 @@
 import { useEffect, ReactElement, useMemo } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { fetchAllCertificates } from "@/store/services/certificate.service";
 import { fetchProfileReputation } from "@/store/services/profile/reputation.service";
 import { getMetadataTitle } from "@/utilities/Metadata";
 
@@ -16,6 +15,7 @@ import ProfileLayout from "@/layouts/ProfileLayout";
 import AuthCheckProvider from "@/contexts/AuthCheckProvider";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
+import { fetchAllCertificates_ } from "@/store/services/certificate.service";
 
 export default function ProfileOverview() {
   const user = useSelector((state) => state.user.data);
@@ -23,7 +23,7 @@ export default function ProfileOverview() {
 
   useEffect(() => {
     (async () => {
-      await Promise.all([dispatch(fetchAllCertificates({ username: user?.username || "" })), dispatch(fetchProfileReputation({ username: user?.username || "" }))]);
+      await Promise.all([dispatch(fetchAllCertificates_({ username: user?.username || ""})),dispatch(fetchProfileReputation({ username: user?.username || "" }))]);
     })();
   }, [dispatch, user?.username]);
 

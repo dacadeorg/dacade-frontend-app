@@ -14,7 +14,7 @@ import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { fetchAllCertificates, findCertificate } from "@/store/services/certificate.service";
+import { findCertificate } from "@/store/services/certificate.service";
 import { useTranslation } from "next-i18next";
 import Logo from "@/icons/logo.svg";
 
