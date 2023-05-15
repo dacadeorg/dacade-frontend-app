@@ -57,8 +57,6 @@ export default function SubmissionCard({
   };
 
 
-  // TODO: Set current submition submission
-
   return (
     <UserCard
       user={submission.user}
