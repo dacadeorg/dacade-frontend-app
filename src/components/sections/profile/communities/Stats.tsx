@@ -1,16 +1,19 @@
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import Avatar from "@/components/ui/Avatar";
 import Tag from "@/components/ui/Tag";
 import Currency from "@/components/ui/Currency";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { useTranslation } from "next-i18next";
 
 /**
  * community stats component
  * @returns {ReactElement}
  */
-export default function CommunityStats(): ReactElement {
+export default function CommunityStats({ params }: { params: string }): ReactElement {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCurrentCommunity({ slug: params }));
@@ -22,8 +25,6 @@ export default function CommunityStats(): ReactElement {
     submissions: state.submissions.list,
     reputation: state.profile.communities.reputation,
   }));
-
-  console.log("community", community);
 
   return (
     <div className="bg-gray-100 sm:flex sm:justify-between rounded-3xl lg:max-w-lg">
