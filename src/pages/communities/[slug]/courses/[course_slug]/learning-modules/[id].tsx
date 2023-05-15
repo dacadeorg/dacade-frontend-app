@@ -60,13 +60,7 @@ export default function LearningModulePage(props: LearningModulePageProps) {
     dispatch(setCurrentLearningModule(learningModule));
     dispatch(setColors(community.colors));
     initNavigationMenu(navigation.community)(dispatch);
-  }, [
-    community,
-    course,
-    dispatch,
-    learningModule,
-    navigation.community,
-  ]);
+  }, [community, course, dispatch, learningModule, navigation.community]);
 
   const materials = useMemo(() => learningModule?.materials?.filter((material) => material.type !== "ADDITIONAL") || [], [learningModule?.materials]);
   const additionalMaterials = useMemo(() => learningModule?.materials?.filter((material) => material.type === "ADDITIONAL") || [], [learningModule?.materials]);

@@ -24,14 +24,7 @@ export default function CodeHighlighter({ inline, className, children, ...props 
 
   if (!inline && match)
     return (
-      <SyntaxHighlighter
-        {...props}
-        showLineNumbers
-        wrapLongLines
-        language={match[1]}
-        PreTag="div"
-        style={oneDark}
-      >
+      <SyntaxHighlighter {...props} showLineNumbers wrapLongLines language={match[1]} PreTag="div" style={oneDark}>
         {String(children).replace(/\n$/, "")}
       </SyntaxHighlighter>
     );

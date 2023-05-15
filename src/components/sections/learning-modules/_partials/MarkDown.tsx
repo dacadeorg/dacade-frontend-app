@@ -69,21 +69,14 @@ export default function Markdown({ url }: MarkDownProps): ReactElement {
   return (
     <div>
       {content && (
-        <div
-          style={{ ...(themeStyles as CSSProperties) }}
-          className="prose"
-        >
+        <div style={{ ...(themeStyles as CSSProperties) }} className="prose">
           <ReactMarkdown
             rehypePlugins={[rehypeExternalLinks, rehypeSlug]}
             remarkPlugins={[remarkGfm]}
             components={{
               code: ({ inline, className, children, ...props }) => {
                 return (
-                  <CodeHighlighter
-                    inline={inline}
-                    className={className}
-                    {...props}
-                  >
+                  <CodeHighlighter inline={inline} className={className} {...props}>
                     {children}
                   </CodeHighlighter>
                 );

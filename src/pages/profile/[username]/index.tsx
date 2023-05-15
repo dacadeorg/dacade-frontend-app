@@ -1,7 +1,7 @@
 import { useEffect, ReactElement, useMemo } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { fetchAllCertificates_ } from "@/store/services/certificate.service";
+import { fetchAllCertificates } from "@/store/services/profile/certificate.service";
 import { fetchProfileReputation } from "@/store/services/profile/reputation.service";
 import { getMetadataTitle } from "@/utilities/Metadata";
 
@@ -28,7 +28,7 @@ export default function ProfileOverview() {
       const username = router.query.username;
       await Promise.all([
         dispatch(fetchUserProfile((username as string) || "")),
-        dispatch(fetchAllCertificates_({ username: (username as string) || "" })),
+        dispatch(fetchAllCertificates({ username: (username as string) || "" })),
         dispatch(fetchProfileReputation({ username: (username as string) || "" })),
       ]);
     })();

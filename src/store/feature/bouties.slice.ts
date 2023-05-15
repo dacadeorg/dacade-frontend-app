@@ -42,9 +42,7 @@ export const { setBountiesList, setFilteredBountiesList } = bountiesSlice.action
  */
 export const findBountiesBySlug = (slug: string) => async (dispatch: any) => {
   const allBounties = store.getState().bounties.bountiesList;
-  console.log(slug);
   const filteredBounties = allBounties.filter((bounty) => bounty.slug === slug);
-  console.log({ filteredBounties });
   dispatch(setFilteredBountiesList(filteredBounties));
 };
 

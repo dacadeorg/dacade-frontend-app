@@ -30,12 +30,13 @@ import walletsSlice from "./feature/user/wallets.slice";
 import walletsService from "./services/wallets.service";
 import profileReducer from "./feature/profile";
 import userProfileService from "./services/profile/users.service";
-import certificateService from "./services/certificate.service";
+import certificateService from "./services/profile/certificate.service";
 import profileCommunitiesService from "./services/profile/profileCommunities.service";
 import userReputationService from "./services/user/userReputation.service";
 import userReputationSlice from "./feature/user/reputation.slice";
 import web3WalletSlice from "./feature/wallet.slice";
 import certificateSlice from "./feature/profile/certificate.slice";
+import bountiesService from "./services/bounties.service";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -60,6 +61,7 @@ export interface IRootState {
   certificateService: ReturnType<typeof certificateService.reducer>;
   reputationProfileService: ReturnType<typeof reputationProfileService.reducer>;
   profileCommunitiesService: ReturnType<typeof profileCommunitiesService.reducer>;
+  bountiesService: ReturnType<typeof bountiesService.reducer>;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   bounties: ReturnType<typeof bountiesSlice.reducer>;
   submissions: ReturnType<typeof submissionsSlice.reducer>;
@@ -102,6 +104,7 @@ export const store = configureStore({
     [web3WalletSlice.name]: web3WalletSlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
     [communityService.reducerPath]: communityService.reducer,
+    [bountiesService.reducerPath]: bountiesService.reducer,
     [coursesService.reducerPath]: coursesService.reducer,
     [certificateService.reducerPath]: certificateService.reducer,
     [walletsService.reducerPath]: walletsService.reducer,
@@ -129,7 +132,8 @@ export const store = configureStore({
       certificateService.middleware,
       reputationProfileService.middleware,
       profileCommunitiesService.middleware,
-      userReputationService.middleware
+      userReputationService.middleware,
+      bountiesService.middleware
     );
   },
 });

@@ -62,11 +62,7 @@ export default function List({ setSelectedSubmission }: any): ReactElement {
                 loader={<></>}
               >
                 {submissions.map((submission: any, i: number) => (
-                  <SubmissionCard
-                    key={`submission-${i}`}
-                    submission={submission}
-                    setSelectedSubmission={setSelectedSubmission}
-                  />
+                  <SubmissionCard key={`submission-${i}`} submission={submission} setSelectedSubmission={setSelectedSubmission} />
                 ))}
               </InfiniteScroll>
             </div>
