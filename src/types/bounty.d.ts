@@ -160,7 +160,3 @@ export interface BountyAuthor {
   description: string;
   name: string;
 }
-
-export enum RewardType {
-  submission = "SUBMISSION",
-}

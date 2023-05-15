@@ -1,8 +1,8 @@
 import Referral from "@/components/cards/Referral";
 import Bounty from "@/components/cards/Bounty";
-import { Bounty as IBounty } from "@/types/bounty";
+import { Bounty as BountyType } from "@/types/bounty";
 import { Refferral } from "@/types/referral";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 
 /**
  * BountyList component props
@@ -12,7 +12,7 @@ import { ReactElement } from "react";
  * @typedef {BountyListProps}
  */
 interface BountyListProps {
-  bounties: IBounty[];
+  bounties: BountyType[];
   referrals: Refferral[];
 }
 
