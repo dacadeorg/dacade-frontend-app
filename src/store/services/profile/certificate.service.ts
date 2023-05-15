@@ -2,12 +2,13 @@ import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import baseQuery from "@/config/baseQuery";
 import { setCertificateList, setCurrentCertificate, setCurrentMintingStatus } from "@/store/feature/profile/certificate.slice";
 import { store } from "@/store";
+import { Certificate } from "@/types/certificate";
 
 const certificateService = createApi({
   reducerPath: "certificatesService",
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
-    fetchAllCertificates: builder.query({
+    fetchAllCertificates: builder.query<Certificate[], { username: string; locale?: string }>({
       query: ({ username, locale }: { username: string; locale?: string }) => ({
         url: `/certificates/${username}`,
         headers: {
@@ -72,21 +73,14 @@ interface FetchAllCertificatesArgs {
   locale?: string;
   username: string;
 }
-export const fetchAllCertificates = ({ locale, username }: FetchAllCertificatesArgs) =>
-  certificateService.endpoints.fetchAllCertificates.initiate({
-    locale,
-    username,
-  });
+
+export const fetchAllCertificates = ({ locale, username }: FetchAllCertificatesArgs) => certificateService.endpoints.fetchAllCertificates.initiate({ locale, username });
 
 interface FindCertificateArgs {
   id: string;
   locale?: string;
 }
-export const findCertificate = ({ id, locale }: FindCertificateArgs) =>
-  certificateService.endpoints.findCertificate.initiate({
-    id,
-    locale,
-  });
+export const findCertificate = ({ id, locale }: FindCertificateArgs) => certificateService.endpoints.findCertificate.initiate({ id, locale });
 
 interface MintCertificateArgs {
   id: string;
