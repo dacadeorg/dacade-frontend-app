@@ -90,7 +90,7 @@ export default function SubmissionCard({
             {submission.metadata && submission.metadata.evaluation ? (
               <div className="inline-flex flex-1 items-center space-x-1">
                 <Badge custom-style={badgeButtonStyles} size="medium" className="relative" value={submission.metadata.evaluation.points} />
-                <span className="text-sm leading">{"submissions.evaluation.points"}</span>
+                <span className="text-sm leading">{t("submissions.evaluation.points")}</span>
               </div>
             ) : (
               <></>
@@ -110,11 +110,10 @@ export default function SubmissionCard({
               padding={false}
               className="action-button inline-flex bg-gray-100 text-gray-500 w-10 h-10 sm:w-11 sm:h-11 text-2xl rounded-full"
               variant="none"
-              arrowClasses="w-full"
+              minWidthClass="w-10 h-10"
               customStyle={arrowButtonStyles}
-              onClick={() =>{
+              onClick={() => {
                 setSelectedSubmission(submission.id)
-                console.log("Select")
               }}
             />
           </div>

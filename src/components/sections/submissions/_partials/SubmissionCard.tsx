@@ -67,7 +67,6 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
               customStyle={{
                 backgroundColor: colors.textAccent,
               }}
-              rounded
               size="medium"
               className="relative left-0"
               value={submission.metadata.evaluation.points}

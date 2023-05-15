@@ -27,8 +27,7 @@ export default function Feedback(): ReactElement {
   const challenge = useSelector((state) => state.challenges.current);
   const fetchList = useCallback( async () => {
     try {
-      const di = await dispatch(fetchFeedbacks({ submissionId: submission?.id as string, locale: route.locale }))
-      console.log(di)
+      await dispatch(fetchFeedbacks({ submissionId: submission?.id as string, locale: route.locale }))
     } catch (error) {
       console.log(error)
     }
