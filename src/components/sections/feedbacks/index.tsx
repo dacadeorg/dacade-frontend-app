@@ -25,7 +25,6 @@ export default function Feedback(): ReactElement {
   const isAuthenticated = useSelector((state) => authCheck(state));
   const submission = useSelector((state) => state.submissions.current);
   const challenge = useSelector((state) => state.challenges.current);
-<<<<<<< HEAD
   const fetchList = useCallback( async () => {
     try {
       const di = await dispatch(fetchFeedbacks({ submissionId: submission?.id as string, locale: route.locale }))
@@ -38,28 +37,18 @@ export default function Feedback(): ReactElement {
     }
 
   },[dispatch, route.locale, submission?.id])
-=======
-  const fetchList = useCallback(() => {
-    dispatch(fetchFeedbacks({ submissionId: submission?.id as string, locale: route.locale }));
-  }, [dispatch, route.locale, submission?.id]);
->>>>>>> dev
 
   useEffect(() => {
     fetchList();
   }, [fetchList]);
   return (
     <div className="relative">
-<<<<<<< HEAD
       {!loading && feedbacks.map((feedback, index) => (
         <FeedbackCard
           key={feedback.id}
           value={feedback}
           last={index === feedbacks.length - 1}
         />
-=======
-      {feedbacks.map((feedback, index) => (
-        <FeedbackCard key={feedback.id} value={feedback} last={index === feedbacks.length - 1} />
->>>>>>> dev
       ))}
       {loading && <Loader loading={loading} />}
       {isAuthenticated && challenge?.feedbackInfo && (
