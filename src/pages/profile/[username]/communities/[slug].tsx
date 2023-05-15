@@ -1,24 +1,20 @@
 import CommunityStats from "@/components/sections/profile/communities/Stats";
 import List from "@/components/sections/submissions/List";
-import { fetchCurrentCommunity } from "@/store/feature/community.slice";
 import { useRouter } from "next/router";
-import React, { Fragment, useEffect } from "react";
-import { useDispatch } from "@/hooks/useTypedDispatch";
+import React, { Fragment } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import DefaultLayout from "@/components/layout/Default";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import ProfileLayout from "@/layouts/Profile";
+import { useGetProfileCommunityQuery } from "@/store/services/profile.service";
 
 export default function ProfileCommunities() {
-  const dispatch = useDispatch();
-
   const router = useRouter();
 
-  useEffect(() => {
-    if (router.query.slug) {
-      dispatch(fetchCurrentCommunity({ slug: router?.query?.slug as string, locale: router.locale }));
-    }
-  }, [router.locale, router.query.slug]);
+  useGetProfileCommunityQuery({
+    slug: router?.query?.slug as string,
+    locale: router.locale,
+    username: router?.query?.username as string,
+  });
 
   return (
     <Fragment>

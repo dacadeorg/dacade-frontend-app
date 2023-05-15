@@ -30,6 +30,7 @@ import walletsSlice from "./feature/user/wallets.slice";
 import walletsService from "./services/wallets.service";
 import profileReducer from "./feature/profile";
 import userProfileService from "./services/profile/users.service";
+import { fetchProfileCommunitiesService, fetchProfileCommunityService } from "./services/profile.service";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -95,6 +96,8 @@ export const store = configureStore({
     [reputationService.reducerPath]: reputationService.reducer,
     [referralsService.reducerPath]: referralsService.reducer,
     [notificationsService.reducerPath]: notificationsService.reducer,
+    [fetchProfileCommunityService.reducerPath]: fetchProfileCommunityService.reducer,
+    [fetchProfileCommunitiesService.reducerPath]: fetchProfileCommunitiesService.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
     profile: profileReducer,
   },
@@ -108,7 +111,9 @@ export const store = configureStore({
       reputationService.middleware,
       referralsService.middleware,
       notificationsService.middleware,
-      userProfileService.middleware
+      userProfileService.middleware,
+      fetchProfileCommunityService.middleware,
+      fetchProfileCommunitiesService.middleware
     );
   },
 });

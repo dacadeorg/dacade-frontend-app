@@ -6,25 +6,30 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
 /**
  * community stats component
  * @returns {ReactElement}
  */
-export default function CommunityStats({ params }: { params: string }): ReactElement {
+export default function CommunityStats(): ReactElement {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
+  const router = useRouter();
+
   useEffect(() => {
-    dispatch(fetchCurrentCommunity({ slug: params }));
-  }, [dispatch, params]);
+    dispatch(fetchCurrentCommunity({ slug: router.query.slug as string, locale: router.locale }));
+  }, [dispatch, router.query.slug, router.locale]);
 
   const { community, submissions, reputation, feedbacks } = useSelector((state) => ({
-    community: state.communities.current,
-    feedbacks: state.feedback.list,
-    submissions: state.submissions.list,
+    community: state.profile.communities.current,
+    feedbacks: state.profile.communities.feedbacks,
+    submissions: state.profile.communities.submissions,
     reputation: state.profile.communities.reputation,
   }));
+
+  console.log("community", community);
 
   return (
     <div className="bg-gray-100 sm:flex sm:justify-between rounded-3xl lg:max-w-lg">
