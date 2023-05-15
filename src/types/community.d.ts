@@ -1,3 +1,4 @@
+import { Submission } from "./bounty";
 import { Challenge, Metadata, Reward } from "./course";
 
 export interface Community {
@@ -21,6 +22,7 @@ export interface Community {
   duration: number;
   items?: any[];
   challenge: Challenge;
+  submission: Submission;
 }
 
 export interface Colors {

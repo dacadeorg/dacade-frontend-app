@@ -4,7 +4,7 @@ import { Challenge } from "@/types/course";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 /**
- * Challenge state interface 
+ * Challenge state interface
  * @date 4/25/2023 - 8:18:04 PM
  *
  * @interface ChallengeState
@@ -53,11 +53,7 @@ export const challengeSlice = createSlice({
   },
 });
 
-export const {
-  setCurrentChallenge,
-  setChallengesList,
-  setChallengeSubmission,
-} = challengeSlice.actions;
+export const { setCurrentChallenge, setChallengesList, setChallengeSubmission } = challengeSlice.actions;
 
 /**
  * Fetch challenge async action
@@ -65,13 +61,10 @@ export const {
  *
  * @type {*}
  */
-export const fetchChallenge: any = createAsyncThunk(
-  "challenges/find",
-  async ({ id }: { id: string , locale?: string }) => {
-    const { data } = await api().server.get(`challenges/${id}`);
-    return data;
-  }
-);
+export const fetchChallenge = createAsyncThunk("challenges/find", async ({ id, locale }: { id: string; locale?: string }) => {
+  const { data } = await api(locale).server.get(`challenges/${id}`);
+  return data;
+});
 
 /**
  * fetch all challenges async action
@@ -79,24 +72,14 @@ export const fetchChallenge: any = createAsyncThunk(
  *
  * @type {*}
  */
-export const fetchAllChallenges = createAsyncThunk(
-  "challenges/all",
-  async ({ slug }: { slug: string }) => {
-    const { data } = await api().server.get(
-      `communities/${slug}/challenges`
-    );
-    return data;
-  }
-);
+export const fetchAllChallenges = createAsyncThunk("challenges/all", async ({ slug }: { slug: string }) => {
+  const { data } = await api().server.get(`communities/${slug}/challenges`);
+  return data;
+});
 
-export const findCommunityChallenge = createAsyncThunk(
-  "challenges/all",
-  async ({ slug }: { slug: string }) => {
-    const { data } = await api().server.get(
-      `communities/${slug}/challenges`
-    );
-    return data;
-  }
-);
+export const findCommunityChallenge = createAsyncThunk("challenges/all", async ({ slug }: { slug: string }) => {
+  const { data } = await api().server.get(`communities/${slug}/challenges`);
+  return data;
+});
 
 export default challengeSlice.reducer;

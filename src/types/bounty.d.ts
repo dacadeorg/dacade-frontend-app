@@ -1,4 +1,4 @@
-import { Course, Metadata, Reward } from "./course";
+import { Challenge, Course, Metadata, Reward } from "./course";
 import { Colors } from "./community";
 import { ReactNode } from "react";
 
@@ -55,6 +55,25 @@ export interface Faq {
   title: string;
 }
 
+/**
+ * @property {string} ref - The unique identifier of the bounty.
+ */
+export interface Evaluation {
+  evaluator: string;
+  created_at: string;
+  comment: string;
+  criteria?: Rebric[];
+  metadata: {
+    language: string;
+  };
+  points?: number;
+  totalPoints?: number;
+  reward?: {
+    amount: number;
+    token: string;
+  };
+}
+
 export interface Submission {
   length: Submission | undefined;
   /**
@@ -68,7 +87,7 @@ export interface Submission {
   link: string;
   community: string;
   user_id: string;
-  challenge: string;
+  challenge: Challenge;
   text: string;
   reviewDeadline: Date;
   metadata: SubmissionMetadata;
@@ -76,8 +95,10 @@ export interface Submission {
   user: User;
   reviewable: boolean;
   status: string;
-  rewards?: Reward[],
-  evaluation?: any
+  evaluation?: Evaluation;
+  reward: Reward;
+  // TODO: to be strictly typed later
+  evaluation: any;
 }
 
 export interface SubmissionMetadata {
@@ -117,6 +138,10 @@ export interface User {
   avatar?: string;
   metadata?: UserMetadata;
   discordConnected?: boolean;
+  isKycVerified?: boolean;
+  discord?: {
+    connected?: boolean;
+  };
 }
 
 export interface UserMetadata {
@@ -126,6 +151,8 @@ export interface UserMetadata {
 export interface Reputation {
   total: number;
   list: string[];
+  community: Community;
+  score: number;
 }
 
 export interface BountyAuthor {

@@ -10,11 +10,11 @@ import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import Checkbox from "@/components/ui/Checkbox";
-import { singUp } from "@/store/feature/auth.slice";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import { useSelector } from "@/hooks/useTypedSelector";
 import EmailInput from "@/components/ui/EmailInput";
 import UsernameInput from "@/components/ui/UsernameInput";
+import { signUp } from "@/store/services/auth.service";
 
 /**
  * Signup form values
@@ -50,10 +50,9 @@ export default function Signup(): ReactElement {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const onSubmit = (form: FormValues) => {
+  const onSubmit = async (form: FormValues) => {
     setLoading(true);
-    const { email, username, password, referralCode, checkTerms } =
-      form;
+    const { email, username, password, referralCode, checkTerms } = form;
     const signupData = {
       email,
       username,
@@ -63,8 +62,7 @@ export default function Signup(): ReactElement {
 
     try {
       if (!checkTerms) return;
-      setLoading(false);
-      dispatch(singUp(signupData));
+      await dispatch(signUp({ locale: "en", payload: { ...signupData } }));
     } catch (error) {
       console.error(error);
     } finally {
@@ -75,24 +73,15 @@ export default function Signup(): ReactElement {
   return (
     <>
       <Head>
-        <title>
-          {getMetadataTitle(t("login-page.signup.title"))}
-        </title>
+        <title>{getMetadataTitle(t("login-page.signup.title"))}</title>
       </Head>
       <div className="absolute w-full top-0 min-h-screen flex items-center">
-        <form
-          className="content-wrapper pt-24"
-          onSubmit={handleSubmit(onSubmit)}
-        >
+        <form className="content-wrapper pt-24" onSubmit={handleSubmit(onSubmit)}>
           <div className="lg:w-98 xl:w-98 mx-auto">
-            <h1 className="text-5xl my-5">
-              {t("login-page.signup.title")}
-            </h1>
+            <h1 className="text-5xl my-5">{t("login-page.signup.title")}</h1>
 
             <div className="mb-5 relative">
-              <div>
-                <EmailInput errors={error} register={register} />
-              </div>
+              <EmailInput errors={error} register={register} />
             </div>
             <div className="mb-5 relative">
               <UsernameInput errors={errors} register={register} />
@@ -135,36 +124,23 @@ export default function Signup(): ReactElement {
                       <Checkbox
                         id="terms-checkbox"
                         {...register("checkTerms", {
-                          required: `${t(
-                            "signup-page.terms.warning"
-                          )}`,
+                          required: `${t("signup-page.terms.warning")}`,
                         })}
                       />
                     </div>
                     <div className="max-w-none test">
                       <p>I agree to {t("app.name")}&#8217;s</p>
-                      <Link
-                        className="underline"
-                        href="/terms-conditions"
-                      >
+                      <Link className="underline" href="/terms-conditions">
                         {t("signup-page.terms")}
                       </Link>
                     </div>
                   </div>
-                  <span className="text-red-600">
-                    {errors.checkTerms?.message}
-                  </span>
+                  <span className="text-red-600">{errors.checkTerms?.message}</span>
                 </div>
               </div>
 
               <div className="flex text-right self-start">
-                <ArrowButton
-                  loading={loading}
-                  type="submit"
-                  minWidthClass="min-w-40"
-                  arrowClasses="text-white"
-                  disabled={loading}
-                >
+                <ArrowButton loading={loading} type="submit" minWidthClass="min-w-40" arrowClasses="text-white" disabled={loading}>
                   {t("login-page.signup.button")}
                 </ArrowButton>
               </div>
@@ -179,5 +155,4 @@ export default function Signup(): ReactElement {
 Signup.getLayout = function (page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
-export const getStaticProps: GetStaticProps = async ({ locale }) =>
-  i18Translate(locale as string);
+export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);

@@ -1,10 +1,4 @@
-import {
-  ReactElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
 import InteractiveModuleWrapper from "./Wrapper";
 import Markdown from "@/components/ui/Markdown";
 import Loader from "@/components/ui/Loader";
@@ -15,14 +9,8 @@ import Link from "next/link";
 import InteractiveModuleItem from "@/components/sections/learning-modules/InteractiveModule/Item";
 import { authCheck } from "@/store/feature/auth.slice";
 import { InteractiveModule as InteractiveModuleType } from "@/types/course";
-import {
-  hidePageNavigation,
-  showPageNavigation,
-} from "@/store/feature/communities/navigation.slice";
-import {
-  checkAnswer,
-  submitModuleAnswer,
-} from "@/store/feature/learningModules.slice";
+import { hidePageNavigation, showPageNavigation } from "@/store/feature/communities/navigation.slice";
+import { checkAnswer, submitModuleAnswer } from "@/store/feature/learningModules.slice";
 
 /**
  * interactive Module props interface
@@ -45,9 +33,7 @@ interface interactiveModuleProps {
 }
  * @returns {ReactElement}
  */
-export default function InteractiveModule({
-  data,
-}: interactiveModuleProps): ReactElement {
+export default function InteractiveModule({ data }: interactiveModuleProps): ReactElement {
   const [started, setStarted] = useState(false);
   const [current, setCurrent] = useState(0);
   const [ended, setEnded] = useState(false);
@@ -74,21 +60,11 @@ export default function InteractiveModule({
     }
   }, [data.ref, isLoggedIn, items.length]);
 
-  const stepTitle =
-    ended && data?.closing?.title
-      ? data.closing.title
-      : items[current]?.title;
+  const stepTitle = ended && data?.closing?.title ? data.closing.title : items[current]?.title;
 
-  const stepSubtitle = answering
-    ? "Knowledge test - Select the best option"
-    : ended
-    ? "Lesson end"
-    : "Explanation";
+  const stepSubtitle = answering ? "Knowledge test - Select the best option" : ended ? "Lesson end" : "Explanation";
 
-  const completion = useMemo(
-    () => (ended ? 100 : Math.round((current / items.length) * 100)),
-    [ended, current, items.length]
-  );
+  const completion = useMemo(() => (ended ? 100 : Math.round((current / items.length) * 100)), [ended, current, items.length]);
 
   useEffect(() => {
     setLoading(true);
@@ -116,30 +92,18 @@ export default function InteractiveModule({
     setEnded(true);
     showPageNavigation()(dispatch);
     if (!isLoggedIn) return;
-    dispatch(
-      submitModuleAnswer({ ref: data.ref, course: course?.ref! })
-    );
+    dispatch(submitModuleAnswer({ ref: data.ref, course: course?.ref! }));
   };
 
   return (
-    <InteractiveModuleWrapper
-      title={stepTitle}
-      subtitle={stepSubtitle}
-      sectionTitle={data.title}
-      percentage={completion}
-      duration="15 minutes"
-    >
+    <InteractiveModuleWrapper title={stepTitle} subtitle={stepSubtitle} sectionTitle={data.title} percentage={completion} duration="15 minutes">
       <div>
         {!loading && (
           <>
             {!ended ? (
               <>
                 {items.map((item, index) => (
-                  <div key={`item-${index}`}>
-                    {current === index && (
-                      <InteractiveModuleItem data={item} />
-                    )}
-                  </div>
+                  <div key={`item-${index}`}>{current === index && <InteractiveModuleItem data={item} />}</div>
                 ))}
               </>
             ) : (
@@ -147,10 +111,7 @@ export default function InteractiveModule({
             )}
             {!isLoggedIn && (
               <Hint className="mt-6">
-                <p>
-                  Since you are not logged in, your progress
-                  won&#8217;t be saved.
-                </p>
+                <p>Since you are not logged in, your progress won&#8217;t be saved.</p>
                 <p>
                   <Link href="/login">Login</Link>
                   to make sure your progress doesn&#8217;t get lost.

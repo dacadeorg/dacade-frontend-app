@@ -10,13 +10,10 @@ import { useRouter } from "next/router";
 import LanguageSwitcherPopup from "@/components/popups/LanguageSwitcher";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import {
-  authCheck,
-  authVerify,
-  logout,
-} from "@/store/feature/auth.slice";
+import { authCheck, authVerify, logout } from "@/store/feature/auth.slice";
 import Sidebar from "./Sidebar";
 import { Colors } from "@/types/community";
+import classNames from "classnames";
 
 interface NavbarProps {
   settings?: {
@@ -25,18 +22,24 @@ interface NavbarProps {
   sidebarBurgerColor?: boolean;
 }
 
-export default function Navbar({
+/**
+ * Navbar componet
+ * @date 5/4/2023 - 1:20:07 PM
+ *
+ * @export
+ * @param {NavbarProps} {
   settings,
   sidebarBurgerColor = false,
-}: NavbarProps): ReactElement {
+}
+ * @returns {ReactElement}
+ */
+export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarProps): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.data);
-  const isAuthenticatedAndVerified = useSelector((state) =>
-    authVerify(state)
-  );
-  const isAuthenticated = useSelector(authCheck);
+  const { isAuthenticated, isAuthenticatedAndVerified } = useSelector((state) => ({
+    isAuthenticatedAndVerified: authVerify(state),
+    isAuthenticated: authCheck(state),
+  }));
 
   const containerStyle = useMemo(() => {
     return {
@@ -46,9 +49,7 @@ export default function Navbar({
   }, [settings?.colors.primary, settings?.colors.text]);
 
   const buttonStyle = useMemo(() => {
-    if (!settings || !settings.colors) {
-      return {};
-    }
+    if (!settings?.colors) return {};
     return {
       backgroundColor: hexToRgba(settings?.colors.text || "", 0.3),
       color: settings?.colors.text,
@@ -60,46 +61,21 @@ export default function Navbar({
     color: settings?.colors.primary,
   };
 
-  const onLogOut = () => {
-    dispatch(logout());
-  };
-
-  const getSectionName = (route: any) => {
-    switch (route.name) {
-      case "notifications":
-        return "Notifications";
-      case "communities":
-        return "Communities";
-      case "bounties":
-        return "Bounties";
-      case "profile":
-        return "Profile";
-      default:
-        return null;
-    }
-  };
-
   return (
     <div className="text-gray-900 " style={containerStyle}>
       <div className="content-wrapper lg:py-12 py-6 flex relative">
         <ul className="relative">
-          <NavItem to="/" type="logo">
-            <span>
-              <Logo className="w-8 h-8 md:w-11 md:h-11" />
-            </span>
+          <NavItem to="/" type="logo w-8 h-8 md:w-11 md:h-11">
+            <Logo />
           </NavItem>
-          <NavItem to="/" type="brand">
-            <span className="mx-1 font-black">{t("app.name")}</span>
+          <NavItem to="/" type="brand mx-0.5">
+            {t("app.name")}
           </NavItem>
         </ul>
         {isAuthenticatedAndVerified && (
           <ul className="hidden lg:block relative self-center">
-            <NavItem type="item" to="/bounties">
-              {t("nav.bounties")}
-            </NavItem>
-            <NavItem type="item" to={"/communities"}>
-              {t("nav.communities")}
-            </NavItem>
+            <NavItem to="/bounties">{t("nav.bounties")}</NavItem>
+            <NavItem to={"/communities"}>{t("nav.communities")}</NavItem>
           </ul>
         )}
         <ul className="ml-auto text-right relative flex lg:hidden items-center">
@@ -109,18 +85,13 @@ export default function Navbar({
           <ul className="ml-auto text-right relative hidden lg:block">
             {router.pathname !== "/login" && (
               <div className="inline-block">
-                {router.pathname === "/signup" && (
-                  <span className="text-sm">
-                    {t("nav.signup.already-exist")}
-                  </span>
-                )}
+                {router.pathname === "/signup" && <span className="text-sm">{t("nav.signup.already-exist")}</span>}
                 <NavItem type="item" to="/login">
                   <span
-                    className={
-                      router.pathname === "/signup"
-                        ? "py-2 text-sm text-primary"
-                        : "py-2 text-sm inherit"
-                    }
+                    className={classNames("py-2 text-sm", {
+                      "text-primary": router.pathname === "/signup",
+                      inherit: router.pathname !== "/signup",
+                    })}
                   >
                     {t("nav.login")}
                   </span>
@@ -129,16 +100,10 @@ export default function Navbar({
             )}
             {router.pathname !== "/signup" && (
               <div className="inline-block">
-                {router.pathname === "/login" && (
-                  <span className="text-sm">
-                    {t("nav.signin.new-accout")}
-                  </span>
-                )}
+                {router.pathname === "/login" && <span className="text-sm">{t("nav.signin.new-accout")}</span>}
                 <NavItem type="item" to="/signup">
                   {router.pathname === "/login" ? (
-                    <span className="py-2 text-sm text-primary">
-                      {t("nav.sign-up")}
-                    </span>
+                    <span className="py-2 text-sm text-primary">{t("nav.sign-up")}</span>
                   ) : (
                     <Button
                       variant="secondary"
@@ -148,11 +113,10 @@ export default function Navbar({
                       type="button"
                       rounded={false}
                       onClick={() => null}
-                      className={
-                        router.pathname === "/login"
-                          ? "text-sm py-2 text-primary"
-                          : "text-sm py-2 text-gray-900"
-                      }
+                      className={classNames("text-sm py-2", {
+                        "text-primary": router.pathname === "/login",
+                        "text-gray-900": router.pathname !== "/login",
+                      })}
                     >
                       {t("nav.sign-up")}
                     </Button>
@@ -167,10 +131,7 @@ export default function Navbar({
         )}
         {isAuthenticated && (
           <ul className="hidden lg:flex ml-auto text-right relative">
-            <NotificationPopup
-              buttonStyles={buttonStyle}
-              badgeStyles={badgeStyle}
-            />
+            <NotificationPopup buttonStyles={buttonStyle} badgeStyles={badgeStyle} />
             <UserPopup buttonStyles={buttonStyle} />
           </ul>
         )}

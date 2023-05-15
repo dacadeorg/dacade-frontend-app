@@ -29,9 +29,7 @@ interface Testimonial {
  * @returns {ReactElement}
  */
 
-const stories = (
-  t: TFunction<"translation", undefined, "translation">
-): Testimonial[] => {
+const stories = (t: TFunction<"translation", undefined, "translation">): Testimonial[] => {
   return [
     {
       icon: "/assets/img/moritz-pic.png",
@@ -75,10 +73,7 @@ const stories = (
 export default function TestimonialsSection(): ReactElement {
   const { t } = useTranslation();
   return (
-    <Section
-      type="secondary-light"
-      padding="py-6 xl:py-10 md:py-8 mt-5"
-    >
+    <Section type="secondary-light" padding="py-6 xl:py-10 md:py-8 mt-5">
       <CommunityStats />
       <Stories list={stories(t)} />
     </Section>

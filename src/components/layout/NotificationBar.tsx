@@ -13,9 +13,7 @@ import { setBusy, setError } from "@/store/feature/index.slice";
  */
 export default function Notification(): ReactElement {
   const { t } = useTranslation();
-
   const { error, busy } = useSelector((state) => state.store);
-
   const router = useRouter();
 
   useEffect(() => {
@@ -25,9 +23,7 @@ export default function Notification(): ReactElement {
         setBusy(false);
       }
     };
-
     router.events.on("routeChangeStart", handleRouteChange);
-
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
     };
@@ -36,13 +32,8 @@ export default function Notification(): ReactElement {
   return (
     <div className="w-full flex justify-center">
       {error && (
-        <div
-          className="bg-red-50 border border-red-100 text-red-900 px-4 py-3 rounded-md relative w-full max-w-md justify-center flex"
-          role="alert"
-        >
-          <span className="block sm:inline">
-            {t(error.response?.data.message || error?.code)}
-          </span>
+        <div className="bg-red-50 border border-red-100 text-red-900 px-4 py-3 rounded-md relative w-full max-w-md justify-center flex" role="alert">
+          <span className="block sm:inline">{t(error.response?.data?.message || error?.code)}</span>
         </div>
       )}
     </div>

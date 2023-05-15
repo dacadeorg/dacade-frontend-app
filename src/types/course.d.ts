@@ -1,9 +1,7 @@
 // Those types are temporary
 // TODO: Should be improved with the extact types
 
-import { Submission } from "./bounty";
-import { RatingCriteria } from "./challenge";
-import { Feedback } from "./feedback";
+import { Community } from "./community";
 
 export type Course = {
   id: string;
@@ -49,10 +47,10 @@ export type Challenge = {
   hint: string;
   format: Format;
   description: string;
-  course: string;
+  course: Course;
   objectives: string[];
   threshold: number;
-  community: string;
+  community: Community;
   reviewTime: number;
   metadata: Metadata;
   level: number;
@@ -65,7 +63,7 @@ export type Challenge = {
   minPoints: number;
   rewards: Reward[];
   ratingCriteria?: RatingCriteria[];
-  feedbackInfo?: Feedback[]
+  feedbackInfo?: Feedback[];
   bestSubmissions: Submission[];
 };
 

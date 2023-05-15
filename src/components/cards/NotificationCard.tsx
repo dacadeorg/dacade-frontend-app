@@ -26,7 +26,7 @@ interface User {
  */
 interface NotificationCardProps {
   user: User;
-  details: Notification;
+  notification: Notification;
   extended?: boolean;
 }
 
@@ -54,16 +54,12 @@ enum TYPES {
  * @export
  * @param {NotificationCardProps} {
   user = {},
-  details,
+  notification,
   extended = false,
 }
  * @returns {ReactElement}
  */
-export default function NotificationCard({
-  user = {},
-  details,
-  extended = false,
-}: NotificationCardProps): ReactElement {
+export default function NotificationCard({ user = {}, notification, extended = false }: NotificationCardProps): ReactElement {
   const router = useRouter();
 
   /**
@@ -72,16 +68,9 @@ export default function NotificationCard({
    *
    * @type {string}
    */
-  const humanizedDate: string = useMemo(
-    () =>
-      DateManager.fromNow(details.created_at as Date, router.locale),
-    [details.created_at, router.locale]
-  );
+  const humanizedDate: string = useMemo(() => DateManager.fromNow(notification.created_at as Date, router.locale), [notification.created_at, router.locale]);
 
-  const date = useMemo(
-    () => DateManager.intlFormat(details.created_at, router.locale),
-    [details.created_at, router.locale]
-  );
+  const date = useMemo(() => DateManager.intlFormat(notification.created_at, router.locale), [notification.created_at, router.locale]);
 
   /**
    * Generate the notification link according to the type of notification
@@ -90,18 +79,14 @@ export default function NotificationCard({
    * @type {string}
    */
   const link: string = useMemo(() => {
-    const { type } = details;
+    const { type } = notification;
 
-    if (
-      type === TYPES.SUBMISSION ||
-      type === TYPES.REFERRAL ||
-      type === TYPES.FEEDBACK
-    ) {
-      return `/${details.metadata.submissions}`;
+    if (type === TYPES.SUBMISSION || type === TYPES.REFERRAL || type === TYPES.FEEDBACK) {
+      return `/${notification.metadata.submissions}`;
     } else {
-      return details.link;
+      return notification.link;
     }
-  }, [details]);
+  }, [notification]);
 
   const notificationsLink = useMemo(() => {
     if (!link) return "";
@@ -118,23 +103,13 @@ export default function NotificationCard({
   };
 
   return (
-    <div
-      onClick={goToLink}
-      className={`flex hover:bg-gray-50 py-4 -mx-5 px-5 cursor-pointer ${
-        extended ? "rounded-3xl" : ""
-      }`}
-    >
+    <div onClick={goToLink} className={`flex hover:bg-gray-50 py-4 -mx-5 px-5 cursor-pointer ${extended ? "rounded-3xl" : ""}`}>
       <div className="flex mr-2">
         <Avatar user={user} size="small" className="!w-10 !h-10" />
       </div>
       <div className="pt-1 -mt-2">
-        <span className="block text-base text-gray-700">
-          {details.message}
-        </span>
-        <span
-          title={date}
-          className="block text-gray-900 font-medium text-sm"
-        >
+        <span className="block text-base text-gray-700">{notification.message}</span>
+        <span title={date} className="block text-gray-900 font-medium text-sm">
           {humanizedDate}
         </span>
       </div>

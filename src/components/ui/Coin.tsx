@@ -105,23 +105,13 @@ const coins = [
  * @param {CoinProps} { bgColor, textColor, size = 'normal', shape = 'circle', token }
  * @returns {ReactElement}
  */
-export default function Coin({
-  bgColor,
-  textColor,
-  size = "medium",
-  shape = "circle",
-  token,
-  className = "",
-}: CoinProps): ReactElement {
+export default function Coin({ bgColor, textColor, size = "medium", shape = "circle", token, className = "" }: CoinProps): ReactElement {
   const coin = getCoin(token) || getCoin("DAC");
   const sizeClasses = getSizeClasses(size);
   const shapeClasses = getShapeClasses(shape);
 
   function getCoin(_token: Token | string = "") {
-    const value =
-      typeof _token === "object"
-        ? _token?.token.toUpperCase()
-        : _token.toUpperCase();
+    const value = typeof _token === "object" ? _token?.token.toUpperCase() : _token.toUpperCase();
     return coins.find((coin) => coin.token.toUpperCase() === value);
   }
 

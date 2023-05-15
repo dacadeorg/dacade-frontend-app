@@ -48,18 +48,21 @@ const App = ({ Component, ...rest }: AppPropsWithLayout) => {
     <Provider store={store}>
       {getLayout(
         <UserAuthProvider>
+          <NextNProgress
+            color="#1B66F8"
+            startPosition={0.2}
+            stopDelayMs={100}
+            height={2.5}
+            showOnShallow={true}
+            options={{
+              showSpinner: false,
+              easing: "ease",
+              speed: 500,
+            }}
+          />
           <Component {...pageProps} />
         </UserAuthProvider>
       )}
-      <NextNProgress
-        color="#1B66F8"
-        startPosition={0.2}
-        stopDelayMs={100}
-        height={2.5}
-        showOnShallow={true}
-        options={{ showSpinner: false, easing: "ease", speed: 500 }}
-      />
-      {/*  */}
     </Provider>
   );
 };

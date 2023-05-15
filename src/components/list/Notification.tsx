@@ -28,23 +28,15 @@ interface NotificationProps {
  *
  */
 
-export default function Notification({
-  extended,
-}: NotificationProps): ReactElement {
-  const notifications = useSelector(
-    (state) => state.notifications.notifications
-  );
+export default function Notification({ extended }: NotificationProps): ReactElement {
+  const notifications = useSelector((state) => state.notifications.notifications);
   const user = useSelector((state) => state.user.data);
 
   const { t } = useTranslation();
 
   return (
     <div className="text-left relative">
-      {!extended && (
-        <span className="uppercase block text-xs font-semibold text-gray-500 leading-relaxed">
-          {t("nav.notification")}
-        </span>
-      )}
+      {!extended && <span className="uppercase block text-xs font-semibold text-gray-500 leading-relaxed">{t("nav.notification")}</span>}
       <div
         className={classNames({
           "space-y-4 mt-3": !extended,
@@ -52,14 +44,7 @@ export default function Notification({
         })}
       >
         {notifications.map((notification) => {
-          return (
-            <NotificationCard
-              key={notification.id}
-              user={user as User}
-              details={notification}
-              extended={extended}
-            />
-          );
+          return <NotificationCard key={notification.id} user={user as User} notification={notification} extended={extended} />;
         })}
       </div>
     </div>

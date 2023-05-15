@@ -1,10 +1,4 @@
-import {
-  formatDistance,
-  millisecondsToMinutes,
-  formatDuration,
-  format as dateFormatter,
-  intlFormat,
-} from "date-fns";
+import { formatDistance, millisecondsToMinutes, formatDuration, format as dateFormatter, intlFormat } from "date-fns";
 import { es, enUS, hr, bg, fr } from "date-fns/locale";
 
 export type LocaleDateFormat = string;
@@ -74,10 +68,7 @@ export default class DateManager {
    * @returns {string}
    */
 
-  static fromNow(
-    date: Date,
-    locale: LocaleDateFormat = "en"
-  ): string {
+  static fromNow(date: Date, locale: LocaleDateFormat = "en"): string {
     return formatDistance(this.getDate(date), new Date(), {
       addSuffix: true,
       locale: getLocale(locale),
@@ -107,10 +98,7 @@ export default class DateManager {
    * @returns {string}
    */
 
-  static humanize(
-    milliseconds: number,
-    locale: string = "en"
-  ): string {
+  static humanize(milliseconds: number, locale: string = "en"): string {
     return formatDuration(
       {
         minutes: this.millisecondsToMinutes(milliseconds),
@@ -132,11 +120,7 @@ export default class DateManager {
    * @returns {string}
    */
 
-  static format(
-    date: string | number | Date,
-    format: string,
-    locale: string = "en"
-  ): string {
+  static format(date: string | number | Date, format: string, locale: string = "en"): string {
     return dateFormatter(this.getDate(date), format, {
       locale: getLocale(locale),
     });

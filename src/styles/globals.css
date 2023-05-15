@@ -60,7 +60,7 @@ body {
 }
 
 .nav-brand {
-  @apply font-semibold mr-1.5;
+  @apply font-semibold mx-1.5;
 }
 
 .content-wrapper {
@@ -284,11 +284,7 @@ div {
 }
 
 .input-background {
-  background: linear-gradient(
-    270deg,
-    #f9fafb 53.08%,
-    rgba(249, 250, 251, 0) 133.61%
-  );
+  background: linear-gradient(270deg, #f9fafb 53.08%, rgba(249, 250, 251, 0) 133.61%);
 }
 
 .achievement-content {

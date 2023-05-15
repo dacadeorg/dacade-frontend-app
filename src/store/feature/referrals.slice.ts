@@ -1,9 +1,5 @@
 import { Referral } from "@/types/community";
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  createApi,
-  fetchBaseQuery,
-} from "@reduxjs/toolkit/query/react";
 
 const defaultState = {
   list: <Referral[]>[],
@@ -21,7 +17,7 @@ export const referralSlice = createSlice({
   name: "referrals",
   initialState: defaultState,
   reducers: {
-    setList(state, action) {
+    setReferralsList(state, action) {
       state.list = action.payload;
     },
     setFilteredList(state, action) {
@@ -30,26 +26,4 @@ export const referralSlice = createSlice({
   },
 });
 
-export const { setList } = referralSlice.actions;
-
-/**
- * Referral api fetch
- * Endpoint:
- *  - referrals
- * @date 4/4/2023 - 11:42:03 AM
- */
-export const referralsApi = createApi({
-  reducerPath: "referralsApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
-  }),
-  endpoints: (builder) => ({
-    getReferrals: builder.query({
-      query: () => "referrals",
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled;
-        dispatch(setList(data));
-      },
-    }),
-  }),
-});
+export const { setReferralsList } = referralSlice.actions;

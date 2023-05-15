@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 const graphik = localFont({
   src: [
     {
-      path: "../fonts/Graphik-Medium-Web.woff2",
+      path: "../fonts/Graphik-Semibold-Web.woff2",
       weight: "600",
       style: "normal",
     },

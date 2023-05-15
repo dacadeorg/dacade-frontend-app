@@ -1,17 +1,5 @@
+import { CustomError } from "@/types/error";
 import { ReactElement, ReactNode } from "react";
-
-/**
- * Custom error interface that extends Error
- * @date 3/23/2023 - 10:25:20 AM
- *
- * @interface CustomError
- * @typedef {CustomError}
- * @extends {Error}
- */
-interface CustomError extends Error {
-  details: { [key: string]: string };
-}
-
 
 /**
  * ErrorBoxPros interface for component props
@@ -23,7 +11,7 @@ interface CustomError extends Error {
 interface ErrorBoxProps {
   error: CustomError;
   children?: ReactNode;
-};
+}
 
 /**
  * ErrorBox component
@@ -33,7 +21,7 @@ interface ErrorBoxProps {
  * @returns {ReactElement}
  */
 
-export default function ErrorBox ({ error, children }: ErrorBoxProps): ReactElement  {
+export default function ErrorBox({ error, children }: ErrorBoxProps): ReactElement {
   return (
     <div className="bg-red-50 help text-sm rounded-md border border-red-100 text-red-900 px-5 py-2">
       <p className="font-medium capitalize">{error?.message}</p>
@@ -47,6 +35,4 @@ export default function ErrorBox ({ error, children }: ErrorBoxProps): ReactElem
       {children}
     </div>
   );
-};
-
-
+}

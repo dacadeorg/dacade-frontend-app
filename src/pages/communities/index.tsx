@@ -1,10 +1,7 @@
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { getMetadataTitle } from "@/utilities/Metadata";
-import {
-  fetchAllCommunities,
-  setCurrentCommunity,
-} from "@/store/feature/community.slice";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { ReactElement } from "react";
 import CommunityListCard from "@/components/cards/community/List";
@@ -12,7 +9,7 @@ import Head from "next/head";
 import { wrapper } from "@/store";
 import { Community } from "@/types/community";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import HomeLayout from "@/layouts/Home";
+import { fetchAllCommunities } from "@/store/services/community.service";
 import DefaultLayout from "@/components/layout/Default";
 
 /**
@@ -46,16 +43,10 @@ export default function CommunitiesPage(props: CommunityPageProps) {
         <title>{title}</title>
       </Head>
       <div className="flex flex-col justify-center content-wrapper">
-        <h1 className="pt-10 pb-10 text-4xl sm:text-5xl md:pt-20">
-          {t("nav.communities")}
-        </h1>
+        <h1 className="pt-10 pb-10 text-4xl sm:text-5xl md:pt-20">{t("nav.communities")}</h1>
         <div className="w-full row">
           {communities?.map((community, index) => (
-            <div
-              key={`generated-key-${index}`}
-              onClick={() => dispatch(setCurrentCommunity(community))}
-              className="flex flex-grow min-w-full pb-4"
-            >
+            <div key={`generated-key-${index}`} onClick={() => dispatch(setCurrentCommunity(community))} className="flex flex-grow min-w-full pb-4">
               <CommunityListCard community={community} />
             </div>
           ))}
@@ -71,26 +62,18 @@ export default function CommunitiesPage(props: CommunityPageProps) {
  *
  * @async
  */
-export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
-  (store) => async (data) => {
-    const { locale } = data;
-    const results = await store.dispatch(
-      fetchAllCommunities({ locale: locale as string })
-    );
-    return {
-      props: {
-        ...(await serverSideTranslations(locale as string)),
-        communities: results.payload,
-        revalidate: 60 * 60 * 12,
-      },
-    };
-  }
-);
+export const getStaticProps: GetStaticProps = wrapper.getStaticProps((store) => async (data) => {
+  const { locale } = data;
+  const results = await store.dispatch(fetchAllCommunities(locale as string));
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string)),
+      communities: results.data,
+      revalidate: 60 * 60 * 12,
+    },
+  };
+});
 
 CommunitiesPage.getLayout = function (page: ReactElement) {
-  return (
-    <DefaultLayout footerBackgroundColor={false}>
-      {page}
-    </DefaultLayout>
-  );
+  return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };

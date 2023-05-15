@@ -31,17 +31,8 @@ interface LinkActionProps {
 }
  * @returns {ReactElement}
  */
-export default function LinkAction({
-  item,
-  activeLinkStyle,
-  isActive,
-  goToLink,
-  children,
-}: LinkActionProps): ReactElement {
-  const classes = classNames(
-    "relative block text-gray-500 cursor-pointer",
-    { "activable-link": isActive }
-  );
+export default function LinkAction({ item, activeLinkStyle, isActive, goToLink, children }: LinkActionProps): ReactElement {
+  const classes = classNames("relative block text-gray-500 cursor-pointer", { "activable-link": isActive });
 
   const styles = isActive ? { ...activeLinkStyle } : {};
 

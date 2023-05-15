@@ -1,15 +1,11 @@
 import { ReactElement, useMemo, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
-import ArrowDown from "@/icons/arrow-down.svg";
-import ChevronBottom from "@/icons/chevron-bottom.svg";
+import ChevronBottom from "@/icons/down-icon-arrow.svg";
 import DropdownPopup from "@/components/ui/DropdownPopup";
 import LanguageList from "@/components/list/LanguageList";
 import useOnClickOutside from "use-onclickoutside";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import {
-  toggleBodyScrolling,
-  toggleShowReferralPopup,
-} from "@/store/feature/ui.slice";
+import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 
 /**
  * Language Switcher Interface
@@ -36,9 +32,7 @@ interface LanguageSwitcherProps {
  *
  * */
 
-export default function LanguageSwitcher({
-  close,
-}: LanguageSwitcherProps): ReactElement {
+export default function LanguageSwitcher({ close }: LanguageSwitcherProps): ReactElement {
   const [show, setshow] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
@@ -62,13 +56,10 @@ export default function LanguageSwitcher({
   return (
     <>
       <div ref={popupRef}>
-        <div
-          onClick={toggle}
-          className="flex opacity-70 hover:opacity-100 text-sm ml-3 cursor-pointer items-center"
-        >
-          <span className="uppercase">{currentLocale}</span>
-          <span>
-            <ChevronBottom className="w-4 mx-1" />
+        <div onClick={toggle} className="inline-block opacity-70 hover:opacity-100 text-sm ml-3 cursor-pointer">
+          <span className="inline-block uppercase mr-1">{currentLocale}</span>
+          <span className="inline-block">
+            <ChevronBottom />
           </span>
         </div>
         {show && (

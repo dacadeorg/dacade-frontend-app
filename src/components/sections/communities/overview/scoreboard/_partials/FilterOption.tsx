@@ -28,13 +28,7 @@ interface FilterOptionProps extends HTMLProps<HTMLInputElement> {
 }
  * @returns {ReactElement}
  */
-export default function FilterOption({
-  label = "",
-  value = "",
-  data = "",
-  name = "",
-  ...props
-}: FilterOptionProps): ReactElement {
+export default function FilterOption({ label = "", value = "", data = "", name = "", ...props }: FilterOptionProps): ReactElement {
   const isChecked = () => {
     return value === data;
   };
@@ -42,21 +36,8 @@ export default function FilterOption({
   return (
     <div className="mt-2 mb-2">
       <label className="inline-flex items-center">
-        <Radio
-          {...props}
-          id="radio btn"
-          data={data}
-          name={name}
-          value={value}
-          className="w-8"
-        />
-        <span
-          className={
-            isChecked() ? "font-medium ml-4" : "font-normal ml-4"
-          }
-        >
-          {label}
-        </span>
+        <Radio {...props} id="radio btn" data={data} name={name} value={value} className="w-8" />
+        <span className={isChecked() ? "font-medium ml-4" : "font-normal ml-4"}>{label}</span>
       </label>
     </div>
   );

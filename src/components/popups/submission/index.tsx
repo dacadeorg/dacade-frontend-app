@@ -20,16 +20,12 @@ interface SubmissionPopup {
   onClose: () => void;
 }
 
-export default function SubmissionPopup({
-  show,
-  submissionId,
-  onClose,
-}: SubmissionPopup): ReactElement {
-  const dispatch = useDispatch()
-  const router = useRouter()
+export default function SubmissionPopup({ show, submissionId, onClose }: SubmissionPopup): ReactElement {
+  const dispatch = useDispatch();
+  const router = useRouter();
   useEffect(() => {
     if (submissionId) {
-      dispatch(findSubmssionById({id: submissionId , locale: router.locale }))
+      dispatch(findSubmssionById({ id: submissionId, locale: router.locale }));
     }
   }, [dispatch, router.locale, submissionId]);
 

@@ -54,12 +54,10 @@ export default function Form({ save }: FormProps): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [saving, setSaving] = useState(false);
-  const community = useSelector((state) => state.community.current);
+  const community = useSelector((state) => state.communities.current);
   const user = useSelector((state) => state.user.data);
   const colors = useSelector((state) => state.ui.colors);
-  const submission = useSelector(
-    (state) => state.submissions.current
-  );
+  const submission = useSelector((state) => state.submissions.current);
   const challenge = useSelector((state) => state.challenges.current);
   const activeButtonStyle = useMemo(
     () => ({
@@ -75,36 +73,33 @@ export default function Form({ save }: FormProps): ReactElement {
 
   const onSubmit = async (form: FormValues) => {
     const { feedback, githubLink } = form;
-    if (!saving) {
+    if (saving) return;
+    try {
       setSaving(true);
-      if (saving) return;
-      try {
-        setSaving(true);
-        const result = await dispatch(
-          createFeedback({
-            submission_id: challenge?.id as string,
-            text: feedback,
-            link: githubLink,
-          })
-        );
-        const response = result.payload as Feedback;
-        dispatch(
-          createEvent({
-            name: "Feedback-created",
-            attributes: {
-              submissionId: submission?.id,
-              community: community?.slug,
-              feedbackId: response.id,
-            },
-          })
-        );
-        reset();
-        save(response);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setSaving(false);
-      }
+      const result = await dispatch(
+        createFeedback({
+          submission_id: challenge?.id as string,
+          text: feedback,
+          link: githubLink,
+        })
+      );
+      const response = result.payload as Feedback;
+      dispatch(
+        createEvent({
+          name: "Feedback-created",
+          attributes: {
+            submissionId: submission?.id,
+            community: community?.slug,
+            feedbackId: response.id,
+          },
+        })
+      );
+      reset();
+      save(response);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -120,11 +115,7 @@ export default function Form({ save }: FormProps): ReactElement {
           <div label-for="input-text">
             <TextInput
               id="input-text"
-              placeholder={
-                t(
-                  "communities.challenge.submission.feedback.placeholder.text"
-                ) || ""
-              }
+              placeholder={t("communities.challenge.submission.feedback.placeholder.text") || ""}
               inputClass="border-t-0"
               error={errors.feedback?.message}
               {...register("feedback", {
@@ -142,11 +133,7 @@ export default function Form({ save }: FormProps): ReactElement {
                 id="input-github"
                 error={errors.githubLink?.message || ""}
                 className="flex-grow block w-full p-0 m-0 placeholder-gray-400 placeholder-opacity-100 border border-t-0 border-gray-200 border-solid outline-none focus:outline-none active:border-none focus:border-none"
-                placeholder={
-                  t(
-                    "communities.challenge.submission.githubLink.placeholder.github"
-                  ) || ""
-                }
+                placeholder={t("communities.challenge.submission.githubLink.placeholder.github") || ""}
                 {...register("githubLink", {
                   required: "This field is required",
                   minLength: {
@@ -162,11 +149,7 @@ export default function Form({ save }: FormProps): ReactElement {
             <MarkdownIcon />
           </div>
           <div className="mt-5 text-right">
-            <ArrowButton
-              disabled={saving}
-              customStyle={activeButtonStyle}
-              loading={saving}
-            >
+            <ArrowButton disabled={saving} customStyle={activeButtonStyle} loading={saving}>
               {t("submit")}
             </ArrowButton>
           </div>

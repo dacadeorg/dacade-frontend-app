@@ -26,46 +26,20 @@ export default function MaterialSection({ material }: MaterialProps) {
   };
 
   const isAdditional = material?.type === "ADDITIONAL";
-  const materialId = !(!material?.title || isAdditional)
-    ? sluggify(material?.title)
-    : "";
+  const materialId = !(!material?.title || isAdditional) ? sluggify(material?.title) : "";
   const { t } = useTranslation();
 
   return (
-    <Section
-      id={materialId}
-      title={isAdditional ? "Additional Material" : material?.title}
-    >
-      {!isAdditional && (
-        <Duration
-          text={material?.subtitle!}
-          value={material?.duration!}
-        />
-      )}
-      {!isAdditional && (
-        <span className="block text-lg mb-6 mt-2 md:w-99">
-          {material?.description}
-        </span>
-      )}
-      {material?.type === "EMBEDDED-VIDEO" && (
-        <Video url={material.link} />
-      )}
-      {material?.type === "MARKDOWN" && (
-        <Markdown url={material?.link} />
-      )}
+    <Section id={materialId} title={isAdditional ? "Additional Material" : material?.title}>
+      {!isAdditional && <Duration text={material?.subtitle!} value={material?.duration!} />}
+      {!isAdditional && <span className="block text-lg mb-6 mt-2 md:w-99">{material?.description}</span>}
+      {material?.type === "EMBEDDED-VIDEO" && <Video url={material.link} />}
+      {material?.type === "MARKDOWN" && <Markdown url={material?.link} />}
       {isAdditional && (
         <div>
           {material?.list.map((item, i) => (
-            <Link
-              key={`material-${i}`}
-              href={item.link}
-              target="__blank"
-              className="mt-3 flex flex-wrap items-center"
-            >
-              <p
-                id={sluggify(material?.title)}
-                className="text-lg font-normal leading-normal"
-              >
+            <Link key={`material-${i}`} href={item.link} target="__blank" className="mt-3 flex flex-wrap items-center">
+              <p id={sluggify(material?.title)} className="text-lg font-normal leading-normal">
                 {material?.title}
               </p>
               <span className="ml-2 leading-normal">
@@ -75,21 +49,11 @@ export default function MaterialSection({ material }: MaterialProps) {
           ))}
         </div>
       )}
-      {(material?.type === "TEXT" || material?.type === "ARTICLE") &&
-        material?.link && (
-          <ArrowButton
-            padding={true}
-            link={material?.link}
-            target="__blank"
-            className="mt-4 block"
-            communityStyles={true}
-            variant="outline-primary"
-          >
-            {material?.type === "TEXT"
-              ? t("learning-module.material.open.lesson")
-              : t("learning-module.material.open.article")}
-          </ArrowButton>
-        )}
+      {(material?.type === "TEXT" || material?.type === "ARTICLE") && material?.link && (
+        <ArrowButton padding={true} link={material?.link} target="__blank" className="mt-4 block" communityStyles={true} variant="outline-primary">
+          {material?.type === "TEXT" ? t("learning-module.material.open.lesson") : t("learning-module.material.open.article")}
+        </ArrowButton>
+      )}
     </Section>
   );
 }
