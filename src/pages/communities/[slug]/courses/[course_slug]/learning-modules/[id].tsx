@@ -102,7 +102,7 @@ export default function LearningModulePage(props: LearningModulePageProps) {
 }
 
 LearningModulePage.getLayout = function (page: ReactElement) {
-  return <DefaultLayout footerBackgroundColor={"default"}>{page}</DefaultLayout>;
+  return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
 export const getStaticProps: GetStaticProps = async ({ params, locale }) => {

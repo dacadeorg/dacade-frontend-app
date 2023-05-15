@@ -24,7 +24,6 @@ export default function CodeHighlighter({ inline, className, children, ...props 
 
   if (!inline && match)
     return (
-<<<<<<< HEAD
       <SyntaxHighlighter
         {...props}
         showLineNumbers
@@ -33,9 +32,6 @@ export default function CodeHighlighter({ inline, className, children, ...props 
         PreTag="div"
         style={oneDark}
       >
-=======
-      <SyntaxHighlighter {...props} showLineNumbers={true} language={match[1]} PreTag="div" style={darcula}>
->>>>>>> dev
         {String(children).replace(/\n$/, "")}
       </SyntaxHighlighter>
     );

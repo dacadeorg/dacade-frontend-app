@@ -58,7 +58,7 @@ export default function CourseViewPage(props: {
 }
 
 CourseViewPage.getLayout = function (page: ReactElement) {
-  return <DefaultLayout footerBackgroundColor={"default"}>{page}</DefaultLayout>;
+  return <DefaultLayout footerBackgroundColor="default">{page}</DefaultLayout>;
 };
 
 export async function getStaticProps({ params, locale }: any) {

@@ -43,13 +43,7 @@ export default function Markdown({ url }: MarkDownProps): ReactElement {
   const fetchData = useCallback(async () => {
     try {
       setLoading(true);
-<<<<<<< HEAD
-      const responseText = await fetch(url).then((response) =>
-        response.text()
-      );
-=======
       const responseText = await fetch(url).then((response) => response.text());
->>>>>>> dev
 
       setContent(responseText);
     } catch (error: unknown) {
@@ -75,7 +69,6 @@ export default function Markdown({ url }: MarkDownProps): ReactElement {
   return (
     <div>
       {content && (
-<<<<<<< HEAD
         <div
           style={{ ...(themeStyles as CSSProperties) }}
           className="prose"
@@ -97,10 +90,6 @@ export default function Markdown({ url }: MarkDownProps): ReactElement {
               },
             }}
           >
-=======
-        <div style={{ ...(themeStyles as CSSProperties) }} className="prose">
-          <ReactMarkdown rehypePlugins={[rehypeExternalLinks, rehypeSlug]} remarkPlugins={[remarkGfm]}>
->>>>>>> dev
             {content}
           </ReactMarkdown>
         </div>
