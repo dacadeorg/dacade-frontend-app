@@ -9,6 +9,7 @@ import { fetchAllWallets } from '@/store/services/wallets.service';
 import { GetStaticProps } from 'next';
 import i18Translate from '@/utilities/I18Translate';
 import DefaultLayout from '@/components/layout/Default';
+import ProfileLayout from '@/layouts/ProfileLayout';
 
 /**
  * Profile Wallet component
@@ -55,5 +56,5 @@ export default function ProfileWallet (): ReactElement {
 export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);
 
 ProfileWallet.getLayout = function (page: ReactElement) {
-  return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
+  return <ProfileLayout>{page}</ProfileLayout>;
 };
