@@ -32,7 +32,6 @@ export default function Currency({ value = 0, token = "" }: CurrencyProps): Reac
     });
     
   }, [token, value]);
-  console.log(`token ${token}`)
   return (
     <span>
       {currency} {token}

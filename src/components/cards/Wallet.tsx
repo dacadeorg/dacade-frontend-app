@@ -28,8 +28,8 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
   const [showEditModal, setShowEditModal] = useState(false);
   const [showPayoutModal, setShowPayoutModal] = useState(false);
   const [showKycModal, setShowKycModal] = useState(false);
-
-  const isKycVerified = false; // replace with actual value from store
+// TODO: Replace with actual value from store
+  const isKycVerified = false; 
 
   const address = wallet.address ? wallet.address.match(/.{1,4}/g) : null;
 
@@ -40,14 +40,14 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
       setShowPayoutModal(true);
       return;
     }
-    // replace with actual dispatch to open KYC verification modal
+    // TODO: replace with actual dispatch to open KYC verification modal
     setShowKycModal(true);
   };
 
   return (
     <div className="relative mb-7">
       <div className="bg-gray-100 relative lg:flex md:flex sm:flex rounded-3.5xl">
-        <EditAddress show={showEditModal} wallet={wallet} onClose={() => setShowEditModal(false)} />
+        <EditAddress show={showEditModal} onClose={() => setShowEditModal(false)} wallet={wallet} />
         <Payout wallet={wallet} show={showPayoutModal} onClose={() => setShowPayoutModal(false)} />
         <div className="bg-gray-50 lg:w-60 md:w-60 sm:w-60 rounded-3.5xl">
           <div className="p-6">
@@ -86,7 +86,7 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
               )}
               <div className="text-gray-700 text-sm mt-3">
                 <span className="cursor-pointer hover:underline" onClick={() => setShowEditModal(true)}>
-                  {address ? `${t("profile.wallets.address-change")}` : `${t("profile.wallets.address-set")}`}
+                  {address ? t("profile.wallets.address-change") : t("profile.wallets.address-set")}
                 </span>
               </div>
             </div>
