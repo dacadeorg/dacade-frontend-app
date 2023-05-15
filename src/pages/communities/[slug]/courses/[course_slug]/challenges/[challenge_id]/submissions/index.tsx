@@ -21,12 +21,12 @@ export default function Submission() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { submission_id, slug, course_slug, challenge_id } = router.query;
-  const course = useSelector((state) => state.courses.current);
-  const submissions = useSelector((state) => state.submissions.current);
-
-  const challenge = useSelector((state) => state.challenges.current);
+  const { course, submissions, challenge } = useSelector((state) => ({
+    course: state.courses.current,
+    submissions: state.submissions.current,
+    challenge: state.challenges.current,
+  }));
   const { t } = useTranslation();
-
   const handleDisplaySubmission = useCallback(() => {
     setSelectedSubmission(submission_id as string);
     dispatch(showSubmission(selectedSubmission));

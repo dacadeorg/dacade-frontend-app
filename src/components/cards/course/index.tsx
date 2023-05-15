@@ -1,9 +1,6 @@
 import Reward from "@/components/cards/course/_partials/Reward";
 import Avatar from "@/components/ui/Avatar";
 import ArrowButton from "@/components/ui/button/Arrow";
-// TODO: Should be uncommented when redux is implemented
-// import { useSelector } from "react-redux";
-// import { RootState } from "@/store";
 import { Community } from "@/types/community";
 import { Course } from "@/types/course";
 import Link from "next/link";

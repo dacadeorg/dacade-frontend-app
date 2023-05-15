@@ -1,8 +1,5 @@
 import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
-
-// Waiting for store/services to be implemented
-// import { useGetCourseQuery } from "@/store/feature/course.slice";
 import CourseCard from "@/components/cards/course";
 import { Course } from "@/types/course";
 import { ReactElement } from "react";
@@ -17,10 +14,10 @@ import { useSelector } from "@/hooks/useTypedSelector";
  * @returns {ReactElement}
  */
 export function CoursesOverview(): ReactElement {
-  const {
-    communities: { current: community },
-  } = useSelector((state) => state);
-  const courseList = useSelector((state) => state.courses.list);
+  const { courseList, community } = useSelector((state) => ({
+    courseList: state.courses.list,
+    community: state.communities.current,
+  }));
   const { t } = useTranslation();
 
   return (
