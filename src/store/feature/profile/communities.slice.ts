@@ -9,7 +9,7 @@ interface InitialState {
   current: Community | null;
   feedbacks: Feedback[];
   submissions: Submission[];
-  listDataUsername: string[];
+  listDataUsername: string;
   reputation: number;
 }
 
@@ -19,7 +19,7 @@ const initialState: InitialState = {
   current: null,
   feedbacks: [],
   submissions: [],
-  listDataUsername: [],
+  listDataUsername: "",
 };
 
 /**
@@ -36,10 +36,10 @@ const communitiesProfile = createSlice({
       setColors(action.payload.colors);
       state.current = action.payload;
     },
-    setListProfileCommunity(state, action: PayloadAction<Community[]>) {
+    setListProfileCommunities(state, action: PayloadAction<Community[]>) {
       state.list = action.payload;
     },
-    setListDataUsername(state, action: PayloadAction<string[]>) {
+    setListDataUsername(state, action: PayloadAction<string>) {
       state.listDataUsername = action.payload;
     },
     setProfileCommunityFeedbacks(state, action: PayloadAction<Feedback[]>) {
@@ -65,7 +65,7 @@ export const {
   clearProfileCommunity,
   setCurrentProfileCommunity,
   setProfileCommunityFeedbacks,
-  setListProfileCommunity,
+  setListProfileCommunities,
   setListDataUsername,
   setProfileCommunityReputation,
   setProfileCommunitySubmissions,

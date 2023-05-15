@@ -13,32 +13,46 @@ import ProfileOverviewSection from "@/components/sections/profile/overview/Secti
 import DiscordConnect from "@/components/popups/DiscordConnect";
 import Head from "next/head";
 import ProfileLayout from "@/layouts/ProfileLayout";
-import AuthCheckProvider from "@/contexts/AuthCheckProvider";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
+import { useRouter } from "next/router";
+import { fetchUserProfile } from "@/store/services/profile/users.service";
 
 export default function ProfileOverview() {
-  const user = useSelector((state) => state.user.data);
+  const authUser = useSelector((state) => state.user.data);
+  const router = useRouter();
   const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
-      await Promise.all([dispatch(fetchAllCertificates({ username: user?.username || "" })), dispatch(fetchProfileReputation({ username: user?.username || "" }))]);
+      const username = router.query.username;
+      await Promise.all([
+        dispatch(fetchUserProfile((username as string) || "")),
+        dispatch(fetchAllCertificates({ username: (username as string) || "" })),
+        dispatch(fetchProfileReputation({ username: (username as string) || "" })),
+      ]);
     })();
-  }, [dispatch, user?.username]);
+  }, [dispatch, router.query.username]);
+
+  const username: string = useMemo(() => router.query.username || authUser?.displayName, [authUser?.displayName, router.query.username]) as string;
+  const isCurrentUser = () => username.toLocaleLowerCase() === authUser?.displayName.toLocaleLowerCase();
 
   return (
     <>
       <Head>
-        <title>{getMetadataTitle(user?.displayName || "")}</title>
+        <title>{getMetadataTitle((router.query.username as string) || "")}</title>
       </Head>
       <div className="flex flex-col divide-y divide-solid divide-gray-200 space-y-8 text-gray-700">
         <ProfileOverviewAchievements />
         <ProfileOverviewCommunities />
-        <ProfileOverviewReferrals />
-        <ProfileOverviewSection title="Notifications">
-          <NotificationList extended />
-        </ProfileOverviewSection>
+        {isCurrentUser() && (
+          <>
+            <ProfileOverviewReferrals />
+            <ProfileOverviewSection title="Notifications">
+              <NotificationList extended />
+            </ProfileOverviewSection>
+          </>
+        )}
         <DiscordConnect />
       </div>
     </>
@@ -46,11 +60,7 @@ export default function ProfileOverview() {
 }
 
 ProfileOverview.getLayout = function (page: ReactElement) {
-  return (
-    <AuthCheckProvider>
-      <ProfileLayout>{page}</ProfileLayout>
-    </AuthCheckProvider>
-  );
+  return <ProfileLayout>{page}</ProfileLayout>;
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => i18Translate(locale as string);
