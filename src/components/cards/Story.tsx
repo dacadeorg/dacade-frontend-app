@@ -67,9 +67,7 @@ export default function Story({ story, position, gridPosition, count, showingBub
       setHeight(bubbleRef.current?.parentElement?.clientHeight || 0);
     };
 
-    window.addEventListener("resize", () => {
-      updateHeight();
-    });
+    window.addEventListener("resize", updateHeight);
 
     return () => {
       window.removeEventListener("resize", () => {

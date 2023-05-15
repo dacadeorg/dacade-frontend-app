@@ -3,7 +3,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import Link from "next/link";
 import Image from "next/image";
 import RewardBadge from "./_partials/RewardBadge";
-import { ReactElement } from "react";
+import { ReactElement, useMemo } from "react";
 import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
 import { useRouter } from "next/router";
@@ -35,8 +35,11 @@ export default function CommunityCard({ showRewards = true, community }: Communi
   const { t } = useTranslation();
   const path = `/communities/${community?.slug}`;
   const router = useRouter();
-
-  const reward = community.rewards.filter((reward) => reward.type === "SUBMISSION")[0];
+  
+  const reward = useMemo(() => {
+    return community.rewards.find((reward) => reward.type === "SUBMISSION");
+  }, [community.rewards]);
+  
 
   return (
     <ThemeWrapper colors={community.colors}>

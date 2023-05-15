@@ -1,4 +1,4 @@
-import { Submission } from "./bounty";
+import { Submission, User } from "./bounty";
 import { Challenge, Metadata, Reward } from "./course";
 
 export interface Community {
@@ -44,4 +44,5 @@ export interface Referral {
   community: Community;
   timestamp: number;
   reward: Reward;
+  user: User
 }

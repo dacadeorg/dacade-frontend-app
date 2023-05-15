@@ -13,19 +13,12 @@ import TestimonialsSection from "@/components/sections/homepage/Testimonials";
 import { fetchAllCommunities } from "@/store/services/community.service";
 
 const Home = (props: { pageProps: { communities: Community[] } }) => {
-  const { t } = useTranslation();
   const {
     pageProps: { communities },
   } = props;
 
   return (
     <>
-      <Head>
-        <title>Dacade</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content={`${t("page.index.main.title")}`} />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <main>
         <MainSection />
         <CommunitiesSection communities={communities} />
