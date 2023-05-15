@@ -1,13 +1,12 @@
-import api from "@/config/api";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Reputation } from "@/types/bounty";
+import { createSlice } from "@reduxjs/toolkit";
 
 /**
  * Reputation state interface
  *
  */
 interface ReputationState {
-  //TODO This type should be imporved after having the actual reputation type
-  list: any;
+  list: Reputation[];
 }
 
 /**
@@ -28,7 +27,6 @@ const reputationSlice = createSlice({
   },
 });
 
-export const { clearReputationList, setReputationList } =
-  reputationSlice.actions;
+export const { clearReputationList, setReputationList } = reputationSlice.actions;
 
 export default reputationSlice;

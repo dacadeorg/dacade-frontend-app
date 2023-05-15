@@ -36,14 +36,11 @@ export const createFeedback = createAsyncThunk(
     },
     { dispatch }
   ) => {
-    const { data } = await api(locale).server.post(
-      "feedbacks/create",
-      {
-        submission_id,
-        text,
-        link,
-      }
-    );
+    const { data } = await api(locale).server.post("feedbacks/create", {
+      submission_id,
+      text,
+      link,
+    });
     dispatch(setSubmission(data));
     return data;
   }
@@ -78,31 +75,17 @@ export const { setCurrent, setList } = feedbackSlice.actions;
  * @date 4/25/2023 - 8:26:22 PM
  *
  */
-export const findFeedbackById = createAsyncThunk(
-  "feedback/findById",
-  async ({ id, locale }: { id: string; locale?: string }) => {
-    const response = await api(locale).server.get(`feedbacks/${id}`);
-    return response.data;
-  }
-);
+export const findFeedbackById = createAsyncThunk("feedback/findById", async ({ id, locale }: { id: string; locale?: string }) => {
+  const response = await api(locale).server.get(`feedbacks/${id}`);
+  return response.data;
+});
 
 /**
  * Fetch feedback by submission id
  * @date 4/25/2023 - 8:29:47 PM
  *
  */
-export const fetchFeedbacks = createAsyncThunk(
-  "feedback/all",
-  async ({
-    submissionId,
-    locale,
-  }: {
-    submissionId: string;
-    locale?: string;
-  }) => {
-    const response = await api(locale).server.get(
-      `submissions/${submissionId}/feedbacks`
-    );    
-    return response.data;
-  }
-);
+export const fetchFeedbacks = createAsyncThunk("feedback/all", async ({ submissionId, locale }: { submissionId: string; locale?: string }) => {
+  const response = await api(locale).server.get(`submissions/${submissionId}/feedbacks`);
+  return response.data;
+});

@@ -32,9 +32,7 @@ interface LanguageSwitcherProps {
  *
  * */
 
-export default function LanguageSwitcher({
-  close,
-}: LanguageSwitcherProps): ReactElement {
+export default function LanguageSwitcher({ close }: LanguageSwitcherProps): ReactElement {
   const [show, setshow] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
@@ -58,13 +56,8 @@ export default function LanguageSwitcher({
   return (
     <>
       <div ref={popupRef}>
-        <div
-          onClick={toggle}
-          className="inline-block opacity-70 hover:opacity-100 text-sm ml-3 cursor-pointer"
-        >
-          <span className="inline-block uppercase mr-1">
-            {currentLocale}
-          </span>
+        <div onClick={toggle} className="inline-block opacity-70 hover:opacity-100 text-sm ml-3 cursor-pointer">
+          <span className="inline-block uppercase mr-1">{currentLocale}</span>
           <span className="inline-block">
             <ChevronBottom />
           </span>

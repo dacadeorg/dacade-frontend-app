@@ -38,10 +38,10 @@ export default function SubmissionCard({
   setSelectedSubmission = () => ""
 }: SubmissionCardProps): ReactElement {
   const { t } = useTranslation();
-  const {colors, community} = useSelector((state) => ({
+  const { colors, community } = useSelector((state) => ({
     colors: state.ui.colors,
-    community: state.communities.current
-}))
+    community: state.communities.current,
+  }));
 
   const reviewed = submission?.metadata?.evaluation || submission?.metadata?.reviewed;
 
@@ -84,19 +84,25 @@ export default function SubmissionCard({
                 </span>
                 {t("submissions.feedback.bounty")}
               </div>
-            ):<></>}
+            ) : (
+              <></>
+            )}
             {submission.metadata && submission.metadata.evaluation ? (
               <div className="inline-flex flex-1 items-center space-x-1">
                 <Badge custom-style={badgeButtonStyles} size="medium" className="relative" value={submission.metadata.evaluation.points} />
                 <span className="text-sm leading">{"submissions.evaluation.points"}</span>
               </div>
-            ): <></>}
+            ) : (
+              <></>
+            )}
             {submission.metadata && submission.metadata.feedbacks ? (
               <div className="mr-2 text-sm relative leading-snug text-gray-700 inline-block">
                 <span className="font-semibold">{submission.metadata.feedbacks}</span>
                 {t("submissions.feedback.feedbacks")}
               </div>
-            ): <></>}
+            ) : (
+              <></>
+            )}
           </div>
 
           <div className="text-right ml-auto xl:m-0 hidden sm:block">

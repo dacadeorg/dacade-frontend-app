@@ -8,11 +8,7 @@ import { getToken } from "@/store/feature/user.slice";
 
 const UserAuthContext = createContext(null);
 
-export default function UserAuthProvider({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function UserAuthProvider({ children }: { children: ReactNode }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,9 +23,5 @@ export default function UserAuthProvider({
     });
   }, [dispatch]);
 
-  return (
-    <UserAuthContext.Provider value={null}>
-      {children}
-    </UserAuthContext.Provider>
-  );
+  return <UserAuthContext.Provider value={null}>{children}</UserAuthContext.Provider>;
 }

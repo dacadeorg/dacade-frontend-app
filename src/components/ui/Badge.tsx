@@ -9,8 +9,7 @@ import { HTMLProps, ReactElement, useMemo } from "react";
  * @interface BadgeProps
  * @typedef {BadgeProps}
  */
-interface BadgeProps
-  extends Omit<HTMLProps<HTMLSpanElement>, "size"> {
+interface BadgeProps extends Omit<HTMLProps<HTMLSpanElement>, "size"> {
   customStyle?: object;
   value?: string | number;
   size?: "medium" | "small";
@@ -29,13 +28,7 @@ interface BadgeProps
 }
  * @returns {ReactElement}
  */
-export default function Badge({
-  customStyle,
-  value,
-  size = "small",
-  className,
-  ...props
-}: BadgeProps): ReactElement {
+export default function Badge({ customStyle, value, size = "small", className, ...props }: BadgeProps): ReactElement {
   const sizeClasses = useMemo(
     () =>
       ({
@@ -46,9 +39,7 @@ export default function Badge({
   );
 
   const router = useRouter();
-  const isCommunity: boolean = router.pathname.startsWith(
-    "communities-slug__"
-  );
+  const isCommunity: boolean = router.pathname.startsWith("communities-slug__");
   return value !== "null" && value !== "" ? (
     <span
       {...props}

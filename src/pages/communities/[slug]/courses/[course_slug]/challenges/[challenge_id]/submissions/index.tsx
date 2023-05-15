@@ -1,10 +1,5 @@
 import { useRouter } from "next/router";
-import {
-  ReactElement,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 import Header from "@/components/sections/communities/_partials/Header";
 import List from "@/components/sections/submissions/List";
 import Wrapper from "@/components/sections/courses/Wrapper";
@@ -15,10 +10,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { fetchCurrentCommunity } from "@/store/feature/community.slice";
 import { fetchCourse } from "@/store/feature/course.slice";
-import {
-  fetchAllSubmission,
-  showSubmission,
-} from "@/store/feature/communities/challenges/submissions";
+import { fetchAllSubmission, showSubmission } from "@/store/feature/communities/challenges/submissions";
 import DefaultLayout from "@/components/layout/Default";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import MetaData from "@/components/ui/MetaData";
@@ -28,12 +20,9 @@ export default function Submission() {
   const [selectedSubmission, setSelectedSubmission] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
-  const { submission_id, slug, course_slug, challenge_id } =
-    router.query;
+  const { submission_id, slug, course_slug, challenge_id } = router.query;
   const course = useSelector((state) => state.courses.current);
-  const submissions = useSelector(
-    (state) => state.submissions.current
-  );
+  const submissions = useSelector((state) => state.submissions.current);
 
   const challenge = useSelector((state) => state.challenges.current);
   const { t } = useTranslation();
@@ -83,42 +72,33 @@ export default function Submission() {
   return (
     <>
       <Head>
-        <title>{`${t("communities.submission.title")} ${
-          course?.name
-        }`}</title>
+        <title>{`${t("communities.submission.title")} ${course?.name}`}</title>
         <MetaData description={challenge?.description as string} />
       </Head>
       <Wrapper>
         <div className="flex flex-col py-4 space-y-8 text-gray-700">
+<<<<<<< HEAD
           <Header
             title={course?.name}
             subtitle={t("communities.submission.title")}
           />
           <List setSelectedSubmission={setSelectedSubmission}/>
+=======
+          <Header title={course?.name} subtitle={t("communities.submission.title")} />
+          <List />
+>>>>>>> dev
         </div>
-        <SubmissionPopup
-          show={!!selectedSubmission}
-          submissionId={selectedSubmission}
-          onClose={handleCloseSubmission}
-        />
+        <SubmissionPopup show={!!selectedSubmission} submissionId={selectedSubmission} onClose={handleCloseSubmission} />
       </Wrapper>
     </>
   );
 }
 
 Submission.getLayout = function (page: ReactElement) {
-  return (
-    <DefaultLayout footerBackgroundColor="default">
-      {page}
-    </DefaultLayout>
-  );
+  return <DefaultLayout footerBackgroundColor="default">{page}</DefaultLayout>;
 };
 
-export const getServerSideProps = async ({
-  locale,
-}: {
-  locale: string;
-}) => ({
+export const getServerSideProps = async ({ locale }: { locale: string }) => ({
   props: {
     ...(await serverSideTranslations(locale as string)),
   },

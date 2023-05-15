@@ -10,11 +10,7 @@ import { useRouter } from "next/router";
 import LanguageSwitcherPopup from "@/components/popups/LanguageSwitcher";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import {
-  authCheck,
-  authVerify,
-  logout,
-} from "@/store/feature/auth.slice";
+import { authCheck, authVerify, logout } from "@/store/feature/auth.slice";
 import Sidebar from "./Sidebar";
 import { Colors } from "@/types/community";
 import classNames from "classnames";
@@ -37,18 +33,13 @@ interface NavbarProps {
 }
  * @returns {ReactElement}
  */
-export default function Navbar({
-  settings,
-  sidebarBurgerColor = false,
-}: NavbarProps): ReactElement {
+export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarProps): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
-  const { isAuthenticated, isAuthenticatedAndVerified } = useSelector(
-    (state) => ({
-      isAuthenticatedAndVerified: authVerify(state),
-      isAuthenticated: authCheck(state),
-    })
-  );
+  const { isAuthenticated, isAuthenticatedAndVerified } = useSelector((state) => ({
+    isAuthenticatedAndVerified: authVerify(state),
+    isAuthenticated: authCheck(state),
+  }));
 
   const containerStyle = useMemo(() => {
     return {
@@ -84,9 +75,7 @@ export default function Navbar({
         {isAuthenticatedAndVerified && (
           <ul className="hidden lg:block relative self-center">
             <NavItem to="/bounties">{t("nav.bounties")}</NavItem>
-            <NavItem to={"/communities"}>
-              {t("nav.communities")}
-            </NavItem>
+            <NavItem to={"/communities"}>{t("nav.communities")}</NavItem>
           </ul>
         )}
         <ul className="ml-auto text-right relative flex lg:hidden items-center">
@@ -96,11 +85,7 @@ export default function Navbar({
           <ul className="ml-auto text-right relative hidden lg:block">
             {router.pathname !== "/login" && (
               <div className="inline-block">
-                {router.pathname === "/signup" && (
-                  <span className="text-sm">
-                    {t("nav.signup.already-exist")}
-                  </span>
-                )}
+                {router.pathname === "/signup" && <span className="text-sm">{t("nav.signup.already-exist")}</span>}
                 <NavItem type="item" to="/login">
                   <span
                     className={classNames("py-2 text-sm", {
@@ -115,16 +100,10 @@ export default function Navbar({
             )}
             {router.pathname !== "/signup" && (
               <div className="inline-block">
-                {router.pathname === "/login" && (
-                  <span className="text-sm">
-                    {t("nav.signin.new-accout")}
-                  </span>
-                )}
+                {router.pathname === "/login" && <span className="text-sm">{t("nav.signin.new-accout")}</span>}
                 <NavItem type="item" to="/signup">
                   {router.pathname === "/login" ? (
-                    <span className="py-2 text-sm text-primary">
-                      {t("nav.sign-up")}
-                    </span>
+                    <span className="py-2 text-sm text-primary">{t("nav.sign-up")}</span>
                   ) : (
                     <Button
                       variant="secondary"
@@ -152,10 +131,7 @@ export default function Navbar({
         )}
         {isAuthenticated && (
           <ul className="hidden lg:flex ml-auto text-right relative">
-            <NotificationPopup
-              buttonStyles={buttonStyle}
-              badgeStyles={badgeStyle}
-            />
+            <NotificationPopup buttonStyles={buttonStyle} badgeStyles={badgeStyle} />
             <UserPopup buttonStyles={buttonStyle} />
           </ul>
         )}

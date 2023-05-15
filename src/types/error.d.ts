@@ -7,5 +7,5 @@
  * @extends {Error}
  */
 export interface CustomError extends Error {
-    details: { [key: string]: string  };
-  }
+  details: { [key: string]: string };
+}

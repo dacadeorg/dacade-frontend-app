@@ -12,9 +12,7 @@ interface ProfileWrapperProps {
  * Profile wrapper component
  * @returns {ReactElement}
  */
-export default function ProfileWrapper({
-  children,
-}: ProfileWrapperProps): ReactElement {
+export default function ProfileWrapper({ children }: ProfileWrapperProps): ReactElement {
   return (
     <Section padding="py-12">
       {/* TODO: Will be uncommented when the Header component is migrated */}

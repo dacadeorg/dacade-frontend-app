@@ -55,6 +55,25 @@ export interface Faq {
   title: string;
 }
 
+/**
+ * @property {string} ref - The unique identifier of the bounty.
+ */
+export interface Evaluation {
+  evaluator: string;
+  created_at: string;
+  comment: string;
+  criteria?: Rebric[];
+  metadata: {
+    language: string;
+  };
+  points?: number;
+  totalPoints?: number;
+  reward?: {
+    amount: number;
+    token: string;
+  };
+}
+
 export interface Submission {
   length: Submission | undefined;
   /**
@@ -76,7 +95,9 @@ export interface Submission {
   user: User;
   reviewable: boolean;
   status: string;
+  evaluation?: Evaluation;
   reward: Reward;
+  // TODO: to be strictly typed later
   evaluation: any;
 }
 
@@ -117,6 +138,10 @@ export interface User {
   avatar?: string;
   metadata?: UserMetadata;
   discordConnected?: boolean;
+  isKycVerified?: boolean;
+  discord?: {
+    connected?: boolean;
+  };
 }
 
 export interface UserMetadata {
@@ -126,6 +151,8 @@ export interface UserMetadata {
 export interface Reputation {
   total: number;
   list: string[];
+  community: Community;
+  score: number;
 }
 
 export interface BountyAuthor {

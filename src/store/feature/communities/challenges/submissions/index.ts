@@ -4,11 +4,7 @@ import { setCurrentCourse } from "@/store/feature/course.slice";
 import { Submission } from "@/types/bounty";
 import { setCurrentChallenge } from "..";
 import { IRootState } from "@/store";
-import {
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 /**
  * Submission state interface
@@ -47,7 +43,7 @@ export const submissionsSlice = createSlice({
       state.submission = action.payload;
     },
     showSubmission: (state, action: PayloadAction<string>) => {
-      const current = state.list.find((submission)=> submission.id === action.payload);
+      const current = state.list.find((submission) => submission.id === action.payload);
       state.current = current || null;
     },
   },
@@ -56,7 +52,7 @@ export const submissionsSlice = createSlice({
       state.list = action.payload;
     });
   },
-})
+});
 /**
  * Find submission by id
  * @date 4/25/2023 - 8:19:35 PM
@@ -70,14 +66,11 @@ export const findSubmssionById = createAsyncThunk(
     { id, locale }: { id: string; locale?: string },
     { dispatch }
   ) => {
-    const { data } = await api(locale).server.get(
-      `submissions/${id}`,
-      {
-        params: {
-          relations: ["challenge", "evaluation"],
-        },
-      }
-    );
+    const { data } = await api(locale).server.get(`submissions/${id}`, {
+      params: {
+        relations: ["challenge", "evaluation"],
+      },
+    });
     dispatch(setCurrent(data));
     return data;
   }
@@ -91,21 +84,11 @@ export const findSubmssionById = createAsyncThunk(
  */
 export const fetchAllSubmission = createAsyncThunk(
   "submissions/all",
-  async (
-    {
-      challengeId,
-      startAfter,
-      locale,
-    }: { challengeId: string; startAfter?: string; locale?: string },
-    { getState }
-  ) => {
+  async ({ challengeId, startAfter, locale }: { challengeId: string; startAfter?: string; locale?: string }, { getState }) => {
     const state = getState();
-    const { data } = await api(locale).server.get(
-      `challenges/${challengeId}/submissions`,
-      {
-        params: { start_after: startAfter },
-      }
-    );
+    const { data } = await api(locale).server.get(`challenges/${challengeId}/submissions`, {
+      params: { start_after: startAfter },
+    });
     const list = [];
     if (startAfter) {
       const selectedList = selectList(state as IRootState);
@@ -138,14 +121,11 @@ export const createSubmission = createAsyncThunk(
     },
     { dispatch }
   ) => {
-    const { data } = await api(locale).server.post(
-      "submissions/create",
-      {
-        challenge_id: challengeId,
-        text,
-        link,
-      }
-    );
+    const { data } = await api(locale).server.post("submissions/create", {
+      challenge_id: challengeId,
+      text,
+      link,
+    });
     dispatch(setSubmission(data));
     return data;
   }
@@ -157,43 +137,21 @@ export const createSubmission = createAsyncThunk(
  *
  * @type {*}
  */
-export const findWithRelations = createAsyncThunk(
-  "submissions/findWithRelations",
-  async (
-    { id, locale }: { id: string; locale: string },
-    { dispatch }
-  ) => {
-    const { data } = await api(locale).server.get(
-      `submissions/${id}`,
-      {
-        params: {
-          relations: [
-            "challenge",
-            "evaluation",
-            "course",
-            "community",
-          ],
-        },
-      }
-    );
-    dispatch(setCurrent(data));
-    dispatch(setCurrentCommunity(data.community));
-    dispatch(setCurrentCourse(data.course));
-    dispatch(setCurrentChallenge(data.challenge));
-    return data;
-  }
-);
+export const findWithRelations = createAsyncThunk("submissions/findWithRelations", async ({ id, locale }: { id: string; locale: string }, { dispatch }) => {
+  const { data } = await api(locale).server.get(`submissions/${id}`, {
+    params: {
+      relations: ["challenge", "evaluation", "course", "community"],
+    },
+  });
+  dispatch(setCurrent(data));
+  dispatch(setCurrentCommunity(data.community));
+  dispatch(setCurrentCourse(data.course));
+  dispatch(setCurrentChallenge(data.challenge));
+  return data;
+});
 
-export const {
-  setCurrent,
-  setList,
-  setText,
-  setSubmission,
-  showSubmission,
-} = submissionsSlice.actions;
-export const selectCurrent = (state: IRootState) =>
-  state.submissions.current;
-export const selectList = (state: IRootState) =>
-  state.submissions.list;
+export const { setCurrent, setList, setText, setSubmission, showSubmission } = submissionsSlice.actions;
+export const selectCurrent = (state: IRootState) => state.submissions.current;
+export const selectList = (state: IRootState) => state.submissions.list;
 
 export default submissionsSlice.reducer;

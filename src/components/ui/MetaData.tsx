@@ -8,20 +8,12 @@ import { ReactElement } from "react";
  * @export
  * @returns {ReactElement}
  */
-export default function MetaData({
-  description,
-}: {
-  description: string;
-}): ReactElement {
+export default function MetaData({ description }: { description: string }): ReactElement {
   const metas = getMetadataDescription(description);
   return (
     <>
       {metas.map((meta, index) => (
-        <meta
-          key={`meta-${index}`}
-          content={meta.content}
-          name={meta.name}
-        />
+        <meta key={`meta-${index}`} content={meta.content} name={meta.name} />
       ))}
     </>
   );

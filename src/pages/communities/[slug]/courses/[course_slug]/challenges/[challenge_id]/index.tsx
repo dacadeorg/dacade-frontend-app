@@ -22,14 +22,8 @@ import { setColors } from "@/store/feature/ui.slice";
 import { Colors, Community } from "@/types/community";
 import Head from "next/head";
 import MetaData from "@/components/ui/MetaData";
-import {
-  fetchChallenge,
-  setCurrentChallenge,
-} from "@/store/feature/communities/challenges";
-import {
-  fetchCurrentCommunity,
-  setCurrentCommunity,
-} from "@/store/feature/community.slice";
+import { fetchChallenge, setCurrentChallenge } from "@/store/feature/communities/challenges";
+import { fetchCurrentCommunity, setCurrentCommunity } from "@/store/feature/community.slice";
 
 /**
  * Challenge view page 
@@ -55,22 +49,13 @@ export default function ChallengePage(props: {
   const { challenge, community } = props.pageProps;
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { course, submission, isAuthenticated } = useSelector(
-    (state) => ({
-      course: state.courses.current,
-      submission: state.submissions.current,
-      isAuthenticated: authCheck(state),
-    })
-  );
+  const { course, submission, isAuthenticated } = useSelector((state) => ({
+    course: state.courses.current,
+    submission: state.submissions.current,
+    isAuthenticated: authCheck(state),
+  }));
 
-  const title = useMemo(
-    () =>
-      getMetadataTitle(
-        t("communities.challenge.title"),
-        course?.name || ""
-      ),
-    [course?.name, t]
-  );
+  const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), course?.name || ""), [course?.name, t]);
 
   useEffect(() => {
     dispatch(setColors(community?.colors as Colors));
@@ -94,9 +79,7 @@ export default function ChallengePage(props: {
             <div>
               {submission ? (
                 <div className="mt-8">
-                  <h4 className="my-8 text-.5xl font-medium">
-                    {t("communities.challenge.your-submission")}
-                  </h4>
+                  <h4 className="my-8 text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
                   <SubmissionCard submission={submission} />
                 </div>
               ) : (
@@ -111,50 +94,37 @@ export default function ChallengePage(props: {
 }
 
 ChallengePage.getLayout = function (page: ReactElement) {
-  return (
-    <DefaultLayout footerBackgroundColor="default">
-      {page}
-    </DefaultLayout>
-  );
+  return <DefaultLayout footerBackgroundColor="default">{page}</DefaultLayout>;
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async (data) => {
-    const { query, locale } = data;
-    const { slug, course_slug, challenge_id } = query;
+export const getServerSideProps = wrapper.getServerSideProps((store) => async (data) => {
+  const { query, locale } = data;
+  const { slug, course_slug, challenge_id } = query;
 
-    const fetchPayload = {
-      slug: slug as string,
-      locale: locale as string,
+  const fetchPayload = {
+    slug: slug as string,
+    locale: locale as string,
+  };
+
+  const getCurrentCommunty = store.dispatch(fetchCurrentCommunity(fetchPayload));
+
+  const getCurrentChallenge = store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string }));
+  const results = await Promise.all([getCurrentCommunty, getCurrentChallenge]);
+
+  const community = results[0].payload;
+  const challenge = results[1].payload;
+
+  if (community) {
+    return {
+      props: {
+        ...(await serverSideTranslations(data.locale as string)),
+        community,
+        challenge,
+      },
     };
-
-    const getCurrentCommunty = store.dispatch(
-      fetchCurrentCommunity(fetchPayload)
-    );
-
-    const getCurrentChallenge = store.dispatch(
-      fetchChallenge({ ...fetchPayload, id: challenge_id as string })
-    );
-    const results = await Promise.all([
-      getCurrentCommunty,
-      getCurrentChallenge,
-    ]);
-
-    const community = results[0].payload;
-    const challenge = results[1].payload;
-
-    if (community) {
-      return {
-        props: {
-          ...(await serverSideTranslations(data.locale as string)),
-          community,
-          challenge,
-        },
-      };
-    } else {
-      return {
-        notFound: true,
-      };
-    }
+  } else {
+    return {
+      notFound: true,
+    };
   }
-);
+});
