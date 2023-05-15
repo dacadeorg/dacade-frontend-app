@@ -28,10 +28,8 @@ import userProfileSlice from "./feature/profile/users.slice";
 import bountiesSlice from "./feature/bouties.slice";
 import walletsSlice from "./feature/user/wallets.slice";
 import walletsService from "./services/wallets.service";
-import userProfileService from "./services/profile/users.service";
-import bountiesService from "./services/bounties.service";
-import userReferralsSlice from "./feature/user/referrals.slice";
 import profileReducer from "./feature/profile";
+import userProfileService from "./services/profile/users.service";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -39,7 +37,6 @@ export interface IRootState {
   ui: ReturnType<typeof ui.reducer>;
   referrals: ReturnType<typeof referralSlice.reducer>;
   user: ReturnType<typeof userSlice.reducer>;
-  userReferrals: ReturnType<typeof userReferralsSlice.reducer>;
   banner: ReturnType<typeof bannerSlice.reducer>;
   notifications: ReturnType<typeof notificationsSlice.reducer>;
   wallets: ReturnType<typeof walletsSlice.reducer>;
@@ -52,7 +49,6 @@ export interface IRootState {
   reputationService: ReturnType<typeof reputationService.reducer>;
   userProfileService: ReturnType<typeof userProfileService.reducer>;
   notificationService: ReturnType<typeof notificationsService.reducer>;
-  bountiesService: ReturnType<typeof bountiesService.reducer>;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   bounties: ReturnType<typeof bountiesSlice.reducer>;
   submissions: ReturnType<typeof submissionsSlice.reducer>;
@@ -94,14 +90,12 @@ export const store = configureStore({
     [communityService.reducerPath]: communityService.reducer,
     [coursesService.reducerPath]: coursesService.reducer,
     [walletsService.reducerPath]: walletsService.reducer,
-    [bountiesService.reducerPath]: bountiesService.reducer,
     [userService.reducerPath]: userService.reducer,
     [userProfileService.reducerPath]: userProfileService.reducer,
     [reputationService.reducerPath]: reputationService.reducer,
     [referralsService.reducerPath]: referralsService.reducer,
     [notificationsService.reducerPath]: notificationsService.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
-    [userReferralsSlice.name]: userReferralsSlice.reducer,
     profile: profileReducer,
   },
 
@@ -114,8 +108,7 @@ export const store = configureStore({
       reputationService.middleware,
       referralsService.middleware,
       notificationsService.middleware,
-      userProfileService.middleware,
-      bountiesService.middleware
+      userProfileService.middleware
     );
   },
 });
