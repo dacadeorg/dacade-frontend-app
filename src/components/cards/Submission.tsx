@@ -4,7 +4,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { Submission } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 
 /**
  * Submission card interface props
@@ -20,7 +20,8 @@ interface SubmissionCardProps {
     text: string;
     date: string;
   };
-  setSelectedSubmission: any
+  setSelectedSubmission: any;
+  children?: ReactNode;
 }
 
 /**
@@ -35,7 +36,8 @@ export default function SubmissionCard({
   buttons = false,
   last = false,
   timestamp = { text: "", date: "" },
-  setSelectedSubmission = () => ""
+  setSelectedSubmission,
+  children,
 }: SubmissionCardProps): ReactElement {
   const { t } = useTranslation();
   const { colors, community } = useSelector((state) => ({
@@ -55,7 +57,6 @@ export default function SubmissionCard({
     "--button-background-color--hover": colors.textAccent,
     "--button-border-color--hover": colors.textAccent,
   };
-
 
   return (
     <UserCard
@@ -111,11 +112,12 @@ export default function SubmissionCard({
               minWidthClass="w-10 h-10"
               customStyle={arrowButtonStyles}
               onClick={() => {
-                setSelectedSubmission(submission.id)
+                setSelectedSubmission(submission.id);
               }}
             />
           </div>
         </div>
+        {children}
       </div>
     </UserCard>
   );

@@ -1,5 +1,4 @@
-import { ReactElement, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { ReactElement } from "react";
 import Section from "@/components/ui/Section";
 import CommunityCard from "@/components/cards/community";
 import PartneringCard from "@/components/cards/Partnering";

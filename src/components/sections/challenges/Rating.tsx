@@ -53,8 +53,11 @@ export default function RubricRating({
   hideTitle = false,
 }: RubricRatingProps): ReactElement {
   const { t } = useTranslation();
-  const community = useSelector((state) => state.communities.current);
-  const colors = useSelector((state) => state.ui.colors);
+
+  const { community, colors } = useSelector((state) => ({
+    community: state.communities.current,
+    colors: state.ui.colors,
+  }));
 
   return (
     <ThemeWrapper colors={colors}>
