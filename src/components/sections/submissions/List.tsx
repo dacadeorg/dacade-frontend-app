@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
  * @export
  * @returns {ReactElement}
  */
-export default function List(): ReactElement {
+export default function List({ setSelectedSubmission }: any): ReactElement {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [showButton, setShowButton] = useState(true);
@@ -62,7 +62,11 @@ export default function List(): ReactElement {
                 loader={<></>}
               >
                 {submissions.map((submission: any, i: number) => (
-                  <SubmissionCard key={`submission-${i}`} submission={submission} />
+                  <SubmissionCard
+                    key={`submission-${i}`}
+                    submission={submission}
+                    setSelectedSubmission={setSelectedSubmission}
+                  />
                 ))}
               </InfiniteScroll>
             </div>

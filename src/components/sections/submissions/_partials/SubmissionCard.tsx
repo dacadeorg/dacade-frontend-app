@@ -64,7 +64,7 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
           <p className="line-clamp-3">{submission.text}</p>
           <div className="pt-5">
             <Badge
-              custom-style={{
+              customStyle={{
                 backgroundColor: colors.textAccent,
               }}
               size="medium"
