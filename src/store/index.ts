@@ -16,7 +16,7 @@ import ui from "./feature/ui.slice";
 import indexSlice from "./feature/index.slice";
 import authSlice from "./feature/auth.slice";
 import userService from "./services/user.service";
-import reputationService from "./services/reputation.service";
+import reputationService, { reputationProfileService } from "./services/reputation.service";
 import referralsService from "./services/referrals.service";
 import notificationsService from "./services/notification.service";
 import scoreboardSlice from "./feature/communities/scoreboard.slice";
@@ -30,6 +30,7 @@ import walletsSlice from "./feature/user/wallets.slice";
 import walletsService from "./services/wallets.service";
 import profileReducer from "./feature/profile";
 import userProfileService from "./services/profile/users.service";
+import certificateService from "./services/certificate.service";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -49,6 +50,8 @@ export interface IRootState {
   reputationService: ReturnType<typeof reputationService.reducer>;
   userProfileService: ReturnType<typeof userProfileService.reducer>;
   notificationService: ReturnType<typeof notificationsService.reducer>;
+  certificateService: ReturnType<typeof certificateService.reducer>;
+  reputationProfileService: ReturnType<typeof reputationProfileService.reducer>;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   bounties: ReturnType<typeof bountiesSlice.reducer>;
   submissions: ReturnType<typeof submissionsSlice.reducer>;
@@ -89,7 +92,9 @@ export const store = configureStore({
     [learningModulesSlice.name]: learningModulesSlice.reducer,
     [communityService.reducerPath]: communityService.reducer,
     [coursesService.reducerPath]: coursesService.reducer,
+    [certificateService.reducerPath]: certificateService.reducer,
     [walletsService.reducerPath]: walletsService.reducer,
+    [reputationProfileService.reducerPath]: reputationProfileService.reducer,
     [userService.reducerPath]: userService.reducer,
     [userProfileService.reducerPath]: userProfileService.reducer,
     [reputationService.reducerPath]: reputationService.reducer,
@@ -108,7 +113,9 @@ export const store = configureStore({
       reputationService.middleware,
       referralsService.middleware,
       notificationsService.middleware,
-      userProfileService.middleware
+      userProfileService.middleware,
+      certificateService.middleware,
+      reputationProfileService.middleware
     );
   },
 });
