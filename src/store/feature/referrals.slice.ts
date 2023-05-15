@@ -1,7 +1,12 @@
 import { Referral } from "@/types/community";
 import { createSlice } from "@reduxjs/toolkit";
 
-const defaultState = {
+interface InitialState{
+  list: Referral[],
+  filteredList: Referral[],
+}
+
+const defaultState:InitialState  = {
   list: [],
   filteredList: []
 }

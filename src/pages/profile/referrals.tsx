@@ -58,7 +58,7 @@ export default function UserReferrals(): ReactElement {
               // loader is required for InfiniteScroll to work
               loader={<></>}
             >
-              {referrals.map((referral: Referrals, i: number) => (
+              {referrals.map((referral, i) => (
                 <Referral key={`user-referral-${i}`} referral={referral} />
               ))}
             </InfiniteScroll>

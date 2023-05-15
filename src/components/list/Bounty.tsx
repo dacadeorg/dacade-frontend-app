@@ -1,8 +1,8 @@
 import Referral from "@/components/cards/Referral";
 import Bounty from "@/components/cards/Bounty";
 import { Bounty as BountyType } from "@/types/bounty";
-import { Refferral } from "@/types/referral";
 import { ReactElement, useEffect } from "react";
+import { Referral as ReferralType} from "@/types/community";
 
 /**
  * BountyList component props
@@ -13,7 +13,7 @@ import { ReactElement, useEffect } from "react";
  */
 interface BountyListProps {
   bounties: BountyType[];
-  referrals: Refferral[];
+  referrals: ReferralType[];
 }
 
 /**

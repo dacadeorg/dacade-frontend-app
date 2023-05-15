@@ -34,6 +34,8 @@ import certificateService from "./services/certificate.service";
 import profileCommunitiesService from "./services/profile/profileCommunities.service";
 import userReputationService from "./services/user/userReputation.service";
 import userReputationSlice from "./feature/user/reputation.slice";
+import web3WalletSlice from "./feature/wallet.slice";
+import certificateSlice from "./feature/profile/certificate.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -44,6 +46,7 @@ export interface IRootState {
   banner: ReturnType<typeof bannerSlice.reducer>;
   notifications: ReturnType<typeof notificationsSlice.reducer>;
   wallets: ReturnType<typeof walletsSlice.reducer>;
+  web3Wallet: ReturnType<typeof web3WalletSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
   coursesService: ReturnType<typeof coursesService.reducer>;
@@ -67,6 +70,7 @@ export interface IRootState {
   feedback: ReturnType<typeof feedbackSlice.reducer>;
   learningModules: ReturnType<typeof learningModulesSlice.reducer>;
   profile: ReturnType<typeof profileReducer>;
+  certificates: ReturnType<typeof certificateSlice.reducer>;
 }
 
 export const store = configureStore({
@@ -95,6 +99,7 @@ export const store = configureStore({
     [userReputationSlice.name]: userReputationSlice.reducer,
     [feedbackSlice.name]: feedbackSlice.reducer,
     [challengeSlice.name]: challengeSlice.reducer,
+    [web3WalletSlice.name]: web3WalletSlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
     [communityService.reducerPath]: communityService.reducer,
     [coursesService.reducerPath]: coursesService.reducer,
@@ -108,6 +113,7 @@ export const store = configureStore({
     [referralsService.reducerPath]: referralsService.reducer,
     [notificationsService.reducerPath]: notificationsService.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
+    [certificateSlice.name]: certificateSlice.reducer,
     profile: profileReducer,
   },
 

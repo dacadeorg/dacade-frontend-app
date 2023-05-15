@@ -14,9 +14,13 @@ export interface Certificate {
   community: Community;
   entity: string;
   timestamp: number;
+  description: string;
   minting: {
     tx: string;
     block: number;
     timestamp: number;
+    contract: string;
+    receiver: string;
+    tokenURI: string;
   };
 }

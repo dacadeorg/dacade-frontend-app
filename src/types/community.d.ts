@@ -23,6 +23,7 @@ export interface Community {
   items?: any[];
   challenge: Challenge;
   submission: Submission;
+  can_mint_certificates: boolean;
 }
 
 export interface Colors {
