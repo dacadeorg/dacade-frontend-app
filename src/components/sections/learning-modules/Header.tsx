@@ -12,9 +12,11 @@ import { ReactElement } from "react";
  * @returns {ReactElement}
  */
 export default function LearningModuleHeader(): ReactElement {
-  const course = useSelector((state) => state.courses.current);
-  const learningModule = useSelector((state) => state.learningModules.current);
   const { t } = useTranslation();
+  const { course, learningModule } = useSelector((state) => ({
+    course: state.courses.current,
+    learningModule: state.learningModules.current,
+  }));
 
   return (
     <div>

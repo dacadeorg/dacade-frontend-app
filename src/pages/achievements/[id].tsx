@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import NavItem from "@/components/ui/NavItem";
 import Avatar from "@/components/ui/Avatar";

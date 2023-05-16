@@ -1,3 +1,4 @@
+import { Submission } from "./bounty";
 import { Community } from "./community";
 import { Metadata } from "./course";
 
@@ -15,6 +16,7 @@ export interface Certificate {
   entity: string;
   timestamp: number;
   description: string;
+  submission: Submission;
   minting: {
     tx: string;
     block: number;

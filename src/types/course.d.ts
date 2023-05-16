@@ -28,6 +28,8 @@ export type Course = {
   trailer: any;
   disclaimer: any;
   items?: any[];
+  // TODO: Should be updated later
+  faq: any;
   prerequisite: {
     items: any[];
     hint: string;
@@ -63,6 +65,7 @@ export type Challenge = {
   minPoints: number;
   rewards: Reward[];
   ratingCriteria?: RatingCriteria[];
+  feedbacks: Feedback;
   feedbackInfo?: Feedback[];
   bestSubmissions: Submission[];
 };
@@ -104,6 +107,12 @@ export type Metadata = {
   issuedOn: string;
   image: string;
   title: string;
+  recipientName: string;
+  issuerName: string;
+  comment: string;
+  linkToWork: string;
+  description: string;
+  narrative: string;
 };
 
 export type Reward = {

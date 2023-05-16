@@ -54,11 +54,14 @@ export default function Form({ save }: FormProps): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [saving, setSaving] = useState(false);
-  const community = useSelector((state) => state.communities.current);
-  const user = useSelector((state) => state.user.data);
-  const colors = useSelector((state) => state.ui.colors);
-  const submission = useSelector((state) => state.submissions.current);
-  const challenge = useSelector((state) => state.challenges.current);
+  const { community, user, colors, submission, challenge } = useSelector((state) => ({
+    community: state.communities.current,
+    user: state.user.data,
+    colors: state.ui.colors,
+    submission: state.submissions.current,
+    challenge: state.challenges.current,
+  }));
+
   const activeButtonStyle = useMemo(
     () => ({
       borderColor: colors.textAccent,

@@ -11,22 +11,17 @@ import { ReactElement } from "react";
  * @returns {ReactElement}
  */
 export default function ProfileOverviewAchievements(): ReactElement {
-  //     TODO: To uncomment when profile slice is migrated
-  //   const achievements = useSelector(
-  //     (state) => state.profile.certificates.list
-  //   );
+  const achievements = useSelector((state) => state.profile.certificate.list);
 
-  return (
-    <ProfileOverviewSection title="Achievements">
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
-        {/* TODO: To uncomment when profile slice is migrated
-        {achievements.map((achievement, index) => (
-          <AchievementCard
-            key={index}
-            data={achievement}
-          />
-        ))} */}
-      </div>
-    </ProfileOverviewSection>
-  );
+  if (achievements && achievements.length)
+    return (
+      <ProfileOverviewSection title="Achievements">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
+          {achievements.map((achievement, index) => (
+            <AchievementCard key={`profile-achievement-${index}`} data={achievement} />
+          ))}
+        </div>
+      </ProfileOverviewSection>
+    );
+  return <></>;
 }

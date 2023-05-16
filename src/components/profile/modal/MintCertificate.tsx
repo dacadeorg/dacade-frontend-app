@@ -63,10 +63,10 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
    * @type {String}
    */
   const buttonText = useMemo(() => {
-    if (!address) return "profile.connect.wallet.button";
-    if (loading) return "profile.mint.certificate.button.loading";
-    return "profile.mint.certificate.button";
-  }, [address, loading]);
+    if (!address) return t("profile.connect.wallet.button");
+    if (loading) return t("profile.mint.certificate.button.loading");
+    return t("profile.mint.certificate.button");
+  }, [address, loading, t]);
 
   useEffect(() => {
     setTxData((prev) => ({

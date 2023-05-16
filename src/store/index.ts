@@ -10,13 +10,13 @@ import { submissionsSlice } from "./feature/communities/challenges/submissions";
 import { challengeSlice } from "./feature/communities/challenges";
 import { feedbackSlice } from "./feature/communities/challenges/submissions/feedback.slice";
 import { eventsSlice } from "./feature/events.slice";
+import { reputationProfileService } from "./services/profile/reputation.service";
 
 import communities from "./feature/community.slice";
 import ui from "./feature/ui.slice";
 import indexSlice from "./feature/index.slice";
 import authSlice from "./feature/auth.slice";
 import userService from "./services/user.service";
-import reputationService from "./services/reputation.service";
 import referralsService from "./services/referrals.service";
 import notificationsService from "./services/notification.service";
 import scoreboardSlice from "./feature/communities/scoreboard.slice";
@@ -32,6 +32,10 @@ import profileReducer from "./feature/profile";
 import userProfileService from "./services/profile/users.service";
 import web3WalletSlice from "./feature/wallet.slice";
 import certificateSlice from "./feature/profile/certificate.slice";
+import certificateService from "./services/certificate.service";
+import profileCommunitiesService from "./services/profile/profileCommunities.service";
+import userReputationService from "./services/user/userReputation.service";
+import userReputationSlice from "./feature/user/reputation.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -49,9 +53,13 @@ export interface IRootState {
   communityService: ReturnType<typeof communityService.reducer>;
   walletService: ReturnType<typeof walletsService.reducer>;
   userService: ReturnType<typeof userSlice.reducer>;
-  reputationService: ReturnType<typeof reputationService.reducer>;
+  userReputations: ReturnType<typeof userReputationSlice.reducer>;
+  userReputationService: ReturnType<typeof userReputationService.reducer>;
   userProfileService: ReturnType<typeof userProfileService.reducer>;
   notificationService: ReturnType<typeof notificationsService.reducer>;
+  certificateService: ReturnType<typeof certificateService.reducer>;
+  reputationProfileService: ReturnType<typeof reputationProfileService.reducer>;
+  profileCommunitiesService: ReturnType<typeof profileCommunitiesService.reducer>;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   bounties: ReturnType<typeof bountiesSlice.reducer>;
   submissions: ReturnType<typeof submissionsSlice.reducer>;
@@ -88,16 +96,20 @@ export const store = configureStore({
     [communitySlice.name]: communitySlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
     [userProfileSlice.name]: userProfileSlice.reducer,
+    [userReputationSlice.name]: userReputationSlice.reducer,
     [feedbackSlice.name]: feedbackSlice.reducer,
     [challengeSlice.name]: challengeSlice.reducer,
     [web3WalletSlice.name]: web3WalletSlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
     [communityService.reducerPath]: communityService.reducer,
     [coursesService.reducerPath]: coursesService.reducer,
+    [certificateService.reducerPath]: certificateService.reducer,
     [walletsService.reducerPath]: walletsService.reducer,
+    [reputationProfileService.reducerPath]: reputationProfileService.reducer,
+    [profileCommunitiesService.reducerPath]: profileCommunitiesService.reducer,
     [userService.reducerPath]: userService.reducer,
     [userProfileService.reducerPath]: userProfileService.reducer,
-    [reputationService.reducerPath]: reputationService.reducer,
+    [userReputationService.reducerPath]: userReputationService.reducer,
     [referralsService.reducerPath]: referralsService.reducer,
     [notificationsService.reducerPath]: notificationsService.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
@@ -111,10 +123,13 @@ export const store = configureStore({
       communityService.middleware,
       walletsService.middleware,
       userService.middleware,
-      reputationService.middleware,
       referralsService.middleware,
       notificationsService.middleware,
-      userProfileService.middleware
+      userProfileService.middleware,
+      certificateService.middleware,
+      reputationProfileService.middleware,
+      profileCommunitiesService.middleware,
+      userReputationService.middleware
     );
   },
 });
