@@ -15,7 +15,6 @@ import { ReactElement } from "react";
  */
 export default function Trailer(): ReactElement {
   const { t } = useTranslation();
-
   const course = useSelector((state) => state.courses.current);
 
   return (

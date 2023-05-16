@@ -14,6 +14,7 @@ export default function ProfileMenu(): ReactElement {
     communities: state.communities.list,
     authUser: state.user.data,
   }));
+
   const router = useRouter();
   const username = router.asPath || authUser?.displayName;
   const isCurrentUser = username?.toLowerCase() === authUser?.displayName?.toLowerCase();

@@ -25,9 +25,12 @@ import { fetchAllWallets } from "@/store/services/wallets.service";
 export default function UserPopup({ buttonStyles }: { buttonStyles: CSSProperties }): ReactElement {
   const [show, setShow] = useState(false);
   const [showReferral, setShowReferral] = useState(false);
-  const { main: mainWallet } = useSelector((state) => state.wallets);
-  const user = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
+
+  const { mainWallet, user } = useSelector((state) => ({
+    mainWallet: state.wallets.current,
+    user: state.user.data,
+  }));
 
   useEffect(() => {
     dispatch(fetchAllWallets());
