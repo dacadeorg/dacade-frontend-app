@@ -7,18 +7,50 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { Bounty } from "@/types/bounty";
 import { GetStaticProps } from "next";
 import { Referral } from "@/types/community";
-// import { fetchAllBounties, setBountiesList } from "@/store/feature/bouties.slice";
 import i18Translate from "@/utilities/I18Translate";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import DefaultLayout from "@/components/layout/Default";
 import { fetchReferrals } from "@/store/services/referrals.service";
 import { fetchAllBounties } from "@/store/services/bounties.service";
 
+/**
+ * Description placeholder
+ * @date 5/16/2023 - 11:39:06 AM
+ *
+ * @type {Bounty}
+ */
+const defaulBounty = {
+  name: "Tezos Starter Course",
+  image: "/img/communities/tacode.svg",
+  type: "Challenge",
+  link: "https://tacode.dev/courses/dev-starter/challenges/f9c23fc7-3022-4347-b19c-66cc2424ac2f",
+  colors: {
+    text: "#0D61FF",
+    accent: "#0D61FF",
+    textAccent: "#fff",
+    primary: "#0D61FF",
+  },
+  reward: {
+    amount: 12,
+    token: "tez",
+    type: "SUBMISSION",
+  },
+  url: "https://tacode.dev/courses/dev-starter",
+};
+
 interface BountiesPageProps {
   bouties: Bounty[];
   referrals: Referral[];
 }
 
+/**
+ * Bounties page component
+ * @date 5/16/2023 - 11:39:56 AM
+ *
+ * @export
+ * @param {BountiesPageProps} props
+ * @returns
+ */
 export default function Bounties(props: BountiesPageProps) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -34,30 +66,7 @@ export default function Bounties(props: BountiesPageProps) {
     bounties: state.bounties.bountiesList,
   }));
 
-  const bountiesList = useMemo(
-    () => [
-      {
-        name: "Tezos Starter Course",
-        image: "/img/communities/tacode.svg",
-        type: "Challenge",
-        link: "https://tacode.dev/courses/dev-starter/challenges/f9c23fc7-3022-4347-b19c-66cc2424ac2f",
-        colors: {
-          text: "#0D61FF",
-          accent: "#0D61FF",
-          textAccent: "#fff",
-          primary: "#0D61FF",
-        },
-        reward: {
-          amount: 12,
-          token: "tez",
-          type: "SUBMISSION",
-        },
-        url: "https://tacode.dev/courses/dev-starter",
-      },
-      ...(bounties || []),
-    ],
-    [bounties]
-  );
+  const bountiesList = useMemo(() => [defaulBounty, ...(bounties || [])], [bounties]);
 
   return (
     <div className="flex justify-center content-wrapper">
@@ -72,7 +81,7 @@ export default function Bounties(props: BountiesPageProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
+export const getStaticProps: GetStaticProps = async ({ locale }: { locale?: string }) => {
   await i18Translate(locale as string);
 
   return {

@@ -18,7 +18,6 @@ const referralsService = createApi({
       query: () => "referrals",
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
-        console.log(data);
         dispatch(setReferralsList(data));
       },
     }),
