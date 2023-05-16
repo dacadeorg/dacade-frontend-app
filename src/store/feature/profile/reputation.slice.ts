@@ -10,7 +10,7 @@ interface ReputationState {
 }
 
 /**
- * Reputation slice
+ * Reputation slice handles reputation state for the user on the profile page.
  */
 const reputationSlice = createSlice({
   name: "reputations",

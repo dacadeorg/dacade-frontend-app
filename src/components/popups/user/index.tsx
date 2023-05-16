@@ -60,7 +60,7 @@ export default function UserPopup({ buttonStyles }: { buttonStyles: CSSPropertie
         <span onClick={externalClick}>
           <li className={`inline-block align-middle relative ${show === true ? "z-50" : "z-10"}`} onClick={toggle}>
             <Button customStyle={buttonStyles} padding={false} variant="secondary" className={`p-0.5 bg-gray-100 bg-opacity-75 hover:bg-gray-50 ${mainWallet ? "pr-5" : ""}`}>
-              <Avatar user={user as User} useLink={false} />
+              <Avatar user={user as User} useLink={false} hideVerificationBadge />
               {mainWallet ? (
                 <span
                   style={{

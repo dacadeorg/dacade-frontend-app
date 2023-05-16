@@ -8,7 +8,7 @@ const certificateService = createApi({
   endpoints: (builder) => ({
     fetchAllCertificates: builder.query({
       query: ({ username, locale }: { username: string; locale?: string }) => ({
-        url: `/certificates/${username}`,
+        url: `certificates?username=${username}`,
         headers: {
           "accept-language": locale,
         },
@@ -54,3 +54,5 @@ export const findCertificate = ({ id, locale }: { id: string; locale?: string })
     locale,
   });
 export const { useFetchAllCertificatesQuery, useFindCertificateQuery } = certificateService;
+
+export default certificateService;
