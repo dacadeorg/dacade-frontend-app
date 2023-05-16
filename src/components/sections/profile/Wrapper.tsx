@@ -1,6 +1,7 @@
 import Section from "@/components/ui/Section";
 import { ReactElement, ReactNode } from "react";
 import ProfileHeader from "./Header";
+import ProfileNagivation from "./Navigation";
 
 /**
  * Profile wrapper interface props
@@ -20,11 +21,9 @@ export default function ProfileWrapper({ children }: ProfileWrapperProps): React
       <div className="lg:flex relative">
         <div className="lg:w-1/4 relative">
           <div className="sticky top-0">
-            {/* TODO: Will be uncommented when the Navigarion component is migrated */}
-            {/* <Navigation /> */}
+            <ProfileNagivation />
           </div>
         </div>
-
         <div className="lg:w-3/5 relative">{children}</div>
       </div>
     </Section>

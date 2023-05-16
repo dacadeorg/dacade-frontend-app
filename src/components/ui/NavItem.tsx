@@ -10,8 +10,9 @@ import { ReactElement, ReactNode } from "react";
  */
 interface NavItemProps {
   type?: string;
-  to: string;
+  to?: string;
   children: ReactNode;
+  className?: string;
 }
 
 /**
@@ -21,9 +22,9 @@ interface NavItemProps {
  * @param {{ type?: string; to?: string; children: any; }} { type = "item", to = "/", children }
  * @returns {ReactElement}
  */
-export default function NavItem({ type = "item", to = "/", children }: NavItemProps): ReactElement {
+export default function NavItem({ type = "item", to = "/", children, className }: NavItemProps): ReactElement {
   return (
-    <li className={`nav-${type}`}>
+    <li className={`nav-${type} ${className}`}>
       <Link href={to}>{children}</Link>
     </li>
   );

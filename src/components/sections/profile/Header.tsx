@@ -8,9 +8,12 @@ import KYCVerificationPopup from "@/components/layout/KYCVerification";
 import CompassIcon from "@/icons/compass.svg";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
+import { useTranslation } from "next-i18next";
 
 const ProfileHeader = () => {
   const router = useRouter();
+  const { locale } = router;
+  const { t } = useTranslation();
   const { authUser, profileUser, isKycVerified } = useSelector((state) => ({
     authUser: state.user.data,
     profileUser: state.profile.user.current,
@@ -25,8 +28,8 @@ const ProfileHeader = () => {
 
   const joined = useMemo(() => {
     if (!authUser?.joined) return null;
-    return DateManager.format(authUser?.joined, "MMMM yyyy", "en");
-  }, [authUser]);
+    return DateManager.format(authUser?.joined, "MMMM yyyy", locale);
+  }, [authUser?.joined, locale]);
 
   const username = useMemo(() => user?.displayName, [user?.displayName]);
   const isCurrentUser = useMemo(() => username?.toLowerCase() === authUser?.displayName?.toLowerCase(), [authUser, username]);
@@ -35,35 +38,40 @@ const ProfileHeader = () => {
     (window.location.href = `${process.env.NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL}?response_type=code&client_id=${process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID}&scope=${process.env.NEXT_PUBLIC_DISCORD_SCOPE}&state=15773059ghq9183habn&redirect_uri=${process.env.NEXT_PUBLIC_DISCORD_CALLBACK_URL}&prompt=consent`);
 
   const triggerKYCVerification = () => {
-    console.log("Hello world!");
     // TODO: to be uncommented when kyc slice is implemented
     //   dispatch("kyc/openVerificationModal");
   };
 
   return (
     <div className="text-center font-sans pb-24 relative">
-      <Avatar size="extra" user={user} use-link={false} />
+      <Avatar size="extra" user={user} useLink={false} />
       <span className="block capitalize text-5xl mt-5 leading-none">{username}</span>
       <div className="flex justify-center mt-2 leading-snug text-sm divide-x divide-solid">
+        {!canConnectDiscord && (
+          <div className="flex items-center px-2">
+            <span className="inline-block">
+              <DiscordIcon />
+            </span>
+            <span className="inline-block mx-1">Discord</span>
+          </div>
+        )}
+
         <div className="flex items-center px-2">
           <span className="inline-block">
             <TimeIcon />
           </span>
-          <span className="inline-block mx-1">Joined</span>
-          <span className="inline-block text-sm">{joined}</span>
+          <span className="inline-block mx-1">{t("profile.header.joined")}</span>
+          {joined && <span className="inline-block text-sm">{joined}</span>}
         </div>
-        <div className="flex items-center px-2">
-          <span className="inline-block">
-            <DiscordIcon />
-          </span>
-          <span className="inline-block mx-1">Discord</span>
-        </div>
-        <div className="flex items-center px-3">
-          <span className="inline-block">
-            <CompassIcon />
-          </span>
-          <span className="ml-1 inline-block">Verified</span>
-        </div>
+
+        {isKycVerified && (
+          <div className="flex items-center px-3">
+            <span className="inline-block">
+              <CompassIcon />
+            </span>
+            <span className="ml-1 inline-block">Verified</span>
+          </div>
+        )}
       </div>
       {canConnectDiscord && (
         <div className="pt-5">

@@ -12,7 +12,7 @@ import classNames from "classnames";
 interface ModalProps {
   show: boolean;
   size?: string;
-  onClose: (event?: any) => void;
+  onClose?: (event?: any) => void;
   children: ReactNode;
 }
 

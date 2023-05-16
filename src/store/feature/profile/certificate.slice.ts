@@ -1,4 +1,3 @@
-import api from "@/config/api";
 import { Certificate } from "@/types/certificate";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -24,7 +23,7 @@ export const certificateSlice = createSlice({
   name: "certificates",
   initialState,
   reducers: {
-    setCurrent(state, action: PayloadAction<Certificate>) {
+    setCurrentCertificate(state, action: PayloadAction<Certificate>) {
       state.current = action.payload;
     },
 
@@ -32,17 +31,17 @@ export const certificateSlice = createSlice({
       state.currentMinted = action.payload;
     },
 
-    setList(state, action: PayloadAction<Certificate[]>) {
+    setCertificateList(state, action: PayloadAction<Certificate[]>) {
       state.list = action.payload;
     },
 
-    clear(state) {
+    clearCertificate(state) {
       state.list = [];
       state.current = null;
     },
   },
 });
 
-export const { setCurrent, setList, clear, setCurrentMintingStatus } = certificateSlice.actions;
+export const { setCurrentCertificate, setCertificateList, clearCertificate, setCurrentMintingStatus } = certificateSlice.actions;
 
 export default certificateSlice;

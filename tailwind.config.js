@@ -11,7 +11,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-graphik)", "sans-serif"],
+        sans: ["Graphik", "sans-serif"],
       },
       colors: {
         current: "currentColor",
@@ -52,6 +52,8 @@ module.exports = {
         98: "28rem",
         99: "45.625rem",
         "10.5/12": "90%",
+        "1/100": "1%",
+        "1/10": "10%",
       },
       borderRadius: {
         "3.5xl": "1.75rem",
