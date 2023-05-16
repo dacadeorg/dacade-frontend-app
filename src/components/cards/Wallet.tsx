@@ -76,7 +76,7 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
               {address ? (
                 <p className="leading-5 text-sm">
                   {address.map((part, k) => (
-                    <span key={k} className="mr-2">
+                    <span key={`address-${k}`} className="mr-2">
                       {part}
                     </span>
                   ))}
@@ -112,7 +112,7 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
         </div>
       </div>
       {wallet.payouts.map((payout, i) => (
-        <Hint key={i} className="mt-2">
+        <Hint key={`wallet-payout-${i}`} className="mt-2">
           <span className="font-medium">
             <Currency value={payout.amount} token={payout.token} />
           </span>
