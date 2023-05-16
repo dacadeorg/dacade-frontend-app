@@ -34,10 +34,7 @@ interface RubricHeaderProps {
 export default function RubricHeader({ ratingCriteria, selected, hideTitle = false }: RubricHeaderProps): ReactElement {
   const { t } = useTranslation();
   const colors = useSelector((state) => state.ui.colors);
-
-  const selectedRubric = (id: string) => {
-    return selected.find((rubric) => rubric.id === id);
-  };
+  const selectedRubric = (id: string) => selected.find((rubric) => rubric.id === id);
 
   return (
     <Section title={!hideTitle ? (t("communities.challenge.criteria.title") as string) : ""}>

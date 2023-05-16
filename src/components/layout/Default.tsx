@@ -5,7 +5,6 @@ import PrivacyPolicyBanner from "@/components/banner/PrivacyPolicy";
 import DiscordButton from "@/components/ui/DiscordButton";
 import { ReactElement, ReactNode } from "react";
 import NotificationBar from "./NotificationBar";
-import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * Default layout props interface
