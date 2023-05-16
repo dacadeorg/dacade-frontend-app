@@ -94,7 +94,10 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
             <div className="prose">
               <p
                 dangerouslySetInnerHTML={{
-                  __html: `${t("profile.wallets.uncashable")}`,
+                  __html: t("profile.wallets.uncashable", {
+                    token: `${wallet.title}`,
+                    link: `https://discord.gg/5yDZvVnpQQ`,
+                  }),
                 }}
               />
             </div>
