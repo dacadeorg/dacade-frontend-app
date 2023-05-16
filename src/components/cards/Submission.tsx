@@ -20,7 +20,7 @@ interface SubmissionCardProps {
     text: string;
     date: string;
   };
-  setSelectedSubmission: any
+  setSelectedSubmission: (selectedSubmission: string) => string;
   children?: ReactNode;
 }
 
