@@ -3,7 +3,7 @@ import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import { useSelector } from "@/hooks/useTypedSelector";
 import LanguageSwitcher from "./_partials/LanguageSwitcher";
 import CourseLink from "./_partials/navigation/link/CourseLink";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 /**
  * Navigation component
@@ -16,9 +16,10 @@ export default function Navigation(): ReactElement {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const community = useSelector((state) => state.communities?.current);
-
-  const menus = useSelector((state) => state.navigation.menus);
+  const { community, menus } = useSelector((state) => ({
+    community: state.communities?.current,
+    menus: state.navigation.menus,
+  }));
 
   if (community)
     return (

@@ -39,10 +39,13 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): any {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user.data);
-  const isAuthenticated = useSelector((state) => authVerify(state));
+  const { user, isAuthenticated, unread } = useSelector((state) => ({
+    user: state.user.data,
+    isAuthenticated: authVerify(state),
+    unread: state.notifications.unread,
+  }));
+
   const username = user?.username;
-  const unread = useSelector((state) => state.notifications.unread);
 
   const [show, setshow] = useState(false);
 

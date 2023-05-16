@@ -1,18 +1,8 @@
-// TODO: Should uncommented when redux is implemented
-// import { useSelector } from "react-redux";
 import Avatar from "@/components/ui/Avatar";
 import Badge from "@/components/ui/Badge";
+import { User } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
-
-// This is a temporary user interface solution.
-//  TODO: Should be updated when the user type is added
-interface User {
-  key: string;
-  reputation: number;
-  displayName: string;
-  feedbacks: number;
-}
 
 /**
  * Scoreboard list props interface
@@ -41,16 +31,10 @@ interface ScoreboardListProps {
 export default function ScoreboardList({ badgeStyles = { backgroundColor: "purple" }, users = [] }: ScoreboardListProps): ReactElement {
   const { t } = useTranslation();
 
-  // TODO: Should uncommented when redux is implemented
-  //   const colors = useSelector((state: RootState) => state.ui.colors);
-  //   const community = useSelector(
-  //     (state: RootState) => state.communities.current
-  //   );
-
   return (
     <div className="pb-5 w-full divide-y divide-gray-200 space-y-4 bg-gray-50 rounded-3xl lg:max-w-2xl">
-      {users.map((user) => (
-        <div key={user.key} className="px-3">
+      {users.map((user, i) => (
+        <div key={`score-user-${i}`} className="px-3">
           <div className="h-36 md:h-24 md:flex w-full justify-between md:justify-end space-x-5 space-y-0 pt-6 md:flex-row-reverse md:pt-6">
             <div className="relative flex flex-row-reverse md:w-full md:justify-items-stretch md:relative md:text-right md:right-0">
               <div className="absolute md:relative md:top-0 -bottom-28 md:-bottom-24 font-medium text-gray-500 left-5 md:left-auto md:right-5 px-2 py-1 h-6 text-xs bg-gray-200 rounded-full">
@@ -61,7 +45,7 @@ export default function ScoreboardList({ badgeStyles = { backgroundColor: "purpl
               <div className="text-lg font-medium">{user.displayName}</div>
               <div className="whitespace-nowrap text-base">
                 <span className="font-medium">
-                  {user.feedbacks}
+                  <>{user?.feedbacks}</>
                   <span className="font-normal">{t("feedbacks")}</span>
                 </span>
               </div>

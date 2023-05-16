@@ -27,6 +27,7 @@ export default function EmailVerification(): ReactElement {
   const [loading, setloading] = useState(false);
   const user = useSelector((state) => state.auth.data);
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (!user) {
       router.push("/login");

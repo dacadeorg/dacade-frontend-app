@@ -12,7 +12,7 @@ import { useTranslation } from "next-i18next";
  * @returns {}
  */
 export default function Request(): ReactElement {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const referrals = useSelector((state) => state.referrals.list);
   const previewList = referrals.slice(0, 3);
   const router = useRouter();
@@ -25,17 +25,13 @@ export default function Request(): ReactElement {
     <div className={`relative flex items-center ${referrals && referrals.length ? "" : "hidden"}`}>
       <div className="flex pr-3 cursor-pointer" onClick={onClick}>
         {previewList.map((referral, index: number) => (
-          <Avatar
-            key={`previewList-${index}`}
-            className={`border-2 border-solid border-white ${index > 0 ? "-ml-3" : ""}`}
-            useLink={false}
-            // TODO: figure out how to get this user because on the referral there is no user present
-            user={referral.user}
-          />
+          <Avatar key={index} className={`border-2 border-solid border-white ${index > 0 && "-ml-3"}`} useLink={false} user={referral.user} />
         ))}
       </div>
       <div className="relative text-sm font-normal text-gray-500 cursor-pointer md:flex md:font-medium" onClick={onClick}>
-        <span className="md:inline-block">{referrals.length} {t("Friends have used your invite code")}</span>
+        <span className="md:inline-block">
+          {referrals.length} {t("Friends have used your invite code")}
+        </span>
       </div>
     </div>
   );

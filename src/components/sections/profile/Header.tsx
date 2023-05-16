@@ -11,22 +11,17 @@ import { useMemo } from "react";
 
 const ProfileHeader = () => {
   const router = useRouter();
-
-  const { authUser, profileUser } = useSelector((state) => ({
+  const { authUser, profileUser, isKycVerified } = useSelector((state) => ({
     authUser: state.user.data,
     profileUser: state.profile.user.current,
+    isKycVerified: state.user.data?.isKycVerified,
   }));
 
   const user = useMemo(() => {
     const username = (router.query?.username as string) || "";
-
-    if (username && username?.toLowerCase() !== authUser?.displayName?.toLowerCase()) {
-      return profileUser;
-    }
+    if (username && username?.toLowerCase() !== authUser?.displayName?.toLowerCase()) return profileUser;
     return authUser;
   }, [authUser, profileUser, router.query?.username]);
-
-  const isKycVerified = useSelector((state) => state.user.data?.isKycVerified);
 
   const joined = useMemo(() => {
     if (!authUser?.joined) return null;
@@ -34,18 +29,10 @@ const ProfileHeader = () => {
   }, [authUser]);
 
   const username = useMemo(() => user?.displayName, [user?.displayName]);
-
-  const isCurrentUser = useMemo(
-    () => username?.toLowerCase() === authUser?.displayName?.toLowerCase(),
-
-    [authUser, username]
-  );
-
+  const isCurrentUser = useMemo(() => username?.toLowerCase() === authUser?.displayName?.toLowerCase(), [authUser, username]);
   const canConnectDiscord = useMemo(() => isCurrentUser && !user?.discord?.connected, [isCurrentUser, user]);
-
-  const triggerDiscordOauth = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL}?response_type=code&client_id=${process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID}&scope=${process.env.NEXT_PUBLIC_DISCORD_SCOPE}&state=15773059ghq9183habn&redirect_uri=${process.env.NEXT_PUBLIC_DISCORD_CALLBACK_URL}&prompt=consent`;
-  };
+  const triggerDiscordOauth = () =>
+    (window.location.href = `${process.env.NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL}?response_type=code&client_id=${process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID}&scope=${process.env.NEXT_PUBLIC_DISCORD_SCOPE}&state=15773059ghq9183habn&redirect_uri=${process.env.NEXT_PUBLIC_DISCORD_CALLBACK_URL}&prompt=consent`);
 
   const triggerKYCVerification = () => {
     console.log("Hello world!");
