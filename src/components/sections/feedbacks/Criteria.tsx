@@ -6,7 +6,6 @@ import DateManager from "@/utilities/DateManager";
 import ChevronBottomIcon from "@/icons/chevron-bottom.svg";
 import ChevronTopIcon from "@/icons/chevron-top.svg";
 import ObjectiveList from "../../list/Objectives";
-import { Feedback } from "@/types/feedback";
 import classNames from "classnames";
 
 /**
@@ -17,33 +16,20 @@ import classNames from "classnames";
  * @returns {*}
  */
 export default function Criteria(): ReactElement {
-  const [githubLink, setgithubLink] = useState();
-  const [text, setText] = useState();
+  const { t } = useTranslation();
   const [infoVisibility, setinfoVisibility] = useState(false);
-  const [description, setdescription] = useState("This applies only if the submission reaches 6/20 Points otherwise the best feedback will get 0.5 CGLD");
-
-  const submission = useSelector((state) => state.submissions.current);
-  const challenge = useSelector((state) => state.challenges.current);
+  const { submission, challenge, colors } = useSelector((state) => ({
+    submission: state.submissions.current,
+    challenge: state.challenges.current,
+    colors: state.ui.colors,
+  }));
 
   const reward = useMemo(() => challenge?.rewards?.find((reward: { type: string }) => reward.type === "FEEDBACK"), [challenge]);
-
-  const colors = useSelector((state) => state.ui.colors);
-
-  const activeButtonStyle = useMemo(
-    () => ({
-      color: colors.text,
-      backgroundColor: colors.textAccent,
-    }),
-    [colors]
-  );
-
+  const activeButtonStyle = useMemo(() => ({ color: colors.text, backgroundColor: colors.textAccent }), [colors]);
   const reviewed = useMemo(() => submission?.metadata?.evaluation || submission?.metadata?.reviewed, [submission?.metadata?.evaluation, submission?.metadata?.reviewed]);
-
   const deadline = useMemo(() => DateManager.fromNow(submission?.reviewDeadline as Date), [submission?.reviewDeadline]);
-
-  const { t } = useTranslation();
-
   const list = useMemo(() => challenge?.feedbackInfo, [challenge?.feedbackInfo]);
+
   return (
     <div className={reviewed ? "bg-gray-50 border-gray-200" : "bg-yellow-50 border-yellow-200 py-5 border rounded-t relative"}>
       {reward && (

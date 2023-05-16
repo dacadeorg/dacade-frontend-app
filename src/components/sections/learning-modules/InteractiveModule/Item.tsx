@@ -2,9 +2,6 @@ import { ReactElement, useState } from "react";
 import Button from "@/components/ui/button";
 import InteractiveModuleQuestion from "@/components/sections/learning-modules/InteractiveModule/Question";
 import Markdown from "@/components/ui/Markdown";
-import { useSelector } from "@/hooks/useTypedSelector";
-import { authCheck } from "@/store/feature/auth.slice";
-import { useDispatch } from "@/hooks/useTypedDispatch";
 
 interface InteractiveModuleItemProps {
   data: {
@@ -33,10 +30,6 @@ interface InteractiveModuleItemProps {
 export default function InteractiveModuleItem({ data }: InteractiveModuleItemProps): ReactElement {
   const [answering, setAnswering] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const dispatch = useDispatch();
-
-  const ended = false;
-  const started = false;
 
   const completed = () => {
     setDisabled(true);
