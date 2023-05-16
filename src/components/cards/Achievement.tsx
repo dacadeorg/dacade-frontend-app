@@ -9,7 +9,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 interface AchievementCardProps {
   // TODO: The type should be improved after having a clear idea about the data type
   data: any;
-  minting: boolean;
+  minting?: boolean;
 }
 
 export default function AchievementCard({ data, minting }: AchievementCardProps): ReactElement {
