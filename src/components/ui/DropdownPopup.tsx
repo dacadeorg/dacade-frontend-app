@@ -21,7 +21,7 @@ interface DropdownPopupProps {
 export default function DropdownPopup({ onClose, children }: DropdownPopupProps): ReactElement {
   const popupRef = useRef<HTMLDivElement>(null);
 
-  useOnClickOutside(popupRef, () => onClose?.());
+  useOnClickOutside(popupRef, () => onClose);
   return (
     <div
       ref={popupRef}

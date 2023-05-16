@@ -1,4 +1,4 @@
-import { CSSProperties, ReactElement, useEffect, useState } from "react";
+import { CSSProperties, ReactElement, useEffect, useRef, useState } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import BalanceList from "@/components/list/Balance";
 import ReputationList from "@/components/list/Reputation";
@@ -9,11 +9,12 @@ import DropdownPopup from "@/components/ui/DropdownPopup";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { User } from "@/types/bounty";
-import { setShowReferralPopup } from "@/store/feature/ui.slice";
+import { setShowReferralPopup, toggleBodyScrolling } from "@/store/feature/ui.slice";
 import { logout } from "@/store/feature/auth.slice";
 import { setBusy, setError } from "@/store/feature/index.slice";
 import Link from "next/link";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import useOnClickOutside from "use-onclickoutside";
 
 /**
  * User profile dropdown component
@@ -26,12 +27,12 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 }
  * @returns {ReactElement}
  */
-const UserProfileDropdown = ({ buttonStyles, close }: { buttonStyles?: CSSProperties; close?: () => void }): ReactElement => {
+const UserProfileDropdown = ({ buttonStyles, close }: { buttonStyles?: CSSProperties; close: () => void }): ReactElement => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const router = useRouter();
   const [showLanguageSwitcher, setShowLanguageSwitcher] = useState<boolean>(process.env.NEXT_PUBLIC_SHOW_LANGUAGE_SELECTOR === "true");
-
+  const [show, setshow] = useState(false);
   const { wallets, reputations, user, error, busy } = useSelector((state) => ({
     wallets: state.wallets.list,
     reputations: state.userReputations.list,
@@ -39,7 +40,7 @@ const UserProfileDropdown = ({ buttonStyles, close }: { buttonStyles?: CSSProper
     busy: state.store.busy,
     error: state.store.error,
   }));
-
+  const popupRef = useRef<HTMLDivElement>(null);
   const username = user?.displayName;
 
   /**
@@ -76,56 +77,69 @@ const UserProfileDropdown = ({ buttonStyles, close }: { buttonStyles?: CSSProper
     };
   }, [busy, dispatch, error]);
 
+  const onclose = () => {
+    if (!show) {
+      setshow(true);
+      toggleBodyScrolling(true)(dispatch);
+    }
+
+    // setshow(true)
+  };
+  // useOnClickOutside(popupRef, onclose)
   return (
-    <DropdownPopup onClose={close}>
-      <div className="divide-y divide-gray-200">
-        <div className="flex justify-between hover:bg-gray-50">
-          <div className="w-full p-4 text-left flex">
-            <div className="pr-3.5">
-              <Avatar user={user as User} size="medium" useLink={false} hideVerificationBadge />
+    <>
+      {!show && (
+        <DropdownPopup onClose={onclose}>
+          <div className="divide-y divide-gray-200">
+            <div className="flex justify-between hover:bg-gray-50">
+              <div className="w-full p-4 text-left flex">
+                <div className="pr-3.5">
+                  <Avatar user={user as User} size="medium" useLink={false} hideVerificationBadge />
+                </div>
+                <div className="pt-2">
+                  <span className="font-medium text-base block leading-normal capitalize">{username}</span>
+                  <Link className="self-end text-sm block leading-normal" href="/profile">
+                    {t("nav.view-profile")}
+                  </Link>
+                </div>
+              </div>
+              <div className="mr-4 mb-6 text-gray-500 self-end text-right whitespace-nowrap align-text-bottom font-normal cursor-pointer text-sm" onClick={onLogout}>
+                <span>{t("nav.sign-out")}</span>
+              </div>
             </div>
-            <div className="pt-2">
-              <span className="font-medium text-base block leading-normal capitalize">{username}</span>
-              <Link className="self-end text-sm block leading-normal" href="/profile">
-                {t("nav.view-profile")}
-              </Link>
+            {wallets.length ? (
+              <div className="p-4">
+                <BalanceList />
+              </div>
+            ) : (
+              <></>
+            )}
+            {reputations.length ? (
+              <div className="p-4">
+                <ReputationList />
+              </div>
+            ) : (
+              <></>
+            )}
+            {showLanguageSwitcher && <LanguageList />}
+            <div className="p-4 flex justify-center bg-indigo-50">
+              <div className="z-10">
+                <Button
+                  type="button"
+                  padding={false}
+                  variant="outline-primary"
+                  className="flex btn-primary btn-lg py-2 px-5 align-middle text-sm"
+                  onClick={toggleInvite}
+                  customStyle={buttonStyles}
+                >
+                  {t("nav.view-profile-codes")}
+                </Button>
+              </div>
             </div>
           </div>
-          <div className="mr-4 mb-6 text-gray-500 self-end text-right whitespace-nowrap align-text-bottom font-normal cursor-pointer text-sm" onClick={onLogout}>
-            <span>{t("nav.sign-out")}</span>
-          </div>
-        </div>
-        {wallets.length ? (
-          <div className="p-4">
-            <BalanceList />
-          </div>
-        ) : (
-          <></>
-        )}
-        {reputations.length ? (
-          <div className="p-4">
-            <ReputationList />
-          </div>
-        ) : (
-          <></>
-        )}
-        {showLanguageSwitcher && <LanguageList />}
-        <div className="p-4 flex justify-center bg-indigo-50">
-          <div className="z-10">
-            <Button
-              type="button"
-              padding={false}
-              variant="outline-primary"
-              className="flex btn-primary btn-lg py-2 px-5 align-middle text-sm"
-              onClick={toggleInvite}
-              customStyle={buttonStyles}
-            >
-              {t("nav.view-profile-codes")}
-            </Button>
-          </div>
-        </div>
-      </div>
-    </DropdownPopup>
+        </DropdownPopup>
+      )}
+    </>
   );
 };
 
