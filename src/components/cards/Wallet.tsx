@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import { ReactElement, useState } from "react";
 import Coin from "@/components/ui/Coin";
 import ArrowButton from "@/components/ui/button/Arrow";
 import Tag from "@/components/ui/Tag";
