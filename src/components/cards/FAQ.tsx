@@ -11,10 +11,7 @@ import { ReactElement } from "react";
  * @returns {ReactElement}
  */
 export default function FaqCard(): ReactElement {
-  // TODO: to be uncommented when redux is implemented(communities slice)
-  // const course = useSelector(
-  //   (state) => state.communities.courses.current
-  // );
+  const course = useSelector((state) => state.courses.current);
   const { t } = useTranslation();
 
   return (
@@ -29,14 +26,13 @@ export default function FaqCard(): ReactElement {
             </a>
           </div>
         </div>
-        {/* TODO: to be uncommented when redux and QuestionCard is ready */}
-        {/* {course.faq && (
+        {course?.faq && (
           <div className="w-full lg:w-1/2 divide-y divide-2 space-y-4 divide-gray-200">
-            {course.faq.map((question, i) => (
-              <QuestionCard key={i} details={question} />
+            {course?.faq.map((question: any, i: any) => (
+              <QuestionCard key={`fag-${i}`} details={question} />
             ))}
           </div>
-        )} */}
+        )}
       </div>
     </div>
   );

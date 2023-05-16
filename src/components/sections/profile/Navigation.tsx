@@ -37,7 +37,7 @@ export default function ProfileNagivation(): ReactElement {
   const menus: Menu[] = useMemo(() => {
     const items: Menu[] = [];
     if (communities?.length) {
-      menus.push({
+      items.push({
         title: "Communities",
         items: communities.map((community) => ({
           label: community.name,
@@ -79,7 +79,7 @@ export default function ProfileNagivation(): ReactElement {
   return (
     <ul className="relative hidden lg:block xl:block">
       {menus.map((menu, i) => (
-        <li key={`profile-menu-${i}`} className="mb-8 relative">
+        <li key={`profile-menu-${i}`} className="mb-2 relative">
           <ProfileOverviewSection title={menu.title}>
             <ul className="space-y-4 flex flex-col">
               {menu.items.map((item, k) => (

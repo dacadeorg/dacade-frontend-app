@@ -34,7 +34,7 @@ const UserProfileDropdown = ({ buttonStyles, close }: { buttonStyles?: CSSProper
 
   const { wallets, reputations, user, error, busy } = useSelector((state) => ({
     wallets: state.wallets.list,
-    reputations: state.profile.reputations.list,
+    reputations: state.userReputations.list,
     user: state.user.data,
     busy: state.store.busy,
     error: state.store.error,
@@ -82,7 +82,7 @@ const UserProfileDropdown = ({ buttonStyles, close }: { buttonStyles?: CSSProper
         <div className="flex justify-between hover:bg-gray-50">
           <div className="w-full p-4 text-left flex">
             <div className="pr-3.5">
-              <Avatar user={user as User} size="medium" useLink={false} />
+              <Avatar user={user as User} size="medium" useLink={false} hideVerificationBadge />
             </div>
             <div className="pt-2">
               <span className="font-medium text-base block leading-normal capitalize">{username}</span>

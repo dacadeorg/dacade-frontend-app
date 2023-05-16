@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CSSProperties, ReactElement, ReactNode, useState } from "react";
+import { CSSProperties, ReactElement, ReactNode, useMemo, useState } from "react";
+import VerifiedIcon from "@/icons/verified.svg";
 import classNames from "classnames";
 
 /**
@@ -33,6 +34,7 @@ interface AvatarProps {
   size?: Size;
   shape?: Shape;
   useLink?: boolean;
+  hideVerificationBadge?: boolean;
   style?: CSSProperties;
   className?: string;
 }
@@ -65,7 +67,18 @@ function Span({ children }: { children: ReactNode }): ReactElement {
  * @returns {ReactElement}
  */
 
-export default function Avatar({ icon, image, color, user = null, size = "small", shape = "circular", useLink = true, style, className }: AvatarProps): ReactElement {
+export default function Avatar({
+  icon,
+  image,
+  color,
+  user = null,
+  size = "small",
+  shape = "circular",
+  useLink = true,
+  style,
+  className,
+  hideVerificationBadge = false,
+}: AvatarProps): ReactElement {
   const [userAvatarLoaded, setUserAvatarLoaded] = useState(true);
   const initials = user?.displayName ? user?.displayName[0] : null;
 
@@ -88,36 +101,54 @@ export default function Avatar({ icon, image, color, user = null, size = "small"
     "rounded-none": shape === "squared",
   });
 
-  const componentClassName = classNames(
-    "bg-primary relative inline-flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle",
-    sizeClassName,
-    shapeClassName,
-    className,
-    {
-      "cursor-pointer": user,
-    }
-  );
+  const componentClassName = classNames("inline-flex relative align-middle", sizeClassName, className, {
+    "cursor-pointer": user,
+  });
 
+  const verifiedIconClasses = useMemo(() => {
+    switch (size) {
+      case "medium":
+      case "medium-fixed":
+      case "small-fixed":
+        return "w-1/3 h-1/3 right-0 -bottom-1/100";
+      case "mini":
+        return "w-3/6 h-3/6 -right-1/10 -bottom-1/10";
+      default:
+        return "w-1/5 h-1/5 right-1/10 bottom-1/100";
+    }
+  }, [size]);
+
+  const showVerificationBadge = !hideVerificationBadge && user;
   const Component = useLink ? Link : "span";
 
   return (
     <Component href={link} className={componentClassName} style={{ backgroundColor: color, ...style }}>
-      {user && user.avatar && userAvatarLoaded ? (
-        <Image
-          src={user.avatar}
-          alt="img"
-          fill={true}
-          className="object-cover w-full h-full"
-          onError={() => {
-            setUserAvatarLoaded(false);
-          }}
-        />
-      ) : (
-        <span>{initials}</span>
-      )}
+      <span
+        style={{ backgroundColor: color }}
+        className={`bg-primary h-full w-full flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle relative z-0 ${shapeClassName}`}
+      >
+        {user && user.avatar && userAvatarLoaded ? (
+          <Image
+            src={user.avatar}
+            alt="user-avatar"
+            fill={true}
+            className="object-cover w-full h-full"
+            onError={() => {
+              setUserAvatarLoaded(false);
+            }}
+          />
+        ) : (
+          <span>{initials}</span>
+        )}
 
-      {icon && <Image fill={true} src={icon} alt="icon image" className="p-2" />}
-      {image && <Image src={image} fill={true} alt="icon image" className="p-0 object-cover w-full h-full" />}
+        {icon && <Image fill={true} src={icon} alt="icon image" className="p-2" />}
+        {image && <Image src={image} fill={true} alt="icon image" className="p-0 object-cover w-full h-full" />}
+      </span>
+      {showVerificationBadge && (
+        <span className={`absolute z-10 rounded-full ${verifiedIconClasses}`}>
+          <VerifiedIcon />
+        </span>
+      )}
     </Component>
   );
 }

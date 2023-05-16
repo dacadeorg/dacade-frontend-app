@@ -20,6 +20,7 @@ export default function BestSubmissions(): ReactElement {
   const router = useRouter();
   const navigation = new CommunityNavigation(router);
   const challenge = useSelector((state) => state.challenges.current);
+
   return challenge?.bestSubmissions && challenge.bestSubmissions.length ? (
     <Section title={t("communities.challenge.best-submissions.title")}>
       <p className="leading-normal text-sm capitalize w-64 pt-3">{t("communities.challenge.best-submissions.description")}</p>

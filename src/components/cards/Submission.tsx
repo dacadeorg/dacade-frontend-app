@@ -4,7 +4,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { Submission } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 
 /**
  * Submission card interface props
@@ -20,6 +20,7 @@ interface SubmissionCardProps {
     text: string;
     date: string;
   };
+  children?: ReactNode;
 }
 
 /**
@@ -34,6 +35,7 @@ export default function SubmissionCard({
   buttons = false,
   last = false,
   timestamp = { text: "", date: "" },
+  children,
 }: SubmissionCardProps): ReactElement {
   const { t } = useTranslation();
   const { colors, community } = useSelector((state) => ({
@@ -110,6 +112,7 @@ export default function SubmissionCard({
             />
           </div>
         </div>
+        {children}
       </div>
     </UserCard>
   );

@@ -4,6 +4,7 @@ import Currency from "@/components/ui/Currency";
 import Tag from "@/components/ui/Tag";
 import { useSelector } from "@/hooks/useTypedSelector";
 import DateManager from "@/utilities/DateManager";
+import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
@@ -44,8 +45,11 @@ interface UserProps {
  */
 export default function UserCard({ boxLayout, link, bordered, user, badge = "", timestamp, children, className }: UserProps): ReactElement {
   const { locale } = useRouter();
-  const colors = useSelector((state) => state.ui.colors);
-  const community = useSelector((state) => state.communities.current);
+  const { colors, community } = useSelector((state) => ({
+    colors: state.ui.colors,
+    community: state.communities.current,
+  }));
+
   const [humanizedDate, setHumanizedDate] = useState("");
   const [date, setDate] = useState("");
   const [profileURL, setProfileURL] = useState("");
@@ -56,12 +60,14 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
     setProfileURL(`/profile/${user.username}`);
   }, [timestamp, user, locale]);
 
+  const userCardClassName = classNames(`group bg-gradient-to-trw-full relative ${className}`, {
+    "sm:p-6 flex space-x-3": boxLayout,
+    "pl-5 sm:pl-7.5": !boxLayout,
+    "cursor-pointer": link,
+  });
+
   return (
-    <div
-      className={`group bg-gradient-to-trw-full relative ${className} ${boxLayout ? "sm:p-6" : "pl-5 sm:pl-7.5"} ${link ? "cursor-pointer" : ""} ${
-        boxLayout ? "flex space-x-3" : ""
-      }`}
-    >
+    <div className={userCardClassName}>
       <div className={`z-10 ${boxLayout ? "relative flex-none" : "absolute top-0 left-0"}`}>
         <Avatar user={user} size="medium" />
         {badge && (

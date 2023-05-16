@@ -1,12 +1,5 @@
-/**
- * Some lines in this file are temporary commented
- * because redux and its features are not implemented yet.
- */
-
+import { useSelector } from "@/hooks/useTypedSelector";
 import React, { ReactElement } from "react";
-
-// TODO: Should be uncommented when redux will be implemented
-// import { useSelector } from "react-redux";
 
 /**
  * Progress Component props interface.
@@ -34,25 +27,13 @@ interface ProgressProps {
  */
 
 export default function Progress({ communityStyles, percentage }: ProgressProps): ReactElement {
-  // TODO: Should be uncommented when redux will be implemented
-  // const colors = useSelector((state) => state.ui.colors);
-  // const styles = communityStyles ? { backgroundColor: colors.textAccent } : {};
+  const colors = useSelector((state) => state.ui.colors);
+  const styles = communityStyles ? { backgroundColor: colors.textAccent } : {};
 
   return (
     <div className="h-3 w-full block rounded-lg overflow-hidden relative">
-      <div
-        // TODO: Should be uncommented when redux will be implemented
-        // style={styles}
-        className={`h-full w-full absolute top-0 left-0 bg-gray-100  z-0 ${communityStyles ? "opacity-20" : ""}`}
-      />
-      <div
-        style={{
-          width: `${percentage}%`,
-          // TODO: Should be uncommented when redux will be implemented
-          // ...styles,
-        }}
-        className="h-full relative z-10 bg-primary transition-all"
-      />
+      <div style={styles} className={`h-full w-full absolute top-0 left-0 bg-gray-100  z-0 ${communityStyles ? "opacity-20" : ""}`} />
+      <div style={{ width: `${percentage}%`, ...styles }} className="h-full relative z-10 bg-primary transition-all" />
     </div>
   );
 }
