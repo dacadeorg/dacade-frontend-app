@@ -47,8 +47,6 @@ const certificateService = createApi({
   }),
 });
 
-export default certificateService;
-
 export const fetchAllCertificates = ({ locale, username }: { locale?: string; username: string }) =>
   certificateService.endpoints.fetchAllCertificates.initiate({
     locale,
