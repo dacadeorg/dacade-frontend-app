@@ -15,7 +15,6 @@ export default function LearningModules(): ReactElement {
   const { t } = useTranslation();
   const course = useSelector((state) => state.courses.current);
 
-  // console.log(course);
   return (
     <>
       {course ? (

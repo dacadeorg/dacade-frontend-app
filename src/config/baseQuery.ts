@@ -25,7 +25,7 @@ const baseQuery = (locale: string = "en"): BaseQueryFn =>
           headers.set("authorization", token);
         }
       } catch (err) {
-        console.error(err);
+        console.log(err);
       }
 
       return headers;

@@ -25,9 +25,12 @@ import { fetchAllWallets } from "@/store/services/wallets.service";
 export default function UserPopup({ buttonStyles }: { buttonStyles: CSSProperties }): ReactElement {
   const [show, setShow] = useState(false);
   const [showReferral, setShowReferral] = useState(false);
-  const { main: mainWallet } = useSelector((state) => state.wallets);
-  const user = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
+
+  const { mainWallet, user } = useSelector((state) => ({
+    mainWallet: state.wallets.current,
+    user: state.user.data,
+  }));
 
   useEffect(() => {
     dispatch(fetchAllWallets());
@@ -57,7 +60,7 @@ export default function UserPopup({ buttonStyles }: { buttonStyles: CSSPropertie
         <span onClick={externalClick}>
           <li className={`inline-block align-middle relative ${show === true ? "z-50" : "z-10"}`} onClick={toggle}>
             <Button customStyle={buttonStyles} padding={false} variant="secondary" className={`p-0.5 bg-gray-100 bg-opacity-75 hover:bg-gray-50 ${mainWallet ? "pr-5" : ""}`}>
-              <Avatar user={user as User} useLink={false} />
+              <Avatar user={user as User} useLink={false} hideVerificationBadge />
               {mainWallet ? (
                 <span
                   style={{

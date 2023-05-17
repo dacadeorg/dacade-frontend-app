@@ -13,7 +13,7 @@ const userProfileService = createApi({
         try {
           const { data } = await queryFulfilled;
           const current = store.getState().profile.user.current;
-          if (!current || current?.username !== username) {
+          if (!current || current?.username.toLocaleLowerCase() !== username.toLocaleLowerCase()) {
             dispatch(clearProfile());
           }
           dispatch(setCurrentUserProfile(data));
@@ -25,5 +25,7 @@ const userProfileService = createApi({
     }),
   }),
 });
+
+export const fetchUserProfile = (username: string) => userProfileService.endpoints.fetchUserProfile.initiate(username);
 
 export default userProfileService;

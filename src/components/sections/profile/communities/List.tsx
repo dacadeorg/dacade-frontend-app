@@ -1,9 +1,9 @@
-import SubmissionCard from "@/components/cards/Submission";
 import FeedbackCard from "@/components/cards/Feedback";
 import { useSelector } from "@/hooks/useTypedSelector";
 import navigation from "@/config/navigation";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
+import SubmissionCard from "@/components/cards/Submission";
 
 /**
  * Submission list component
@@ -11,10 +11,9 @@ import { ReactElement } from "react";
  */
 export default function SubmissionList(): ReactElement {
   const { t } = useTranslation();
-  const { community, submissions } = useSelector((state) => ({
+  const { community, submissions, feedbacks } = useSelector((state) => ({
     community: state.communities.current,
-    // TODO: Will be uncommented when the feedback slice in implemented
-    //   feedbacks: state.feedback.list,
+    feedbacks: state.feedback.list,
     submissions: state.submissions.list,
   }));
 
@@ -40,34 +39,25 @@ export default function SubmissionList(): ReactElement {
       ) : (
         <></>
       )}
-      {/* TODO: Will be uncommented when the feedback slice is migrated */}
-      {/* {feedbacks && feedbacks.length && (
+      {feedbacks && feedbacks.length && (
         <div className="py-10">
-          <p className="font-medium text-xs text-gray-600">
-            {community?.challenge.feedbacks.cap}
-          </p>
+          <p className="font-medium text-xs text-gray-600">{community?.challenge.feedbacks.cap}</p>
           <div className="my-5 sm:border sm:border-gray-200 sm:border-solid rounded-3.5xl relative">
             <div className="flex flex-col divide-y">
               {feedbacks.map((feedback) => (
                 <div key={feedback.id}>
                   <SubmissionCard
                     stats={true}
-                    link={`$navigation.community.submissionPath(
-                      ${feedback.submission.id},
-                      ${feedback.submission.challenge.id},
-                      ${feedback.submission.challenge.course.slug},
-                      ${community?.slug}
-                    )`}
+                    link={navigation.community.submissionPath(feedback.submission.id, feedback.submission.challenge.id, feedback.submission.challenge.course.slug, community?.slug)}
                     submission={feedback.submission}
                     last={false}
+                    setSelectedSubmission={function (selectedSubmission: string): string {
+                      throw new Error("Function not implemented.");
+                    }}
                   >
                     <div className="relative">
                       <div className="-mx-6">
-                        <FeedbackCard
-                          preview={true}
-                          value={feedback}
-                          last={true}
-                        />
+                        <FeedbackCard preview={true} value={feedback} last={true} />
                       </div>
                     </div>
                   </SubmissionCard>
@@ -76,7 +66,7 @@ export default function SubmissionList(): ReactElement {
             </div>
           </div>
         </div>
-      )} */}
+      )}
     </div>
   );
 }
