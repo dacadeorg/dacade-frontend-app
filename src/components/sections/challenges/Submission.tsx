@@ -36,13 +36,13 @@ export default function Submission(): ReactElement {
   let githubLinkValue = watch("githubLink");
   let textValue = watch("text");
   const dispatch = useDispatch();
-
   const { t } = useTranslation();
-
-  const user = useSelector((state) => state.user.data);
-  const colors = useSelector((state) => state.ui.colors);
-  const challenge = useSelector((state) => state.challenges.current);
-  const community = useSelector((state) => state.communities.current);
+  const { user, colors, challenge, community } = useSelector((state) => ({
+    user: state.user.data,
+    colors: state.ui.colors,
+    challenge: state.challenges.current,
+    community: state.communities.current,
+  }));
 
   const [submitting, setSubmitting] = useState(false);
   const [checkedTerms, setCheckedTerms] = useState(false);

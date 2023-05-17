@@ -1,4 +1,3 @@
-import { GetServerSideProps, GetStaticProps } from "next";
 import { useEffect } from "react";
 import Header from "@/components/sections/communities/_partials/Header";
 import SubmissionView from "@/components/sections/submissions/View";
@@ -19,8 +18,11 @@ export default function SubmissionPage() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { t } = useTranslation();
-  const course = useSelector((state) => state.courses.current);
-  const submission = useSelector((state) => state.submissions.current);
+  const { course, submission } = useSelector((state) => ({
+    course: state.courses.current,
+    submission: state.submissions.current,
+  }));
+
   const { slug, course_slug, submission_id } = router.query;
 
   useEffect(() => {

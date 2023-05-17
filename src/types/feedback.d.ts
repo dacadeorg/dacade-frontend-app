@@ -1,7 +1,8 @@
-import { User } from "./bounty";
+import { Submission, User } from "./bounty";
 import { Reward } from "./course";
 
 export type Feedback = {
+  submission: Submission;
   id: string;
   ref: string;
   created_at: string;

@@ -1,9 +1,6 @@
-// TODO: will be uncommented when we apply the redux
-// import { useSelector } from 'react-redux';
 import Objective from "@/components/cards/Objective";
 import { ReactElement } from "react";
 
-// TODO: Will be updated when there is the acctual types
 interface ObjectiveProps {
   iconcolor?: string;
   crossmark?: boolean;
