@@ -85,7 +85,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
       setCurrentText(translatedText);
       setLocale(currentLocale);
     } catch (e) {
-      console.log("There was an error with the translation request: ", e);
+      console.log("There was an error with the translation requests: ", e);
     }
 
     setLoading(false);
