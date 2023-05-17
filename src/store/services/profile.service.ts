@@ -71,4 +71,3 @@ export const fetchProfileCommunity = ({ username, slug, locale }: { locale?: str
 function setListProfileCommunity(data: any): any {
   throw new Error("Function not implemented.");
 }
-
