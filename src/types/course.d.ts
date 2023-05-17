@@ -103,6 +103,7 @@ export type Metadata = {
   submissions: number;
   bestSubmissions: string[];
   feedbacks: number;
+  name: string;
 };
 
 export type Reward = {
