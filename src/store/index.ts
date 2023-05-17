@@ -11,6 +11,7 @@ import { challengeSlice } from "./feature/communities/challenges";
 import { feedbackSlice } from "./feature/communities/challenges/submissions/feedback.slice";
 import { eventsSlice } from "./feature/events.slice";
 import { reputationProfileService } from "./services/profile/reputation.service";
+import { authService } from "./services/auth.service";
 
 import communities from "./feature/community.slice";
 import ui from "./feature/ui.slice";
@@ -62,6 +63,7 @@ export interface IRootState {
   certificateService: ReturnType<typeof certificateService.reducer>;
   reputationProfileService: ReturnType<typeof reputationProfileService.reducer>;
   profileCommunitiesService: ReturnType<typeof profileCommunitiesService.reducer>;
+  authService: ReturnType<typeof authService.reducer>;
   bountiesService: ReturnType<typeof bountiesService.reducer>;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   bounties: ReturnType<typeof bountiesSlice.reducer>;
@@ -106,6 +108,7 @@ export const store = configureStore({
     [learningModulesSlice.name]: learningModulesSlice.reducer,
     [communityService.reducerPath]: communityService.reducer,
     [bountiesService.reducerPath]: bountiesService.reducer,
+    [authService.reducerPath]: authService.reducer,
     [coursesService.reducerPath]: coursesService.reducer,
     [certificateService.reducerPath]: certificateService.reducer,
     [walletsService.reducerPath]: walletsService.reducer,
@@ -138,7 +141,8 @@ export const store = configureStore({
       reputationProfileService.middleware,
       profileCommunitiesService.middleware,
       userReputationService.middleware,
-      bountiesService.middleware
+      bountiesService.middleware,
+      authService.middleware
     );
   },
 });
