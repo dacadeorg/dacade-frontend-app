@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "@/types/bounty";
+import { clearProfileCommunity } from "./communities.slice";
 
 interface InialState {
   current: User | null;
@@ -16,8 +17,7 @@ const initialState: InialState = {
  * @type {*}
  */
 export const clearProfile = createAsyncThunk("profile/clear", async (_, { dispatch }) => {
-  // TODO: Will be uncommented after the migration of /store/profile/
-  // dispatch(clearCommunities());
+  dispatch(clearProfileCommunity());
 });
 
 /**
