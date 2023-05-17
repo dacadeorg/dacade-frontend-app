@@ -19,17 +19,19 @@ export default function ProfileOverviewCommunities(): ReactElement {
   const router = useRouter();
   const username = router.asPath || authUser?.displayName;
 
-  return (
-    <ProfileOverviewSection title="Communities">
-      {reputations && reputations.length > 0 && (
-        <div className="grid gap-4 md:grid-cols-2">
-          {reputations.map((reputation, i) => (
-            <div key={`reputation-${i}`} className="block">
-              <CommunityCardSmall data={reputation} />
-            </div>
-          ))}
-        </div>
-      )}
-    </ProfileOverviewSection>
-  );
+  if (reputations && reputations.length)
+    return (
+      <ProfileOverviewSection title="Communities">
+        {reputations && reputations.length > 0 && (
+          <div className="grid gap-4 md:grid-cols-2">
+            {reputations.map((reputation, i) => (
+              <div key={`reputation-${i}`} className="block">
+                <CommunityCardSmall data={reputation} />
+              </div>
+            ))}
+          </div>
+        )}
+      </ProfileOverviewSection>
+    );
+  return <></>;
 }

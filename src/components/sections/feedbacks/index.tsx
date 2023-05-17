@@ -20,11 +20,15 @@ import { useRouter } from "next/router";
 export default function Feedback(): ReactElement {
   const dispatch = useDispatch();
   const route = useRouter();
-  const feedbacks = useSelector((state) => state.feedback.list);
   const [loading, setLoading] = useState(false);
-  const isAuthenticated = useSelector((state) => authCheck(state));
-  const submission = useSelector((state) => state.submissions.current);
-  const challenge = useSelector((state) => state.challenges.current);
+
+  const { feedbacks, isAuthenticated, submission, challenge } = useSelector((state) => ({
+    feedbacks: state.feedback.list,
+    isAuthenticated: authCheck(state),
+    submission: state.submissions.current,
+    challenge: state.challenges.current,
+  }));
+
   const fetchList = useCallback(() => {
     dispatch(fetchFeedbacks({ submissionId: submission?.id as string, locale: route.locale }));
   }, [dispatch, route.locale, submission?.id]);
@@ -32,10 +36,15 @@ export default function Feedback(): ReactElement {
   useEffect(() => {
     fetchList();
   }, [fetchList]);
+
   return (
     <div className="relative">
-      {feedbacks.map((feedback, index) => (
-        <FeedbackCard key={feedback.id} value={feedback} last={index === feedbacks.length - 1} />
+      {!loading && feedbacks.map((feedback, index) => (
+        <FeedbackCard
+          key={feedback.id}
+          value={feedback}
+          last={index === feedbacks.length - 1}
+        />
       ))}
       {loading && <Loader loading={loading} />}
       {isAuthenticated && challenge?.feedbackInfo && (

@@ -24,11 +24,10 @@ export default function ScoreboardList(): ReactElement {
   const dispatch = useDispatch();
   const router = useRouter();
   const params = router.query;
-
-  const {
-    communities: { current: community },
-    scoreboard: { list },
-  } = useSelector((state) => state);
+  const { community, list } = useSelector((state) => ({
+    community: state.communities.current,
+    list: state.scoreboard.list,
+  }));
 
   useEffect(() => {
     dispatch(

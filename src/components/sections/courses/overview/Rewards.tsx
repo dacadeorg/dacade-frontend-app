@@ -14,8 +14,8 @@ import { Reward as RewardType } from "@/types/course";
  */
 export default function Rewards(): ReactElement {
   const { t } = useTranslation();
-
   const course = useSelector((state) => state.courses.current);
+
   return (
     <>
       {course && course.challenge ? (

@@ -39,10 +39,13 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): any {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user.data);
-  const isAuthenticated = useSelector((state) => authVerify(state));
+  const { user, isAuthenticated, unread } = useSelector((state) => ({
+    user: state.user.data,
+    isAuthenticated: authVerify(state),
+    unread: state.notifications.unread,
+  }));
+
   const username = user?.username;
-  const unread = useSelector((state) => state.notifications.unread);
 
   const [show, setshow] = useState(false);
 
@@ -126,7 +129,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): any {
                 <div className="w-full px-3 py-3 text-left flex justify-between">
                   <div onClick={toggle}>
                     <Link className="flex text-sm leading-normal" href="/profile">
-                      <Avatar user={user} useLink={false} />
+                      <Avatar user={user} useLink={false} hideVerificationBadge />
                       <div className="py-2 px-2">
                         <span className="font-medium text-lg block leading-normal capitalize">{username}</span>
                       </div>

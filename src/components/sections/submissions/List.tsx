@@ -1,4 +1,4 @@
-import { ReactElement, useState, useMemo } from "react";
+import { ReactElement, useState, useMemo, SetStateAction, Dispatch } from "react";
 import Loader from "@/components/ui/button/Loader";
 import EmptyState from "@/components/ui/EmptyState";
 import { useTranslation } from "next-i18next";
@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
  * @export
  * @returns {ReactElement}
  */
-export default function List(): ReactElement {
+export default function List({ setSelectedSubmission }: { setSelectedSubmission: Dispatch<SetStateAction<string>> }): ReactElement {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [showButton, setShowButton] = useState(true);
@@ -24,7 +24,6 @@ export default function List(): ReactElement {
   const submissions = useSelector((state) => state.submissions.list);
   const router = useRouter();
   const showLoadMore = useMemo(() => showButton && submissions.length >= 30, [showButton, submissions.length]);
-
   const submissionId = submissions[submissions.length - 1]?.id || null;
   const dispatch = useDispatch();
 
@@ -62,7 +61,7 @@ export default function List(): ReactElement {
                 loader={<></>}
               >
                 {submissions.map((submission: any, i: number) => (
-                  <SubmissionCard key={`submission-${i}`} submission={submission} />
+                  <SubmissionCard key={`submission-${i}`} submission={submission} setSelectedSubmission={setSelectedSubmission} />
                 ))}
               </InfiniteScroll>
             </div>

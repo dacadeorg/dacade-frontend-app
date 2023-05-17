@@ -35,6 +35,7 @@ export interface Colors {
   muted: string;
 }
 export interface Referral {
+  user: User;
   id: string;
   name: string;
   ref: string;
