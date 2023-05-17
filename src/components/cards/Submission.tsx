@@ -20,6 +20,7 @@ interface SubmissionCardProps {
     text: string;
     date: string;
   };
+  setSelectedSubmission: (selectedSubmission: string) => string;
   children?: ReactNode;
 }
 
@@ -35,6 +36,7 @@ export default function SubmissionCard({
   buttons = false,
   last = false,
   timestamp = { text: "", date: "" },
+  setSelectedSubmission = () => "",
   children,
 }: SubmissionCardProps): ReactElement {
   const { t } = useTranslation();
@@ -55,6 +57,9 @@ export default function SubmissionCard({
     "--button-background-color--hover": colors.textAccent,
     "--button-border-color--hover": colors.textAccent,
   };
+
+
+  // TODO: Set current submition submission
 
   return (
     <UserCard
@@ -87,7 +92,7 @@ export default function SubmissionCard({
             {submission.metadata && submission.metadata.evaluation ? (
               <div className="inline-flex flex-1 items-center space-x-1">
                 <Badge custom-style={badgeButtonStyles} size="medium" className="relative" value={submission.metadata.evaluation.points} />
-                <span className="text-sm leading">{"submissions.evaluation.points"}</span>
+                <span className="text-sm leading">{t("submissions.evaluation.points")}</span>
               </div>
             ) : (
               <></>
@@ -107,8 +112,11 @@ export default function SubmissionCard({
               padding={false}
               className="action-button inline-flex bg-gray-100 text-gray-500 w-10 h-10 sm:w-11 sm:h-11 text-2xl rounded-full"
               variant="none"
-              arrowClasses="w-full"
+              minWidthClass="w-10 h-10"
               customStyle={arrowButtonStyles}
+              onClick={() => {
+                setSelectedSubmission(submission.id)
+              }}
             />
           </div>
         </div>

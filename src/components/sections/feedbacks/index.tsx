@@ -39,8 +39,12 @@ export default function Feedback(): ReactElement {
 
   return (
     <div className="relative">
-      {feedbacks.map((feedback, index) => (
-        <FeedbackCard key={feedback.id} value={feedback} last={index === feedbacks.length - 1} />
+      {!loading && feedbacks.map((feedback, index) => (
+        <FeedbackCard
+          key={feedback.id}
+          value={feedback}
+          last={index === feedbacks.length - 1}
+        />
       ))}
       {loading && <Loader loading={loading} />}
       {isAuthenticated && challenge?.feedbackInfo && (
