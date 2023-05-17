@@ -6,7 +6,6 @@ import Button from "@/components/ui/button";
 import Currency from "@/components/ui/Currency";
 import { User } from "@/types/bounty";
 import { toggleBodyScrolling } from "@/store/feature/ui.slice";
-// import { fetchAllWallets } from "@/store/feature/user/wallets.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchAllWallets } from "@/store/services/wallets.service";
 
@@ -41,12 +40,6 @@ export default function UserPopup({ buttonStyles }: { buttonStyles: CSSPropertie
     toggleBodyScrolling(!show)(dispatch);
   };
 
-  const toggleInvite = () => {
-    setShowReferral(!showReferral);
-    setShow(!show);
-    toggleBodyScrolling(false)(dispatch);
-  };
-
   const externalClick = () => {
     if (show) {
       setShow(false);
@@ -55,30 +48,23 @@ export default function UserPopup({ buttonStyles }: { buttonStyles: CSSPropertie
   };
 
   return (
-    <div className="">
+    <div>
       <div>
-        <span onClick={externalClick}>
-          <li className={`inline-block align-middle relative ${show === true ? "z-50" : "z-10"}`} onClick={toggle}>
-            <Button customStyle={buttonStyles} padding={false} variant="secondary" className={`p-0.5 bg-gray-100 bg-opacity-75 hover:bg-gray-50 ${mainWallet ? "pr-5" : ""}`}>
-              <Avatar user={user as User} useLink={false} hideVerificationBadge />
-              {mainWallet ? (
-                <span
-                  style={{
-                    color: buttonStyles.color ? buttonStyles.color : undefined,
-                  }}
-                  className="align-middle ml-2.5 font-medium text-gray-500"
-                >
-                  <Currency value={mainWallet.balance} token={mainWallet.token} />
-                </span>
-              ) : (
-                <></>
-              )}
-            </Button>
-          </li>
-          {show && <Dropdown close={externalClick} />}
-        </span>
-        {show && <div className="opacity-25 fixed inset-0 z-30 bg-black" />}
+        <div className={`inline-block align-middle relative ${show === true ? "z-50" : "z-10"}`} onClick={toggle}>
+          <Button customStyle={buttonStyles} padding={false} variant="secondary" className={`p-0.5 bg-gray-100 bg-opacity-75 hover:bg-gray-50 ${mainWallet ? "pr-5" : ""}`}>
+            <Avatar user={user as User} useLink={false} hideVerificationBadge />
+            {mainWallet ? (
+              <span style={{ color: buttonStyles.color ? buttonStyles.color : undefined }} className="align-middle ml-2.5 font-medium text-gray-500">
+                <Currency value={mainWallet.balance} token={mainWallet.token} />
+              </span>
+            ) : (
+              <></>
+            )}
+          </Button>
+        </div>
+        {show && <Dropdown />}
       </div>
+      {show && <div onClick={externalClick} className="opacity-25 fixed inset-0 z-30 bg-black" />}
     </div>
   );
 }
