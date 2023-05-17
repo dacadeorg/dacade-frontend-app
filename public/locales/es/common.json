@@ -231,7 +231,7 @@
   "profile.wallets.address-set": "Establezca una dirección",
   "profile.wallets.address-change": "Cambie su dirección",
   "profile.wallets.missing-info.action": "complete su perfil",
-  "profile.wallets.uncashable": "Por el momento {token}s no pueden cobrarse. Infórmese sobre {token}s <a href='{link}' target='__blank'>aquí</a>.",
+  "profile.wallets.uncashable": "Por el momento {{token}}s no pueden cobrarse. Infórmese sobre {{token}}s <a href='{{link}}' target='__blank'>aquí</a>.",
   "profile.edit.label.fist-name": "Nombre",
   "profile.edit.label.last-name": "Apellido",
   "profile.edit.label.account-address": "Dirección de la cuenta",
