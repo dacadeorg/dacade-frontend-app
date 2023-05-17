@@ -1,4 +1,4 @@
-import { CSSProperties, ReactElement, useEffect, useState } from "react";
+import { CSSProperties, ReactElement, useEffect, useMemo, useState } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import BalanceList from "@/components/list/Balance";
 import ReputationList from "@/components/list/Reputation";
@@ -30,7 +30,7 @@ const UserProfileDropdown = ({ buttonStyles }: { buttonStyles?: CSSProperties })
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const router = useRouter();
-  const [showLanguageSwitcher, _] = useState<boolean>(process.env.NEXT_PUBLIC_SHOW_LANGUAGE_SELECTOR === "true");
+  const showLanguageSwitcher = useMemo(() => process.env.NEXT_PUBLIC_SHOW_LANGUAGE_SELECTOR === "true", []);
   const { wallets, reputations, user, error, busy } = useSelector((state) => ({
     wallets: state.wallets.list,
     reputations: state.userReputations.list,
