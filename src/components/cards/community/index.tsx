@@ -52,7 +52,7 @@ export default function CommunityCard({ showRewards = true, community }: Communi
                 <p className="pr-2 tracking-tight md:max-w-text-md text-theme-accent">{community.description || ""}</p>
               </div>
               <div className="self-end max-w-lg sm:h-full sm:-mb-0 md:mb-2 md:h-auto">
-                <Image src={`/static/${community.icon}`} className="relative mb-5 h-44 w-44" alt="" width={56} height={56} />
+                <Image src={community.icon} className="relative mb-5 h-44 w-44" alt="" width={56} height={56} />
               </div>
             </div>
             <div className="flex flex-col items-start justify-start max-w-xs -mt-4 md:flex-row lg:flex-col md:-mt-7 md:max-w-lg">

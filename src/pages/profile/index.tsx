@@ -14,7 +14,7 @@ import DiscordConnect from "@/components/popups/DiscordConnect";
 import Head from "next/head";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import AuthCheckProvider from "@/contexts/AuthCheckProvider";
-import { GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 
 export default function ProfileOverview() {
@@ -53,4 +53,4 @@ ProfileOverview.getLayout = function (page: ReactElement) {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => i18Translate(locale as string);

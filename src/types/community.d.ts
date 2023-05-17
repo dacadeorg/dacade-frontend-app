@@ -35,15 +35,22 @@ export interface Colors {
   muted: string;
 }
 export interface Referral {
-  user: User | null | undefined;
+  user: User;
   id: string;
   name: string;
   ref: string;
-  created_at: string;
-  updated_at: string;
+  created_at: Date;
+  updated_at: Date;
   title: string;
   community: Community;
   timestamp: number;
   reward: Reward;
-  user: User
+  user: User;
+  challenge: Challenge;
+  community: Community;
+  submission: Submission;
+  rewarded: boolean;
+  metadata?: {
+    reward: Reward;
+  };
 }
