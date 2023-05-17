@@ -30,8 +30,8 @@ export default function Currency({ value = 0, token = "" }: CurrencyProps): Reac
       decimalPlaces: 2,
       significantFigures: 3,
     });
+    
   }, [token, value]);
-
   return (
     <span>
       {currency} {token}

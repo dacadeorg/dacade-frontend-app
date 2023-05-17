@@ -28,9 +28,11 @@ import userProfileSlice from "./feature/profile/users.slice";
 import bountiesSlice from "./feature/bouties.slice";
 import walletsSlice from "./feature/user/wallets.slice";
 import walletsService from "./services/wallets.service";
-import profileReducer from "./feature/profile";
 import userProfileService from "./services/profile/users.service";
 import bountiesService from "./services/bounties.service";
+import profileReducer from "./feature/profile";
+import userReferralsSlice from "./feature/user/referrals.slice";
+import web3WalletSlice from "./feature/wallet.slice";
 import certificateService from "./services/certificate.service";
 import profileCommunitiesService from "./services/profile/profileCommunities.service";
 import userReputationService from "./services/user/userReputation.service";
@@ -42,9 +44,11 @@ export interface IRootState {
   ui: ReturnType<typeof ui.reducer>;
   referrals: ReturnType<typeof referralSlice.reducer>;
   user: ReturnType<typeof userSlice.reducer>;
+  userReferrals: ReturnType<typeof userReferralsSlice.reducer>;
   banner: ReturnType<typeof bannerSlice.reducer>;
   notifications: ReturnType<typeof notificationsSlice.reducer>;
   wallets: ReturnType<typeof walletsSlice.reducer>;
+  web3Wallet: ReturnType<typeof web3WalletSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
   coursesService: ReturnType<typeof coursesService.reducer>;
@@ -97,6 +101,7 @@ export const store = configureStore({
     [userReputationSlice.name]: userReputationSlice.reducer,
     [feedbackSlice.name]: feedbackSlice.reducer,
     [challengeSlice.name]: challengeSlice.reducer,
+    [web3WalletSlice.name]: web3WalletSlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
     [communityService.reducerPath]: communityService.reducer,
     [coursesService.reducerPath]: coursesService.reducer,
@@ -111,6 +116,7 @@ export const store = configureStore({
     [referralsService.reducerPath]: referralsService.reducer,
     [notificationsService.reducerPath]: notificationsService.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
+    [userReferralsSlice.name]: userReferralsSlice.reducer,
     profile: profileReducer,
   },
 

@@ -230,7 +230,7 @@
   "profile.wallets.address-set": "Set Address",
   "profile.wallets.address-change": "Change Address",
   "profile.wallets.missing-info.action": "complete your profile",
-  "profile.wallets.uncashable": "{token}s cannot be cashed out for now. Learn more about {token}s <a href='{link}' target='__blank'>here</a>.",
+  "profile.wallets.uncashable": "{{token}}s cannot be cashed out for now. Learn more about {{token}}s <a href='{{link}}' target='__blank'>here</a>.",
   "profile.edit.label.fist-name": "First name",
   "profile.edit.label.last-name": "Last name",
   "profile.edit.label.account-address": "Account address",
