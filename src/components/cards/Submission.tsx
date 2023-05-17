@@ -58,8 +58,6 @@ export default function SubmissionCard({
     "--button-border-color--hover": colors.textAccent,
   };
 
-  // TODO: Set current submition submission
-
   return (
     <UserCard
       user={submission.user}
