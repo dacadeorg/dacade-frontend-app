@@ -51,9 +51,6 @@ export default function SubmissionList(): ReactElement {
                     link={navigation.community.submissionPath(feedback.submission.id, feedback.submission.challenge.id, feedback.submission.challenge.course.slug, community?.slug)}
                     submission={feedback.submission}
                     last={false}
-                    setSelectedSubmission={function (selectedSubmission: string): string {
-                      throw new Error("Function not implemented.");
-                    }}
                   >
                     <div className="relative">
                       <div className="-mx-6">

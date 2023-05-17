@@ -4,7 +4,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { Submission } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
-import { ReactElement, ReactNode } from "react";
+import { Dispatch, ReactElement, ReactNode, SetStateAction } from "react";
 
 /**
  * Submission card interface props
@@ -20,7 +20,7 @@ interface SubmissionCardProps {
     text: string;
     date: string;
   };
-  setSelectedSubmission?: (selectedSubmission: string) => string;
+  setSelectedSubmission?: Dispatch<SetStateAction<string>>;
   children?: ReactNode;
 }
 
@@ -57,9 +57,6 @@ export default function SubmissionCard({
     "--button-background-color--hover": colors.textAccent,
     "--button-border-color--hover": colors.textAccent,
   };
-
-
-  // TODO: Set current submition submission
 
   return (
     <UserCard
@@ -115,7 +112,7 @@ export default function SubmissionCard({
               minWidthClass="w-10 h-10"
               customStyle={arrowButtonStyles}
               onClick={() => {
-                setSelectedSubmission(submission.id)
+                setSelectedSubmission(submission.id);
               }}
             />
           </div>

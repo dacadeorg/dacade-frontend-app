@@ -4,6 +4,7 @@ import { useTranslation } from "next-i18next";
 import UserCard from "@/components/cards/User";
 import TranslationBox from "@/components/cards/TranslationBox";
 import { ReactElement } from "react";
+import { Submission } from "@/types/bounty";
 
 /**
  * Type for the default locale
@@ -23,15 +24,7 @@ type DefaultLocale = "en" | "fr";
  */
 interface SubmissionViewCardProps {
   // TODO: to be updated with ISubmission once community slice is implemented
-  submission: {
-    user: any;
-    created_at: string;
-    text: string;
-    link: string;
-    metadata: {
-      language: string;
-    };
-  };
+  submission: Submission
 }
 
 /**
