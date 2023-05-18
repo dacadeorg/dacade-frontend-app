@@ -113,6 +113,8 @@ export type Metadata = {
   issuerName: string;
   comment: string;
   linkToWork: string;
+  description: string;
+  narrative: string;
 };
 
 export type Reward = {

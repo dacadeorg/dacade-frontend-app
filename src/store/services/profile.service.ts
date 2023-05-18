@@ -69,3 +69,6 @@ export const fetchProfileCommunities = ({ username, locale }: { locale?: string;
 
 export const fetchProfileCommunity = ({ username, slug, locale }: { locale?: string; username: string; slug: string }) =>
   fetchProfileCommunityService.endpoints.getProfileCommunity.initiate({ username, locale, slug });
+function setListProfileCommunity(data: any): any {
+  throw new Error("Function not implemented.");
+}

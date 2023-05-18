@@ -38,6 +38,7 @@ import userReputationSlice from "./feature/user/reputation.slice";
 import web3WalletSlice from "./feature/wallet.slice";
 import certificateSlice from "./feature/profile/certificate.slice";
 import bountiesService from "./services/bounties.service";
+import userReferralsSlice from "./feature/user/referrals.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -120,6 +121,7 @@ export const store = configureStore({
     [fetchProfileCommunitiesService.reducerPath]: fetchProfileCommunitiesService.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
     [certificateSlice.name]: certificateSlice.reducer,
+    [userReferralsSlice.name]: userReferralsSlice.reducer,
     profile: profileReducer,
   },
 

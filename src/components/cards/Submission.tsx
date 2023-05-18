@@ -4,7 +4,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { Submission } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
-import { ReactElement, ReactNode } from "react";
+import { Dispatch, ReactElement, ReactNode, SetStateAction } from "react";
 
 /**
  * Submission card interface props
@@ -20,7 +20,7 @@ interface SubmissionCardProps {
     text: string;
     date: string;
   };
-  setSelectedSubmission?: any;
+  setSelectedSubmission?: Dispatch<SetStateAction<string>>;
   children?: ReactNode;
 }
 
@@ -36,7 +36,7 @@ export default function SubmissionCard({
   buttons = false,
   last = false,
   timestamp = { text: "", date: "" },
-  setSelectedSubmission,
+  setSelectedSubmission = () => "",
   children,
 }: SubmissionCardProps): ReactElement {
   const { t } = useTranslation();

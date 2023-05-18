@@ -76,11 +76,11 @@ const ProfileHeader = () => {
       {canConnectDiscord && (
         <div className="pt-5">
           <Button variant="outline-primary" className="flex mx-auto text-base" onClick={triggerDiscordOauth}>
-            Connect Discord
+          { t('profile.header.connect-discord') }
           </Button>
           {!isKycVerified && (
             <Button variant="outline-primary" className="flex mx-auto text-base" onClick={triggerKYCVerification}>
-              Verify
+              { t('profile.header.sumsub.verify') }
             </Button>
           )}
         </div>

@@ -24,6 +24,7 @@ const certificateService = createApi({
         }
       },
     }),
+
     findCertificate: builder.query({
       query: ({ id, locale }: { id: string; locale?: string }) => ({
         url: `/certificates/${id}`,
@@ -73,8 +74,11 @@ interface FetchAllCertificatesArgs {
   locale?: string;
   username: string;
 }
-
-export const fetchAllCertificates = ({ locale, username }: FetchAllCertificatesArgs) => certificateService.endpoints.fetchAllCertificates.initiate({ locale, username });
+export const fetchAllCertificates = ({ locale, username }: FetchAllCertificatesArgs) =>
+  certificateService.endpoints.fetchAllCertificates.initiate({
+    locale,
+    username,
+  });
 
 interface FindCertificateArgs {
   id: string;

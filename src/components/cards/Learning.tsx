@@ -1,22 +1,8 @@
 import useNavigation from "@/hooks/useNavigation";
-import CommunityNavigation from "@/utilities/CommunityNavigation";
 import DateManager from "@/utilities/DateManager";
 import { useRouter } from "next/router";
-import { ReactElement } from "react";
+import { ReactElement, useMemo } from "react";
 
-/**
- * Local date format enum
- * @date 3/29/2023 - 6:35:34 PM
- *
- * @enum {number}
- */
-enum LocaleDateFormat {
-  es = "es",
-  en = "en",
-  hr = "hr",
-  bg = "bg",
-  fr = "fr",
-}
 
 /**
  * LearningModule interface
@@ -55,12 +41,15 @@ export default function Learning({ learningModule }: LearningProps): ReactElemen
   const router = useRouter();
   const navigation = useNavigation();
 
-  const duration = (value: number) => {
-    if (!value) {
-      return 0;
-    }
-    return DateManager.humanize(value, router.locale as LocaleDateFormat);
-  };
+  const duration = useMemo(() => {
+    return (value: number) => {
+      if (!value) {
+        return 0;
+      }
+      return DateManager.humanize(value, router.locale as string);
+    };
+  }, [router.locale]);
+  
   const navigate = () => {
     const courseLink = navigation.community.learningModulePath(learningModule.id);
     router.push(courseLink);

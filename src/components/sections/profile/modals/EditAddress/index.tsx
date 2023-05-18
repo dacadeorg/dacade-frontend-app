@@ -25,10 +25,14 @@ interface FormValues {
   address: string;
   newAddress: string;
   onClose: (event: any) => void;
-  // wallet: Wallet;
 }
-
-interface Props {
+/**
+ * Interface for the edit profile props
+ * 
+ * @interface EditProfileProps
+ * @typedef {EditProfileProps}                
+ */
+interface EditProfileProps {
   show: boolean;
   wallet: Wallet;
   onClose: (event: any) => void;
@@ -46,7 +50,7 @@ interface Props {
 }
  * @returns {ReactElement}
  */
-export default function EditProfile({ show, wallet, onClose }: Props): ReactElement {
+export default function EditProfile({ show, wallet, onClose }: EditProfileProps): ReactElement {
   const { t } = useTranslation();
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);

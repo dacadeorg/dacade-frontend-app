@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import { ReactElement, useState } from "react";
 import Coin from "@/components/ui/Coin";
 import ArrowButton from "@/components/ui/button/Arrow";
 import Tag from "@/components/ui/Tag";
@@ -76,7 +76,7 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
               {address ? (
                 <p className="leading-5 text-sm">
                   {address.map((part, k) => (
-                    <span key={k} className="mr-2">
+                    <span key={`address-${k}`} className="mr-2">
                       {part}
                     </span>
                   ))}
@@ -94,7 +94,10 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
             <div className="prose">
               <p
                 dangerouslySetInnerHTML={{
-                  __html: `${t("profile.wallets.uncashable")}`,
+                  __html: t("profile.wallets.uncashable", {
+                    token: `${wallet.title}`,
+                    link: `https://discord.gg/5yDZvVnpQQ`,
+                  }),
                 }}
               />
             </div>
@@ -109,7 +112,7 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
         </div>
       </div>
       {wallet.payouts.map((payout, i) => (
-        <Hint key={i} className="mt-2">
+        <Hint key={`wallet-payout-${i}`} className="mt-2">
           <span className="font-medium">
             <Currency value={payout.amount} token={payout.token} />
           </span>

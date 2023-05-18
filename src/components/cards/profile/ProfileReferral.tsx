@@ -9,7 +9,7 @@ import { Referral } from "@/types/community";
 
 // TODO: This interface should be refactored
 interface ReferralProps {
-  referral: Referral
+  referral: Referral;
 }
 /**
  * Referral component
