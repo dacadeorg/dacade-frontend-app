@@ -53,7 +53,7 @@ const fetchProfileCommunitiesService = createApi({
       onQueryStarted: async ({ username }, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
-          await Promise.all([dispatch(setListProfileCommunities(data)), dispatch(setListDataUsername(username))]);
+          await Promise.all([dispatch(setListProfileCommunity(data)), dispatch(setListDataUsername(username))]);
         } catch (error) {
           console.log("error", error);
         }
@@ -68,3 +68,6 @@ export const fetchProfileCommunities = ({ username, locale }: { locale?: string;
 
 export const fetchProfileCommunity = ({ username, slug, locale }: { locale?: string; username: string; slug: string }) =>
   fetchProfileCommunityService.endpoints.getProfileCommunity.initiate({ username, locale, slug });
+function setListProfileCommunity(data: any): any {
+  throw new Error("Function not implemented.");
+}

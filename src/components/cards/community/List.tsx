@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useMemo } from "react";
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import Coin from "@/components/ui/Coin";
 import ListIcon from "@/components/cards/community/_partials/ListIcon";
@@ -42,7 +42,9 @@ export default function CommunityListCard({ community }: CommunityListCardProps)
 
   const duration = DateManager.millisecondsToMinutes(community.duration);
 
-  const reward = community.rewards.find((reward) => reward.type === "SUBMISSION");
+  const reward = useMemo(() => {
+    return community.rewards.find((reward) => reward.type === "SUBMISSION");
+  }, [community.rewards]);
 
   return (
     <ThemeWrapper className="w-full" colors={community.colors}>

@@ -33,6 +33,7 @@ import bountiesService from "./services/bounties.service";
 import profileReducer from "./feature/profile";
 import userReferralsSlice from "./feature/user/referrals.slice";
 import web3WalletSlice from "./feature/wallet.slice";
+import certificateSlice from "./feature/profile/certificate.slice";
 import certificateService from "./services/certificate.service";
 import profileCommunitiesService from "./services/profile/profileCommunities.service";
 import userReputationService from "./services/user/userReputation.service";
@@ -73,6 +74,7 @@ export interface IRootState {
   feedback: ReturnType<typeof feedbackSlice.reducer>;
   learningModules: ReturnType<typeof learningModulesSlice.reducer>;
   profile: ReturnType<typeof profileReducer>;
+  certificates: ReturnType<typeof certificateSlice.reducer>;
 }
 
 export const store = configureStore({
@@ -116,6 +118,7 @@ export const store = configureStore({
     [referralsService.reducerPath]: referralsService.reducer,
     [notificationsService.reducerPath]: notificationsService.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
+    [certificateSlice.name]: certificateSlice.reducer,
     [userReferralsSlice.name]: userReferralsSlice.reducer,
     profile: profileReducer,
   },
