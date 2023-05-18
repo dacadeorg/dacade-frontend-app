@@ -5,7 +5,7 @@ import { fetchAllCertificates } from "@/store/services/profile/certificate.servi
 import { fetchProfileReputation } from "@/store/services/profile/reputation.service";
 import { getMetadataTitle } from "@/utilities/Metadata";
 
-import NotificationList from "@/components/list/Notification";
+import NotificationList from "@/components/list/NotificationList";
 import ProfileOverviewCommunities from "@/components/sections/profile/overview/Communities";
 import ProfileOverviewAchievements from "@/components/sections/profile/overview/Achievements";
 import ProfileOverviewReferrals from "@/components/sections/profile/overview/Referrals";

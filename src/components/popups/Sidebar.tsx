@@ -15,6 +15,7 @@ import { toggleBodyScrolling, toggleShowReferralPopup } from "@/store/feature/ui
 import { logout } from "@/store/feature/auth.slice";
 import { authVerify } from "@/store/feature/auth.slice";
 import { readNotification } from "@/store/services/notification.service";
+import NotificationList from "../list/NotificationList";
 
 /**
  * Sidebar props interface
@@ -153,7 +154,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): any {
             {isAuthenticated && (
               <div className="px-5 py-2 relative">
                 {/* TODO: Will be uncommented when the component is implemented */}
-                {/* <NotificationList /> */}
+                <NotificationList extended={false} />
               </div>
             )}
 

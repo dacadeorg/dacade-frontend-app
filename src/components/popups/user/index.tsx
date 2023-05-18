@@ -28,7 +28,7 @@ export default function UserPopup({ buttonStyles }: { buttonStyles: CSSPropertie
   const dispatch = useDispatch();
 
   const { mainWallet, user } = useSelector((state) => ({
-    mainWallet: state.wallets.current,
+    mainWallet: state.wallets.main,
     user: state.user.data,
   }));
 

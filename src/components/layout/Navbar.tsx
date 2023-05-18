@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import LanguageSwitcherPopup from "@/components/popups/LanguageSwitcher";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { authCheck, authVerify } from "@/store/feature/auth.slice";
-import Sidebar from "./Sidebar";
+import Sidebar from "../popups/Sidebar";
 import { Colors } from "@/types/community";
 import classNames from "classnames";
 
