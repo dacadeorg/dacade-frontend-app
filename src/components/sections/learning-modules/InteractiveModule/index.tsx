@@ -105,7 +105,7 @@ export default function InteractiveModule({ data }: interactiveModuleProps): Rea
             {!ended ? (
               <>
                 {items.map((item, index) => (
-                  <div key={`item-${index}`}>{current === index && <InteractiveModuleItem data={item} />}</div>
+                  <div key={`item-${index}`}>{current === index && <InteractiveModuleItem data={item} goToNextItem={goToNextItem} />}</div>
                 ))}
               </>
             ) : (
