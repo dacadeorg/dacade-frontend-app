@@ -1,4 +1,4 @@
-import { Submission } from "./bounty";
+import { Submission, User } from "./bounty";
 import { Challenge, Metadata, Reward } from "./course";
 
 export interface Community {
@@ -23,6 +23,7 @@ export interface Community {
   items?: any[];
   challenge: Challenge;
   submission: Submission;
+  can_mint_certificates: boolean;
 }
 
 export interface Colors {
@@ -35,14 +36,22 @@ export interface Colors {
   muted: string;
 }
 export interface Referral {
-  user: User | null | undefined;
+  user: User;
   id: string;
   name: string;
   ref: string;
-  created_at: string;
-  updated_at: string;
+  created_at: Date;
+  updated_at: Date;
   title: string;
   community: Community;
   timestamp: number;
   reward: Reward;
+  user: User;
+  challenge: Challenge;
+  community: Community;
+  submission: Submission;
+  rewarded: boolean;
+  metadata?: {
+    reward: Reward;
+  };
 }

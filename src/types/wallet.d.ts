@@ -11,6 +11,10 @@ export interface Wallet {
   user_id: string;
   token: string;
   address: string;
-  payouts: any[];
+  payouts: {
+    amount: number;
+    token: string;
+  }[];
+  description: string;
   require_wallet_connection?: boolean;
 }

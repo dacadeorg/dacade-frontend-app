@@ -77,8 +77,11 @@ export default function Submission() {
       </Head>
       <Wrapper>
         <div className="flex flex-col py-4 space-y-8 text-gray-700">
-          <Header title={course?.name} subtitle={t("communities.submission.title")} />
-          <List />
+          <Header
+            title={course?.name}
+            subtitle={t("communities.submission.title")}
+          />
+          <List setSelectedSubmission={setSelectedSubmission}/>
         </div>
         <SubmissionPopup show={!!selectedSubmission} submissionId={selectedSubmission} onClose={handleCloseSubmission} />
       </Wrapper>
