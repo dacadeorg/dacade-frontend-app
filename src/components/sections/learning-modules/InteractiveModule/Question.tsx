@@ -61,7 +61,8 @@ export default function InteractiveModuleQuestion({ data, disable = false, onCor
     }
     setSelected(index);
     if (index === data.correct) {
-      onCorrect && onCorrect(index);
+      if(onCorrect)
+        onCorrect(index);
       return;
     }
     triggerRetryCountdown();
