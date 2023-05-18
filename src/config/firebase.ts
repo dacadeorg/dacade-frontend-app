@@ -18,4 +18,5 @@ if (typeof window !== "undefined") {
   auth = getAuth(firebase);
   analytics = getAnalytics(firebase);
 }
+
 export { auth, analytics, firebase };
