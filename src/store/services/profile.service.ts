@@ -53,7 +53,7 @@ const fetchProfileCommunitiesService = createApi({
       onQueryStarted: async ({ username }, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
-          await Promise.all([dispatch(setListProfileCommunity(data)), dispatch(setListDataUsername(username))]);
+          await Promise.all([dispatch(setListProfileCommunities(data)), dispatch(setListDataUsername(username))]);
         } catch (error) {
           console.log("error", error);
         }

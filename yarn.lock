@@ -2136,6 +2136,10 @@
   version "0.14.39"
   resolved "https://registry.yarnpkg.com/@netlify/esbuild-linux-64/-/esbuild-linux-64-0.14.39.tgz#d89f1aed0f3607b092ca2f57556725af3ceb8252"
   integrity sha512-IQtswVw7GAKNX/3yV390wSfSXvMWy0d5cw8csAffwBk9gupftY2lzepK4Cn6uD/aqLt3Iku33FbHop/2nPGfQA==
+"@netlify/esbuild-windows-64@^0.14.39", "@netlify/esbuild-windows-64@0.14.39":
+  version "0.14.39"
+  resolved "https://registry.npmjs.org/@netlify/esbuild-windows-64/-/esbuild-windows-64-0.14.39.tgz"
+  integrity sha512-I3gCdO8+6IDhT4Y1ZmV4o2Gg0oELv7N4kCcE4kqclz10fWHNjf19HQNHyBJe0AWnFV5ZfT154VVD31dqgwpgFw==
 
 "@netlify/esbuild-linux-arm64@0.14.39":
   version "0.14.39"
@@ -2336,6 +2340,15 @@
   version "13.2.4"
   resolved "https://registry.yarnpkg.com/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-13.2.4.tgz#ce21e43251eaf09a09df39372b2c3e38028c30ff"
   integrity sha512-gOvwIYoSxd+j14LOcvJr+ekd9fwYT1RyMAHOp7znA10+l40wkFiMONPLWiZuHxfRk+Dy7YdNdDh3ImumvL6VwA==
+"@next/swc-linux-x64-gnu@13.2.4":
+  version "13.2.4"
+  resolved "https://registry.npmjs.org/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-13.2.4.tgz"
+  integrity sha512-Ngxh51zGSlYJ4EfpKG4LI6WfquulNdtmHg1yuOYlaAr33KyPJp4HeN/tivBnAHcZkoNy0hh/SbwDyCnz5PFJQQ==
+
+"@next/swc-win32-x64-msvc@13.2.4":
+  version "13.2.4"
+  resolved "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-13.2.4.tgz"
+  integrity sha512-0MffFmyv7tBLlji01qc0IaPP/LVExzvj7/R5x1Jph1bTAIj4Vu81yFQWHHQAP6r4ff9Ukj1mBK6MDNVXm7Tcvw==
 
 "@next/swc-win32-arm64-msvc@13.2.4":
   version "13.2.4"
