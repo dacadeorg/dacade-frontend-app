@@ -4,7 +4,7 @@ import React from "react";
 
 export default function ProfileLayout({ children }: any) {
   return (
-    <DefaultLayout footerBackgroundColor={"default"}>
+    <DefaultLayout footerBackgroundColor={false}>
       <ProfileWrapper>{children}</ProfileWrapper>
     </DefaultLayout>
   );

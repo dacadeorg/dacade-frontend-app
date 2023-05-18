@@ -28,17 +28,7 @@ interface SubmissionCardProps {
  * Submission card component
  * @return {ReactElement}
  */
-export default function SubmissionCard({
-  submission,
-  preview = false,
-  stats = false,
-  link = "",
-  buttons = false,
-  last = false,
-  timestamp = { text: "", date: "" },
-  setSelectedSubmission = () => "",
-  children,
-}: SubmissionCardProps): ReactElement {
+export default function SubmissionCard({ submission, link = "", setSelectedSubmission = () => "", children }: SubmissionCardProps): ReactElement {
   const { t } = useTranslation();
   const { colors, community } = useSelector((state) => ({
     colors: state.ui.colors,

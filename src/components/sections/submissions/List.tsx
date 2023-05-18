@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
  * @export
  * @returns {ReactElement}
  */
-export default function List({ setSelectedSubmission }: { setSelectedSubmission: Dispatch<SetStateAction<string>> }): ReactElement {
+export default function List({ setSelectedSubmission }: { setSelectedSubmission?: Dispatch<SetStateAction<string>> }): ReactElement {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [showButton, setShowButton] = useState(true);
@@ -53,13 +53,7 @@ export default function List({ setSelectedSubmission }: { setSelectedSubmission:
         <div className="text-xl md:text-.5xl px-0 py-5 md:py-10 md:pb-5">
           <div className="sm:border sm:border-gray-200 sm:border-solid rounded-3.5xl relative">
             <div className="flex flex-col divide-y" id="scrollableDiv">
-              <InfiniteScroll
-                dataLength={submissions.length}
-                next={nextPage}
-                hasMore={showLoadMore}
-                // loader is required for InfiniteScroll to work
-                loader={<></>}
-              >
+              <InfiniteScroll dataLength={submissions.length} next={nextPage} hasMore={showLoadMore} loader={<></>}>
                 {submissions.map((submission: any, i: number) => (
                   <SubmissionCard key={`submission-${i}`} submission={submission} setSelectedSubmission={setSelectedSubmission} />
                 ))}
