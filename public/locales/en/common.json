@@ -341,7 +341,7 @@
   "ui.translated": "Translated to",
   "ui.translation.action.original": "See original",
   "notifications.emails.unsubscribe.confirm.title": "Confirm unsubscribing to email notifications",
-  "notifications.emails.unsubscribe.confirm.text": "You will no longer receive email notifications from <strong>{appName}</strong>.",
+  "notifications.emails.unsubscribe.confirm.text": "You will no longer receive email notifications from <strong>{{appName}}</strong>.",
   "notifications.emails.unsubscribe.button.confirm": "Confirm",
   "notifications.emails.unsubscribe.button.cancel": "Cancel",
   "notifications.emails.unsubscribe.button.loading": "Loading...",

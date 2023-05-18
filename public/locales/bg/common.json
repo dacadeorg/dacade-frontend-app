@@ -300,6 +300,14 @@
   "profile.achievement.award": "Awarded to",
   "profile.achievement.issued": "Issued by",
   "profile.achievement.comment": "Comment",
+  "notifications.emails.unsubscribe.confirm.title": "Confirm unsubscribing to email notifications",
+  "notifications.emails.unsubscribe.confirm.text": "You will no longer receive email notifications from <strong>{{appName}}</strong>.",
+  "notifications.emails.unsubscribe.button.confirm": "Confirm",
+  "notifications.emails.unsubscribe.button.cancel": "Cancel",
+  "notifications.emails.unsubscribe.button.loading": "Loading...",
+  "notifications.emails.unsubscribe.button.home": "Go Back Home",
+  "notifications.emails.unsubscribe.warning": "If this is not your email address, please ignore this page since the email associated with this page was most likely forwarded to you.",
+  "notifications.emails.unsubscribe.success.title": "You have successfully unsubscribed from email notifications",
   "discord-verification.error.title": "Discord verification failed",
   "discord-verification.success.title": "Discord has been linked successfully"
 }
