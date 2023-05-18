@@ -54,4 +54,5 @@ export interface Referral {
   metadata?: {
     reward: Reward;
   };
+  user: User;
 }
