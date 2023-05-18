@@ -24,6 +24,7 @@ const certificateService = createApi({
         }
       },
     }),
+
     findCertificate: builder.query({
       query: ({ id, locale }: { id: string; locale?: string }) => ({
         url: `/certificates/${id}`,
