@@ -29,8 +29,6 @@ export default function CommunityStats(): ReactElement {
     reputation: state.profile.communities.reputation,
   }));
 
-  console.log("community", community);
-
   return (
     <div className="bg-gray-100 sm:flex sm:justify-between rounded-3xl lg:max-w-lg">
       <div className="relative items-center ml-7 flex sm:flex-row">
