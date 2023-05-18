@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import ChevronRightIcon from "@/icons/chevron-right.svg";
 import ProfileOverviewSection from "@/components/sections/profile/overview/Section";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
 
 interface MenuItem {
   label: string;
@@ -25,13 +26,14 @@ interface Menu {
  * @returns {ReactElement}
  */
 export default function ProfileNagivation(): ReactElement {
+  const { t } = useTranslation();
   const router = useRouter();
   const { communities, authUser } = useSelector((state) => ({
     communities: state.profile.communities.list,
     authUser: state.user.data,
   }));
 
-  const username = router.asPath.split("/")[2] || authUser?.displayName;
+  const username = (router.query?.username as string) || authUser?.displayName;
   const isCurrentUser = username?.toLowerCase() === authUser?.displayName?.toLowerCase();
 
   const menus: Menu[] = useMemo(() => {
@@ -50,29 +52,29 @@ export default function ProfileNagivation(): ReactElement {
     if (isCurrentUser) {
       mainItems.push(
         {
-          label: "Overview",
+          label: t("navigation.profile.overview"),
           link: username ? `/profile/${username}` : "/profile",
           exact: true,
         },
         {
-          label: "Wallets",
+          label: t("navigation.profile.wallets"),
           link: "/profile/wallets",
         },
         {
-          label: "Referrals",
+          label: t("navigation.profile.referrals"),
           link: "/profile/referrals",
         }
       );
     } else {
       mainItems.push({
-        label: "Overview",
+        label: t("navigation.profile.overview"),
         link: `/profile/${username}`,
         exact: true,
       });
     }
     items.push({ title: "Profile", items: mainItems });
     return items;
-  }, [communities, isCurrentUser, username]);
+  }, [communities, isCurrentUser, t, username]);
 
   const isCurrentMenuItem = (item: MenuItem) => item.link === router.asPath || (router.asPath === "/profile" && item.label.toLocaleLowerCase() === "overview");
 

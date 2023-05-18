@@ -5,33 +5,10 @@ import DateManager from "@/utilities/DateManager";
 import { useTranslation } from "next-i18next";
 import { Reward } from "@/types/course";
 import { useRouter } from "next/router";
+import { Referral as ReferralType } from "@/types/community";
 
-// TODO: This interface should be refactored
 interface ReferralProps {
-  referral: {
-    user: {
-      displayName: string;
-      created_at: Date;
-    };
-    challenge?: string;
-    community?: {
-      name: string;
-    };
-    submission?: {
-      metadata?: {
-        evaluation?: {
-          points: number;
-          totalPoints: number;
-        };
-      };
-      created_at: Date;
-    };
-    rewarded?: boolean;
-    metadata?: {
-      reward: Reward;
-    };
-    updated_at: Date;
-  };
+  referral: ReferralType;
 }
 
 /**
@@ -49,9 +26,7 @@ export default function Referral({ referral }: ReferralProps): ReactElement {
   const { t } = useTranslation();
   const { locale } = useRouter();
   const joinedAt = useMemo(() => DateManager.fromNow(referral.user.created_at, locale), [locale, referral.user.created_at]);
-
   const participatedAt = useMemo(() => (referral.submission ? DateManager.fromNow(referral.submission.created_at, locale) : null), [locale, referral.submission]);
-
   const rewardAt = useMemo(() => (referral.rewarded ? DateManager.fromNow(referral.updated_at, locale) : null), [locale, referral.rewarded, referral.updated_at]);
 
   return (
