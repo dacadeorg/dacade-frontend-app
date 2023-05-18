@@ -37,13 +37,12 @@ interface InputProps extends Omit<HTMLProps<HTMLInputElement>, "onInput"> {
  * @returns {ReactElement}
  */
 const Input = forwardRef<HTMLInputElement, InputProps>(function (
-  { type = "text", label, disabled = false, placeholder = null!, error, inputClass, fontSize = "lg", onInput, ...props },
+  { type = "text", label, disabled = false, placeholder = null!, error, inputClass, value, fontSize = "lg", onInput, ...props },
   ref
 ) {
   const [isFocused, setIsFocused] = useState(false);
-  const [value, setValue] = useState("");
 
-  const isFilled = useMemo(() => value.trim().length > 0, [value]);
+  const isFilled = useMemo(() => String(value).trim().length > 0, [value]);
 
   const fontSizeClasses = () => {
     switch (fontSize) {
@@ -66,7 +65,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (
     "absolute top-0 left-0 text-lg px-5 py-5 z-10 h-full pointer-events-none transform origin-left transition-all duration-100 ease-in-out items-center",
     {
       "text-gray-400 flex items-center": !isFilled && !isFocused,
-      "scale-75 -translate-y-3 translate-x-1": isFocused || isFilled,
+      "text-gray-400 scale-75 -translate-y-3 translate-x-1": isFocused || isFilled,
       "text-red-600": error,
       "text-gray-400": !isFocused && isFilled,
       "text-blue-500": isFocused && !error,
@@ -77,7 +76,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (
     "floating-input": label,
   });
 
-  const inputElementClassName = classNames(`rounded-md focus:outline-none focus:shadow-sm w-full ${inputClass} ${fontSizeClasses()}`, {
+  const inputElementClassName = classNames("rounded-md focus:outline-none focus:shadow-sm w-full", inputClass, fontSizeClasses(), {
     "text-gray-400 scale-75 -translate-y-3 translate-x-1 bg-gray-50": disabled,
     "border-red-100 rounded-b-none": error,
     "focus:border-gray-200 border-gray-200": !error,
@@ -97,7 +96,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (
           autoComplete="off"
           disabled={disabled}
           onFocus={() => setIsFocused(true)}
-          onChange={(e) => setValue(e.target.value)}
           onBlurCapture={() => setIsFocused(false)}
         />
       </div>

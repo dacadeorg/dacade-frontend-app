@@ -1,6 +1,5 @@
 import Checkbox from "@/components/ui/Checkbox";
-import { useDispatch } from "@/hooks/useTypedDispatch";
-import { ChangeEvent, ReactElement } from "react";
+import { ChangeEvent, FormEvent, ReactElement, ReactEventHandler, useMemo } from "react";
 
 /**
  * Interfacr for the interractive answer card
@@ -18,7 +17,7 @@ interface InterractiveAswerProps {
   timerCount?: number;
   onRetry?: () => void;
   onWrong?: (index: number) => void;
-  onSelect?: (index: number) => void;
+  onChange?: () => void;
 }
 
 /**
@@ -42,31 +41,37 @@ export default function InteractiveModuleAnswer({
   selected = false,
   text = "",
   disable = false,
+  onChange,
   timerCount = 0,
 }: InterractiveAswerProps): ReactElement {
-  const dispatch = useDispatch();
-  const borderColor = !selected ? "border-gray-200" : correct ? "border-green-200 divide-green-200" : "border-red-200 divide-red-200";
-
+  const borderColor = useMemo(() => (!selected ? "border-gray-200" : correct ? "border-green-200 divide-green-200" : "border-red-200 divide-red-200"), [correct, selected]);
   const bannerColor = !selected ? null : correct ? "bg-green-100 text-green-600" : "bg-red-100 text-red-900";
-
   const errorMessage = !timerCount ? "This answer is wrong. Try again!" : `This answer is wrong. Try again in ${timerCount} seconds`;
 
-  const checkboxClick = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!disable) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+  const checkboxClick = (event: FormEvent<HTMLInputElement>) => {
+    if (disable) return;
+    event.preventDefault();
+    event.stopPropagation();
   };
 
   return (
     <div
       className={`my-5 relative border-2 rounded select-none flex flex-col divide-y-2 divide-solid ${borderColor} ${disable ? "cursor-not-allowed" : "cursor-pointer"}`}
       role="button"
-      onClick={() => !selected}
+      onClick={() => onChange?.()}
     >
       <div className="flex items-center space-x-3 relative z-50 w-full md:p-4.5 p-4 border-solid bg-transparent checked-color">
         <span>
-          <Checkbox checked={checked} disabled={disable} communityStyles={correct} className={!correct ? "text-red-900" : ""} onChange={checkboxClick} />
+          <Checkbox
+            checked={selected}
+            disabled={disable}
+            communityStyles={correct}
+            className={!correct ? "text-red-900" : ""}
+            onChange={(event) => {
+              checkboxClick(event);
+              onChange?.();
+            }}
+          />
         </span>
         <span className="text-gray-500">{text}</span>
       </div>

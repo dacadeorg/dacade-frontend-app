@@ -46,11 +46,16 @@ export default function InteractiveModuleQuestion({ data, disable = false, onCor
     return randomized;
   };
 
+  const correctAnswer = useMemo(() => (data.correct ? data.correct : 0), [data.correct]);
   const memoizedRandomizedAnswers = useMemo(() => shuffleAnswers(data.answers), [data.answers]);
 
   useEffect(() => {
     setRandomizedAnswers(memoizedRandomizedAnswers);
   }, [memoizedRandomizedAnswers]);
+
+  const triggerRetryCountdown = () => {
+    setTimerCount(RETRY_TIME);
+  };
 
   const selectAnswer = (index: number) => {
     if (disable) return;
@@ -60,16 +65,12 @@ export default function InteractiveModuleQuestion({ data, disable = false, onCor
       return;
     }
     setSelected(index);
-    if (index === data.correct) {
-      onCorrect && onCorrect(index);
+    if (index === correctAnswer) {
+      onCorrect?.(index);
       return;
     }
     triggerRetryCountdown();
-    onWrong && onWrong(index);
-  };
-
-  const triggerRetryCountdown = () => {
-    setTimerCount(RETRY_TIME);
+    onWrong?.(index);
   };
 
   useEffect(() => {
@@ -79,8 +80,7 @@ export default function InteractiveModuleQuestion({ data, disable = false, onCor
         setTimerCount((prevCount) => prevCount - 1);
       }, 1000);
     } else if (timerCount === 0) {
-      onRetry && onRetry();
-      setSelected(null);
+      onRetry?.();
       shuffleAnswers(data.answers);
     }
     return () => clearInterval(interval);
@@ -91,7 +91,7 @@ export default function InteractiveModuleQuestion({ data, disable = false, onCor
       <h4 className="pt-6 font-normal">{data.title}</h4>
       {randomizedAnswers.map((answer, index) => (
         <InteractiveModuleAnswer
-          key={index}
+          key={`interactive-modules-question-${index}`}
           text={answer.text}
           selected={selected === answer.id}
           correct={data.correct === answer.id}
@@ -99,7 +99,7 @@ export default function InteractiveModuleQuestion({ data, disable = false, onCor
           timerCount={timerCount}
           onRetry={onRetry}
           onWrong={onWrong}
-          onSelect={() => selectAnswer(answer.id)}
+          onChange={() => selectAnswer(answer.id)}
         />
       ))}
     </div>
