@@ -1,6 +1,3 @@
-// Those types are temporary
-// TODO: Should be improved with the extact types
-
 import { Community } from "./community";
 
 export type Course = {
@@ -25,16 +22,25 @@ export type Course = {
   learningModules: LearningModule[];
   challenge: Challenge;
   translations: any[];
-  trailer: any;
-  disclaimer: any;
+  trailer: Trailer;
+  disclaimer: string;
   items?: any[];
-  // TODO: Should be updated later
-  faq: any;
+  faq: {
+    description: string;
+    title: string;
+  }[];S
   prerequisite: {
-    items: any[];
+    items: string[];
     hint: string;
   };
 };
+
+export type Trailer = {
+  summary: string;
+  description: string;
+  video: string;
+  duration: number;
+}
 
 export type CertificateData = {
   narrative: string;
