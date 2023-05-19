@@ -16,9 +16,9 @@ import { useRouter } from "next/router";
  * @export
  * @returns {ReactElement}
  */
-export default function List({ setSelectedSubmission }: { setSelectedSubmission: Dispatch<SetStateAction<string>> }): ReactElement {
+export default function List(): ReactElement {
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [showButton, setShowButton] = useState(true);
   const { t } = useTranslation();
   const submissions = useSelector((state) => state.submissions.list);
@@ -28,7 +28,7 @@ export default function List({ setSelectedSubmission }: { setSelectedSubmission:
   const dispatch = useDispatch();
 
   const nextPage = async () => {
-    if (loading || !showButton) {
+    if (!loading || !showButton) {
       return;
     }
     try {
@@ -61,7 +61,7 @@ export default function List({ setSelectedSubmission }: { setSelectedSubmission:
                 loader={<></>}
               >
                 {submissions.map((submission: any, i: number) => (
-                  <SubmissionCard key={`submission-${i}`} submission={submission} setSelectedSubmission={setSelectedSubmission} />
+                  <SubmissionCard key={`submission-${i}`} submission={submission} />
                 ))}
               </InfiniteScroll>
             </div>
@@ -70,7 +70,7 @@ export default function List({ setSelectedSubmission }: { setSelectedSubmission:
         </div>
       ) : (
         <div className="lg:w-2/3">
-          <EmptyState title={t("submissions.empty-state.title")} subtitle={t("submissions.empty-state.subtitle")} />
+          {!loading && <EmptyState title={t("submissions.empty-state.title")} subtitle={t("submissions.empty-state.subtitle")} />}
         </div>
       )}
     </>

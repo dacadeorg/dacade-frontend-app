@@ -5,6 +5,8 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { Submission } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
 import { Dispatch, ReactElement, ReactNode, SetStateAction } from "react";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { showSubmission } from "@/store/feature/communities/challenges/submissions";
 
 /**
  * Submission card interface props
@@ -20,7 +22,6 @@ interface SubmissionCardProps {
     text: string;
     date: string;
   };
-  setSelectedSubmission?: Dispatch<SetStateAction<string>>;
   children?: ReactNode;
 }
 
@@ -36,9 +37,9 @@ export default function SubmissionCard({
   buttons = false,
   last = false,
   timestamp = { text: "", date: "" },
-  setSelectedSubmission = () => "",
   children,
 }: SubmissionCardProps): ReactElement {
+  const dispatch =  useDispatch();
   const { t } = useTranslation();
   const { colors, community } = useSelector((state) => ({
     colors: state.ui.colors,
@@ -111,8 +112,9 @@ export default function SubmissionCard({
               variant="none"
               minWidthClass="w-10 h-10"
               customStyle={arrowButtonStyles}
+              arrowClasses=""
               onClick={() => {
-                setSelectedSubmission(submission.id);
+                dispatch(showSubmission(submission.id))
               }}
             />
           </div>
