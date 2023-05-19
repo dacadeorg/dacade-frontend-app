@@ -39,7 +39,7 @@ const defaultState: DefaultState = {
  * @returns {Promise<string|null>} The current user's token or null if the user is not logged in.
  */
 export const getUserToken = async () => {
-  const user = firebaseAuth.currentUser;
+  const user = firebaseAuth?.currentUser;
   const token = await user?.getIdToken();
   return token;
 };

@@ -1,6 +1,6 @@
 import Checkbox from "@/components/ui/Checkbox";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { ChangeEvent, ReactElement } from "react";
+import { ChangeEvent, ReactElement, useState } from "react";
 
 /**
  * Interfacr for the interractive answer card
@@ -18,7 +18,7 @@ interface InterractiveAswerProps {
   timerCount?: number;
   onRetry?: () => void;
   onWrong?: (index: number) => void;
-  onSelect?: (index: number) => void;
+  onSelect: () => void;
 }
 
 /**
@@ -43,8 +43,10 @@ export default function InteractiveModuleAnswer({
   text = "",
   disable = false,
   timerCount = 0,
+  onSelect
 }: InterractiveAswerProps): ReactElement {
   const dispatch = useDispatch();
+
   const borderColor = !selected ? "border-gray-200" : correct ? "border-green-200 divide-green-200" : "border-red-200 divide-red-200";
 
   const bannerColor = !selected ? null : correct ? "bg-green-100 text-green-600" : "bg-red-100 text-red-900";
@@ -62,11 +64,11 @@ export default function InteractiveModuleAnswer({
     <div
       className={`my-5 relative border-2 rounded select-none flex flex-col divide-y-2 divide-solid ${borderColor} ${disable ? "cursor-not-allowed" : "cursor-pointer"}`}
       role="button"
-      onClick={() => !selected}
+      onClick={() => onSelect()}
     >
       <div className="flex items-center space-x-3 relative z-50 w-full md:p-4.5 p-4 border-solid bg-transparent checked-color">
         <span>
-          <Checkbox checked={checked} disabled={disable} communityStyles={correct} className={!correct ? "text-red-900" : ""} onChange={checkboxClick} />
+          <Checkbox checked={selected} disabled={disable} communityStyles={correct} className={!correct ? "text-red-900" : ""} onChange={checkboxClick} />
         </span>
         <span className="text-gray-500">{text}</span>
       </div>

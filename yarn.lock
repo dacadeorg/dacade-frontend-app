@@ -2187,9 +2187,9 @@
   resolved "https://registry.yarnpkg.com/@netlify/esbuild-windows-32/-/esbuild-windows-32-0.14.39.tgz#ccb2a234954714662a4cd1a573d5b271f5288273"
   integrity sha512-ZpSQcKbVSCU3ln7mHpsL/5dWsUqCNdTnC5YAArnaOwdrlIunrsbo5j4MOZRRcGExb2uvTc/rb+D3mlGb8j1rkA==
 
-"@netlify/esbuild-windows-64@0.14.39":
+"@netlify/esbuild-windows-64@0.14.39", "@netlify/esbuild-windows-64@^0.14.39":
   version "0.14.39"
-  resolved "https://registry.yarnpkg.com/@netlify/esbuild-windows-64/-/esbuild-windows-64-0.14.39.tgz#477c22c04a3299599924e9e4c909c0dec5612f56"
+  resolved "https://registry.npmjs.org/@netlify/esbuild-windows-64/-/esbuild-windows-64-0.14.39.tgz"
   integrity sha512-I3gCdO8+6IDhT4Y1ZmV4o2Gg0oELv7N4kCcE4kqclz10fWHNjf19HQNHyBJe0AWnFV5ZfT154VVD31dqgwpgFw==
 
 "@netlify/esbuild-windows-arm64@0.14.39":
@@ -2747,10 +2747,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.2.0.tgz#e33da33171ac4eba79b9cfe30b68a4f1561e74ec"
   integrity sha512-3iD2jaCCziTx04uudpJKwe39QxXgSUnpxXSvRQjRvHPxFQfmfP4NXIm/NURVeNlTCc+ru4WqjYGTmpXrW9uMlw==
 
-"@types/node@18.15.3":
-  version "18.15.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.3.tgz#f0b991c32cfc6a4e7f3399d6cb4b8cf9a0315014"
-  integrity sha512-p6ua9zBxz5otCmbpb5D3U4B5Nanw6Pk3PPyX05xnxbB/fRv71N7CPmORg7uAD5P70T0xmx1pzAx/FUfa5X+3cw==
+"@types/node@^18.15.11":
+  version "18.16.13"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.13.tgz#984c48275c718b5b3e47371938f3cff482790598"
+  integrity sha512-uZRomboV1vBL61EBXneL4j9/hEn+1Yqa4LQdpGrKmXFyJmVfWc9JV9+yb2AlnOnuaDnb2PDO3hC6/LKmzJxP1A==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"

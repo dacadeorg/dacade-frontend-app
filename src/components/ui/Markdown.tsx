@@ -4,7 +4,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import CodeHighlighter from "@/components/sections/learning-modules/_partials/CodeHighlighter";
-import { PluggableList } from "unified";
+import { PluggableList } from "react-markdown/lib/react-markdown";
 
 /**
  * Markdown props interface
