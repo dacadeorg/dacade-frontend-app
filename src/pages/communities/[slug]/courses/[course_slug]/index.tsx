@@ -37,7 +37,7 @@ export default function CourseViewPage(props: {
     dispatch(setColors(community.colors));
     dispatch(setCourseNavigation({ list }));
     initNavigationMenu(navigation.community)(dispatch);
-  }, [community, course, dispatch, list]);
+  }, [community, course, dispatch, list, navigation.community]);
 
   const title = getMetadataTitle(course.name);
   const descriptions = getMetadataDescription(course.description);
@@ -58,7 +58,7 @@ export default function CourseViewPage(props: {
 }
 
 CourseViewPage.getLayout = function (page: ReactElement) {
-  return <DefaultLayout footerBackgroundColor={"default"}>{page}</DefaultLayout>;
+  return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
 export async function getStaticProps({ params, locale }: any) {

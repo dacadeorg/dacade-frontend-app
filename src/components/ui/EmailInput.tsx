@@ -36,7 +36,7 @@ export default function EmailInput({ errors, register, emailValue }: EmailInputP
       placeholder={`${t("login-page.email.placeholder")}`}
       label={`${t("login-page.email.label")}`}
       value={emailValue}
-      error={errors?.email?.message || error?.response?.data.details.email}
+      error={errors?.email?.message || error?.error?.data.details.email}
       {...register("email", {
         required: "This field is required",
         pattern: {

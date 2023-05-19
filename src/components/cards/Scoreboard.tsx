@@ -71,7 +71,7 @@ export default function ScoreboardCard({ value, index = 0 }: ScoreboardProps): R
       </div>
       <div className="relative float-right md:float-left sm:flex-none pt-1 sm:p-0">
         <div className="relative sm:inset-0">
-          <Avatar user={value?.user} size="large" shape="full" />
+          <Avatar user={value?.user} size="large" shape="full" hideVerificationBadge />
           <Badge
             className="absolute left-9 top-10 w-6 h-6 bg-theme-accent text-white"
             value={index}

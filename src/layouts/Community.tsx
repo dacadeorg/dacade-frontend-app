@@ -31,7 +31,7 @@ export function CommunityLayout({ children }: { children: ReactElement }): React
           <NotificationBar />
           <div className="relative">{children}</div>
           <DiscordButton />
-          <Footer backgroundColor="default" />
+          <Footer backgroundColor={false} />
           <PrivacyPolicyBanner />
         </div>
       </ThemeWrapper>

@@ -58,7 +58,7 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
           </span>
           <p className="line-clamp-3">{submission.text}</p>
           <div className="pt-5">
-            <Badge custom-style={{ backgroundColor: colors.textAccent }} size="medium" className="relative left-0" value={submission.metadata.evaluation.points} />
+            <Badge customStyle={{ backgroundColor: colors.textAccent }} size="medium" className="relative left-0" value={submission.metadata.evaluation.points} />
             <span className="ml-1 text-sm">{t("submissions.evaluation.points")}</span>
           </div>
         </div>

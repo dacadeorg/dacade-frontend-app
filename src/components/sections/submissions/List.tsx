@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
  * @export
  * @returns {ReactElement}
  */
-export default function List({ setSelectedSubmission }: { setSelectedSubmission: Dispatch<SetStateAction<string>> }): ReactElement {
+export default function List({ setSelectedSubmission }: { setSelectedSubmission?: Dispatch<SetStateAction<string>> }): ReactElement {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [showButton, setShowButton] = useState(true);

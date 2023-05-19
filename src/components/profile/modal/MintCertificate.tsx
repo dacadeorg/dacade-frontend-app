@@ -8,8 +8,9 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useTranslation } from "next-i18next";
 import { check, connectWallet, disconnectWallet, getSignature } from "@/store/feature/wallet.slice";
-import { mintCertificate } from "@/store/services/certificate.service";
+import { mintCertificate } from "@/store/services/profile/certificate.service";
 import { isError } from "lodash";
+import { useForm } from "react-hook-form";
 
 interface Wallet {
   address: string;
@@ -39,13 +40,15 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
   const [txData, setTxData] = useState({ tx: "" });
   const { achievement, walletAddress } = useSelector((state) => ({
     achievement: state.profile.certificate.current,
-    walletAddress: state.web3Wallet.address,
+    walletAddress: state.web3Wallet?.address,
   }));
 
   const connected = useMemo(() => check(), []);
 
   // User wallet address
   const address = useMemo(() => walletAddress?.toLowerCase(), [walletAddress]);
+
+  console.log(address);
 
   // Mint status
   const minted = useMemo(() => !!txData?.tx, [txData?.tx]);
@@ -68,7 +71,7 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
   useEffect(() => {
     setTxData((prev) => ({
       ...prev,
-      tx: achievement?.minting.tx || "",
+      tx: achievement?.minting?.tx || "",
     }));
   }, [achievement]);
 
@@ -130,7 +133,7 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
     <Modal show={show} size="medium">
       <div className="px-6 pt-6">
         <div className="pb-7">
-          <p className="text-.5xl font-medium leading-snug">{achievement?.metadata?.name}</p>
+          <p className="text-.5xl font-medium leading-snug">{t("profile.mint.certificate")}</p>
         </div>
         <div className="flex flex-col gap-5 md:flex-row">
           <div className="flex-none w-2/3 mx-auto md:w-1/3 2xl:w-1/4 md:mx-0">
@@ -154,12 +157,12 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
                 </div>
               </div>
             ) : (
-              <>
+              <div>
                 <p className="pt-3 pb-4">This certificate is awarded for passing the {achievement?.metadata?.name} course.</p>
                 {!connected ? (
                   <div className="border-t border-gray-100 border-solid">
                     <p className="pt-4">Minting this certificate will not cost you gas fees.</p>
-                    <Input value={address} placeholder="Wallet address" inputClass="h-12 mt-6 text-sm text-slate-500" fontSize="sm" required disabled />
+                    <Input value={address} placeholder="Wallet address" inputClass="h-12 w-full text-sm text-slate-500 mt-6" required disabled />
                   </div>
                 ) : (
                   <div className="bg-yellow-50 text-yellow-900 text-sm border border-solid border-yellow-100 w-full rounded px-3 py-0.5 inline-block">
@@ -167,11 +170,11 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
                     <p>Please connect a wallet to mint the certificate.</p>
                   </div>
                 )}
-              </>
+              </div>
             )}
           </div>
         </div>
-        <div className="flex items-center justify-between my-8">
+        <div className="flex items-center justify-between py-8">
           <a className="text-sm font-medium cursor-pointer text-primary" onClick={onClose}>
             Close
           </a>

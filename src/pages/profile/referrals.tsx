@@ -1,19 +1,18 @@
 import { ReactElement, useEffect, useMemo, useState } from "react";
-import Referral from "@/components/cards/profile/ProfileReferral";
+import Referral from "@/components/cards/profile/Referral";
 import EmptyState from "@/components/ui/EmptyState";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useTranslation } from "next-i18next";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { Referral as Referrals } from "@/types/community";
 import { userFetchReferrals } from "@/store/feature/user/referrals.slice";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
-import DefaultLayout from "@/components/layout/Default";
+import ProfileLayout from "@/layouts/ProfileLayout";
 
 /**
  * Refferrals component for user profile
- * 
+ *
  * @returns {ReactElement}
  */
 
@@ -58,7 +57,7 @@ export default function UserReferrals(): ReactElement {
               // loader is required for InfiniteScroll to work
               loader={<></>}
             >
-              {referrals.map((referral: Referrals, i: number) => (
+              {referrals.map((referral, i) => (
                 <Referral key={`user-referral-${i}`} referral={referral} />
               ))}
             </InfiniteScroll>
@@ -74,5 +73,5 @@ export default function UserReferrals(): ReactElement {
 export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);
 
 UserReferrals.getLayout = function (page: ReactElement) {
-  return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
+  return <ProfileLayout>{page}</ProfileLayout>;
 };

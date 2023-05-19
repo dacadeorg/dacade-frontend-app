@@ -13,6 +13,7 @@ export interface Wallet {
   address: string;
   payouts: Payout[];
   description: string;
+  payouts: any[];
   require_wallet_connection?: boolean;
 }
 

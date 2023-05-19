@@ -4,7 +4,6 @@ import Header from "@/components/sections/communities/_partials/Header";
 import List from "@/components/sections/submissions/List";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import SubmissionPopup from "@/components/popups/submission";
-import { getMetadataTitle } from "@/utilities/Metadata";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
@@ -15,6 +14,7 @@ import DefaultLayout from "@/components/layout/Default";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import MetaData from "@/components/ui/MetaData";
 import Head from "next/head";
+import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 
 export default function Submission() {
   const [selectedSubmission, setSelectedSubmission] = useState("");
@@ -77,11 +77,8 @@ export default function Submission() {
       </Head>
       <Wrapper>
         <div className="flex flex-col py-4 space-y-8 text-gray-700">
-          <Header
-            title={course?.name}
-            subtitle={t("communities.submission.title")}
-          />
-          <List setSelectedSubmission={setSelectedSubmission}/>
+          <Header title={course?.name} subtitle={t("communities.submission.title")} />
+          <List setSelectedSubmission={setSelectedSubmission} />
         </div>
         <SubmissionPopup show={!!selectedSubmission} submissionId={selectedSubmission} onClose={handleCloseSubmission} />
       </Wrapper>

@@ -8,7 +8,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useTranslation } from "next-i18next";
 import { check, connectWallet, disconnectWallet, getSignature } from "@/store/feature/wallet.slice";
-import { mintCertificate } from "@/store/services/certificate.service";
+import { mintCertificate } from "@/store/services/profile/certificate.service";
 import { isError } from "lodash";
 
 // Wallet interface
