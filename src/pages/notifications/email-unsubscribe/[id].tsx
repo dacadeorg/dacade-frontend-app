@@ -1,16 +1,23 @@
+import { ReactElement, useState } from "react";
 import Button from "@/components/ui/button";
 import ArrowButton from "@/components/ui/button/Arrow";
-import React, { ReactElement, useState } from "react";
 import { useTranslation } from "next-i18next";
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import api from "@/config/api";
 import { useRouter } from "next/router";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 
-const SUBSCRIPTION_ID = "6GBEtqniAFdHbLMC9bgFliozEvc2";
-
+/**
+ * Unsubscribe Page
+ * @date 5/19/2023 - 9:23:31 AM
+ *
+ * @export
+ * @returns
+ */
 export default function Unsubscribe() {
+  const { t } = useTranslation();
+
   const [loading, setloading] = useState(false);
   const [completed, setcompleted] = useState(false);
 
@@ -20,19 +27,14 @@ export default function Unsubscribe() {
     if (loading || completed) return;
     setloading(true);
     try {
-      const { data } = await api(router.locale).server.put(`notifications/email/unsubscribe/${SUBSCRIPTION_ID}`);
+      await api(router.locale).server.put(`notifications/email/unsubscribe/${process.env.NEXT_PUBLIC_NOTIFICATIONS_SUBSCRIPTION_ID}`);
       setcompleted(true);
-      console.log(data);
     } catch (e) {
       console.log(e);
     } finally {
       setloading(false);
     }
   };
-  const cancel = () => {
-    alert("hello");
-  };
-  const { t } = useTranslation();
   return (
     <div className="flex items-center justify-center absolute min-h-screen top-0 w-full">
       <div className={completed ? "hidden" : "relative p-6 text-center"}>
