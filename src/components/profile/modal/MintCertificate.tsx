@@ -166,7 +166,7 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
                 {!connected ? (
                   <div className="border-t border-gray-100 border-solid">
                     <p className="pt-4">Minting this certificate will not cost you gas fees.</p>
-                    <Input value={address} placeholder="Wallet address" inputClass="h-12 text-sm text-slate-500 mt-6" fontSize="sm" required disabled />
+                    <Input value={address} placeholder="Wallet address" inputClass="h-12 w-full text-sm text-slate-500 mt-6" required disabled />
                   </div>
                 ) : (
                   <div className="bg-yellow-50 text-yellow-900 text-sm border border-solid border-yellow-100 w-full rounded px-3 py-0.5 inline-block">
