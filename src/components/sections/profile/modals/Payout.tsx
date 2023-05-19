@@ -6,6 +6,8 @@ import Currency from "@/components/ui/Currency";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useTranslation } from "next-i18next";
 import { Wallet } from "@/types/wallet";
+import { createPayout } from "@/store/feature/user/payouts.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  * Payout interface
@@ -34,10 +36,11 @@ interface PayoutProps {
  */
 export default function Payout({ show, wallet, onClose }: PayoutProps): ReactElement {
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const save = () => {
     setLoading(true);
-    // TODO: dispatch action to create payout
+    dispatch(createPayout({ wallet_id: wallet.id }));
     setLoading(false);
     onClose(true);
   };
@@ -46,7 +49,7 @@ export default function Payout({ show, wallet, onClose }: PayoutProps): ReactEle
 
   return (
     <Modal show={show} onClose={onClose}>
-      <div className="relative px-6 pt-6">
+      <div id="sumsub-websdk-container" className="relative px-6 pt-6">
         <div className="mb-6">
           <p className="text-.5xl leading-snug font-medium">{wallet.title}</p>
           <p className="text-.5xl font-medium text-gray-400 leading-snug">{t("profile.wallet.payout.request")}</p>

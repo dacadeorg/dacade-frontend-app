@@ -4,6 +4,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactElement, useEffect, useMemo } from "react";
+import ProfileOverviewSection from "../sections/profile/overview/Section";
 
 /**
  * Profile menu component
@@ -83,23 +84,21 @@ export default function ProfileMenu(): ReactElement {
   return (
     <ul className="relative hidden lg:block xl:block">
       {menus.map((menu, i) => (
-        <li key={i} className="mb-8 relative">
-          {/* TODO: Will be uncommented when the ProfileOverviewsection is migrated */}
-          {/* <ProfileOverviewSection title={menu.title} className="pb-0"> */}
-          <ul className="space-y-4 flex flex-col">
-            {menu.items.map((item, k) => (
-              <li key={`profile-menu-item-${k}`} className="text-sm relative text-primary">
-                <Link href={item.link} className={linkStyleClassName(item.exact)}>
-                  <span className="inline-block absolute -left-6 nav-icon">
-                    <ChevronRightIcon />
-                  </span>
-                  <span className="nav-label">{item.label}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-          {/* TODO: Will be uncommented when the ProfileOverviewsection is migrated */}
-          {/* </ProfileOverviewSection> */}
+        <li key={i} className="relative mb-8">
+          <ProfileOverviewSection title={menu.title}>
+            <ul className="flex flex-col space-y-4">
+              {menu.items.map((item, k) => (
+                <li key={`profile-menu-item-${k}`} className="relative text-sm text-primary">
+                  <Link href={item.link} className={linkStyleClassName(item.exact)}>
+                    <span className="absolute inline-block -left-6 nav-icon">
+                      <ChevronRightIcon />
+                    </span>
+                    <span className="nav-label">{item.label}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </ProfileOverviewSection>
         </li>
       ))}
     </ul>

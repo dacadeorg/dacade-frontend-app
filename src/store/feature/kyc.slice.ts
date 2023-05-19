@@ -1,0 +1,200 @@
+import { createSlice, createAsyncThunk, PayloadAction, Dispatch } from "@reduxjs/toolkit";
+import { auth as firebaseAuth } from "@/config/firebase";
+import { IRootState, store } from "@/store";
+import { sleep } from "@/utilities";
+import api from "@/config/api";
+import { fetchUser } from "../services/user.service";
+import snsWebSdk from "@sumsub/websdk";
+
+interface SumsubVerificationState {
+  sumsubToken: string | null;
+  showModal: boolean;
+  loading: boolean;
+  verifying: boolean;
+  completed: boolean;
+  reasonText: string | null;
+  title: string | null;
+  completedText: string | null;
+  actionText: string | null;
+  completedActionText: string | null;
+  completedAction: (() => Promise<void>) | null;
+}
+
+type SetTextPayload = {
+  reasonText: string;
+  title: string;
+  completedText: string;
+  actionText: string;
+  completedActionText: string;
+  completedAction: () => Promise<void>;
+};
+
+const initialState: SumsubVerificationState = {
+  sumsubToken: null,
+  showModal: false,
+  loading: false,
+  verifying: false,
+  completed: false,
+  reasonText: null,
+  title: null,
+  completedText: null,
+  actionText: null,
+  completedActionText: null,
+  completedAction: null,
+};
+
+let snsWebSdkInstance: any = null;
+
+export const getSumsubToken = () => async (dispatch: Dispatch) => {
+  const user = firebaseAuth?.currentUser;
+  if (user) {
+    try {
+      const { data } = await api().client.post("users/sumsub/get-access-token");
+      const token = data.token;
+      dispatch(setSumsubToken(token));
+      return token;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
+};
+
+export const openVerificationModal = (payload: any) => {
+  return async (dispatch: Dispatch) => {
+    const isKycVerified = store.getState().user.data?.isKycVerified;
+    if (isKycVerified) {
+      closeVerificationModal()(dispatch);
+      triggerCompleteAction()(dispatch);
+      return;
+    }
+    dispatch(setShowModal(true));
+    dispatch(setText(payload || {}));
+  };
+};
+
+export const closeVerificationModal = () => (dispatch: Dispatch) => {
+  dispatch(setShowModal(false));
+  dispatch(setLoading(false));
+  dispatch(setVerifying(false));
+  if (snsWebSdkInstance) {
+    snsWebSdkInstance?.destroy();
+  }
+};
+
+export const triggerCompleteAction = () => async (dispatch: Dispatch) => {
+  const completedAction = store.getState().sumsub.completedAction;
+  if (!completedAction) return;
+  try {
+    await completedAction();
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const completeSumSubVerification = createAsyncThunk("sumsub/completeSumSubVerification", async (_, { dispatch }) => {
+  await sleep(2000);
+  dispatch(setLoading(true));
+  await dispatch(fetchUser());
+  dispatch(setCompleted(true));
+  dispatch(setVerifying(false));
+  dispatch(setLoading(false));
+});
+
+export const launchWebSdk = createAsyncThunk("sumsub/launchWebSdk", async (_, { dispatch, getState }) => {
+  dispatch(setLoading(true));
+  await dispatch(getSumsubToken());
+
+  const accessToken = await getSumsubToken()(dispatch);
+
+  if (!accessToken) return;
+  const user = store.getState().user.data;
+
+  snsWebSdkInstance = snsWebSdk
+    .init(accessToken, async () => {
+      const vv = await dispatch(getSumsubToken());
+      return vv;
+    })
+    .withConf({
+      lang: "en",
+      email: user?.email,
+    })
+    .withOptions({ addViewportTag: false, adaptIframeHeight: true })
+    .on("idCheck.applicantStatus", (payload: any) => {
+      dispatch(completeSumSubVerification());
+    })
+    .build();
+
+  await sleep(2000);
+  snsWebSdkInstance.launch("#sumsub-websdk-container");
+
+  await sleep(1000);
+  dispatch(setLoading(false));
+  dispatch(setVerifying(true));
+});
+
+const sumsubVerificationSlice = createSlice({
+  name: "sumsub",
+  initialState,
+  reducers: {
+    setSumsubToken: (state, action: PayloadAction<string | null>) => {
+      state.sumsubToken = action.payload;
+    },
+    setShowModal: (state, action: PayloadAction<boolean>) => {
+      state.showModal = action.payload;
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
+    },
+    setVerifying: (state, action: PayloadAction<boolean>) => {
+      state.verifying = action.payload;
+    },
+    setCompleted: (state, action: PayloadAction<boolean>) => {
+      state.completed = action.payload;
+    },
+    setText: (state, action: PayloadAction<SetTextPayload>) => {
+      state.reasonText = action.payload.reasonText;
+      state.title = action.payload.title;
+      state.completedText = action.payload.completedText;
+      state.actionText = action.payload.actionText;
+      state.completedActionText = action.payload.completedActionText;
+      state.completedAction = action.payload.completedAction;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(completeSumSubVerification.pending, (state) => {
+        // Handle the pending state if needed
+      })
+      .addCase(completeSumSubVerification.fulfilled, (state) => {
+        // Handle the fulfilled state if needed
+      })
+      .addCase(completeSumSubVerification.rejected, (state) => {
+        // Handle the rejected state if needed
+      })
+      .addCase(launchWebSdk.pending, (state) => {
+        // Handle the pending state if needed
+      })
+      .addCase(launchWebSdk.fulfilled, (state) => {
+        // Handle the fulfilled state if needed
+      })
+      .addCase(launchWebSdk.rejected, (state) => {
+        // Handle the rejected state if needed
+      });
+  },
+});
+
+export const { setSumsubToken, setShowModal, setLoading, setVerifying, setCompleted, setText } = sumsubVerificationSlice.actions;
+
+export const selectSumsubToken = (state: IRootState) => state.sumsubVerification.sumsubToken;
+export const selectShowModal = (state: IRootState) => state.sumsubVerification.showModal;
+export const selectLoading = (state: IRootState) => state.sumsubVerification.loading;
+export const selectVerifying = (state: IRootState) => state.sumsubVerification.verifying;
+export const selectCompleted = (state: IRootState) => state.sumsubVerification.completed;
+export const selectReasonText = (state: IRootState) => state.sumsubVerification.reasonText;
+export const selectTitle = (state: IRootState) => state.sumsubVerification.title;
+export const selectCompletedText = (state: IRootState) => state.sumsubVerification.completedText;
+export const selectActionText = (state: IRootState) => state.sumsubVerification.actionText;
+export const selectCompletedActionText = (state: IRootState) => state.sumsubVerification.completedActionText;
+
+export default sumsubVerificationSlice;

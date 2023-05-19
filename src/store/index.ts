@@ -38,6 +38,8 @@ import certificateService from "./services/certificate.service";
 import profileCommunitiesService from "./services/profile/profileCommunities.service";
 import userReputationService from "./services/user/userReputation.service";
 import userReputationSlice from "./feature/user/reputation.slice";
+import payoutsSlice from "./feature/user/payouts.slice";
+import sumsubVerificationSlice from "./feature/kyc.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -75,6 +77,8 @@ export interface IRootState {
   learningModules: ReturnType<typeof learningModulesSlice.reducer>;
   profile: ReturnType<typeof profileReducer>;
   certificates: ReturnType<typeof certificateSlice.reducer>;
+  sumsubVerification: ReturnType<typeof sumsubVerificationSlice.reducer>;
+  payouts: ReturnType<typeof payoutsSlice.reducer>;
 }
 
 export const store = configureStore({
@@ -120,6 +124,8 @@ export const store = configureStore({
     [scoreboardSlice.name]: scoreboardSlice.reducer,
     [certificateSlice.name]: certificateSlice.reducer,
     [userReferralsSlice.name]: userReferralsSlice.reducer,
+    [sumsubVerificationSlice.name]: sumsubVerificationSlice.reducer,
+    [payoutsSlice.name]: payoutsSlice.reducer,
     profile: profileReducer,
   },
 

@@ -3,8 +3,7 @@ import Modal from "@/components/ui/Modal";
 import Input from "@/components/ui/Input";
 import ArrowButton from "@/components/ui/button/Arrow";
 import ErrorBox from "@/components/ui/ErrorBox";
-// TODO: To be uncommented once WalletHeader component is implemented
-// import WalletHeader from "@/components/sections/profile/WalletHeader";
+import WalletHeader from "@/components/sections/profile/WalletHeader";
 import WalletButton from "./_partials/Wallet";
 import { validateAddress } from "@/utilities/Address";
 import { useSelector } from "@/hooks/useTypedSelector";
@@ -13,6 +12,7 @@ import { useTranslation } from "next-i18next";
 import { CustomError } from "@/types/error";
 import { updateWallet } from "@/store/services/wallets.service";
 import { Wallet } from "@/types/wallet";
+import { getSignature } from "@/store/feature/wallet.slice";
 
 /**
  * Inferface for form's inputs values
@@ -28,9 +28,9 @@ interface FormValues {
 }
 /**
  * Interface for the edit profile props
- * 
+ *
  * @interface EditProfileProps
- * @typedef {EditProfileProps}                
+ * @typedef {EditProfileProps}
  */
 interface EditProfileProps {
   show: boolean;
@@ -78,9 +78,8 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const onSave = async () => {
     setLoading(true);
     setError(null);
-onClose(true);
-    // TODO this line will be uncommented when web3 is intergrated
-    // const signature = await getSignature()
+    onClose(true);
+    const signature = await getSignature();
     try {
       const validAddress = validateAddress(address, wallets?.token);
       if (!validAddress) return;
@@ -88,9 +87,7 @@ onClose(true);
       await updateWallet({
         id: wallets?.id,
         address: newAddress || address,
-        // TODO:  Replace signature: "", with signature as soon as web3 is intergrated in the wallet servce
-        signature: "",
-        // signature
+        signature,
       });
       closeModal();
     } catch (err) {
@@ -148,26 +145,27 @@ onClose(true);
   return (
     <Modal show={show} onClose={closeModal}>
       <div className="px-6 pt-6">
-        {/* // TODO WalletHeader will be uncomment as soon as it's implementation is megred */}
-        {/* <WalletHeader wallet={wallet} /> */}
-        {showWalletConnectionMethod && (
-          <div>
-            <p className="font-medium text-base mb-5">How would you like to add your address?</p>
-            <div className="border border-solid border-gray-400 rounded-xl divide-y overflow-hidden">
-              <WalletButton onClick={() => setConnectionMethod("manual")}>Enter address manually</WalletButton>
+        <WalletHeader wallet={wallet}>
+          {showWalletConnectionMethod ? (
+            <div>
+              <p className="mb-5 text-base font-medium">How would you like to add your address?</p>
+              <div className="overflow-hidden border border-gray-400 border-solid divide-y rounded-xl">
+                <WalletButton onClick={() => setConnectionMethod("manual")}>Enter address manually</WalletButton>
 
-              <WalletButton onClick={() => setConnectionMethod("wallet")}>Connect a wallet</WalletButton>
+                <WalletButton onClick={() => setConnectionMethod("wallet")}>Connect a wallet</WalletButton>
+              </div>
             </div>
-          </div>
-        )}
-        {/* </WalletHeader> */}
+          ) : (
+            <></>
+          )}
+        </WalletHeader>
         {showWalletInfo && !showWalletConnectionMethod && (
           <div className="flex flex-col space-y-3">
             <div className="flex">
-              {currentAddress ? <p className="font-medium text-base">Current Address:</p> : <p className="font-medium text-base">Enter Address:</p>}
+              {currentAddress ? <p className="text-base font-medium">Current Address:</p> : <p className="text-base font-medium">Enter Address:</p>}
 
               {currentAddress ? (
-                <span className="font-medium cursor-pointer text-base ml-auto text-primary" onClick={openEditAddress}>
+                <span className="ml-auto text-base font-medium cursor-pointer text-primary" onClick={openEditAddress}>
                   Change
                 </span>
               ) : (
@@ -177,9 +175,9 @@ onClose(true);
 
             {currentAddress && (
               <>
-                <p className="text-base mb-3">{currentAddress}</p>
+                <p className="mb-3 text-base">{currentAddress}</p>
                 <div className="pb-2">
-                  <p className="font-medium text-base">{newAddressTitle}</p>
+                  <p className="text-base font-medium">{newAddressTitle}</p>
                 </div>
               </>
             )}
@@ -225,11 +223,11 @@ onClose(true);
               <p className="text-base">New address matches the existing one</p>
             </div>
           )}
-          {isWalletConnected && !currentAddress && <p className="text-base mb-3">{newAddress}</p>}
+          {isWalletConnected && !currentAddress && <p className="mb-3 text-base">{newAddress}</p>}
           {error && <ErrorBox error={error} />}
         </div>
-        <div className="flex items-center justify-between pt-4 pl-6 pr-2 pb-2">
-          <span className="cursor-pointer text-sm font-medium text-primary" onClick={closeModal}>
+        <div className="flex items-center justify-between pt-4 pb-2 pl-6 pr-2">
+          <span className="text-sm font-medium cursor-pointer text-primary" onClick={closeModal}>
             {t("profile.edit.close")}
           </span>
 

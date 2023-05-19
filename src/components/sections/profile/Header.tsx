@@ -9,6 +9,8 @@ import CompassIcon from "@/icons/compass.svg";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
+import { useDispatch } from "react-redux";
+import { openVerificationModal } from "@/store/feature/kyc.slice";
 
 const ProfileHeader = () => {
   const router = useRouter();
@@ -37,16 +39,16 @@ const ProfileHeader = () => {
   const triggerDiscordOauth = () =>
     (window.location.href = `${process.env.NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL}?response_type=code&client_id=${process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID}&scope=${process.env.NEXT_PUBLIC_DISCORD_SCOPE}&state=15773059ghq9183habn&redirect_uri=${process.env.NEXT_PUBLIC_DISCORD_CALLBACK_URL}&prompt=consent`);
 
+  const dispatch = useDispatch();
   const triggerKYCVerification = () => {
-    // TODO: to be uncommented when kyc slice is implemented
-    //   dispatch("kyc/openVerificationModal");
+    openVerificationModal({})(dispatch);
   };
 
   return (
-    <div className="text-center font-sans pb-24 relative">
+    <div className="relative pb-24 font-sans text-center">
       <Avatar size="extra" user={user} useLink={false} />
-      <span className="block capitalize text-5xl mt-5 leading-none">{username}</span>
-      <div className="flex justify-center mt-2 leading-snug text-sm divide-x divide-solid">
+      <span className="block mt-5 text-5xl leading-none capitalize">{username}</span>
+      <div className="flex justify-center mt-2 text-sm leading-snug divide-x divide-solid">
         {!canConnectDiscord && (
           <div className="flex items-center px-2">
             <span className="inline-block">
@@ -69,18 +71,18 @@ const ProfileHeader = () => {
             <span className="inline-block">
               <CompassIcon />
             </span>
-            <span className="ml-1 inline-block">Verified</span>
+            <span className="inline-block ml-1">Verified</span>
           </div>
         )}
       </div>
       {canConnectDiscord && (
         <div className="pt-5">
           <Button variant="outline-primary" className="flex mx-auto text-base" onClick={triggerDiscordOauth}>
-          { t('profile.header.connect-discord') }
+            {t("profile.header.connect-discord")}
           </Button>
           {!isKycVerified && (
             <Button variant="outline-primary" className="flex mx-auto text-base" onClick={triggerKYCVerification}>
-              { t('profile.header.sumsub.verify') }
+              {t("profile.header.sumsub.verify")}
             </Button>
           )}
         </div>
