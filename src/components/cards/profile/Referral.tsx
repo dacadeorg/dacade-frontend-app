@@ -3,7 +3,6 @@ import Avatar from "@/components/ui/Avatar";
 import RewardBadge from "@/components/badges/RewardBadge";
 import DateManager from "@/utilities/DateManager";
 import { useTranslation } from "next-i18next";
-import { Reward } from "@/types/course";
 import { useRouter } from "next/router";
 import { Referral as ReferralType } from "@/types/community";
 
