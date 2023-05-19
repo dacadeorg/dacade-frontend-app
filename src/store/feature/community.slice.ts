@@ -76,9 +76,10 @@ export const fetchAllCommunities = createAsyncThunk("communities/all", async ({ 
  * @type {*}
  */
 
-export const fetchCurrentCommunity = createAsyncThunk("communities/current", async ({ slug, locale }: { slug: string; locale?: string }, { rejectWithValue }) => {
+export const fetchCurrentCommunity = createAsyncThunk("communities/current", async ({ slug, locale }: { slug: string; locale?: string }, { rejectWithValue, dispatch }) => {
   try {
     const { data } = await api(locale).server.get<Community>(`communities/${slug}`);
+    dispatch(setCurrentCommunity(data));
     return data;
   } catch (error) {
     return rejectWithValue(error);

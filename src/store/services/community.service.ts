@@ -1,6 +1,5 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
-import { setCurrentCommunity } from "../feature/community.slice";
 
 export const communityService = createApi({
   reducerPath: "communityService",
@@ -28,9 +27,10 @@ export const communityService = createApi({
 
 export const fetchAllCommunities = (locale?: string) => communityService.endpoints.getCommunities.initiate(locale);
 
-export const fetchCurrentCommunity = ({ slug, locale }: { slug: string; locale?: string }) =>
-  communityService.endpoints.getCurrentCommunity.initiate({
+export const fetchCurrentCommunity = ({ slug, locale }: { slug: string; locale?: string }) => {
+  return communityService.endpoints.getCurrentCommunity.initiate({
     locale,
     slug,
   });
+};
 export const { useGetCommunitiesQuery } = communityService;

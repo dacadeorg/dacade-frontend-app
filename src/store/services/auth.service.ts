@@ -20,7 +20,8 @@ export const authService = createApi({
      */
     signUp: builder.mutation({
       query: ({ payload, locale }) => ({
-        url: `auth/signup`,
+        url: "auth/signup",
+        method: "POST",
         headers: {
           "accept-language": locale,
         },

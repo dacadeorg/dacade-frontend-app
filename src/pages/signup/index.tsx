@@ -15,6 +15,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import EmailInput from "@/components/ui/EmailInput";
 import UsernameInput from "@/components/ui/UsernameInput";
 import { signUp } from "@/store/services/auth.service";
+import { setError } from "@/store/feature/index.slice";
 
 /**
  * Signup form values
@@ -64,6 +65,7 @@ export default function Signup(): ReactElement {
       if (!checkTerms) return;
       await dispatch(signUp({ locale: "en", payload: { ...signupData } }));
     } catch (error) {
+      setError(error);
       console.error(error);
     } finally {
       setLoading(false);
@@ -81,7 +83,7 @@ export default function Signup(): ReactElement {
             <h1 className="text-5xl my-5">{t("login-page.signup.title")}</h1>
 
             <div className="mb-5 relative">
-              <EmailInput errors={error} register={register} />
+              <EmailInput errors={errors} register={register} />
             </div>
             <div className="mb-5 relative">
               <UsernameInput errors={errors} register={register} />
@@ -140,7 +142,7 @@ export default function Signup(): ReactElement {
               </div>
 
               <div className="flex text-right self-start">
-                <ArrowButton loading={loading} type="submit" minWidthClass="min-w-40" arrowClasses="text-white" disabled={loading}>
+                <ArrowButton loading={loading} minWidthClass="min-w-40" arrowClasses="text-white" disabled={loading}>
                   {t("login-page.signup.button")}
                 </ArrowButton>
               </div>

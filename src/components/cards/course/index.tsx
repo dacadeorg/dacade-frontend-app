@@ -36,10 +36,7 @@ export default function CourseCard({ course, community }: CourseCardProps): Reac
   const { t } = useTranslation();
   const path = `/communities/${community.slug}/courses/${course.slug}`;
 
-  const reward = course?.challenge?.rewards?.find(
-    // TODO: Should be refactored when we have the exact type of the course
-    (entity) => entity.type === "SUBMISSION"
-  );
+  const reward = course?.challenge?.rewards?.find((entity) => entity.type === "SUBMISSION");
 
   return (
     <div className="flex flex-col sm:flex-row p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 bg-gray-50 rounded-3xl group text-gray-700 sm:p-7 mb-4 w-full border-solid border border-gray-200">
@@ -67,7 +64,7 @@ export default function CourseCard({ course, community }: CourseCardProps): Reac
           <Reward reward={reward} />
           <div className="font-light text-sm max-w-xs pb-2 text-gray-700">
             {t(reward.stable ? "course.challenge.reward.stable.description" : "course.challenge.reward.description", {
-              currency: `$`,
+              currency: "$",
               amount: reward.amount,
               token: reward.token,
             })}
@@ -76,7 +73,7 @@ export default function CourseCard({ course, community }: CourseCardProps): Reac
       ) : (
         <div className="text-base text-left sm:flex flex-start flex flex-col pt-6 sm:pt-0 space-y-4 pb-5 sm:pl-7 sm:pb-10 w-full sm:w-2/5 lg:w-1/3 tracking-wider">
           <span className="text-xxs tracking-wider px-1 font-semibold uppercase text-gray-500">{t(`course.challenge.certificate`)}</span>
-          <Avatar icon={`/static${community.icon}`} color={community.colors.primary} size="extra" shape="rounded-3xl" user={null} />
+          <Avatar icon={community.icon} color={community.colors.primary} size="extra" shape="rounded-3xl" user={null} />
           <div className="font-light text-sm max-w-xs pb-2 text-gray-700">
             <p>{t("course.challenge.certificate.description")}</p>
           </div>

@@ -78,7 +78,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const onSave = async () => {
     setLoading(true);
     setError(null);
-onClose(true);
+    onClose(true);
     // TODO this line will be uncommented when web3 is intergrated
     // const signature = await getSignature()
     try {
