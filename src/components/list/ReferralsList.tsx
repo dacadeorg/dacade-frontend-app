@@ -1,9 +1,8 @@
-//Next.js(Typescript)
-import React, { ReactElement } from "react";
-// import { useDispatch } from 'react-redux';
-// import {toggleShowReferralPopup} from "@/store/features/ui/ui.slice";
+import { ReactElement } from "react";
 import Button from "@/components/ui/button";
 import { useTranslation } from "next-i18next";
+import { toggleShowReferralPopup } from "@/store/feature/ui.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  *  ReferralsList props interface
@@ -27,23 +26,22 @@ interface ReferralsListProps {
  * @returns {ReactElement}
  */
 export default function ReferralsList({ text }: ReferralsListProps): ReactElement {
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { t } = useTranslation("common");
 
   const togglePopUp = () => {
-    // TODO: stop body scrolling functionality to be added while implementing page that's using this component.
-    // dispatch(toggleShowReferralPopup({payload: true }));
+    toggleShowReferralPopup(false)(dispatch);
   };
 
   return (
     <div className="bg-blue-lighter border border-solid border-blue-light w-full rounded-3.5xl items-center justify-between flex md:flex-row flex-col py-6 px-5">
       <div className="md:w-96">
-        <p className="inline-block px-2 text-primary text-lg font-medium pb-3 md:pb-0">{text}</p>
+        <p className="inline-block px-2 pb-3 text-lg font-medium text-primary md:pb-0">{text}</p>
       </div>
 
       <div className="flex-none">
         <Button
-          className="hover:bg-primary group-hover:text-white leading-relaxed lg:px-7 px-5 font-medium"
+          className="px-5 font-medium leading-relaxed hover:bg-primary group-hover:text-white lg:px-7"
           variant="outline-primary"
           type="button"
           padding={false}
