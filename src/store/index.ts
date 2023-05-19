@@ -29,6 +29,7 @@ import bountiesSlice from "./feature/bouties.slice";
 import walletsSlice from "./feature/user/wallets.slice";
 import walletsService from "./services/wallets.service";
 import userProfileService from "./services/profile/users.service";
+import bountiesService from "./services/bounties.service";
 import profileReducer from "./feature/profile";
 import userReferralsSlice from "./feature/user/referrals.slice";
 import web3WalletSlice from "./feature/wallet.slice";
@@ -59,6 +60,7 @@ export interface IRootState {
   userReputationService: ReturnType<typeof userReputationService.reducer>;
   userProfileService: ReturnType<typeof userProfileService.reducer>;
   notificationService: ReturnType<typeof notificationsService.reducer>;
+  bountiesService: ReturnType<typeof bountiesService.reducer>;
   certificateService: ReturnType<typeof certificateService.reducer>;
   reputationProfileService: ReturnType<typeof reputationProfileService.reducer>;
   profileCommunitiesService: ReturnType<typeof profileCommunitiesService.reducer>;
@@ -107,6 +109,7 @@ export const store = configureStore({
     [coursesService.reducerPath]: coursesService.reducer,
     [certificateService.reducerPath]: certificateService.reducer,
     [walletsService.reducerPath]: walletsService.reducer,
+    [bountiesService.reducerPath]: bountiesService.reducer,
     [reputationProfileService.reducerPath]: reputationProfileService.reducer,
     [profileCommunitiesService.reducerPath]: profileCommunitiesService.reducer,
     [userService.reducerPath]: userService.reducer,
@@ -129,6 +132,7 @@ export const store = configureStore({
       referralsService.middleware,
       notificationsService.middleware,
       userProfileService.middleware,
+      bountiesService.middleware,
       certificateService.middleware,
       reputationProfileService.middleware,
       profileCommunitiesService.middleware,

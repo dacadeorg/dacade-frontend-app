@@ -10,10 +10,11 @@ import Link from "next/link";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
-import { login } from "@/store/feature/auth.slice";
+import { authCheck, login } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import EmailInput from "@/components/ui/EmailInput";
 import { FormValues } from "./signup";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * Login form values
@@ -43,6 +44,7 @@ export default function Login(): ReactElement {
   const router = useRouter();
   const [passwordValue, setPasswordValue] = useState("");
   const emailValue = watch("email");
+  const isChecked = useSelector((state) => authCheck(state));
 
   const onSubmit = async (form: FormValues) => {
     const loginData = {
@@ -53,7 +55,7 @@ export default function Login(): ReactElement {
     try {
       setLoading(true);
       await dispatch(login(loginData));
-      router.replace("/bounties");
+      if (isChecked) router.replace("/bounties");
     } catch (err) {
       console.error(err);
     } finally {
