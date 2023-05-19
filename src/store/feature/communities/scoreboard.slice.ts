@@ -1,3 +1,4 @@
+// TODO: The async thunk should moved in services
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IRootState } from "@/store";
 import api from "@/config/api";
@@ -44,9 +45,6 @@ const scoreboardSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
-    setFilterBy: (state, action) =>{
-      state.filterBy = action.payload;
-    }
   },
   extraReducers: (builder) => {
     builder
@@ -75,7 +73,7 @@ const scoreboardSlice = createSlice({
   },
 });
 
-export const { setScoreboardList, setLoading, setFilterBy } = scoreboardSlice.actions;
+export const { setScoreboardList, setLoading } = scoreboardSlice.actions;
 
 export const fetchAllScoreboards = createAsyncThunk("communities/scoreboard/all", async ({ slug, locale }: { slug: string; locale: string }) => {
   try {

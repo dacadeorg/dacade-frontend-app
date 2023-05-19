@@ -1,3 +1,5 @@
+// TODO: This code should be fully tested when the wallet is available
+
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { setWalletList } from "../feature/user/wallets.slice";

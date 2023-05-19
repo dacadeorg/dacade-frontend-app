@@ -1,21 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 import { IRootState } from "..";
-import { Colors } from "@/types/community";
 
+interface Color {
+  textAccent: string;
+  text: string;
+  accent: string;
+  primary: string;
+  secondary: string;
+  highlight: string;
+  muted: string;
+}
 interface UIAction {
-  payload: Colors | string | boolean;
+  payload: Color | string | boolean;
 }
 
 export interface UIState {
-  colors: Colors;
+  colors: Color;
   locked: boolean;
   showReferralPopup: boolean;
 }
+// TODO: colors to be initialized when the communities have been initialized
 const initialState: UIState = {
+  colors: {
+    textAccent: "",
+    text: "",
+    accent: "",
+    primary: "",
+    secondary: "",
+    highlight: "",
+    muted: "",
+  },
   locked: false,
   showReferralPopup: false,
-  colors: {} as Colors
 };
 
 const uiSlice = createSlice({
@@ -23,7 +40,7 @@ const uiSlice = createSlice({
   initialState: initialState as UIState,
   reducers: {
     setColors: (state: UIState, action: UIAction) => {
-      state.colors = action.payload as Colors;
+      state.colors = action.payload as Color;
     },
     setLocked: (state: UIState, action: UIAction) => {
       state.locked = action.payload as boolean;

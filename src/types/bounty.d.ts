@@ -98,6 +98,8 @@ export interface Submission {
   status: string;
   evaluation?: Evaluation;
   reward: Reward;
+  // TODO: to be strictly typed later
+  evaluation: any;
 }
 
 export interface SubmissionMetadata {
