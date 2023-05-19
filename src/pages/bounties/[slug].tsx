@@ -4,7 +4,6 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
-// import { findBountiesBySlug } from "@/store/feature/bouties.slice";
 
 import Navigation from "@/components/sections/bounties/Navigation";
 import BountyList from "@/components/list/Bounty";
@@ -12,11 +11,8 @@ import Head from "next/head";
 import DefaultLayout from "@/components/layout/Default";
 import i18Translate from "@/utilities/I18Translate";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { GetStaticProps, GetStaticPaths } from "next";
-import LOCALES from "@/constants/locales";
 import { fetchAllBounties } from "@/store/services/bounties.service";
 import { findBountiesBySlug } from "@/store/feature/bouties.slice";
-// import { findBountiesBySlug } from "@/store/services/bounties.service";
 
 /**
  * Bounties by slug page
@@ -62,7 +58,7 @@ export default function BountiesPage(): ReactElement {
   );
 }
 
-export const getServerSideProps = async ({ locale }: any) => {
+export const getServerSideProps = async ({ locale }: { locale: string }) => {
   await i18Translate(locale as string);
 
   return {

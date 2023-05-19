@@ -11,7 +11,6 @@ import { challengeSlice } from "./feature/communities/challenges";
 import { feedbackSlice } from "./feature/communities/challenges/submissions/feedback.slice";
 import { eventsSlice } from "./feature/events.slice";
 import { reputationProfileService } from "./services/profile/reputation.service";
-
 import communities from "./feature/community.slice";
 import ui from "./feature/ui.slice";
 import indexSlice from "./feature/index.slice";
@@ -28,8 +27,9 @@ import userProfileSlice from "./feature/profile/users.slice";
 import bountiesSlice from "./feature/bouties.slice";
 import walletsSlice from "./feature/user/wallets.slice";
 import walletsService from "./services/wallets.service";
-import profileReducer from "./feature/profile";
 import userProfileService from "./services/profile/users.service";
+import bountiesService from "./services/bounties.service";
+import profileReducer from "./feature/profile";
 import { fetchProfileCommunitiesService, fetchProfileCommunityService } from "./services/profile.service";
 import certificateService from "./services/profile/certificate.service";
 import profileCommunitiesService from "./services/profile/profileCommunities.service";
@@ -37,7 +37,6 @@ import userReputationService from "./services/user/userReputation.service";
 import userReputationSlice from "./feature/user/reputation.slice";
 import web3WalletSlice from "./feature/wallet.slice";
 import certificateSlice from "./feature/profile/certificate.slice";
-import bountiesService from "./services/bounties.service";
 import userReferralsSlice from "./feature/user/referrals.slice";
 
 export interface IRootState {
@@ -60,10 +59,6 @@ export interface IRootState {
   userReputationService: ReturnType<typeof userReputationService.reducer>;
   userProfileService: ReturnType<typeof userProfileService.reducer>;
   notificationService: ReturnType<typeof notificationsService.reducer>;
-  certificateService: ReturnType<typeof certificateService.reducer>;
-  reputationProfileService: ReturnType<typeof reputationProfileService.reducer>;
-  profileCommunitiesService: ReturnType<typeof profileCommunitiesService.reducer>;
-  bountiesService: ReturnType<typeof bountiesService.reducer>;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   bounties: ReturnType<typeof bountiesSlice.reducer>;
   submissions: ReturnType<typeof submissionsSlice.reducer>;
@@ -110,6 +105,7 @@ export const store = configureStore({
     [coursesService.reducerPath]: coursesService.reducer,
     [certificateService.reducerPath]: certificateService.reducer,
     [walletsService.reducerPath]: walletsService.reducer,
+    [bountiesService.reducerPath]: bountiesService.reducer,
     [reputationProfileService.reducerPath]: reputationProfileService.reducer,
     [profileCommunitiesService.reducerPath]: profileCommunitiesService.reducer,
     [userService.reducerPath]: userService.reducer,
@@ -140,7 +136,11 @@ export const store = configureStore({
       reputationProfileService.middleware,
       profileCommunitiesService.middleware,
       userReputationService.middleware,
-      bountiesService.middleware
+      bountiesService.middleware,
+      certificateService.middleware,
+      reputationProfileService.middleware,
+      profileCommunitiesService.middleware,
+      userReputationService.middleware
     );
   },
 });
