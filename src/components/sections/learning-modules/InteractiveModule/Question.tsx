@@ -61,12 +61,11 @@ export default function InteractiveModuleQuestion({ data, disable = false, onCor
     }
     setSelected(index);
     if (index === data.correct) {
-      if(onCorrect)
-        onCorrect(index);
+      onCorrect?.(index);
       return;
     }
     triggerRetryCountdown();
-    onWrong && onWrong(index);
+    onWrong?.(index);
   };
 
   const triggerRetryCountdown = () => {
