@@ -3,7 +3,6 @@ import DateManager from "@/utilities/DateManager";
 import { useRouter } from "next/router";
 import { ReactElement, useMemo } from "react";
 
-
 /**
  * LearningModule interface
  * @date 3/29/2023 - 6:37:46 PM
@@ -49,7 +48,7 @@ export default function Learning({ learningModule }: LearningProps): ReactElemen
       return DateManager.humanize(value, router.locale as string);
     };
   }, [router.locale]);
-  
+
   const navigate = () => {
     const courseLink = navigation.community.learningModulePath(learningModule.id);
     router.push(courseLink);

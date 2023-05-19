@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useState, useEffect, useRef, ReactElement, forwardRef, CSSProperties } from "react";
+import { HTMLProps, forwardRef } from "react";
 
 /**
  * Interface for checbox props
@@ -8,16 +8,8 @@ import { useState, useEffect, useRef, ReactElement, forwardRef, CSSProperties } 
  * @interface CheckboxProps
  * @typedef {CheckboxProps}
  */
-interface CheckboxProps {
-  checked?: boolean;
-  disabled?: boolean;
-  value?: string | ReadonlyArray<string> | number;
-  required?: boolean;
-  id?: string;
-  name?: string;
+interface CheckboxProps extends HTMLProps<HTMLInputElement> {
   communityStyles?: boolean;
-  className?: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 /**
@@ -37,7 +29,7 @@ interface CheckboxProps {
 }
  * @returns {ReactElement}
  */
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function ({ checked, disabled, value, required, id, name, communityStyles, className = "", onChange }, ref) {
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function ({ disabled, className, communityStyles, ...props }, ref) {
   const styles = communityStyles ? { color: "#0000FF" } : undefined;
 
   const checkboxClassName: string = classNames(`w-5 h-5 bg-gray-100 rounded border-gray-200 text-primary ${className}`, {
@@ -45,21 +37,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function ({ checked
     "cursor-pointer": !disabled,
   });
 
-  return (
-    <input
-      ref={ref}
-      id={id}
-      type="checkbox"
-      checked={checked}
-      value={value}
-      name={name}
-      required={required}
-      disabled={disabled}
-      className={checkboxClassName}
-      style={styles}
-      onChange={onChange}
-    />
-  );
+  return <input ref={ref} {...props} type="checkbox" disabled={disabled} className={checkboxClassName} style={styles} />;
 });
 
 Checkbox.displayName = "Checkbox";

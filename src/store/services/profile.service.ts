@@ -9,8 +9,8 @@ import {
   setProfileCommunitySubmissions,
 } from "../feature/profile/communities.slice";
 
-const fetchProfileCommunityService = createApi({
-  reducerPath: "fetchProfileCommunities",
+export const fetchProfileCommunityService = createApi({
+  reducerPath: "fetchProfileCommunity",
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
     getProfileCommunity: builder.query({
@@ -39,7 +39,7 @@ const fetchProfileCommunityService = createApi({
 
 export const { useGetProfileCommunityQuery } = fetchProfileCommunityService;
 
-const fetchProfileCommunitiesService = createApi({
+export const fetchProfileCommunitiesService = createApi({
   reducerPath: "fetchProfileCommunities",
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
@@ -61,6 +61,7 @@ const fetchProfileCommunitiesService = createApi({
     }),
   }),
 });
+
 export const { useGetProfileCommunitiesQuery } = fetchProfileCommunitiesService;
 
 export const fetchProfileCommunities = ({ username, locale }: { locale?: string; username: string }) =>

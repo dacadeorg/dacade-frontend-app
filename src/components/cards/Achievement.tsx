@@ -21,6 +21,7 @@ export default function AchievementCard({ data, minting }: AchievementCardProps)
   const username = router.query.username || authUser?.displayName;
 
   const minted: boolean = !!data?.minting?.tx && data?.community?.can_mint_certificates;
+
   const mintable = data?.community?.can_mint_certificates;
   const badgeText = useMemo(() => {
     if (!mintable) return "Minting N/A";

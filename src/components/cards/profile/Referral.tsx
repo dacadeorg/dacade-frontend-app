@@ -5,12 +5,12 @@ import DateManager from "@/utilities/DateManager";
 import { useTranslation } from "next-i18next";
 import { Reward } from "@/types/course";
 import { useRouter } from "next/router";
-import { Referral } from "@/types/community";
+import { Referral as ReferralType } from "@/types/community";
 
-// TODO: This interface should be refactored
 interface ReferralProps {
-  referral: Referral;
+  referral: ReferralType;
 }
+
 /**
  * Referral component
  * @date 3/30/2023 - 11:19:33 AM
@@ -22,13 +22,11 @@ interface ReferralProps {
  * @returns {ReactElement}
  */
 
-export default function ProfileReferral({ referral }: ReferralProps): ReactElement {
+export default function Referral({ referral }: ReferralProps): ReactElement {
   const { t } = useTranslation();
   const { locale } = useRouter();
   const joinedAt = useMemo(() => DateManager.fromNow(referral.user.created_at, locale), [locale, referral.user.created_at]);
-
   const participatedAt = useMemo(() => (referral.submission ? DateManager.fromNow(referral.submission.created_at, locale) : null), [locale, referral.submission]);
-
   const rewardAt = useMemo(() => (referral.rewarded ? DateManager.fromNow(referral.updated_at, locale) : null), [locale, referral.rewarded, referral.updated_at]);
 
   return (

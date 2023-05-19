@@ -107,12 +107,12 @@ export type Metadata = {
   issuedOn: string;
   image: string;
   title: string;
+  description: string;
+  narrative: string;
   recipientName: string;
   issuerName: string;
   comment: string;
   linkToWork: string;
-  description: string;
-  narrative: string;
 };
 
 export type Reward = {

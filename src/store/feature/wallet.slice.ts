@@ -1,4 +1,4 @@
-import { AsyncThunk, Slice, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { AsyncThunk, PayloadAction, Slice, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { providers } from "ethers";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
@@ -29,7 +29,7 @@ const initialState: InitialState = {
  * @type {Slice}
  */
 export const web3WalletSlice = createSlice({
-  name: "web3",
+  name: "web3Wallet",
   initialState,
   reducers: {
     setWeb3Address: (state, action) => {
@@ -44,7 +44,9 @@ export const web3WalletSlice = createSlice({
     setConnectWallet: (state, action) => {
       state.connected = action.payload;
     },
+
     setWeb3WalletData: (state, action) => {
+      console.log({ action });
       state.address = action.payload.address;
       state.chainId = action.payload.chainId;
       state.networkName = action.payload.networkName;
@@ -55,18 +57,6 @@ export const web3WalletSlice = createSlice({
       state.networkName = null;
       provider = null;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(connectWallet.fulfilled, (state, action) => {
-        state.provider = provider;
-        state.connected = true;
-        state.address = action.payload.address;
-        state.chainId = action.payload.chainId;
-      })
-      .addCase(disconnectWallet.fulfilled, (state, action) => {
-        state.connected = action.payload?.connected as boolean;
-      });
   },
 });
 
@@ -105,8 +95,10 @@ if (typeof window !== "undefined") {
  *
  * @type {*}
  */
-export const connectWallet = createAsyncThunk("web3/connect", async () => {
+export const connectWallet = createAsyncThunk("web3/connect", async (_, { dispatch }) => {
   provider = await web3Modal?.connect();
+  dispatch(setConnectWallet(true));
+
   // We plug the initial `provider` into ethers.js and get back
   // a Web3Provider. This will add on methods from ethers.js and
   // event listeners such as `.on()` will be different.
@@ -116,12 +108,18 @@ export const connectWallet = createAsyncThunk("web3/connect", async () => {
   const network = await web3Provider.getNetwork();
   const networkName = network.name;
   currentChainId = network.chainId;
+  dispatch(subscribeProvider());
 
-  return {
+  const data = {
     address,
     chainId: currentChainId,
     networkName,
   };
+
+  console.log({ data });
+
+  dispatch(setWeb3WalletData(data));
+  return data;
 });
 
 /**
@@ -151,9 +149,7 @@ export const disconnectWallet = createAsyncThunk("web3/disconnect", async (_, { 
     await provider.disconnect();
   }
   dispatch(clearWeb3WalletState());
-  return {
-    connected: false,
-  };
+  dispatch(setConnectWallet(false));
 });
 
 /**
@@ -174,7 +170,7 @@ export const check = createAsyncThunk("web3/check", async (_, { dispatch }) => {
  *
  * @type {*}
  */
-export const subscribe = createAsyncThunk("web3/subscribe", async (_, { dispatch }) => {
+export const subscribeProvider = createAsyncThunk("web3/subscribeProvider", async (_, { dispatch }) => {
   if (!provider?.on) return;
   provider.on("disconnect", () => dispatch(disconnectWallet()));
   provider.on("accountsChanged", async (accounts: string | any[]) => {
