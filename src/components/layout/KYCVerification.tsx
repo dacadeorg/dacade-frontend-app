@@ -1,6 +1,9 @@
 import Modal from "@/components/ui/Modal";
 import { useTranslation } from "next-i18next";
 import ArrowButton from "@/components/ui/button/Arrow";
+import { useSelector } from "@/hooks/useTypedSelector";
+import { closeVerificationModal, launchWebSdk, triggerCompleteAction } from "@/store/feature/kyc.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  * KYCVerification Props Interface
@@ -25,66 +28,44 @@ interface KYCVerificationProps {
  */
 export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
-  // TODO: This will be fetched from the store once the store is ready
-  // const {
-  //   showModal,
-  //   completed,
-  //   completedText,
-  //   reasonText,
-  //   verifying,
-  //   completedActionText,
-  //   actionText,
-  //   loading,
-  //   title,
-  // } = useSelector((state: any) => state.kyc);
+  const allThings = useSelector((state) => state.sumsubVerification);
 
-  // TODO: Remove this once the store is ready
-  const showModal = false;
-  const completed = false;
-  const completedText = "";
-  const reasonText = "";
-  const completedActionText = "";
-  const actionText = "";
-  const loading = false;
-  const title = "";
-  const verifying = false;
+  const { showModal, completed, completedText, reasonText, verifying, completedActionText, actionText, loading, title } = allThings;
 
   const closeModal = () => {
-    // TODO: This will be dispatched to the store once the store is ready
-    // dispatch("kyc/closeVerificationModal");
+    closeVerificationModal()(dispatch);
   };
   const verify = () => {
     if (completed) return handleCompleted();
-    // TODO: This will be dispatched to the store once the store is ready
-    // dispatch("kyc/launchWebSdk");
+    dispatch(launchWebSdk());
   };
 
   const handleCompleted = () => {
     closeModal();
     onCompleted?.();
-    // TODO: This will be dispatched to the store once the store is ready
-    // dispatch("kyc/triggerCompleteAction");
+    triggerCompleteAction()(dispatch);
   };
 
   return (
     <Modal show={showModal} onClose={closeModal}>
       <div className="px-6 py-6">
         {!verifying && (
-          <div className="text-left flex flex-col">
+          <div className="flex flex-col text-left">
             <h1 className="text-.5xl leading-snug font-medium">{title || t("kyc.default.title")}</h1>
             <p className="pt-8">{completed ? completedText || t("kyc.default.completed") : reasonText || t("kyc.default.reason")}</p>
           </div>
         )}
         {verifying && <div id="sumsub-websdk-container" className="pb-5"></div>}
       </div>
-      <div className="flex items-center justify-between pt-4 pl-6 pr-2 pb-2">
-        <span className="cursor-pointer text-sm font-medium text-primary" onClick={closeModal}>
+      <div className="flex items-center justify-between pt-4 pb-2 pl-6 pr-2">
+        <span className="text-sm font-medium cursor-pointer text-primary" onClick={closeModal}>
           {t("profile.edit.close")}
         </span>
         {!verifying && (
           <ArrowButton loading={loading} disabled={loading} onClick={verify}>
-            {completed ? completedActionText || t("kyc.default.button.completed") : actionText || t("kyc.default.button")}
+            {completed ? completedActionText || t("kyc.default.button.completed") : actionText || `${t("kyc.default.button")}`}
           </ArrowButton>
         )}
       </div>

@@ -301,5 +301,12 @@
   "profile.achievement.issued": "Issued by",
   "profile.achievement.comment": "Comment",
   "discord-verification.error.title": "Discord verification failed",
-  "discord-verification.success.title": "Discord has been linked successfully"
+  "discord-verification.success.title": "Discord has been linked successfully",
+  "kyc.default.title": "Identity verification",
+  "kyc.default.completed": "Your identity has been verified successfully.",
+  "kyc.default.reason": "To ensure the safety and security of our platform, we require all users to verify their identity. This verification process helps us maintain a trusted community of members who are committed to upholding our standards. Please take a moment to complete your KYC verification to help us in our efforts to create a safe and secure environment for everyone.",
+  "kyc.default.button": "Start verification",
+  "kyc.default.button.completed": "Go to profile",
+  "kyc.payout.reason": "To cashout, you need to verify your identity first.",
+  "kyc.payout.button.completed": "Proceed to  cashout"
 }

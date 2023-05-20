@@ -31,7 +31,7 @@ export default function CourseViewPage(props: {
 
   const list = navigation.community.init({ community, course });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(setCurrentCommunity(community));
     dispatch(setCurrentCourse(course));
     dispatch(setColors(community.colors));

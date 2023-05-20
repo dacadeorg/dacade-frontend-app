@@ -20,16 +20,7 @@ interface SumsubVerificationState {
   completedAction: (() => Promise<void>) | null;
 }
 
-type SetTextPayload = {
-  reasonText: string;
-  title: string;
-  completedText: string;
-  actionText: string;
-  completedActionText: string;
-  completedAction: () => Promise<void>;
-};
-
-const initialState: SumsubVerificationState = {
+const defaultState: SumsubVerificationState = {
   sumsubToken: null,
   showModal: false,
   loading: false,
@@ -83,7 +74,7 @@ export const closeVerificationModal = () => (dispatch: Dispatch) => {
 };
 
 export const triggerCompleteAction = () => async (dispatch: Dispatch) => {
-  const completedAction = store.getState().sumsub.completedAction;
+  const completedAction = store.getState().sumsubVerification.completedAction;
   if (!completedAction) return;
   try {
     await completedAction();
@@ -134,25 +125,25 @@ export const launchWebSdk = createAsyncThunk("sumsub/launchWebSdk", async (_, { 
 });
 
 const sumsubVerificationSlice = createSlice({
-  name: "sumsub",
-  initialState,
+  name: "sumsubVerification",
+  initialState: defaultState,
   reducers: {
-    setSumsubToken: (state, action: PayloadAction<string | null>) => {
+    setSumsubToken: (state, action) => {
       state.sumsubToken = action.payload;
     },
-    setShowModal: (state, action: PayloadAction<boolean>) => {
+    setShowModal: (state, action) => {
       state.showModal = action.payload;
     },
-    setLoading: (state, action: PayloadAction<boolean>) => {
+    setLoading: (state, action) => {
       state.loading = action.payload;
     },
-    setVerifying: (state, action: PayloadAction<boolean>) => {
+    setVerifying: (state, action) => {
       state.verifying = action.payload;
     },
-    setCompleted: (state, action: PayloadAction<boolean>) => {
+    setCompleted: (state, action) => {
       state.completed = action.payload;
     },
-    setText: (state, action: PayloadAction<SetTextPayload>) => {
+    setText: (state, action) => {
       state.reasonText = action.payload.reasonText;
       state.title = action.payload.title;
       state.completedText = action.payload.completedText;
@@ -161,27 +152,27 @@ const sumsubVerificationSlice = createSlice({
       state.completedAction = action.payload.completedAction;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(completeSumSubVerification.pending, (state) => {
-        // Handle the pending state if needed
-      })
-      .addCase(completeSumSubVerification.fulfilled, (state) => {
-        // Handle the fulfilled state if needed
-      })
-      .addCase(completeSumSubVerification.rejected, (state) => {
-        // Handle the rejected state if needed
-      })
-      .addCase(launchWebSdk.pending, (state) => {
-        // Handle the pending state if needed
-      })
-      .addCase(launchWebSdk.fulfilled, (state) => {
-        // Handle the fulfilled state if needed
-      })
-      .addCase(launchWebSdk.rejected, (state) => {
-        // Handle the rejected state if needed
-      });
-  },
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(completeSumSubVerification.pending, (state) => {
+  //       // Handle the pending state if needed
+  //     })
+  //     .addCase(completeSumSubVerification.fulfilled, (state) => {
+  //       // Handle the fulfilled state if needed
+  //     })
+  //     .addCase(completeSumSubVerification.rejected, (state) => {
+  //       // Handle the rejected state if needed
+  //     })
+  //     .addCase(launchWebSdk.pending, (state) => {
+  //       // Handle the pending state if needed
+  //     })
+  //     .addCase(launchWebSdk.fulfilled, (state) => {
+  //       // Handle the fulfilled state if needed
+  //     })
+  //     .addCase(launchWebSdk.rejected, (state) => {
+  //       // Handle the rejected state if needed
+  //     });
+  // },
 });
 
 export const { setSumsubToken, setShowModal, setLoading, setVerifying, setCompleted, setText } = sumsubVerificationSlice.actions;
