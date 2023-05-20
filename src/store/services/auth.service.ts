@@ -2,6 +2,7 @@ import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { login, setAuthData } from "../feature/auth.slice";
 import { clearError, setBusy, setError } from "../feature/index.slice";
+import { createEvent } from "../feature/events.slice";
 
 /**
  * Auth service
@@ -16,7 +17,7 @@ export const authService = createApi({
     /**
      * Signup endpoint
      * @method POST
-     * @enpoint notifications/read
+     * @enpoint auth/signup
      */
     signUp: builder.mutation({
       query: ({ payload, locale }) => ({
@@ -27,21 +28,20 @@ export const authService = createApi({
         },
         body: payload,
       }),
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async ({ payload }, { dispatch, queryFulfilled }) => {
         try {
-          const { data } = await queryFulfilled;
           dispatch(setBusy(true));
           dispatch(clearError());
-          dispatch(
-            login({
-              email: data.payload.email,
-              password: data.payload.password,
-            })
-          );
+          const { data } = await queryFulfilled;
+          // Send the event to firebase analytics
+          createEvent({ name: "user-signed-up", attributes: { userId: data.uid } });
+
+          await dispatch(login({ email: payload.email, password: payload.password }));
         } catch (error) {
           dispatch(setAuthData(null));
           dispatch(setBusy(false));
           dispatch(setError(error));
+          throw error;
         }
       },
     }),

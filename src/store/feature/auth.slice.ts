@@ -6,6 +6,7 @@ import { clearError, setBusy, setError, setJobDone } from "./index.slice";
 import { IRootState } from "..";
 import { User } from "@/types/bounty";
 import { fetchUser } from "../services/user.service";
+import api from "@/config/api";
 
 // Define the interface for the auth state
 interface AuthState {
@@ -60,6 +61,7 @@ export const login = createAsyncThunk("login", async (payload: { email: string; 
     dispatch(setAuthData(null));
     dispatch(setBusy(false));
     dispatch(setError(error));
+    throw error;
   }
 });
 

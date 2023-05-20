@@ -11,7 +11,6 @@ import i18Translate from "@/utilities/I18Translate";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import Checkbox from "@/components/ui/Checkbox";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
-import { useSelector } from "@/hooks/useTypedSelector";
 import EmailInput from "@/components/ui/EmailInput";
 import UsernameInput from "@/components/ui/UsernameInput";
 import { signUp } from "@/store/services/auth.service";
@@ -44,10 +43,14 @@ export default function Signup(): ReactElement {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FormValues>();
+  const emailValue = watch("email");
+  const passwordValue = watch("password");
+  const usernameValue = watch("username");
+  const referralCodeValue = watch("referralCode");
   const { t } = useTranslation();
-  const error = useSelector((state) => state.store.error);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -83,15 +86,16 @@ export default function Signup(): ReactElement {
             <h1 className="text-5xl my-5">{t("login-page.signup.title")}</h1>
 
             <div className="mb-5 relative">
-              <EmailInput errors={errors} register={register} />
+              <EmailInput emailValue={emailValue} errors={errors} register={register} />
             </div>
             <div className="mb-5 relative">
-              <UsernameInput errors={errors} register={register} />
+              <UsernameInput usernameValue={usernameValue} errors={errors} register={register} />
             </div>
             <div className="mb-5 relative">
               <Input
                 id="password"
                 type="password"
+                value={passwordValue}
                 placeholder={`${t("login-page.password.placeholde")}`}
                 label={`${t("login-page.password.label")}`}
                 error={errors.password?.message}
@@ -107,6 +111,7 @@ export default function Signup(): ReactElement {
             <div className="mb-5 relative">
               <Input
                 id="referralCode"
+                value={referralCodeValue}
                 placeholder={`${t("login-page.refcode.placeholder")}`}
                 label={`${t("login-page.refcode.label")}`}
                 error={errors.referralCode?.message}

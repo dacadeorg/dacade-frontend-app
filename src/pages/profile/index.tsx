@@ -17,7 +17,7 @@ import { GetServerSideProps, GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import { fetchAllCertificates } from "@/store/services/profile/certificate.service";
 
-export default function ProfileOverview() {
+export default function ProfileOverview(): ReactElement {
   const user = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
 

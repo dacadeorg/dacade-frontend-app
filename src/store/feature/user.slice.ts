@@ -18,7 +18,7 @@ interface DefaultState {
   balance: string | null;
   walletAddresses: string | null;
   token: string | null;
-  // referrals: Referral | null;
+  fetchingUserLoading: boolean;
 }
 
 /**
@@ -31,7 +31,7 @@ const defaultState: DefaultState = {
   balance: null,
   walletAddresses: null,
   token: null,
-  // referrals: null,
+  fetchingUserLoading: true,
 };
 
 /**
@@ -76,18 +76,19 @@ const userSlice = createSlice({
       state.data = null;
       state.token = null;
     },
-
+    fetchingUserLoading: (state, action) => {
+      state.fetchingUserLoading = action.payload;
+    },
     setUserdata: (state, action) => {
       state.data = action.payload;
     },
-
     setUserToken: (state, action) => {
       state.token = action.payload;
     },
   },
 });
 
-export const { clearUserState, setUserdata, setUserToken } = userSlice.actions;
+export const { clearUserState, setUserdata, setUserToken, fetchingUserLoading } = userSlice.actions;
 
 /**
  * An async action creator that gets the current user's token and sets it in the state.
