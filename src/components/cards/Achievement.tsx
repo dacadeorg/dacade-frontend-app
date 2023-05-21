@@ -6,10 +6,34 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useSelector } from "@/hooks/useTypedSelector";
 import classNames from "classnames";
+import { Community } from "@/types/community";
+import { Metadata } from "@/types/course";
 
+/**
+ * Achievement interface
+ * @date 5/21/2023 - 10:06:10 PM
+ *
+ * @interface Achievement
+ * @typedef {Achievement}
+ */
+interface Achievement {
+  id: string;
+  metadata: Metadata;
+  minting: {
+    tx: string;
+  };
+  community: Community;
+}
+
+/**
+ * Achievement card props interface
+ * @date 5/21/2023 - 10:05:34 PM
+ *
+ * @interface AchievementCardProps
+ * @typedef {AchievementCardProps}
+ */
 interface AchievementCardProps {
-  // TODO: The type should be improved after having a clear idea about the data type
-  data: any;
+  data: Achievement;
   minting?: boolean;
 }
 
@@ -37,7 +61,7 @@ export default function AchievementCard({ data, minting }: AchievementCardProps)
           <div className="flex-grow w-full mx-auto text-left px-7">
             <div
               className={`mx-auto relative rounded-full mb-5 ${!isNotCertificateIcon ? "w-20 h-20" : ""}`}
-              style={{ backgroundColor: isNotCertificateIcon && data.community.colors.primary }}
+              style={{ backgroundColor: isNotCertificateIcon ? data.community.colors.primary : "" }}
             >
               <img src={data.metadata.image} alt="achievement" />
             </div>

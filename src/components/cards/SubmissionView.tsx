@@ -23,7 +23,6 @@ type DefaultLocale = "en" | "fr";
  * @typedef {SubmissionViewCardProps}
  */
 interface SubmissionViewCardProps {
-  // TODO: to be updated with ISubmission once community slice is implemented
   submission: Submission
 }
 
