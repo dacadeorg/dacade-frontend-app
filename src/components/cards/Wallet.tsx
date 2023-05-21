@@ -19,7 +19,7 @@ interface CardsWalletProps {
 
 /**
  * Cards wallet component
- * 
+ *
  * @returns {ReactElement}
  */
 
@@ -28,8 +28,8 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
   const [showEditModal, setShowEditModal] = useState(false);
   const [showPayoutModal, setShowPayoutModal] = useState(false);
   const [showKycModal, setShowKycModal] = useState(false);
-// TODO: Replace with actual value from store
-  const isKycVerified = false; 
+  // TODO: Replace with actual value from store
+  const isKycVerified = false;
 
   const address = wallet.address ? wallet.address.match(/.{1,4}/g) : null;
 
@@ -96,7 +96,7 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
                 dangerouslySetInnerHTML={{
                   __html: t("profile.wallets.uncashable", {
                     token: `${wallet.title}`,
-                    link: `https://discord.gg/5yDZvVnpQQ`,
+                    link: "https://discord.gg/5yDZvVnpQQ",
                   }),
                 }}
               />
@@ -121,4 +121,4 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
       ))}
     </div>
   );
-};
+}
