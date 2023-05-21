@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { ReactElement, ReactNode, useEffect, useMemo } from "react";
 
 /**
- * This higher order component handle routing according to the user authentication state
+ * This higher order component handles routing according to the user authentication state
  * @date 5/14/2023 - 11:52:29 AM
  *
  * @export
@@ -46,6 +46,11 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
   useEffect(() => {
     if (route.startsWith("/verify-email") && auth && auth?.emailVerified) {
       router.push("/login");
+      return;
+    }
+
+    if (route.startsWith("/email-verification") && !auth) {
+      router.push("/");
       return;
     }
 

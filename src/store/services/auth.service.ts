@@ -52,7 +52,7 @@ export const authService = createApi({
      */
     resendEmailVerification: builder.query({
       query: (locale) => ({
-        url: `auth/send-verification-email`,
+        url: "auth/send-verification-email",
         headers: {
           "accept-language": locale,
         },

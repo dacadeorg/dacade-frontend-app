@@ -1,7 +1,6 @@
 import { auth as firebaseAuth } from "@/config/firebase";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { User } from "@/types/bounty";
-import { Referral } from "@/types/community";
 
 /**
  * The default state for the user slice.
@@ -42,30 +41,6 @@ export const getUserToken = async () => {
   const user = firebaseAuth?.currentUser;
   const token = await user?.getIdToken();
   return token;
-};
-
-export const clearNotifications = () => {
-  return {
-    type: "user/notifications/clear",
-  };
-};
-
-export const clearReputations = () => {
-  return {
-    type: "user/reputations/clear",
-  };
-};
-
-export const clearWallets = () => {
-  return {
-    type: "user/wallets/clear",
-  };
-};
-
-export const clearAuth = () => {
-  return {
-    type: "auth/clear",
-  };
 };
 
 const userSlice = createSlice({
