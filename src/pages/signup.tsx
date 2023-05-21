@@ -28,7 +28,7 @@ import { setError } from "@/store/feature/index.slice";
  * @typedef {FormValues}
  */
 
-interface FormValues {
+export interface FormValues {
   email: string;
   username: string;
   password: string;
@@ -53,6 +53,7 @@ export default function SignupWithInvite(): ReactElement {
   const emailValue = watch("email");
   const passwordValue = watch("password");
   const usernameValue = watch("username");
+  const referralCodeValue = watch("referralCode");
   const { query, locale } = useRouter();
   const referrer = query.invite;
   const referrals = useSelector((state) => state.referrals.list);
@@ -92,9 +93,7 @@ export default function SignupWithInvite(): ReactElement {
             {referrer && (
               <div className="p-px">
                 <h1 className="text-.5xl mb-2.5 font-medium leading-6 text-gray-900">
-                  <span className="capitalize">{referrer}</span>
-                  {t("signup-page.referrer.title")}
-                  {t("app.name")}
+                  <span className="capitalize">{referrer}</span> {t("signup-page.referrer.title")} {t("app.name")}
                 </h1>
                 <p className={classNames("my-px text-gray-700", { invisible: !(referrals && referrals.length) })}>{t("signup-page.referrer.subtitle")}</p>
 
@@ -129,6 +128,23 @@ export default function SignupWithInvite(): ReactElement {
               />
             </div>
 
+            {!referrer && (
+              <div className="mb-5 relative">
+                <Input
+                  id="referralCode"
+                  value={referralCodeValue}
+                  placeholder={`${t("login-page.refcode.placeholder")}`}
+                  label={`${t("login-page.refcode.label")}`}
+                  error={errors.referralCode?.message}
+                  {...register("referralCode", {
+                    minLength: {
+                      value: 3,
+                      message: "The referral code is too short",
+                    },
+                  })}
+                />
+              </div>
+            )}
             <div className="flex justify-between mt-4">
               <div className="flex flex-col self-start">
                 <div className="max-w-xm">

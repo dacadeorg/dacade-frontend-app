@@ -1,4 +1,4 @@
-import { useEffect, ReactElement, useMemo } from "react";
+import { useEffect, ReactElement } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchProfileReputation } from "@/store/services/profile/reputation.service";
@@ -13,7 +13,7 @@ import DiscordConnect from "@/components/popups/DiscordConnect";
 import Head from "next/head";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import AuthCheckProvider from "@/contexts/AuthCheckProvider";
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import { fetchAllCertificates } from "@/store/services/profile/certificate.service";
 

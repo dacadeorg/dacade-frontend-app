@@ -48,7 +48,7 @@ export const authService = createApi({
     /**
      * Resend verification endpoint
      * @method POST
-     * @enpoint notifications/read
+     * @enpoint auth/send-verification-email
      */
     resendEmailVerification: builder.query({
       query: (locale) => ({
@@ -61,7 +61,7 @@ export const authService = createApi({
     /**
      * Verify Email endpoint
      * @method POST
-     * @enpoint notifications/read
+     * @enpoint auth/verify-email
      */
     verifyEmail: builder.mutation({
       query: ({ payload, locale }) => ({
@@ -100,8 +100,4 @@ export const resendEmailVerification = (locale?: string) => authService.endpoint
  *
  * @param {?string} [locale]
  */
-export const verifyEmail = async ({ payload, locale }: { payload: { code: string }; locale?: string }) =>
-  await authService.endpoints.verifyEmail.initiate({
-    locale,
-    payload,
-  });
+export const verifyEmail = ({ payload, locale }: { payload: { code: string }; locale?: string }) => authService.endpoints.verifyEmail.initiate({ locale, payload });

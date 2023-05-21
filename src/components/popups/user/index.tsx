@@ -62,7 +62,7 @@ export default function UserPopup({ buttonStyles }: { buttonStyles: CSSPropertie
             )}
           </Button>
         </div>
-        {show && <Dropdown />}
+        {show && <Dropdown onClose={externalClick} />}
       </div>
       {show && <div onClick={externalClick} className="opacity-25 fixed inset-0 z-30 bg-black" />}
     </div>

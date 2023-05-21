@@ -4,11 +4,12 @@ import Loader from "@/components/ui/Loader";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { verifyEmail } from "@/store/services/auth.service";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  * Email verification page
@@ -22,23 +23,21 @@ export default function EmailVerification(): ReactElement {
   const [verified, setVerified] = useState(true);
   const router = useRouter();
   const { locale } = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const verify = async () => {
       const code = router.query.code as string;
       if (!code) return;
       try {
-        await verifyEmail({
-          locale: locale as string,
-          payload: { code },
-        });
+        await dispatch(verifyEmail({ locale: locale as string, payload: { code } }));
         setVerified(true);
       } catch (error) {
         console.error(error);
       }
     };
     verify();
-  }, [locale, router.query.code]);
+  }, [dispatch, locale, router.query.code]);
 
   const goHome = () => {
     router.push("/login");
@@ -77,11 +76,4 @@ EmailVerification.getLayout = function getLayout(page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
 
-export const getStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: true,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => i18Translate(locale as string);
