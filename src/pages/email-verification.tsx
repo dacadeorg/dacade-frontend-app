@@ -1,7 +1,3 @@
-/*
- TODO: The logic for this is file need to be improved 
- when the login and signup logic is fully tested.
-*/
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
 import i18Translate from "@/utilities/I18Translate";
