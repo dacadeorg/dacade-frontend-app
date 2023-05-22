@@ -44,7 +44,7 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
   );
 
   useEffect(() => {
-    if (route.startsWith("/verify-email") && auth && auth?.emailVerified) {
+    if (route.startsWith("/verify-email") && auth?.emailVerified) {
       router.push("/");
       return;
     }
