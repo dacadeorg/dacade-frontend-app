@@ -1,4 +1,3 @@
-import { wrapper } from "@/store";
 import Section from "@/components/ui/Section";
 import { Community } from "@/types/community";
 import { setColors } from "@/store/feature/ui.slice";
@@ -8,15 +7,14 @@ import MainHeader from "@/components/sections/communities/overview/MainHeader";
 import { CoursesOverview } from "@/components/sections/communities/overview/Courses";
 import ScoreboardOverview from "@/components/sections/communities/overview/scoreboard";
 import CommunityLayout from "@/layouts/Community";
-import { ReactElement, useLayoutEffect } from "react";
+import { ReactElement, useEffect, useLayoutEffect } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { Course } from "@/types/course";
 import { setScoreboardList } from "@/store/feature/communities/scoreboard.slice";
 import { Scoreboard } from "@/types/scoreboard";
 import api from "@/config/api";
-import { GetStaticProps } from "next";
-import LOCALES from "@/constants/locales";
 import { setCourseList } from "@/store/feature/course.slice";
+import { GetServerSideProps } from "next";
 
 export default function Slug(props: {
   pageProps: {
@@ -28,7 +26,7 @@ export default function Slug(props: {
   const { community, courses, scoreboards } = props.pageProps;
   const dispatch = useDispatch();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(setCurrentCommunity(community));
     dispatch(setColors(community.colors));
     dispatch(setCourseList(courses));
@@ -52,7 +50,7 @@ Slug.getLayout = function (page: ReactElement) {
   return <CommunityLayout>{page}</CommunityLayout>;
 };
 
-export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
   try {
     const slug = params?.slug as string;
 
@@ -61,7 +59,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
       api(locale).server.get<Scoreboard>(`/communities/${slug}/scoreboard`),
       api(locale).server.get<Course[]>(`/communities/${slug}/courses`),
     ]).then((responses) => responses.map((response) => response.data));
-    //
+
     return {
       props: {
         community,
@@ -69,7 +67,6 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
         courses,
         ...(await serverSideTranslations(locale as string)),
       },
-      revalidate: 60,
     };
   } catch (error) {
     return {
@@ -77,27 +74,3 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
     };
   }
 };
-
-export async function getStaticPaths() {
-  const communities: Community[] = await api()
-    .server.get<Community[]>(`/communities`)
-    .then((res) => res.data);
-
-  const paths: { params: { slug: string }; locale: string }[] = [];
-
-  communities.forEach(({ slug }) => {
-    LOCALES.forEach((locale) => {
-      paths.push({
-        params: {
-          slug,
-        },
-        locale: locale,
-      });
-    });
-  });
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
-}

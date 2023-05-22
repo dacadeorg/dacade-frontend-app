@@ -23,7 +23,9 @@ import { Colors, Community } from "@/types/community";
 import Head from "next/head";
 import MetaData from "@/components/ui/MetaData";
 import { fetchChallenge, setCurrentChallenge } from "@/store/feature/communities/challenges";
-import { fetchCurrentCommunity, setCurrentCommunity } from "@/store/feature/community.slice";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { GetServerSideProps } from "next";
 
 /**
  * Challenge view page 
@@ -97,9 +99,9 @@ ChallengePage.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor="default">{page}</DefaultLayout>;
 };
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async (data) => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async (data) => {
   const { query, locale } = data;
-  const { slug, course_slug, challenge_id } = query;
+  const { slug, challenge_id } = query;
 
   const fetchPayload = {
     slug: slug as string,
@@ -111,7 +113,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (d
   const getCurrentChallenge = store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string }));
   const results = await Promise.all([getCurrentCommunty, getCurrentChallenge]);
 
-  const community = results[0].payload;
+  const community = results[0];
   const challenge = results[1].payload;
 
   if (community) {

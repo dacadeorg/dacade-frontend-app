@@ -15,6 +15,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import MetaData from "@/components/ui/MetaData";
 import Head from "next/head";
 import { toggleBodyScrolling } from "@/store/feature/ui.slice";
+import { GetServerSideProps } from "next";
 
 export default function Submission() {
   const [selectedSubmission, setSelectedSubmission] = useState("");
@@ -92,7 +93,7 @@ Submission.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor="default">{page}</DefaultLayout>;
 };
 
-export const getServerSideProps = async ({ locale }: { locale: string }) => ({
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale as string)),
   },

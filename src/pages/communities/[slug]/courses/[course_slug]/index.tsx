@@ -16,6 +16,7 @@ import { initNavigationMenu } from "@/store/feature/communities/navigation.slice
 import useNavigation from "@/hooks/useNavigation";
 import api from "@/config/api";
 import LOCALES from "@/constants/locales";
+import { GetServerSideProps } from "next";
 
 export default function CourseViewPage(props: {
   pageProps: {
@@ -61,9 +62,12 @@ CourseViewPage.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
-export async function getStaticProps({ params, locale }: any) {
+
+
+export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
   try {
-    const { slug, course_slug } = params;
+    const slug = params?.slug as string;
+    const course_slug = params?.course_slug as string;
 
     const [community, course] = await Promise.all([api(locale).server.get<Community>(`/communities/${slug}`), api(locale).server.get<Community>(`/courses/${course_slug}`)]).then(
       (res) => res.map(({ data }) => data)
@@ -75,52 +79,10 @@ export async function getStaticProps({ params, locale }: any) {
         course,
         ...(await serverSideTranslations(locale as string)),
       },
-      revalidate: 60,
     };
   } catch (error) {
     return {
       notFound: true,
     };
   }
-}
-interface Path {
-  params: {
-    slug: string;
-    course_slug: string;
-  };
-  locale: string;
-}
-
-export async function getStaticPaths() {
-  const { data: communities } = await api().server.get<Community[]>(`/communities`);
-
-  const getPathes = async () => {
-    const paths = await Promise.all(
-      communities.map(async (community) => {
-        const { data: courses } = await api().server.get<Course[]>(`/communities/${community.slug}/courses`);
-        const coursePaths: Path[] = [];
-
-        courses.forEach(({ slug }) => {
-          LOCALES.forEach((locale) => {
-            coursePaths.push({
-              params: {
-                slug: community.slug,
-                course_slug: slug,
-              },
-              locale: locale,
-            });
-          });
-        });
-        return coursePaths;
-      })
-    );
-    return paths.flat();
-  };
-
-  const paths: Path[] = await getPathes();
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
 }
