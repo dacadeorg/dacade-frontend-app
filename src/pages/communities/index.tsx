@@ -68,7 +68,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps((store) => 
   return {
     props: {
       ...(await serverSideTranslations(locale as string)),
-      communities: results.data,
+      communities: results?.data ?? [],
       revalidate: 60 * 60 * 12,
     },
   };
