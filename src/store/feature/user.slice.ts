@@ -18,7 +18,8 @@ interface DefaultState {
   balance: string | null;
   walletAddresses: string | null;
   token: string | null;
-  referrals: Referral | null;
+  referrals: Referral[] | null;
+  fetchingUserLoading: boolean;
 }
 
 /**
@@ -32,6 +33,7 @@ const defaultState: DefaultState = {
   walletAddresses: null,
   token: null,
   referrals: null,
+  fetchingUserLoading: true,
 };
 
 /**
@@ -44,30 +46,6 @@ export const getUserToken = async () => {
   return token;
 };
 
-export const clearNotifications = () => {
-  return {
-    type: "user/notifications/clear",
-  };
-};
-
-export const clearReputations = () => {
-  return {
-    type: "user/reputations/clear",
-  };
-};
-
-export const clearWallets = () => {
-  return {
-    type: "user/wallets/clear",
-  };
-};
-
-export const clearAuth = () => {
-  return {
-    type: "auth/clear",
-  };
-};
-
 const userSlice = createSlice({
   name: "user",
   initialState: defaultState,
@@ -76,18 +54,19 @@ const userSlice = createSlice({
       state.data = null;
       state.token = null;
     },
-
+    fetchingUserLoading: (state, action) => {
+      state.fetchingUserLoading = action.payload;
+    },
     setUserdata: (state, action) => {
       state.data = action.payload;
     },
-
     setUserToken: (state, action) => {
       state.token = action.payload;
     },
   },
 });
 
-export const { clearUserState, setUserdata, setUserToken } = userSlice.actions;
+export const { clearUserState, setUserdata, setUserToken, fetchingUserLoading } = userSlice.actions;
 
 /**
  * An async action creator that gets the current user's token and sets it in the state.

@@ -62,6 +62,7 @@ const App = ({ Component, ...rest }: AppPropsWithLayout) => {
                 speed: 500,
               }}
             />
+
             <Component {...pageProps} />
           </RequireAuth>
         </UserAuthProvider>

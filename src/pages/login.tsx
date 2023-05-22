@@ -13,8 +13,8 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import { authCheck, login } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import EmailInput from "@/components/ui/EmailInput";
-import { FormValues } from "./signup";
 import { useSelector } from "@/hooks/useTypedSelector";
+import { FormValues } from "./signup";
 
 /**
  * Login form values

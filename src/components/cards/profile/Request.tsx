@@ -25,15 +25,9 @@ export default function Request(): ReactElement {
     <>
       <label>Referrals: {JSON.stringify(referrals)}</label>
 
-      <div className={`relative flex items-center ${referrals && referrals ? "" : "hidden"}`}>
-        <div className="flex pr-3 cursor-pointer" onClick={onClick}>
-          {previewList.map((referral, index: number) => (
-            <Avatar key={index} className={`border-2 border-solid border-white ${index > 0 && "-ml-3"}`} useLink={false} user={referral.user} />
-          ))}
-        </div>
-        <div className="relative text-sm font-normal text-gray-500 cursor-pointer md:flex md:font-medium" onClick={onClick}>
-          <span className="md:inline-block">{referrals ? referrals.length : "0"} Friends have used your invite code</span>
-        </div>
+      <div className={`relative flex items-center ${referrals && referrals ? "" : "hidden"}`}></div>
+      <div className="relative text-sm font-normal text-gray-500 cursor-pointer md:flex md:font-medium" onClick={onClick}>
+        <span className="md:inline-block">{referrals?.length} Friends have used your invite code</span>
       </div>
     </>
   );

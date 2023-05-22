@@ -46,7 +46,6 @@ export const web3WalletSlice = createSlice({
     },
 
     setWeb3WalletData: (state, action) => {
-      console.log({ action });
       state.address = action.payload.address;
       state.chainId = action.payload.chainId;
       state.networkName = action.payload.networkName;
@@ -115,8 +114,6 @@ export const connectWallet = createAsyncThunk("web3/connect", async (_, { dispat
     chainId: currentChainId,
     networkName,
   };
-
-  console.log({ data });
 
   dispatch(setWeb3WalletData(data));
   return data;

@@ -11,6 +11,7 @@ import CommunitiesSection from "@/components/sections/homepage/Communities";
 import MainSection from "@/components/sections/homepage/Main";
 import TestimonialsSection from "@/components/sections/homepage/Testimonials";
 import { fetchAllCommunities } from "@/store/services/community.service";
+import RequireAuth from "@/layouts/RequireAuth";
 
 const Home = (props: { pageProps: { communities: Community[] } }) => {
   const { t } = useTranslation();

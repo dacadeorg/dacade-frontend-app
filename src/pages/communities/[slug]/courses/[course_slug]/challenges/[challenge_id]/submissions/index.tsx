@@ -33,16 +33,11 @@ export default function Submission() {
     // window.history.pushState({}, null, route.path)
   }, [dispatch, selectedSubmission, submission_id]);
 
-  const handleCloseSubmission = () => {
-    setSelectedSubmission("");
+  const handleCloseSubmission = useCallback(() => {
+    setSelectedSubmission("")
+    dispatch(showSubmission(""));
     // window.history.pushState({}, null, router.pathname)
-  };
-
-  useEffect(() => {
-    if (submission_id) {
-      handleDisplaySubmission();
-    }
-  }, [handleDisplaySubmission, router, submission_id]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (slug && course_slug && challenge_id) {
@@ -69,6 +64,13 @@ export default function Submission() {
     }
   }, [slug, course_slug, challenge_id, dispatch, router.locale]);
 
+  useEffect(() => {
+    if (!!submissions) {
+      setSelectedSubmission(submissions.id);
+      return;
+    }
+  }, [submissions]);
+
   return (
     <>
       <Head>
@@ -78,7 +80,7 @@ export default function Submission() {
       <Wrapper>
         <div className="flex flex-col py-4 space-y-8 text-gray-700">
           <Header title={course?.name} subtitle={t("communities.submission.title")} />
-          <List setSelectedSubmission={setSelectedSubmission} />
+          <List />
         </div>
         <SubmissionPopup show={!!selectedSubmission} submissionId={selectedSubmission} onClose={handleCloseSubmission} />
       </Wrapper>
