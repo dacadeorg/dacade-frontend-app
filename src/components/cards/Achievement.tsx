@@ -8,6 +8,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import classNames from "classnames";
 import { Community } from "@/types/community";
 import { Metadata } from "@/types/course";
+import { Certificate } from "@/types/certificate";
 
 /**
  * Achievement interface
@@ -16,14 +17,7 @@ import { Metadata } from "@/types/course";
  * @interface Achievement
  * @typedef {Achievement}
  */
-interface Achievement {
-  id: string;
-  metadata: Metadata;
-  minting: {
-    tx: string;
-  };
-  community: Community;
-}
+interface Achievement extends Pick<Certificate, "id" | "metadata"| "minting"| "community">  {}
 
 /**
  * Achievement card props interface
