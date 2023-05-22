@@ -55,6 +55,7 @@ export default function Login(): ReactElement {
     try {
       setLoading(true);
       await dispatch(login(loginData));
+      // router.replace("/bounties");
       if (isChecked) router.replace("/bounties");
     } catch (err) {
       console.error(err);

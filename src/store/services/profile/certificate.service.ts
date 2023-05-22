@@ -1,14 +1,14 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import baseQuery from "@/config/baseQuery";
-import { setCurrentCertificate, setCurrentMintingStatus, setCertificateList } from "../feature/profile/certificate.slice";
-import { store } from "..";
-import { Dispatch } from "@reduxjs/toolkit";
+import { setCertificateList, setCurrentCertificate, setCurrentMintingStatus } from "@/store/feature/profile/certificate.slice";
+import { store } from "@/store";
+import { Certificate } from "@/types/certificate";
 
 const certificateService = createApi({
-  reducerPath: "certificates",
+  reducerPath: "certificatesService",
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
-    fetchAllCertificates: builder.query({
+    fetchAllCertificates: builder.query<Certificate[], { username: string; locale?: string }>({
       query: ({ username, locale }: { username: string; locale?: string }) => ({
         url: `certificates?username=${username}`,
         headers: {
@@ -74,21 +74,14 @@ interface FetchAllCertificatesArgs {
   locale?: string;
   username: string;
 }
-export const fetchAllCertificates = ({ locale, username }: FetchAllCertificatesArgs) =>
-  certificateService.endpoints.fetchAllCertificates.initiate({
-    locale,
-    username,
-  });
+
+export const fetchAllCertificates = ({ locale, username }: FetchAllCertificatesArgs) => certificateService.endpoints.fetchAllCertificates.initiate({ locale, username });
 
 interface FindCertificateArgs {
   id: string;
   locale?: string;
 }
-export const findCertificate = ({ id, locale }: FindCertificateArgs) =>
-  certificateService.endpoints.findCertificate.initiate({
-    id,
-    locale,
-  });
+export const findCertificate = ({ id, locale }: FindCertificateArgs) => certificateService.endpoints.findCertificate.initiate({ id, locale });
 
 interface MintCertificateArgs {
   id: string;
@@ -107,5 +100,4 @@ export const mintCertificate =
     );
 
 export const { useFetchAllCertificatesQuery, useFindCertificateQuery } = certificateService;
-
 export default certificateService;

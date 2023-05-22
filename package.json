@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@coingecko/cryptoformat": "^0.5.4",
-    "@netlify/esbuild-windows-64": "^0.14.39",
     "@reduxjs/toolkit": "^1.9.3",
     "@stefanprobst/remark-extract-toc": "^2.2.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -70,6 +69,7 @@
     "unified": "^10.1.2",
     "unist-util-visit": "^2.0.0",
     "use-onclickoutside": "^0.4.1",
+    "web3": "^1.10.0",
     "web3modal": "^1.9.12"
   },
   "devDependencies": {

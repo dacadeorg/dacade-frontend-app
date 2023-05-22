@@ -36,7 +36,7 @@ export default function SubmissionCard({
   buttons = false,
   last = false,
   timestamp = { text: "", date: "" },
-  setSelectedSubmission = () => "",
+  setSelectedSubmission,
   children,
 }: SubmissionCardProps): ReactElement {
   const { t } = useTranslation();
@@ -112,7 +112,7 @@ export default function SubmissionCard({
               minWidthClass="w-10 h-10"
               customStyle={arrowButtonStyles}
               onClick={() => {
-                setSelectedSubmission(submission.id);
+                setSelectedSubmission?.(submission.id);
               }}
             />
           </div>

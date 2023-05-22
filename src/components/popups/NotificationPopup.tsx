@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Badge from "@/components/ui/Badge";
-import NotificationList from "@/components/list/Notification";
+import NotificationList from "@/components/list/NotificationList";
 import Button from "@/components/ui/button";
 import BellIcon from "@/icons/notification-bell.svg";
 import { useSelector } from "@/hooks/useTypedSelector";

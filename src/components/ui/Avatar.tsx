@@ -101,7 +101,7 @@ export default function Avatar({
     "rounded-none": shape === "squared",
   });
 
-  const componentClassName = classNames("inline-flex relative align-middle", sizeClassName, className, {
+  const componentClassName = classNames("inline-flex relative align-middle", sizeClassName, className, shapeClassName, {
     "cursor-pointer": user,
   });
 
