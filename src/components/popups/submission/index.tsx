@@ -21,14 +21,6 @@ interface SubmissionPopup {
 }
 
 export default function SubmissionPopup({ show, submissionId, onClose }: SubmissionPopup): ReactElement {
-  const dispatch = useDispatch();
-  const router = useRouter();
-  useEffect(() => {
-    if (submissionId) {
-      dispatch(findSubmssionById({ id: submissionId, locale: router.locale }));
-    }
-  }, [dispatch, router.locale, submissionId]);
-
   return (
     <Popup show={show} onClose={onClose} className="">
       <div className="py-8 overflow-hidden h-full w-full">
