@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { Bounty } from "@/types/bounty";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { Referral } from "@/types/community";
 import i18Translate from "@/utilities/I18Translate";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -81,8 +81,7 @@ export default function Bounties(props: BountiesPageProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }: { locale?: string }) => {
-  await i18Translate(locale as string);
+export const getServerSideProps: GetServerSideProps = async ({ locale }: { locale?: string }) => {
 
   return {
     props: {
