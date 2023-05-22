@@ -6,18 +6,7 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useSelector } from "@/hooks/useTypedSelector";
 import classNames from "classnames";
-import { Community } from "@/types/community";
-import { Metadata } from "@/types/course";
 import { Certificate } from "@/types/certificate";
-
-/**
- * Achievement interface
- * @date 5/21/2023 - 10:06:10 PM
- *
- * @interface Achievement
- * @typedef {Achievement}
- */
-interface Achievement extends Pick<Certificate, "id" | "metadata"| "minting"| "community">  {}
 
 /**
  * Achievement card props interface
@@ -27,7 +16,7 @@ interface Achievement extends Pick<Certificate, "id" | "metadata"| "minting"| "c
  * @typedef {AchievementCardProps}
  */
 interface AchievementCardProps {
-  data: Achievement;
+  data: Certificate;
   minting?: boolean;
 }
 
