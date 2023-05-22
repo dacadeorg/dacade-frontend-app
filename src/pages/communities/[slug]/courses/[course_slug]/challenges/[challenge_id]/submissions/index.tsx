@@ -65,7 +65,7 @@ export default function Submission() {
   }, [slug, course_slug, challenge_id, dispatch, router.locale]);
 
   useEffect(() => {
-    if (submissions !== null) {
+    if (!!submissions) {
       setSelectedSubmission(submissions.id);
       return;
     }
