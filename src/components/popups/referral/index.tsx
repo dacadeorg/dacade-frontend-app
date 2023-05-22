@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { setShowReferralPopup } from "@/store/feature/ui.slice";
+import { toggleShowReferralPopup } from "@/store/feature/ui.slice";
 import List from "./List";
 import Box from "./Box";
 import Crossmark from "@/icons/crossmark-2.svg";
@@ -21,9 +21,10 @@ export default function ReferralPopup(): ReactElement {
   const dispatch = useDispatch();
   const [referralLink, setReferralLink] = useState("");
 
-  const { user, showReferral } = useSelector((state) => ({
+  const { user, showReferral, referrals } = useSelector((state) => ({
     user: state.user.data,
     showReferral: state.ui.showReferralPopup,
+    referrals: state.referrals.list,
   }));
 
   useEffect(() => {
@@ -38,9 +39,9 @@ export default function ReferralPopup(): ReactElement {
    * Handles the close button click event.
    * @returns {void}
    */
-  const close = (): void => {
+  const close = () => {
     if (showReferral) {
-      dispatch(setShowReferralPopup(false));
+      toggleShowReferralPopup(false)(dispatch);
     }
   };
 
@@ -57,20 +58,14 @@ export default function ReferralPopup(): ReactElement {
               {t("app.name")}
             </h1>
             <div className="text-base md:text-lg text-left font-normal text-gray-700 mb-8">
-              <p className="mb-3 leading-normal">
-                {t("modal.referral.text-1", {
-                  username,
-                })}
-              </p>
+              <p className="mb-3 leading-normal">{t("modal.referral.text-1", { username })}</p>
               <p className="leading-normal">{t("modal.referral.text-2")}</p>
             </div>
             <div className="flex flex-col space-y-5">
-              <Box value={referralLink} label="modal.referral.link.label" />
-              <Box value={referralCode} label="modal.referral.code.label" />
+              <Box value={referralLink} label={t("modal.referral.link.label")} />
+              <Box value={referralCode} label={t("modal.referral.code.label")} />
             </div>
-            <div className="my-8">
-              <List />
-            </div>
+            <div className="my-8">{referrals && <List />}</div>
             <div className="w-full block border-t border-t-solid border-gray-200" />
             <p className="text-left pt-4 pb-8 text-gray-500 text-sm font-normal">{t("modal.referral.message")}</p>
           </div>

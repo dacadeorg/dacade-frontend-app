@@ -1,5 +1,5 @@
 import baseQuery from "@/config/baseQuery";
-import { clearUserState, getUserToken, setUserToken, setUserdata } from "../feature/user.slice";
+import { clearUserState, getUserToken, fetchingUserLoading, setUserToken, setUserdata } from "../feature/user.slice";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 
 /**
@@ -31,6 +31,7 @@ const userService = createApi({
     getUser: builder.query({
       query: () => "users/current",
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        dispatch(fetchingUserLoading(true));
         const { data } = await queryFulfilled;
         const token = await getUserToken();
         if (!token) dispatch(clearUserState());
@@ -38,6 +39,8 @@ const userService = createApi({
           dispatch(setUserToken(token));
           dispatch(setUserdata(data));
         }
+        dispatch(fetchingUserLoading(false));
+        return data;
       },
     }),
 

@@ -252,7 +252,7 @@
   "modal.referral.link.placeholder": "Link de Referencia",
   "modal.referral.link.label": "Link de Referencia",
   "modal.referral.message": "Los premios por Recomendaciones no se pueden acumular, puede ganar sólamente un premio por usuario.",
-  "modal.referral.text-1": "¡Hey {username}, puede compartir su link de recomendación personalizado o su código de recomendación con sus amigas!",
+  "modal.referral.text-1": "¡Hey {{username}}, puede compartir su link de recomendación personalizado o su código de recomendación con sus amigas!",
   "modal.referral.text-2": "cuando complete un reto con éxito en una comunidad con un premio de recomendación activo, será recompensada.",
   "modal.referral.title": "Invite a sus contactos a ",
   "modal.referral.button.copy": "Copiar",

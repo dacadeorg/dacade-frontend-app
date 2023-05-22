@@ -44,15 +44,11 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
     walletAddress: state.web3Wallet?.address,
   }));
 
-  console.log({ walletAddress });
-
   // TODO: This is a temporary implementation, and should be updated when it is update on Dacade staging
   const connected = useMemo(() => false, []);
 
   // User wallet address
   const address = useMemo(() => walletAddress?.toLowerCase(), [walletAddress]);
-
-  console.log(address);
 
   // Mint status
   const minted = useMemo(() => !!txData?.tx, [txData?.tx]);

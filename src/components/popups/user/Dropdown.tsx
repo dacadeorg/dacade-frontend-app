@@ -1,4 +1,4 @@
-import { CSSProperties, ReactElement, useEffect, useMemo, useState } from "react";
+import { CSSProperties, ReactElement, useEffect, useMemo } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import BalanceList from "@/components/list/Balance";
 import ReputationList from "@/components/list/Reputation";
@@ -26,7 +26,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 }
  * @returns {ReactElement}
  */
-const UserProfileDropdown = ({ buttonStyles }: { buttonStyles?: CSSProperties }): ReactElement => {
+const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProperties; onClose: () => void }): ReactElement => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const router = useRouter();
@@ -84,7 +84,7 @@ const UserProfileDropdown = ({ buttonStyles }: { buttonStyles?: CSSProperties })
             </div>
             <div className="pt-2">
               <span className="font-medium text-base block leading-normal capitalize">{username}</span>
-              <Link className="self-end text-sm block leading-normal" href="/profile">
+              <Link className="self-end text-sm block leading-normal" href="/profile" onClick={onClose}>
                 {t("nav.view-profile")}
               </Link>
             </div>

@@ -23,10 +23,10 @@ export default function ReferralList({ bounty = false }: { bounty?: boolean }): 
     <div className="relative">
       <div className="flex justify-between items-center mb-3 text-gray-500">
         <div className="uppercase text-xs font-semibold">{t("modal.referral.list.bounty_title")}</div>
-        <div className="text-sm font-normal">{bounty ? "modal.referral.list.challenge" : "modal.referral.list.reward"}</div>
+        <div className="text-sm font-normal">{bounty ? t("modal.referral.list.challenge") : t("modal.referral.list.reward")}</div>
       </div>
       <div className="flex flex-col space-y-2">
-        {referrals.map((referral) => (
+        {referrals?.map((referral) => (
           <ListItem key={referral.name} referral={referral} bounty={bounty} />
         ))}
       </div>
