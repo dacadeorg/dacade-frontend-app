@@ -1,9 +1,8 @@
-//Next.js(Typescript)
-import React, { ReactElement } from "react";
-// import { useDispatch } from 'react-redux';
-// import {toggleShowReferralPopup} from "@/store/features/ui/ui.slice";
+import { ReactElement } from "react";
 import Button from "@/components/ui/button";
 import { useTranslation } from "next-i18next";
+import { toggleShowReferralPopup } from "@/store/feature/ui.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  *  ReferralsList props interface
@@ -27,12 +26,11 @@ interface ReferralsListProps {
  * @returns {ReactElement}
  */
 export default function ReferralsList({ text }: ReferralsListProps): ReactElement {
-  //   const dispatch = useDispatch();
-  const { t } = useTranslation("common");
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const togglePopUp = () => {
-    // TODO: stop body scrolling functionality to be added while implementing page that's using this component.
-    // dispatch(toggleShowReferralPopup({payload: true }));
+    toggleShowReferralPopup(true)(dispatch);
   };
 
   return (
