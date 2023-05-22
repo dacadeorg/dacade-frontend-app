@@ -18,7 +18,7 @@ interface DefaultState {
   balance: string | null;
   walletAddresses: string | null;
   token: string | null;
-  // referrals: Referral | null;
+  referrals: Referral | null;
 }
 
 /**
@@ -31,7 +31,7 @@ const defaultState: DefaultState = {
   balance: null,
   walletAddresses: null,
   token: null,
-  // referrals: null,
+  referrals: null,
 };
 
 /**

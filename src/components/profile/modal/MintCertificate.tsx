@@ -43,12 +43,10 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
     walletAddress: state.web3Wallet?.address,
   }));
 
-  const connected = useMemo(() => check(), []);
+  const connected = check();
 
   // User wallet address
   const address = useMemo(() => walletAddress?.toLowerCase(), [walletAddress]);
-
-  console.log(address);
 
   // Mint status
   const minted = useMemo(() => !!txData?.tx, [txData?.tx]);

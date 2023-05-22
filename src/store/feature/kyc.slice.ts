@@ -51,6 +51,13 @@ export const getSumsubToken = () => async (dispatch: Dispatch) => {
   }
 };
 
+/**
+ * Function that opens the verification modal
+ * @date 5/22/2023 - 10:39:29 AM
+ *
+ * @param {*} payload
+ * @returns {(dispatch: any) => any}
+ */
 export const openVerificationModal = (payload: any) => {
   return async (dispatch: Dispatch) => {
     const isKycVerified = store.getState().user.data?.isKycVerified;
@@ -64,6 +71,12 @@ export const openVerificationModal = (payload: any) => {
   };
 };
 
+/**
+ * Close the modal
+ * @date 5/22/2023 - 10:39:57 AM
+ *
+ * @returns {(dispatch: any) => void}
+ */
 export const closeVerificationModal = () => (dispatch: Dispatch) => {
   dispatch(setShowModal(false));
   dispatch(setLoading(false));
@@ -83,6 +96,11 @@ export const triggerCompleteAction = () => async (dispatch: Dispatch) => {
   }
 };
 
+/**
+ * Tiggered when all the verifications are done
+ * @date 5/22/2023 - 9:58:50 AM
+ *
+ */
 export const completeSumSubVerification = createAsyncThunk("sumsub/completeSumSubVerification", async (_, { dispatch }) => {
   await sleep(2000);
   dispatch(setLoading(true));
@@ -92,7 +110,12 @@ export const completeSumSubVerification = createAsyncThunk("sumsub/completeSumSu
   dispatch(setLoading(false));
 });
 
-export const launchWebSdk = createAsyncThunk("sumsub/launchWebSdk", async (_, { dispatch, getState }) => {
+/**
+ * An async action that launch the  webSKd that verifies if user is auth modal
+ * @date 5/22/2023 - 9:24:24 AM
+ *
+ */
+export const launchWebSdk = createAsyncThunk("sumsub/launchWebSdk", async (_, { dispatch }) => {
   dispatch(setLoading(true));
   await dispatch(getSumsubToken());
 
@@ -152,27 +175,6 @@ const sumsubVerificationSlice = createSlice({
       state.completedAction = action.payload.completedAction;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(completeSumSubVerification.pending, (state) => {
-  //       // Handle the pending state if needed
-  //     })
-  //     .addCase(completeSumSubVerification.fulfilled, (state) => {
-  //       // Handle the fulfilled state if needed
-  //     })
-  //     .addCase(completeSumSubVerification.rejected, (state) => {
-  //       // Handle the rejected state if needed
-  //     })
-  //     .addCase(launchWebSdk.pending, (state) => {
-  //       // Handle the pending state if needed
-  //     })
-  //     .addCase(launchWebSdk.fulfilled, (state) => {
-  //       // Handle the fulfilled state if needed
-  //     })
-  //     .addCase(launchWebSdk.rejected, (state) => {
-  //       // Handle the rejected state if needed
-  //     });
-  // },
 });
 
 export const { setSumsubToken, setShowModal, setLoading, setVerifying, setCompleted, setText } = sumsubVerificationSlice.actions;

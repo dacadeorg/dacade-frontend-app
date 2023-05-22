@@ -32,11 +32,23 @@ const payoutsSlice = createSlice({
 
 export const { setCurrent, setList, clear } = payoutsSlice.actions;
 
+/**
+ * Async thunk to return all payouts
+ * @date 5/22/2023 - 10:43:00 AM
+ *
+ * @type {*}
+ */
 export const fetchAllPayouts = createAsyncThunk("payouts/fetchAll", async (_, { dispatch }) => {
   const { data } = await api().client.get("payouts");
   dispatch(setList(data));
 });
 
+/**
+ * Create a new payout
+ * @date 5/22/2023 - 10:44:22 AM
+ *
+ * @type {*}
+ */
 export const createPayout = createAsyncThunk("payouts/create", async (payload: { wallet_id: String }, { dispatch }) => {
   await api().server.post(`payouts/create`, payload);
   dispatch(fetchAllPayouts());

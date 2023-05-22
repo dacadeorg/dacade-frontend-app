@@ -1,7 +1,7 @@
-import api from '@/config/api';
-import { Referral } from '@/types/community';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { IRootState as RootState } from '@/store';
+import api from "@/config/api";
+import { Referral } from "@/types/community";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { IRootState as RootState } from "@/store";
 
 /**
  * User Referral state interface
@@ -13,34 +13,30 @@ interface UserReferralsState {
 }
 
 const initialState: UserReferralsState = {
-    userReferralList: [],
+  userReferralList: [],
   current: null,
 };
 
-
-export const userFetchReferrals = createAsyncThunk(
-    'referrals/fetchReferralTracking',
-    async ({ startAfter }: { startAfter?: string | null }, { getState, dispatch }) => {
-      const state: RootState = getState() as RootState;
-      const { data } = await api().client.get(`referrals/tracking?start_after=${startAfter}`);
-      const list = [];
-      if (startAfter) {
-        list.push(...(state.referrals.list || []));
-      }
-      list.push(...(data || []));
-      if (!startAfter) {
-        dispatch(clear());
-      }
-      return data;
-    }
-  );
+export const userFetchReferrals = createAsyncThunk("referrals/fetchReferralTracking", async ({ startAfter }: { startAfter?: string | null }, { getState, dispatch }) => {
+  const state: RootState = getState() as RootState;
+  const { data } = await api().client.get(`referrals/tracking?start_after=${startAfter}`);
+  const list = [];
+  if (startAfter) {
+    list.push(...(state.referrals.list || []));
+  }
+  list.push(...(data || []));
+  if (!startAfter) {
+    dispatch(clear());
+  }
+  return data;
+});
 
 /**
  * User referral slice
  */
 
 const userReferralsSlice = createSlice({
-  name: 'referrals',
+  name: "userReferrals",
   initialState,
   reducers: {
     setCurrent: (state, action) => {

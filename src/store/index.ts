@@ -48,6 +48,7 @@ export interface IRootState {
   community: ReturnType<typeof communitySlice.reducer>;
   ui: ReturnType<typeof ui.reducer>;
   referrals: ReturnType<typeof referralSlice.reducer>;
+  userReferrals: ReturnType<typeof userReferralsSlice.reducer>;
   user: ReturnType<typeof userSlice.reducer>;
   banner: ReturnType<typeof bannerSlice.reducer>;
   notifications: ReturnType<typeof notificationsSlice.reducer>;
