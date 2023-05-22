@@ -29,18 +29,18 @@ export default function Referral({ referral }: ReferralProps): ReactElement {
   const rewardAt = useMemo(() => (referral.rewarded ? DateManager.fromNow(referral.updated_at, locale) : null), [locale, referral.rewarded, referral.updated_at]);
 
   return (
-    <div className="bg-gray-50 text-sm text-gray-700 md:mb-0">
+    <div className="text-sm text-gray-700 bg-gray-50 md:mb-0">
       <div className="flex p-7">
         <div className="">
           <Avatar size="large" user={referral.user} />
         </div>
         <div className="ml-5">
-          <span className="text-lg leading-loose font-medium text-gray-900 pb-1">{referral.user.displayName}</span>
+          <span className="pb-1 text-lg font-medium leading-loose text-gray-900">{referral.user.displayName}</span>
           <p>
             {t("referrals.joined")} {joinedAt}
           </p>
           <div className="pt-1">
-            <ul className="text-sm leading-loose font-light text-gray-700 pb-1 list">
+            <ul className="pb-1 text-sm font-light leading-loose text-gray-700 list">
               {referral.challenge && referral.community && (
                 <li>
                   <span className="ml-5">{t("referrals.challenge-participation")}</span>

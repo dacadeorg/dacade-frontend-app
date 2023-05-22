@@ -4,13 +4,13 @@ import DateManager from "@/utilities/DateManager";
 import Button from "@/components/ui/button";
 import TimeIcon from "@/icons/time.svg";
 import DiscordIcon from "@/icons/discordIcon.svg";
-import KYCVerificationPopup from "@/components/layout/KYCVerification";
 import CompassIcon from "@/icons/compass.svg";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
 import { useDispatch } from "react-redux";
 import { openVerificationModal } from "@/store/feature/kyc.slice";
+import KYCVerification from "@/components/popups/KYCVerification";
 
 const { NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL, NEXT_PUBLIC_DISCORD_CLIENT_ID, NEXT_PUBLIC_DISCORD_SCOPE, NEXT_PUBLIC_DISCORD_CALLBACK_URL } = process.env;
 
@@ -23,7 +23,6 @@ const ProfileHeader = () => {
     profileUser: state.profile.user.current,
     isKycVerified: state.user.data?.isKycVerified,
   }));
-
   const user = useMemo(() => {
     const username = (router.query?.username as string) || "";
     if (username && username?.toLowerCase() !== authUser?.displayName?.toLowerCase()) return profileUser;
@@ -92,7 +91,7 @@ const ProfileHeader = () => {
           )}
         </div>
       )}
-      <KYCVerificationPopup />
+      <KYCVerification />
     </div>
   );
 };

@@ -48,8 +48,8 @@ export default function UserReferrals(): ReactElement {
   return (
     <div className="lg:w-9/12 xl:w-2/3">
       {referrals && referrals.length ? (
-        <div className="w-full relative">
-          <div className="w-full flex flex-col rounded-3xl border border-solid border-gray-200 divide-y divide-solid divide-gray-200 overflow-hidden">
+        <div className="relative w-full">
+          <div className="flex flex-col w-full overflow-hidden border border-gray-200 border-solid divide-y divide-gray-200 rounded-3xl divide-solid">
             <InfiniteScroll
               dataLength={referrals.length}
               next={nextPage}

@@ -51,13 +51,15 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
   return (
     <Modal show={showModal} onClose={closeModal}>
       <div className="px-6 py-6">
-        {!verifying && (
+        {!verifying ? (
           <div className="flex flex-col text-left">
             <h1 className="text-.5xl leading-snug font-medium">{title || t("kyc.default.title")}</h1>
             <p className="pt-8">{completed ? completedText || t("kyc.default.completed") : reasonText || t("kyc.default.reason")}</p>
           </div>
+        ) : (
+          <></>
         )}
-        {verifying && <div id="sumsub-websdk-container" className="pb-5"></div>}
+        {showModal ? <div id="sumsub-websdk-container" className="pb-5"></div> : <></>}
       </div>
       <div className="flex items-center justify-between pt-4 pb-2 pl-6 pr-2">
         <span className="text-sm font-medium cursor-pointer text-primary" onClick={closeModal}>
@@ -65,7 +67,7 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
         </span>
         {!verifying && (
           <ArrowButton loading={loading} disabled={loading} onClick={verify}>
-            {completed ? completedActionText || t("kyc.default.button.completed") : actionText || `${t("kyc.default.button")}`}
+            {completed ? completedActionText || t("kyc.default.button.completed") : actionText || t("kyc.default.button")}
           </ArrowButton>
         )}
       </div>
