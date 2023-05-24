@@ -27,7 +27,7 @@ export default function Unsubscribe() {
     if (loading || completed) return;
     setloading(true);
     try {
-      await api(router.locale).server.put(`notifications/email/unsubscribe/${process.env.NEXT_PUBLIC_NOTIFICATIONS_SUBSCRIPTION_ID}`);
+      await api(router.locale).server.put(`notifications/email/unsubscribe/${router.query.id}`);
       setcompleted(true);
     } catch (e) {
       console.log(e);
