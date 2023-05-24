@@ -7,15 +7,14 @@ import SubmissionPopup from "@/components/popups/submission";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
-import { fetchCurrentCommunity } from "@/store/feature/community.slice";
-import { fetchCourse } from "@/store/feature/course.slice";
 import { fetchAllSubmission, showSubmission } from "@/store/feature/communities/challenges/submissions";
 import DefaultLayout from "@/components/layout/Default";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import MetaData from "@/components/ui/MetaData";
 import Head from "next/head";
-import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 import { GetServerSideProps } from "next";
+import i18Translate from "@/utilities/I18Translate";
+import { fetchCourse } from "@/store/services/course.service";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
 
 export default function Submission() {
   const [selectedSubmission, setSelectedSubmission] = useState("");
@@ -35,7 +34,7 @@ export default function Submission() {
   }, [dispatch, selectedSubmission, submission_id]);
 
   const handleCloseSubmission = useCallback(() => {
-    setSelectedSubmission("")
+    setSelectedSubmission("");
     dispatch(showSubmission(""));
     // window.history.pushState({}, null, router.pathname)
   }, [dispatch]);
@@ -95,6 +94,6 @@ Submission.getLayout = function (page: ReactElement) {
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale as string)),
+    ...(await i18Translate(locale as string)),
   },
 });

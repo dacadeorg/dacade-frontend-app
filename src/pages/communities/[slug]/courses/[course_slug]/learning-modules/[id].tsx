@@ -1,16 +1,14 @@
-import { useMemo, useEffect, ReactElement, useLayoutEffect } from "react";
+import { useMemo, useEffect, ReactElement } from "react";
 import PageNavigation from "@/components/sections/courses/PageNavigation";
 import InteractiveModule from "@/components/sections/learning-modules/InteractiveModule";
 import AdditionalMaterialsSection from "@/components/sections/learning-modules/AdditionalMaterials";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import Head from "next/head";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Community } from "@/types/community";
-import { wrapper } from "@/store";
 import { Course, LearningModule } from "@/types/course";
 import { setCurrentCourse } from "@/store/feature/course.slice";
-import {  setCurrentLearningModule } from "@/store/feature/learningModules.slice";
+import { setCurrentLearningModule } from "@/store/feature/learningModules.slice";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import MaterialSection from "@/components/sections/learning-modules/MaterialSection";
@@ -21,7 +19,11 @@ import { setColors } from "@/store/feature/ui.slice";
 import useNavigation from "@/hooks/useNavigation";
 import api from "@/config/api";
 import { GetServerSideProps } from "next";
-
+import i18Translate from "@/utilities/I18Translate";
+import { store } from "@/store";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { fetchCourse } from "@/store/services/course.service";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 /**
  * Learning module page props interfae
@@ -99,18 +101,16 @@ LearningModulePage.getLayout = function (page: ReactElement) {
 
 export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
   try {
-    const slug = params?.slug as string;
-    const course_slug = params?.course_slug as string;
+    const communitySlug = params?.slug as string;
+    const courseSlug = params?.course_slug as string;
     const id = params?.id as string;
 
-    const [community, course, learningModule] = await Promise.all([
-      api(locale).server.get<Community>(`/communities/${slug}`),
-      api(locale).server.get<Course>(`/courses/${course_slug}`),
+    const [{ data: community }, { data: course }, { data: learningModule }] = await Promise.all([
+      store.dispatch(fetchCurrentCommunity({ slug: communitySlug, locale })),
+      store.dispatch(fetchCourse({ slug: courseSlug, locale })),
+      // TODO: need to be replaced by the action defined in learningModule.
       api(locale).server.get<LearningModule>(`/learning-modules/${id}`),
-    ]).then((responses) => responses.map((response) => response.data));
-
-
-    console.log(community, course, learningModule)
+    ]);
 
     if (Object.entries(learningModule).length === 0 || Object.entries(course).length === 0 || Object.entries(community).length === 0) {
       return {

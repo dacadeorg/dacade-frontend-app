@@ -6,11 +6,9 @@ import { OverviewRewards as Rewards } from "@/components/sections/challenges/Rew
 import SubmissionForm from "@/components/sections/challenges/Submission";
 import SubmissionCard from "@/components/cards/SubmissionView";
 import { getMetadataTitle } from "@/utilities/Metadata";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { wrapper } from "@/store";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { authCheck } from "@/store/feature/auth.slice";
 import { Challenge } from "@/types/course";
@@ -26,6 +24,7 @@ import { fetchChallenge, setCurrentChallenge } from "@/store/feature/communities
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { GetServerSideProps } from "next";
+import i18Translate from "@/utilities/I18Translate";
 
 /**
  * Challenge view page 
@@ -109,7 +108,6 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   };
 
   const getCurrentCommunty = store.dispatch(fetchCurrentCommunity(fetchPayload));
-
   const getCurrentChallenge = store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string }));
   const results = await Promise.all([getCurrentCommunty, getCurrentChallenge]);
 
@@ -119,7 +117,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   if (community) {
     return {
       props: {
-        ...(await serverSideTranslations(data.locale as string)),
+        ...(await i18Translate(data.locale as string)),
         community,
         challenge,
       },

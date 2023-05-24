@@ -1,8 +1,6 @@
-import { wrapper } from "@/store";
-import { ReactElement, useEffect, useLayoutEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import OverviewSection from "@/components/sections/courses/overview";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useDispatch } from "react-redux";
 import { setCurrentCourse, setCourseNavigation } from "@/store/feature/course.slice";
 import { Community } from "@/types/community";
@@ -14,9 +12,11 @@ import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import DefaultLayout from "@/components/layout/Default";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import useNavigation from "@/hooks/useNavigation";
-import api from "@/config/api";
-import LOCALES from "@/constants/locales";
 import { GetServerSideProps } from "next";
+import i18Translate from "@/utilities/I18Translate";
+import { store } from "@/store";
+import { fetchCourse } from "@/store/services/course.service";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
 
 export default function CourseViewPage(props: {
   pageProps: {
@@ -32,7 +32,7 @@ export default function CourseViewPage(props: {
 
   const list = navigation.community.init({ community, course });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(setCurrentCommunity(community));
     dispatch(setCurrentCourse(course));
     dispatch(setColors(community.colors));
@@ -62,22 +62,21 @@ CourseViewPage.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
-
-
 export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
   try {
     const slug = params?.slug as string;
     const course_slug = params?.course_slug as string;
 
-    const [community, course] = await Promise.all([api(locale).server.get<Community>(`/communities/${slug}`), api(locale).server.get<Community>(`/courses/${course_slug}`)]).then(
-      (res) => res.map(({ data }) => data)
-    );
+    const [{ data: community }, { data: course }] = await Promise.all([
+      store.dispatch(fetchCurrentCommunity({ slug, locale })),
+      store.dispatch(fetchCourse({ slug: course_slug, locale })),
+    ]);
 
     return {
       props: {
         community,
         course,
-        ...(await serverSideTranslations(locale as string)),
+        ...(await i18Translate(locale as string)),
       },
     };
   } catch (error) {
@@ -85,4 +84,4 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
       notFound: true,
     };
   }
-}
+};
