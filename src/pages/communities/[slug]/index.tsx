@@ -15,6 +15,7 @@ import { Scoreboard } from "@/types/scoreboard";
 import api from "@/config/api";
 import { setCourseList } from "@/store/feature/course.slice";
 import { GetServerSideProps } from "next";
+import i18Translate from "@/utilities/I18Translate";
 
 export default function Slug(props: {
   pageProps: {
@@ -65,7 +66,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
         community,
         scoreboards,
         courses,
-        ...(await serverSideTranslations(locale as string)),
+        ...(await i18Translate(locale as string)),
       },
     };
   } catch (error) {
