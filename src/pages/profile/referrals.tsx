@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useTranslation } from "next-i18next";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { userFetchReferrals } from "@/store/services/referrals.service";
+import { userFetchReferrals } from "@/store/feature/user/referrals.slice";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import ProfileLayout from "@/layouts/ProfileLayout";
