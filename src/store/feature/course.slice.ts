@@ -45,24 +45,4 @@ const courseSlice = createSlice({
 // Extract actions and reducer
 export const { setCurrentCourse, setCourseList, setCourseContent, setCourseNavigation } = courseSlice.actions;
 
-// TODO: createAsyncThunk will be replaced by services
-// Define Redux Thunk async actions
-// export const fetchCourse = createAsyncThunk("courses/find", async ({ slug, locale }: { slug?: string; locale?: string }) => {
-//   try {
-//     const { data } = await api(locale).server.get<Course>(`courses/${slug}`);
-//     return data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// });
-
-// export const fetchAllCourses = createAsyncThunk("courses/all", async ({ slug, locale }: { slug?: string; locale: string }) => {
-//   try {
-//     const { data } = await api(locale).server.get(`communities/${slug}/courses`);
-//     return data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// });
-
 export default courseSlice;
