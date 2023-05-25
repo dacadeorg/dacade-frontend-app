@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useTranslation } from "next-i18next";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { userFetchReferrals } from "@/store/feature/user/referrals.slice";
+import { userFetchReferrals } from "@/store/services/referrals.service";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import ProfileLayout from "@/layouts/ProfileLayout";
@@ -21,7 +21,7 @@ export default function UserReferrals(): ReactElement {
   const [showButton, setShowButton] = useState(true);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
-  const referrals = useSelector((state) => state.referrals.list);
+  const referrals = useSelector((state) => state.userReferrals.userReferralList);
   const user = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
   const showLoadMore = useMemo(() => showButton && referrals?.length >= 30, [referrals?.length, showButton]);

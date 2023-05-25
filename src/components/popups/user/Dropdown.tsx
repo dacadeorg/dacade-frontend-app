@@ -51,13 +51,13 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
   };
 
   /**
-   * Tooggl Invite handler.
+   * Toggle the Invite handler.
    * It dispatches the setShowReferralPopup action with true as value
    * to display the referral popup modal
    * @date 4/4/2023 - 11:56:40 PM
    */
   const toggleInvite = () => {
-    dispatch(setShowReferralPopup(false));
+    dispatch(setShowReferralPopup(true));
   };
 
   useEffect(() => {

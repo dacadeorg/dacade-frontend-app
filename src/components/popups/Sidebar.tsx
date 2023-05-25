@@ -56,7 +56,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): any {
 
   const toggleInvite = () => {
     setshow(!show);
-    toggleShowReferralPopup(false)(dispatch);
+    toggleShowReferralPopup(true)(dispatch);
   };
 
   const externalClick = () => {
