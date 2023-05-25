@@ -1,7 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Community } from "@/types/community";
 import { Course } from "@/types/course";
-import api from "@/config/api";
 
 /**
  * CommunitiesState interface

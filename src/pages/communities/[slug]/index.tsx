@@ -10,12 +10,13 @@ import CommunityLayout from "@/layouts/Community";
 import { ReactElement, useEffect, useLayoutEffect } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { Course } from "@/types/course";
-import { setScoreboardList } from "@/store/feature/communities/scoreboard.slice";
+import { filterScoreboards, setScoreboardList } from "@/store/feature/communities/scoreboard.slice";
 import { Scoreboard } from "@/types/scoreboard";
 import api from "@/config/api";
 import { setCourseList } from "@/store/feature/course.slice";
 import { GetServerSideProps } from "next";
-import i18Translate from "@/utilities/I18Translate";
+import { store } from "@/store";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
 
 export default function Slug(props: {
   pageProps: {
@@ -55,18 +56,18 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
   try {
     const slug = params?.slug as string;
 
-    const [community, scoreboards, courses] = await Promise.all([
-      api(locale).server.get<Community>(`/communities/${slug}`),
-      api(locale).server.get<Scoreboard>(`/communities/${slug}/scoreboard`),
+    const [{ data: community }, scoreboards, { data: courses }] = await Promise.all([
+      store.dispatch(fetchCurrentCommunity({ slug, locale })),
+      store.dispatch(filterScoreboards({ slug })),
       api(locale).server.get<Course[]>(`/communities/${slug}/courses`),
-    ]).then((responses) => responses.map((response) => response.data));
+    ]);
 
     return {
       props: {
         community,
-        scoreboards,
+        scoreboards: scoreboards?.payload.list,
         courses,
-        ...(await i18Translate(locale as string)),
+        ...(await serverSideTranslations(locale as string)),
       },
     };
   } catch (error) {

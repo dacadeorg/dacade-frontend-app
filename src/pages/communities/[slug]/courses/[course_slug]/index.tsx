@@ -13,10 +13,10 @@ import DefaultLayout from "@/components/layout/Default";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import useNavigation from "@/hooks/useNavigation";
 import { GetServerSideProps } from "next";
-import i18Translate from "@/utilities/I18Translate";
 import { store } from "@/store";
 import { fetchCourse } from "@/store/services/course.service";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function CourseViewPage(props: {
   pageProps: {
@@ -76,7 +76,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
       props: {
         community,
         course,
-        ...(await i18Translate(locale as string)),
+        ...(await serverSideTranslations(locale as string)),
       },
     };
   } catch (error) {

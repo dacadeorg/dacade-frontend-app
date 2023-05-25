@@ -24,7 +24,7 @@ import { fetchChallenge, setCurrentChallenge } from "@/store/feature/communities
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { GetServerSideProps } from "next";
-import i18Translate from "@/utilities/I18Translate";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 /**
  * Challenge view page 
@@ -117,7 +117,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   if (community) {
     return {
       props: {
-        ...(await i18Translate(data.locale as string)),
+        ...(await serverSideTranslations(data.locale as string)),
         community,
         challenge,
       },
