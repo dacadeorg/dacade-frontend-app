@@ -8,7 +8,6 @@ interface CourseState {
   list: Course[];
   count: number;
   current: Course | null;
-  // TODO: Those type should be improved whenever they are known
   content: any | null;
   menus: List[];
 }

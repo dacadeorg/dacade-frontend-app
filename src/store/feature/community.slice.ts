@@ -54,7 +54,6 @@ const communitiesSlice = createSlice({
 
 export const { setCurrentCommunity, setAllCommunities } = communitiesSlice.actions;
 
-// TODO: createAsyncThunk will be replaced by services.
 /**
  * Fetches all communities from the API.
  * @date 4/6/2023 - 12:09:48 PM
