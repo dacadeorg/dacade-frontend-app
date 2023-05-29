@@ -50,8 +50,9 @@ export default function ProfileWallet(): ReactElement {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);
 
 ProfileWallet.getLayout = function (page: ReactElement) {
   return <ProfileLayout>{page}</ProfileLayout>;
 };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });
