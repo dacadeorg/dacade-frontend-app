@@ -12,9 +12,9 @@ import DefaultLayout from "@/components/layout/Default";
 import MetaData from "@/components/ui/MetaData";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
-import i18Translate from "@/utilities/I18Translate";
-import { fetchCourse } from "@/store/services/course.service";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { fetchCourse } from "@/store/services/course.service";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function Submission() {
   const [selectedSubmission, setSelectedSubmission] = useState("");
@@ -27,17 +27,18 @@ export default function Submission() {
     challenge: state.challenges.current,
   }));
   const { t } = useTranslation();
+
   const handleDisplaySubmission = useCallback(() => {
     setSelectedSubmission(submission_id as string);
     dispatch(showSubmission(selectedSubmission));
-    // window.history.pushState({}, null, route.path)
-  }, [dispatch, selectedSubmission, submission_id]);
+    window.history.pushState({}, "", router.pathname);
+  }, [dispatch, router.pathname, selectedSubmission, submission_id]);
 
   const handleCloseSubmission = useCallback(() => {
     setSelectedSubmission("");
     dispatch(showSubmission(""));
-    // window.history.pushState({}, null, router.pathname)
-  }, [dispatch]);
+    window.history.pushState({}, "", router.pathname);
+  }, [dispatch, router.pathname]);
 
   useEffect(() => {
     if (slug && course_slug && challenge_id) {
@@ -94,6 +95,6 @@ Submission.getLayout = function (page: ReactElement) {
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
-    ...(await i18Translate(locale as string)),
+    ...(await serverSideTranslations(locale as string)),
   },
 });

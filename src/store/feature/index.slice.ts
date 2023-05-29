@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AxiosError } from "axios";
-
 // Define initial state interface
 
 interface InitialState {

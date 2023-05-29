@@ -6,10 +6,17 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useSelector } from "@/hooks/useTypedSelector";
 import classNames from "classnames";
+import { Certificate } from "@/types/certificate";
 
+/**
+ * Achievement card props interface
+ * @date 5/21/2023 - 10:05:34 PM
+ *
+ * @interface AchievementCardProps
+ * @typedef {AchievementCardProps}
+ */
 interface AchievementCardProps {
-  // TODO: The type should be improved after having a clear idea about the data type
-  data: any;
+  data: Certificate | null;
   minting?: boolean;
 }
 
@@ -28,20 +35,20 @@ export default function AchievementCard({ data, minting }: AchievementCardProps)
     return !minted && !minting ? t("profile.achievement.mintable") : "NFT";
   }, [mintable, minted, minting, t]);
 
-  const isNotCertificateIcon: boolean = data?.metadata?.image?.includes("/img/certificates/");
+  const isNotCertificateIcon: boolean = !!data?.metadata?.image?.includes("/img/certificates/");
 
   return (
     <div className="border border-solid rounded-3.5xl pt-9 overflow-hidden w-full h-full">
-      <Link href={`/achievements/${data.id}`} className="relative block h-full">
+      <Link href={`/achievements/${data?.id}`} className="relative block h-full">
         <div className="flex flex-col h-full">
           <div className="flex-grow w-full mx-auto text-left px-7">
             <div
               className={`mx-auto relative rounded-full mb-5 ${!isNotCertificateIcon ? "w-20 h-20" : ""}`}
-              style={{ backgroundColor: isNotCertificateIcon && data.community.colors.primary }}
+              style={{ backgroundColor: isNotCertificateIcon ? data?.community.colors.primary : "" }}
             >
-              <img src={data.metadata.image} alt="achievement" />
+              <img src={data?.metadata?.image} alt="achievement" />
             </div>
-            {!isNotCertificateIcon && <p className="text-sm font-medium text-center">{data.metadata.name}</p>}
+            {!isNotCertificateIcon && <p className="text-sm font-medium text-center">{data?.metadata?.name}</p>}
           </div>
 
           <div

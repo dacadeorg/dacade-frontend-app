@@ -1,6 +1,4 @@
-// Those types are temporary
-// TODO: Should be improved with the extact types
-
+import { Trailer } from "./bounty";
 import { Community } from "./community";
 
 export type Course = {
@@ -25,13 +23,15 @@ export type Course = {
   learningModules: LearningModule[];
   challenge: Challenge;
   translations: any[];
-  trailer: any;
-  disclaimer: any;
-  items?: any[];
-  // TODO: Should be updated later
-  faq: any;
+  trailer: Trailer;
+  disclaimer: string;
+  items?: string[];
+  faq: {
+    description: string;
+    title: string;
+  }[];
   prerequisite: {
-    items: any[];
+    items: string[];
     hint: string;
   };
 };

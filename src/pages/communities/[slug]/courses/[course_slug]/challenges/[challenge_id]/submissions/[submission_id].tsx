@@ -11,9 +11,9 @@ import { findSubmssionById } from "@/store/feature/communities/challenges/submis
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import DefaultLayout from "@/components/layout/Default";
 import { GetServerSideProps } from "next";
-import i18Translate from "@/utilities/I18Translate";
 import { fetchCourse } from "@/store/services/course.service";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function SubmissionPage() {
   const dispatch = useDispatch();
@@ -54,6 +54,6 @@ SubmissionPage.getLayout = function (page: ReactElement) {
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
-    ...(await i18Translate(locale as string)),
+    ...(await serverSideTranslations(locale as string)),
   },
 });
