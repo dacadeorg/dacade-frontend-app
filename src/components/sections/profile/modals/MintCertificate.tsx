@@ -115,7 +115,7 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
     try {
       await dispatch(connectWallet());
     } catch (error) {
-      console.log(isError);
+      console.log(error);
     }
   };
 

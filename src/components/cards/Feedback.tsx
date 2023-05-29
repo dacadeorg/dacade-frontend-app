@@ -60,12 +60,12 @@ export default function FeedbackCard({ value, preview = false, buttons = false, 
   const colors = useSelector((state) => state.ui.colors);
 
   const primaryButtonStyles = {
-    borderColor: colors.textAccent,
-    color: colors.text,
-    backgroundColor: colors.textAccent,
-    "--button-color--hover": colors.text,
-    "--button-background-color--hover": colors.accent,
-    "--button-border-color--hover": colors.accent,
+    borderColor: colors?.textAccent,
+    color: colors?.text,
+    backgroundColor: colors?.textAccent,
+    "--button-color--hover": colors?.text,
+    "--button-background-color--hover": colors?.accent,
+    "--button-border-color--hover": colors?.accent,
   };
 
   return (

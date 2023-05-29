@@ -54,8 +54,8 @@ export default function Submission(): ReactElement {
    * @type {CSSProperties}
    */
   const activeButtonStyle: CSSProperties = {
-    color: colors.text,
-    backgroundColor: colors.textAccent,
+    color: colors?.text,
+    backgroundColor: colors?.textAccent,
   };
 
   const disabled = submitting || (challenge?.format.disclaimer ? !checkedTerms : false);
@@ -105,7 +105,7 @@ export default function Submission(): ReactElement {
   };
 
   return (
-    <Section title="communities.challenge.submission">
+    <Section title={t("communities.challenge.submission")}>
       <form onSubmit={handleSubmit(onSubmit)}>
         {challenge?.format && (
           <div className="relative w-full md:pl-7.5 my-6">
@@ -134,15 +134,14 @@ export default function Submission(): ReactElement {
                   "border-t-0": challenge.format.text,
                 })}
               >
-                <div label-for="input-github">
+                <div>
                   <GithubLinkInput
-                    handleInput={() => null}
                     id="input-github"
-                    value={githubLinkValue}
                     error={errors.githubLink?.message as string}
                     className="p-0 border-none border-transparent focus:outline-none outline-none active:border-none focus:border-none block m-0 flex-grow w-full placeholder-gray-400 placeholder-opacity-100"
                     placeholder={`${t("communities.challenge.submission.placeholder.github")}`}
                     {...register("githubLink", {
+                      value: githubLinkValue,
                       required: "This field is required",
                     })}
                   />
@@ -158,13 +157,13 @@ export default function Submission(): ReactElement {
           <div className="flex xl:pl-10.75 flex-col self-center">
             {challenge?.format.disclaimer && (
               <div className="flex flex-row max-w-xm space-x-3 items-center">
-                <input type="checkbox" className="xl:w-5 w-10 h-5" name="agree" required checked={checkedTerms} />
+                <input type="checkbox" className="xl:w-5 w-10 h-5" name="agree" required onChange={() => setCheckedTerms(!checkedTerms)} checked={checkedTerms} />
                 <span className="max-w-none text-sm leading-none">{challenge.format.disclaimer}</span>
               </div>
             )}
           </div>
           <div className="flex text-right self-start">
-            <ArrowButton variant="primary" type="submit" disabled={disabled} customStyle={activeButtonStyle} loading={submitting}>
+            <ArrowButton variant="primary" disabled={disabled} customStyle={activeButtonStyle} loading={submitting}>
               submit
             </ArrowButton>
           </div>

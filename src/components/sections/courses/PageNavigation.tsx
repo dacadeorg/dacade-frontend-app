@@ -78,13 +78,13 @@ export default function PageNavigation(): ReactElement {
   }, [currentIndex, list]);
 
   const buttonStyle = {
-    color: colors.textAccent,
+    color: colors?.textAccent,
     backgroundColor: "transparent",
   };
 
   const activeButtonStyle = {
-    color: colors.text,
-    backgroundColor: colors.textAccent,
+    color: colors?.text,
+    backgroundColor: colors?.textAccent,
   };
 
   if (show)

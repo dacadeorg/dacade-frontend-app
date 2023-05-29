@@ -39,7 +39,7 @@ export default function SubmissionCard({
   timestamp = { text: "", date: "" },
   children,
 }: SubmissionCardProps): ReactElement {
-  const dispatch =  useDispatch();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const { colors, community } = useSelector((state) => ({
     colors: state.ui.colors,
@@ -49,14 +49,14 @@ export default function SubmissionCard({
   const reviewed = submission?.metadata?.evaluation || submission?.metadata?.reviewed;
 
   const badgeButtonStyles = {
-    backgroundColor: colors.textAccent,
-    color: colors.text,
+    backgroundColor: colors?.textAccent,
+    color: colors?.text,
   };
 
   const arrowButtonStyles = {
-    "--button-color--hover": colors.text,
-    "--button-background-color--hover": colors.textAccent,
-    "--button-border-color--hover": colors.textAccent,
+    "--button-color--hover": colors?.text,
+    "--button-background-color--hover": colors?.textAccent,
+    "--button-border-color--hover": colors?.textAccent,
   };
 
   return (
@@ -114,7 +114,7 @@ export default function SubmissionCard({
               customStyle={arrowButtonStyles}
               arrowClasses=""
               onClick={() => {
-                dispatch(showSubmission(submission.id))
+                dispatch(showSubmission(submission.id));
               }}
             />
           </div>

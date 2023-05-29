@@ -30,7 +30,7 @@ export default function Loader({ communityStyles = false, className = "" }: Load
   const colors = useSelector((state) => state.ui.colors);
 
   const styles = {
-    color: colors.textAccent,
+    color: colors?.textAccent,
   };
 
   const loaderClasses = classNames(`flex items-center relative justify-center ${className}`, {

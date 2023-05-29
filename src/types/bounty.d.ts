@@ -47,7 +47,7 @@ export interface Trailer {
   info: {
     items: string[];
     title: string;
-  }
+  };
 }
 
 export interface CourseAuthor {
@@ -67,7 +67,7 @@ export interface Evaluation {
   evaluator: string;
   created_at: string;
   comment: string;
-  criteria?: Rebric[];
+  criteria: Rebric[];
   metadata: {
     language: string;
   };

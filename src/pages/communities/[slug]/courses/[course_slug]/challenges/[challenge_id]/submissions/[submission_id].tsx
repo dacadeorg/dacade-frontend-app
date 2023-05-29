@@ -42,14 +42,14 @@ export default function SubmissionPage() {
   return (
     <Wrapper>
       <div className="flex flex-col py-4 space-y-8 text-gray-700">
-        <Header title={course?.name} subtitle={t("communities.submission.title")} />
+        <Header title={title} subtitle={t("communities.submission.title")} />
         <SubmissionView />
       </div>
     </Wrapper>
   );
 }
 SubmissionPage.getLayout = function (page: ReactElement) {
-  return <DefaultLayout footerBackgroundColor="default">{page}</DefaultLayout>;
+  return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({

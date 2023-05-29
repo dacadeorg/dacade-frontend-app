@@ -23,7 +23,7 @@ type DefaultLocale = "en" | "fr";
  * @typedef {SubmissionViewCardProps}
  */
 interface SubmissionViewCardProps {
-  submission: Submission
+  submission: Submission;
 }
 
 /**
@@ -42,12 +42,12 @@ export default function SubmissionViewCard({ submission }: SubmissionViewCardPro
 
   const language = (submission?.metadata?.language || "en") as DefaultLocale;
   const primaryButtonStyles = {
-    borderColor: colors.textAccent,
-    color: colors.text,
-    backgroundColor: colors.textAccent,
-    "--button-color--hover": colors.text,
-    "--button-background-color--hover": colors.accent,
-    "--button-border-color--hover": colors.accent,
+    borderColor: colors?.textAccent,
+    color: colors?.text,
+    backgroundColor: colors?.textAccent,
+    "--button-color--hover": colors?.text,
+    "--button-background-color--hover": colors?.accent,
+    "--button-border-color--hover": colors?.accent,
   };
 
   return (

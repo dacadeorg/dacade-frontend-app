@@ -91,12 +91,12 @@ export default function Button({
 
     if (communityStyles && colors && Object.keys(colors).length) {
       communityStylesObj = {
-        borderColor: colors.textAccent,
-        color: isOutline ? colors.textAccent : colors.text,
-        backgroundColor: isOutline ? "transparent" : colors.textAccent,
-        "--button-color--hover": colors.text,
-        "--button-background-color--hover": colors.textAccent,
-        "--button-border-color--hover": colors.textAccent,
+        borderColor: colors?.textAccent,
+        color: isOutline ? colors?.textAccent : colors?.text,
+        backgroundColor: isOutline ? "transparent" : colors?.textAccent,
+        "--button-color--hover": colors?.text,
+        "--button-background-color--hover": colors?.textAccent,
+        "--button-border-color--hover": colors?.textAccent,
       };
     }
     return {
@@ -152,7 +152,7 @@ export default function Button({
   function Component({ className, style, target, onClick, type, children }: ComponentProps): ReactElement {
     if (!link)
       return (
-        <button onClick={onClick} type={type} style={style} className={className}>
+        <button onClick={onClick} type={type} style={style} disabled={disabled} className={className}>
           {children}
         </button>
       );

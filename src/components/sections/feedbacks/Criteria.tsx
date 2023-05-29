@@ -25,7 +25,7 @@ export default function Criteria(): ReactElement {
   }));
 
   const reward = useMemo(() => challenge?.rewards?.find((reward: { type: string }) => reward.type === "FEEDBACK"), [challenge]);
-  const activeButtonStyle = useMemo(() => ({ color: colors.text, backgroundColor: colors.textAccent }), [colors]);
+  const activeButtonStyle = useMemo(() => ({ color: colors?.text, backgroundColor: colors?.textAccent }), [colors]);
   const reviewed = useMemo(() => submission?.metadata?.evaluation || submission?.metadata?.reviewed, [submission?.metadata?.evaluation, submission?.metadata?.reviewed]);
   const deadline = useMemo(() => DateManager.fromNow(submission?.reviewDeadline as Date), [submission?.reviewDeadline]);
   const list = useMemo(() => challenge?.feedbackInfo, [challenge?.feedbackInfo]);
