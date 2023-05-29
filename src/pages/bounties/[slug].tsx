@@ -58,15 +58,7 @@ export default function BountiesPage(): ReactElement {
   );
 }
 
-export const getServerSideProps = async ({ locale }: { locale: string }) => {
-  await i18Translate(locale as string);
-
-  return {
-    props: {
-      ...(await serverSideTranslations(locale as string)),
-    },
-  };
-};
+export const getServerSideProps = async ({ locale }: { locale: string }) => ({ props: { ...(await i18Translate(locale as string)) } });
 
 BountiesPage.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
