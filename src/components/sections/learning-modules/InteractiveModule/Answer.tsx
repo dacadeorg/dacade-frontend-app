@@ -48,12 +48,6 @@ export default function InteractiveModuleAnswer({
   const bannerColor = !selected ? null : correct ? "bg-green-100 text-green-600" : "bg-red-100 text-red-900";
   const errorMessage = !timerCount ? "This answer is wrong. Try again!" : `This answer is wrong. Try again in ${timerCount} seconds`;
 
-  const checkboxClick = (event: FormEvent<HTMLInputElement>) => {
-    if (disable) return;
-    event.preventDefault();
-    event.stopPropagation();
-  };
-
   return (
     <div
       className={`my-5 relative border-2 rounded select-none flex flex-col divide-y-2 divide-solid ${borderColor} ${disable ? "cursor-not-allowed" : "cursor-pointer"}`}
@@ -66,11 +60,8 @@ export default function InteractiveModuleAnswer({
             checked={selected}
             disabled={disable}
             communityStyles={correct}
-            className={!correct ? "text-red-900" : ""}
-            onChange={(event) => {
-              checkboxClick(event);
-              onChange?.();
-            }}
+            className={!correct ? "text-red-900" : "!text-green-600" }
+            onChange={() => { onChange?.() }}
           />
         </span>
         <span className="text-gray-500">{text}</span>
