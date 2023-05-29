@@ -97,11 +97,11 @@ export default function SignupWithInvite(): ReactElement {
                 </h1>
                 <p className={classNames("my-px text-gray-700", { invisible: !(referrals && referrals.length) })}>{t("signup-page.referrer.subtitle")}</p>
 
-                {referrals && referrals.length && (
+                {referrals && referrals.length ? (
                   <div className="my-8">
                     <ReferralsList bounty />
                   </div>
-                )}
+                ): <></>}
               </div>
             )}
 
