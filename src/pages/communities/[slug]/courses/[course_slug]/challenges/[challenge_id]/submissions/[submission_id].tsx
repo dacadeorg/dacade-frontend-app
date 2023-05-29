@@ -7,12 +7,13 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import { fetchCurrentCommunity } from "@/store/feature/community.slice";
 import { findSubmssionById } from "@/store/feature/communities/challenges/submissions";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import DefaultLayout from "@/components/layout/Default";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { GetServerSideProps } from "next";
 import { fetchCourse } from "@/store/services/course.service";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function SubmissionPage() {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ SubmissionPage.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor="default">{page}</DefaultLayout>;
 };
 
-export const getServerSideProps = async ({ locale }: { locale: string }) => ({
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale as string)),
   },

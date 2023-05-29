@@ -1,8 +1,6 @@
-import { wrapper } from "@/store";
-import { ReactElement, useEffect, useLayoutEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import OverviewSection from "@/components/sections/courses/overview";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useDispatch } from "react-redux";
 import { setCurrentCourse, setCourseNavigation } from "@/store/feature/course.slice";
 import { Community } from "@/types/community";
@@ -14,8 +12,11 @@ import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import DefaultLayout from "@/components/layout/Default";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import useNavigation from "@/hooks/useNavigation";
-import api from "@/config/api";
-import LOCALES from "@/constants/locales";
+import { GetServerSideProps } from "next";
+import { store } from "@/store";
+import { fetchCourse } from "@/store/services/course.service";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function CourseViewPage(props: {
   pageProps: {
@@ -31,7 +32,7 @@ export default function CourseViewPage(props: {
 
   const list = navigation.community.init({ community, course });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(setCurrentCommunity(community));
     dispatch(setCurrentCourse(course));
     dispatch(setColors(community.colors));
@@ -61,13 +62,15 @@ CourseViewPage.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
-export async function getStaticProps({ params, locale }: any) {
+export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
   try {
-    const { slug, course_slug } = params;
+    const slug = params?.slug as string;
+    const course_slug = params?.course_slug as string;
 
-    const [community, course] = await Promise.all([api(locale).server.get<Community>(`/communities/${slug}`), api(locale).server.get<Community>(`/courses/${course_slug}`)]).then(
-      (res) => res.map(({ data }) => data)
-    );
+    const [{ data: community }, { data: course }] = await Promise.all([
+      store.dispatch(fetchCurrentCommunity({ slug, locale })),
+      store.dispatch(fetchCourse({ slug: course_slug, locale })),
+    ]);
 
     return {
       props: {
@@ -75,52 +78,10 @@ export async function getStaticProps({ params, locale }: any) {
         course,
         ...(await serverSideTranslations(locale as string)),
       },
-      revalidate: 60,
     };
   } catch (error) {
     return {
       notFound: true,
     };
   }
-}
-interface Path {
-  params: {
-    slug: string;
-    course_slug: string;
-  };
-  locale: string;
-}
-
-export async function getStaticPaths() {
-  const { data: communities } = await api().server.get<Community[]>(`/communities`);
-
-  const getPathes = async () => {
-    const paths = await Promise.all(
-      communities.map(async (community) => {
-        const { data: courses } = await api().server.get<Course[]>(`/communities/${community.slug}/courses`);
-        const coursePaths: Path[] = [];
-
-        courses.forEach(({ slug }) => {
-          LOCALES.forEach((locale) => {
-            coursePaths.push({
-              params: {
-                slug: community.slug,
-                course_slug: slug,
-              },
-              locale: locale,
-            });
-          });
-        });
-        return coursePaths;
-      })
-    );
-    return paths.flat();
-  };
-
-  const paths: Path[] = await getPathes();
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
-}
+};

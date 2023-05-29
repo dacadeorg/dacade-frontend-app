@@ -1,12 +1,11 @@
 import { GetStaticProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import ReactMarkdown from "react-markdown";
 import path from "path";
 import fs from "fs";
-import HomeLayout from "@/layouts/Home";
 import { ReactElement } from "react";
 import DefaultLayout from "@/components/layout/Default";
+import i18Translate from "@/utilities/I18Translate";
 
 /**
  * Privacy and policy page props
@@ -52,7 +51,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       privacy: markdownFileContents,
-      ...(await serverSideTranslations(locale || "en")),
+      ...(await i18Translate(locale || "en")),
     },
   };
 };

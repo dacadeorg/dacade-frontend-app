@@ -85,9 +85,9 @@ export const fetchAllScoreboards = createAsyncThunk("communities/scoreboard/all"
 
 interface FilterScoreboardsArgs {
   slug: string;
-  filterBy: string;
-  sortBy: string;
-  locale: string;
+  filterBy?: string;
+  sortBy?: string;
+  locale?: string;
 }
 
 /**
