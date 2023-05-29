@@ -7,14 +7,14 @@ import SubmissionPopup from "@/components/popups/submission";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
-import { fetchCurrentCommunity } from "@/store/feature/community.slice";
-import { fetchCourse } from "@/store/feature/course.slice";
 import { fetchAllSubmission, showSubmission } from "@/store/feature/communities/challenges/submissions";
 import DefaultLayout from "@/components/layout/Default";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import MetaData from "@/components/ui/MetaData";
 import Head from "next/head";
-import { toggleBodyScrolling } from "@/store/feature/ui.slice";
+import { GetServerSideProps } from "next";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { fetchCourse } from "@/store/services/course.service";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function Submission() {
   const [selectedSubmission, setSelectedSubmission] = useState("");
@@ -27,17 +27,18 @@ export default function Submission() {
     challenge: state.challenges.current,
   }));
   const { t } = useTranslation();
+
   const handleDisplaySubmission = useCallback(() => {
     setSelectedSubmission(submission_id as string);
     dispatch(showSubmission(selectedSubmission));
-    // window.history.pushState({}, null, route.path)
-  }, [dispatch, selectedSubmission, submission_id]);
+    window.history.pushState({}, "", router.pathname);
+  }, [dispatch, router.pathname, selectedSubmission, submission_id]);
 
   const handleCloseSubmission = useCallback(() => {
-    setSelectedSubmission("")
+    setSelectedSubmission("");
     dispatch(showSubmission(""));
-    // window.history.pushState({}, null, router.pathname)
-  }, [dispatch]);
+    window.history.pushState({}, "", router.pathname);
+  }, [dispatch, router.pathname]);
 
   useEffect(() => {
     if (slug && course_slug && challenge_id) {
@@ -92,7 +93,7 @@ Submission.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor="default">{page}</DefaultLayout>;
 };
 
-export const getServerSideProps = async ({ locale }: { locale: string }) => ({
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale as string)),
   },

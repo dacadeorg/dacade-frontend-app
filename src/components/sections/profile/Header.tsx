@@ -60,12 +60,12 @@ const ProfileHeader = () => {
           </div>
         )}
 
-        <div className="flex items-center px-2">
-          <span className="inline-block">
+        <div className="flex items-center justify-center px-2">
+          <span>
             <TimeIcon />
           </span>
-          <span className="inline-block mx-1">{t("profile.header.joined")}</span>
-          {joined && <span className="inline-block text-sm">{joined}</span>}
+          <span className="mx-1">{t("profile.header.joined")}</span>
+          {joined && <span className="text-sm">{joined}</span>}
         </div>
 
         {isKycVerified ? (
@@ -85,7 +85,7 @@ const ProfileHeader = () => {
             {t("profile.header.connect-discord")}
           </Button>
           {!isKycVerified && (
-            <Button variant="outline-primary" className="flex mx-auto ml-2 text-base" onClick={triggerKYCVerification}>
+            <Button variant="outline-primary" className="flex mx-auto text-base" onClick={triggerKYCVerification}>
               {t("profile.header.sumsub.verify")}
             </Button>
           )}
