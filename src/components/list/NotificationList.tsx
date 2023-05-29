@@ -28,7 +28,7 @@ interface NotificationProps {
  *
  */
 
-export default function Notification({ extended }: NotificationProps): ReactElement {
+export default function NotificationList({ extended }: NotificationProps): ReactElement {
   const { notifications, user } = useSelector((state) => ({
     notifications: state.notifications.notifications,
     user: state.user.data,

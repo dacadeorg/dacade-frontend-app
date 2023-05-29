@@ -43,6 +43,7 @@ export default function PasswordReset(): ReactElement {
   const [loading, setLoading] = useState(false);
   const [passwordMatch, setPasswordMatch] = useState(true);
   const emailValue = watch("email");
+
   const onPasswordResetRequest = (formData: Form) => {
     if (passwordValue !== newPassword) {
       setPasswordMatch(false);
@@ -58,11 +59,11 @@ export default function PasswordReset(): ReactElement {
   return (
     <>
       <Head>{getMetadataTitle(t("password-reset.title"))}</Head>
-      <div>
+      <div className="absolute w-full top-0 min-h-screen flex items-center">
         <form onSubmit={handleSubmit(onPasswordResetRequest)} className="content-wrapper">
           <div className="lg:w-98 xl:w-98 mx-auto">
             <h3 className="text-5xl my-5">{t("password-reset.title")}</h3>
-            <div>
+            <div className="mb-5">
               <Input
                 /* In backticks `` because placeholder requires a string.
                  * Same for label
@@ -81,7 +82,7 @@ export default function PasswordReset(): ReactElement {
                 })}
               />
             </div>
-            <div>
+            <div className="mb-5">
               <Input
                 /* In backticks `` because placeholder requires a string.
                  * Same for label
@@ -100,7 +101,7 @@ export default function PasswordReset(): ReactElement {
                 })}
               />
             </div>
-            <div>
+            <div className="mb-5">
               <Input
                 /* In backticks `` because placeholder requires a string.
                  * Same for label
@@ -120,7 +121,7 @@ export default function PasswordReset(): ReactElement {
               />
             </div>
             <div className="text-right">
-              <ArrowButton loading={loading} type="submit" disabled={loading} min-width-class="min-w-40">
+              <ArrowButton loading={loading} type="submit" disabled={loading} minWidthClass="min-w-40">
                 {t("password-reset.submit")}
               </ArrowButton>
             </div>

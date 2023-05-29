@@ -60,6 +60,7 @@ export const login = createAsyncThunk("login", async (payload: { email: string; 
     dispatch(setAuthData(null));
     dispatch(setBusy(false));
     dispatch(setError(error));
+    throw error;
   }
 });
 

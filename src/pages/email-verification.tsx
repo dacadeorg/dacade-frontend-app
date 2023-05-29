@@ -1,17 +1,14 @@
-/*
- TODO: The logic for this is file need to be improved 
- when the login and signup logic is fully tested.
-*/
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
 import i18Translate from "@/utilities/I18Translate";
 import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { resendEmailVerification } from "@/store/services/auth.service";
+import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 
 /**
  * Email verification page
@@ -27,12 +24,6 @@ export default function EmailVerification(): ReactElement {
   const [loading, setloading] = useState(false);
   const user = useSelector((state) => state.auth.data);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    }
-  }, [router, user]);
 
   const resendEmail = async () => {
     setloading(true);
@@ -70,5 +61,9 @@ export default function EmailVerification(): ReactElement {
     </div>
   );
 }
+
+EmailVerification.getLayout = function (page: ReactNode) {
+  return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
+};
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);

@@ -1,4 +1,3 @@
-// TODO: The async thunk should moved in services
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IRootState } from "@/store";
 import api from "@/config/api";
@@ -86,9 +85,9 @@ export const fetchAllScoreboards = createAsyncThunk("communities/scoreboard/all"
 
 interface FilterScoreboardsArgs {
   slug: string;
-  filterBy: string;
-  sortBy: string;
-  locale: string;
+  filterBy?: string;
+  sortBy?: string;
+  locale?: string;
 }
 
 /**

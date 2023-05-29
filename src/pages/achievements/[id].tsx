@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import NavItem from "@/components/ui/NavItem";
@@ -14,7 +15,7 @@ import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { fetchAllCertificates, findCertificate } from "@/store/services/certificate.service";
+import { findCertificate } from "@/store/services/profile/certificate.service";
 import { useTranslation } from "next-i18next";
 import Logo from "@/icons/logo.svg";
 
@@ -31,13 +32,9 @@ const Achievement = () => {
 
   useEffect(() => {
     (() => {
-      Promise.all([findCertificate({ id: query.id as string })]).catch((e) => {
-        // TODO: handle error
-        // error(e)
-      });
+      Promise.all([dispatch(findCertificate({ id: query.id as string }))]);
     })();
-    return () => {};
-  }, []);
+  }, [dispatch, query.id]);
 
   const issuedOn = useMemo(() => {
     if (!achievement?.metadata?.issuedOn) return null;
@@ -109,14 +106,9 @@ const Achievement = () => {
         <div className="content-wrapper achievement-content mx-auto min-h-screen flex items-center py-16">
           <div className="w-full">
             <div className="flex flex-col md:flex-row border rounded-3xl">
-              <div className="flex justify-center items-center p-7 md:rounded-l-3xl rounded-t-3xl md:rounded-t-none w-full md:w-1/2 md:bg-none bg-gray-100">
-                <div
-                  className={`h-52 w-52 ${isNotCertificateIcon && "p-12 rounded-full"}`}
-                  style={{
-                    backgroundColor: backgroundColor,
-                  }}
-                >
-                  <img src="achievement?.metadata?.image" alt="certificate badge" />
+              <div className="flex justify-center items-center p-7 md:rounded-l-3xl rounded-l-3xl w-full md:w-1/2 md:bg-none bg-gray-100">
+                <div className={`h-52 w-52 ${isNotCertificateIcon && "p-12 rounded-full"}`} style={{ backgroundColor: isNotCertificateIcon ? backgroundColor : "" }}>
+                  <img src={achievement?.metadata?.image} alt="certificate badge" />
                 </div>
               </div>
               <div className="p-5 md:pt-7 md:px-7 md:pb-14 w-full md:w-1/2">
@@ -127,7 +119,7 @@ const Achievement = () => {
                 <div className="mt-5 flex flex-col md:gap-6 gap-5">
                   <AchievementViewItem name={t("profile.achievement.award") as string}>
                     <div className="inline-flex items-center space-x-2 pr-3 bg-gray-200 p-1 rounded-full">
-                      <Avatar user={user} size="small-fixed" />
+                      <Avatar user={user} size="small-fixed" hideVerificationBadge />
                       <p className="text-sm md:text-base">{achievement?.metadata?.recipientName}</p>
                     </div>
                   </AchievementViewItem>
@@ -187,14 +179,14 @@ const Achievement = () => {
                   )}
                 </div>
               </div>
-              <div className="text-center pt-16">
-                <ul className="relative">
-                  <NavItem type="logo" className="w-8 h-8 md:w-11 md:h-11">
-                    <Logo />
-                  </NavItem>
-                  <NavItem type="brand mx-0.5">{t("app.name")}</NavItem>
-                </ul>
-              </div>
+            </div>
+            <div className="text-center pt-16">
+              <ul className="relative">
+                <NavItem type="logo" className="w-8 h-8 md:w-11 md:h-11">
+                  <Logo />
+                </NavItem>
+                <NavItem type="brand mx-0.5">{t("app.name")}</NavItem>
+              </ul>
             </div>
           </div>
         </div>

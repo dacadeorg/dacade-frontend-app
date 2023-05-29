@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
@@ -62,14 +62,13 @@ export default function CommunitiesPage(props: CommunityPageProps) {
  *
  * @async
  */
-export const getStaticProps: GetStaticProps = wrapper.getStaticProps((store) => async (data) => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async (data) => {
   const { locale } = data;
   const results = await store.dispatch(fetchAllCommunities(locale as string));
   return {
     props: {
       ...(await serverSideTranslations(locale as string)),
-      communities: results.data,
-      revalidate: 60 * 60 * 12,
+      communities: results?.data ?? []
     },
   };
 });

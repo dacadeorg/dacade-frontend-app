@@ -1,5 +1,5 @@
 import RewardBadge from "@/components/badges/RewardBadge";
-import { HTMLProps, ReactElement } from "react";
+import { ReactElement } from "react";
 import { useTranslation } from "next-i18next";
 import { Reward } from "@/types/course";
 
@@ -18,7 +18,7 @@ interface OverviewRewardsProps {
  * @returns {ReactElement}
  */
 
-export default function OverviewRewards({ reward, ...props }: OverviewRewardsProps): ReactElement {
+export default function OverviewRewards({ reward }: OverviewRewardsProps): ReactElement {
   const { t } = useTranslation();
 
   return (
@@ -31,7 +31,7 @@ export default function OverviewRewards({ reward, ...props }: OverviewRewardsPro
         </div>
         {reward && (
           <div className="text-right sm:text-left mt-3">
-            <RewardBadge reward={{ token: reward.token }} type="gray" />
+            <RewardBadge reward={reward} type="gray" />
           </div>
         )}
       </div>

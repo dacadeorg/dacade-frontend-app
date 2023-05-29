@@ -11,12 +11,12 @@ import { challengeSlice } from "./feature/communities/challenges";
 import { feedbackSlice } from "./feature/communities/challenges/submissions/feedback.slice";
 import { eventsSlice } from "./feature/events.slice";
 import { reputationProfileService } from "./services/profile/reputation.service";
+import { authService } from "./services/auth.service";
 
 import communities from "./feature/community.slice";
 import ui from "./feature/ui.slice";
 import indexSlice from "./feature/index.slice";
 import authSlice from "./feature/auth.slice";
-import { authService } from "./services/auth.service";
 import userService from "./services/user.service";
 import referralsService from "./services/referrals.service";
 import notificationsService from "./services/notification.service";
@@ -35,10 +35,11 @@ import profileReducer from "./feature/profile";
 import userReferralsSlice from "./feature/user/referrals.slice";
 import web3WalletSlice from "./feature/wallet.slice";
 import certificateSlice from "./feature/profile/certificate.slice";
-import certificateService from "./services/certificate.service";
 import profileCommunitiesService from "./services/profile/profileCommunities.service";
 import userReputationService from "./services/user/userReputation.service";
 import userReputationSlice from "./feature/user/reputation.slice";
+import { fetchProfileCommunitiesService, fetchProfileCommunityService } from "./services/profile.service";
+import certificateService from "./services/profile/certificate.service";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -46,14 +47,12 @@ export interface IRootState {
   ui: ReturnType<typeof ui.reducer>;
   referrals: ReturnType<typeof referralSlice.reducer>;
   user: ReturnType<typeof userSlice.reducer>;
-  userReferrals: ReturnType<typeof userReferralsSlice.reducer>;
   banner: ReturnType<typeof bannerSlice.reducer>;
   notifications: ReturnType<typeof notificationsSlice.reducer>;
   wallets: ReturnType<typeof walletsSlice.reducer>;
   web3Wallet: ReturnType<typeof web3WalletSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
-  authService: ReturnType<typeof authService.reducer>;
   coursesService: ReturnType<typeof coursesService.reducer>;
   communityService: ReturnType<typeof communityService.reducer>;
   walletService: ReturnType<typeof walletsService.reducer>;
@@ -62,10 +61,11 @@ export interface IRootState {
   userReputationService: ReturnType<typeof userReputationService.reducer>;
   userProfileService: ReturnType<typeof userProfileService.reducer>;
   notificationService: ReturnType<typeof notificationsService.reducer>;
-  bountiesService: ReturnType<typeof bountiesService.reducer>;
   certificateService: ReturnType<typeof certificateService.reducer>;
   reputationProfileService: ReturnType<typeof reputationProfileService.reducer>;
   profileCommunitiesService: ReturnType<typeof profileCommunitiesService.reducer>;
+  authService: ReturnType<typeof authService.reducer>;
+  bountiesService: ReturnType<typeof bountiesService.reducer>;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   bounties: ReturnType<typeof bountiesSlice.reducer>;
   submissions: ReturnType<typeof submissionsSlice.reducer>;
@@ -109,6 +109,8 @@ export const store = configureStore({
     [web3WalletSlice.name]: web3WalletSlice.reducer,
     [learningModulesSlice.name]: learningModulesSlice.reducer,
     [communityService.reducerPath]: communityService.reducer,
+    [bountiesService.reducerPath]: bountiesService.reducer,
+    [authService.reducerPath]: authService.reducer,
     [coursesService.reducerPath]: coursesService.reducer,
     [certificateService.reducerPath]: certificateService.reducer,
     [walletsService.reducerPath]: walletsService.reducer,
@@ -120,6 +122,8 @@ export const store = configureStore({
     [userReputationService.reducerPath]: userReputationService.reducer,
     [referralsService.reducerPath]: referralsService.reducer,
     [notificationsService.reducerPath]: notificationsService.reducer,
+    [fetchProfileCommunityService.reducerPath]: fetchProfileCommunityService.reducer,
+    [fetchProfileCommunitiesService.reducerPath]: fetchProfileCommunitiesService.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
     [certificateSlice.name]: certificateSlice.reducer,
     [userReferralsSlice.name]: userReferralsSlice.reducer,
@@ -140,6 +144,13 @@ export const store = configureStore({
       reputationProfileService.middleware,
       profileCommunitiesService.middleware,
       userReputationService.middleware,
+      fetchProfileCommunityService.middleware,
+      fetchProfileCommunitiesService.middleware,
+      certificateService.middleware,
+      reputationProfileService.middleware,
+      profileCommunitiesService.middleware,
+      userReputationService.middleware,
+      bountiesService.middleware,
       authService.middleware
     );
   },

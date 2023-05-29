@@ -2,9 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/Graphik-Medium-Web.woff2") format("woff2"),
+    url("/fonts/Graphik-Medium-Web.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/Graphik-Medium-Web.woff2") format("woff2"),
+    url("/fonts/Graphik-Medium-Web.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/Graphik-Regular-Web.woff2") format("woff2"),
+    url("/fonts/Graphik-Regular-Web.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/GraphikRegularItalic.woff2") format("woff2"),
+    url("/fonts/GraphikRegularItalic.woff") format("woff");
+  font-weight: 700;
+  font-style: italic;
+}
+
 html,
 body {
   @apply !scroll-smooth;
+  font-family: "Graphik", sans-serif;
 }
 
 .floating-input > input::placeholder {
@@ -41,7 +74,7 @@ body {
 
 body,
 .text-default {
-  @apply text-gray-900 font-sans;
+  @apply text-gray-900;
   font-feature-settings: "ss01" 1, "ss02" 1;
 }
 
@@ -288,4 +321,34 @@ div {
 .nuxt-link-exact-active > .nav-icon,
 .activable-link.nuxt-link-active > .nav-icon {
   display: block;
+}
+
+.notification {
+  border: 1.6px solid #0000;
+  border-radius: 0.35rem;
+  background: #343b42;
+  padding: 1em;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%);
+}
+
+.notification:hover {
+  border: 1.6px solid #53d1af;
+  background: #343b42;
+  padding: 1em;
+  box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%);
+}
+
+.notification:hover a {
+  text-decoration: none;
+}
+
+.unread {
+  color: rgb(255 255 255 / 80%);
+  border-bottom: 2px solid rgb(255 255 255 / 80%);
+
+  /* animation: glow 0.5s infinite alternate; */
+}
+
+.unread a {
+  color: rgb(255 255 255 / 80%);
 }

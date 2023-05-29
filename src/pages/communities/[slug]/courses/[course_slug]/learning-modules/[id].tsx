@@ -1,16 +1,14 @@
-import { useMemo, useEffect, ReactElement, useLayoutEffect } from "react";
+import { useMemo, useEffect, ReactElement } from "react";
 import PageNavigation from "@/components/sections/courses/PageNavigation";
 import InteractiveModule from "@/components/sections/learning-modules/InteractiveModule";
 import AdditionalMaterialsSection from "@/components/sections/learning-modules/AdditionalMaterials";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import Head from "next/head";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Community } from "@/types/community";
-import { wrapper } from "@/store";
 import { Course, LearningModule } from "@/types/course";
 import { setCurrentCourse } from "@/store/feature/course.slice";
-import { findLearningModule, setCurrentLearningModule } from "@/store/feature/learningModules.slice";
+import { setCurrentLearningModule } from "@/store/feature/learningModules.slice";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import MaterialSection from "@/components/sections/learning-modules/MaterialSection";
@@ -20,10 +18,12 @@ import { initNavigationMenu } from "@/store/feature/communities/navigation.slice
 import { setColors } from "@/store/feature/ui.slice";
 import useNavigation from "@/hooks/useNavigation";
 import api from "@/config/api";
-import { GetStaticProps } from "next";
-import LOCALES from "@/constants/locales";
+import { GetServerSideProps } from "next";
+import i18Translate from "@/utilities/I18Translate";
+import { store } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchCourse } from "@/store/services/course.service";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 /**
  * Learning module page props interfae
@@ -54,13 +54,13 @@ export default function LearningModulePage(props: LearningModulePageProps) {
 
   const navigation = useNavigation();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(setCurrentCommunity(community));
     dispatch(setCurrentCourse(course));
     dispatch(setCurrentLearningModule(learningModule));
     dispatch(setColors(community.colors));
     initNavigationMenu(navigation.community)(dispatch);
-  }, [community, course, dispatch, learningModule]);
+  }, [community, course, dispatch, learningModule, navigation.community]);
 
   const materials = useMemo(() => learningModule?.materials?.filter((material) => material.type !== "ADDITIONAL") || [], [learningModule?.materials]);
   const additionalMaterials = useMemo(() => learningModule?.materials?.filter((material) => material.type === "ADDITIONAL") || [], [learningModule?.materials]);
@@ -96,20 +96,21 @@ export default function LearningModulePage(props: LearningModulePageProps) {
 }
 
 LearningModulePage.getLayout = function (page: ReactElement) {
-  return <DefaultLayout footerBackgroundColor={"default"}>{page}</DefaultLayout>;
+  return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
-export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
   try {
-    const slug = params?.slug as string;
-    const course_slug = params?.course_slug as string;
+    const communitySlug = params?.slug as string;
+    const courseSlug = params?.course_slug as string;
     const id = params?.id as string;
 
-    const [community, course, learningModule] = await Promise.all([
-      api(locale).server.get<Community>(`/communities/${slug}`),
-      api(locale).server.get<Course>(`/courses/${course_slug}`),
+    const [{ data: community }, { data: course }, { data: learningModule }] = await Promise.all([
+      store.dispatch(fetchCurrentCommunity({ slug: communitySlug, locale })),
+      store.dispatch(fetchCourse({ slug: courseSlug, locale })),
+      // TODO: need to be replaced by the action defined in learningModule.
       api(locale).server.get<LearningModule>(`/learning-modules/${id}`),
-    ]).then((responses) => responses.map((response) => response.data));
+    ]);
 
     if (Object.entries(learningModule).length === 0 || Object.entries(course).length === 0 || Object.entries(community).length === 0) {
       return {
@@ -123,7 +124,6 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
           learningModule,
           ...(await serverSideTranslations(locale as string)),
         },
-        revalidate: 60,
       };
     }
   } catch (error) {
@@ -132,60 +132,3 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
     };
   }
 };
-
-interface Path {
-  params: {
-    slug: string;
-    course_slug: string;
-    id: string;
-  };
-  locale: string;
-}
-
-export async function getStaticPaths() {
-  const { data: communities } = await api().server.get<Community[]>(`/communities`);
-
-  const getPathes = async () => {
-    const paths = await Promise.all(
-      communities.map(async (community) => {
-        const { data: courses } = await api().server.get<Course[]>(`/communities/${community.slug}/courses`);
-        const coursePaths = await Promise.all(
-          courses.map(async (course) => {
-            try {
-              const { data: modules } = await api().server.get<Course[]>(`/courses/${course.slug}/learning-modules`);
-
-              const modulePaths: Path[] = [];
-
-              if (Array.isArray(modules)) {
-                modules.forEach(({ id }) => {
-                  LOCALES.forEach((locale) => {
-                    modulePaths.push({
-                      params: {
-                        slug: community.slug,
-                        course_slug: course.slug,
-                        id: id,
-                      },
-                      locale: locale,
-                    });
-                  });
-                });
-              }
-              return modulePaths;
-            } catch (error) {
-              return [];
-            }
-          })
-        );
-        return coursePaths.flat();
-      })
-    );
-    return paths.flat();
-  };
-
-  const paths = await getPathes();
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
-}

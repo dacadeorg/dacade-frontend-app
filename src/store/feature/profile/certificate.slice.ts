@@ -35,13 +35,13 @@ export const certificateSlice = createSlice({
       state.list = action.payload;
     },
 
-    clear(state) {
+    clearCertificate(state) {
       state.list = [];
       state.current = null;
     },
   },
 });
 
-export const { setCurrentCertificate, setCertificateList, clear, setCurrentMintingStatus } = certificateSlice.actions;
+export const { setCurrentCertificate, setCertificateList, clearCertificate, setCurrentMintingStatus } = certificateSlice.actions;
 
 export default certificateSlice;

@@ -229,8 +229,7 @@ export default class CommunityNavigation {
     const challenges = this.bountyLinks(course, community?.slug);
     const learningModules = this.learningModuleLinks(course, community?.slug);
 
-    // TODO: improve the naming of the List
-    const list: List[] = [
+    const communityNavigationMenuList: List[] = [
       {
         id: "introduction",
         title: "Introduction",
@@ -246,7 +245,7 @@ export default class CommunityNavigation {
     ];
 
     if (learningModules.length) {
-      list.push({
+      communityNavigationMenuList.push({
         id: "learning-modules",
         title: "communities.navigation.learning-modules",
         items: learningModules,
@@ -254,12 +253,12 @@ export default class CommunityNavigation {
     }
 
     if (challenges.length) {
-      list.push({
+      communityNavigationMenuList.push({
         id: "bounties",
         title: "communities.navigation.challenge",
         items: challenges,
       });
     }
-    return list;
+    return communityNavigationMenuList;
   }
 }

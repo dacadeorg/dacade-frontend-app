@@ -35,11 +35,10 @@ export default function CommunityCard({ showRewards = true, community }: Communi
   const { t } = useTranslation();
   const path = `/communities/${community?.slug}`;
   const router = useRouter();
-  
+
   const reward = useMemo(() => {
     return community.rewards.find((reward) => reward.type === "SUBMISSION");
   }, [community.rewards]);
-  
 
   return (
     <ThemeWrapper colors={community.colors}>

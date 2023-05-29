@@ -13,8 +13,8 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import { authCheck, login } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import EmailInput from "@/components/ui/EmailInput";
-import { FormValues } from "./signup";
 import { useSelector } from "@/hooks/useTypedSelector";
+import { FormValues } from "./signup";
 
 /**
  * Login form values
@@ -42,8 +42,8 @@ export default function Login(): ReactElement {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
-  const [passwordValue, setPasswordValue] = useState("");
   const emailValue = watch("email");
+  const passwordValue = watch("password");
   const isChecked = useSelector((state) => authCheck(state));
 
   const onSubmit = async (form: FormValues) => {
@@ -55,6 +55,7 @@ export default function Login(): ReactElement {
     try {
       setLoading(true);
       await dispatch(login(loginData));
+      // router.replace("/bounties");
       if (isChecked) router.replace("/bounties");
     } catch (err) {
       console.error(err);
@@ -90,7 +91,6 @@ export default function Login(): ReactElement {
                   error={errors.password?.message}
                   type="password"
                   value={passwordValue}
-                  onInput={(value) => setPasswordValue(value)}
                   {...register("password", {
                     required: "This field is required",
                     minLength: {

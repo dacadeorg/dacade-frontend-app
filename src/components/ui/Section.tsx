@@ -28,7 +28,7 @@ interface SectionProps {
  * @returns {ReactElement}
  */
 export default function Section({ type, padding = "py-4", children, className = "" }: SectionProps): ReactElement {
-  const sectionClassName = classNames("relative", {
+  const sectionClassName = classNames("relative", className, {
     "bg-white text-gray-900": type === "default",
     "bg-primary text-white": type === "primary",
     "bg-secondary text-gray-900": type === "secondary",
@@ -36,7 +36,7 @@ export default function Section({ type, padding = "py-4", children, className = 
   });
 
   return (
-    <div className={`${sectionClassName} ${className}`}>
+    <div className={sectionClassName}>
       <div className={`content-wrapper ${padding}`}>{children}</div>
     </div>
   );

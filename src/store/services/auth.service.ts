@@ -2,6 +2,7 @@ import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { login, setAuthData } from "../feature/auth.slice";
 import { clearError, setBusy, setError } from "../feature/index.slice";
+import { createEvent } from "../feature/events.slice";
 
 /**
  * Auth service
@@ -16,42 +17,42 @@ export const authService = createApi({
     /**
      * Signup endpoint
      * @method POST
-     * @enpoint notifications/read
+     * @enpoint auth/signup
      */
     signUp: builder.mutation({
       query: ({ payload, locale }) => ({
-        url: `auth/signup`,
+        url: "auth/signup",
+        method: "POST",
         headers: {
           "accept-language": locale,
         },
         body: payload,
       }),
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async ({ payload }, { dispatch, queryFulfilled }) => {
         try {
-          const { data } = await queryFulfilled;
           dispatch(setBusy(true));
           dispatch(clearError());
-          dispatch(
-            login({
-              email: data.payload.email,
-              password: data.payload.password,
-            })
-          );
+          const { data } = await queryFulfilled;
+          // Send the event to firebase analytics
+          createEvent({ name: "user-signed-up", attributes: { userId: data.uid } });
+
+          await dispatch(login({ email: payload.email, password: payload.password }));
         } catch (error) {
           dispatch(setAuthData(null));
           dispatch(setBusy(false));
           dispatch(setError(error));
+          throw error;
         }
       },
     }),
     /**
      * Resend verification endpoint
      * @method POST
-     * @enpoint notifications/read
+     * @enpoint auth/send-verification-email
      */
     resendEmailVerification: builder.query({
       query: (locale) => ({
-        url: `auth/send-verification-email`,
+        url: "auth/send-verification-email",
         headers: {
           "accept-language": locale,
         },
@@ -60,7 +61,7 @@ export const authService = createApi({
     /**
      * Verify Email endpoint
      * @method POST
-     * @enpoint notifications/read
+     * @enpoint auth/verify-email
      */
     verifyEmail: builder.mutation({
       query: ({ payload, locale }) => ({
@@ -99,8 +100,4 @@ export const resendEmailVerification = (locale?: string) => authService.endpoint
  *
  * @param {?string} [locale]
  */
-export const verifyEmail = async ({ payload, locale }: { payload: { code: string }; locale?: string }) =>
-  await authService.endpoints.verifyEmail.initiate({
-    locale,
-    payload,
-  });
+export const verifyEmail = ({ payload, locale }: { payload: { code: string }; locale?: string }) => authService.endpoints.verifyEmail.initiate({ locale, payload });

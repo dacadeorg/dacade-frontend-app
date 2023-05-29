@@ -4,6 +4,8 @@ import { Community } from "@/types/community";
 import Reward from "../ui/Reward";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
+import { toggleShowReferralPopup } from "@/store/feature/ui.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  * Referral card component props
@@ -32,18 +34,14 @@ interface ReferralProps {
 
 export default function Referral({ referral }: ReferralProps): ReactElement {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
-  // TODO: Should be uncommented when redux is implemented
-  //   const openLink = () => {
-  //     dispatch("ui/toggleShowReferralPopup", true);
-  //   };
+  const openLink = () => {
+    toggleShowReferralPopup(true)(dispatch);
+  };
 
   return (
-    <div
-      className="cursor-pointer flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative"
-      // TODO:  should be uncommented when redux is implemented
-      //   onClick={openLink}
-    >
+    <div className="cursor-pointer flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative" onClick={openLink}>
       <div className="bg-theme-accent flex-col w-full h-full justify-between md:-space-y-1 pl-3 pr-5 mt-7 mb-5">
         <div className="relative w-full md:flex md:justify-between">
           <div className="font-medium text-md md:pt-1.5">{referral.title || referral.community.name}</div>

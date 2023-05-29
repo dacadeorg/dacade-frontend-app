@@ -6,11 +6,9 @@ import { OverviewRewards as Rewards } from "@/components/sections/challenges/Rew
 import SubmissionForm from "@/components/sections/challenges/Submission";
 import SubmissionCard from "@/components/cards/SubmissionView";
 import { getMetadataTitle } from "@/utilities/Metadata";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { wrapper } from "@/store";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { authCheck } from "@/store/feature/auth.slice";
 import { Challenge } from "@/types/course";
@@ -23,7 +21,10 @@ import { Colors, Community } from "@/types/community";
 import Head from "next/head";
 import MetaData from "@/components/ui/MetaData";
 import { fetchChallenge, setCurrentChallenge } from "@/store/feature/communities/challenges";
-import { fetchCurrentCommunity, setCurrentCommunity } from "@/store/feature/community.slice";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { GetServerSideProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 /**
  * Challenge view page 
@@ -97,9 +98,9 @@ ChallengePage.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor="default">{page}</DefaultLayout>;
 };
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async (data) => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async (data) => {
   const { query, locale } = data;
-  const { slug, course_slug, challenge_id } = query;
+  const { slug, challenge_id } = query;
 
   const fetchPayload = {
     slug: slug as string,
@@ -107,11 +108,10 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (d
   };
 
   const getCurrentCommunty = store.dispatch(fetchCurrentCommunity(fetchPayload));
-
   const getCurrentChallenge = store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string }));
   const results = await Promise.all([getCurrentCommunty, getCurrentChallenge]);
 
-  const community = results[0].payload;
+  const community = results[0];
   const challenge = results[1].payload;
 
   if (community) {

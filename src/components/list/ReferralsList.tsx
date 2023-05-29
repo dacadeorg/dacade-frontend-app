@@ -27,10 +27,10 @@ interface ReferralsListProps {
  */
 export default function ReferralsList({ text }: ReferralsListProps): ReactElement {
   const dispatch = useDispatch();
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   const togglePopUp = () => {
-    toggleShowReferralPopup(false)(dispatch);
+    toggleShowReferralPopup(true)(dispatch);
   };
 
   return (

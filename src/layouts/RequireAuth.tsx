@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { ReactElement, ReactNode, useEffect, useMemo } from "react";
 
 /**
- * This higher order component handle routing according to the user authentication state
+ * This higher order component handles routing according to the user authentication state
  * @date 5/14/2023 - 11:52:29 AM
  *
  * @export
@@ -18,32 +18,42 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
   const router = useRouter();
   const route = router.asPath;
   const dispatch = useDispatch();
-  const { auth, authUser } = useSelector((state) => ({
+  const { auth, authUser, isFetchingUser } = useSelector((state) => ({
     authUser: state.user.data,
     auth: state.auth.data,
+    isFetchingUser: state.user.fetchingUserLoading,
   }));
 
-  function matchesRoutes(route: string, list: string[]) {
-    const matches = list?.filter((el) => route?.startsWith(el));
+  function matchesRoutes(path: string, list: string[]) {
+    const matches = list?.filter((el) => path?.startsWith(el));
     return matches?.length > 0;
   }
 
   const isUserRoute = useMemo(
-    () => (route: string) => {
-      return matchesRoutes(route, ["bounties", "profile/wallets", "profile/referrals", "profile/notifications"]);
+    () => (path: string) => {
+      return matchesRoutes(path, ["bounties", "profile/wallets", "profile/referrals", "profile/notifications"]);
     },
     []
   );
 
   const isGuestRoute = useMemo(
-    () => (route: string) => {
-      return matchesRoutes(route, ["/signup", "/login", "/password-reset"]);
+    () => (path: string) => {
+      return matchesRoutes(path, ["/signup", "/login", "/password-reset"]);
     },
     []
   );
 
   useEffect(() => {
-    if (route.startsWith("/verify-email")) return;
+    if (route.startsWith("/verify-email") && auth?.emailVerified) {
+      router.push("/");
+      return;
+    }
+
+    if (route.startsWith("/email-verification") && !auth) {
+      router.push("/");
+      return;
+    }
+
     if (route.startsWith("/notifications/email-unsubscribe")) return;
     if (auth && !auth.emailVerified && !route.startsWith("/email-verification")) {
       router.replace("/email-verification");
@@ -59,7 +69,7 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
       return;
     }
 
-    if (route.startsWith("/profile")) {
+    if (route.startsWith("/profile") && auth && auth.emailVerified) {
       dispatch(fetchUserProfile((router.query?.username as string) || ""));
       dispatch(fetchAllProfileCommunities((router.query?.username as string) || authUser?.displayName || ""));
     }
