@@ -9,7 +9,6 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useTranslation } from "next-i18next";
 import { connectWallet, disconnectWallet, getSignature } from "@/store/feature/wallet.slice";
 import { mintCertificate } from "@/store/services/profile/certificate.service";
-import { isError } from "lodash";
 
 // Wallet interface
 interface Wallet {
