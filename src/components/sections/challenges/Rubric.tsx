@@ -1,7 +1,7 @@
 import Section from "@/components/sections/communities/_partials/Section";
 import { useSelector } from "@/hooks/useTypedSelector";
 import Checkmark from "@/icons/checkmark.svg";
-import { Rubic } from "@/types/course";
+import { Rubric } from "@/types/course";
 import { RatingCriteria } from "@/types/course";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
@@ -15,7 +15,7 @@ import { ReactElement } from "react";
  */
 interface RubricHeaderProps {
   ratingCriteria: RatingCriteria[];
-  selected: Rubic[];
+  selected: Rubric[];
   hideTitle?: boolean;
 }
 

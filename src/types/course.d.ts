@@ -78,7 +78,7 @@ export type RatingCriteria = {
   [key: string]: any;
 };
 
-export type Rubic = {
+export type Rubric = {
   id: string;
   ref: string;
   created_at: string;
