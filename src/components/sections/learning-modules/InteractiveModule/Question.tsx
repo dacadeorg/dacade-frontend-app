@@ -42,53 +42,6 @@ export default function InteractiveModuleQuestion({ data, disable = false, onCor
   const [timerCount, setTimerCount] = useState<number>(0);
   const [randomizedAnswers, setRandomizedAnswers] = useState<{ text: string; id: number }[]>([]);
 
-  // const shuffleAnswers = (answers: string[]) => {
-  //   const randomized = [...answers].map((value, index) => ({ text: value, id: index })).sort(() => Math.random() - 0.5);
-  //   return randomized;
-  // };
-
-  // const correctAnswer = useMemo(() => (data.correct ? data.correct : 0), [data.correct]);
-  // const memoizedRandomizedAnswers = useMemo(() => shuffleAnswers(data.answers), [data.answers]);
-
-  // useEffect(() => {
-  //   setRandomizedAnswers(memoizedRandomizedAnswers);
-  // }, [memoizedRandomizedAnswers]);
-
-  // const triggerRetryCountdown = () => {
-  //   setTimerCount(RETRY_TIME);
-  // };
-
-  // const selectAnswer = (index: number) => {
-  //   if (disable) return;
-
-  //   if (selected === index) {
-  //     setSelected(null);
-  //     return;
-  //   }
-  //   setSelected(index);
-  //   if (index === correctAnswer) {
-  //     onCorrect?.(index);
-  //     return;
-  //   }
-  //   triggerRetryCountdown();
-  //   onWrong?.(index);
-  // };
-
-  // useEffect(() => {
-  //   let interval: ReturnType<typeof setTimeout>;
-  //   if (timerCount > 0) {
-  //     interval = setInterval(() => {
-  //       setTimerCount((prevCount) => prevCount - 1);
-  //     }, 1000);
-  //   } else if (timerCount === 0) {
-  //     onRetry?.();
-  //     shuffleAnswers(data.answers);
-  //   }
-  //   return () => clearInterval(interval);
-  // }, [timerCount, data.answers, onRetry]);
-
-
-
   const shuffleAnswers = (answers: string[]) => {
     const shuffledAnswers = [...answers]
       .map((value, index) => ({ text: value, id: index }))
