@@ -30,7 +30,7 @@ interface MarkDownProps {
 export default function Markdown({ value }: MarkDownProps): ReactElement {
   const colors = useSelector((state) => state.ui.colors);
   const themeStyles = {
-    "--text-accent-color": colors.textAccent,
+    "--text-accent-color": colors?.textAccent,
   };
 
   return (

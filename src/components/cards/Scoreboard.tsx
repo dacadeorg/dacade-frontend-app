@@ -79,7 +79,7 @@ export default function ScoreboardCard({ value, index = 0 }: ScoreboardProps): R
               bottom: "-1px",
               right: "-3px",
               color: "#fff",
-              backgroundColor: colors.textAccent,
+              backgroundColor: colors?.textAccent,
             }}
           />
         </div>

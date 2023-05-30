@@ -33,7 +33,7 @@ export default function Duration({ text, value }: DurationProps): ReactElement {
     <div>
       {duration && (
         <span className="text-sm text-gray-500">
-          <span style={{ color: colors.textAccent }}>{duration}</span> {text}
+          <span style={{ color: colors?.textAccent }}>{duration}</span> {text}
         </span>
       )}
     </div>
