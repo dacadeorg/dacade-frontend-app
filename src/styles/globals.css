@@ -153,7 +153,6 @@ button,
 }
 
 @layer utilities {
-  @variants responsive {
     /* Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
@@ -163,7 +162,7 @@ button,
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
     }
-  }
+
   .badget-color {
     background-color: rgba(114, 70, 231, 1);
   }
