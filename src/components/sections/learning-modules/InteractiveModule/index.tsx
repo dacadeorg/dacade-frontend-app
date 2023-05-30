@@ -77,13 +77,6 @@ export default function InteractiveModule({ data }: interactiveModuleProps): Rea
     };
   }, [checkIfAnswered, dispatch]);
 
-  const nextItem = () => {
-    setCurrent(current + 1);
-    setAnswering(false);
-    if (items.length > current) return;
-    completed();
-  };
-
   const goToNextItem = () => {
     setTimeout(() => {
       nextItem();
@@ -95,6 +88,14 @@ export default function InteractiveModule({ data }: interactiveModuleProps): Rea
     showPageNavigation()(dispatch);
     if (!isLoggedIn) return;
     dispatch(submitModuleAnswer({ ref: data.ref, course: course?.ref! }));
+  };
+
+  const nextItem = () => {
+    const nextItem = current + 1;
+    setCurrent(nextItem);
+    setAnswering(false);
+    if (items.length > nextItem) return;
+    completed();
   };
 
   return (
