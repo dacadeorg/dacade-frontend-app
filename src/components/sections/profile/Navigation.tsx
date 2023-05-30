@@ -40,7 +40,7 @@ export default function ProfileNagivation(): ReactElement {
     const items: Menu[] = [];
     if (communities?.length) {
       items.push({
-        title: "Communities",
+        title: t("navigation.profile.communities"),
         items: communities.map((community) => ({
           label: community.name,
           link: `/profile/${username}/communities/${community.slug}`,
@@ -72,7 +72,7 @@ export default function ProfileNagivation(): ReactElement {
         exact: true,
       });
     }
-    items.push({ title: "Profile", items: mainItems });
+    items.push({ title: t("navigation.profile.title"), items: mainItems });
     return items;
   }, [communities, isCurrentUser, t, username]);
 

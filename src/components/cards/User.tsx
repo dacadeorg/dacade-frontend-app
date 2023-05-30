@@ -103,7 +103,7 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
               title={date}
               className="font-medium"
               style={{
-                color: colors.textAccent,
+                color: colors?.textAccent,
               }}
             >
               {humanizedDate}

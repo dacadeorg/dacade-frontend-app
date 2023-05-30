@@ -94,6 +94,7 @@ export const store = configureStore({
     [walletsSlice.name]: walletsSlice.reducer,
     [indexSlice.name]: indexSlice.reducer,
     [authSlice.name]: authSlice.reducer,
+    [authService.reducerPath]: authService.reducer,
     [courseSlice.name]: courseSlice.reducer,
     [navigationSlice.name]: navigationSlice.reducer,
     [submissionsSlice.name]: submissionsSlice.reducer,

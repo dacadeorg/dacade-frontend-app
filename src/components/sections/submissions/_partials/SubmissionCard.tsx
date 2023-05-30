@@ -52,13 +52,13 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
           )}
           <span className="block text-sm leading-snug text-gray-700 pb-4">
             {t("submissions.submitted")}{" "}
-            <span className="font-medium" style={{ color: colors.textAccent }}>
+            <span className="font-medium" style={{ color: colors?.textAccent }}>
               {date}
             </span>
           </span>
           <p className="line-clamp-3">{submission.text}</p>
           <div className="pt-5">
-            <Badge customStyle={{ backgroundColor: colors.textAccent }} size="medium" className="relative left-0" value={submission.metadata.evaluation.points} />
+            <Badge customStyle={{ backgroundColor: colors?.textAccent }} size="medium" className="relative left-0" value={submission.metadata.evaluation.points} />
             <span className="ml-1 text-sm">{t("submissions.evaluation.points")}</span>
           </div>
         </div>

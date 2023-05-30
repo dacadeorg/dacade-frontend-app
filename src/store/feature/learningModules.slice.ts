@@ -52,7 +52,7 @@ export const getAllLearningModules = createAsyncThunk("learningModules/all", asy
 });
 
 export const submitModuleAnswer = createAsyncThunk("learningModules/submitAnswer", async ({ ref, course }: { ref: string; course: string }) => {
-  await api().server.put("interactive-modules/answer", {
+  await api().client.put("interactive-modules/answer", {
     module: ref,
     course,
     score: 100,
@@ -60,7 +60,7 @@ export const submitModuleAnswer = createAsyncThunk("learningModules/submitAnswer
 });
 
 export const checkAnswer = async (ref: string) => {
-  const { data } = await api().server.post<any[]>("interactive-modules/check-answer", {
+  const { data } = await api().client.post<any[]>("interactive-modules/check-answer", {
     module: ref,
   });
   return data;

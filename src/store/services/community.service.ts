@@ -1,5 +1,7 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
+import { setColors } from "../feature/ui.slice";
+import { setAllCommunities } from "../feature/community.slice";
 
 export const communityService = createApi({
   reducerPath: "communityService",
@@ -12,6 +14,11 @@ export const communityService = createApi({
           "accept-language": locale,
         },
       }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        const { data } = await queryFulfilled;
+        dispatch(setAllCommunities(data));
+        return data;
+      },
     }),
 
     getCurrentCommunity: builder.query({

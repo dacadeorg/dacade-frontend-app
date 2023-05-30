@@ -64,12 +64,12 @@ export default function Form({ save }: FormProps): ReactElement {
 
   const activeButtonStyle = useMemo(
     () => ({
-      borderColor: colors.textAccent,
-      color: colors.text,
-      backgroundColor: colors.textAccent,
-      "--button-color--hover": colors.text,
-      "--button-background-color--hover": colors.accent,
-      "--button-border-color--hover": colors.accent,
+      borderColor: colors?.textAccent,
+      color: colors?.text,
+      backgroundColor: colors?.textAccent,
+      "--button-color--hover": colors?.text,
+      "--button-background-color--hover": colors?.accent,
+      "--button-border-color--hover": colors?.accent,
     }),
     [colors]
   );

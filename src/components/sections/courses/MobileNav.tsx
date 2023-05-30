@@ -32,7 +32,7 @@ export default function MobileNav({ showTopBorder }: MobileNavProps): ReactEleme
   const colors = useSelector((state) => state.ui.colors);
 
   const activeLinkStyle = {
-    color: colors.textAccent,
+    color: colors?.textAccent,
   };
 
   return (

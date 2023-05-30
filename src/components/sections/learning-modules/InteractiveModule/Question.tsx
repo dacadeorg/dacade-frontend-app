@@ -1,5 +1,6 @@
-import { ReactElement, useEffect, useMemo, useState } from "react";
+import { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
 import InteractiveModuleAnswer from "./Answer";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 const RETRY_TIME = 14;
 
@@ -17,9 +18,9 @@ interface interactiveModuleQuestionProps {
     correct: number;
   };
   disable?: boolean;
-  onCorrect?: (index: number) => void;
-  onWrong?: (index: number) => void;
-  onRetry?: () => void;
+  onCorrect: (index: number) => void;
+  onWrong: (index: number) => void;
+  onRetry: () => void;
 }
 
 /**
@@ -42,49 +43,49 @@ export default function InteractiveModuleQuestion({ data, disable = false, onCor
   const [randomizedAnswers, setRandomizedAnswers] = useState<{ text: string; id: number }[]>([]);
 
   const shuffleAnswers = (answers: string[]) => {
-    const randomized = [...answers].map((value, index) => ({ text: value, id: index })).sort(() => Math.random() - 0.5);
-    return randomized;
-  };
-
-  const correctAnswer = useMemo(() => (data.correct ? data.correct : 0), [data.correct]);
-  const memoizedRandomizedAnswers = useMemo(() => shuffleAnswers(data.answers), [data.answers]);
-
-  useEffect(() => {
-    setRandomizedAnswers(memoizedRandomizedAnswers);
-  }, [memoizedRandomizedAnswers]);
-
-  const triggerRetryCountdown = () => {
-    setTimerCount(RETRY_TIME);
+    const shuffledAnswers = [...answers]
+      .map((value, index) => ({ text: value, id: index }))
+      .sort(() => Math.random() - 0.5);
+    setRandomizedAnswers(shuffledAnswers);
   };
 
   const selectAnswer = (index: number) => {
     if (disable) return;
-
     if (selected === index) {
       setSelected(null);
       return;
     }
     setSelected(index);
-    if (index === correctAnswer) {
-      onCorrect?.(index);
+    if (index === data.correct) {
+      onCorrect(index);
       return;
     }
     triggerRetryCountdown();
-    onWrong?.(index);
+    onWrong(index);
+  };
+
+  const triggerRetryCountdown = () => {
+    setTimerCount(RETRY_TIME);
   };
 
   useEffect(() => {
-    let interval: ReturnType<typeof setTimeout>;
+    let interval: NodeJS.Timeout;
     if (timerCount > 0) {
       interval = setInterval(() => {
         setTimerCount((prevCount) => prevCount - 1);
       }, 1000);
     } else if (timerCount === 0) {
-      onRetry?.();
+      onRetry();
+      setSelected(null);
       shuffleAnswers(data.answers);
     }
     return () => clearInterval(interval);
   }, [timerCount, data.answers, onRetry]);
+
+  useEffect(() => {
+    shuffleAnswers(data.answers);
+  }, [data.answers]);
+
 
   return (
     <div className="relative">

@@ -53,7 +53,7 @@ export default function CourseLink({ item }: courseLinkProps): ReactElement {
   const isActive = isCurrentLink(item.link, item.exact);
 
   const activeLinkStyle = {
-    color: colors.primary,
+    color: colors?.primary,
   };
 
   const router = useRouter();
@@ -69,7 +69,7 @@ export default function CourseLink({ item }: courseLinkProps): ReactElement {
   };
 
   return (
-    <span className="relative block text-sm">
+    <div className="relative block text-sm">
       <LinkAction item={item} isActive={isActive} activeLinkStyle={activeLinkStyle} goToLink={goToLink}>
         <LinkContent item={item} isActive={isActive} expanded={expanded} />
       </LinkAction>
@@ -85,6 +85,6 @@ export default function CourseLink({ item }: courseLinkProps): ReactElement {
       ) : (
         <></>
       )}
-    </span>
+    </div>
   );
 }

@@ -1,7 +1,4 @@
 import { ReactElement, useEffect, useMemo, useState } from "react";
-import Referral from "@/components/cards/profile/Referral";
-import EmptyState from "@/components/ui/EmptyState";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { useTranslation } from "next-i18next";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
@@ -9,6 +6,12 @@ import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import { userFetchReferrals } from "@/store/services/referrals.service";
+import { GetServerSideProps } from "next";
+
+import Referral from "@/components/cards/profile/Referral";
+import EmptyState from "@/components/ui/EmptyState";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 /**
  * Refferrals component for user profile
@@ -30,12 +33,10 @@ export default function UserReferrals(): ReactElement {
   }, [dispatch, user?.referrals]);
 
   const nextPage = async () => {
-    if (loading || !showButton) {
-      return;
-    }
+    if (loading || !showButton) return;
     setLoading(true);
     const referralId = referrals[referrals.length - 1]?.id || null;
-    const list = await dispatch(userFetchReferrals({ startAfter: referralId || null }));
+    const list = (await dispatch(userFetchReferrals({ startAfter: referralId || null }))).data;
     setPage(page + 1);
     setLoading(false);
 
@@ -70,7 +71,11 @@ export default function UserReferrals(): ReactElement {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale as string)),
+  },
+});
 
 UserReferrals.getLayout = function (page: ReactElement) {
   return <ProfileLayout>{page}</ProfileLayout>;

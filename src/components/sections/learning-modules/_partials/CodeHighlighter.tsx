@@ -28,5 +28,5 @@ export default function CodeHighlighter({ inline, className, children, ...props 
         {String(children).replace(/\n$/, "")}
       </SyntaxHighlighter>
     );
-  return <code style={{ color: colors.textAccent }}>{children}</code>;
+  return <code style={{ color: colors?.textAccent }}>{children}</code>;
 }

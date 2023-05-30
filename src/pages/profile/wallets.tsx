@@ -1,14 +1,14 @@
 import { useState, useEffect, ReactElement } from "react";
-import EditProfile from "@/components/sections/profile/modals/EditProfile";
-import Wallet from "@/components/cards/Wallet";
-import Hint from "@/components/ui/Hint";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { fetchAllWallets } from "@/store/services/wallets.service";
-import { GetStaticProps } from "next";
-import i18Translate from "@/utilities/I18Translate";
-import DefaultLayout from "@/components/layout/Default";
+import { GetServerSideProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
+import EditProfile from "@/components/sections/profile/modals/EditProfile";
+import Wallet from "@/components/cards/Wallet";
+import Hint from "@/components/ui/Hint";
 import ProfileLayout from "@/layouts/ProfileLayout";
 
 /**
@@ -50,7 +50,11 @@ export default function ProfileWallet(): ReactElement {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale as string)),
+  },
+});
 
 ProfileWallet.getLayout = function (page: ReactElement) {
   return <ProfileLayout>{page}</ProfileLayout>;
