@@ -4,7 +4,9 @@ import Loader from "@/components/ui/Loader";
 import Button from "@/components/ui/button";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { fetchUser } from "@/store/services/user.service";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import api from "@/config/api";
 
 /**
  * DiscordConnect component
@@ -57,20 +59,16 @@ export default function DiscordConnect(): ReactElement {
         setDiscordLoading(true);
         setShowDiscordModal(true);
 
-        // TODO: This line will uncommented once the API intergration is ready
-        // const response = await api.post("auth/discord", {
-        //   code,
-        // });
+        const response = await api().server.post("auth/discord", {
+          code,
+        });
 
-        // TODO: response is temporary setted to false once the intergration is ready we can have it removed
-        const response = false;
         if (!response) {
           setDiscordError(true);
           return;
         }
         setDiscordSuccess(true);
-        // TODO: This line will uncommented once user slice has been implemented
-        // dispatch(fetchUser())
+        dispatch(fetchUser());
       } catch (error) {
         setDiscordError(true);
       } finally {
@@ -78,7 +76,7 @@ export default function DiscordConnect(): ReactElement {
         router.replace({ query: {} });
       }
     };
-  }, [router]);
+  }, [dispatch, router]);
 
   useEffect(() => {
     discordCallback();
@@ -91,8 +89,8 @@ export default function DiscordConnect(): ReactElement {
           <p className="text-.5xl font-medium leading-snug">{t("profile.header.discord")}</p>
         </div>
 
-        <div className="pb-7 flex space-x-3">
-          {discordLoading && <Loader className="h-6 w-6 text-green-400 pt-6" />}
+        <div className="flex space-x-3 pb-7">
+          {discordLoading && <Loader className="w-6 h-6 pt-6 text-green-400" />}
           <p
             className={`p-3 rounded text-.2xl font-medium leading-snug flex-1 ${
               discordError ? "bg-red-50 text-red-700" : discordSuccess ? "bg-green-50 text-green-700" : "bg-white"
