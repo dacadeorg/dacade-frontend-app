@@ -54,7 +54,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): any {
     dispatch(logout());
   };
 
-  const toggleInvite = () => {
+  const displayInvitationPopup = () => {
     setshow(!show);
     toggleShowReferralPopup(true)(dispatch);
   };
@@ -145,7 +145,13 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): any {
             {isAuthenticated && (
               <div className="p-4 flex justify-center bg-indigo-50">
                 <div className="z-10">
-                  <Button type="button" padding={false} variant="outline-primary" className="flex btn-primary btn-lg py-2 px-5 align-middle text-sm" onClick={toggleInvite}>
+                  <Button
+                    type="button"
+                    padding={false}
+                    variant="outline-primary"
+                    className="flex btn-primary btn-lg py-2 px-5 align-middle text-sm"
+                    onClick={displayInvitationPopup}
+                  >
                     {t("nav.view-profile-codes")}
                   </Button>
                 </div>

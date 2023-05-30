@@ -56,7 +56,7 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
    * to display the referral popup modal
    * @date 4/4/2023 - 11:56:40 PM
    */
-  const toggleInvite = () => {
+  const displayInvitationPopup = () => {
     dispatch(setShowReferralPopup(true));
   };
 
@@ -115,7 +115,7 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
               padding={false}
               variant="outline-primary"
               className="flex btn-primary btn-lg py-2 px-5 align-middle text-sm"
-              onClick={toggleInvite}
+              onClick={displayInvitationPopup}
               customStyle={buttonStyles}
             >
               {t("nav.view-profile-codes")}
