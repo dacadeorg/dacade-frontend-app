@@ -4,11 +4,15 @@ import DateManager from "@/utilities/DateManager";
 import Button from "@/components/ui/button";
 import TimeIcon from "@/icons/time.svg";
 import DiscordIcon from "@/icons/discordIcon.svg";
-import KYCVerificationPopup from "@/components/layout/KYCVerification";
 import CompassIcon from "@/icons/compass.svg";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
+import { useDispatch } from "react-redux";
+import { openVerificationModal } from "@/store/feature/kyc.slice";
+import KYCVerification from "@/components/popups/KYCVerification";
+
+const { NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL, NEXT_PUBLIC_DISCORD_CLIENT_ID, NEXT_PUBLIC_DISCORD_SCOPE, NEXT_PUBLIC_DISCORD_CALLBACK_URL } = process.env;
 
 const ProfileHeader = () => {
   const router = useRouter();
@@ -19,7 +23,6 @@ const ProfileHeader = () => {
     profileUser: state.profile.user.current,
     isKycVerified: state.user.data?.isKycVerified,
   }));
-
   const user = useMemo(() => {
     const username = (router.query?.username as string) || "";
     if (username && username?.toLowerCase() !== authUser?.displayName?.toLowerCase()) return profileUser;
@@ -34,19 +37,20 @@ const ProfileHeader = () => {
   const username = useMemo(() => user?.displayName, [user?.displayName]);
   const isCurrentUser = useMemo(() => username?.toLowerCase() === authUser?.displayName?.toLowerCase(), [authUser, username]);
   const canConnectDiscord = useMemo(() => isCurrentUser && !user?.discord?.connected, [isCurrentUser, user]);
-  const triggerDiscordOauth = () =>
-    (window.location.href = `${process.env.NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL}?response_type=code&client_id=${process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID}&scope=${process.env.NEXT_PUBLIC_DISCORD_SCOPE}&state=15773059ghq9183habn&redirect_uri=${process.env.NEXT_PUBLIC_DISCORD_CALLBACK_URL}&prompt=consent`);
 
+  const triggerDiscordOauth = () =>
+    (window.location.href = `${NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL}?response_type=code&client_id=${NEXT_PUBLIC_DISCORD_CLIENT_ID}&scope=${NEXT_PUBLIC_DISCORD_SCOPE}&state=15773059ghq9183habn&redirect_uri=${NEXT_PUBLIC_DISCORD_CALLBACK_URL}&prompt=consent`);
+
+  const dispatch = useDispatch();
   const triggerKYCVerification = () => {
-    // TODO: to be uncommented when kyc slice is implemented
-    //   dispatch("kyc/openVerificationModal");
+    openVerificationModal({})(dispatch);
   };
 
   return (
-    <div className="text-center font-sans pb-24 relative">
+    <div className="relative pb-24 font-sans text-center">
       <Avatar size="extra" user={user} useLink={false} />
-      <span className="block capitalize text-5xl mt-5 leading-none">{username}</span>
-      <div className="flex justify-center mt-2 leading-snug text-sm divide-x divide-solid">
+      <span className="block mt-5 text-5xl leading-none capitalize">{username}</span>
+      <div className="flex justify-center mt-2 text-sm leading-snug divide-x divide-solid">
         {!canConnectDiscord && (
           <div className="flex items-center px-2">
             <span className="inline-block">
@@ -64,13 +68,15 @@ const ProfileHeader = () => {
           {joined && <span className="text-sm">{joined}</span>}
         </div>
 
-        {isKycVerified && (
+        {isKycVerified ? (
           <div className="flex items-center px-3">
             <span className="inline-block">
               <CompassIcon />
             </span>
-            <span className="ml-1 inline-block">Verified</span>
+            <span className="inline-block ml-1">Verified</span>
           </div>
+        ) : (
+          <></>
         )}
       </div>
       {canConnectDiscord && (
@@ -85,7 +91,7 @@ const ProfileHeader = () => {
           )}
         </div>
       )}
-      <KYCVerificationPopup />
+      <KYCVerification />
     </div>
   );
 };

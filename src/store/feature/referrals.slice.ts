@@ -1,19 +1,19 @@
 import { Referral } from "@/types/community";
 import { createSlice } from "@reduxjs/toolkit";
 
-interface InitialState{
-  list: Referral[],
-  filteredList: Referral[],
+interface InitialState {
+  list: Referral[];
+  filteredList: Referral[];
 }
 
-const defaultState:InitialState  = {
+const defaultState: InitialState = {
   list: [],
-  filteredList: []
-}
+  filteredList: [],
+};
 /**
  * referral slice.
  * reducers:
- *  - setList
+ *  - setReferralsList
  *  - setFilteredList
  * @date 4/4/2023 - 11:39:17 AM
  */

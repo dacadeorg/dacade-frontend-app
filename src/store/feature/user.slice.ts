@@ -1,6 +1,7 @@
 import { auth as firebaseAuth } from "@/config/firebase";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { User } from "@/types/bounty";
+import { Referral } from "@/types/community";
 
 /**
  * The default state for the user slice.
@@ -17,6 +18,7 @@ interface DefaultState {
   balance: string | null;
   walletAddresses: string | null;
   token: string | null;
+  referrals: Referral[] | null;
   fetchingUserLoading: boolean;
 }
 
@@ -30,6 +32,7 @@ const defaultState: DefaultState = {
   balance: null,
   walletAddresses: null,
   token: null,
+  referrals: null,
   fetchingUserLoading: true,
 };
 

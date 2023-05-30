@@ -7,7 +7,7 @@ import Input from "@/components/ui/Input";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useTranslation } from "next-i18next";
-import { connectWallet, disconnectWallet, getSignature } from "@/store/feature/wallet.slice";
+import { check, connectWallet, disconnectWallet, getSignature } from "@/store/feature/wallet.slice";
 import { mintCertificate } from "@/store/services/profile/certificate.service";
 
 // Wallet interface
@@ -43,8 +43,7 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
     walletAddress: state.web3Wallet.address,
   }));
 
-  // TODO: This is a temporary implementation, and should be updated when it is update on Dacade staging
-  const connected = useMemo(() => false, []);
+  const connected = check();
 
   // User wallet address
   const address = useMemo(() => walletAddress?.toLowerCase(), [walletAddress]);
@@ -134,16 +133,16 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
         <div className="pb-7">
           <p className="text-.5xl font-medium leading-snug">{achievement?.metadata?.name}</p>
         </div>
-        <div className="flex flex-col md:flex-row gap-5">
-          <div className="w-2/3 md:w-1/3 2xl:w-1/4 flex-none mx-auto md:mx-0">
+        <div className="flex flex-col gap-5 md:flex-row">
+          <div className="flex-none w-2/3 mx-auto md:w-1/3 2xl:w-1/4 md:mx-0">
             <AchievementCard data={achievement} minting />
           </div>
 
-          <div className="flex-1 font-primary overflow-hidden">
+          <div className="flex-1 overflow-hidden font-primary">
             {error && <ErrorBox className="my-4" error={error} />}
             {minted ? (
               <div className="flex flex-col gap-3">
-                <div className="text-green-700 bg-green-100 p-3 border border-solid border-green-200 rounded">
+                <div className="p-3 text-green-700 bg-green-100 border border-green-200 border-solid rounded">
                   <p>Your NFT has been successfully minted on chain</p>
                 </div>
                 <div className="px-3.5 py-2.5 border border-solid rounded">
@@ -157,7 +156,7 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
               </div>
             ) : (
               <>
-                <p className="pb-4 pt-3">This certificate is awarded for passing the {achievement?.metadata?.name} course.</p>
+                <p className="pt-3 pb-4">This certificate is awarded for passing the {achievement?.metadata?.name} course.</p>
                 {!connected ? (
                   <div className="border-t border-gray-100 border-solid">
                     <p className="pt-4">Minting this certificate will not cost you gas fees.</p>
@@ -173,8 +172,8 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
             )}
           </div>
         </div>
-        <div className="flex my-8 items-center justify-between">
-          <a className="cursor-pointer text-sm font-medium text-primary" onClick={onClose}>
+        <div className="flex items-center justify-between my-8">
+          <a className="text-sm font-medium cursor-pointer text-primary" onClick={onClose}>
             Close
           </a>
           {!minted ? (

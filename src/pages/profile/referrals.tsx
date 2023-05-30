@@ -2,14 +2,15 @@ import { ReactElement, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { userFetchReferrals } from "@/store/feature/user/referrals.slice";
+import { GetStaticProps } from "next";
+import i18Translate from "@/utilities/I18Translate";
+import ProfileLayout from "@/layouts/ProfileLayout";
+import { userFetchReferrals } from "@/store/services/referrals.service";
 import { GetServerSideProps } from "next";
 
 import Referral from "@/components/cards/profile/Referral";
 import EmptyState from "@/components/ui/EmptyState";
 import InfiniteScroll from "react-infinite-scroll-component";
-import i18Translate from "@/utilities/I18Translate";
-import ProfileLayout from "@/layouts/ProfileLayout";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 /**
@@ -23,7 +24,7 @@ export default function UserReferrals(): ReactElement {
   const [showButton, setShowButton] = useState(true);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
-  const referrals = useSelector((state) => state.referrals.list);
+  const referrals = useSelector((state) => state.userReferrals.userReferralList);
   const user = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
   const showLoadMore = useMemo(() => showButton && referrals?.length >= 30, [referrals?.length, showButton]);
@@ -35,7 +36,7 @@ export default function UserReferrals(): ReactElement {
     if (loading || !showButton) return;
     setLoading(true);
     const referralId = referrals[referrals.length - 1]?.id || null;
-    const list = await dispatch(userFetchReferrals({ startAfter: referralId || null }));
+    const list = (await dispatch(userFetchReferrals({ startAfter: referralId || null }))).data;
     setPage(page + 1);
     setLoading(false);
 
@@ -48,8 +49,8 @@ export default function UserReferrals(): ReactElement {
   return (
     <div className="lg:w-9/12 xl:w-2/3">
       {referrals && referrals.length ? (
-        <div className="w-full relative">
-          <div className="w-full flex flex-col rounded-3xl border border-solid border-gray-200 divide-y divide-solid divide-gray-200 overflow-hidden">
+        <div className="relative w-full">
+          <div className="flex flex-col w-full overflow-hidden border border-gray-200 border-solid divide-y divide-gray-200 rounded-3xl divide-solid">
             <InfiniteScroll
               dataLength={referrals.length}
               next={nextPage}

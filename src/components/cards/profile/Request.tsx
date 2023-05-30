@@ -13,8 +13,8 @@ import { useTranslation } from "next-i18next";
  */
 export default function Request(): ReactElement {
   const { t } = useTranslation();
-  const referrals = useSelector((state) => state.referrals.list);
-  const previewList = referrals?.slice(0, 3);
+  const referrals = useSelector((state) => state.userReferrals.userReferralList);
+  const previewList = referrals.slice(0, 3);
   const router = useRouter();
 
   const onClick = () => {
@@ -22,15 +22,17 @@ export default function Request(): ReactElement {
   };
 
   return (
-    <div className={`relative flex items-center ${referrals && referrals.length ? "" : "hidden"}`}>
-      <div className="flex pr-3 cursor-pointer" onClick={onClick}>
-        {previewList?.map((referral, index) => (
-          <Avatar key={referral.id} className={`border-2 border-solid border-white ${index > 0 && "-ml-3"}`} useLink={false} user={referral.user} />
-        ))}
+    <>
+      <div className={`relative flex items-center ${referrals && referrals.length ? "" : "hidden"}`}>
+        <div className="flex pr-3 cursor-pointer" onClick={onClick}>
+          {previewList?.map((referral, index) => (
+            <Avatar key={referral.id} className={`border-2 border-solid border-white ${index > 0 && "-ml-3"}`} useLink={false} user={referral.user} />
+          ))}
+        </div>
+        <div className="relative text-sm font-normal text-gray-500 cursor-pointer md:flex md:font-medium" onClick={onClick}>
+          <span className="md:inline-block">{referrals?.length} Friends have used your invite code</span>
+        </div>
       </div>
-      <div className="relative text-sm font-normal text-gray-500 cursor-pointer md:flex md:font-medium" onClick={onClick}>
-        <span className="md:inline-block">{referrals?.length} Friends have used your invite code</span>
-      </div>
-    </div>
+    </>
   );
 }
