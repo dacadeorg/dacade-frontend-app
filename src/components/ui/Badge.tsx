@@ -40,7 +40,9 @@ export default function Badge({ customStyle, value, size = "small", className, .
 
   const router = useRouter();
   const isCommunity: boolean = router.pathname.startsWith("communities-slug__");
-  return value !== "null" && value !== "" ? (
+
+  if (value === null && value === "") return <></>;
+  return (
     <span
       {...props}
       className={classNames(
@@ -54,7 +56,5 @@ export default function Badge({ customStyle, value, size = "small", className, .
     >
       {value}
     </span>
-  ) : (
-    <></>
   );
 }
