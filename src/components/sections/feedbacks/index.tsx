@@ -37,6 +37,8 @@ export default function Feedback(): ReactElement {
     fetchList();
   }, [fetchList]);
 
+  console.log(challenge);
+
   return (
     <div className="relative">
       {!loading && feedbacks.map((feedback, index) => <FeedbackCard key={feedback.id} value={feedback} last={index === feedbacks.length - 1} />)}

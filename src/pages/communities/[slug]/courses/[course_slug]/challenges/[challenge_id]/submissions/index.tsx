@@ -16,17 +16,25 @@ import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchCourse } from "@/store/services/course.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { setColors } from "@/store/feature/ui.slice";
+import { store } from "@/store";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
+import { setCurrentCourse } from "@/store/feature/course.slice";
+import { setList } from "@/store/feature/communities/challenges/submissions/feedback.slice";
+import { Community } from "@/types/community";
+import { Course } from "@/types/course";
+import { Submission as SubmissionType } from "@/types/bounty";
 
-export default function Submission() {
+interface SubmissionPageProps {
+  currentCommunity: Community;
+  course: Course;
+  submissions: SubmissionType[];
+}
+export default function Submission({ currentCommunity, course, submissions }: SubmissionPageProps) {
   const [selectedSubmission, setSelectedSubmission] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
-  const { submission_id, slug, course_slug, challenge_id } = router.query;
-  const { course, submissions, challenge } = useSelector((state) => ({
-    course: state.courses.current,
-    submissions: state.submissions.current,
-    challenge: state.challenges.current,
-  }));
+  const { submission_id } = router.query;
+  const { challenge } = useSelector((state) => ({ challenge: state.challenges.current }));
   const { t } = useTranslation();
 
   const handleDisplaySubmission = useCallback(() => {
@@ -42,19 +50,19 @@ export default function Submission() {
   }, [dispatch, router.pathname]);
 
   useEffect(() => {
-    if (slug && course_slug && challenge_id) {
-      dispatch(fetchCurrentCommunity({ slug: slug as string, locale: router.locale as string }));
-      dispatch(fetchCourse({ slug: course_slug as string, locale: router.locale as string }));
-      dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: router.locale as string }));
-    }
-  }, [slug, course_slug, challenge_id, dispatch, router.locale]);
+    dispatch(setCurrentCommunity(currentCommunity));
+    dispatch(setCurrentCourse(course));
+    dispatch(setList(submissions));
+  }, [dispatch, currentCommunity, course, submissions]);
 
   useEffect(() => {
-    if (!!submissions) {
-      setSelectedSubmission(submissions.id);
+    if (submission_id) {
+      setSelectedSubmission(submission_id as string);
       return;
     }
-  }, [submissions]);
+
+    return () => handleDisplaySubmission();
+  }, [handleDisplaySubmission, submission_id, submissions]);
 
   return (
     <>
@@ -77,8 +85,24 @@ Submission.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale as string)),
-  },
-});
+export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
+  const { slug, course_slug, challenge_id } = query;
+  const { dispatch } = store;
+
+  const [{ data: currentCommunity }, { data: course }, { payload: submissions }] = await Promise.all([
+    dispatch(fetchCurrentCommunity({ slug: slug as string, locale: locale as string })),
+    dispatch(fetchCourse({ slug: course_slug as string, locale: locale as string })),
+    dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: locale as string })),
+  ]);
+
+  // console.log({ currentCommunity, course, submissions });
+
+  return {
+    props: {
+      currentCommunity,
+      course,
+      submissions,
+      ...(await serverSideTranslations(locale as string)),
+    },
+  };
+};

@@ -1,11 +1,8 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import Popup from "@/components/ui/Popup";
 import Header from "./_partials/Header";
 import Section from "@/components/ui/Section";
 import SubmissionView from "@/components/sections/submissions/View";
-import { useDispatch } from "@/hooks/useTypedDispatch";
-import { useRouter } from "next/router";
-import { findSubmssionById } from "@/store/feature/communities/challenges/submissions";
 
 /**
  * Submission interface props
