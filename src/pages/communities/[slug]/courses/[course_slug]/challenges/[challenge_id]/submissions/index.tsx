@@ -15,27 +15,31 @@ import { GetServerSideProps } from "next";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchCourse } from "@/store/services/course.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { setColors } from "@/store/feature/ui.slice";
-import { store } from "@/store";
+import { wrapper } from "@/store";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { setCurrentCourse } from "@/store/feature/course.slice";
 import { setList } from "@/store/feature/communities/challenges/submissions/feedback.slice";
 import { Community } from "@/types/community";
 import { Course } from "@/types/course";
 import { Submission as SubmissionType } from "@/types/bounty";
+import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
+import useNavigation from "@/hooks/useNavigation";
 
 interface SubmissionPageProps {
+  pageProps: {};
   currentCommunity: Community;
   course: Course;
   submissions: SubmissionType[];
 }
-export default function Submission({ currentCommunity, course, submissions }: SubmissionPageProps) {
+export default function Submission(props: { pageProps: { currentCommunity: Community; course: Course; submissions: SubmissionType[] } }) {
+  const { currentCommunity, course, submissions } = props.pageProps;
   const [selectedSubmission, setSelectedSubmission] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
   const { submission_id } = router.query;
   const { challenge } = useSelector((state) => ({ challenge: state.challenges.current }));
   const { t } = useTranslation();
+  const navigation = useNavigation();
 
   const handleDisplaySubmission = useCallback(() => {
     setSelectedSubmission(submission_id as string);
@@ -53,16 +57,15 @@ export default function Submission({ currentCommunity, course, submissions }: Su
     dispatch(setCurrentCommunity(currentCommunity));
     dispatch(setCurrentCourse(course));
     dispatch(setList(submissions));
-  }, [dispatch, currentCommunity, course, submissions]);
+    initNavigationMenu(navigation.community)(dispatch);
+  }, [course, currentCommunity, dispatch, submissions]);
 
   useEffect(() => {
     if (submission_id) {
       setSelectedSubmission(submission_id as string);
       return;
     }
-
-    return () => handleDisplaySubmission();
-  }, [handleDisplaySubmission, submission_id, submissions]);
+  }, [submission_id, submissions]);
 
   return (
     <>
@@ -85,7 +88,7 @@ Submission.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ locale, query }) => {
   const { slug, course_slug, challenge_id } = query;
   const { dispatch } = store;
 
@@ -105,4 +108,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
       ...(await serverSideTranslations(locale as string)),
     },
   };
-};
+});
