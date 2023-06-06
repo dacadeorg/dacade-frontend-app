@@ -18,19 +18,22 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { wrapper } from "@/store";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { setCurrentCourse } from "@/store/feature/course.slice";
-import { setList } from "@/store/feature/communities/challenges/submissions/feedback.slice";
+import { setSubmissionsList } from "@/store/feature/communities/challenges/submissions";
 import { Community } from "@/types/community";
 import { Course } from "@/types/course";
 import { Submission as SubmissionType } from "@/types/bounty";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import useNavigation from "@/hooks/useNavigation";
+import { setColors } from "@/store/feature/ui.slice";
 
-interface SubmissionPageProps {
-  pageProps: {};
-  currentCommunity: Community;
-  course: Course;
-  submissions: SubmissionType[];
-}
+/**
+ * Submission page
+ * @date 6/6/2023 - 11:43:31 PM
+ *
+ * @export
+ * @param {{ pageProps: { currentCommunity: Community; course: Course; submissions: SubmissionType[] } }} props
+ * @returns
+ */
 export default function Submission(props: { pageProps: { currentCommunity: Community; course: Course; submissions: SubmissionType[] } }) {
   const { currentCommunity, course, submissions } = props.pageProps;
   const [selectedSubmission, setSelectedSubmission] = useState("");
@@ -41,32 +44,38 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
   const { t } = useTranslation();
   const navigation = useNavigation();
 
-  const handleDisplaySubmission = useCallback(() => {
-    setSelectedSubmission(submission_id as string);
-    dispatch(showSubmission(selectedSubmission));
-    window.history.pushState({}, "", router.pathname);
-  }, [dispatch, router.pathname, selectedSubmission, submission_id]);
-
   const handleCloseSubmission = useCallback(() => {
     setSelectedSubmission("");
     dispatch(showSubmission(""));
-    window.history.pushState({}, "", router.pathname);
-  }, [dispatch, router.pathname]);
+    // window.history.pushState({}, null, router.pathname);
+    router.push("/", undefined, { shallow: true });
+  }, [dispatch, router]);
 
   useEffect(() => {
     dispatch(setCurrentCommunity(currentCommunity));
     dispatch(setCurrentCourse(course));
-    dispatch(setList(submissions));
+    dispatch(setSubmissionsList(submissions));
+    dispatch(setColors(currentCommunity.colors));
     initNavigationMenu(navigation.community)(dispatch);
   }, [course, currentCommunity, dispatch, submissions]);
 
-  useEffect(() => {
-    if (submission_id) {
-      setSelectedSubmission(submission_id as string);
-      return;
-    }
-  }, [submission_id, submissions]);
+  const displaySubmission = useCallback(() => {
+    setSelectedSubmission(submission_id as string);
+    dispatch(showSubmission(submission_id as string));
+    router.push(`/${submission_id}`, undefined, { shallow: true });
+  }, [dispatch, router, submission_id]);
 
+  useEffect(() => {
+    const routeChangeHandler = (url: string) => {
+      if (router.pathname.includes("submissions_id")) {
+        displaySubmission();
+      }
+    };
+    router.events.on("routeChangeStart", routeChangeHandler);
+    return () => router.events.off("routeChangeStart", routeChangeHandler);
+  }, [displaySubmission, router.events, router.pathname]);
+
+  if (!submissions) return <></>;
   return (
     <>
       <Head>
@@ -97,8 +106,6 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     dispatch(fetchCourse({ slug: course_slug as string, locale: locale as string })),
     dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: locale as string })),
   ]);
-
-  // console.log({ currentCommunity, course, submissions });
 
   return {
     props: {

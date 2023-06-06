@@ -33,7 +33,7 @@ export const submissionsSlice = createSlice({
     setCurrent(state, action: PayloadAction<Submission | null>) {
       state.current = action.payload;
     },
-    setList(state, action: PayloadAction<Submission[]>) {
+    setSubmissionsList(state, action: PayloadAction<Submission[]>) {
       state.list = action.payload;
     },
     setText(state, action: PayloadAction<string>) {
@@ -59,21 +59,15 @@ export const submissionsSlice = createSlice({
  *
  */
 
-export const findSubmssionById = createAsyncThunk(
-  "submissions/find",
-  async (
-    { id, locale }: { id: string; locale?: string },
-    { dispatch }
-  ) => {
-    const { data } = await api(locale).server.get(`submissions/${id}`, {
-      params: {
-        relations: ["challenge", "evaluation"],
-      },
-    });
-    dispatch(setCurrent(data));
-    return data;
-  }
-);
+export const findSubmssionById = createAsyncThunk("submissions/find", async ({ id, locale }: { id: string; locale?: string }, { dispatch }) => {
+  const { data } = await api(locale).server.get(`submissions/${id}`, {
+    params: {
+      relations: ["challenge", "evaluation"],
+    },
+  });
+  dispatch(setCurrent(data));
+  return data;
+});
 
 /**
  * Fetch all submission
@@ -149,7 +143,7 @@ export const findWithRelations = createAsyncThunk("submissions/findWithRelations
   return data;
 });
 
-export const { setCurrent, setList, setText, setSubmission, showSubmission } = submissionsSlice.actions;
+export const { setCurrent, setSubmissionsList, setText, setSubmission, showSubmission } = submissionsSlice.actions;
 export const selectCurrent = (state: IRootState) => state.submissions.current;
 export const selectList = (state: IRootState) => state.submissions.list;
 

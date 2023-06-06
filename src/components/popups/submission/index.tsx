@@ -17,7 +17,7 @@ interface SubmissionPopup {
   onClose: () => void;
 }
 
-export default function SubmissionPopup({ show, submissionId, onClose }: SubmissionPopup): ReactElement {
+export default function SubmissionPopup({ show, onClose }: SubmissionPopup): ReactElement {
   return (
     <Popup show={show} onClose={onClose} className="">
       <div className="py-8 overflow-hidden h-full w-full">

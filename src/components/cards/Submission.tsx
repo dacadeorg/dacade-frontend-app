@@ -7,6 +7,7 @@ import { useTranslation } from "next-i18next";
 import { Dispatch, ReactElement, ReactNode, SetStateAction } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { showSubmission } from "@/store/feature/communities/challenges/submissions";
+import { useRouter } from "next/router";
 
 /**
  * Submission card interface props
@@ -41,6 +42,7 @@ export default function SubmissionCard({
 }: SubmissionCardProps): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const router = useRouter();
   const { colors, community } = useSelector((state) => ({
     colors: state.ui.colors,
     community: state.communities.current,

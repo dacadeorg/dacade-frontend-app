@@ -63,7 +63,6 @@ export const { setCurrentChallenge, setChallengesList, setChallengeSubmission } 
  */
 export const fetchChallenge = createAsyncThunk("challenges/find", async ({ id, locale }: { id: string; locale?: string }) => {
   const { data } = await api(locale).server.get(`challenges/${id}`);
-  console.log(data);
   return data;
 });
 
