@@ -4,32 +4,28 @@
 
 @font-face {
   font-family: "Graphik";
-  src: url("/fonts/Graphik-Medium-Web.woff2") format("woff2"),
-    url("/fonts/Graphik-Medium-Web.woff") format("woff");
+  src: url("/fonts/Graphik-Medium-Web.woff2") format("woff2"), url("/fonts/Graphik-Medium-Web.woff") format("woff");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Graphik";
-  src: url("/fonts/Graphik-Medium-Web.woff2") format("woff2"),
-    url("/fonts/Graphik-Medium-Web.woff") format("woff");
+  src: url("/fonts/Graphik-Medium-Web.woff2") format("woff2"), url("/fonts/Graphik-Medium-Web.woff") format("woff");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Graphik";
-  src: url("/fonts/Graphik-Regular-Web.woff2") format("woff2"),
-    url("/fonts/Graphik-Regular-Web.woff") format("woff");
+  src: url("/fonts/Graphik-Regular-Web.woff2") format("woff2"), url("/fonts/Graphik-Regular-Web.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Graphik";
-  src: url("/fonts/GraphikRegularItalic.woff2") format("woff2"),
-    url("/fonts/GraphikRegularItalic.woff") format("woff");
+  src: url("/fonts/GraphikRegularItalic.woff2") format("woff2"), url("/fonts/GraphikRegularItalic.woff") format("woff");
   font-weight: 700;
   font-style: italic;
 }
@@ -153,15 +149,15 @@ button,
 }
 
 @layer utilities {
-    /* Chrome, Safari and Opera */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 
-    .no-scrollbar {
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
-    }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 
   .badget-color {
     background-color: rgba(114, 70, 231, 1);
@@ -350,4 +346,9 @@ div {
 
 .unread a {
   color: rgb(255 255 255 / 80%);
+}
+
+.hint-container a {
+  font-weight: 400;
+  text-decoration: underline;
 }
