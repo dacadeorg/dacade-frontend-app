@@ -39,12 +39,14 @@ export default function RewardBadge({ reward = {}, type = "transparent" }: Rewar
     "bg-gray-200 text-gray-500": type === "gray",
     "bg-gray-100 text-gray-500": type === "light-gray",
   });
+  if (!reward) return <></>
   return (
     <span className={badgeClassnames}>
       {token && <Coin token={token} size="small" />}
       {amount && (
         <div className="font-medium pl-0 pr-2">
-          {amount}
+          {/* Commented because amount is not visible in the staging */}
+          {/* {amount} */}
           {token}
         </div>
       )}
