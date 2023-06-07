@@ -7,15 +7,6 @@ interface RelatedLearningProps {}
 
 const RelatedLearning: React.FC<RelatedLearningProps> = ({}) => {
   const path = `/communities/`;
-  const { colors, community } = useSelector((state) => ({
-    colors: state.ui.colors,
-    community: state.communities.current,
-  }));
-  const arrowButtonStyles = {
-    "--button-color--hover": colors?.text,
-    "--button-background-color--hover": colors?.textAccent,
-    "--button-border-color--hover": colors?.textAccent,
-  };
   return (
     <div>
       <div className="flex flex-col relative p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">
