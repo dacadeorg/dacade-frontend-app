@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useSelector } from "@/hooks/useTypedSelector";
 
 interface LearningProps {
-  link?: string;
+  title: string;
 }
 
-const MyComponent: React.FC<LearningProps> = ({}) => {
+const MyComponent: React.FC<LearningProps> = ({title}) => {
   const path = `/communities/`;
   return (
     <div className="flex flex-col relative md:w-1/2 p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">

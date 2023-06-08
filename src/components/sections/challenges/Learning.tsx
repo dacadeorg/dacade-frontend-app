@@ -8,7 +8,23 @@ interface LearningProps {
   hideTitle?: boolean;
 }
 
+interface CardData {
+  id: number;
+  title: string;
+}
+
 const Learning: React.FC<LearningProps> = ({ hideTitle }) => {
+  const learningCardData: CardData[] = [
+    { id: 1, title: "Learning Card 1" },
+    { id: 2, title: "Learning Card 2" },
+  ];
+
+  const relatedLearningCardData: CardData[] = [
+    { id: 1, title: "Related Learning Card 1" },
+    { id: 2, title: "Related Learning Card 2" },
+    { id: 3, title: "Related Learning Card 3" },
+  ];
+
   return (
     <Section>
       <Accordion
@@ -19,13 +35,14 @@ const Learning: React.FC<LearningProps> = ({ hideTitle }) => {
               The following learning materials will equip you with the technical expertise required to successfully address the challenge.
             </div>
             <div className="md:flex flex-row gap-3">
-              <LearningCard />
-              <LearningCard />
+              {learningCardData.map((card) => (
+                <LearningCard key={card.id} title={card.title} />
+              ))}
             </div>
             <div className="flex flex-row gap-3 overflow-hidden">
-              <RelatedLearningCard />
-              <RelatedLearningCard />
-              <RelatedLearningCard />
+              {relatedLearningCardData.map((card) => (
+                <RelatedLearningCard key={card.id} title={card.title} />
+              ))}
             </div>
           </>
         }

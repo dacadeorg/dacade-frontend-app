@@ -3,9 +3,11 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import Link from "next/link";
 import { useSelector } from "@/hooks/useTypedSelector";
 
-interface RelatedLearningProps {}
+interface RelatedLearningProps {
+  title: string;
+}
 
-const RelatedLearning: React.FC<RelatedLearningProps> = ({}) => {
+const RelatedLearning: React.FC<RelatedLearningProps> = ({ title }) => {
   const path = `/communities/`;
   return (
     <div>
