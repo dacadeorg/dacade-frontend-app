@@ -1,6 +1,7 @@
 import { ReactElement, ReactNode, useEffect } from "react";
-import Header from "@/components/sections/communities/_partials/Header";
-import ScoreboardCard from "@/components/cards/Scoreboard";
+import CommunityWrapper from "@/components/sections/communities/overview/Wrapper";
+import Scoreboard from "@/components/sections/communities/overview/scoreboard";
+import ScoreboardFilter from "@/components/sections/communities/overview/scoreboard/Filter";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
@@ -52,14 +53,12 @@ export default function ScoreboardList(): ReactElement {
           <meta key={`scoreboard-meta-${i}`} {...attributes} />
         ))}
       </Head>
-      <div className="py-4 flex flex-col text-gray-700">
-        <Header title={community?.name} subtitle={t("communities.navigation.scoreboard")} />
-        <div className="my-24 w-full divide-y divide-gray-200 space-y-4 bg-gray-50 lg:max-w-2xl rounded-3.5xl overflow-hidden">
-          {list.map((item, i) => (
-            <ScoreboardCard key={`scoreboard-item-${i}`} index={i + 1} value={item} />
-          ))}
+      <CommunityWrapper>
+        <div >
+          <ScoreboardFilter />
         </div>
-      </div>
+        <Scoreboard />
+      </CommunityWrapper>
     </>
   );
 }

@@ -40,7 +40,7 @@ export default function ScoreboardCard({ value, index = 0 }: ScoreboardProps): R
   const { t } = useTranslation();
 
   return (
-    <div className="relative w-full md:flex sm:space-x-5 space-y-0 sm:flex-row-reverse sm:space-x-reverse sm:justify-between overflow-hidden bg-gray-50 sm:p-7 py-5 px-6 sm:items-center">
+    <div className="relative w-full md:flex sm:space-x-5 space-y-0 sm:flex-row-reverse sm:space-x-reverse sm:justify-between overflow-hidden sm:p-7 py-5 px-6 sm:items-center">
       <div className="sm:flex-none absolute bottom-5 left-6 md:relative md:inset-0">
         <div className="font-medium text-gray-500 px-2.5 py-0.5 h-6 text-xxs bg-gray-200 rounded-full">
           <Currency value={value.score} token="REP" />
