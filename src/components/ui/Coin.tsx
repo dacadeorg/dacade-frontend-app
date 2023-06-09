@@ -58,7 +58,7 @@ const coins = [
   },
   {
     token: "ETH",
-    icon: <ETHIcon />,
+    icon: <ETHIcon className="w-11 h-11" />,
     bgColor: "#627EEA",
     textColor: "#FFFFFF",
   },
