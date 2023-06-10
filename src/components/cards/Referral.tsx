@@ -1,7 +1,7 @@
 import Avatar from "@/components/ui/Avatar";
 import { Reward as IReward } from "@/types/course";
 import { Community } from "@/types/community";
-import Reward from "../ui/Reward";
+import RewardBadge from "../badges/RewardBadge";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import { toggleShowReferralPopup } from "@/store/feature/ui.slice";
@@ -50,7 +50,7 @@ export default function Referral({ referral }: ReferralProps): ReactElement {
         <div className="inline-flex md:flex h-2/3 md:flex-row flex-col-reverse justify-between">
           <div className="text-sm pt-8 md:pt-2 md:pb-4 text-gray-600">{t("bounties.reward.referral")}</div>
           <div>
-            <Reward reward={referral.reward} />
+            <RewardBadge reward={referral.reward} type="gray" />
           </div>
         </div>
       </div>
