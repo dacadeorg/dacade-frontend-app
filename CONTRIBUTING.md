@@ -1,7 +1,7 @@
 # Branch conventions
 
-- Feature : `feat/your-branch-name` <br>
-- Fix : `fix/your-branch-name`<br>
+- Feature : `feat/your-branch-name`
+- Fix : `fix/your-branch-name`
 - Refactor : `refact/your-branch-name`
 
 More on the [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
@@ -14,7 +14,9 @@ More on the [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0
 2. For typescript, use `interface` for props, and types if needed.
 3. Default exports should happen on top.
 
-   > export default function ComponentName() {....}
+   ```js
+   export default function ComponentName() {....}
+   ```
 
 4. `Import React from 'react'` should be avoided where possible.
 5. Provide comments for all Props, and components. preferrably with this VS code extension : `JSDoc Generator`
