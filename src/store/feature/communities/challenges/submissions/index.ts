@@ -125,7 +125,7 @@ export const createSubmission = createAsyncThunk(
 );
 
 /**
- * Find challenge with it's relation ["evaluation","course","community"]
+ * Find challenge with its relation ["evaluation","course","community"]
  * @date 4/25/2023 - 8:22:20 PM
  *
  * @type {*}

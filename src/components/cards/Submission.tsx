@@ -4,7 +4,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { Submission } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
-import { Dispatch, ReactElement, ReactNode, SetStateAction } from "react";
+import { ReactElement, ReactNode, useCallback } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { showSubmission } from "@/store/feature/communities/challenges/submissions";
 import { useRouter } from "next/router";
@@ -61,6 +61,10 @@ export default function SubmissionCard({
     "--button-border-color--hover": colors?.textAccent,
   };
 
+  const displaySubmission = useCallback(() => {
+    router.push({ query: { submission_id: submission?.id }, pathname: router.asPath }, undefined, { shallow: true });
+  }, [router, submission?.id]);
+
   return (
     <UserCard
       user={submission.user}
@@ -116,6 +120,7 @@ export default function SubmissionCard({
               customStyle={arrowButtonStyles}
               arrowClasses=""
               onClick={() => {
+                displaySubmission();
                 dispatch(showSubmission(submission.id));
               }}
             />

@@ -19,10 +19,7 @@ export default function SubmissionPage() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { t } = useTranslation();
-  const { course, submission } = useSelector((state) => ({
-    course: state.courses.current,
-    submission: state.submissions.current,
-  }));
+  const { course } = useSelector((state) => ({ course: state.courses.current }));
 
   const { slug, course_slug, submission_id } = router.query;
 

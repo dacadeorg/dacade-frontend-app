@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { ReactElement, useCallback, useEffect, useState } from "react";
 import Header from "@/components/sections/communities/_partials/Header";
-import List from "@/components/sections/submissions/List";
+import SubmissionList from "@/components/sections/submissions/List";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import SubmissionPopup from "@/components/popups/submission";
 import { useDispatch } from "@/hooks/useTypedDispatch";
@@ -20,11 +20,12 @@ import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { setCurrentCourse } from "@/store/feature/course.slice";
 import { setSubmissionsList } from "@/store/feature/communities/challenges/submissions";
 import { Community } from "@/types/community";
-import { Course } from "@/types/course";
+import { Challenge, Course } from "@/types/course";
 import { Submission as SubmissionType } from "@/types/bounty";
 import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import useNavigation from "@/hooks/useNavigation";
-import { setColors } from "@/store/feature/ui.slice";
+import { setColors, toggleBodyScrolling } from "@/store/feature/ui.slice";
+import { fetchChallenge, setCurrentChallenge } from "@/store/feature/communities/challenges";
 
 /**
  * Submission page
@@ -34,21 +35,19 @@ import { setColors } from "@/store/feature/ui.slice";
  * @param {{ pageProps: { currentCommunity: Community; course: Course; submissions: SubmissionType[] } }} props
  * @returns
  */
-export default function Submission(props: { pageProps: { currentCommunity: Community; course: Course; submissions: SubmissionType[] } }) {
-  const { currentCommunity, course, submissions } = props.pageProps;
+export default function Submission(props: { pageProps: { currentCommunity: Community; course: Course; submissions: SubmissionType[]; challenge: Challenge } }) {
+  const { currentCommunity, course, submissions, challenge } = props.pageProps;
   const [selectedSubmission, setSelectedSubmission] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
   const { submission_id } = router.query;
-  const { challenge } = useSelector((state) => ({ challenge: state.challenges.current }));
   const { t } = useTranslation();
   const navigation = useNavigation();
 
   const handleCloseSubmission = useCallback(() => {
     setSelectedSubmission("");
     dispatch(showSubmission(""));
-    // window.history.pushState({}, null, router.pathname);
-    router.push("/", undefined, { shallow: true });
+    router.replace(router.asPath.split("?")[0], undefined, { shallow: true });
   }, [dispatch, router]);
 
   useEffect(() => {
@@ -56,24 +55,17 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
     dispatch(setCurrentCourse(course));
     dispatch(setSubmissionsList(submissions));
     dispatch(setColors(currentCommunity.colors));
+    dispatch(setCurrentChallenge(challenge));
     initNavigationMenu(navigation.community)(dispatch);
+    // Eslint desabled here for avoiding infinite rendering
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [course, currentCommunity, dispatch, submissions]);
 
-  const displaySubmission = useCallback(() => {
+  useEffect(() => {
     setSelectedSubmission(submission_id as string);
     dispatch(showSubmission(submission_id as string));
-    router.push(`/${submission_id}`, undefined, { shallow: true });
-  }, [dispatch, router, submission_id]);
-
-  useEffect(() => {
-    const routeChangeHandler = (url: string) => {
-      if (router.pathname.includes("submissions_id")) {
-        displaySubmission();
-      }
-    };
-    router.events.on("routeChangeStart", routeChangeHandler);
-    return () => router.events.off("routeChangeStart", routeChangeHandler);
-  }, [displaySubmission, router.events, router.pathname]);
+    toggleBodyScrolling(!!submission_id)(dispatch);
+  }, [dispatch, router.query, submission_id]);
 
   if (!submissions) return <></>;
   return (
@@ -85,7 +77,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
       <Wrapper>
         <div className="flex flex-col py-4 space-y-8 text-gray-700">
           <Header title={course?.name} subtitle={t("communities.submission.title")} />
-          <List />
+          <SubmissionList />
         </div>
         <SubmissionPopup show={!!selectedSubmission} submissionId={selectedSubmission} onClose={handleCloseSubmission} />
       </Wrapper>
@@ -101,10 +93,11 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   const { slug, course_slug, challenge_id } = query;
   const { dispatch } = store;
 
-  const [{ data: currentCommunity }, { data: course }, { payload: submissions }] = await Promise.all([
+  const [{ data: currentCommunity }, { data: course }, { payload: submissions }, { payload: challenge }] = await Promise.all([
     dispatch(fetchCurrentCommunity({ slug: slug as string, locale: locale as string })),
     dispatch(fetchCourse({ slug: course_slug as string, locale: locale as string })),
     dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: locale as string })),
+    dispatch(fetchChallenge({ locale, id: challenge_id as string })),
   ]);
 
   return {
@@ -112,6 +105,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       currentCommunity,
       course,
       submissions,
+      challenge,
       ...(await serverSideTranslations(locale as string)),
     },
   };
