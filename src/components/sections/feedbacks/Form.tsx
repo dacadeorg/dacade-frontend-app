@@ -136,7 +136,7 @@ export default function Form({ save }: FormProps): ReactElement {
                 id="input-github"
                 error={errors.githubLink?.message || ""}
                 className="flex-grow block w-full p-0 m-0 placeholder-gray-400 placeholder-opacity-100 border border-t-0 border-gray-200 border-solid outline-none focus:outline-none active:border-none focus:border-none"
-                placeholder={t("communities.challenge.submission.githubLink.placeholder.github") || ""}
+                placeholder={t("communities.challenge.submission.feedback.placeholder.github") || ""}
                 {...register("githubLink", {
                   required: "This field is required",
                   minLength: {

@@ -53,8 +53,8 @@ const coins = [
   {
     token: "cUSD",
     icon: <CUSDIcon />,
-    bgColor: "#45CD85",
-    textColor: "#FFFFFF",
+    bgColor: "#FCFF52",
+    textColor: "#010101",
   },
   {
     token: "ETH",
