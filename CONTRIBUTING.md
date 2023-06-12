@@ -11,7 +11,7 @@ More on the [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0
 # Components conventions
 
 1. Use `functional components` instead of arrow components
-2. For typescript, use `interface` for props, anywhere possible.
+2. For typescript, use `interface` for props, and types if needed.
 3. Default exports should happen on top.
 
    > export default function ComponentName() {....}
