@@ -70,10 +70,7 @@ export default function BountiesNavigation(): ReactElement {
                       "!text-blue-600": router.query.slug === item.link.split("/")[2],
                     })}
                   >
-                    <span className="absolute inline-block -left-6 nav-icon">
-                      {router.query.slug === item.link.split("/")[2] && <ChevronRightIcon />}
-                      {/* <ChevronRightIcon /> */}
-                    </span>
+                    <span className="absolute inline-block -left-6 nav-icon">{router.query.slug === item.link.split("/")[2] && <ChevronRightIcon />}</span>
                     <span className="nav-label">{item.label}</span>
                   </Link>
                 </li>
