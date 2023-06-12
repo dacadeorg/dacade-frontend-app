@@ -37,7 +37,7 @@ export default function Markdown({ value, markDownStyles }: MarkDownProps): Reac
   return (
     <div style={{ ...(themeStyles as CSSProperties) }} className={`prose ${markDownStyles}`}>
       <ReactMarkdown
-        className="markdown-value"
+        className="markdown-content"
         remarkPlugins={[remarkGfm, remarkParse] as PluggableList}
         components={{
           code: ({ inline, className, children, ...props }) => {
