@@ -83,7 +83,7 @@ export default forwardRef<HTMLInputElement, GithubLinkInputProps>(function Githu
   );
 
   return (
-    <div className="flex items-center w-full">
+    <div className="flex items-center w-full border border-t-0 border-gray-200">
       <div className="flex-none pl-3.75">
         <GithubIcon className="relative flex-none text-gray-400 m-0 p-0 block -mt-0.5" />
       </div>
