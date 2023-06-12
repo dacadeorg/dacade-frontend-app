@@ -50,8 +50,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
                   </span>
                 )}
                 <span className="block font-bold leading-normal" style={{ color: colors?.textAccent }}>
-                  {selectedRubric(rubric.id) ? selectedRubric(rubric.id)?.points : rubric.points}
-                  {t("communities.challenge.criteria.points")}
+                  {selectedRubric(rubric.id) ? selectedRubric(rubric.id)?.points : rubric.points} {t("communities.challenge.criteria.points")}
                 </span>
                 <span className="block leading-normal">{rubric.text}</span>
               </div>
