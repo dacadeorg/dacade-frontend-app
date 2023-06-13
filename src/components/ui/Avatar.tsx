@@ -101,7 +101,7 @@ export default function Avatar({
     "rounded-none": shape === "squared",
   });
 
-  const componentClassName = classNames("inline-flex relative align-middle", sizeClassName, className, shapeClassName, {
+  const componentClassName = classNames("inline-flex relative align-middle", className, sizeClassName, shapeClassName, {
     "cursor-pointer": user,
   });
 
@@ -122,7 +122,7 @@ export default function Avatar({
   const Component = useLink ? Link : "span";
 
   return (
-    <Component href={link} className={componentClassName} style={{ backgroundColor: color, ...style }}>
+    <Component href={link} className={componentClassName}>
       <span
         style={{ backgroundColor: color }}
         className={`bg-primary h-full w-full flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle relative z-0 ${shapeClassName}`}
