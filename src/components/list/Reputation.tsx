@@ -10,8 +10,9 @@ import { useTranslation } from "next-i18next";
 
 export default function ReputationList(): ReactElement {
   const { t } = useTranslation();
-  const reputations = useSelector((state) => state.profile.reputations.list);
+  const reputations = useSelector((state) => state.userReputations.list);
 
+  if (!reputations.length) return <></>;
   return (
     <div className="text-left">
       <span className="uppercase block text-xs font-semibold text-gray-500 leading-relaxed">{t("nav.reputation")}</span>

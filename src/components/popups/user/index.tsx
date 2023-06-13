@@ -8,6 +8,7 @@ import { User } from "@/types/bounty";
 import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchAllWallets } from "@/store/services/wallets.service";
+import { fetchUserReputations } from "@/store/services/user/userReputation.service";
 
 /**
  * User popup component
@@ -32,7 +33,7 @@ export default function UserPopup({ buttonStyles }: { buttonStyles: CSSPropertie
   }));
 
   useEffect(() => {
-    dispatch(fetchAllWallets());
+    Promise.all([dispatch(fetchAllWallets()), dispatch(fetchUserReputations())]);
   }, [dispatch]);
 
   const toggle = () => {
