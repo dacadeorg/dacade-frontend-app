@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       privacy: markdownFileContents,
-      ...(await i18Translate(locale || "en")).props,
+      ...(await i18Translate(locale || "en")),
     },
   };
 };
