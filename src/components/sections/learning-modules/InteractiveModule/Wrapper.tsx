@@ -55,11 +55,11 @@ export default function InteractiveModuleWrapper({
       <p className="text-sm pb-3 pt-1">
         <span
           style={{
-            color: colors.textAccent,
+            color: colors?.textAccent,
           }}
         >
           {duration}
-        </span>
+        </span>{" "}
         Interactive lessons
       </p>
       <Progress percentage={percentage} communityStyles />

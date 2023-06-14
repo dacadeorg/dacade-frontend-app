@@ -17,6 +17,7 @@ import { GetServerSideProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import { useRouter } from "next/router";
 import { fetchUserProfile } from "@/store/services/profile/users.service";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function ProfileOverview() {
   const authUser = useSelector((state) => state.user.data);

@@ -8,12 +8,13 @@
     "start": "next start",
     "lint": "next lint",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,tsx,js,jsx}' --write",
-    "postinstall": "chmod +x .husky/*"    
+    "postinstall": "chmod +x .husky/*"
   },
   "dependencies": {
     "@coingecko/cryptoformat": "^0.5.4",
     "@reduxjs/toolkit": "^1.9.3",
     "@stefanprobst/remark-extract-toc": "^2.2.0",
+    "@sumsub/websdk": "^1.4.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/axios": "^0.14.0",
@@ -75,7 +76,6 @@
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
-    "@netlify/plugin-nextjs": "^4.36.0",
     "@svgr/webpack": "^6.5.1",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.9",
@@ -83,15 +83,15 @@
     "@types/lodash": "^4.14.192",
     "@types/lodash.uniqby": "^4.7.7",
     "@types/lowlight": "^0.0.3",
-    "@types/node": "^18.15.11",
+    "@types/node": "20.2.1",
     "@types/react-syntax-highlighter": "^15.5.6",
     "autoprefixer": "^10.4.14",
     "eslint-config-prettier": "^8.7.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
-    "postcss": "^8.4.21",
+    "postcss": "^8.4.24",
     "prettier": "^2.8.8",
-    "tailwindcss": "^3.2.7"
+    "tailwindcss": "^3.3.2"
   },
   "lint-staged": {
     "/src/**/*.{ts,tsx,js,jsx}": [

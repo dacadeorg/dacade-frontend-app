@@ -64,12 +64,12 @@ export default function Form({ save }: FormProps): ReactElement {
 
   const activeButtonStyle = useMemo(
     () => ({
-      borderColor: colors.textAccent,
-      color: colors.text,
-      backgroundColor: colors.textAccent,
-      "--button-color--hover": colors.text,
-      "--button-background-color--hover": colors.accent,
-      "--button-border-color--hover": colors.accent,
+      borderColor: colors?.textAccent,
+      color: colors?.text,
+      backgroundColor: colors?.textAccent,
+      "--button-color--hover": colors?.text,
+      "--button-background-color--hover": colors?.accent,
+      "--button-border-color--hover": colors?.accent,
     }),
     [colors]
   );
@@ -136,9 +136,9 @@ export default function Form({ save }: FormProps): ReactElement {
                 id="input-github"
                 error={errors.githubLink?.message || ""}
                 className="flex-grow block w-full p-0 m-0 placeholder-gray-400 placeholder-opacity-100 border border-t-0 border-gray-200 border-solid outline-none focus:outline-none active:border-none focus:border-none"
-                placeholder={t("communities.challenge.submission.githubLink.placeholder.github") || ""}
+                placeholder={t("communities.challenge.submission.placeholder.github") || ""}
                 {...register("githubLink", {
-                  required: "This field is required",
+                  required: false,
                   minLength: {
                     value: 6,
                     message: "The github link is too short",

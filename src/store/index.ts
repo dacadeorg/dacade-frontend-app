@@ -38,6 +38,8 @@ import certificateSlice from "./feature/profile/certificate.slice";
 import profileCommunitiesService from "./services/profile/profileCommunities.service";
 import userReputationService from "./services/user/userReputation.service";
 import userReputationSlice from "./feature/user/reputation.slice";
+import payoutsSlice from "./feature/user/payouts.slice";
+import sumsubVerificationSlice from "./feature/kyc.slice";
 import { fetchProfileCommunitiesService, fetchProfileCommunityService } from "./services/profile.service";
 import certificateService from "./services/profile/certificate.service";
 
@@ -46,6 +48,7 @@ export interface IRootState {
   community: ReturnType<typeof communitySlice.reducer>;
   ui: ReturnType<typeof ui.reducer>;
   referrals: ReturnType<typeof referralSlice.reducer>;
+  userReferrals: ReturnType<typeof userReferralsSlice.reducer>;
   user: ReturnType<typeof userSlice.reducer>;
   banner: ReturnType<typeof bannerSlice.reducer>;
   notifications: ReturnType<typeof notificationsSlice.reducer>;
@@ -77,6 +80,8 @@ export interface IRootState {
   learningModules: ReturnType<typeof learningModulesSlice.reducer>;
   profile: ReturnType<typeof profileReducer>;
   certificates: ReturnType<typeof certificateSlice.reducer>;
+  sumsubVerification: ReturnType<typeof sumsubVerificationSlice.reducer>;
+  payouts: ReturnType<typeof payoutsSlice.reducer>;
 }
 
 export const store = configureStore({
@@ -89,6 +94,7 @@ export const store = configureStore({
     [walletsSlice.name]: walletsSlice.reducer,
     [indexSlice.name]: indexSlice.reducer,
     [authSlice.name]: authSlice.reducer,
+    [authService.reducerPath]: authService.reducer,
     [courseSlice.name]: courseSlice.reducer,
     [navigationSlice.name]: navigationSlice.reducer,
     [submissionsSlice.name]: submissionsSlice.reducer,
@@ -126,6 +132,8 @@ export const store = configureStore({
     [scoreboardSlice.name]: scoreboardSlice.reducer,
     [certificateSlice.name]: certificateSlice.reducer,
     [userReferralsSlice.name]: userReferralsSlice.reducer,
+    [sumsubVerificationSlice.name]: sumsubVerificationSlice.reducer,
+    [payoutsSlice.name]: payoutsSlice.reducer,
     profile: profileReducer,
   },
 

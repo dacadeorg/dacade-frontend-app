@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from "react";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import Header from "@/components/sections/challenges/Header";
-import RatingRubric from "@/components/sections/challenges/Rubric";
 import { OverviewRewards as Rewards } from "@/components/sections/challenges/Rewards";
 import SubmissionForm from "@/components/sections/challenges/Submission";
 import SubmissionCard from "@/components/cards/SubmissionView";
@@ -25,6 +24,7 @@ import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import RatingRubric from "@/components/sections/challenges/Rubric";
 
 /**
  * Challenge view page 
@@ -74,7 +74,7 @@ export default function ChallengePage(props: {
         <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
           <Header />
           <Rewards />
-          <RatingRubric ratingCriteria={challenge?.ratingCriteria} />
+          <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
           <BestSubmissions />
           {isAuthenticated && (
             <div>
@@ -95,7 +95,7 @@ export default function ChallengePage(props: {
 }
 
 ChallengePage.getLayout = function (page: ReactElement) {
-  return <DefaultLayout footerBackgroundColor="default">{page}</DefaultLayout>;
+  return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async (data) => {
@@ -107,12 +107,10 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     locale: locale as string,
   };
 
-  const getCurrentCommunty = store.dispatch(fetchCurrentCommunity(fetchPayload));
-  const getCurrentChallenge = store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string }));
-  const results = await Promise.all([getCurrentCommunty, getCurrentChallenge]);
-
-  const community = results[0];
-  const challenge = results[1].payload;
+  const [{ data: community }, { payload: challenge }] = await Promise.all([
+    store.dispatch(fetchCurrentCommunity(fetchPayload)),
+    store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string })),
+  ]);
 
   if (community) {
     return {

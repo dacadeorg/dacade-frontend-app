@@ -15,6 +15,7 @@ import { GetServerSideProps } from "next";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchCourse } from "@/store/services/course.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { setColors } from "@/store/feature/ui.slice";
 
 export default function Submission() {
   const [selectedSubmission, setSelectedSubmission] = useState("");
@@ -42,26 +43,9 @@ export default function Submission() {
 
   useEffect(() => {
     if (slug && course_slug && challenge_id) {
-      dispatch(
-        fetchCurrentCommunity({
-          slug: slug as string,
-          locale: router.locale as string,
-        })
-      );
-      dispatch(
-        fetchCourse({
-          slug: course_slug as string,
-          locale: router.locale as string,
-        })
-      );
-      dispatch(
-        fetchAllSubmission({
-          challengeId: challenge_id as string,
-          locale: router.locale as string,
-        })
-      ).catch((e: any) => {
-        console.error(e);
-      });
+      dispatch(fetchCurrentCommunity({ slug: slug as string, locale: router.locale as string }));
+      dispatch(fetchCourse({ slug: course_slug as string, locale: router.locale as string }));
+      dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: router.locale as string }));
     }
   }, [slug, course_slug, challenge_id, dispatch, router.locale]);
 
@@ -90,7 +74,7 @@ export default function Submission() {
 }
 
 Submission.getLayout = function (page: ReactElement) {
-  return <DefaultLayout footerBackgroundColor="default">{page}</DefaultLayout>;
+  return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({

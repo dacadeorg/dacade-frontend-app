@@ -69,13 +69,13 @@ export default function Login(): ReactElement {
       <Head>
         <title>{getMetadataTitle(t("login-page.signin.title"))}</title>
       </Head>
-      <div className="absolute h-full w-full -justify-center top-0 flex items-center">
+      <div className="absolute top-0 flex items-center w-full h-full -justify-center">
         <form className="content-wrapper" onSubmit={handleSubmit(onSubmit)}>
-          <div className="lg:w-98 xl:w-98 mx-auto">
+          <div className="mx-auto lg:w-98 xl:w-98">
             <div>
-              <h1 className="text-5xl my-5">{t("login-page.signin.title")}</h1>
+              <h1 className="my-5 text-5xl">{t("login-page.signin.title")}</h1>
             </div>
-            <div className="mb-5 relative">
+            <div className="relative mb-5">
               <div>
                 <EmailInput errors={errors} register={register} emailValue={emailValue} />
               </div>
@@ -103,13 +103,13 @@ export default function Login(): ReactElement {
             </div>
             <div className="flex flex-col justify-between mt-4">
               <div>
-                <span className="text-primary text-sm">
+                <span className="text-sm text-primary">
                   <Link href="/password-reset" className="fs-1 dark-white">
                     {t("login-page.forget-password")}
                   </Link>
                 </span>
               </div>
-              <div className="text-right self-end">
+              <div className="self-end text-right">
                 <ArrowButton type="submit" minWidthClass="min-w-40" arrowClasses="text-white" loading={loading} disabled={loading}>
                   {t("login-page.signin.button")}
                 </ArrowButton>

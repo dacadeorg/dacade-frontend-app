@@ -8,7 +8,6 @@ import AchievementViewItem from "@/components/sections/profile/achievements/List
 import AchievementLinkField from "@/components/sections/profile/achievements/LinkField";
 import { getMetadataTitle, getMetadataDescription } from "@/utilities/Metadata";
 import ArrowButton from "@/components/ui/button/Arrow";
-import MintCertificate from "@/components/profile/modal/MintCertificate";
 import { truncateAddress } from "@/utilities/Address";
 import { IPFS_URL } from "@/constants/wallet";
 import Head from "next/head";
@@ -18,6 +17,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { findCertificate } from "@/store/services/profile/certificate.service";
 import { useTranslation } from "next-i18next";
 import Logo from "@/icons/logo.svg";
+import MintCertificate from "@/components/sections/profile/modals/MintCertificate";
 
 const Achievement = () => {
   const { t } = useTranslation();

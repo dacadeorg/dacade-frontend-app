@@ -32,7 +32,7 @@ interface CheckboxProps extends HTMLProps<HTMLInputElement> {
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function ({ disabled, className, communityStyles, ...props }, ref) {
   const styles = communityStyles ? { color: "#0000FF" } : undefined;
 
-  const checkboxClassName: string = classNames(`w-5 h-5 bg-gray-100 rounded border-gray-200 text-primary ${className}`, {
+  const checkboxClassName = classNames("w-5 h-5 bg-gray-100 rounded border-gray-200 text-primary",className, {
     "cursor-not-allowed": disabled,
     "cursor-pointer": !disabled,
   });

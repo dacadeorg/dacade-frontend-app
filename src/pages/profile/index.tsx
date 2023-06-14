@@ -3,6 +3,9 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchProfileReputation } from "@/store/services/profile/reputation.service";
 import { getMetadataTitle } from "@/utilities/Metadata";
+import { GetServerSideProps } from "next";
+import { fetchAllCertificates } from "@/store/services/profile/certificate.service";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import NotificationList from "@/components/list/NotificationList";
 import ProfileOverviewCommunities from "@/components/sections/profile/overview/Communities";
@@ -13,9 +16,7 @@ import DiscordConnect from "@/components/popups/DiscordConnect";
 import Head from "next/head";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import AuthCheckProvider from "@/contexts/AuthCheckProvider";
-import { GetServerSideProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
-import { fetchAllCertificates } from "@/store/services/profile/certificate.service";
 
 export default function ProfileOverview(): ReactElement {
   const user = useSelector((state) => state.user.data);

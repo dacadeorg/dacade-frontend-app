@@ -3,7 +3,6 @@ import { Reward } from "@/types/course";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 
-// TODO: Will be refactored when we get the correct types
 interface OverviewRewardsProps {
   reward: Reward;
   size: string;
@@ -30,12 +29,12 @@ export default function OverviewRewards({ reward, size }: OverviewRewardsProps):
           <Coin token={reward.token} size={size} />
           <div className="text-base lg:pl-2 lg:pr-3 md:px-2 max-w-max">
             <div className="flex">
-              <span className="block font-medium text-md pr-1">{reward.amount}</span>
+              <span className="block pr-1 font-medium text-md">{reward.amount}</span>
               <span className="block font-medium text-md">{reward.token}</span>
             </div>
-            <div className="flex">
-              <div className="text-gray-500 text-base font-normal pr-1">{t("reward.type.prefix")}</div>
-              <div className="text-gray-500 text-base font-normal">{t("communities.challenge.submission")}</div>
+            <div className="flex text-base font-normal text-gray-500">
+              <div className="pr-1">{t("reward.type.prefix")}</div>
+              <div className="">{t("communities.challenge.submission")}</div>
             </div>
           </div>
         </div>

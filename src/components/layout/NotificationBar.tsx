@@ -14,7 +14,6 @@ import { setBusy, setError } from "@/store/feature/index.slice";
 export default function Notification(): ReactElement {
   const { t } = useTranslation();
   const { error, busy } = useSelector((state) => state.store);
-  console.log(error);
   const router = useRouter();
 
   useEffect(() => {

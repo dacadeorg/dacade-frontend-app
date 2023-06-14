@@ -37,11 +37,9 @@ export default function SubmissionPage() {
     dispatch(findSubmssionById({ id: submission_id as string }));
   }, [dispatch, slug, course_slug, submission_id, router.locale]);
 
-  const title = getMetadataTitle(t("communities.submission.title"), course?.name as string);
-
   return (
     <Wrapper>
-      <div className="flex flex-col py-4 space-y-8 text-gray-700">
+      <div className="flex flex-col py-4 space-y-8">
         <Header title={course?.name} subtitle={t("communities.submission.title")} />
         <SubmissionView />
       </div>
@@ -49,7 +47,7 @@ export default function SubmissionPage() {
   );
 }
 SubmissionPage.getLayout = function (page: ReactElement) {
-  return <DefaultLayout footerBackgroundColor="default">{page}</DefaultLayout>;
+  return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({

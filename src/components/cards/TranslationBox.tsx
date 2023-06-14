@@ -15,7 +15,7 @@ interface TranslationBoxProps {
   defaultLocale: DefaultLocale;
   disabled?: boolean;
   textContainerCssClasses: string | object | Array<any>;
-  textCssClasses: string | object | Array<any>;
+  textCssClasses?: string;
 }
 
 /**
@@ -115,8 +115,8 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
   return (
     <div className="relative w-full">
       {currentText ? (
-        <div className={`-my-5 ${textContainerCssClasses}`}>
-          <Markdown value={currentText} />
+        <div className={`-my-5 text-lime-400 ${textContainerCssClasses}`}>
+          <Markdown value={currentText} markDownStyles={textCssClasses} />
         </div>
       ) : (
         <></>

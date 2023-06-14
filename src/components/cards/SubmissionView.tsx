@@ -23,7 +23,7 @@ type DefaultLocale = "en" | "fr";
  * @typedef {SubmissionViewCardProps}
  */
 interface SubmissionViewCardProps {
-  submission: Submission
+  submission: Submission;
 }
 
 /**
@@ -42,12 +42,12 @@ export default function SubmissionViewCard({ submission }: SubmissionViewCardPro
 
   const language = (submission?.metadata?.language || "en") as DefaultLocale;
   const primaryButtonStyles = {
-    borderColor: colors.textAccent,
-    color: colors.text,
-    backgroundColor: colors.textAccent,
-    "--button-color--hover": colors.text,
-    "--button-background-color--hover": colors.accent,
-    "--button-border-color--hover": colors.accent,
+    borderColor: colors?.textAccent,
+    color: colors?.text,
+    backgroundColor: colors?.textAccent,
+    "--button-color--hover": colors?.text,
+    "--button-background-color--hover": colors?.accent,
+    "--button-border-color--hover": colors?.accent,
   };
 
   return (
@@ -57,6 +57,7 @@ export default function SubmissionViewCard({ submission }: SubmissionViewCardPro
         date: submission.created_at,
         text: t("submissions.submitted"),
       }}
+      bordered
     >
       <TranslationBox textContainerCssClasses="pb-5" text={submission.text} defaultLocale={language} textCssClasses="text-base md:text-lg leading-normal text-gray-700" />
       <div className="inline-grid space-y-2 md:space-y-5 md:contents space-x-0 md:space-x-2">

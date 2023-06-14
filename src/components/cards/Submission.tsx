@@ -29,34 +29,22 @@ interface SubmissionCardProps {
  * Submission card component
  * @return {ReactElement}
  */
-export default function SubmissionCard({
-  submission,
-  preview = false,
-  stats = false,
-  link = "",
-  buttons = false,
-  last = false,
-  timestamp = { text: "", date: "" },
-  children,
-}: SubmissionCardProps): ReactElement {
-  const dispatch =  useDispatch();
+export default function SubmissionCard({ submission, link = "", children }: SubmissionCardProps): ReactElement {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { colors, community } = useSelector((state) => ({
-    colors: state.ui.colors,
-    community: state.communities.current,
-  }));
+  const { colors } = useSelector((state) => ({ colors: state.ui.colors }));
 
   const reviewed = submission?.metadata?.evaluation || submission?.metadata?.reviewed;
 
   const badgeButtonStyles = {
-    backgroundColor: colors.textAccent,
-    color: colors.text,
+    backgroundColor: colors?.textAccent,
+    color: colors?.text,
   };
 
   const arrowButtonStyles = {
-    "--button-color--hover": colors.text,
-    "--button-background-color--hover": colors.textAccent,
-    "--button-border-color--hover": colors.textAccent,
+    "--button-color--hover": colors?.text,
+    "--button-background-color--hover": colors?.textAccent,
+    "--button-border-color--hover": colors?.textAccent,
   };
 
   return (
@@ -89,7 +77,7 @@ export default function SubmissionCard({
             )}
             {submission.metadata && submission.metadata.evaluation ? (
               <div className="inline-flex flex-1 items-center space-x-1">
-                <Badge custom-style={badgeButtonStyles} size="medium" className="relative" value={submission.metadata.evaluation.points} />
+                <Badge customStyle={badgeButtonStyles} size="medium" className="relative" value={submission.metadata.evaluation.points} />
                 <span className="text-sm leading">{t("submissions.evaluation.points")}</span>
               </div>
             ) : (
@@ -97,8 +85,7 @@ export default function SubmissionCard({
             )}
             {submission.metadata && submission.metadata.feedbacks ? (
               <div className="mr-2 text-sm relative leading-snug text-gray-700 inline-block">
-                <span className="font-semibold">{submission.metadata.feedbacks}</span>
-                {t("submissions.feedback.feedbacks")}
+                <span className="font-semibold">{submission.metadata.feedbacks}</span> {t("submissions.feedback.feedbacks")}
               </div>
             ) : (
               <></>
@@ -114,7 +101,7 @@ export default function SubmissionCard({
               customStyle={arrowButtonStyles}
               arrowClasses=""
               onClick={() => {
-                dispatch(showSubmission(submission.id))
+                dispatch(showSubmission(submission.id));
               }}
             />
           </div>

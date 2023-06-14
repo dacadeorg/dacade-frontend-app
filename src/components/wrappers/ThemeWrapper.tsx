@@ -48,12 +48,12 @@ interface CSSVars extends CSSProperties {
 export default function ThemeWrapper({ colors = {}, className = "", children }: ThemeWrapperProps): ReactElement {
   const cssVars: CSSVars = useMemo(() => {
     return {
-      "--tm-primary": colors.primary,
-      "--tm-secondary": colors.secondary,
-      "--tm-text": colors.text,
-      "--tm-highlight": colors.highlight,
-      "--tm-accent": colors.accent,
-      "--tm-muted": colors.muted,
+      "--tm-primary": colors?.primary,
+      "--tm-secondary": colors?.secondary,
+      "--tm-text": colors?.text,
+      "--tm-highlight": colors?.highlight,
+      "--tm-accent": colors?.accent,
+      "--tm-muted": colors?.muted,
     };
   }, [colors]);
 

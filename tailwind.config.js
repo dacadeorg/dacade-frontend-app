@@ -1,12 +1,9 @@
 /** @type {import('tailwindcss').Config} */
-const lineClamp = require("@tailwindcss/line-clamp");
-const { fontFamily } = require("tailwindcss/defaultTheme");
 const typography = require("@tailwindcss/typography");
 const aspectRatio = require("@tailwindcss/aspect-ratio");
 
 module.exports = {
-  content: ["./src/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false,
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   safelist: ["grid-cols-1", "grid-cols-2", "grid-cols-3", "grid-cols-4", "grid-cols-5", "gap-0", "gap-1", "gap-2", "gap-3", "gap-y-3", "gap-y-0"],
   theme: {
     extend: {
@@ -142,5 +139,5 @@ module.exports = {
       },
     },
   },
-  plugins: [lineClamp, typography, aspectRatio],
+  plugins: [typography, aspectRatio],
 };

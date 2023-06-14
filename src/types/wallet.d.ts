@@ -11,11 +11,13 @@ export interface Wallet {
   user_id: string;
   token: string;
   address: string;
-  payouts: {
-    amount: number;
-    token: string;
-  }[];
+  payouts: Payout[];
   description: string;
   payouts: any[];
   require_wallet_connection?: boolean;
+}
+
+export interface Payout {
+  amount: number;
+  token: string;
 }
