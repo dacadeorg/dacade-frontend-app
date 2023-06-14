@@ -3,13 +3,14 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { fetchAllWallets } from "@/store/services/wallets.service";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import EditProfile from "@/components/sections/profile/modals/EditProfile";
 import Wallet from "@/components/cards/Wallet";
 import Hint from "@/components/ui/Hint";
 import ProfileLayout from "@/layouts/ProfileLayout";
+import i18Translate from "@/utilities/I18Translate";
 
 /**
  * Profile Wallet component
@@ -50,12 +51,8 @@ export default function ProfileWallet(): ReactElement {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale as string)),
-  },
-});
-
 ProfileWallet.getLayout = function (page: ReactElement) {
   return <ProfileLayout>{page}</ProfileLayout>;
 };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });

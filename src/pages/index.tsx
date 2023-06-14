@@ -35,13 +35,11 @@ Home.getLayout = function (page: ReactElement) {
 };
 
 export const getStaticProps: GetStaticProps = wrapper.getStaticProps((store: any) => async ({ locale }: any) => {
-  await i18Translate(locale as string);
   const result = await store.dispatch(fetchAllCommunities(locale));
-
   if (result.status !== "fulfilled")
     return {
       props: {
-        ...(await serverSideTranslations(locale as string)),
+        ...(await i18Translate(locale as string)),
         communities: [],
       },
     };
@@ -50,7 +48,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps((store: any
 
   return {
     props: {
-      ...(await serverSideTranslations(locale as string)),
+      ...(await i18Translate(locale as string)),
       communities,
     },
   };
