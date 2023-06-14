@@ -69,7 +69,7 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
   useEffect(() => {
     setTxData((prev) => ({
       ...prev,
-      tx: achievement?.minting.tx || "",
+      tx: achievement?.minting?.tx || "",
     }));
   }, [achievement]);
 
