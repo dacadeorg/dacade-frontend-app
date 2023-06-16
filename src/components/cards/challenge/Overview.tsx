@@ -1,9 +1,6 @@
 import React from "react";
 import Coin from "@/components/ui/Coin";
 
-interface Overview {
-  
-}
 
 const Overview: React.FC<Overview> = ({}) => {
 
