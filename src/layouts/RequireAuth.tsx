@@ -38,7 +38,7 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
 
   const isGuestRoute = useMemo(
     () => (path: string) => {
-      return matchesRoutes(path, ["/signup", "/login", "/password-reset"]);
+      return matchesRoutes(path, ["/signup","/password-reset"]);
     },
     []
   );

@@ -45,10 +45,10 @@ export default function Login(): ReactElement {
   const router = useRouter();
   const emailValue = watch("email");
   const passwordValue = watch("password");
-  const { authUser, isFetchingUser, isChecked } = useSelector((state) => ({
+  const { authUser, isFetchingUser, isAuthenticated } = useSelector((state) => ({
     authUser: state.user.data,
     isFetchingUser: state.user.fetchingUserLoading,
-    isChecked: authCheck(state),
+    isAuthenticated: authCheck(state),
   }));
 
   const onSubmit = async (form: FormValues) => {
@@ -60,8 +60,6 @@ export default function Login(): ReactElement {
     try {
       setLoading(true);
       await dispatch(login(loginData));
-      // router.replace("/bounties");
-      if (isChecked) router.replace("/bounties");
     } catch (err) {
       console.error(err);
     } finally {
@@ -70,12 +68,12 @@ export default function Login(): ReactElement {
   };
 
   useEffect(() => {
-    if (!isFetchingUser || authUser) router.push("/");
-  }, [isFetchingUser, authUser]);
+    if (isAuthenticated) router.push("/bounties");
+  }, [isAuthenticated]);
 
   if (isFetchingUser || authUser) {
     return (
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 h-full w-full -translate-y-1/2 z-999 flex items-center justify-center">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 h-full w-full -translate-y-1/2 z-999 flex items-center justify-center bg-white">
         <Loader />
       </div>
     );
