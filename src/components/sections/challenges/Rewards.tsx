@@ -19,15 +19,7 @@ export function OverviewRewards(): ReactElement {
   const rewardsDescription = rewards?.length ? `${rewards?.[0].amount} ${rewards?.[0].token}` : "";
 
   return (
-    <Section
-      title={
-        t("communities.challenge.rewards.description", {
-          maxPoints: challenge?.maxPoints,
-          minPoints: challenge?.minPoints,
-          reward: rewardsDescription,
-        }) as string
-      }
-    >
+    <Section title={t("communities.overview.reward.title") as string}>
       <div className="pt-8 grid grid-cols-1 md:grid-cols-2">
         <RewardsList rewards={rewards} />
         <div className="md:mt-0 mt-5 flex items-end pb-2">
