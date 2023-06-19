@@ -125,6 +125,10 @@ export default function Submission(): ReactElement {
                     value: 100,
                     message: "The text is too long",
                   },
+                  minLength: {
+                    value: 15,
+                    message: "This field must be at least 15 characters.",
+                  },
                 })}
               />
             </div>
@@ -143,6 +147,10 @@ export default function Submission(): ReactElement {
                     {...register("githubLink", {
                       value: githubLinkValue,
                       required: "This field is required",
+                      pattern: {
+                        value: /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/,
+                        message: 'This value must be a valid Github URL',
+                      }
                     })}
                   />
                 </div>
