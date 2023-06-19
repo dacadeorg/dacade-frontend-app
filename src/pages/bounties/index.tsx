@@ -82,7 +82,6 @@ export default function Bounties(props: BountiesPageProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }: { locale?: string }) => {
-
   return {
     props: {
       ...(await serverSideTranslations(locale as string)),
