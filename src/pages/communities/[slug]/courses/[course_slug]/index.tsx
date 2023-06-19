@@ -72,6 +72,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
       store.dispatch(fetchCourse({ slug: course_slug, locale })),
     ]);
 
+    console.log("slug course slug community", slug, course_slug, community, course);
+
     return {
       props: {
         community,

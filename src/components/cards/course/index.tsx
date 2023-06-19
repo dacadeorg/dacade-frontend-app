@@ -35,7 +35,7 @@ interface CourseCardProps {
 export default function CourseCard({ course, community }: CourseCardProps): ReactElement {
   const { t } = useTranslation();
   const path = `/communities/${community.slug}/courses/${course.slug}`;
-
+   console.log('course', course)
   const reward = course?.challenge?.rewards?.find((entity) => entity.type === "SUBMISSION");
 
   return (
