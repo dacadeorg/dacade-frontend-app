@@ -21,7 +21,7 @@ const ProfileHeader = () => {
   const { authUser, profileUser, isKycVerified } = useSelector((state) => ({
     authUser: state.user.data,
     profileUser: state.profile.user.current,
-    isKycVerified: state.user.data?.isKycVerified,
+    isKycVerified: state.user.data?.kycStatus === "VERIFIED",
   }));
   const user = useMemo(() => {
     const username = (router.query?.username as string) || "";

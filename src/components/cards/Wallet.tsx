@@ -8,6 +8,9 @@ import Payout from "@/components/sections/profile/modals/Payout";
 import Hint from "@/components/ui/Hint";
 import { useTranslation } from "next-i18next";
 import { Wallet } from "@/types/wallet";
+import { toggleBodyScrolling } from "@/store/feature/ui.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * Cards wallet props interface
@@ -28,9 +31,10 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
   const [showEditModal, setShowEditModal] = useState(false);
   const [showPayoutModal, setShowPayoutModal] = useState(false);
   const [showKycModal, setShowKycModal] = useState(false);
-  // TODO: Replace with actual value from store
-  const isKycVerified = false;
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.data);
 
+  const isKycVerified = user?.kycStatus === "VERIFIED";
   const address = wallet.address ? wallet.address.match(/.{1,4}/g) : null;
 
   const cashable = String(wallet.token).toUpperCase() !== "DAC";
@@ -38,17 +42,23 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
   const cashout = () => {
     if (isKycVerified) {
       setShowPayoutModal(true);
+      toggleBodyScrolling(true)(dispatch);
       return;
     }
     // TODO: replace with actual dispatch to open KYC verification modal
     setShowKycModal(true);
   };
 
+  const onClose = () => {
+    setShowPayoutModal(false);
+    toggleBodyScrolling(false)(dispatch);
+  };
+
   return (
     <div className="relative mb-7">
       <div className="bg-gray-100 relative lg:flex md:flex sm:flex rounded-3.5xl">
         <EditAddress show={showEditModal} onClose={() => setShowEditModal(false)} wallet={wallet} />
-        <Payout wallet={wallet} show={showPayoutModal} onClose={() => setShowPayoutModal(false)} />
+        <Payout wallet={wallet} show={showPayoutModal} onClose={onClose} />
         <div className="bg-gray-50 lg:w-60 md:w-60 sm:w-60 rounded-3.5xl">
           <div className="p-6">
             <div className="border-b border-dotted border-gray-900">
@@ -104,7 +114,7 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
           )}
           {cashable && (
             <div className="right-2 absolute bottom-2 mt-5">
-              <ArrowButton disabled={!wallet.balance || !wallet.address || disabled} variant="outline-primary" min-width-class="min-w-40" onClick={cashout}>
+              <ArrowButton disabled={!wallet.balance || !wallet.address || disabled} variant="outline-primary" minWidthClass="min-w-40" onClick={cashout}>
                 {t("profile.wallets.cash-out")}
               </ArrowButton>
             </div>
@@ -115,7 +125,7 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
         <Hint key={`wallet-payout-${i}`} className="mt-2">
           <span className="font-medium">
             <Currency value={payout.amount} token={payout.token} />
-          </span>
+          </span>{" "}
           {t("profile.wallet.payout.text")}
         </Hint>
       ))}
