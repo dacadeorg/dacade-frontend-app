@@ -7,6 +7,7 @@ import TEZIcon from "@/icons/tokens/Tezos.svg";
 import DAIIcon from "@/icons/tokens/DAI.svg";
 import NEARIcon from "@/icons/tokens/NEAR.svg";
 import USDCIcon from "@/icons/tokens/USDC.svg";
+import NFTIcon from "@/icons/tokens/NFT.svg";
 
 /**
  * Interface for the coin props
@@ -18,7 +19,7 @@ import USDCIcon from "@/icons/tokens/USDC.svg";
 interface CoinProps {
   bgColor?: string;
   textColor?: string;
-  size?: "medium" | "normal" | "small";
+  size?: "medium" | "medium-mini" | "normal" | "small";
   shape?: "rounded" | "squared" | "circle";
   token?: string;
   className?: string;
@@ -53,8 +54,8 @@ const coins = [
   {
     token: "cUSD",
     icon: <CUSDIcon />,
-    bgColor: "#45CD85",
-    textColor: "#FFFFFF",
+    bgColor: "#FCFF52",
+    textColor: "#000000",
   },
   {
     token: "ETH",
@@ -66,6 +67,11 @@ const coins = [
     token: "AE",
     icon: <AEIcon />,
     bgColor: "#DE3F6B",
+    textColor: "#FFFFFF",
+  },
+  {
+    token: "NFT",
+    icon: <NFTIcon />,
     textColor: "#FFFFFF",
   },
   {
@@ -118,7 +124,9 @@ export default function Coin({ bgColor, textColor, size = "medium", shape = "cir
   function getSizeClasses(size: string) {
     switch (size) {
       case "medium":
-        return "w-10 h-10 sm:w-15 sm:h-15 text-xl p-1 sm:text-2xl sm:p-2";
+        return "w-12 h-12 sm:w-15 sm:h-15 text-xl p-1 sm:text-2xl sm:p-2";
+      case "medium-mini":
+        return "w-12 h-12 sm:w-15 sm:h-15 text-xl sm:text-2xl";
       case "normal":
         return "w-10 h-10 text-xl p-1";
       case "small":
@@ -141,7 +149,7 @@ export default function Coin({ bgColor, textColor, size = "medium", shape = "cir
 
   return (
     <div
-      className={`relative overflow-hidden inline-flex items-center justify-items-center text-white uppercase leading-none md:mr-0 mr-2 ${sizeClasses} ${shapeClasses} ${className}`}
+      className={`relative sm:overflow-hidden inline-flex items-center justify-items-center text-white uppercase leading-none md:mr-0 mr-2 ${sizeClasses} ${shapeClasses} ${className}`}
       style={{
         backgroundColor: bgColor || coin?.bgColor,
         color: textColor || coin?.textColor,
