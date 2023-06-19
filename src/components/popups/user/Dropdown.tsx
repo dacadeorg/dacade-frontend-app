@@ -100,9 +100,13 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
         ) : (
           <></>
         )}
-        <div className="p-4">
-          <ReputationList />
-        </div>
+        {reputations.length ? (
+          <div className="p-4">
+            <ReputationList />
+          </div>
+        ) : (
+          <></>
+        )}
         {showLanguageSwitcher && <LanguageList />}
         <div className="p-4 flex justify-center bg-indigo-50">
           <div className="z-10">
