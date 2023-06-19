@@ -116,7 +116,7 @@ export default function InteractiveModule({ data }: interactiveModuleProps): Rea
               <Hint className="mt-6">
                 <p>Since you are not logged in, your progress won&#8217;t be saved.</p>
                 <p>
-                  <Link href="/login">Login</Link>
+                  <Link className="underline" href="/login">Login</Link>&nbsp; 
                   to make sure your progress doesn&#8217;t get lost.
                 </p>
               </Hint>
