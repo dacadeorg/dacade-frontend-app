@@ -179,4 +179,4 @@ SignupWithInvite.getLayout = function (page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => i18Translate(locale as string);
+export const getServerSideProps: GetServerSideProps = async ({ locale }) =>  ({ props: { ...(await i18Translate(locale as string)) } });

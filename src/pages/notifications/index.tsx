@@ -68,4 +68,4 @@ export default function Notifications() {
 Notifications.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
-export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });
