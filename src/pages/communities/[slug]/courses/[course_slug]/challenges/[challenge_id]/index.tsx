@@ -120,9 +120,8 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
         challenge,
       },
     };
-  } else {
-    return {
-      notFound: true,
-    };
   }
+  return {
+    notFound: true,
+  };
 });
