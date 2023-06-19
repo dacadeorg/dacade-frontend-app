@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 import ArrowButton from "@/components/ui/button/Arrow";
 import Input from "@/components/ui/Input";
 import { getMetadataTitle } from "@/utilities/Metadata";
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
@@ -15,6 +15,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import EmailInput from "@/components/ui/EmailInput";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { FormValues } from "./signup";
+import Loader from "@/components/ui/Loader";
 
 /**
  * Login form values
@@ -44,7 +45,11 @@ export default function Login(): ReactElement {
   const router = useRouter();
   const emailValue = watch("email");
   const passwordValue = watch("password");
-  const isChecked = useSelector((state) => authCheck(state));
+  const { authUser, isFetchingUser, isChecked } = useSelector((state) => ({
+    authUser: state.user.data,
+    isFetchingUser: state.user.fetchingUserLoading,
+    isChecked: authCheck(state),
+  }));
 
   const onSubmit = async (form: FormValues) => {
     const loginData = {
@@ -63,6 +68,18 @@ export default function Login(): ReactElement {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!isFetchingUser || authUser) router.push("/");
+  }, [isFetchingUser, authUser]);
+
+  if (isFetchingUser || authUser) {
+    return (
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 h-full w-full -translate-y-1/2 z-999 flex items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <>
