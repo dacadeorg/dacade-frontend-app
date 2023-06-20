@@ -86,7 +86,7 @@ export default function ArrowButton({
     }
   }, [direction]);
 
-  const arrowClassNames = classNames(`${arrowClasses}`, {
+  const arrowClassNames = classNames(`w-4.5 h-3.5 ${arrowClasses}`, {
     "rounded-full": rounded,
   });
 
