@@ -10,6 +10,7 @@ import i18Translate from "@/utilities/I18Translate";
 import { GetStaticProps } from "next";
 import { useForm } from "react-hook-form";
 import { passwordResetRequest } from "@/store/feature/auth.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  * Password reset form values
@@ -32,16 +33,18 @@ export default function PasswordReset(): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const {
+    watch,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
-
-  const onPasswordResetRequest = async (form: FormValues) => {
+  const emailValue = watch("email");
+  const onPasswordResetRequest = async ({ email }: FormValues) => {
     setLoading(true);
     try {
-      await passwordResetRequest({ email: form.email });
+      await dispatch(passwordResetRequest({ email }));
       router.push("/login");
     } catch (error) {
     } finally {
@@ -61,12 +64,14 @@ export default function PasswordReset(): ReactElement {
             <label htmlFor="email" className="text-sm">
               {t("password-reset.description")}
             </label>
-
             <Input
-              placeholder={t("login-page.email.placeholder") as string}
-              label={t("login-page.email.label") as string}
+              id="email"
+              type="email"
+              value={emailValue}
               className="mb-5"
-              error={errors.email?.message}
+              placeholder={`${t("login-page.email.placeholder")}`}
+              label={`${t("login-page.email.label")}`}
+              error={errors?.email?.message}
               {...register("email", {
                 required: "This field is required",
                 pattern: {
