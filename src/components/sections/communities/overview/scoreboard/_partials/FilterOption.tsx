@@ -1,5 +1,6 @@
-import { HTMLProps, ReactElement } from "react";
+import { HTMLProps, ReactElement, useMemo, useState } from "react";
 import Radio from "@/components/ui/Radio";
+import classNames from "classnames";
 
 /**
  * Filter option props interface
@@ -29,15 +30,19 @@ interface FilterOptionProps extends HTMLProps<HTMLInputElement> {
  * @returns {ReactElement}
  */
 export default function FilterOption({ label = "", value = "", data = "", name = "", ...props }: FilterOptionProps): ReactElement {
-  const isChecked = () => {
-    return value === data;
-  };
+  const isChecked = useMemo(() => value.toString().toLowerCase() === data.toLowerCase(), [data, value]);
 
   return (
     <div className="mt-2 mb-2">
       <label className="inline-flex items-center">
-        <Radio {...props} id="radio btn" data={data} name={name} value={value} className="w-8" />
-        <span className={isChecked() ? "font-medium ml-4" : "font-normal ml-4"}>{label}</span>
+        <Radio {...props} name={name} data={data} value={value} className="w-8" />
+        <span
+          className={classNames("ml-4", {
+            "font-bold": isChecked,
+          })}
+        >
+          {label}
+        </span>
       </label>
     </div>
   );
