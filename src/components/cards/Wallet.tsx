@@ -45,7 +45,6 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
       toggleBodyScrolling(true)(dispatch);
       return;
     }
-    // TODO: replace with actual dispatch to open KYC verification modal
     setShowKycModal(true);
   };
 
