@@ -14,19 +14,11 @@ interface CardData {
 }
 
 /**
- * Props for the Learning component.
- */
-interface LearningProps {
-  title: string;
-}
-
-/**
  * Learning component.
  *
- * @param {LearningProps} props - The props for the Learning component.
  * @returns {JSX.Element} The Learning component JSX element.
  */
-export default function Learning({ title }: LearningProps): JSX.Element {
+export default function Learning(): JSX.Element {
   const learningCardData: CardData[] = [
     {
       id: 1,
