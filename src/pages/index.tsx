@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import HomeLayout from "@/layouts/Home";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import { wrapper } from "@/store";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Community } from "@/types/community";
@@ -35,13 +35,11 @@ Home.getLayout = function (page: ReactElement) {
 };
 
 export const getStaticProps: GetStaticProps = wrapper.getStaticProps((store: any) => async ({ locale }: any) => {
-  await i18Translate(locale as string);
   const result = await store.dispatch(fetchAllCommunities(locale));
-
   if (result.status !== "fulfilled")
     return {
       props: {
-        ...(await serverSideTranslations(locale as string)),
+        ...(await i18Translate(locale as string)),
         communities: [],
       },
     };
@@ -50,7 +48,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps((store: any
 
   return {
     props: {
-      ...(await serverSideTranslations(locale as string)),
+      ...(await i18Translate(locale as string)),
       communities,
     },
   };

@@ -67,4 +67,4 @@ ScoreboardList.getLayout = function (page: ReactNode) {
   return <HomeLayout>{page}</HomeLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => await i18Translate(locale as string);
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });

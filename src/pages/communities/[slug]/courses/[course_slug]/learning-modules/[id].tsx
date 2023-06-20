@@ -24,6 +24,7 @@ import { store } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchCourse } from "@/store/services/course.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import ChallengeOverviewCard from "@/components/cards/challenge/Overview";
 
 /**
  * Learning module page props interfae
@@ -82,6 +83,7 @@ export default function LearningModulePage(props: LearningModulePageProps) {
         <div className="py-8 flex flex-col divide-y space-y-8 text-gray-700">
           <Header />
           <div className="w-full divide-y divide-solid divide-gray-200">
+            <ChallengeOverviewCard />
             {materials.map((material, i) => (
               <MaterialSection key={`material-section-${i}`} material={material} />
             ))}

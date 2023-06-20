@@ -31,36 +31,32 @@ export default function Criteria(): ReactElement {
   const list = useMemo(() => challenge?.feedbackInfo, [challenge?.feedbackInfo]);
 
   return (
-    <div className={reviewed ? "bg-gray-50 border-gray-200" : "bg-yellow-50 border-yellow-200 py-5 border rounded-t relative"}>
+    <div className={`py-5 border rounded-t relative ${reviewed ? "bg-gray-50 border-gray-200" : "bg-yellow-50 border-yellow-200"}`}>
       {reward && (
-        <Coin
-          token={reward.token}
-          className="absolute sm:-ml-7 left-3 sm:left-0 top-6 sm:top-4 w-10 h-10 sm:w-15 sm:h-15"
-          bgColor={reviewed ? "#d2d2d2" : ""}
-          textColor={reviewed ? "#FFFFFF" : ""}
-        />
+        <div className="absolute sm:-ml-7 left-3 sm:left-0 top-6 sm:top-4">
+          <Coin token={reward.token} className="w-10 h-10 sm:w-15 sm:h-15" bgColor={reviewed ? "#d2d2d2" : ""} textColor={reviewed ? "#000000" : ""} />
+        </div>
       )}
       <div className={reviewed ? "text-gray-700" : "text-yellow-900"}>
         <div className="relative">
-          <div className={reviewed ? "divide-gray-200" : "divide-yellow-200 divide-y sm:divide-y-0 space-y-4"}>
+          <div className={`divide-y sm:divide-y-0 space-y-4 ${reviewed ? "divide-gray-200" : "divide-yellow-200 "}`}>
             <div className="sm:pl-10 pl-15">
               {reward && (
                 <div className="font-medium text-lg">
-                  {reward.amount}
-                  {reward.token}
+                  {reward.amount} {reward.token}
                 </div>
               )}
 
               <div className="text-sm md">
                 {t("feedback.bounty")}
 
-                {reviewed && <span className="font-medium">{t("feedback.issued")}</span>}
+                {reviewed && <span className="font-medium ml-0.5">{t("feedback.issued")}</span>}
                 {submission?.reviewable && <span className="font-medium">~ {deadline}</span>}
               </div>
             </div>
             <div
-              className={classNames({
-                "divide-yellow-200 divide-y space-y-4 flex-inline text-base font-medium sm:right-8 sm:top-3 sm:absolute pt-4 sm:pt-0": !reviewed,
+              className={classNames("divide-y space-y-4 flex-inline text-base font-medium sm:right-8 sm:top-3 sm:absolute pt-4 sm:pt-0", {
+                "divide-yellow-200": !reviewed,
                 "divide-gray-200": reviewed,
               })}
             >
@@ -89,13 +85,13 @@ export default function Criteria(): ReactElement {
               )}
             </div>
             {infoVisibility && (
-              <div className={reviewed ? "border-gray-200" : "border-yellow-200 divide-y space-y-4"}>
+              <div className={`divide-y space-y-4 ${reviewed ? "border-gray-200" : "border-yellow-200 "}`}>
                 {challenge?.feedbackInfo?.length ? (
                   challenge?.feedbackInfo.map((item, key: number) => {
                     return (
-                      <div key={`feedback-${key}`} className={reviewed ? "border-gray-200" : "border-yellow-200 pt-6 px-3.75 sm:px-10 pb-0 sm:border-t font-medium"}>
+                      <div key={`feedback-${key}`} className={`pt-6 px-3.75 sm:px-10 pb-0 sm:border-t font-medium ${reviewed ? "border-gray-200" : "border-yellow-200 "}`}>
                         <span className="relative block">{t(`feedback.criteria.${item.name}`)}</span>
-                        <div className={reviewed ? "text-gray-600" : "text-yellow-900 sm:-ml-6 px-5 sm:p-0"}>
+                        <div className={`sm:-ml-6 px-5 sm:p-0 ${reviewed ? "text-gray-600" : "text-yellow-900 "}`}>
                           <ObjectiveList iconcolor={reviewed ? "#9CA3AF" : "#F59E0B"} crossmark={!item.positive} objectives={item.criteria} />
                           {item.description && (
                             <div

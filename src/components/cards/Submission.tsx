@@ -4,9 +4,10 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { Submission } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
-import { Dispatch, ReactElement, ReactNode, SetStateAction } from "react";
+import { ReactElement, ReactNode, useCallback } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { showSubmission } from "@/store/feature/communities/challenges/submissions";
+import { useRouter } from "next/router";
 
 /**
  * Submission card interface props
@@ -29,22 +30,11 @@ interface SubmissionCardProps {
  * Submission card component
  * @return {ReactElement}
  */
-export default function SubmissionCard({
-  submission,
-  preview = false,
-  stats = false,
-  link = "",
-  buttons = false,
-  last = false,
-  timestamp = { text: "", date: "" },
-  children,
-}: SubmissionCardProps): ReactElement {
+export default function SubmissionCard({ submission, link = "", children }: SubmissionCardProps): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { colors, community } = useSelector((state) => ({
-    colors: state.ui.colors,
-    community: state.communities.current,
-  }));
+  const router = useRouter();
+  const { colors } = useSelector((state) => ({ colors: state.ui.colors }));
 
   const reviewed = submission?.metadata?.evaluation || submission?.metadata?.reviewed;
 
@@ -58,6 +48,10 @@ export default function SubmissionCard({
     "--button-background-color--hover": colors?.textAccent,
     "--button-border-color--hover": colors?.textAccent,
   };
+
+  const displaySubmission = useCallback(() => {
+    router.push({ query: { submission_id: submission?.id }, pathname: router.asPath }, undefined, { shallow: true });
+  }, [router, submission?.id]);
 
   return (
     <UserCard
@@ -89,7 +83,7 @@ export default function SubmissionCard({
             )}
             {submission.metadata && submission.metadata.evaluation ? (
               <div className="inline-flex flex-1 items-center space-x-1">
-                <Badge custom-style={badgeButtonStyles} size="medium" className="relative" value={submission.metadata.evaluation.points} />
+                <Badge customStyle={badgeButtonStyles} size="medium" className="relative" value={submission.metadata.evaluation.points} />
                 <span className="text-sm leading">{t("submissions.evaluation.points")}</span>
               </div>
             ) : (
@@ -97,8 +91,7 @@ export default function SubmissionCard({
             )}
             {submission.metadata && submission.metadata.feedbacks ? (
               <div className="mr-2 text-sm relative leading-snug text-gray-700 inline-block">
-                <span className="font-semibold">{submission.metadata.feedbacks}</span>
-                {t("submissions.feedback.feedbacks")}
+                <span className="font-semibold">{submission.metadata.feedbacks}</span> {t("submissions.feedback.feedbacks")}
               </div>
             ) : (
               <></>
@@ -114,6 +107,7 @@ export default function SubmissionCard({
               customStyle={arrowButtonStyles}
               arrowClasses=""
               onClick={() => {
+                displaySubmission();
                 dispatch(showSubmission(submission.id));
               }}
             />

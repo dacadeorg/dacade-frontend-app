@@ -16,18 +16,13 @@ export default function Disclaimer(): ReactElement {
 
   const { t } = useTranslation();
 
+  if (course && !course.disclaimer) return <></>;
   return (
-    <>
-      {course && course.disclaimer ? (
-        <Section>
-          <Hint>
-            <strong>{t("communities.overview.info.disclaimer.title")}:</strong>
-            <span dangerouslySetInnerHTML={{ __html: course.disclaimer }} />
-          </Hint>
-        </Section>
-      ) : (
-        <></>
-      )}
-    </>
+    <Section className="!pb-12 !pt-0">
+      <Hint>
+        <strong>{t("communities.overview.info.disclaimer.title")}: </strong>
+        <span dangerouslySetInnerHTML={{ __html: course?.disclaimer as string }} />
+      </Hint>
+    </Section>
   );
 }

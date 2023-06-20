@@ -15,6 +15,7 @@ import { PluggableList } from "react-markdown/lib/react-markdown";
  */
 interface MarkDownProps {
   value: string;
+  markDownStyles?: string;
 }
 
 /**
@@ -27,16 +28,16 @@ interface MarkDownProps {
 }
  * @returns {ReactElement}
  */
-export default function Markdown({ value }: MarkDownProps): ReactElement {
+export default function Markdown({ value, markDownStyles }: MarkDownProps): ReactElement {
   const colors = useSelector((state) => state.ui.colors);
   const themeStyles = {
     "--text-accent-color": colors?.textAccent,
   };
 
   return (
-    <div style={{ ...(themeStyles as CSSProperties) }} className="prose">
+    <div style={{ ...(themeStyles as CSSProperties) }} className={`prose ${markDownStyles}`}>
       <ReactMarkdown
-        className="markdown-value"
+        className="markdown-content"
         remarkPlugins={[remarkGfm, remarkParse] as PluggableList}
         components={{
           code: ({ inline, className, children, ...props }) => {

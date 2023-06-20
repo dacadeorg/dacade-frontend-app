@@ -31,7 +31,7 @@ export default function OverviewRewards({ reward }: OverviewRewardsProps): React
         </div>
         {reward && (
           <div className="text-right sm:text-left mt-3">
-            <RewardBadge reward={reward} type="gray" />
+            <RewardBadge reward={reward} displayAmount={false} type="gray" />
           </div>
         )}
       </div>
