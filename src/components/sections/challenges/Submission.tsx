@@ -148,9 +148,13 @@ export default function Submission(): ReactElement {
                       value: githubLinkValue,
                       required: "This field is required",
                       pattern: {
+                        /*
+                          This pattern validates a valid GitHub link URL.
+                          The URL should follow the format: https://github.com/username/repository.
+                        */
                         value: /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/,
-                        message: 'This value must be a valid Github URL',
-                      }
+                        message: "This value must be a valid Github repository URL",
+                      },
                     })}
                   />
                 </div>
