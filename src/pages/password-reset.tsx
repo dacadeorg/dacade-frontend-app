@@ -68,6 +68,7 @@ export default function PasswordReset(): ReactElement {
               id="email"
               type="email"
               value={emailValue}
+              className="mb-5"
               placeholder={`${t("login-page.email.placeholder")}`}
               label={`${t("login-page.email.label")}`}
               error={errors?.email?.message}
