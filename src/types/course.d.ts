@@ -113,6 +113,7 @@ export type Metadata = {
   issuerName: string;
   comment: string;
   linkToWork: string;
+  submission?: string;
 };
 
 export type Reward = {
