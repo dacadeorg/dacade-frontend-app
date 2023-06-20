@@ -41,10 +41,10 @@ export default function PasswordReset(): ReactElement {
     formState: { errors },
   } = useForm<FormValues>();
   const emailValue = watch("email");
-  const onPasswordResetRequest = async (form: FormValues) => {
+  const onPasswordResetRequest = async ({ email }: FormValues) => {
     setLoading(true);
     try {
-      await dispatch(passwordResetRequest({ email: form.email }));
+      await dispatch(passwordResetRequest({ email }));
       router.push("/login");
     } catch (error) {
     } finally {
@@ -64,7 +64,6 @@ export default function PasswordReset(): ReactElement {
             <label htmlFor="email" className="text-sm">
               {t("password-reset.description")}
             </label>
-
             <Input
               id="email"
               type="email"
