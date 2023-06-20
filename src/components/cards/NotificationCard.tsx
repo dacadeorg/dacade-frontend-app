@@ -82,7 +82,7 @@ export default function NotificationCard({ user = {}, notification, extended = f
     const { type } = notification;
 
     if (type === TYPES.SUBMISSION || type === TYPES.REFERRAL || type === TYPES.FEEDBACK) {
-      return `/${notification.metadata.submissions}`;
+      return `/${notification.metadata.submission}`;
     } else {
       return notification.link;
     }
@@ -90,7 +90,7 @@ export default function NotificationCard({ user = {}, notification, extended = f
 
   const notificationsLink = useMemo(() => {
     if (!link) return "";
-    return `/${router.locale}${link}`;
+    return `/${link}`;
   }, [link, router.locale]);
 
   const goToLink = () => {
