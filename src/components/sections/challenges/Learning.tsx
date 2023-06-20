@@ -4,17 +4,29 @@ import Section from "@/components/sections/communities/_partials/Section";
 import LearningCard from "@/components/cards/challenge/_partials/Learning";
 import RelatedLearningCard from "@/components/cards/challenge/_partials/RelatedLearning";
 
+/**
+ * Data structure for a card.
+ */
 interface CardData {
   id: number;
   title: string;
   description: string;
 }
 
+/**
+ * Props for the Learning component.
+ */
 interface LearningProps {
   title: string;
 }
 
-export default function Learning({ title }: LearningProps) {
+/**
+ * Learning component.
+ *
+ * @param {LearningProps} props - The props for the Learning component.
+ * @returns {JSX.Element} The Learning component JSX element.
+ */
+export default function Learning({ title }: LearningProps): JSX.Element {
   const learningCardData: CardData[] = [
     {
       id: 1,

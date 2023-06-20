@@ -2,12 +2,21 @@ import React from "react";
 import ArrowButton from "@/components/ui/button/Arrow";
 import Link from "next/link";
 
+/**
+ * Props for the Learning component.
+ */
 interface LearningProps {
   title: string;
   description: string;
 }
 
-export default function Learning({ title, description }: LearningProps) {
+/**
+ * Learning component.
+ *
+ * @param {LearningProps} props - The props for the Learning component.
+ * @returns {JSX.Element} The Learning component JSX element.
+ */
+export default function Learning({ title, description }: LearningProps): JSX.Element {
   const path = `/communities/`; // This is link is not the actual link; we will replace it after it's done in the backend
 
   return (
@@ -15,10 +24,10 @@ export default function Learning({ title, description }: LearningProps) {
       <div className="flex flex-col justify-between w-full sm:pb-0">
         <div className="flex flex-col">
           <div className="text-lg font-medium leading-normal text-gray-900">
-            {title} {/* Title */}
+            {title} 
           </div>
           <div className="text-sm font-normal text-gray-700 mt-3 max-w-xxs pb-6">
-            {description} {/* Description */}
+            {description} 
           </div>
         </div>
         <div className="">
