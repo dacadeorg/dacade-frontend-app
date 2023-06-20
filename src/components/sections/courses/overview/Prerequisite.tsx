@@ -16,26 +16,21 @@ export default function Prerequisite(): ReactElement {
   const { t } = useTranslation();
   const course = useSelector((state) => state.courses.current);
 
+  if (course && !course.prerequisite) return <></>;
   return (
-    <>
-      {course && course.prerequisite ? (
-        <Section title={t("communities.overview.info.prerequisite.title")} subtitle={t("communities.overview.info.prerequisite.subtitle")}>
-          <div className="mb-5">
-            <ObjectiveList objectives={course.prerequisite.items} />
-          </div>
-          {course.prerequisite.hint && (
-            <Hint>
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: course.prerequisite.hint,
-                }}
-              />
-            </Hint>
-          )}
-        </Section>
-      ) : (
-        <></>
+    <Section title={t("communities.overview.info.prerequisite.title")} subtitle={t("communities.overview.info.prerequisite.subtitle")}>
+      <div className="mb-5">
+        <ObjectiveList objectives={course?.prerequisite.items} />
+      </div>
+      {course?.prerequisite.hint && (
+        <Hint>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: course.prerequisite.hint,
+            }}
+          />
+        </Hint>
       )}
-    </>
+    </Section>
   );
 }

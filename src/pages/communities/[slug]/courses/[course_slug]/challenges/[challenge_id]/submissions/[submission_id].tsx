@@ -19,10 +19,7 @@ export default function SubmissionPage() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { t } = useTranslation();
-  const { course, submission } = useSelector((state) => ({
-    course: state.courses.current,
-    submission: state.submissions.current,
-  }));
+  const { course } = useSelector((state) => ({ course: state.courses.current }));
 
   const { slug, course_slug, submission_id } = router.query;
 
@@ -37,12 +34,10 @@ export default function SubmissionPage() {
     dispatch(findSubmssionById({ id: submission_id as string }));
   }, [dispatch, slug, course_slug, submission_id, router.locale]);
 
-  const title = getMetadataTitle(t("communities.submission.title"), course?.name as string);
-
   return (
     <Wrapper>
-      <div className="flex flex-col py-4 space-y-8 text-gray-700">
-        <Header title={title} subtitle={t("communities.submission.title")} />
+      <div className="flex flex-col py-4 space-y-8">
+        <Header title={course?.name} subtitle={t("communities.submission.title")} />
         <SubmissionView />
       </div>
     </Wrapper>

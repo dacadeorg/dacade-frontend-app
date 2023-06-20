@@ -71,12 +71,8 @@ export default function UserReferrals(): ReactElement {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale as string)),
-  },
-});
-
 UserReferrals.getLayout = function (page: ReactElement) {
   return <ProfileLayout>{page}</ProfileLayout>;
 };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });

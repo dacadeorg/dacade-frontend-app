@@ -47,6 +47,7 @@ export default function List(): ReactElement {
       setLoading(false);
     }
   };
+
   return (
     <>
       {submissions && submissions.length ? (
@@ -69,9 +70,7 @@ export default function List(): ReactElement {
           </div>
         </div>
       ) : (
-        <div className="lg:w-2/3">
-          {!loading && <EmptyState title={t("submissions.empty-state.title")} subtitle={t("submissions.empty-state.subtitle")} />}
-        </div>
+        <div className="lg:w-2/3">{!loading && <EmptyState title={t("submissions.empty-state.title")} subtitle={t("submissions.empty-state.subtitle")} />}</div>
       )}
     </>
   );

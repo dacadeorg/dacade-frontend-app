@@ -14,13 +14,12 @@ import { useSelector } from "@/hooks/useTypedSelector";
 export default function View(): ReactElement {
   const submission = useSelector((state) => state.submissions.current);
 
-  return submission ? (
+  if (!submission) return <></>;
+  return (
     <>
       <SubmissionViewCard submission={submission} />
-      {submission.evaluation && <Evaluation />}
+      {submission?.evaluation && <Evaluation />}
       <Feedback />
     </>
-  ) : (
-    <></>
   );
 }

@@ -59,7 +59,7 @@ export default function InteractiveModuleWrapper({
           }}
         >
           {duration}
-        </span>
+        </span>{" "}
         Interactive lessons
       </p>
       <Progress percentage={percentage} communityStyles />

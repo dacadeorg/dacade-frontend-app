@@ -18,4 +18,4 @@ export default function Page404(): ReactElement {
 Page404.getLayout = function (page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
-export const getStaticProps: GetStaticProps = async ({ locale }) => i18Translate(locale as string);
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });
