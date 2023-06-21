@@ -32,7 +32,7 @@ export default function Referral({ referral }: ReferralProps): ReactElement {
     <div className="text-sm text-gray-700 bg-gray-50 md:mb-0">
       <div className="flex p-7">
         <div className="">
-          <Avatar size="large" user={referral.user} />
+          <Avatar size="large" user={referral.user} hideVerificationBadge />
         </div>
         <div className="ml-5">
           <span className="pb-1 text-lg font-medium leading-loose text-gray-900">{referral.user?.displayName}</span>
