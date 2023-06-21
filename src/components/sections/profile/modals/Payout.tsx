@@ -19,7 +19,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 interface PayoutProps {
   show: boolean;
   wallet: Wallet;
-  onClose: (event: any) => void;
+  onClose: () => void;
 }
 
 /**
@@ -38,11 +38,11 @@ export default function Payout({ show, wallet, onClose }: PayoutProps): ReactEle
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const save = () => {
+  const save = async () => {
     setLoading(true);
-    dispatch(createPayout({ wallet_id: wallet.id }));
+    await dispatch(createPayout({ wallet_id: wallet.id }));
     setLoading(false);
-    onClose(true);
+    onClose();
   };
 
   const { t } = useTranslation();
@@ -72,7 +72,7 @@ export default function Payout({ show, wallet, onClose }: PayoutProps): ReactEle
         </div>
       </div>
       <div className="flex items-center justify-between pb-2 pl-6 pr-2">
-        <span className="text-sm font-medium cursor-pointer text-primary" onClick={() => onClose(true)}>
+        <span className="text-sm font-medium cursor-pointer text-primary" onClick={onClose}>
           {t("profile.edit.close")}
         </span>
         <ArrowButton loading={loading} disabled={loading} variant="outline-primary" onClick={save}>

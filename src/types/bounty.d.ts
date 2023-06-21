@@ -146,6 +146,7 @@ export interface User {
   discord?: {
     connected?: boolean;
   };
+  kycStatus: string;
   referrals: Referral;
 }
 
