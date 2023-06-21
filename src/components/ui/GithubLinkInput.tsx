@@ -90,7 +90,6 @@ export default forwardRef<HTMLInputElement, GithubLinkInputProps>(function Githu
       <div className="relative flex-1 pl-2 pr-10.75">
         <label className={labelClassName}>{label}</label>
         <input
-          {...props}
           ref={ref}
           className={inputClassName}
           type={type}
@@ -101,6 +100,7 @@ export default forwardRef<HTMLInputElement, GithubLinkInputProps>(function Githu
           onBlurCapture={() => setIsFocused(false)}
           onInput={handleInput}
           autoComplete="off"
+          {...props}
         />
         {error && (
           <div className="absolute -bottom-7 help text-sm text-red-900">
