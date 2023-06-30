@@ -1,7 +1,6 @@
 import { useSelector } from "@/hooks/useTypedSelector";
 import ScoreboardCard from "@/components/cards/Scoreboard";
 import ArrowButton from "@/components/ui/button/Arrow";
-import ScoreboardFilter from "./Filter";
 import { useTranslation } from "next-i18next";
 import { ReactElement, useState } from "react";
 

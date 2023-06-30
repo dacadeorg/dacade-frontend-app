@@ -1,12 +1,13 @@
-import React from "react";
+import { ReactNode } from "react";
 import MainHeaderSection from '@/components/sections/communities/overview/MainHeader'
 import CommunitySidebar from '@/components/sections/communities/overview/Sidebar'
 import Section from '@/components/ui/Section'
 interface WrapperProps {
   // Define your component props here
+  children: ReactNode;
 }
 
-const Wrapper: React.FC<WrapperProps> = ({}) => {
+const Wrapper: React.FC<WrapperProps> = ({children}) => {
   // Implement your component logic here
 
   return (
@@ -16,10 +17,10 @@ const Wrapper: React.FC<WrapperProps> = ({}) => {
       <div className="w-full md:flex gap-36 mx-auto mt-14">
         <div className="md:w-4/12">
           <CommunitySidebar />
-          <slot name="sidebar" />
+          <div>{children}</div>
         </div>
         <div className="md:w-2/3">
-          <slot />
+        <div>{children}</div>
         </div>
       </div>
     </Section>
