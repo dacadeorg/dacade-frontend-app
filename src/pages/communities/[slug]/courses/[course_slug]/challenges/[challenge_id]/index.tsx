@@ -26,6 +26,7 @@ import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import RatingRubric from "@/components/sections/challenges/Rubric";
 import Learning from "@/components/sections/challenges/Learning";
+import TeamChallenge from "@/components/sections/challenges/TeamChallenge";
 
 /**
  * Challenge view page 
@@ -75,6 +76,7 @@ export default function ChallengePage(props: {
         <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
           <Header />
           <Rewards />
+          <TeamChallenge/>
           <Learning />
           <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
           <BestSubmissions />
