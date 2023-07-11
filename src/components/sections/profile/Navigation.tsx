@@ -63,6 +63,10 @@ export default function ProfileNagivation(): ReactElement {
         {
           label: t("navigation.profile.referrals"),
           link: "/profile/referrals",
+        },
+        {
+          label: t("navigation.profile.settings"),
+          link: "/profile/settings",
         }
       );
     } else {
