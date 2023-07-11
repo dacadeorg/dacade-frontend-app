@@ -45,10 +45,7 @@ export default function ScoreboardList(props: {
           <meta key={`scoreboard-meta-${i}`} {...attributes} />
         ))}
       </Head>
-      <CommunityWrapper>
-        <div>
-          <ScoreboardFilter />
-        </div>
+      <CommunityWrapper filter={<ScoreboardFilter />}>
         <Scoreboard />
       </CommunityWrapper>
     </div>
