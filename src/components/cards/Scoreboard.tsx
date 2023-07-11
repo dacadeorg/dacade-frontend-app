@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
-import Avatar from '@/components/ui/Avatar';
-import Badge from '@/components/ui/Badge';
-import Currency from '@/components/ui/Currency';
+import Avatar from "@/components/ui/Avatar";
+import Badge from "@/components/ui/Badge";
+import Currency from "@/components/ui/Currency";
 
 interface ScoreboardCardProps {
   value: {
@@ -32,25 +32,19 @@ const ScoreboardCard: React.FC<ScoreboardCardProps> = ({ value, index }) => {
           <div className="whitespace-nowrap text-base sm:pr-4 pr-3">
             <span className="font-normal text-xs">
               {value.feedbacks}
-              <span className="font-normal text-xs">
-                {value.feedbacks === 1 ? 'Submission' : 'Submissions'}
-              </span>
+              <span className="font-normal text-xs">{value.feedbacks === 1 ? "Submission" : "Submissions"}</span>
             </span>
           </div>
           <div className="whitespace-nowrap text-base sm:px-4 px-3">
             <span className="font-normal text-xs">
               {value.score}
-              <span className="font-normal text-xs">
-                {value.score === 1 ? 'Total Point' : 'Total Points'}
-              </span>
+              <span className="font-normal text-xs">{value.score === 1 ? "Total Point" : "Total Points"}</span>
             </span>
           </div>
           <div className="whitespace-nowrap text-base sm:px-4 px-3">
             <span className="font-normal text-xs">
               {value.feedbacks}
-              <span className="font-normal text-xs">
-                {value.feedbacks === 1 ? 'Feedback' : 'Feedbacks'}
-              </span>
+              <span className="font-normal text-xs">{value.feedbacks === 1 ? "Feedback" : "Feedbacks"}</span>
             </span>
           </div>
         </div>
@@ -58,14 +52,14 @@ const ScoreboardCard: React.FC<ScoreboardCardProps> = ({ value, index }) => {
 
       <div className="relative float-right md:float-left sm:flex-none pt-1 sm:p-0">
         <div className="relative sm:inset-0">
-          <Avatar user={value.user} size="large" hide-verification-badge />
+          <Avatar user={value.user} size="large" hideVerificationBadge />
           <Badge
             className="absolute left-9 top-10 w-6 h-6 bg-theme-accent text-white"
             value={index}
             customStyle={{
-              bottom: '-1px',
-              right: '-3px',
-              color: '#fff',
+              bottom: "-1px",
+              right: "-3px",
+              color: "#fff",
               backgroundColor: colors.textAccent,
             }}
           />

@@ -1,18 +1,20 @@
-import { ReactElement, ReactNode, useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import CommunityWrapper from "@/components/sections/communities/overview/Wrapper";
 import Scoreboard from "@/components/sections/communities/overview/scoreboard";
 import ScoreboardFilter from "@/components/sections/communities/overview/scoreboard/Filter";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
-import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { useRouter } from "next/router";
-import { fetchAllScoreboards } from "@/store/feature/communities/scoreboard.slice";
+import { fetchAllScoreboards, setScoreboardList } from "@/store/feature/communities/scoreboard.slice";
 import { useTranslation } from "next-i18next";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
-import HomeLayout from "@/layouts/Home";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { store } from "@/store";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
+import { Scoreboard as ScoreboardType } from "@/types/scoreboard";
+import { Community } from "@/types/community";
+import { CommunityLayout } from "@/layouts/Community";
 
 /**
  * Scoreboard list page
@@ -20,33 +22,23 @@ import { fetchCurrentCommunity } from "@/store/services/community.service";
  *
  * @returns {ReactElement}
  */
-export default function ScoreboardList(): ReactElement {
+export default function ScoreboardList(props: {
+  pageProps: {
+    community: Community;
+    scoreboards: ScoreboardType[];
+  };
+}): ReactElement {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const router = useRouter();
-  const params = router.query;
-  const { community, list } = useSelector((state) => ({
-    community: state.communities.current,
-    list: state.scoreboard.list,
-  }));
+  const { community, scoreboards } = props.pageProps;
 
   useEffect(() => {
-    dispatch(
-      fetchCurrentCommunity({
-        slug: params.slug as string,
-        locale: router.locale as string,
-      })
-    );
-    dispatch(
-      fetchAllScoreboards({
-        slug: params.slug as string,
-        locale: router.locale as string,
-      })
-    );
-  }, [dispatch, params.slug, router.locale]);
+    dispatch(setCurrentCommunity(community));
+    dispatch(setScoreboardList(scoreboards));
+  }, [community, dispatch, scoreboards]);
 
   return (
-    <>
+    <div>
       <Head>
         <title>{getMetadataTitle(t("communities.navigation.scoreboard"), community?.name as string)}</title>
         {getMetadataDescription(community?.description as string).map((attributes, i) => (
@@ -54,17 +46,26 @@ export default function ScoreboardList(): ReactElement {
         ))}
       </Head>
       <CommunityWrapper>
-        <div >
+        <div>
           <ScoreboardFilter />
         </div>
         <Scoreboard />
       </CommunityWrapper>
-    </>
+    </div>
   );
 }
 
-ScoreboardList.getLayout = function (page: ReactNode) {
-  return <HomeLayout>{page}</HomeLayout>;
+ScoreboardList.getLayout = function (page: ReactElement) {
+  return <CommunityLayout>{page}</CommunityLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });
+export const getServerSideProps: GetServerSideProps = async ({ locale, params }) => {
+  const slug = params?.slug as string;
+
+  const [{ data: community }, { payload: scoreboards }] = await Promise.all([
+    store.dispatch(fetchCurrentCommunity({ slug, locale })),
+    store.dispatch(fetchAllScoreboards({ slug, locale: locale || "en" })),
+  ]);
+
+  return { props: { community, scoreboards, ...(await i18Translate(locale as string)) } };
+};
