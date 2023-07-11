@@ -34,7 +34,7 @@ const Sidebar: React.FC<SidebarProps> = ({}) => {
       {currentCommunity && (
         <Link
           href={scoreboardLink}
-          className={isActive(scoreboardLink) ? "" : "opacity-80"}
+          className={isActive(scoreboardLink) ? "" : "opacity-80 md:block hidden scroll-smooth pt-5"}
         >
           <div className="font-medium text-.5xl leading-snug">Scoreboard</div>
           <div className="text-sm font-light lg:w-full lg:pr-7 pt-2">
