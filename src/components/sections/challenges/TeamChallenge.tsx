@@ -58,3 +58,4 @@ export default function TeamChallenge(): JSX.Element {
     </Section>
   );
 }
+

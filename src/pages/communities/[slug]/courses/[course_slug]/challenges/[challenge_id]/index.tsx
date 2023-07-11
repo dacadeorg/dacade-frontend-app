@@ -27,6 +27,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import RatingRubric from "@/components/sections/challenges/Rubric";
 import Learning from "@/components/sections/challenges/Learning";
 import TeamChallenge from "@/components/sections/challenges/TeamChallenge";
+import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChallenge";
 
 /**
  * Challenge view page 
@@ -80,6 +81,7 @@ export default function ChallengePage(props: {
           <Learning />
           <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
           <BestSubmissions />
+
           {isAuthenticated && (
             <div>
               {submission ? (
@@ -88,7 +90,8 @@ export default function ChallengePage(props: {
                   <SubmissionCard submission={submission} />
                 </div>
               ) : (
-                <SubmissionForm />
+                <SetupTeamChallenge/>
+                // <SubmissionForm />
               )}
             </div>
           )}
