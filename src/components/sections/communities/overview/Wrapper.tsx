@@ -2,14 +2,24 @@ import { ReactNode } from "react";
 import MainHeaderSection from "@/components/sections/communities/overview/MainHeader";
 import CommunitySidebar from "@/components/sections/communities/overview/Sidebar";
 import Section from "@/components/ui/Section";
+
+/**
+ * @interface WrapperProps - Wrapper component properties
+ * @property {ReactNode} children - The content to be displayed in the Wrapper component.
+ * @property {ReactNode} [filter] - Optional filter component to be displayed in the Wrapper component.
+ */
 interface WrapperProps {
   children: ReactNode;
   filter?: ReactNode;
 }
 
-const Wrapper: React.FC<WrapperProps> = ({ children, filter }) => {
-  // Implement your component logic here
-
+/**
+ * Wrapper component to provide a layout for children and filter props.
+ * @param {WrapperProps} props - The properties to configure the Wrapper component.
+ * @returns {JSX.Element} A styled Wrapper component containing a MainHeaderSection, CommunitySidebar, 
+ * optional filter component, and children content.
+ */
+export default function Wrapper({ children, filter }: WrapperProps): JSX.Element {
   return (
     <div className="relative">
       <MainHeaderSection />
@@ -25,5 +35,3 @@ const Wrapper: React.FC<WrapperProps> = ({ children, filter }) => {
     </div>
   );
 };
-
-export default Wrapper;

@@ -1,9 +1,11 @@
-import React from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import Avatar from "@/components/ui/Avatar";
 import Badge from "@/components/ui/Badge";
 import Currency from "@/components/ui/Currency";
 
+/**
+ * Props for the ScoreboardCard component.
+ */
 interface ScoreboardCardProps {
   value: {
     user: {
@@ -15,7 +17,13 @@ interface ScoreboardCardProps {
   index: number;
 }
 
-const ScoreboardCard: React.FC<ScoreboardCardProps> = ({ value, index }) => {
+/**
+ * ScoreboardCard component.
+ *
+ * @param {ScoreboardCardProps} props - The component props.
+ * @returns {JSX.Element} The rendered component.
+ */
+export default function ScoreboardCard({ value, index }: ScoreboardCardProps): JSX.Element {
   const colors = useSelector((state) => state.ui.colors);
   const community = useSelector((state) => state.communities.current);
 
@@ -67,6 +75,4 @@ const ScoreboardCard: React.FC<ScoreboardCardProps> = ({ value, index }) => {
       </div>
     </div>
   );
-};
-
-export default ScoreboardCard;
+}

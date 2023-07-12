@@ -1,8 +1,13 @@
-import React from "react";
 import Coin from "@/components/ui/Coin";
 import ArrowButton from "@/components/ui/button/Arrow";
+import Link from "next/link";
 
-const ChallengeCard = ({}) => {
+/**
+ * ChallengeCard component.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
+const ChallengeCard = () => {
   const link = "/communities/";
 
   return (
@@ -50,11 +55,11 @@ const ChallengeCard = ({}) => {
               <span className="font-medium">March 12th, 2022</span>
             </div>
 
-            <a href={link}>
+            <Link href={link}>
               <ArrowButton communityStyles={true} variant="outline-primary">
                 See the challenge
               </ArrowButton>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
