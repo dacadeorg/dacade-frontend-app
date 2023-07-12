@@ -2,12 +2,16 @@ import Coin from "@/components/ui/Coin";
 import ArrowButton from "@/components/ui/button/Arrow";
 import Link from "next/link";
 
+
 /**
- * ChallengeCard component.
+ * `ChallengeCard` is a function component that renders a card
+ * detailing a blockchain development challenge. The card includes
+ * information about the challenge, such as its title, description,
+ * reward, deadline, and related content.
  *
- * @returns {JSX.Element} The rendered component.
+ * @returns {JSX.Element} The rendered ChallengeCard component.
  */
-const ChallengeCard = () => {
+export default function ChallengeCard () {
   const link = "/communities/";
 
   return (
@@ -79,4 +83,3 @@ const ChallengeCard = () => {
   );
 };
 
-export default ChallengeCard;

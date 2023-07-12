@@ -1,16 +1,28 @@
-import React from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 
-interface SidebarProps {}
+/**
+ * @interface SidebarProps
+ * @description The props for the Sidebar component.
+ */
 
-const Sidebar: React.FC<SidebarProps> = ({}) => {
+/**
+ * The Sidebar component for the application.
+ * @param {} SidebarProps - The props for the Sidebar component.
+ * @returns JSX.Element - The rendered Sidebar component.
+ */
+export default function Sidebar(): JSX.Element {
   const currentCommunity = useSelector((state) => state.communities.current);
   const hasCurrentCommunity = !!currentCommunity; // Check if currentCommunity exists
   const router = useRouter();
 
-  const isActive = (link: string): boolean => {
+  /**
+   * Checks if the given link is the active (current) route.
+   * @param link - The link to check.
+   * @returns boolean - True if the link is the active route, false otherwise.
+   */
+  const isActive = (link: string) => {
     return router.asPath === link;
   };
 
@@ -43,6 +55,4 @@ const Sidebar: React.FC<SidebarProps> = ({}) => {
       )}
     </div>
   );
-};
-
-export default Sidebar;
+}
