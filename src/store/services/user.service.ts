@@ -14,6 +14,11 @@ interface User {
   lastName: string;
 }
 
+interface Email {
+  email: string;
+  emailComfirm: string;
+}
+
 /**
  * User API service
  * @date 4/17/2023 - 7:31:21 PM
@@ -29,6 +34,22 @@ const userService = createApi({
      * @method GET
      */
     getUser: builder.query({
+      query: () => "users/current",
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        dispatch(fetchingUserLoading(true));
+        const { data } = await queryFulfilled;
+        const token = await getUserToken();
+        if (!token) dispatch(clearUserState());
+        else {
+          dispatch(setUserToken(token));
+          dispatch(setUserdata(data));
+        }
+        dispatch(fetchingUserLoading(false));
+        return data;
+      },
+    }),
+
+    getEmail: builder.query({
       query: () => "users/current",
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         dispatch(fetchingUserLoading(true));
@@ -60,6 +81,17 @@ const userService = createApi({
         dispatch(userService.endpoints.getUser.initiate("sp"));
       },
     }),
+    updateUserEmail: builder.mutation<any, Email>({
+      query: (payload: Email) => ({
+        url: "users/update",
+        method: "PATCH",
+        body: payload,
+      }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        await queryFulfilled;
+        dispatch(userService.endpoints.getEmail.initiate("sp"));
+      },
+    }),
   }),
 });
 
@@ -76,5 +108,13 @@ export const fetchUser = () => userService.endpoints.getUser.initiate("en");
  * @returns
  */
 export const updateUser = async (user: { firstName: string; lastName: string }) => await userService.endpoints.updateUser.initiate(user);
+
+
+/**
+ * Update user email function
+ * @param user
+ * @returns
+ */
+export const updateUserEmail = async (email: { email: string; emailConfirm: string }) => await userService.endpoints.updateUser.initiate(email);
 
 export default userService;
