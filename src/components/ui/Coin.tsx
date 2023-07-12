@@ -149,7 +149,7 @@ export default function Coin({ bgColor, textColor, size = "medium", shape = "cir
 
   return (
     <div
-      className={`relative sm:overflow-hidden inline-flex items-center justify-items-center text-white uppercase leading-none md:mr-0 mr-2 ${sizeClasses} ${shapeClasses} ${className}`}
+      className={`relative inline-flex items-center justify-items-center text-white uppercase leading-none md:mr-0 mr-2 ${sizeClasses} ${shapeClasses} ${className}`}
       style={{
         backgroundColor: bgColor || coin?.bgColor,
         color: textColor || coin?.textColor,
