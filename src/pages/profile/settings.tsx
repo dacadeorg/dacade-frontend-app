@@ -7,7 +7,7 @@ import Button from "@/components/ui/button";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import i18Translate from "@/utilities/I18Translate";
 import ProfileSettingsInformation from '@/components/sections/profile/settings/Overview'
-import ProfileSettingsLinking from '@/components/sections/profile/settings/linking'
+import ProfileSettingsLinking from '@/components/sections/profile/settings/Linking'
 import { useRouter } from "next/router";
 
 /**
@@ -53,16 +53,13 @@ const confirm = async () => {
 
     <ProfileSettingsLinking />
 
-    <div className="w-full flex justify-start mx-auto text-base">
+    <div className="w-full pt-4 flex justify-center mx-auto text-base">
         <Button disabled={loading} variant="outline-primary" onClick={confirm}>
         {/* class="hover:bg-red-700 hover:text-white bg-transparent border text-red-700 border-red-700 flex text-base mt-4" */}
 
         {t("profile.header.disconnect")}
       </Button>
     </div>
-
-
-
     </div>
   );
 }

@@ -1,17 +1,7 @@
 import { ReactElement, useState } from "react";
 import { useTranslation } from "next-i18next";
-// import user from "@/components/popups/user";
-import Popup from "@/components/ui/Popup";
-import Header from "../../../../components/popups/profile-settings/_partials/Header";
-import Section from "../../../../components/ui/Section";
 import ProfileSettingsSection from '@/components/sections/profile/overview/Section'
-import { User } from "@/types/bounty";
 import { useSelector } from "@/hooks/useTypedSelector";
-import Modal from "@/components/ui/Modal";
-import Input from "@/components/ui/Input";
-import { useForm } from "react-hook-form";
-import ArrowButton from "@/components/ui/button/Arrow";
-import { updateUser } from "@/store/services/user.service";
 import NamesForm from "@/components/popups/profile-settings/NamesForm";
 import EmailForm from "@/components/popups/profile-settings/EmailForm";
 
