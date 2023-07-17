@@ -65,7 +65,9 @@ export const getServerSideProps = async (data: { locale: string; query: any }) =
 
   if (!query?.code) {
     return {
-      redirect: "/403",
+      redirect: {
+        destination: "/403",
+      },
     };
   }
 
