@@ -6,6 +6,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useMemo } from "react";
 import { useRouter } from "next/router";
 import { useDiscordConnect } from "@/hooks/useDiscordConnect"
+import DiscordConnect from "@/components/popups/DiscordConnect";
 
 
 const { NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL, NEXT_PUBLIC_DISCORD_CLIENT_ID, NEXT_PUBLIC_DISCORD_SCOPE, NEXT_PUBLIC_DISCORD_CALLBACK_URL } = process.env;
@@ -30,8 +31,10 @@ export default function ProfileLinking(): ReactElement {
           {!canConnectDiscord ?   
           <button className="bg-transparent hover:bg-transparent flex justify-end text-gray-400 text-xs" >{t('profile.settings.edit.discord.connected')}</button> : 
           <button className="bg-transparent hover:bg-transparent flex justify-end text-gray-400 text-xs" onClick={triggerDiscordOauth}>{t('profile.settings.edit.discord.connect')}</button>}
+          
         </div>
-       
+        <DiscordConnect/>
+        hello
          
       </div>
       </ProfileSettingsSection>
