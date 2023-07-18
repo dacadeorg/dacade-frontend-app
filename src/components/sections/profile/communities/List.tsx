@@ -19,7 +19,7 @@ export default function SubmissionList(): ReactElement {
 
   return (
     <div>
-      {submissions && submissions.length ? (
+      {submissions && submissions.length !== 0 ? (
         <div className="py-10">
           <p className="font-medium text-xs text-gray-600 uppercase">{t("communities.submissions")}</p>
           <div className="my-5 sm:border sm:border-gray-200 sm:border-solid rounded-3.5xl relative">
@@ -39,9 +39,9 @@ export default function SubmissionList(): ReactElement {
       ) : (
         <></>
       )}
-      {feedbacks && feedbacks.length && (
+      {feedbacks && feedbacks.length !== 0 && (
         <div className="py-10">
-          <p className="font-medium text-xs text-gray-600">{community?.challenge?.feedbacks.cap}</p>
+          <p className="font-medium text-xs text-gray-600">{t("communities.challenge.feedbacks.cap")}</p>
           <div className="my-5 sm:border sm:border-gray-200 sm:border-solid rounded-3.5xl relative">
             <div className="flex flex-col divide-y">
               {feedbacks.map((feedback) => (

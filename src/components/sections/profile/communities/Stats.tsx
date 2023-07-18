@@ -42,12 +42,11 @@ export default function CommunityStats(): ReactElement {
       </div>
       <div className="p-7 md:text-right justify-self-stretch space-y-2">
         <div className="whitespace-nowrap">
-          <span className="font-bold">{feedbacks.length}</span>
-          {t("feedbacks")}
+          <span className="font-bold">{feedbacks.length}</span> {t("feedbacks")}
         </div>
         <div className="whitespace-nowrap">
-          <span className="font-bold">{submissions.length}</span>
-          {t("communities.challenge.submission")}
+          <span className="font-bold">{submissions.length}</span>{" "}
+          {`${submissions.length > 1 ? t("communities.challenge.submission") + "s" : t("communities.challenge.submission")}`}
         </div>
       </div>
     </div>

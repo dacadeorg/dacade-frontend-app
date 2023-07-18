@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e805804-d753-41a0-b312-a52692786d45" name="Changes" comment="" />
+    <list default="true" id="60b09a68-db1b-4dba-81a1-a9884e7405d6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dacade-frontend-app.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cards/Feedback.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/Feedback.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sections/profile/communities/List.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/profile/communities/List.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sections/profile/communities/Stats.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/profile/communities/Stats.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,10 +25,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2ShVIuc7IpadIXbiD9L5xa3xLtr" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2Sjk93XvCN2pn059lkv3M4CLNnz" />
   <component name="ProjectViewState">
     <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -27,69 +33,39 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "dev",
-    "last_opened_file_path": "/home/z001/Projects/ApeUnit/dacade-frontend-app",
+    "git-widget-placeholder": "fix/profile-submissions",
+    "last_opened_file_path": "/home/z001/Projects/ApeUnit/as-custom-chatgpt-frontend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "/home/z001/.nvm/versions/node/v17.9.1/bin/node",
+    "nodejs_interpreter_path": "/home/z001/.nvm/versions/node/v18.16.0/bin/node",
     "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "/home/z001/.nvm/versions/node/v17.9.1/lib/node_modules/prettier",
-    "settings.editor.selected.configurable": "project.scopes",
-    "ts.external.directory.path": "/snap/intellij-idea-ultimate/442/plugins/javascript-impl/jsLanguageServicesImpl/external",
+    "prettierjs.PrettierConfiguration.Package": "/home/z001/Projects/ApeUnit/dacade-frontend-app/node_modules/prettier",
+    "settings.editor.selected.configurable": "settings.javascript.prettier",
+    "ts.external.directory.path": "/home/z001/Projects/ApeUnit/dacade-frontend-app/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunAnythingCache">
-    <option name="myCommands">
-      <command value="src/components/cards/community/List.tsx" />
-    </option>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="dacade-frontend-app" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="dacade-frontend-app" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="8e805804-d753-41a0-b312-a52692786d45" name="Changes" comment="" />
-      <created>1689598722273</created>
+      <changelist id="60b09a68-db1b-4dba-81a1-a9884e7405d6" name="Changes" comment="" />
+      <created>1689667225849</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1689598722273</updated>
-      <workItem from="1689598723448" duration="6617000" />
-      <workItem from="1689606281481" duration="1398000" />
-      <workItem from="1689614272201" duration="2863000" />
-      <workItem from="1689617173022" duration="17000" />
-      <workItem from="1689617205894" duration="175000" />
-      <workItem from="1689617412396" duration="15000" />
-      <workItem from="1689617452980" duration="11000" />
-      <workItem from="1689617532384" duration="17000" />
-      <workItem from="1689617571607" duration="76000" />
+      <updated>1689667225849</updated>
+      <workItem from="1689667233692" duration="5729000" />
+      <workItem from="1689676869588" duration="1718000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
