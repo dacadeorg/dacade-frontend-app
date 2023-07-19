@@ -10,7 +10,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
  * @export
  * @returns {ReactElement}
  */
-export default function CommunityNavigation({ paths }: { paths: string[] }): ReactElement {
+export default function CommunityNavigation({ paths }: { paths?: string[] }): ReactElement {
   const { community, course } = useSelector((state) => ({
     community: state.communities?.current,
     course: state.courses?.current,

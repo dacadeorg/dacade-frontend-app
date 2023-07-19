@@ -13,7 +13,7 @@ import { ReactElement, ReactNode } from "react";
  */
 interface WrapperProps {
   children: ReactNode;
-  paths: string[];
+  paths?: string[];
 }
 
 /**
