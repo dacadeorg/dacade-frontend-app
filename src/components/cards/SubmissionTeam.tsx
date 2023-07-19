@@ -1,5 +1,6 @@
 import React from "react";
 import Avatar from "@/components/ui/Avatar";
+import TextInput from "@/components/ui/TextInput";
 import CloseIcon from "@/icons/close-top-right.svg";
 
 /**
@@ -12,6 +13,7 @@ interface SubmissionTeamCardProps {
   user: User;
   username?: string;
   status?: string;
+  inputText: string;
 }
 interface User {
   username?: string;
@@ -26,6 +28,7 @@ interface User {
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "", user = {}, username, status = "" }: SubmissionTeamCardProps): JSX.Element {
   const path = `/communities/`; // This is link is not the actual link; we will replace it after it's done in the backend
+
   return (
     <div className="flex flex-col relative flex-grow p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">
       <div className="flex flex-col justify-between w-full sm:pb-0">
@@ -46,6 +49,14 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "", u
             <div className="ml-auto"><CloseIcon /></div>
             
           </div>
+          <div label-for="input-text" className="pt-8">
+              <TextInput
+                id="input-text"
+                placeholder= "Enter Decade user names"
+                className="w-full border border-solid border-gray-200 pt-1.5 text-base h-9 px-4"
+              />
+            </div>
+
         </div>
       </div>
     </div>

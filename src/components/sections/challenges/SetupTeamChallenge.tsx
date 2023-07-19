@@ -34,6 +34,7 @@ export default function SetupTeamChallenge(): JSX.Element {
         username="Arsene"
         user={user as User}
         status="Organizer"
+        inputText=""
         />
         </div>
     </Section>
