@@ -30,7 +30,7 @@ import TeamChallenge from "@/components/sections/challenges/TeamChallenge";
 import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChallenge";
 
 /**
- * Challenge view page 
+ * Challenge view page
  * @date 4/25/2023 - 8:12:39 PM
  *
  * @export
@@ -53,13 +53,13 @@ export default function ChallengePage(props: {
   const { challenge, community } = props.pageProps;
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { course, submission, isAuthenticated } = useSelector((state) => ({
+  const { submission, isAuthenticated } = useSelector((state) => ({
     course: state.courses.current,
     submission: state.submissions.current,
     isAuthenticated: authCheck(state),
   }));
 
-  const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), course?.name || ""), [course?.name, t]);
+  const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), challenge?.name || ""), [challenge?.name, t]);
 
   useEffect(() => {
     dispatch(setColors(community?.colors as Colors));
@@ -73,12 +73,12 @@ export default function ChallengePage(props: {
         <title>{title}</title>
         <MetaData description={challenge?.description} />
       </Head>
-      <Wrapper>
+      <Wrapper paths={['Challenge']}>
         <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
           <Header />
           <Rewards />
           <TeamChallenge/>
-          <Learning />
+          <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community}/>
           <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
           <BestSubmissions />
 
@@ -116,10 +116,10 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
 
   const [{ data: community }, { payload: challenge }] = await Promise.all([
     store.dispatch(fetchCurrentCommunity(fetchPayload)),
-    store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string })),
+    store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string, relations: ['rubric', 'courses', 'learning-modules'] })),
   ]);
 
-  if (community) {
+  if (community && challenge) {
     return {
       props: {
         ...(await serverSideTranslations(data.locale as string)),

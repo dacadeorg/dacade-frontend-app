@@ -78,6 +78,19 @@ export default class CommunityNavigation {
   }
 
   /**
+   * Get the community path for the specified community slug
+   * @date 3/21/2023 - 12:30:50 PM
+   *
+   * @param {string} [link=""]
+   * @param {string} [communitySlug=this.params().slug]
+   * @returns {string}
+   */
+
+  communityPath(link: string = "", communitySlug: string | undefined = this.params().slug): string {
+    return this.cleanupUrl(`/communities/${communitySlug}/${link}`);
+  }
+
+  /**
    * Get the course path for the specified course slug and community slug
    * @date 3/21/2023 - 12:30:50 PM
    *
@@ -88,7 +101,7 @@ export default class CommunityNavigation {
    */
 
   coursePath(link: string = "", courseSlug: string | undefined = this.params().course_slug, communitySlug: string | undefined = this.params().slug): string {
-    return this.cleanupUrl(`/communities/${communitySlug}/courses/${courseSlug}/${link}`);
+    return this.cleanupUrl(this.communityPath(`/courses/${courseSlug}/${link}`, communitySlug));
   }
 
   /**
@@ -116,7 +129,7 @@ export default class CommunityNavigation {
    */
 
   challengePath(path: string, courseSlug: string | undefined = this.params().course_slug, communitySlug: string | undefined = this.params().slug): string {
-    return this.cleanupUrl(this.coursePath(`challenges/${path}`, courseSlug, communitySlug));
+    return this.cleanupUrl(this.communityPath(`challenges/${path}`, communitySlug));
   }
 
   /**

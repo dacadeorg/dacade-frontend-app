@@ -20,7 +20,7 @@ export default function ChallengeCard({ data, community }: {
   data: Challenge;
   community: Community;
 }) {
-  const link = "/communities/";
+  const link = `/communities/${community.slug}/challenges/${data.id}`;
   const { t } = useTranslation();
 
   const expiresAt = useMemo(() => data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null, [data.expiresAt]);

@@ -10,7 +10,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
  * @export
  * @returns {ReactElement}
  */
-export default function CommunityNavigation(): ReactElement {
+export default function CommunityNavigation({ paths }: { paths: string[] }): ReactElement {
   const { community, course } = useSelector((state) => ({
     community: state.communities?.current,
     course: state.courses?.current,
@@ -18,30 +18,20 @@ export default function CommunityNavigation(): ReactElement {
 
   const path = useMemo(() => (community ? `/communities/${community.slug}` : ""), [community]);
 
-  const submissions = useMemo(() => {
-    if (community && community.metadata && community.metadata.submissions) {
-      return community.metadata.submissions;
-    }
-    return 0;
-  }, [community]);
 
-  const feedbacks = useMemo(() => {
-    if (community && community.metadata && community.metadata.feedbacks) {
-      return community.metadata.feedbacks;
-    }
-    return 0;
-  }, [community]);
-
-  return community && course ? (
+  return community ? (
     <div>
       <div className="relative flex items-center py-4 pt-4 text-sm border-b-2 md:pt-7 lg:border-0">
         <div className="leading-none text-gray-500">
           <Link href={path}>{community.name}</Link>
         </div>
-        <div className="px-0.5">
-          <ChevronRightIcon viewBox="0 0 20 20" className="w-3 h-3" />
-        </div>
-        <div className="font-medium leading-none">{course.name}</div>
+        {paths?.map((path, index) => (
+          <>
+            <div className="px-0.5">
+              <ChevronRightIcon viewBox="0 0 20 20" className="w-3 h-3" />
+            </div>
+            <div className="font-medium leading-none">{path}</div>
+          </>))}
       </div>
     </div>
   ) : (

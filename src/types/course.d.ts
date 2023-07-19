@@ -47,6 +47,7 @@ export type Challenge = {
   created_at: Date;
   updated_at: Date;
   hint: string;
+  name: string;
   format: Format;
   description: string;
   course: Course;
@@ -56,7 +57,8 @@ export type Challenge = {
   reviewTime: number;
   metadata: Metadata;
   level: number;
-  courses: string[];
+  courses: Course[];
+  learningModules: LearningModule[];
   expiresAt: string;
   reward?: Reward;
   certificateIcon: string;
