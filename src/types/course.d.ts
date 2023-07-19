@@ -57,6 +57,8 @@ export type Challenge = {
   metadata: Metadata;
   level: number;
   courses: string[];
+  expiresAt: string;
+  reward?: Reward;
   certificateIcon: string;
   certificateData: CertificateData;
   ratingCriteria: RatingCriteria[];
