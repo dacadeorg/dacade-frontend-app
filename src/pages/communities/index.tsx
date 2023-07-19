@@ -65,10 +65,11 @@ export default function CommunitiesPage(props: CommunityPageProps) {
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async (data) => {
   const { locale } = data;
   const results = await store.dispatch(fetchAllCommunities(locale as string));
+
   return {
     props: {
+      communities: results?.data,
       ...(await serverSideTranslations(locale as string)),
-      communities: results?.data ?? []
     },
   };
 });
