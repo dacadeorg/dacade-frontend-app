@@ -138,7 +138,7 @@ export const store = configureStore({
   },
 
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(
+    return getDefaultMiddleware({ serializableCheck: false }).concat(
       coursesService.middleware,
       communityService.middleware,
       walletsService.middleware,
