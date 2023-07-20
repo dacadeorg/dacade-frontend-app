@@ -128,7 +128,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): any {
                 <div className="w-full px-3 py-3 text-left flex justify-between">
                   <div onClick={toggle}>
                     <Link className="flex text-sm leading-normal" href="/profile">
-                      <Avatar user={user} useLink={false} hideVerificationBadge />
+                      <Avatar user={user} useLink={false} size="medium" />
                       <div className="py-2 px-2">
                         <span className="font-medium text-lg block leading-normal capitalize">{username}</span>
                       </div>
@@ -157,7 +157,6 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): any {
             )}
             {isAuthenticated && (
               <div className="px-5 py-2 relative">
-                {/* TODO: Will be uncommented when the component is implemented */}
                 <NotificationList extended={false} />
               </div>
             )}

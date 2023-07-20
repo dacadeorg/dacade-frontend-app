@@ -14,6 +14,7 @@ import { logout } from "@/store/feature/auth.slice";
 import { setBusy, setError } from "@/store/feature/index.slice";
 import Link from "next/link";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import VerifiedIcon from "@/icons/verified.svg";
 
 /**
  * User profile dropdown component
@@ -39,6 +40,7 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
     error: state.store.error,
   }));
   const username = user?.displayName;
+  const isKycVerified = useMemo(() => user?.kycStatus === "VERIFIED", []);
 
   /**
    * Logout handler.
@@ -83,7 +85,10 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
               <Avatar user={user as User} size="medium" useLink={false} hideVerificationBadge />
             </div>
             <div className="pt-2">
-              <span className="font-medium text-base block leading-normal capitalize">{username}</span>
+              <div className="flex items-center space-x-1">
+                <span className="font-medium text-base block leading-normal capitalize">{username}</span>
+                <span className="block pt-0.5">{isKycVerified && <VerifiedIcon className="w-3.5 h-3.5" />}</span>
+              </div>
               <Link className="self-end text-sm block leading-normal" href="/profile" onClick={onClose}>
                 {t("nav.view-profile")}
               </Link>
