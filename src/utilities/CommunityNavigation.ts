@@ -101,7 +101,7 @@ export default class CommunityNavigation {
    */
 
   coursePath(link: string = "", courseSlug: string | undefined = this.params().course_slug, communitySlug: string | undefined = this.params().slug): string {
-    return this.cleanupUrl(this.communityPath(`/courses/${courseSlug}/${link}`, communitySlug));
+    return this.cleanupUrl(this.communityPath(`courses/${courseSlug}/${link}`, communitySlug));
   }
 
   /**

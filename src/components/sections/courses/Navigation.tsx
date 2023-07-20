@@ -20,8 +20,6 @@ export default function Navigation(): ReactElement {
     menus: state.navigation.menus,
   }));
 
-  console.log(menus);
-
   if (community)
     return (
       <SideNavigation items={menus} colors={community.colors}>
