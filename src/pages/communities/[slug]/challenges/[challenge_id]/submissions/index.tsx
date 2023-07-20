@@ -1,42 +1,38 @@
-import { useRouter } from "next/router";
-import { ReactElement, useCallback, useEffect, useState } from "react";
-import Header from "@/components/sections/communities/_partials/Header";
-import SubmissionList from "@/components/sections/submissions/List";
-import Wrapper from "@/components/sections/courses/Wrapper";
-import SubmissionPopup from "@/components/popups/submission";
-import { useDispatch } from "@/hooks/useTypedDispatch";
-import { useSelector } from "@/hooks/useTypedSelector";
-import { useTranslation } from "next-i18next";
-import { fetchAllSubmission, showSubmission } from "@/store/feature/communities/challenges/submissions";
 import DefaultLayout from "@/components/layout/Default";
+import SubmissionPopup from "@/components/popups/submission";
+import Header from "@/components/sections/communities/_partials/Header";
+import Wrapper from "@/components/sections/courses/Wrapper";
+import SubmissionList from "@/components/sections/submissions/List";
 import MetaData from "@/components/ui/MetaData";
-import Head from "next/head";
-import { GetServerSideProps } from "next";
-import { fetchCurrentCommunity } from "@/store/services/community.service";
-import { fetchCourse } from "@/store/services/course.service";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { wrapper } from "@/store";
-import { setCurrentCommunity } from "@/store/feature/community.slice";
-import { setCurrentCourse } from "@/store/feature/course.slice";
-import { setSubmissionsList } from "@/store/feature/communities/challenges/submissions";
-import { Community } from "@/types/community";
-import { Challenge, Course } from "@/types/course";
-import { Submission as SubmissionType } from "@/types/bounty";
-import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import useNavigation from "@/hooks/useNavigation";
-import { setColors, toggleBodyScrolling } from "@/store/feature/ui.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { wrapper } from "@/store";
 import { fetchChallenge, setCurrentChallenge } from "@/store/feature/communities/challenges";
+import { fetchAllSubmission, setSubmissionsList, showSubmission } from "@/store/feature/communities/challenges/submissions";
+import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
+import { setColors, toggleBodyScrolling } from "@/store/feature/ui.slice";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { Submission as SubmissionType } from "@/types/bounty";
+import { Community } from "@/types/community";
+import { Challenge } from "@/types/course";
+import { GetServerSideProps } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
 
 /**
  * Submission page
  * @date 6/6/2023 - 11:43:31 PM
  *
  * @export
- * @param {{ pageProps: { currentCommunity: Community; course: Course; submissions: SubmissionType[] } }} props
+ * @param {{ pageProps: { currentCommunity: Community; submissions: SubmissionType[] } }} props
  * @returns
  */
-export default function Submission(props: { pageProps: { currentCommunity: Community; course: Course; submissions: SubmissionType[]; challenge: Challenge } }) {
-  const { currentCommunity, course, submissions, challenge } = props.pageProps;
+export default function Submission(props: { pageProps: { currentCommunity: Community; submissions: SubmissionType[]; challenge: Challenge } }) {
+  const { currentCommunity, submissions, challenge } = props.pageProps;
   const [selectedSubmission, setSelectedSubmission] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
@@ -52,14 +48,13 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
 
   useEffect(() => {
     dispatch(setCurrentCommunity(currentCommunity));
-    dispatch(setCurrentCourse(course));
     dispatch(setSubmissionsList(submissions));
     dispatch(setColors(currentCommunity.colors));
     dispatch(setCurrentChallenge(challenge));
-    initNavigationMenu(navigation.community)(dispatch);
+    initChallengeNavigationMenu(navigation.community)(dispatch);
     // Eslint desabled here for avoiding infinite rendering
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [course, currentCommunity, dispatch, submissions]);
+  }, [currentCommunity, dispatch, submissions]);
 
   useEffect(() => {
     setSelectedSubmission(submission_id as string);
@@ -67,16 +62,21 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
     toggleBodyScrolling(!!submission_id)(dispatch);
   }, [dispatch, router.query, submission_id]);
 
+  const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
+
   if (!submissions) return <></>;
+
+
+
   return (
     <>
       <Head>
-        <title>{`${t("communities.submission.title")} ${course?.name}`}</title>
+        <title>{`${t("communities.submission.title")} ${challenge?.name}`}</title>
         <MetaData description={challenge?.description as string} />
       </Head>
-      <Wrapper>
+      <Wrapper paths={headerPaths}>
         <div className="flex flex-col py-4 space-y-8 text-gray-700">
-          <Header title={course?.name} subtitle={t("communities.submission.title")} />
+          <Header title={challenge?.name} subtitle={t("communities.submission.title")} />
           <SubmissionList />
         </div>
         <SubmissionPopup show={!!selectedSubmission} submissionId={selectedSubmission} onClose={handleCloseSubmission} />
@@ -90,20 +90,18 @@ Submission.getLayout = function (page: ReactElement) {
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ locale, query }) => {
-  const { slug, course_slug, challenge_id } = query;
+  const { slug, challenge_id } = query;
   const { dispatch } = store;
 
-  const [{ data: currentCommunity }, { data: course }, { payload: submissions }, { payload: challenge }] = await Promise.all([
+  const [{ data: currentCommunity }, { payload: submissions }, { payload: challenge }] = await Promise.all([
     dispatch(fetchCurrentCommunity({ slug: slug as string, locale: locale as string })),
-    dispatch(fetchCourse({ slug: course_slug as string, locale: locale as string })),
     dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: locale as string })),
-    dispatch(fetchChallenge({ locale, id: challenge_id as string })),
+    dispatch(fetchChallenge({ locale, id: challenge_id as string, relations: ['rubric', 'courses', 'learning-modules'] })),
   ]);
 
   return {
     props: {
       currentCommunity,
-      course,
       submissions,
       challenge,
       ...(await serverSideTranslations(locale as string)),

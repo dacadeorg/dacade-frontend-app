@@ -21,7 +21,8 @@ export type Course = {
   certificateData: CertificateData;
   timestamp: number;
   learningModules: LearningModule[];
-  challenge: Challenge;
+  challenge?: Challenge;
+  challenges?: Challenge[];
   translations: any[];
   trailer: Trailer;
   disclaimer: string;

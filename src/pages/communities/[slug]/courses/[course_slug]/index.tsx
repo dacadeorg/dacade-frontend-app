@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect, useMemo } from "react";
 import OverviewSection from "@/components/sections/courses/overview";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { useDispatch } from "react-redux";
@@ -10,7 +10,7 @@ import Wrapper from "@/components/sections/courses/Wrapper";
 import Head from "next/head";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import DefaultLayout from "@/components/layout/Default";
-import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
+import { initCourseNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import useNavigation from "@/hooks/useNavigation";
 import { GetServerSideProps } from "next";
 import { store } from "@/store";
@@ -37,14 +37,15 @@ export default function CourseViewPage(props: {
     dispatch(setCurrentCourse(course));
     dispatch(setColors(community.colors));
     dispatch(setCourseNavigation({ list }));
-    initNavigationMenu(navigation.community)(dispatch);
+    initCourseNavigationMenu(navigation.community)(dispatch);
   }, [community, course, dispatch, list, navigation.community]);
 
   const title = getMetadataTitle(course.name);
   const descriptions = getMetadataDescription(course.description);
+  const paths = useMemo(() => [course.name], [course])
 
   return (
-    <Wrapper>
+    <Wrapper paths={paths}>
       <Head>
         <title>{title}</title>
         {descriptions.map((meta, i) => (

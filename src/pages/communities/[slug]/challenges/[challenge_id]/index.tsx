@@ -28,6 +28,8 @@ import RatingRubric from "@/components/sections/challenges/Rubric";
 import Learning from "@/components/sections/challenges/Learning";
 import TeamChallenge from "@/components/sections/challenges/TeamChallenge";
 import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChallenge";
+import useNavigation from "@/hooks/useNavigation";
+import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 
 /**
  * Challenge view page
@@ -61,11 +63,16 @@ export default function ChallengePage(props: {
 
   const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), challenge?.name || ""), [challenge?.name, t]);
 
+  const navigation = useNavigation();
+
   useEffect(() => {
     dispatch(setColors(community?.colors as Colors));
     dispatch(setCurrentCommunity(community as Community));
     dispatch(setCurrentChallenge(challenge));
+    initChallengeNavigationMenu(navigation.community)(dispatch);
   }, [challenge, community, dispatch]);
+
+  const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
 
   return (
     <>
@@ -73,7 +80,7 @@ export default function ChallengePage(props: {
         <title>{title}</title>
         <MetaData description={challenge?.description} />
       </Head>
-      <Wrapper paths={['Challenge']}>
+      <Wrapper paths={headerPaths}>
         <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
           <Header />
           <Rewards />

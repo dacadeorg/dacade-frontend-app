@@ -1,7 +1,7 @@
 import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import { NextRouter } from "next/router";
 import { store } from "@/store";
-import { Course } from "@/types/course";
+import { Challenge, Course } from "@/types/course";
 import { Community } from "@/types/community";
 import { List } from "@/utilities/CommunityNavigation";
 import remarkParse from "remark-parse";
@@ -86,13 +86,31 @@ export const learningModulePath = (link: string, router: NextRouter) => {
   return `/communities/${router.query.slug}/courses/${router.query.course_slug}/${link}`;
 };
 
+
 /**
  * Init action
  * @date 4/20/2023 - 4:09:38 PM
  *
  * @returns {(dispatch: any) => void}
  */
-export const initNavigationMenu = (navigation: any) => (dispatch: Dispatch) => {
+export const initChallengeNavigationMenu = (navigation: any) => (dispatch: Dispatch) => {
+  const challenge = store.getState().challenges.current as Challenge;
+  const community = store.getState().communities.current as Community;
+  const menus: List[] = navigation.initForChallenge({
+    challenge,
+    community,
+  });
+  dispatch(setNavigationList(menus));
+};
+
+/**
+ * Init action
+ * @date 4/20/2023 - 4:09:38 PM
+ *
+ * @returns {(dispatch: any) => void}
+ */
+export const initCourseNavigationMenu = (navigation: any) => (dispatch: Dispatch) => {
+  dispatch(setNavigationList([]));
   const course = store.getState().courses.current as Course;
   const community = store.getState().communities.current as Community;
   const menus: List[] = navigation.init({
