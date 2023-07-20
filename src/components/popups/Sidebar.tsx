@@ -60,8 +60,6 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): any {
   };
 
   const externalClick = () => {
-    if (show) return;
-
     setshow(!show);
     toggleBodyScrolling(false)(dispatch);
   };
