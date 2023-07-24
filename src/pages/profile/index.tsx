@@ -1,10 +1,7 @@
-import { useEffect, ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { useDispatch } from "@/hooks/useTypedDispatch";
-import { fetchProfileReputation } from "@/store/services/profile/reputation.service";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import { GetServerSideProps } from "next";
-import { fetchAllCertificates } from "@/store/services/profile/certificate.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import NotificationList from "@/components/list/NotificationList";
@@ -16,16 +13,21 @@ import DiscordConnect from "@/components/popups/DiscordConnect";
 import Head from "next/head";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import AuthCheckProvider from "@/contexts/AuthCheckProvider";
+import { useRouter } from "next/router";
+import Loader from "@/components/ui/Loader";
 
 export default function ProfileOverview(): ReactElement {
-  const user = useSelector((state) => state.user.data);
-  const dispatch = useDispatch();
 
+  const { user, isFetchingUser } = useSelector((state) => ({
+    user: state.user.data,
+    isFetchingUser: state.user.fetchingUserLoading,
+  }));
+  const router = useRouter()
   useEffect(() => {
-    (async () => {
-      await Promise.all([dispatch(fetchAllCertificates({ username: user?.username || "" })), dispatch(fetchProfileReputation({ username: user?.username || "" }))]);
-    })();
-  }, [dispatch, user?.username]);
+    if (!user && !isFetchingUser) {
+      router.replace("/login");
+    }
+  }, [isFetchingUser, router, user])
 
   return (
     <>

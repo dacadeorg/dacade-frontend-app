@@ -70,8 +70,8 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
     }
 
     if (route.startsWith("/profile") && auth && auth.emailVerified) {
-      dispatch(fetchUserProfile((router.query?.username as string) || ""));
-      dispatch(fetchAllProfileCommunities((router.query?.username as string) || authUser?.displayName || ""));
+      dispatch(fetchUserProfile((authUser?.username as string) || ""));
+      dispatch(fetchAllProfileCommunities((authUser?.username as string) || authUser?.displayName || ""));
     }
   }, [auth, authUser, dispatch, isGuestRoute, isUserRoute, route, router]);
 
