@@ -56,7 +56,6 @@ const confirm = async () => {
     <div className="w-full pt-4 flex justify-center mx-auto text-base">
         <Button disabled={loading} variant="outline-primary" onClick={confirm}>
         {/* class="hover:bg-red-700 hover:text-white bg-transparent border text-red-700 border-red-700 flex text-base mt-4" */}
-
         {t("profile.header.disconnect")}
       </Button>
     </div>

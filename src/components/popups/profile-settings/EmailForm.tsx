@@ -1,12 +1,12 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import Modal from "@/components/ui/Modal";
 import Input from "@/components/ui/Input";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useTranslation } from "next-i18next";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useForm } from "react-hook-form";
-import { updateUser } from "@/store/services/user.service";
 import { updateUserEmail } from "@/store/services/user.service";
+import { fetchEmail } from "@/store/services/user.service";
 
 /**
  * Edit profile component props
@@ -42,11 +42,11 @@ interface FormValues {
  * @param {EditProfileProps} { show, onClose }
  * @returns {ReactElement}
  */
-export default function EditProfile({ show, onClose }: EditProfileProps): ReactElement {
+export default function EditEmail({ show, onClose }: EditProfileProps): ReactElement {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
   const {
-    watch,
     register,
     handleSubmit,
     formState: { errors },
@@ -65,10 +65,18 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
     }
   };
 
+  useEffect(() => {
+     console.log("dispatch email")
+      dispatch(fetchEmail);
+      const click = dispatch(fetchEmail);
+      console.log(click)
+  }, [dispatch]);
+
+
   return (
     <Modal show={show} onClose={onClose}>
       <div className="px-6 pt-6 relative">
-        <h1 className="text-.5xl leading-none font-medium mb-12">{t("profile.edit.profile")}</h1>
+        <h1 className="text-.5xl leading-none font-medium mb-12">{t("profile.settings.edit.email.update")}</h1>
         <form onSubmit={handleSubmit(onSave)}>
           <div className="mb-2.5">
             <Input
@@ -77,7 +85,6 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
               type="email"
               {...register("email", {
                 required: "This field is required",
-
                 minLength: {
                   value: 2,
                   message: "You need to enter a valid email",
@@ -85,12 +92,13 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
               })}
             />
           </div>
+        
           <div className="mb-8">
             <Input
               label={`${t("profile.settings.edit.email.confirm")}`}
-              error={errors.lastName?.message}
+              error={errors.email?.message}
               type="emailConfirm"
-              {...register("lastName", {
+              {...register("emailConfirm", {
                 required: "This field is required",
                 minLength: {
                   value: 2,
@@ -112,3 +120,5 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
     </Modal>
   );
 }
+
+

@@ -16,7 +16,7 @@ interface User {
 
 interface Email {
   email: string;
-  emailComfirm: string;
+  emailConfirm: string;
 }
 
 /**
@@ -103,6 +103,12 @@ export const { useGetUserQuery } = userService;
 export const fetchUser = () => userService.endpoints.getUser.initiate("en");
 
 /**
+ * Get email function
+ */
+export const fetchEmail = () => userService.endpoints.getEmail.initiate("en");
+
+
+/**
  * Update user function
  * @param user
  * @returns
@@ -112,9 +118,9 @@ export const updateUser = async (user: { firstName: string; lastName: string }) 
 
 /**
  * Update user email function
- * @param user
+ * @param email
  * @returns
  */
-export const updateUserEmail = async (email: { email: string; emailConfirm: string }) => await userService.endpoints.updateUser.initiate(email);
+export const updateUserEmail = async (email: { email: string; emailConfirm: string }) => await userService.endpoints.updateUserEmail.initiate(email);
 
 export default userService;

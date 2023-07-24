@@ -65,7 +65,7 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
   return (
     <Modal show={show} onClose={onClose}>
       <div className="px-6 pt-6 relative">
-        <h1 className="text-.5xl leading-none font-medium mb-12">{t("profile.edit.profile")}</h1>
+        <h1 className="text-.5xl leading-none font-medium mb-12">{t("profile.settings.edit.name.update")}</h1>
         <form onSubmit={handleSubmit(onSave)}>
           <div className="mb-2.5">
             <Input
@@ -74,7 +74,6 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
               type="firstName"
               {...register("firstName", {
                 required: "This field is required",
-
                 minLength: {
                   value: 2,
                   message: "The firstname is too short",

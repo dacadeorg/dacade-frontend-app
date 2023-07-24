@@ -247,6 +247,8 @@
   "profile.settings.fullname": "Nombre completo",
   "profile.settings.edit.email": "Correo electrónico",
   "profile.settings.edit.email.confirm": "Confirme correo electrónico",
+  "profile.settings.edit.email.update": "Actualice su correo electrónico",
+  "profile.settings.edit.name.update": "Actualice su nombre",
   "profile.settings.edit.discord": "Discord",
   "profile.settings.edit.discord.connect": "conectar",
   "profile.settings.edit.discord.connected": "conectado",
