@@ -40,7 +40,6 @@ import userReputationService from "./services/user/userReputation.service";
 import userReputationSlice from "./feature/user/reputation.slice";
 import payoutsSlice from "./feature/user/payouts.slice";
 import sumsubVerificationSlice from "./feature/kyc.slice";
-import { fetchProfileCommunitiesService, fetchProfileCommunityService } from "./services/profile.service";
 import certificateService from "./services/profile/certificate.service";
 
 export interface IRootState {
@@ -127,8 +126,6 @@ export const store = configureStore({
     [userReputationService.reducerPath]: userReputationService.reducer,
     [referralsService.reducerPath]: referralsService.reducer,
     [notificationsService.reducerPath]: notificationsService.reducer,
-    [fetchProfileCommunityService.reducerPath]: fetchProfileCommunityService.reducer,
-    [fetchProfileCommunitiesService.reducerPath]: fetchProfileCommunitiesService.reducer,
     [scoreboardSlice.name]: scoreboardSlice.reducer,
     [certificateSlice.name]: certificateSlice.reducer,
     [userReferralsSlice.name]: userReferralsSlice.reducer,
@@ -151,13 +148,6 @@ export const store = configureStore({
       reputationProfileService.middleware,
       profileCommunitiesService.middleware,
       userReputationService.middleware,
-      fetchProfileCommunityService.middleware,
-      fetchProfileCommunitiesService.middleware,
-      certificateService.middleware,
-      reputationProfileService.middleware,
-      profileCommunitiesService.middleware,
-      userReputationService.middleware,
-      bountiesService.middleware,
       authService.middleware
     );
   },
