@@ -40,4 +40,4 @@ next-env.d.ts
 .netlify
 
 # Editor
-.idea
+/.idea

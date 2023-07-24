@@ -13,6 +13,7 @@ import { Reputation, Submission } from "@/types/bounty";
 import { Community } from "@/types/community";
 import { Feedback } from "@/types/feedback";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
+import { profile } from "console";
 
 /**
  * Interface for the data returned from the findProfileCommunities endpoint
@@ -54,7 +55,7 @@ const profileCommunitiesService: any = createApi({
       },
     }),
 
-    findProfileCommunties: builder.query<FindUserProfileCommuniyResult, { username: string; slug: string }>({
+    findProfileCommunty: builder.query<FindUserProfileCommuniyResult, { username: string; slug: string }>({
       query: ({ username, slug }: { username: string; slug: string }) => `profile/${username}/communities/${slug}`,
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
@@ -67,6 +68,7 @@ const profileCommunitiesService: any = createApi({
   }),
 });
 
-export const { useFetchAllProfileCommunitiesQuery, useFindProfileCommuntiesQuery } = profileCommunitiesService;
 export const fetchAllProfileCommunities = (username: string) => profileCommunitiesService.endpoints.fetchAllProfileCommunities.initiate(username);
+export const fetchProfileCommunity = ({ username, slug }: { username: string; slug: string }) =>
+  profileCommunitiesService.endpoints.findProfileCommunty.initiate({ username, slug });
 export default profileCommunitiesService;

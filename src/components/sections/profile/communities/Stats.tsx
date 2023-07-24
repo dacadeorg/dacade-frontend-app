@@ -30,7 +30,7 @@ export default function CommunityStats(): ReactElement {
   }));
 
   return (
-    <div className="bg-gray-100 sm:flex sm:justify-between rounded-3xl lg:max-w-lg">
+    <div className="bg-gray-100 sm:flex sm:justify-between rounded-3xl w-full">
       <div className="relative items-center ml-7 flex sm:flex-row">
         <Avatar icon={community?.icon} color={community?.colors.primary} size="medium" shape="rounded" />
         <div className="py-7 px-10 sm:px-7 md:px-0 md:pl-7">
@@ -42,12 +42,11 @@ export default function CommunityStats(): ReactElement {
       </div>
       <div className="p-7 md:text-right justify-self-stretch space-y-2">
         <div className="whitespace-nowrap">
-          <span className="font-bold">{feedbacks.length}</span>
-          {t("feedbacks")}
+          <span className="font-bold">{feedbacks.length}</span> {t("feedbacks")}
         </div>
         <div className="whitespace-nowrap">
-          <span className="font-bold">{submissions.length}</span>
-          {t("communities.challenge.submission")}
+          <span className="font-bold">{submissions.length}</span>{" "}
+          {`${submissions.length > 1 ? t("communities.challenge.submission") + "s" : t("communities.challenge.submission")}`}
         </div>
       </div>
     </div>

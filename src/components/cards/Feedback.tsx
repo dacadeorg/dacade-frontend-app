@@ -74,7 +74,7 @@ export default function FeedbackCard({ value, preview = false, buttons = false, 
       timestamp={{ date: value.created_at, text: "Feedback" }}
       link={link}
       bordered={!last}
-      badge={`${value.ranking}`} //badge only accept string
+      badge={`${value.ranking ?? ""}`} // badge only accepts string
       boxLayout={preview}
     >
       <TranslationBox

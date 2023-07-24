@@ -13,12 +13,12 @@ export default function UserAuthProvider({ children }: { children: ReactNode }) 
 
   useEffect(() => {
     onIdTokenChanged(auth, async (user) => {
-      dispatch(setAuthData(user));
+      dispatch(setAuthData(user?.toJSON()));
       await dispatch(getToken());
     });
 
     onAuthStateChanged(auth, (user) => {
-      dispatch(setAuthData(user));
+      dispatch(setAuthData(user?.toJSON()));
       dispatch(fetchUser());
     });
   }, [dispatch]);
