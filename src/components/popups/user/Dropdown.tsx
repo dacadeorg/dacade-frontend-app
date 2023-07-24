@@ -40,7 +40,7 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
     error: state.store.error,
   }));
   const username = user?.displayName;
-  const isKycVerified = useMemo(() => user?.kycStatus === "VERIFIED", []);
+  const isKycVerified = useMemo(() => user?.kycStatus === "VERIFIED", [user?.kycStatus]);
 
   /**
    * Logout handler.
