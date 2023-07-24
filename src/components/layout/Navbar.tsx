@@ -40,24 +40,33 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
     isAuthenticated: authCheck(state),
   }));
 
-  const containerStyle = useMemo(() => {
+  const colors = useMemo(() => {
+    if (!settings || !settings.colors) return;
     return {
-      backgroundColor: settings?.colors.primary,
-      color: settings?.colors.text,
-    };
-  }, [settings?.colors.primary, settings?.colors.text]);
-
-  const buttonStyle = useMemo(() => {
-    if (!settings?.colors) return {};
-    return {
-      backgroundColor: hexToRgba(settings?.colors.text || "", 0.3),
-      color: settings?.colors.text,
+      primary: settings.colors.cover?.background || settings.colors.primary,
+      text: settings.colors?.cover?.text || settings.colors.text,
+      accent: settings.colors.accent,
     };
   }, [settings]);
 
+  const containerStyle = useMemo(() => {
+    return {
+      backgroundColor: colors?.primary,
+      color: colors?.text,
+    };
+  }, [colors?.primary, colors?.text]);
+
+  const buttonStyle = useMemo(() => {
+    if (!colors) return {};
+    return {
+      backgroundColor: hexToRgba(colors?.text || "", 0.3),
+      color: colors?.text,
+    };
+  }, [colors]);
+
   const badgeStyle = {
-    backgroundColor: settings?.colors.accent,
-    color: settings?.colors.primary,
+    backgroundColor: colors?.accent,
+    color: colors?.primary,
   };
 
   return (
