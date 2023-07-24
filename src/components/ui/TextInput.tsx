@@ -8,7 +8,7 @@ import { useState, ChangeEvent, ReactElement, useMemo, HTMLProps, forwardRef } f
  * @interface Props
  * @typedef {Props}
  */
-interface TextInputProps extends HTMLProps<HTMLInputElement> {
+interface TextInputProps extends HTMLProps<HTMLTextAreaElement> {
   value?: string;
   label?: string;
   disabled?: boolean;
@@ -25,8 +25,8 @@ interface TextInputProps extends HTMLProps<HTMLInputElement> {
  * @param {TextInputProps} props
  * @returns {ReactElement}
  */
-export default forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
-  { label, disabled = false, placeholder, inputClass = "", error = null, handleInput },
+export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInput(
+  { label, disabled = false, placeholder, inputClass = "", error = null, handleInput , ...props},
   ref
 ): ReactElement {
   const [isFocused, setIsFocused] = useState(false);
@@ -53,6 +53,7 @@ export default forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
       <div className="floating-input relative">
         {label && <label className={labelClassName}>{label}</label>}
         <textarea
+          ref={ref}
           value={value}
           placeholder={placeholder}
           autoComplete="off"
@@ -61,6 +62,7 @@ export default forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onChange={(e) => setValue(e.target.value)}
+          {...props}
         />
       </div>
       {error && (

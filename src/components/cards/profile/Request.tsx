@@ -26,7 +26,7 @@ export default function Request(): ReactElement {
       <div className={`relative flex items-center ${referrals && referrals.length ? "" : "hidden"}`}>
         <div className="flex pr-3 cursor-pointer" onClick={onClick}>
           {previewList?.map((referral, index) => (
-            <Avatar key={referral.id} className={`border-2 border-solid border-white ${index > 0 && "-ml-3"}`} useLink={false} user={referral.user} />
+            <Avatar key={referral.id} className={`border-2 border-solid border-white ${index > 0 && "-ml-3"}`} hideVerificationBadge useLink={false} user={referral.user} />
           ))}
         </div>
         <div className="relative text-sm font-normal text-gray-500 cursor-pointer md:flex md:font-medium" onClick={onClick}>

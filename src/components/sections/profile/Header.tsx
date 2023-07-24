@@ -12,7 +12,11 @@ import { useDispatch } from "react-redux";
 import { openVerificationModal } from "@/store/feature/kyc.slice";
 import KYCVerification from "@/components/popups/KYCVerification";
 
-const { NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL, NEXT_PUBLIC_DISCORD_CLIENT_ID, NEXT_PUBLIC_DISCORD_SCOPE, NEXT_PUBLIC_DISCORD_CALLBACK_URL } = process.env;
+
+const NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL = process.env.NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL;
+const NEXT_PUBLIC_DISCORD_CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID;
+const NEXT_PUBLIC_DISCORD_SCOPE = process.env.NEXT_PUBLIC_DISCORD_SCOPE;
+const NEXT_PUBLIC_DISCORD_CALLBACK_URL = process.env.NEXT_PUBLIC_DISCORD_CALLBACK_URL
 
 const ProfileHeader = () => {
   const router = useRouter();
@@ -21,8 +25,9 @@ const ProfileHeader = () => {
   const { authUser, profileUser, isKycVerified } = useSelector((state) => ({
     authUser: state.user.data,
     profileUser: state.profile.user.current,
-    isKycVerified: state.user.data?.isKycVerified,
+    isKycVerified: state.user.data?.kycStatus === "VERIFIED",
   }));
+
   const user = useMemo(() => {
     const username = (router.query?.username as string) || "";
     if (username && username?.toLowerCase() !== authUser?.displayName?.toLowerCase()) return profileUser;

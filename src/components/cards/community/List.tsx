@@ -35,13 +35,6 @@ export default function CommunityListCard({ community }: CommunityListCardProps)
   const router = useRouter();
   const path = `/communities/${community.slug}`;
 
-  const rewards = community.rewards.reduce((accumulator, reward) => ({
-    ...accumulator,
-    amount: accumulator.amount + reward.amount,
-  }));
-
-  const duration = DateManager.millisecondsToMinutes(community.duration);
-
   const reward = useMemo(() => {
     return community.rewards.find((reward) => reward.type === "SUBMISSION");
   }, [community.rewards]);

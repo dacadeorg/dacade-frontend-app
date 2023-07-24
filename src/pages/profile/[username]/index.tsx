@@ -17,7 +17,6 @@ import { GetServerSideProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import { useRouter } from "next/router";
 import { fetchUserProfile } from "@/store/services/profile/users.service";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function ProfileOverview() {
   const authUser = useSelector((state) => state.user.data);
@@ -64,8 +63,4 @@ ProfileOverview.getLayout = function (page: ReactElement) {
   return <ProfileLayout>{page}</ProfileLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale as string)),
-  },
-});
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });

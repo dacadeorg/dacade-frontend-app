@@ -1,4 +1,5 @@
 import { CSSProperties, ReactElement, ReactNode, useEffect, useMemo } from "react";
+import { Colors } from "@/types/community";
 
 /**
  * Theme wrapper property interface
@@ -8,14 +9,7 @@ import { CSSProperties, ReactElement, ReactNode, useEffect, useMemo } from "reac
  * @typedef {ThemeWrapperProps}
  */
 interface ThemeWrapperProps {
-  colors: {
-    primary?: string;
-    secondary?: string;
-    text?: string;
-    highlight?: string;
-    accent?: string;
-    muted?: string;
-  };
+  colors?: Colors;
   className?: string;
   children: ReactNode;
 }
@@ -45,12 +39,12 @@ interface CSSVars extends CSSProperties {
  * @param {ThemeWrapperProps} { colors = {}, children }
  * @returns {ReactElement}
  */
-export default function ThemeWrapper({ colors = {}, className = "", children }: ThemeWrapperProps): ReactElement {
+export default function ThemeWrapper({ colors, className = "", children }: ThemeWrapperProps): ReactElement {
   const cssVars: CSSVars = useMemo(() => {
     return {
-      "--tm-primary": colors?.primary,
+      "--tm-primary": colors?.cover?.background || colors?.primary,
       "--tm-secondary": colors?.secondary,
-      "--tm-text": colors?.text,
+      "--tm-text": colors?.cover?.text || colors?.text,
       "--tm-highlight": colors?.highlight,
       "--tm-accent": colors?.accent,
       "--tm-muted": colors?.muted,

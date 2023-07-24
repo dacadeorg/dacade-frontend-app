@@ -8,14 +8,17 @@ const userProfileService = createApi({
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
     fetchUserProfile: builder.query({
-      query: (username: string) => `users/${username}`,
+      query: (username: string) => {
+        const current = store.getState().profile.user.current;
+        if (!current || current?.username.toLocaleLowerCase() !== username.toLocaleLowerCase()) {
+          store.dispatch(clearProfile());
+        }
+        return `users/${username}`;
+      },
+
       onQueryStarted: async (username: string, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
-          const current = store.getState().profile.user.current;
-          if (!current || current?.username.toLocaleLowerCase() !== username.toLocaleLowerCase()) {
-            dispatch(clearProfile());
-          }
           dispatch(setCurrentUserProfile(data));
         } catch (error) {
           console.error(error);

@@ -15,6 +15,7 @@ import ProfileLayout from "@/layouts/ProfileLayout";
 import AuthCheckProvider from "@/contexts/AuthCheckProvider";
 import { useRouter } from "next/router";
 import Loader from "@/components/ui/Loader";
+import i18Translate from "@/utilities/I18Translate";
 
 export default function ProfileOverview(): ReactElement {
 
@@ -49,14 +50,8 @@ export default function ProfileOverview(): ReactElement {
 
 ProfileOverview.getLayout = function (page: ReactElement) {
   return (
-    <AuthCheckProvider>
       <ProfileLayout>{page}</ProfileLayout>
-    </AuthCheckProvider>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale as string)),
-  },
-});
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });
