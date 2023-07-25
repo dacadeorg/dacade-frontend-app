@@ -48,9 +48,7 @@ export default function ProfileOverview(): ReactElement {
 
 ProfileOverview.getLayout = function (page: ReactElement) {
   return (
-    <AuthCheckProvider>
       <ProfileLayout>{page}</ProfileLayout>
-    </AuthCheckProvider>
   );
 };
 

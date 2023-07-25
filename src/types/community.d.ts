@@ -34,6 +34,12 @@ export interface Colors {
   secondary: string;
   highlight: string;
   muted: string;
+  cover: {
+    text: string;
+    accent: string;
+    primary: string;
+    background: string;
+  };
 }
 export interface Referral {
   user: User;

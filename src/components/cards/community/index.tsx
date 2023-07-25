@@ -7,6 +7,7 @@ import { ReactElement, useMemo } from "react";
 import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
 import { useRouter } from "next/router";
+import hexToRgba from "hex-to-rgba";
 
 /**
  * Interface for cummunity props
@@ -40,6 +41,23 @@ export default function CommunityCard({ showRewards = true, community }: Communi
     return community.rewards.find((reward) => reward.type === "SUBMISSION");
   }, [community.rewards]);
 
+  const colors = useMemo(() => {
+    if (!community.colors) return null;
+    return {
+      primary: community.colors.cover?.background || community.colors.primary,
+      text: community.colors?.cover?.text || community.colors.text,
+      accent: community.colors.accent,
+    };
+  }, [community.colors]);
+
+  const rewardBadgeStyle = useMemo(() => {
+    if (!colors) return;
+    return {
+      backgroundColor: hexToRgba(colors.text, 0.3),
+      color: colors.text,
+    };
+  }, [colors]);
+
   return (
     <ThemeWrapper colors={community.colors}>
       <div onClick={() => router.push(path)} className="block h-full hover:cursor-pointer">
@@ -57,7 +75,7 @@ export default function CommunityCard({ showRewards = true, community }: Communi
             <div className="flex flex-col items-start justify-start max-w-xs -mt-4 md:flex-row lg:flex-col md:-mt-7 md:max-w-lg">
               {showRewards && reward && (
                 <div className="text-sm">
-                  <RewardBadge reward={{ token: reward.token }} />
+                  <RewardBadge reward={{ token: reward.token }} styles={rewardBadgeStyle} />
                 </div>
               )}
             </div>
