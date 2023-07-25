@@ -41,6 +41,7 @@ import userReputationSlice from "./feature/user/reputation.slice";
 import payoutsSlice from "./feature/user/payouts.slice";
 import sumsubVerificationSlice from "./feature/kyc.slice";
 import certificateService from "./services/profile/certificate.service";
+import searchSlice from "./feature/user/search.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -81,6 +82,7 @@ export interface IRootState {
   certificates: ReturnType<typeof certificateSlice.reducer>;
   sumsubVerification: ReturnType<typeof sumsubVerificationSlice.reducer>;
   payouts: ReturnType<typeof payoutsSlice.reducer>;
+  search: ReturnType<typeof searchSlice.reducer>;
 }
 
 export const store = configureStore({
@@ -131,6 +133,7 @@ export const store = configureStore({
     [userReferralsSlice.name]: userReferralsSlice.reducer,
     [sumsubVerificationSlice.name]: sumsubVerificationSlice.reducer,
     [payoutsSlice.name]: payoutsSlice.reducer,
+    [searchSlice.name]: searchSlice.reducer,
     profile: profileReducer,
   },
 

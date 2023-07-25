@@ -2,6 +2,10 @@ import React from "react";
 import Avatar from "@/components/ui/Avatar";
 import TextInput from "@/components/ui/TextInput";
 import CloseIcon from "@/icons/close-top-right.svg";
+import AsyncSelect from "react-select/async";
+import { useGetUserByUsernameQuery } from "@/store/services/user.service";
+import { searchUserByUsername } from "@/store/feature/user/search.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  * Props for the SubmissionTeam component.
@@ -29,6 +33,17 @@ interface User {
 export default function SubmissionTeamCard({ index = 1, title = "", text = "", user = {}, username, status = "" }: SubmissionTeamCardProps): JSX.Element {
   const path = `/communities/`; // This is link is not the actual link; we will replace it after it's done in the backend
 
+  const dispatch = useDispatch();
+  const filterColors = async (username: string) => {
+    return await dispatch(searchUserByUsername("Rouven"));
+  };
+
+  const promiseOptions = async (inputValue: string) => {
+    if (!inputValue) return [];
+    const data = await filterColors(inputValue);
+    return [data];
+  };
+
   return (
     <div className="flex flex-col relative flex-grow p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">
       <div className="flex flex-col justify-between w-full sm:pb-0">
@@ -44,19 +59,16 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "", u
             </div>
             <div className="flex flex-col">
               <div className=" text-sm text-gray-700 font-medium">{username}</div>
-                <div className=" text-gray-400 text-xs">{status}</div>
+              <div className=" text-gray-400 text-xs">{status}</div>
             </div>
-            <div className="ml-auto"><CloseIcon /></div>
-            
+            <div className="ml-auto">
+              <CloseIcon />
+            </div>
           </div>
           <div label-for="input-text" className="pt-8">
-              <TextInput
-                id="input-text"
-                placeholder= "Enter Decade user names"
-                className="w-full border border-solid border-gray-200 pt-1.5 text-base h-9 px-4"
-              />
-            </div>
-
+            {/* <TextInput id="input-text" placeholder="Enter Decade user names now" className="w-full border border-solid border-gray-200 pt-1.5 text-base h-9 px-4" /> */}
+            <AsyncSelect cacheOptions defaultOptions loadOptions={promiseOptions} />
+          </div>
         </div>
       </div>
     </div>
