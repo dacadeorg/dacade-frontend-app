@@ -95,7 +95,7 @@ export default function ChallengeCard({ data, community }: {
   );
 };
 
-const Badges = ({ challenge, className }: { challenge: Challenge, className: string }) => {
+const Badges = ({ challenge, className }: { challenge: Challenge, className?: string }) => {
   const { t } = useTranslation();
   return (<div className={`uppercase flex gap-2 mb-6 ${className}`}>
     {challenge?.level && <Tag>{t(`course.challenge.level-${challenge.level}`)}</Tag>}

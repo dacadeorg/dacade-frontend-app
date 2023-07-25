@@ -22,7 +22,7 @@ export default function SideNavigation({ items, colors, children }: { items: any
                                 {!menu.hideTitle && <span className="relative text-xs font-semibold uppercase">{t(menu.title)}</span>}
                                 <ul>
                                     {menu.items.length ? (
-                                        menu.items.map((item, index: number) => {
+                                        menu.items.map((item: any, index: number) => {
                                             return (
                                                 <li key={`menu-item-${index}`} className="relative mt-4">
                                                     <SideNavLink item={item} />
