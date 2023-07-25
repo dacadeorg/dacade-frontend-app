@@ -50,7 +50,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
   const link = useMemo(() => {
     if (bounty.url) return bounty.url;
     if (bounty.submissions?.link) return `/${bounty.submissions?.link}`;
-    if (isChallenge) return navigation.community.challengePath(bounty.challenge, bounty.course.slug, bounty.slug);
+    if (isChallenge) return navigation.community.challengePath(bounty.challenge, bounty.slug);
     return navigation.community.submissionPath(bounty.challenge, bounty.course.slug, bounty.slug);
   }, [bounty.challenge, bounty.course?.slug, bounty.slug, bounty.submissions?.link, bounty.url, isChallenge, navigation.community]);
 
@@ -72,7 +72,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
           <div className="mt-4 space-y-0 divide-y divide-gray-200 border-t border-t-solid border-gray-200">
             {bounty.submissions.map((submission) => (
               <Link
-                href={navigation.community.submissionPath(submission.id, bounty.challenge, bounty.course.slug, bounty.slug)}
+                href={navigation.community.submissionPath(submission.id, bounty.challenge, bounty.slug)}
                 className="flex space-x-1 relative text-sm font-medium py-3"
                 key={submission.id}
               >

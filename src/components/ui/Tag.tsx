@@ -10,7 +10,7 @@ import { HTMLProps, ReactElement } from "react";
  */
 interface TagProps extends HTMLProps<HTMLDivElement> {
   rounded?: boolean;
-  type?: "transparent" | "gray" | "light-gray" | "warn";
+  type?: "transparent" | "gray" | "light-gray" | "warn" | "light";
   value?: string;
   children?: React.ReactNode;
   className?: string;
@@ -37,6 +37,7 @@ export default function Tag({ rounded = true, type = "gray", value, children, ..
     },
     { "bg-gray-200 text-gray-500": type == "gray" },
     { "bg-gray-100 text-gray-500": type == "light-gray" },
+    { "bg-white border-gray-500 border": type == "light" },
     { "bg-yellow-100 text-yellow-900": type == "warn" },
     { "rounded-full": rounded },
     { rounded: !rounded }

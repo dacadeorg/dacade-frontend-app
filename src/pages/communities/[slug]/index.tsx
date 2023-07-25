@@ -9,7 +9,7 @@ import CommunityWrapper from "@/components/sections/communities/overview/Wrapper
 import CommunityLayout from "@/layouts/Community";
 import { ReactElement, useEffect } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { Course } from "@/types/course";
+import { Challenge, Course } from "@/types/course";
 import api from "@/config/api";
 import { setCourseList } from "@/store/feature/course.slice";
 import { GetServerSideProps } from "next";
@@ -19,21 +19,23 @@ import { fetchCurrentCommunity } from "@/store/services/community.service";
 export default function Slug(props: {
   pageProps: {
     community: Community;
-    courses: Course[];
+    challenges: Challenge[];
   };
 }): ReactElement {
-  const { community, courses } = props.pageProps;
+  const { community, challenges } = props.pageProps;
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setCurrentCommunity(community));
     dispatch(setColors(community.colors));
-    dispatch(setCourseList(courses));
-  }, [community, courses, dispatch]);
+    // dispatch(setCourseList(courses));
+  }, [community, dispatch]);
 
   return (
     <CommunityWrapper>
-      <ChallengeCard />
+      {challenges.map((challenge) => (
+        <ChallengeCard key={challenge.id} data={challenge} community={community} />
+      ))}
       <div className="md:hidden">
         <div className="active md:hidden mb-7 scroll-smooth pt-5">
           <div className="font-medium text-.5xl leading-snug">Scoreboard</div>
@@ -55,15 +57,15 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
   try {
     const slug = params?.slug as string;
 
-    const [{ data: community }, { data: courses }] = await Promise.all([
+    const [{ data: community }, { data: challenges }] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug, locale })),
-      api(locale).server.get<Course[]>(`/communities/${slug}/courses`),
+      api(locale).server.get<Course[]>(`/communities/${slug}/challenges`),
     ]);
 
     return {
       props: {
         community,
-        courses,
+        challenges,
         ...(await serverSideTranslations(locale as string)),
       },
     };
