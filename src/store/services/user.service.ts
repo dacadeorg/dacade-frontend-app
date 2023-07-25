@@ -107,20 +107,18 @@ export const fetchUser = () => userService.endpoints.getUser.initiate("en");
  */
 export const fetchEmail = () => userService.endpoints.getEmail.initiate("en");
 
-
 /**
  * Update user function
  * @param user
  * @returns
  */
-export const updateUser = async (user: { firstName: string; lastName: string }) => await userService.endpoints.updateUser.initiate(user);
-
+export const updateUser = (user: { firstName: string; lastName: string }) => userService.endpoints.updateUser.initiate(user);
 
 /**
  * Update user email function
  * @param email
  * @returns
  */
-export const updateUserEmail = async (email: { email: string; emailConfirm: string }) => await userService.endpoints.updateUserEmail.initiate(email);
+export const updateUserEmail = (email: { email: string; emailConfirm: string }) => userService.endpoints.updateUserEmail.initiate(email);
 
 export default userService;

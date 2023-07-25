@@ -58,9 +58,9 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
     try {
       const { email, emailConfirm } = form;
       if (email !== emailConfirm) {
-      //  return alert(error);
+        //  return alert(error);
       }
-      await updateUserEmail({ email, emailConfirm });
+      await dispatch(updateUserEmail({ email, emailConfirm }));
       onClose();
     } catch (error) {
       console.error(error);
@@ -88,7 +88,7 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
               })}
             />
           </div>
-        
+
           <div className="mb-8">
             <Input
               label={`${t("profile.settings.edit.email.confirm")}`}
@@ -116,5 +116,3 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
     </Modal>
   );
 }
-
-

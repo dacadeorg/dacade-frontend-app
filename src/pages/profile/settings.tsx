@@ -6,9 +6,10 @@ import Button from "@/components/ui/button";
 
 import ProfileLayout from "@/layouts/ProfileLayout";
 import i18Translate from "@/utilities/I18Translate";
-import ProfileSettingsInformation from '@/components/sections/profile/settings/Overview'
-import ProfileSettingsLinking from '@/components/sections/profile/settings/Linking'
+import ProfileSettingsInformation from "@/components/sections/profile/settings/Overview";
+import ProfileSettingsLinking from "@/components/sections/profile/settings/Linking";
 import { useRouter } from "next/router";
+import api from "@/config/api";
 
 /**
  * Profile Wallet component
@@ -23,15 +24,15 @@ export default function ProfileSettings(): ReactElement {
 
   const router = useRouter();
 
-//   const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.data);
   const [showEditProfile, setShowEditProfile] = useState(false);
 
-//   useEffect(() => {
-//     dispatch(fetchAllWallets());
-//   }, [dispatch]);
+  //   useEffect(() => {
+  //     dispatch(fetchAllWallets());
+  //   }, [dispatch]);
 
-const confirm = async () => {
+  const confirm = async () => {
     if (loading || completed) return;
     setloading(true);
     try {
@@ -46,19 +47,17 @@ const confirm = async () => {
 
   return (
     // <div className="w-full xl:w-2/">hello</div>
-    <div
-    className="flex flex-col divide-y divide-solid divide-gray-200 space-y-8 text-gray-700"
-  >
-    <ProfileSettingsInformation />
+    <div className="flex flex-col divide-y divide-solid divide-gray-200 space-y-8 text-gray-700">
+      <ProfileSettingsInformation />
 
-    <ProfileSettingsLinking />
+      <ProfileSettingsLinking />
 
-    <div className="w-full pt-4 flex justify-center mx-auto text-base">
+      <div className="w-full pt-4 flex justify-center mx-auto text-base">
         <Button disabled={loading} variant="outline-primary" onClick={confirm}>
-        {/* class="hover:bg-red-700 hover:text-white bg-transparent border text-red-700 border-red-700 flex text-base mt-4" */}
-        {t("profile.header.disconnect")}
-      </Button>
-    </div>
+          {/* class="hover:bg-red-700 hover:text-white bg-transparent border text-red-700 border-red-700 flex text-base mt-4" */}
+          {t("profile.header.disconnect")}
+        </Button>
+      </div>
     </div>
   );
 }

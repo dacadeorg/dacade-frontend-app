@@ -48,12 +48,14 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
+  const dispatch = useDispatch();
 
   const onSave = async (form: FormValues) => {
+    console.log({ form });
     setLoading(true);
     try {
       const { firstName, lastName } = form;
-      await updateUser({ firstName, lastName });
+      await dispatch(updateUser({ firstName, lastName }));
       onClose();
     } catch (error) {
       console.error(error);
