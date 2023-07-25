@@ -7,6 +7,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useForm } from "react-hook-form";
 import { updateUserEmail } from "@/store/services/user.service";
 import { fetchEmail } from "@/store/services/user.service";
+import { error } from "console";
 
 /**
  * Edit profile component props
@@ -56,6 +57,9 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
     setLoading(true);
     try {
       const { email, emailConfirm } = form;
+      if (email !== emailConfirm) {
+      //  return alert(error);
+      }
       await updateUserEmail({ email, emailConfirm });
       onClose();
     } catch (error) {
@@ -64,14 +68,6 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-     console.log("dispatch email")
-      dispatch(fetchEmail);
-      const click = dispatch(fetchEmail);
-      console.log(click)
-  }, [dispatch]);
-
 
   return (
     <Modal show={show} onClose={onClose}>

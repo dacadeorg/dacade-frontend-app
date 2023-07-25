@@ -4,8 +4,8 @@ import ProfileSettingsSection from '@/components/sections/profile/overview/Secti
 import DiscordIcon from "@/icons/discord.svg";
 import { useDiscordConnect } from "@/hooks/useDiscordConnect"
 import DiscordConnect from "@/components/popups/DiscordConnect";
-import { fetchEmail } from "@/store/services/user.service";
-import { useDispatch } from "@/hooks/useTypedDispatch";
+// import { fetchEmail } from "@/store/services/user.service";
+// import { useDispatch } from "@/hooks/useTypedDispatch";
 
 
 const { NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL, NEXT_PUBLIC_DISCORD_CLIENT_ID, NEXT_PUBLIC_DISCORD_SCOPE, NEXT_PUBLIC_DISCORD_CALLBACK_URL } = process.env;
@@ -16,11 +16,11 @@ export default function ProfileLinking(): ReactElement {
 
     const { canConnectDiscord, triggerDiscordOauth } = useDiscordConnect();
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    useEffect(() => {
-      dispatch(fetchEmail);
-  }, [dispatch]);
+  //   useEffect(() => {
+  //     dispatch(fetchEmail);
+  // }, [dispatch]);
 
     return (
         <ProfileSettingsSection title="Account Linking" see-more see-all>
