@@ -6,6 +6,9 @@ import AsyncSelect from "react-select/async";
 import { useGetUserByUsernameQuery } from "@/store/services/user.service";
 import { searchUserByUsername } from "@/store/feature/user/search.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import { useSelector } from "@/hooks/useTypedSelector";
+import api from "@/config/api";
+import { User } from "@/types/bounty";
 
 /**
  * Props for the SubmissionTeam component.
@@ -14,15 +17,12 @@ interface SubmissionTeamCardProps {
   index?: number | string;
   title?: string;
   text?: string;
-  user: User;
+  user: User | {};
   username?: string;
   status?: string;
   inputText: string;
 }
-interface User {
-  username?: string;
-  avatar?: string;
-}
+
 /**
  * SubmissionTeam component.
  *
@@ -33,15 +33,37 @@ interface User {
 export default function SubmissionTeamCard({ index = 1, title = "", text = "", user = {}, username, status = "" }: SubmissionTeamCardProps): JSX.Element {
   const path = `/communities/`; // This is link is not the actual link; we will replace it after it's done in the backend
 
+  const { searchResult, challenge } = useSelector((state) => ({
+    searchResult: state.search.data,
+    challenge: state.challenges.current,
+  }));
   const dispatch = useDispatch();
   const filterColors = async (username: string) => {
-    return await dispatch(searchUserByUsername("Rouven"));
+    await dispatch(searchUserByUsername(username));
+    return [
+      {
+        value: searchResult?.id,
+        label: searchResult?.displayName,
+        color: "#bada55",
+        isFixed: false,
+      },
+    ];
   };
 
   const promiseOptions = async (inputValue: string) => {
-    if (!inputValue) return [];
+    if (inputValue.trim().length <= 4) return [];
     const data = await filterColors(inputValue);
-    return [data];
+    return data;
+  };
+
+  const handleOnChange = async (data) => {
+    const result = await api().client.post(`/teams/create`, {
+      challenge_id: challenge?.id,
+      name: "string",
+      members: [data.id],
+    });
+
+    console.log(result);
   };
 
   return (
@@ -67,7 +89,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "", u
           </div>
           <div label-for="input-text" className="pt-8">
             {/* <TextInput id="input-text" placeholder="Enter Decade user names now" className="w-full border border-solid border-gray-200 pt-1.5 text-base h-9 px-4" /> */}
-            <AsyncSelect cacheOptions defaultOptions loadOptions={promiseOptions} />
+            <AsyncSelect cacheOptions defaultOptions loadOptions={promiseOptions} onChange={handleOnChange} />
           </div>
         </div>
       </div>
