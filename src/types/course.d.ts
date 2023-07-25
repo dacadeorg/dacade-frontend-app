@@ -52,6 +52,8 @@ export type Challenge = {
   format: Format;
   description: string;
   course: Course;
+  type: string;
+  isTeamChallenge: boolean = false;
   objectives: string[];
   threshold: number;
   community: Community;

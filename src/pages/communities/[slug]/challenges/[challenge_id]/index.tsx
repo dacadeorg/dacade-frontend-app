@@ -97,8 +97,7 @@ export default function ChallengePage(props: {
                   <SubmissionCard submission={submission} />
                 </div>
               ) : (
-                <SetupTeamChallenge/>
-                // <SubmissionForm />
+                <>{challenge.isTeamChallenge ? <SetupTeamChallenge /> : <SubmissionForm />}</>
               )}
             </div>
           )}
