@@ -5,7 +5,6 @@ import AsyncSelect from "react-select/async";
 import { searchUserByUsername } from "@/store/feature/user/search.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
-import api from "@/config/api";
 import { User } from "@/types/bounty";
 import { createTeam } from "@/store/feature/teams.slice";
 
@@ -53,16 +52,15 @@ interface Option {
  */
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  const { searchResult, challenge, user, teamData } = useSelector((state) => ({
+  const { searchResult, challenge, user } = useSelector((state) => ({
     searchResult: state.search.data,
     challenge: state.challenges.current,
     user: state.user.data,
-    teamData: state.teams.data,
   }));
 
   const [currentOptions, setCurrentOptions] = useState<Option[]>();
 
-  const [membersList, setMembersList] = useState<TeamMember[]>(user ? [{ user: user, username: user?.displayName, status: "Organiser" }] : []);
+  const [membersList, setMembersList] = useState<TeamMember[]>([]);
   const dispatch = useDispatch();
 
   const filterUsers = async (username: string) => {
@@ -118,6 +116,15 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
             <span className="ml-2">{title}</span>
           </div>
           <div className="text-sm font-normal text-gray-700 max-w-xxs pb-2">{text}</div>
+          <div className="flex items-center w-full pr-0">
+            <div className="flex space-x-1 pr-3.5">
+              <Avatar user={user} size="medium-fixed" />
+            </div>
+            <div className="flex flex-col">
+              <div className=" text-sm text-gray-700 font-medium">{user?.displayName}</div>
+              <div className=" text-gray-400 text-xs">Organiser</div>
+            </div>
+          </div>
           {membersList.map((member, index) => {
             const { username, status, user } = member;
             return (
@@ -137,6 +144,8 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
               </div>
             );
           })}
+          {membersList.length >= 2 && <div className="text-sm font-normal text-red-700 max-w-xxs pb-2 text-center">Team invites can only be sent to 2 users</div>}
+
           <div label-for="input-text" className="">
             <AsyncSelect
               cacheOptions
@@ -152,7 +161,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
               defaultOptions={currentOptions}
               loadOptions={loadUserOptions}
               onChange={(option) => {
-                if (option) handleMemberSelect(option);
+                if (membersList.length < 2) {
+                  if (option) handleMemberSelect(option);
+                }
               }}
             />
           </div>
