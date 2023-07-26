@@ -1,14 +1,13 @@
-import React from "react";
+import { useState } from "react";
 import Avatar from "@/components/ui/Avatar";
-import TextInput from "@/components/ui/TextInput";
 import CloseIcon from "@/icons/close-top-right.svg";
 import AsyncSelect from "react-select/async";
-import { useGetUserByUsernameQuery } from "@/store/services/user.service";
 import { searchUserByUsername } from "@/store/feature/user/search.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import api from "@/config/api";
 import { User } from "@/types/bounty";
+import { createTeam } from "@/store/feature/teams.slice";
 
 /**
  * Props for the SubmissionTeam component.
@@ -17,10 +16,33 @@ interface SubmissionTeamCardProps {
   index?: number | string;
   title?: string;
   text?: string;
-  user: User | {};
-  username?: string;
-  status?: string;
   inputText: string;
+}
+
+/**
+ * Interface for the team members
+ * @date 7/26/2023 - 9:59:13 AM
+ *
+ * @interface TeamMember
+ * @typedef {TeamMember}
+ */
+interface TeamMember {
+  user: User | null;
+  username?: string;
+  status: string;
+}
+
+/**
+ * Interface for the member seaarch input
+ * @date 7/26/2023 - 6:13:59 PM
+ *
+ * @interface Option
+ * @typedef {Option}
+ */
+interface Option {
+  value?: string;
+  label?: string;
+  user: User | null;
 }
 
 /**
@@ -30,66 +52,109 @@ interface SubmissionTeamCardProps {
  * @returns {JSX.Element} The SubmissionTeam component JSX element.
  */
 
-export default function SubmissionTeamCard({ index = 1, title = "", text = "", user = {}, username, status = "" }: SubmissionTeamCardProps): JSX.Element {
-  const path = `/communities/`; // This is link is not the actual link; we will replace it after it's done in the backend
-
-  const { searchResult, challenge } = useSelector((state) => ({
+export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
+  const { searchResult, challenge, user, teamData } = useSelector((state) => ({
     searchResult: state.search.data,
     challenge: state.challenges.current,
+    user: state.user.data,
+    teamData: state.teams.data,
   }));
+
+  const [currentOptions, setCurrentOptions] = useState<Option[]>();
+
+  const [membersList, setMembersList] = useState<TeamMember[]>(user ? [{ user: user, username: user?.displayName, status: "Organiser" }] : []);
   const dispatch = useDispatch();
-  const filterColors = async (username: string) => {
+
+  const filterUsers = async (username: string) => {
     await dispatch(searchUserByUsername(username));
-    return [
-      {
-        value: searchResult?.id,
-        label: searchResult?.displayName,
-        color: "#bada55",
-        isFixed: false,
-      },
-    ];
+
+    if (searchResult && searchResult.length !== 0) {
+      return searchResult.map((user) => {
+        return { value: user.id, label: user.displayName, user };
+      });
+    } else {
+      return [];
+    }
   };
 
-  const promiseOptions = async (inputValue: string) => {
+  const loadUserOptions = async (inputValue: string) => {
     if (inputValue.trim().length <= 4) return [];
-    const data = await filterColors(inputValue);
+    const data = await filterUsers(inputValue);
+    setCurrentOptions(data);
     return data;
   };
 
-  const handleOnChange = async (data) => {
-    const result = await api().client.post(`/teams/create`, {
-      challenge_id: challenge?.id,
-      name: "string",
-      members: [data.id],
-    });
+  const handleMemberSelect = async (option: Option) => {
+    if (membersList.filter((member) => member.username === option.user?.displayName).length === 0) {
+      setMembersList([...membersList, { user: option.user, username: option.label, status: "pending" }]);
+    }
+    if (membersList.length > 2) {
+      const allMembersId = membersList.map((member) => member.user?.id);
+      try {
+        const result = await dispatch(
+          createTeam({
+            challenge_id: challenge?.id,
+            name: "sixth created team",
+            members: allMembersId,
+          })
+        );
+        // TODO: add the notification for after the team has been created
+      } catch (Error) {
+        console.log("Error within creating the team", Error);
+      }
+    }
+  };
 
-    console.log(result);
+  const handleMemberRemove = (username: string) => {
+    setMembersList([...membersList.filter((member) => member.username !== username)]);
   };
 
   return (
     <div className="flex flex-col relative flex-grow p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">
       <div className="flex flex-col justify-between w-full sm:pb-0">
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-4">
           <div className="text-lg font-medium leading-normal text-gray-900">
             <span>{index}.</span>
             <span className="ml-2">{title}</span>
           </div>
-          <div className="text-sm font-normal text-gray-700 mt-3 max-w-xxs pb-6">{text}</div>
-          <div className="flex items-center w-full pr-0">
-            <div className="flex space-x-1 pr-3.5">
-              <Avatar user={user} size="medium-fixed" />
-            </div>
-            <div className="flex flex-col">
-              <div className=" text-sm text-gray-700 font-medium">{username}</div>
-              <div className=" text-gray-400 text-xs">{status}</div>
-            </div>
-            <div className="ml-auto">
-              <CloseIcon />
-            </div>
-          </div>
-          <div label-for="input-text" className="pt-8">
-            {/* <TextInput id="input-text" placeholder="Enter Decade user names now" className="w-full border border-solid border-gray-200 pt-1.5 text-base h-9 px-4" /> */}
-            <AsyncSelect cacheOptions defaultOptions loadOptions={promiseOptions} onChange={handleOnChange} />
+          <div className="text-sm font-normal text-gray-700 max-w-xxs pb-2">{text}</div>
+          {membersList.map((member, index) => {
+            const { username, status, user } = member;
+            return (
+              <div className="flex items-center w-full pr-0" key={`team-member-${index}`}>
+                <div className="flex space-x-1 pr-3.5">
+                  <Avatar user={user} size="medium-fixed" />
+                </div>
+                <div className="flex flex-col">
+                  <div className=" text-sm text-gray-700 font-medium">{username}</div>
+                  <div className=" text-gray-400 text-xs">{status}</div>
+                </div>
+                {status !== "Organiser" && username && (
+                  <div className="ml-auto hover:cursor-pointer" onClick={() => handleMemberRemove(username)}>
+                    <CloseIcon />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+          <div label-for="input-text" className="">
+            <AsyncSelect
+              cacheOptions
+              styles={{
+                input: (baseStyles) => ({
+                  ...baseStyles,
+                  input: {
+                    height: "36px",
+                  },
+                }),
+              }}
+              className="text-lg"
+              defaultOptions={currentOptions}
+              loadOptions={loadUserOptions}
+              onChange={(option) => {
+                if (option) handleMemberSelect(option);
+              }}
+            />
           </div>
         </div>
       </div>

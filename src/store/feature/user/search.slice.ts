@@ -3,7 +3,7 @@ import { User } from "@/types/bounty";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface SearchData {
-  data: User | null;
+  data: User[] | null;
 }
 
 const defaultState: SearchData = {
@@ -23,7 +23,7 @@ const searchSlice = createSlice({
 export const { setUserData } = searchSlice.actions;
 
 export const searchUserByUsername = createAsyncThunk("users/search", async (username: string, { dispatch }) => {
-  const { data }: { data: User } = await api().client.get(`users/${username}`);
+  const { data }: { data: User[] } = await api().client.get(`/users/search/${username}`);
   dispatch(setUserData(data));
   return data;
 });
