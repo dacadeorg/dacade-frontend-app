@@ -3,7 +3,7 @@ import Coin from "@/components/ui/Coin";
 import Tag from "@/components/ui/Tag";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { Community } from "@/types/community";
-import { Challenge } from "@/types/course";
+import { Challenge, Course, LearningModule } from "@/types/course";
 import Link from "next/link";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -83,18 +83,19 @@ export default function ChallengeCard({ data, community }: {
         </div>
       </div>
 
-      {data.courses?.length > 0 && (<div className="sm:px-8 sm:pt-6 sm:pb-9 w-full p-6 rounded-3xl text-sm">
+      {(data.courses?.length > 0 || data.learningModules?.length > 0) && (<div className="sm:px-8 sm:pt-6 sm:pb-9 w-full p-6 rounded-3xl text-sm">
         <div className="mb-3 text-gray-400 font-semibold uppercase text-xxs">related content</div>
-        {data.courses.map((course: any) => (
-          <div key={course.id} className="lg:w-10/12 pb-6.5 text-gray-500 font-normal text-sm">
-            <div className="mb-1.5 font-medium leading-normal">{course.name}</div>
-            <div>{course.description}</div>
-          </div>))}
+        {data.courses?.map((course: any) => <RelatedContent key={course.id} content={course} />)}
+        {data.learningModules?.map((learningModule: any) => <RelatedContent key={learningModule.id} content={learningModule} />)}
       </div>)}
     </div>
   );
 };
 
+const RelatedContent = ({ content }: { content: Course | LearningModule | any }) => (<div className="lg:w-10/12 pb-6.5 text-gray-500 font-normal text-sm">
+  <div className="mb-1.5 font-medium leading-normal">{content?.name || content?.title}</div>
+  <div>{content.description}</div>
+</div>)
 const Badges = ({ challenge, className }: { challenge: Challenge, className?: string }) => {
   const { t } = useTranslation();
   return (<div className={`uppercase flex gap-2 mb-6 ${className}`}>
