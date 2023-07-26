@@ -39,7 +39,7 @@ interface FormValues {
  * @param {EditProfileProps} { show, onClose }
  * @returns {ReactElement}
  */
-export default function EditProfile({ show, onClose }: EditProfileProps): ReactElement {
+export default function EditNames({ show, onClose }: EditProfileProps): ReactElement {
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
   const {
@@ -49,11 +49,14 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
     formState: { errors },
   } = useForm<FormValues>();
 
+  const dispatch = useDispatch();
+
   const onSave = async (form: FormValues) => {
     setLoading(true);
     try {
       const { firstName, lastName } = form;
-      await updateUser({ firstName, lastName });
+      // await updateUser({ firstName, lastName });
+      await dispatch(updateUser({ firstName, lastName }));
       onClose();
     } catch (error) {
       console.error(error);
@@ -74,6 +77,7 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
               type="firstName"
               {...register("firstName", {
                 required: "This field is required",
+
                 minLength: {
                   value: 2,
                   message: "The firstname is too short",
