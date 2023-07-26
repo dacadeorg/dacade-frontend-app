@@ -39,7 +39,7 @@ interface FormValues {
  * @param {EditProfileProps} { show, onClose }
  * @returns {ReactElement}
  */
-export default function EditNames({ show, onClose }: EditProfileProps): ReactElement {
+export default function EditProfile({ show, onClose }: EditProfileProps): ReactElement {
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
   const {
@@ -52,10 +52,10 @@ export default function EditNames({ show, onClose }: EditProfileProps): ReactEle
   const dispatch = useDispatch();
 
   const onSave = async (form: FormValues) => {
+    console.log({ form });
     setLoading(true);
     try {
       const { firstName, lastName } = form;
-      // await updateUser({ firstName, lastName });
       await dispatch(updateUser({ firstName, lastName }));
       onClose();
     } catch (error) {
