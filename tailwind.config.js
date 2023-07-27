@@ -53,6 +53,7 @@ module.exports = {
         "1/10": "10%",
       },
       borderRadius: {
+        1: "0.25rem",
         "3.5xl": "1.75rem",
       },
       boxShadow: {
