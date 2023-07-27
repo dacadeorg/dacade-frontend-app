@@ -1,6 +1,6 @@
 import { Notification } from "@/types/notification";
 import { ReactElement } from "react";
-import Button from "./_partials/Button";
+import InvitationButtonProps from "./_partials/InvitationButton";
 
 /**
  * Props for AcceptTeamInvitation component
@@ -25,6 +25,7 @@ interface AcceptTeamInvitationProps {
  * @returns {ReactElement}
  */
 export default function AcceptTeamInvitation({ index, title, text, teamInvitations }: AcceptTeamInvitationProps): ReactElement {
+  console.log("These are team invitations", teamInvitations);
   return (
     <div className="flex flex-col relative flex-grow p-6 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">
       <div className="flex flex-col justify-between w-full sm:pb-0">
@@ -41,8 +42,8 @@ export default function AcceptTeamInvitation({ index, title, text, teamInvitatio
           <div key={index} className="space-y-3">
             <p className="text-sm font-normal text-gray-700 max-w-xxs">{invite.message}</p>
             <div className="flex gap-3">
-              <Button text="accept" />
-              <Button text="decline" />
+              <InvitationButtonProps text="accept" inviteId={invite.metadata?.invite_id as string} />
+              <InvitationButtonProps text="decline" inviteId={invite.metadata?.invite_id as string} />
             </div>
           </div>
         ))}
