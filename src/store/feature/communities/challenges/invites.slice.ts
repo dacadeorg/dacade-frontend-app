@@ -10,12 +10,11 @@ const invitesSlice = createSlice({
 
 export const acceptInvitation = createAsyncThunk("invites/accept", async (invite_id: string, { dispatch }) => {
   const data = await api().client.post(`/teams/accept-invite`, { invite_id });
-  console.log("Things are not thinging", data);
   return data;
 });
 
 export const declineInvitation = createAsyncThunk("invites/decline", async (invite_id: string, { dispatch }) => {
-  const { data }: { data: any } = await api().server.post(`/teams/reject-invite`, { invite_id });
+  const { data }: { data: any } = await api().client.post(`/teams/reject-invite`, { invite_id });
   return data;
 });
 
