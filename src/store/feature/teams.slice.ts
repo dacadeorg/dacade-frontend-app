@@ -3,11 +3,11 @@ import { NewTeamOption, Team } from "@/types/challenge";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface DefaultState {
-  data: Team;
+  current: Team;
 }
 
 const defaultState: DefaultState = {
-  data: {
+  current: {
     challenge_ref: "",
     created_at: "",
     id: "",
@@ -24,7 +24,7 @@ const teamsSlice = createSlice({
   initialState: defaultState,
   reducers: {
     setTeamData: (state, action) => {
-      state.data = action.payload;
+      state.current = action.payload;
     },
   },
 });
@@ -37,7 +37,7 @@ export const searchTeamByChallenge = createAsyncThunk("teams/search", async (cha
   return data;
 });
 
-export const createTeam = createAsyncThunk("teams/create", async ({ challenge_id, name, members }: any, { dispatch }) => {
+export const createTeam = createAsyncThunk("teams/create", async ({ challenge_id, name, members }: { challenge_id?: string; name: string; members: string[] }, { dispatch }) => {
   const { data }: { data: Team } = await api().client.post(`/teams/create`, { challenge_id, name, members });
   dispatch(setTeamData(data));
   return data;

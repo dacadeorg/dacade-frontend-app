@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Avatar from "@/components/ui/Avatar";
 import CloseIcon from "@/icons/close-top-right.svg";
 import AsyncSelect from "react-select/async";
@@ -22,10 +22,10 @@ interface SubmissionTeamCardProps {
  * Interface for the team members
  * @date 7/26/2023 - 9:59:13 AM
  *
- * @interface TeamMember
- * @typedef {TeamMember}
+ * @interface TeamCandidate
+ * @typedef {TeamCandidate}
  */
-interface TeamMember {
+interface TeamCandidate {
   user: User | null;
   username?: string;
   status: string;
@@ -52,15 +52,16 @@ interface Option {
  */
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  const { searchResult, challenge, user } = useSelector((state) => ({
+  const { searchResult, challenge, user, team } = useSelector((state) => ({
     searchResult: state.search.data,
     challenge: state.challenges.current,
     user: state.user.data,
+    team: state.teams.current,
   }));
 
   const [currentOptions, setCurrentOptions] = useState<Option[]>();
-
-  const [membersList, setMembersList] = useState<TeamMember[]>([]);
+  const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
+  const [visibleHint, setVisibleHint] = useState<"cancel" | "remove" | "">("");
   const dispatch = useDispatch();
 
   const filterUsers = async (username: string) => {
@@ -82,17 +83,28 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     return data;
   };
 
+  //Fetch members for the team that the current usr organised if any
+  useEffect(() => {
+    if (team.teamMembers) {
+      setMembersList(
+        team.teamMembers.map((member) => {
+          return { user: member.user, status: "accepted", username: member.user.displayName };
+        })
+      );
+    }
+  }, [challenge?.id, team.teamMembers]);
+
   const handleMemberSelect = async (option: Option) => {
     if (membersList.filter((member) => member.username === option.user?.displayName).length === 0) {
       setMembersList([...membersList, { user: option.user, username: option.label, status: "pending" }]);
     }
     if (membersList.length > 2) {
-      const allMembersId = membersList.map((member) => member.user?.id);
+      const allMembersId = membersList.map((member) => member.user?.id || "");
       try {
         const result = await dispatch(
           createTeam({
             challenge_id: challenge?.id,
-            name: "sixth created team",
+            name: "sevennth created team",
             members: allMembersId,
           })
         );
@@ -136,10 +148,18 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                   <div className=" text-sm text-gray-700 font-medium">{username}</div>
                   <div className=" text-gray-400 text-xs">{status}</div>
                 </div>
-                {status !== "Organiser" && username && (
-                  <div className="ml-auto hover:cursor-pointer" onClick={() => handleMemberRemove(username)}>
+                {username && status === "pending" ? (
+                  <div
+                    className="ml-auto hover:cursor-pointer relative"
+                    onClick={() => handleMemberRemove(username)}
+                    onMouseEnter={() => setVisibleHint("cancel")}
+                    onMouseLeave={() => setVisibleHint("")}
+                  >
                     <CloseIcon />
+                    <span className={`absolute -top-8 -right-6 text-sm bg-white p-0.5 px-1.5 rounded shadow-md ${visibleHint === "cancel" ? "block" : "hidden"}`}>Cancel</span>
                   </div>
+                ) : (
+                  <></>
                 )}
               </div>
             );
