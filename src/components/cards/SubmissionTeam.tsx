@@ -6,7 +6,7 @@ import { searchUserByUsername } from "@/store/feature/user/search.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { User } from "@/types/bounty";
-import { createTeam } from "@/store/feature/teams.slice";
+import { createTeam, fetchTeamByChallenge } from "@/store/feature/teams.slice";
 
 /**
  * Props for the SubmissionTeam component.
@@ -84,6 +84,10 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   };
 
   //Fetch members for the team that the current usr organised if any
+
+  useEffect(() => {
+    dispatch(fetchTeamByChallenge(challenge?.id as string));
+  }, [challenge?.id]);
   useEffect(() => {
     if (team.teamMembers) {
       setMembersList(
@@ -92,7 +96,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
         })
       );
     }
-  }, [challenge?.id, team.teamMembers]);
+  }, [team]);
 
   const handleMemberSelect = async (option: Option) => {
     if (membersList.filter((member) => member.username === option.user?.displayName).length === 0) {

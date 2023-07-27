@@ -17,6 +17,7 @@ const defaultState: DefaultState = {
     ref: "",
     timestamp: "",
     updated_at: "",
+    teamMembers: [],
   },
 };
 const teamsSlice = createSlice({
@@ -31,7 +32,7 @@ const teamsSlice = createSlice({
 
 export const { setTeamData } = teamsSlice.actions;
 
-export const searchTeamByChallenge = createAsyncThunk("teams/search", async (challenge_id: string, { dispatch }) => {
+export const fetchTeamByChallenge = createAsyncThunk("teams/search", async (challenge_id: string, { dispatch }) => {
   const { data }: { data: Team } = await api().client.get(`/teams/challenge/${challenge_id}`);
   dispatch(setTeamData(data));
   return data;

@@ -143,11 +143,7 @@ export default class CommunityNavigation {
    * @returns {string}
    */
 
-  submissionPath(
-    path: string,
-    challengeId: string | undefined = this.params().challenge_id,
-    communitySlug: string | undefined = this.params().slug
-  ): string {
+  submissionPath(path: string, challengeId: string | undefined = this.params().challenge_id, communitySlug: string | undefined = this.params().slug): string {
     return this.cleanupUrl(this.challengePath(`${challengeId}/submissions/${path}`, communitySlug));
   }
 
@@ -161,10 +157,7 @@ export default class CommunityNavigation {
    * @returns {string}
    */
 
-  submissionsPath(
-    challengeId: string | undefined = this.params().challenge_id,
-    communitySlug: string | undefined = this.params().slug
-  ): string {
+  submissionsPath(challengeId: string | undefined = this.params().challenge_id, communitySlug: string | undefined = this.params().slug): string {
     return this.cleanupUrl(this.challengePath(`${challengeId}/submissions`, communitySlug));
   }
 
@@ -189,17 +182,16 @@ export default class CommunityNavigation {
       exact: false,
       subitems: learningModule.materials
         ? learningModule.materials.map((material) => {
-          slugger.reset();
-          return {
-            label: material.title,
-            link: slugger.slug(material.title),
-            exact: false,
-          };
-        })
+            slugger.reset();
+            return {
+              label: material.title,
+              link: slugger.slug(material.title),
+              exact: false,
+            };
+          })
         : [],
     }));
   }
-
 
   /**
    * TODO: description should be updated after understanding what this method does.
@@ -210,7 +202,6 @@ export default class CommunityNavigation {
    */
 
   initForChallenge({ challenge, community }: { challenge: Challenge; community: Community }): List[] {
-
     const menuList: List[] = [
       {
         id: "bounties",
@@ -219,43 +210,42 @@ export default class CommunityNavigation {
           {
             label: "communities.navigation.challenge.overview",
             exact: true,
-            link: this.challengePath(challenge.id, community?.slug),
+            link: this.challengePath(challenge?.id, community?.slug),
           },
           {
             label: "communities.navigation.submissions",
             link: this.submissionPath("", challenge?.id, community?.slug),
             exact: false,
-          }
+          },
         ],
       },
     ];
 
-    const courses = challenge.courses?.map((course, i) => {
-      return {
-        id: course.id,
-        label: course.name,
-        link: this.coursePath("", course.slug, community?.slug),
-        exact: false,
-      };
-    }) || [];
+    const courses =
+      challenge?.courses?.map((course, i) => {
+        return {
+          id: course.id,
+          label: course.name,
+          link: this.coursePath("", course.slug, community?.slug),
+          exact: false,
+        };
+      }) || [];
 
-    const learningModules = challenge.learningModules?.map((learningModule, i) => {
-      return {
-        id: learningModule.id,
-        label: learningModule.title,
-        link: this.learningModulePath(learningModule.id, "", community.slug),
-        exact: false,
-      };
-    }) || [];
+    const learningModules =
+      challenge?.learningModules?.map((learningModule, i) => {
+        return {
+          id: learningModule.id,
+          label: learningModule.title,
+          link: this.learningModulePath(learningModule.id, "", community.slug),
+          exact: false,
+        };
+      }) || [];
 
     if (courses.length || learningModules.length) {
       menuList.push({
         id: "related-content",
         title: "communities.navigation.related-content",
-        items: [
-          ...courses,
-          ...learningModules,
-        ],
+        items: [...courses, ...learningModules],
       });
     }
 
@@ -288,14 +278,15 @@ export default class CommunityNavigation {
       },
     ];
 
-    const challenges = course.challenges?.map((challenge, i) => {
-      return {
-        id: challenge.id,
-        label: challenge.name,
-        link: this.challengePath(challenge.id, community.slug),
-        exact: false,
-      }
-    }) || [];
+    const challenges =
+      course.challenges?.map((challenge, i) => {
+        return {
+          id: challenge.id,
+          label: challenge.name,
+          link: this.challengePath(challenge.id, community.slug),
+          exact: false,
+        };
+      }) || [];
 
     if (learningModules.length) {
       communityNavigationMenuList.push({
