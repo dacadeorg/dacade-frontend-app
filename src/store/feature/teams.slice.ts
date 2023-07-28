@@ -1,5 +1,5 @@
 import api from "@/config/api";
-import { NewTeamOption, Team } from "@/types/challenge";
+import { Team } from "@/types/challenge";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface DefaultState {
@@ -18,6 +18,7 @@ const defaultState: DefaultState = {
     timestamp: "",
     updated_at: "",
     teamMembers: [],
+    invites: [],
   },
 };
 const teamsSlice = createSlice({
@@ -27,10 +28,14 @@ const teamsSlice = createSlice({
     setTeamData: (state, action) => {
       state.current = action.payload;
     },
+    setTeamDataAndInvites: (state, action) => {
+      state.current = action.payload;
+      state.current.invites = action.payload.invites;
+    },
   },
 });
 
-export const { setTeamData } = teamsSlice.actions;
+export const { setTeamData, setTeamDataAndInvites } = teamsSlice.actions;
 
 export const fetchTeamByChallenge = createAsyncThunk("teams/search", async (challenge_id: string, { dispatch }) => {
   const { data }: { data: Team } = await api().client.get(`/teams/challenge/${challenge_id}`);
@@ -38,9 +43,16 @@ export const fetchTeamByChallenge = createAsyncThunk("teams/search", async (chal
   return data;
 });
 
-export const createTeam = createAsyncThunk("teams/create", async ({ challenge_id, name, members }: { challenge_id?: string; name: string; members: string[] }, { dispatch }) => {
-  const { data }: { data: Team } = await api().client.post(`/teams/create`, { challenge_id, name, members });
+export const fetchTeamById = createAsyncThunk("teams/searchById", async (team_id: string, { dispatch }) => {
+  const { data }: { data: Team } = await api().client.get(`/teams/${team_id}`);
   dispatch(setTeamData(data));
+  return data;
+});
+
+export const createTeam = createAsyncThunk("teams/create", async ({ challenge_id, members }: { challenge_id?: string; members: Array<string | undefined> }, { dispatch }) => {
+  const { data }: { data: Team } = await api().client.post(`/teams/create`, { challenge_id, members });
+  await dispatch(setTeamDataAndInvites(data));
+
   return data;
 });
 

@@ -26,8 +26,7 @@ interface SubmissionTeamCardProps {
  * @typedef {TeamCandidate}
  */
 interface TeamCandidate {
-  user: User | null;
-  username?: string;
+  user?: User;
   status: string;
 }
 
@@ -88,39 +87,38 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   useEffect(() => {
     dispatch(fetchTeamByChallenge(challenge?.id as string));
   }, [challenge?.id]);
+
   useEffect(() => {
-    if (team.teamMembers) {
-      setMembersList(
-        team.teamMembers.map((member) => {
-          return { user: member.user, status: "accepted", username: member.user.displayName };
-        })
-      );
+    if (team) {
+      let tempMembers: TeamCandidate[] = [];
+      tempMembers.push({ user: team.organizer, status: "Organiser" });
+
+      if (team.teamMembers) {
+        team.teamMembers.forEach((member) => tempMembers.push({ user: member.user, status: "Team member" }));
+      }
+
+      if (team.invites) {
+        team.invites.forEach((invite) => tempMembers.push({ user: invite.member, status: invite.invite.status }));
+      }
+
+      setMembersList([...tempMembers]);
     }
   }, [team]);
 
   const handleMemberSelect = async (option: Option) => {
-    if (membersList.filter((member) => member.username === option.user?.displayName).length === 0) {
-      setMembersList([...membersList, { user: option.user, username: option.label, status: "pending" }]);
+    if (membersList.filter((member) => member.user?.displayName === option.user?.displayName).length !== 0) {
+      return;
     }
-    if (membersList.length > 2) {
-      const allMembersId = membersList.map((member) => member.user?.id || "");
-      try {
-        const result = await dispatch(
-          createTeam({
-            challenge_id: challenge?.id,
-            name: "sevennth created team",
-            members: allMembersId,
-          })
-        );
-        // TODO: add the notification for after the team has been created
-      } catch (Error) {
-        console.log("Error within creating the team", Error);
-      }
-    }
+    await dispatch(
+      createTeam({
+        challenge_id: challenge?.id,
+        members: [option.user?.id],
+      })
+    );
   };
 
   const handleMemberRemove = (username: string) => {
-    setMembersList([...membersList.filter((member) => member.username !== username)]);
+    setMembersList([...membersList.filter((member) => member.user?.displayName !== username)]);
   };
 
   return (
@@ -132,30 +130,22 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
             <span className="ml-2">{title}</span>
           </div>
           <div className="text-sm font-normal text-gray-700 max-w-xxs pb-2">{text}</div>
-          <div className="flex items-center w-full pr-0">
-            <div className="flex space-x-1 pr-3.5">
-              <Avatar user={user} size="medium-fixed" />
-            </div>
-            <div className="flex flex-col">
-              <div className=" text-sm text-gray-700 font-medium">{user?.displayName}</div>
-              <div className=" text-gray-400 text-xs">Organiser</div>
-            </div>
-          </div>
+
           {membersList.map((member, index) => {
-            const { username, status, user } = member;
+            const { status, user } = member;
             return (
               <div className="flex items-center w-full pr-0" key={`team-member-${index}`}>
                 <div className="flex space-x-1 pr-3.5">
                   <Avatar user={user} size="medium-fixed" />
                 </div>
                 <div className="flex flex-col">
-                  <div className=" text-sm text-gray-700 font-medium">{username}</div>
+                  <div className=" text-sm text-gray-700 font-medium">{user?.displayName}</div>
                   <div className=" text-gray-400 text-xs">{status}</div>
                 </div>
-                {username && status === "pending" ? (
+                {status === "pending" ? (
                   <div
                     className="ml-auto hover:cursor-pointer relative"
-                    onClick={() => handleMemberRemove(username)}
+                    onClick={() => handleMemberRemove(user?.displayName || "")}
                     onMouseEnter={() => setVisibleHint("cancel")}
                     onMouseLeave={() => setVisibleHint("")}
                   >
@@ -168,29 +158,32 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
               </div>
             );
           })}
-          {membersList.length >= 2 && <div className="text-sm font-normal text-red-700 max-w-xxs pb-2 text-center">Team invites can only be sent to 2 users</div>}
-
-          <div label-for="input-text" className="">
-            <AsyncSelect
-              cacheOptions
-              styles={{
-                input: (baseStyles) => ({
-                  ...baseStyles,
-                  input: {
-                    height: "36px",
-                  },
-                }),
-              }}
-              className="text-lg"
-              defaultOptions={currentOptions}
-              loadOptions={loadUserOptions}
-              onChange={(option) => {
-                if (membersList.length < 2) {
-                  if (option) handleMemberSelect(option);
-                }
-              }}
-            />
-          </div>
+          {user?.displayName === team.organizer?.displayName || !team ? (
+            <div label-for="input-text" className="">
+              <AsyncSelect
+                cacheOptions
+                styles={{
+                  input: (baseStyles) => ({
+                    ...baseStyles,
+                    input: {
+                      height: "36px",
+                    },
+                  }),
+                }}
+                className="text-lg"
+                defaultOptions={currentOptions}
+                loadOptions={loadUserOptions}
+                onChange={(option) => {
+                  // TODO: check if the team is actually closed instead of using this condition
+                  if (membersList.length < 2) {
+                    if (option) handleMemberSelect(option);
+                  }
+                }}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>

@@ -21,6 +21,21 @@ export interface Team {
   ref: string;
   timestamp: string;
   updated_at: string;
+  invites: Invite[];
+}
+
+export interface Invite {
+  invite: {
+    created_at: string;
+    id: string;
+    ref: string;
+    status: string;
+    team_ref: string;
+    timestamp: number;
+    updated_at: string;
+    user_id: string;
+  };
+  member: User;
 }
 
 /**
