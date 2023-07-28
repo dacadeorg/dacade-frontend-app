@@ -16,7 +16,7 @@ interface User {
 
 interface Email {
   email: string;
-  emailConfirm: string;
+  // emailConfirm: string;
 }
 
 /**
@@ -72,7 +72,7 @@ const userService = createApi({
      */
     updateUser: builder.mutation<any, User>({
       query: (payload: User) => ({
-        url: "users/update",
+        url: "users/update/name",
         method: "PATCH",
         body: payload,
       }),
@@ -83,7 +83,7 @@ const userService = createApi({
     }),
     updateUserEmail: builder.mutation<any, Email>({
       query: (payload: Email) => ({
-        url: "users/update",
+        url: "users/update/email",
         method: "PATCH",
         body: payload,
       }),
@@ -115,10 +115,10 @@ export const fetchEmail = () => userService.endpoints.getEmail.initiate("en");
 export const updateUser = (user: { firstName: string; lastName: string }) => userService.endpoints.updateUser.initiate(user);
 
 /**
- * Update user email function
+ * Update email function
  * @param email
  * @returns
  */
-export const updateUserEmail = (email: { email: string; emailConfirm: string }) => userService.endpoints.updateUserEmail.initiate(email);
+export const updateUserEmail = (email: { email: string }) => userService.endpoints.updateUserEmail.initiate(email);
 
 export default userService;

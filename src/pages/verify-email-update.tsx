@@ -1,13 +1,17 @@
-import { useMemo } from "react";
+import { useMemo, useEffect, useState } from "react";
 import Loader from "@/components/ui/Loader";
 import ArrowButton from "@/components/ui/button/Arrow";
-import { getMetadataTitle } from "@/utilities/Metadata";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import Head from "next/head";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { GetServerSideProps } from "next";
+import i18Translate from "@/utilities/I18Translate";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { verifyEmailUpdate } from "@/store/services/auth.service";
+import { getMetadataTitle } from "@/utilities/Metadata";
+
 
 /**
  * Email verification update page
@@ -17,11 +21,28 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
  * @returns
  */
 export default function EmailVerification(props: { verified: boolean }): ReactElement {
-  const { verified } = props;
+  // const { verified } = props;
   const router = useRouter();
   const { t } = useTranslation();
+  const { locale } = useRouter();
+  const dispatch = useDispatch();
+  const [verified, setVerified] = useState(true);
 
-  const title = useMemo(() => getMetadataTitle(verified ? t("email-verification.success.title") : t("email-verification.processing")), [t, verified]);
+  // const title = useMemo(() => getMetadataTitle(verified ? t("email-verification.success.title") : t("email-verification.processing")), [t, verified]);
+
+  useEffect(() => {
+    const verify = async () => {
+      const code = router.query.code as string;
+      if (!code) return;
+      try {
+        await dispatch(verifyEmailUpdate({ locale: locale as string, payload: { code } }));
+        setVerified(true);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    verify();
+  }, [dispatch, locale, router.query.code]);
 
   const goHome = () => {
     router.push("/login");
@@ -30,7 +51,7 @@ export default function EmailVerification(props: { verified: boolean }): ReactEl
   return (
     <div className="flex items-center justify-center absolute min-h-screen top-0 w-full">
       <Head>
-        <title>{title}</title>
+        <title>{getMetadataTitle(verified ? t("email-verification.success.title") : t("email-verification.processing"))}</title>
       </Head>
       <div className="relative p-6 text-center">
         {!verified ? (
@@ -60,30 +81,4 @@ EmailVerification.getLayout = function (page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
 
-export const getServerSideProps = async (data: { locale: string; query: any }) => {
-  const { query } = data;
-
-  if (!query?.code) {
-    return {
-      redirect: "/403",
-    };
-  }
-
-  try {
-    await verifyEmailUpdate(query?.code as string);
-
-    return {
-      props: {
-        ...(await serverSideTranslations(data.locale as string)),
-        verified: false,
-      },
-    };
-  } catch (err) {
-    return {
-      notFound: true,
-    };
-  }
-};
-function verifyEmailUpdate(arg0: string) {
-  throw new Error("Function not implemented.");
-}
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });

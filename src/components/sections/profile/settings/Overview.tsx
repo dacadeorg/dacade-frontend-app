@@ -41,7 +41,7 @@ import EmailForm from "@/components/popups/profile-settings/EmailForm";
     
         <div className="grid grid-cols-3 gap-4 p-4">
            <div className="text-gray text-sm">{t("profile.settings.fullname")}</div>
-          <div className="text-gray text-sm">{user.data?.username}</div>
+          <div className="text-gray text-sm">{user.data?.firstName + ' ' + user.data?.lastName}</div>
           <button
             className="bg-transparent hover:bg-transparent flex justify-end text-primary text-xs"
             onClick={() => setTogglePopupNames(true)}
