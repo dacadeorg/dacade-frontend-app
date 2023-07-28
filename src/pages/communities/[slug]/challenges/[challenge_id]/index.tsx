@@ -88,7 +88,7 @@ export default function ChallengePage(props: {
           <Hint className="mb-5">
             <span className="pr-1 font-medium">Hint:</span>
             If you need an idea what to build or are stuck ask on our
-            <a className="underline cursor-pointer" target="_blank" href="https://discord.gg/U38KQHDtHe">
+            <a className="underline cursor-pointer ml-1" target="_blank" href="https://discord.gg/U38KQHDtHe">
               Dacade Discord server.
             </a>
           </Hint>
