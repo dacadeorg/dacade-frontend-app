@@ -30,6 +30,7 @@ import TeamChallenge from "@/components/sections/challenges/TeamChallenge";
 import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChallenge";
 import useNavigation from "@/hooks/useNavigation";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
+import ChallengeObjectives from "@/components/sections/challenges/ChallengeObjectives";
 
 /**
  * Challenge view page
@@ -84,8 +85,9 @@ export default function ChallengePage(props: {
         <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
           <Header />
           <Rewards />
-          <TeamChallenge/>
-          <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community}/>
+          <ChallengeObjectives />
+          <TeamChallenge />
+          <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
           <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
           <BestSubmissions />
 
