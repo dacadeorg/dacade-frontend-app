@@ -31,7 +31,7 @@ export function OverviewRewards(): ReactElement {
           </p>
         </div>
       </div>
-      <ExpiryDate expiresAt={challenge?.expiresAt} />
+      {challenge?.expiresAt && <ExpiryDate expiresAt={challenge?.expiresAt} />}
     </Section>
   );
 }
