@@ -18,8 +18,7 @@ interface FormTeamCardProps {
    * @returns {JSX.Element} The FormTeam component JSX element.
    */
 
-export default function FormTeamCard ({ index = 1, title, description }: FormTeamCardProps): JSX.Element {
-    const path = "https://discord.gg/eHYZr9dzan";
+export default function FormTeamCard({ index = 1, title, description }: FormTeamCardProps): JSX.Element {
   return (
     <div className="flex flex-col md:w-2/5 relative p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">
       <div className="flex flex-col justify-between w-full sm:pb-0">
@@ -29,7 +28,7 @@ export default function FormTeamCard ({ index = 1, title, description }: FormTea
           </div>
           <div className="text-sm font-normal text-gray-700 mt-3 max-w-xxs pb-6">{description}</div>
         </div>
-        <Link href={path}>
+        <Link href="https://discord.gg/eHYZr9dzan" target="_blank">
           <ArrowButton communityStyles={true} variant="outline-primary">
             Start now
           </ArrowButton>
