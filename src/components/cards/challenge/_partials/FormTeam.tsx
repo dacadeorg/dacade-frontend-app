@@ -19,7 +19,7 @@ interface FormTeamCardProps {
    */
 
 export default function FormTeamCard ({ index = 1, title, description }: FormTeamCardProps): JSX.Element {
-    const path = `/communities/`; // This is link is not the actual link; we will replace it after it's done in the backend
+    const path = "https://discord.gg/eHYZr9dzan";
   return (
     <div className="flex flex-col md:w-2/5 relative p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">
       <div className="flex flex-col justify-between w-full sm:pb-0">
