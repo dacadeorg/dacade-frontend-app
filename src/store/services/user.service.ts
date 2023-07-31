@@ -44,14 +44,6 @@ const userService = createApi({
       },
     }),
 
-    // getUserByUsername: builder.query({
-    //   query: () => "users/search/",
-    //   onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-    //     const { data } = await queryFulfilled;
-    //     console.log("This is the use data", data)
-    //     return data;
-    //   },
-    // }),
     getUserByUsername: builder.query({
       query: (username: string) => ({
         url: `users/${username}`,

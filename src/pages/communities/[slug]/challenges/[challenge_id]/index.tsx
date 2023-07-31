@@ -70,6 +70,8 @@ export default function ChallengePage(props: {
     dispatch(setCurrentCommunity(community as Community));
     dispatch(setCurrentChallenge(challenge));
     initChallengeNavigationMenu(navigation.community)(dispatch);
+
+    console.log("This is the whole challenge", Object.keys(challenge), challenge);
   }, [challenge, community, dispatch]);
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
@@ -84,8 +86,8 @@ export default function ChallengePage(props: {
         <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
           <Header />
           <Rewards />
-          <TeamChallenge/>
-          <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community}/>
+          <TeamChallenge />
+          <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
           <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
           <BestSubmissions />
 
@@ -122,7 +124,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
 
   const [{ data: community }, { payload: challenge }] = await Promise.all([
     store.dispatch(fetchCurrentCommunity(fetchPayload)),
-    store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string, relations: ['rubric', 'courses', 'learning-modules'] })),
+    store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
   ]);
 
   if (community && challenge) {

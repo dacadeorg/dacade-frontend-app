@@ -43,6 +43,7 @@ import sumsubVerificationSlice from "./feature/kyc.slice";
 import certificateService from "./services/profile/certificate.service";
 import searchSlice from "./feature/user/search.slice";
 import teamsSlice from "./feature/teams.slice";
+import teamsService from "./services/teams.service";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -85,6 +86,8 @@ export interface IRootState {
   payouts: ReturnType<typeof payoutsSlice.reducer>;
   search: ReturnType<typeof searchSlice.reducer>;
   teams: ReturnType<typeof teamsSlice.reducer>;
+
+  teamsService: ReturnType<typeof teamsService.reducer>;
 }
 
 export const store = configureStore({
@@ -137,6 +140,7 @@ export const store = configureStore({
     [payoutsSlice.name]: payoutsSlice.reducer,
     [searchSlice.name]: searchSlice.reducer,
     [teamsSlice.name]: teamsSlice.reducer,
+    [teamsService.reducerPath]: teamsService.reducer,
     profile: profileReducer,
   },
 
@@ -154,7 +158,8 @@ export const store = configureStore({
       reputationProfileService.middleware,
       profileCommunitiesService.middleware,
       userReputationService.middleware,
-      authService.middleware
+      authService.middleware,
+      teamsService.middleware
     );
   },
 });

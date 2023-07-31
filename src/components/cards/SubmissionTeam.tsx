@@ -6,7 +6,7 @@ import { searchUserByUsername } from "@/store/feature/user/search.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { User } from "@/types/bounty";
-import { createTeam, fetchTeamByChallenge } from "@/store/feature/teams.slice";
+import { createTeam, getTeamByChallenge } from "@/store/services/teams.service";
 
 /**
  * Props for the SubmissionTeam component.
@@ -15,7 +15,6 @@ interface SubmissionTeamCardProps {
   index?: number | string;
   title?: string;
   text?: string;
-  inputText: string;
 }
 
 /**
@@ -82,30 +81,30 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     return data;
   };
 
-  //Fetch members for the team that the current usr organised if any
+  //Fetch members for the team that the current user organised if any
 
   useEffect(() => {
-    dispatch(fetchTeamByChallenge(challenge?.id as string));
+    dispatch(getTeamByChallenge(challenge?.id as string));
   }, [challenge?.id]);
 
   useEffect(() => {
     if (team) {
-      let tempMembers: TeamCandidate[] = [];
-      tempMembers.push({ user: team.organizer, status: "Organiser" });
+      let tempTeamMembers: TeamCandidate[] = [];
+      tempTeamMembers.push({ user: team.organizer, status: "Organiser" });
 
       if (team.teamMembers) {
-        team.teamMembers.forEach((member) => tempMembers.push({ user: member.user, status: "Team member" }));
+        team.teamMembers.forEach((member) => tempTeamMembers.push({ user: member.user, status: "Team member" }));
       }
 
       if (team.invites) {
-        team.invites.forEach((invite) => tempMembers.push({ user: invite.member, status: invite.invite.status }));
+        team.invites.forEach((invite) => tempTeamMembers.push({ user: invite.member, status: invite.invite.status }));
       }
 
-      setMembersList([...tempMembers]);
+      setMembersList(tempTeamMembers);
     }
   }, [team]);
 
-  const handleMemberSelect = async (option: Option) => {
+  const selectTeamMember = async (option: Option) => {
     if (membersList.filter((member) => member.user?.displayName === option.user?.displayName).length !== 0) {
       return;
     }
@@ -117,8 +116,8 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     );
   };
 
-  const handleMemberRemove = (username: string) => {
-    setMembersList([...membersList.filter((member) => member.user?.displayName !== username)]);
+  const removeTeamMember = (username: string) => {
+    setMembersList(membersList.filter((member) => member.user?.displayName !== username));
   };
 
   return (
@@ -131,8 +130,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
           </div>
           <div className="text-sm font-normal text-gray-700 max-w-xxs pb-2">{text}</div>
 
-          {membersList.map((member, index) => {
-            const { status, user } = member;
+          {membersList.map(({ status, user }, index) => {
             return (
               <div className="flex items-center w-full pr-0" key={`team-member-${index}`}>
                 <div className="flex space-x-1 pr-3.5">
@@ -145,7 +143,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                 {status === "pending" ? (
                   <div
                     className="ml-auto hover:cursor-pointer relative"
-                    onClick={() => handleMemberRemove(user?.displayName || "")}
+                    onClick={() => removeTeamMember(user?.displayName || "")}
                     onMouseEnter={() => setVisibleHint("cancel")}
                     onMouseLeave={() => setVisibleHint("")}
                   >
@@ -159,7 +157,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
             );
           })}
           {user?.displayName === team.organizer?.displayName || !team ? (
-            <div label-for="input-text" className="">
+            <div>
               <AsyncSelect
                 cacheOptions
                 styles={{
@@ -175,8 +173,8 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                 loadOptions={loadUserOptions}
                 onChange={(option) => {
                   // TODO: check if the team is actually closed instead of using this condition
-                  if (membersList.length < 2) {
-                    if (option) handleMemberSelect(option);
+                  if (membersList.length < 4) {
+                    if (option) selectTeamMember(option);
                   }
                 }}
               />
