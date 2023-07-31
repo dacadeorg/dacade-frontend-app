@@ -19,7 +19,7 @@ export default function Overview({ challenge }: { challenge: Challenge }) {
       </div>
       <div className="md:flex md:flex-row flex-col rounded-full max-w-max text-sm mt-6 space-y-8 md:space-x-8 md:space-y-0">
         {challenge.rewards.map((reward: any, i: number) => (
-          <div className="flex items-center">
+          <div key={i} className="flex items-center">
             <Coin size="medium" token="cUSD" />
             <div className="text-sm md:pl-2 max-w-max">
               <div className="flex text-gray-700 font-medium">
