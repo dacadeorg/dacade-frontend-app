@@ -3,8 +3,8 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useMemo } from "react";
 
 
-const { NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL, NEXT_PUBLIC_DISCORD_CLIENT_ID, NEXT_PUBLIC_DISCORD_SCOPE, NEXT_PUBLIC_DISCORD_CALLBACK_URL } = process.env;
-
+const NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL = process.env.NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL
+const NEXT_PUBLIC_DISCORD_CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID
 
 export const useDiscordConnect = () => {
     const router = useRouter();
@@ -30,11 +30,6 @@ export const useDiscordConnect = () => {
     const triggerDiscordOauth = () =>
       (window.location.href = `${NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL}?response_type=code&client_id=${NEXT_PUBLIC_DISCORD_CLIENT_ID}&scope=${NEXT_PUBLIC_DISCORD_SCOPE}&state=15773059ghq9183habn&redirect_uri=${NEXT_PUBLIC_DISCORD_CALLBACK_URL}&prompt=consent`);
       
-        console.log("NEXT_PUBLIC_DISCORD_CALLBACK_URL", NEXT_PUBLIC_DISCORD_CALLBACK_URL)
-        console.log("NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL", NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL)
-        console.log("NEXT_PUBLIC_DISCORD_SCOPE", NEXT_PUBLIC_DISCORD_SCOPE)
-        console.log("NEXT_PUBLIC_DISCORD_CALLBACK_URL", NEXT_PUBLIC_DISCORD_CALLBACK_URL)
-
       return {
         canConnectDiscord,
         triggerDiscordOauth

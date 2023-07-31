@@ -24,13 +24,9 @@ export default function ProfileSettings(): ReactElement {
 
   const router = useRouter();
 
-  //   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.data);
   const [showEditProfile, setShowEditProfile] = useState(false);
 
-  //   useEffect(() => {
-  //     dispatch(fetchAllWallets());
-  //   }, [dispatch]);
 
   const confirm = async () => {
     if (loading || completed) return;
@@ -46,7 +42,6 @@ export default function ProfileSettings(): ReactElement {
   };
 
   return (
-    // <div className="w-full xl:w-2/">hello</div>
     <div className="flex flex-col divide-y divide-solid divide-gray-200 space-y-8 text-gray-700">
       <ProfileSettingsInformation />
 
@@ -54,7 +49,6 @@ export default function ProfileSettings(): ReactElement {
 
       <div className="w-full pt-4 flex justify-center mx-auto text-base">
         <Button disabled={loading} variant="outline-primary" onClick={confirm}>
-          {/* class="hover:bg-red-700 hover:text-white bg-transparent border text-red-700 border-red-700 flex text-base mt-4" */}
           {t("profile.header.disconnect")}
         </Button>
       </div>
@@ -66,4 +60,4 @@ ProfileSettings.getLayout = function (page: ReactElement) {
   return <ProfileLayout>{page}</ProfileLayout>;
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });
+export const getServerSideProps: GetStaticProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });

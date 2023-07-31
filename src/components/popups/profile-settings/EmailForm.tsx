@@ -58,7 +58,6 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
     try {
       const { email, emailConfirm } = form;
       if (email !== emailConfirm) {
-        //  return alert(error);
       }
       await dispatch(updateUserEmail({ email }));
       onClose();

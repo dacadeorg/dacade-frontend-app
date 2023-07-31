@@ -52,7 +52,6 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
   const dispatch = useDispatch();
 
   const onSave = async (form: FormValues) => {
-    console.log({ form });
     setLoading(true);
     try {
       const { firstName, lastName } = form;
@@ -79,7 +78,7 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
                 required: "This field is required",
 
                 minLength: {
-                  value: 2,
+                  value: 3,
                   message: "The firstname is too short",
                 },
               })}
@@ -93,7 +92,7 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
               {...register("lastName", {
                 required: "This field is required",
                 minLength: {
-                  value: 2,
+                  value: 3,
                   message: "The lastname is too short",
                 },
               })}

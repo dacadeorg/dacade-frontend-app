@@ -21,19 +21,18 @@ import { getMetadataTitle } from "@/utilities/Metadata";
  * @returns
  */
 export default function EmailVerification(props: { verified: boolean }): ReactElement {
-  // const { verified } = props;
   const router = useRouter();
   const { t } = useTranslation();
   const { locale } = useRouter();
   const dispatch = useDispatch();
   const [verified, setVerified] = useState(true);
 
-  // const title = useMemo(() => getMetadataTitle(verified ? t("email-verification.success.title") : t("email-verification.processing")), [t, verified]);
-
   useEffect(() => {
     const verify = async () => {
       const code = router.query.code as string;
-      if (!code) return;
+      if (!code) return {
+        redirect: "/403",
+      };;
       try {
         await dispatch(verifyEmailUpdate({ locale: locale as string, payload: { code } }));
         setVerified(true);
