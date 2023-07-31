@@ -12,6 +12,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import DefaultLayout from "@/components/layout/Default";
 import { fetchReferrals } from "@/store/services/referrals.service";
 import { fetchAllBounties } from "@/store/services/bounties.service";
+import { useRouter } from "next/router";
+import AuthCheckProvider from "@/contexts/AuthCheckProvider";
 
 /**
  * Description placeholder
@@ -54,6 +56,16 @@ interface BountiesPageProps {
 export default function Bounties(props: BountiesPageProps) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { user, isFetchingUser } = useSelector((state) => ({
+    user: state.user.data,
+    isFetchingUser: state.user.fetchingUserLoading,
+  }));
+  const router = useRouter();
+  useEffect(() => {
+    if (!user && !isFetchingUser) {
+      router.replace("/login");
+    }
+  }, [isFetchingUser, router, user]);
 
   useEffect(() => {
     (async () => {
@@ -90,5 +102,9 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }: { local
 };
 
 Bounties.getLayout = function (page: ReactElement) {
-  return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
+  return (
+    <AuthCheckProvider>
+      <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>
+    </AuthCheckProvider>
+  );
 };

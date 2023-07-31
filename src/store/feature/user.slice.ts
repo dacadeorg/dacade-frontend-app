@@ -80,6 +80,7 @@ export const getToken = createAsyncThunk("user/getToken", async (_, { dispatch }
     dispatch(setUserToken(token));
     return token;
   } catch (e) {
+    dispatch(fetchingUserLoading(false));
     console.log(e);
     dispatch(clearUserState());
   }
