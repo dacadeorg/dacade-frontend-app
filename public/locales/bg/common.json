@@ -110,6 +110,7 @@
   "communities.challenge.title": "Challenge",
   "communities.challenge.hint": "Hint",
   "communities.challenge.criteria.title": "Rating Rubric",
+  "communities.challenge.criteria.subtitle": "Следните учебни материали ще ви дадат необходимата техническа експертиза, за да се справите успешно с предизвикателството.",
   "communities.challenge.criteria.points": "Points",
   "communities.challenge.submission": "заявка",
   "communities.challenge.feedback": "обратна връзка",

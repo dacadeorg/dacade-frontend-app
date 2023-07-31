@@ -39,7 +39,7 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
 
   const isGuestRoute = useMemo(
     () => (path: string) => {
-      return matchesRoutes(path, ["/signup", "/login", "/password-reset"]);
+      return matchesRoutes(path, ["/signup","/password-reset"]);
     },
     []
   );
@@ -68,6 +68,11 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
       dispatch(setForwardRoute(route));
       router.replace("/login");
       return;
+    }
+
+    if (route.startsWith("/profile") && auth && auth.emailVerified) {
+      dispatch(fetchUserProfile((authUser?.username as string) || ""));
+      dispatch(fetchAllProfileCommunities((authUser?.username as string) || authUser?.displayName || ""));
     }
   }, [auth, authUser, dispatch, isGuestRoute, isUserRoute, route, router]);
 
