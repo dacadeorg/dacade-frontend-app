@@ -30,6 +30,7 @@ import TeamChallenge from "@/components/sections/challenges/TeamChallenge";
 import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChallenge";
 import useNavigation from "@/hooks/useNavigation";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
+import Hint from "@/components/ui/Hint";
 
 /**
  * Challenge view page
@@ -86,6 +87,13 @@ export default function ChallengePage(props: {
         <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
           <Header />
           <Rewards />
+          <Hint className="mb-5">
+            <span className="pr-1 font-medium">Hint:</span>
+            If you need an idea what to build or are stuck ask on our
+            <a className="underline cursor-pointer ml-1" target="_blank" href="https://discord.gg/U38KQHDtHe">
+              Dacade Discord server.
+            </a>
+          </Hint>
           <TeamChallenge />
           <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
           <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />

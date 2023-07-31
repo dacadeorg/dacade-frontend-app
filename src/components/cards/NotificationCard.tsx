@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Avatar from "@/components/ui/Avatar";
 import DateManager from "@/utilities/DateManager";
 import { Notification } from "@/types/notification";
+import InvitationButton from "./challenge/_partials/InvitationButton";
 
 /**
  * User interface
@@ -103,16 +104,24 @@ export default function NotificationCard({ user = {}, notification, extended = f
   };
 
   return (
-    <div onClick={goToLink} className={`flex hover:bg-gray-50 py-4 -mx-5 px-5 cursor-pointer ${extended ? "rounded-3xl" : ""}`}>
-      <div className="flex mr-2">
-        <Avatar user={user} size="small" className="!w-10 !h-10" hideVerificationBadge />
+    <>
+      <div onClick={goToLink} className={`flex hover:bg-gray-50 py-4 -mx-5 px-5 cursor-pointer ${extended ? "rounded-3xl" : ""}`}>
+        <div className="flex mr-2">
+          <Avatar user={user} size="medium-fixed" className="!w-10 !h-10" />
+        </div>
+        <div className="pt-1 -mt-2">
+          <span className="block text-base text-gray-700">{notification.message}</span>
+          <span title={date} className="block text-gray-900 font-medium text-sm">
+            {humanizedDate}
+          </span>
+        </div>
       </div>
-      <div className="pt-1 -mt-2">
-        <span className="block text-base text-gray-700">{notification.message}</span>
-        <span title={date} className="block text-gray-900 font-medium text-sm">
-          {humanizedDate}
-        </span>
-      </div>
-    </div>
+      {notification?.type === "TEAM_INVITE" && (
+        <div className="px-5 flex gap-3">
+          <InvitationButton text="accept" inviteId={notification.metadata?.invite_id as string} />
+          <InvitationButton text="decline" inviteId={notification.metadata?.invite_id as string} />
+        </div>
+      )}
+    </>
   );
 }

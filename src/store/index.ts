@@ -44,6 +44,7 @@ import certificateService from "./services/profile/certificate.service";
 import searchSlice from "./feature/user/search.slice";
 import teamsSlice from "./feature/teams.slice";
 import teamsService from "./services/teams.service";
+import invitesSlice from "./feature/communities/challenges/invites.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -88,6 +89,7 @@ export interface IRootState {
   teams: ReturnType<typeof teamsSlice.reducer>;
 
   teamsService: ReturnType<typeof teamsService.reducer>;
+  invites: ReturnType<typeof invitesSlice.reducer>;
 }
 
 export const store = configureStore({
@@ -141,6 +143,7 @@ export const store = configureStore({
     [searchSlice.name]: searchSlice.reducer,
     [teamsSlice.name]: teamsSlice.reducer,
     [teamsService.reducerPath]: teamsService.reducer,
+    [invitesSlice.name]: invitesSlice.reducer,
     profile: profileReducer,
   },
 

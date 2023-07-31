@@ -28,7 +28,7 @@ export default function EmailVerification(): ReactElement {
   const resendEmail = async () => {
     setloading(true);
     try {
-      dispatch(resendEmailVerification());
+      await dispatch(resendEmailVerification());
     } catch (e) {
       console.error(e);
     } finally {
