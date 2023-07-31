@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Section from "@/components/sections/communities/_partials/Section";
 import FormTeamCard from "@/components/cards/challenge/_partials/FormTeam";
 import SubmissionTeamCard from "@/components/cards/SubmissionTeam";
