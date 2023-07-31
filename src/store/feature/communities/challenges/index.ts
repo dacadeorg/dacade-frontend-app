@@ -61,8 +61,12 @@ export const { setCurrentChallenge, setChallengesList, setChallengeSubmission } 
  *
  * @type {*}
  */
-export const fetchChallenge = createAsyncThunk("challenges/find", async ({ id, locale }: { id: string; locale?: string }) => {
-  const { data } = await api(locale).server.get(`challenges/${id}`);
+export const fetchChallenge = createAsyncThunk("challenges/find", async ({ id, locale, relations }: { id: string; locale?: string; relations?: string[] }) => {
+  const { data } = await api(locale).server.get(`challenges/${id}`, {
+    params: {
+      relations: relations || []
+    },
+  });
   return data;
 });
 

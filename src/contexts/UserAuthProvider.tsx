@@ -5,6 +5,8 @@ import { setAuthData } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchUser } from "@/store/services/user.service";
 import { getToken } from "@/store/feature/user.slice";
+import { useRouter } from "next/router";
+import { clearError } from "@/store/feature/index.slice";
 
 const UserAuthContext = createContext(null);
 
@@ -22,6 +24,12 @@ export default function UserAuthProvider({ children }: { children: ReactNode }) 
       dispatch(fetchUser());
     });
   }, [dispatch]);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    dispatch(clearError());
+  }, [router.pathname]);
 
   return <UserAuthContext.Provider value={null}>{children}</UserAuthContext.Provider>;
 }

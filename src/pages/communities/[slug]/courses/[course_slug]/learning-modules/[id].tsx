@@ -14,7 +14,7 @@ import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import MaterialSection from "@/components/sections/learning-modules/MaterialSection";
 import DefaultLayout from "@/components/layout/Default";
 import Header from "@/components/sections/learning-modules/Header";
-import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
+import { initCourseNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import { setColors } from "@/store/feature/ui.slice";
 import useNavigation from "@/hooks/useNavigation";
 import api from "@/config/api";
@@ -60,7 +60,7 @@ export default function LearningModulePage(props: LearningModulePageProps) {
     dispatch(setCurrentCourse(course));
     dispatch(setCurrentLearningModule(learningModule));
     dispatch(setColors(community.colors));
-    initNavigationMenu(navigation.community)(dispatch);
+    initCourseNavigationMenu(navigation.community)(dispatch);
   }, [community, course, dispatch, learningModule, navigation.community]);
 
   const materials = useMemo(() => learningModule?.materials?.filter((material) => material.type !== "ADDITIONAL") || [], [learningModule?.materials]);

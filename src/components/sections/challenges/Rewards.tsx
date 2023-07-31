@@ -15,7 +15,7 @@ export function OverviewRewards(): ReactElement {
   const { t } = useTranslation();
   const challenge = useSelector((state) => state.challenges.current);
 
-  const rewards = useMemo(() => challenge?.rewards.filter((reward) => reward.type === "SUBMISSION"), [challenge?.rewards]);
+  const rewards = useMemo(() => challenge?.rewards?.filter((reward) => reward.type === "SUBMISSION"), [challenge?.rewards]);
   const rewardsDescription = rewards?.length ? `${rewards?.[0].amount} ${rewards?.[0].token}` : "";
 
   return (

@@ -22,7 +22,7 @@ export default function ChallengeHeader(): ReactElement {
 
   return (
     <div>
-      <Header title={course?.name} subtitle={t("communities.challenge.title")} description={challenge?.description} />
+      <Header title={challenge?.name} subtitle={t("communities.challenge.title")} description={challenge?.description} />
       <Section>
         <ObjectiveList objectives={challenge?.objectives} />
       </Section>

@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
  */
 export default function List(): ReactElement {
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [showButton, setShowButton] = useState(true);
   const { t } = useTranslation();
   const submissions = useSelector((state) => state.submissions.list);

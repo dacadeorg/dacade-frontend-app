@@ -26,9 +26,13 @@ import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import RatingRubric from "@/components/sections/challenges/Rubric";
 import Learning from "@/components/sections/challenges/Learning";
+import TeamChallenge from "@/components/sections/challenges/TeamChallenge";
+import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChallenge";
+import useNavigation from "@/hooks/useNavigation";
+import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 
 /**
- * Challenge view page 
+ * Challenge view page
  * @date 4/25/2023 - 8:12:39 PM
  *
  * @export
@@ -51,19 +55,24 @@ export default function ChallengePage(props: {
   const { challenge, community } = props.pageProps;
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { course, submission, isAuthenticated } = useSelector((state) => ({
+  const { submission, isAuthenticated } = useSelector((state) => ({
     course: state.courses.current,
     submission: state.submissions.current,
     isAuthenticated: authCheck(state),
   }));
 
-  const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), course?.name || ""), [course?.name, t]);
+  const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), challenge?.name || ""), [challenge?.name, t]);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     dispatch(setColors(community?.colors as Colors));
     dispatch(setCurrentCommunity(community as Community));
     dispatch(setCurrentChallenge(challenge));
+    initChallengeNavigationMenu(navigation.community)(dispatch);
   }, [challenge, community, dispatch]);
+
+  const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
 
   return (
     <>
@@ -71,13 +80,15 @@ export default function ChallengePage(props: {
         <title>{title}</title>
         <MetaData description={challenge?.description} />
       </Head>
-      <Wrapper>
+      <Wrapper paths={headerPaths}>
         <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
           <Header />
           <Rewards />
-          <Learning />
+          <TeamChallenge/>
+          <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community}/>
           <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
           <BestSubmissions />
+
           {isAuthenticated && (
             <div>
               {submission ? (
@@ -86,7 +97,7 @@ export default function ChallengePage(props: {
                   <SubmissionCard submission={submission} />
                 </div>
               ) : (
-                <SubmissionForm />
+                <>{challenge.isTeamChallenge ? <SetupTeamChallenge /> : <SubmissionForm />}</>
               )}
             </div>
           )}
@@ -111,10 +122,10 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
 
   const [{ data: community }, { payload: challenge }] = await Promise.all([
     store.dispatch(fetchCurrentCommunity(fetchPayload)),
-    store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string })),
+    store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string, relations: ['rubric', 'courses', 'learning-modules'] })),
   ]);
 
-  if (community) {
+  if (community && challenge) {
     return {
       props: {
         ...(await serverSideTranslations(data.locale as string)),
