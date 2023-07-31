@@ -2,11 +2,24 @@ import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { setTeamData, setTeamDataAndInvites } from "../feature/teams.slice";
 
+/**
+ * Interface for the parameters that the createTeam function will receive
+ * @date 7/31/2023 - 8:00:28 PM
+ *
+ * @interface CreateTeamPayload
+ * @typedef {CreateTeamPayload}
+ */
 interface CreateTeamPayload {
   challenge_id?: string;
   members: Array<string | undefined>;
 }
 
+/**
+ * Teams service.
+ * @date 7/31/2023 - 8:01:21 PM
+ *
+ * @type {*}
+ */
 const teamsService = createApi({
   reducerPath: "teamsService",
   baseQuery: baseQuery(),
@@ -34,14 +47,12 @@ const teamsService = createApi({
 
     createTeam: builder.mutation<CreateTeamPayload, any>({
       query: (payload: CreateTeamPayload) => ({
-        url: `/teams/create`,
+        url: "/teams/create",
         method: "POST",
         body: payload,
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
-
-        console.log("This is the data int the service", data);
         dispatch(setTeamDataAndInvites(data));
       },
     }),

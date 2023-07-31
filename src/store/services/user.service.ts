@@ -1,5 +1,5 @@
 import baseQuery from "@/config/baseQuery";
-import { clearUserState, getUserToken, fetchingUserLoading, setUserToken, setUserdata } from "../feature/user.slice";
+import { clearUserState, getUserToken, fetchingUserLoading, setUserToken, setUserdata, setSearchUserdata } from "../feature/user.slice";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 
 /**
@@ -44,10 +44,19 @@ const userService = createApi({
       },
     }),
 
+    /**
+     * Get user by username endpoint, we search by username
+     * @method GET
+     */
     getUserByUsername: builder.query({
       query: (username: string) => ({
-        url: `users/${username}`,
+        url: `/users/search/${username}`,
       }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        const { data } = await queryFulfilled;
+        dispatch(setSearchUserdata(data));
+        return data;
+      },
     }),
     /**
      * Update user endpoint
@@ -81,5 +90,7 @@ export const fetchUser = () => userService.endpoints.getUser.initiate("en");
  * @returns
  */
 export const updateUser = async (user: { firstName: string; lastName: string }) => await userService.endpoints.updateUser.initiate(user);
+
+export const getUserByUsername = (username: string) => userService.endpoints.getUserByUsername.initiate(username);
 
 export default userService;

@@ -71,8 +71,6 @@ export default function ChallengePage(props: {
     dispatch(setCurrentCommunity(community as Community));
     dispatch(setCurrentChallenge(challenge));
     initChallengeNavigationMenu(navigation.community)(dispatch);
-
-    console.log("This is the whole challenge", Object.keys(challenge), challenge);
   }, [challenge, community, dispatch]);
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);

@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import Avatar from "@/components/ui/Avatar";
 import CloseIcon from "@/icons/close-top-right.svg";
 import AsyncSelect from "react-select/async";
-import { searchUserByUsername } from "@/store/feature/user/search.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { User } from "@/types/bounty";
 import { createTeam, getTeamByChallenge } from "@/store/services/teams.service";
+import { getUserByUsername } from "@/store/services/user.service";
 
 /**
  * Props for the SubmissionTeam component.
@@ -51,7 +51,7 @@ interface Option {
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
   const { searchResult, challenge, user, team } = useSelector((state) => ({
-    searchResult: state.search.data,
+    searchResult: state.user.searchUser,
     challenge: state.challenges.current,
     user: state.user.data,
     team: state.teams.current,
@@ -63,7 +63,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   const dispatch = useDispatch();
 
   const filterUsers = async (username: string) => {
-    await dispatch(searchUserByUsername(username));
+    await dispatch(getUserByUsername(username));
 
     if (searchResult && searchResult.length !== 0) {
       return searchResult.map((user) => {
