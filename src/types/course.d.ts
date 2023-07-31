@@ -107,6 +107,7 @@ export type Format = {
 };
 
 export type Metadata = {
+  invite_id?: string;
   submissions: number;
   bestSubmissions: string[];
   feedbacks: number;
