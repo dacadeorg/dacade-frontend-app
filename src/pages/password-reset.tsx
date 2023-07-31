@@ -34,6 +34,7 @@ export default function PasswordReset(): ReactElement {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+
   const {
     watch,
     register,
@@ -44,9 +45,8 @@ export default function PasswordReset(): ReactElement {
   const onPasswordResetRequest = async ({ email }: FormValues) => {
     setLoading(true);
     try {
-      await dispatch(passwordResetRequest({ email }));
-      router.push("/login");
-    } catch (error) {
+      const res = await dispatch(passwordResetRequest({ email }));
+      if (res.meta.requestStatus === "fulfilled") router.push("/login");
     } finally {
       setLoading(false);
     }
