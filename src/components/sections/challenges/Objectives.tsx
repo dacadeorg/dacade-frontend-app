@@ -11,7 +11,7 @@ import { ReactElement } from "react";
  * @export
  * @returns {ReactElement}
  */
-export default function ChallengeObjectives(): ReactElement {
+export default function Objectives(): ReactElement {
   const { t } = useTranslation();
   const challenge = useSelector((state) => state.challenges.current);
   return (
