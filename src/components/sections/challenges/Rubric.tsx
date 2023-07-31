@@ -43,9 +43,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
         title={!hideTitle ? (t("communities.challenge.criteria.title") as string) : ""}
         content={
           <>
-            <div className="text-base font-normal text-slate-700 pt-8 md:w-99">
-              The following learning materials will equip you with the technical expertise required to successfully address the challenge.
-            </div>
+            <div className="text-base font-normal text-slate-700 pt-8 md:w-99">{t("communities.challenge.criteria.subtitle")}</div>
             <div>
               {ratingCriteria.map((criteria, i) => (
                 <div key={`rating-criteria-item-${i}`} className="mt-8">
