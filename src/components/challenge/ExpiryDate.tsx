@@ -1,6 +1,15 @@
 import { Challenge as ChallengeTypes } from "@/types/course";
+import { ReactElement } from "react-markdown/lib/react-markdown";
 
-export default function ExpiryDate({ expiresAt }: { expiresAt?: ChallengeTypes["expiresAt"] }) {
+/**
+ * Expiration date component
+ * @date 7/31/2023 - 10:04:36 AM
+ *
+ * @export
+ * @param {ChallengeTypes["expiresAt"] } { expiresAt }
+ * @returns {ReactElement}
+ */
+export default function ExpiryDate({ expiresAt }: { expiresAt?: ChallengeTypes["expiresAt"] }): ReactElement {
   return (
     <div className="bg-gray-50 py-6 px-3 md:py-9 md:px-3 border rounded border-solid border-gray-200 flex items-center justify-start md:justify-center my-5">
       <p className="text-gray-700 flex md:flex-col items-center gap-1 text-sm">
@@ -10,3 +19,4 @@ export default function ExpiryDate({ expiresAt }: { expiresAt?: ChallengeTypes["
     </div>
   );
 }
+
