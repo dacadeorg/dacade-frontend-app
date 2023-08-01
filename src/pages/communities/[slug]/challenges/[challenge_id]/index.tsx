@@ -94,8 +94,8 @@ export default function ChallengePage(props: {
             </a>
           </Hint>
           <Objectives />
-          <TeamChallenge  />
-          <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community}  />
+          {challenge.isTeamChallenge && <TeamChallenge />}
+          <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
           <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
           <BestSubmissions />
 
