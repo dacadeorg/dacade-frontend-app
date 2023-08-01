@@ -19,19 +19,24 @@ export default function Overview({ challenge }: { challenge: Challenge }) {
       <div className="md:flex md:flex-row flex-col rounded-full max-w-max text-sm mt-6 space-y-8 md:space-x-8 md:space-y-0">
         {challenge.rewards.map((reward, index) => (
           <div key={`reward=${index}`} className="flex items-center">
-            <Coin size="medium" token="cUSD" />
+            <Coin size="medium" token={reward.token} />
             <div className="text-sm md:pl-2 max-w-max">
               <div className="flex text-gray-700 font-medium">
                 <span className="pr-1">{reward.amount}</span>
-                <span>{reward.token} Rewards</span>
+                <span>
+                  {t("communities.overview.challenge.rewards", {
+                    count: parseInt(reward.token),
+                  })}
+                </span>
               </div>
-              <div className="text-gray-400 text-xs font-normal">Upon successful completion</div>
+              <div className="text-gray-400 text-xs font-normal">{t("communities.overview.challenge.subtitle")}</div>
             </div>
           </div>
         ))}
       </div>
       <div className="text-gray-400 text-sm font-normal pt-6">
-        <span>Deadline: </span>
+        <span>{t("communities.overview.challenge.deadline")}: </span>
+        {/* TODO: will be implemented when we have a challenge with expiration date or deadline. */}
         <span className="font-medium">March 12th, 2022</span>
       </div>
     </div>

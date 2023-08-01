@@ -104,6 +104,9 @@
   "communities.overview.challenge.title": "Вече сте готови да изпълните предизвикателството?",
   "communities.overview.reward.subtitle": "Какво може да получите в тази общност:",
   "communities.chapter.objective.subtitle": "Какво може да получите в тази общност:",
+  "communities.overview.challenge.rewards": "{{count}} Награди",
+  "communities.overview.challenge.subtitle": "При успешно завършване",
+  "communities.overview.challenge.deadline": "Краен срок",
   "communities.reward": "Награди",
   "communities.overview.subtitle": "Какво може да получите в тази общност:",
   "communities.submissions": "Submissions",
@@ -154,6 +157,7 @@
   "communities.card.submission": "{{count}} Подчинение",
   "communities.card.courses": "in {{count}}  Courses",
   "communities.card.course": "in {{count}}  Course",
+
   "communities.list-card.earn": "Earn",
   "course.challenge.button": "Start now",
   "course.challenge.level-0": "Beginner",
