@@ -19,7 +19,7 @@ export function OverviewRewards(): ReactElement {
   const rewardsDescription = rewards?.length ? `${rewards?.[0].amount} ${rewards?.[0].token}` : "";
 
   return (
-    <Section title={t("communities.overview.reward.title") as string}>
+    <Section title={`${t("communities.overview.reward.title")}`}>
       <p className="mt-5 text-lg">{t("communities.overview.reward.subtitle")}</p>
       <div className="pt-5 grid grid-cols-1 md:grid-cols-2">
         <RewardsList rewards={rewards} />
