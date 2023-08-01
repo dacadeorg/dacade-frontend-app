@@ -92,7 +92,7 @@ export default function ChallengePage(props: {
               Dacade Discord server.
             </a>
           </Hint>
-          {challenge.isTeamChallenge ? <TeamChallenge /> : <></>}
+          {challenge.isTeamChallenge && <TeamChallenge />}
           <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
           <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
           <BestSubmissions />
