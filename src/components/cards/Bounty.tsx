@@ -55,7 +55,6 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
   }, [bounty.challenge, bounty.course?.slug, bounty.slug, bounty.submissions?.link, bounty.url, isChallenge, navigation.community]);
 
   const Component = link.startsWith("http") ? "a" : Link;
-
   return (
     <div className="cursor-pointer flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative">
       <div className="bg-theme-accent flex-col w-full h-full justify-between md:-space-y-1 pl-3 pr-5 mt-7 mb-5">
@@ -110,7 +109,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
           className="w-15 h-15 rounded-xl overflow-hidden"
           user={null}
         />
-        {bounty.submissions && bounty.submissions.length && (
+        {bounty.totalSubmissions && (
           <Badge
             custom-style={{
               bottom: "-4px",
@@ -120,7 +119,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
             }}
             size="medium"
             value={bounty.totalSubmissions}
-            className="bottom-0 -right-1 absolute"
+            className="bottom-0 -right-1 absolute p-4"
           />
         )}
       </Component>
