@@ -109,7 +109,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
           className="w-15 h-15 rounded-xl overflow-hidden"
           user={null}
         />
-        {bounty.totalSubmissions && (
+        {bounty.metadata?.submissions && (
           <Badge
             custom-style={{
               bottom: "-4px",
@@ -118,7 +118,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
               backgroundColor: bounty.colors.accent,
             }}
             size="medium"
-            value={bounty.totalSubmissions}
+            value={bounty.metadata?.submissions}
             className="bottom-0 -right-1 absolute p-4"
           />
         )}
