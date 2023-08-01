@@ -3,7 +3,6 @@ import Section from "@/components/sections/communities/_partials/Section";
 import FormTeamCard from "@/components/cards/challenge/_partials/FormTeam";
 import SubmissionTeamCard from "@/components/cards/SubmissionTeam";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { User } from "@/types/bounty";
 import { Notification } from "@/types/notification";
 import AcceptTeamInvitation from "@/components/cards/challenge/AcceptTeamInvitation";
 
@@ -31,15 +30,7 @@ export default function SetupTeamChallenge(): JSX.Element {
         {teamInvitations ? (
           <AcceptTeamInvitation index={2} title="Submit your team" text="The maximum team members for this challenge is 3 people" teamInvitations={teamInvitations} />
         ) : (
-          <SubmissionTeamCard
-            index={2}
-            title="Submit your team"
-            text="The maximum team members for this challenge is 3 people"
-            username="Arsene"
-            user={user as User}
-            status="Organizer"
-            inputText=""
-          />
+          <SubmissionTeamCard index={2} title="Submit your team" text="The maximum team members for this challenge is 3 people" />
         )}
       </div>
     </Section>

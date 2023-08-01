@@ -41,6 +41,8 @@ import userReputationSlice from "./feature/user/reputation.slice";
 import payoutsSlice from "./feature/user/payouts.slice";
 import sumsubVerificationSlice from "./feature/kyc.slice";
 import certificateService from "./services/profile/certificate.service";
+import teamsSlice from "./feature/teams.slice";
+import teamsService from "./services/teams.service";
 import invitesSlice from "./feature/communities/challenges/invites.slice";
 
 export interface IRootState {
@@ -82,6 +84,8 @@ export interface IRootState {
   certificates: ReturnType<typeof certificateSlice.reducer>;
   sumsubVerification: ReturnType<typeof sumsubVerificationSlice.reducer>;
   payouts: ReturnType<typeof payoutsSlice.reducer>;
+  teams: ReturnType<typeof teamsSlice.reducer>;
+  teamsService: ReturnType<typeof teamsService.reducer>;
   invites: ReturnType<typeof invitesSlice.reducer>;
 }
 
@@ -133,6 +137,8 @@ export const store = configureStore({
     [userReferralsSlice.name]: userReferralsSlice.reducer,
     [sumsubVerificationSlice.name]: sumsubVerificationSlice.reducer,
     [payoutsSlice.name]: payoutsSlice.reducer,
+    [teamsSlice.name]: teamsSlice.reducer,
+    [teamsService.reducerPath]: teamsService.reducer,
     [invitesSlice.name]: invitesSlice.reducer,
     profile: profileReducer,
   },
@@ -151,7 +157,8 @@ export const store = configureStore({
       reputationProfileService.middleware,
       profileCommunitiesService.middleware,
       userReputationService.middleware,
-      authService.middleware
+      authService.middleware,
+      teamsService.middleware
     );
   },
 });
