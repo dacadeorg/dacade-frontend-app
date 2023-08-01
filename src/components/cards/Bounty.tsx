@@ -68,7 +68,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
             <Reward type="gray" reward={bounty.reward}></Reward>
           </div>
         </Component>
-        {bounty.submissions && bounty.submissions.length ? (
+        {bounty.submissions?.length ? (
           <div className="mt-4 space-y-0 divide-y divide-gray-200 border-t border-t-solid border-gray-200">
             {bounty.submissions.map((submission) => (
               <Link
@@ -112,7 +112,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
           className="w-15 h-15 rounded-xl overflow-hidden"
           user={null}
         />
-        {bounty.submissions && bounty.submissions.length ? (
+        {bounty.submissions?.length ? (
           <Badge
             custom-style={{
               bottom: "-4px",
