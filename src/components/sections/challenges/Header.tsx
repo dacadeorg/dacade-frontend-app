@@ -23,9 +23,6 @@ export default function ChallengeHeader(): ReactElement {
   return (
     <div>
       <Header title={challenge?.name} subtitle={t("communities.challenge.title")} description={challenge?.description} />
-      <Section>
-        <ObjectiveList objectives={challenge?.objectives} />
-      </Section>
       <Hint>
         <span className="pr-1 font-medium">{t("communities.challenge.hint")}:</span>
         <span
