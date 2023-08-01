@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { Fragment, useEffect, useMemo } from "react";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import Header from "@/components/sections/challenges/Header";
 import { OverviewRewards as Rewards } from "@/components/sections/challenges/Rewards";
@@ -32,6 +32,7 @@ import useNavigation from "@/hooks/useNavigation";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import Hint from "@/components/ui/Hint";
 import Objectives from "@/components/sections/challenges/Objectives";
+import { getTeamByChallenge } from "@/store/services/teams.service";
 
 /**
  * Challenge view page
@@ -74,13 +75,21 @@ export default function ChallengePage(props: {
     initChallengeNavigationMenu(navigation.community)(dispatch);
   }, [challenge, community, dispatch]);
 
+  useEffect(() => {
+    if (challenge && isAuthenticated) {
+      dispatch(getTeamByChallenge(challenge.id));
+    }
+  }, [challenge, isAuthenticated]);
+
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
+
+  const team = useSelector((state) => state.teams.current);
 
   return (
     <>
       <Head>
         <title>{title}</title>
-        <MetaData description={challenge?.description} />
+        <MetaData description={challenge?.description} />8
       </Head>
       <Wrapper paths={headerPaths}>
         <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
@@ -107,7 +116,16 @@ export default function ChallengePage(props: {
                   <SubmissionCard submission={submission} />
                 </div>
               ) : (
-                <>{challenge.isTeamChallenge ? <SetupTeamChallenge /> : <SubmissionForm />}</>
+                <>
+                  {challenge.isTeamChallenge ? (
+                    <>
+                      <SetupTeamChallenge />
+                      {team?.teamMembers && team?.teamMembers?.length === 3 && <SubmissionForm />}
+                    </>
+                  ) : (
+                    <SubmissionForm />
+                  )}
+                </>
               )}
             </div>
           )}
