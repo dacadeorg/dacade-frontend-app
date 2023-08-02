@@ -4,6 +4,7 @@ import { useTranslation } from "next-i18next";
 import { ReactElement, useMemo } from "react";
 import RewardsList from "./_partials/RewardsList";
 import ExpiryDate from "@/components/challenge/ExpiryDate";
+import DateManager from "@/utilities/DateManager";
 
 /**
  * Overview reward section component
@@ -17,9 +18,8 @@ export function OverviewRewards(): ReactElement {
   const challenge = useSelector((state) => state.challenges.current);
   const rewards = useMemo(() => challenge?.rewards?.filter((reward) => reward.type === "SUBMISSION"), [challenge?.rewards]);
   const rewardsDescription = rewards?.length ? `${rewards?.[0].amount} ${rewards?.[0].token}` : "";
-  // Regex pattern to extract the date from the string, expected format 'YYYY-MM-DD'
-  const datePattern = /\d{4}-\d{2}-\d{2}/;
-  const expirationDate = challenge?.expiresAt.match(datePattern)?.[0];
+  const expirationDate = challenge?.expiresAt && DateManager.format(challenge.expiresAt, "MMMM d, yyyy", "en");
+
   return (
     <Section title={t("communities.overview.reward.title") as string}>
       <p className="mt-5 text-lg">{t("communities.overview.reward.subtitle")}</p>
