@@ -111,6 +111,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
           shape="rounded"
           className="w-15 h-15 rounded-xl overflow-hidden"
           user={null}
+          useLink={false}
         />
         {bounty.submissions?.length ? (
           <Badge
