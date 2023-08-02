@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import Header from "@/components/sections/challenges/Header";
 import { OverviewRewards as Rewards } from "@/components/sections/challenges/Rewards";
@@ -89,7 +89,7 @@ export default function ChallengePage(props: {
     <>
       <Head>
         <title>{title}</title>
-        <MetaData description={challenge?.description} />8
+        <MetaData description={challenge?.description} />
       </Head>
       <Wrapper paths={headerPaths}>
         <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
@@ -115,17 +115,13 @@ export default function ChallengePage(props: {
                   <h4 className="my-8 text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
                   <SubmissionCard submission={submission} />
                 </div>
-              ) : (
+              ) : challenge.isTeamChallenge ? (
                 <>
-                  {challenge.isTeamChallenge ? (
-                    <>
-                      <SetupTeamChallenge />
-                      {team?.teamMembers && team?.teamMembers?.length === 3 && <SubmissionForm />}
-                    </>
-                  ) : (
-                    <SubmissionForm />
-                  )}
+                  <SetupTeamChallenge />
+                  <SubmissionForm />
                 </>
+              ) : (
+                <SubmissionForm />
               )}
             </div>
           )}
