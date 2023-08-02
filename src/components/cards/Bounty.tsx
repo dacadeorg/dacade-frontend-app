@@ -67,7 +67,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
             <Reward type="gray" reward={bounty.reward}></Reward>
           </div>
         </Component>
-        {bounty.submissions && bounty.submissions.length && (
+        {bounty.submissions?.length ? (
           <div className="mt-4 space-y-0 divide-y divide-gray-200 border-t border-t-solid border-gray-200">
             {bounty.submissions.map((submission) => (
               <Link
@@ -97,6 +97,8 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
               </Link>
             ))}
           </div>
+        ) : (
+          <></>
         )}
       </div>
       <Component className="self-start relative mt-15 md:mt-7" href={link}>
@@ -121,6 +123,8 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
             value={bounty.metadata?.submissions}
             className="bottom-0 -right-1 absolute p-4"
           />
+        ) : (
+          <></>
         )}
       </Component>
     </div>

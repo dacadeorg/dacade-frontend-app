@@ -31,6 +31,7 @@ import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChalle
 import useNavigation from "@/hooks/useNavigation";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import Hint from "@/components/ui/Hint";
+import Objectives from "@/components/sections/challenges/Objectives";
 
 /**
  * Challenge view page
@@ -92,7 +93,8 @@ export default function ChallengePage(props: {
               Dacade Discord server.
             </a>
           </Hint>
-          <TeamChallenge />
+          <Objectives />
+          {challenge.isTeamChallenge && <TeamChallenge />}
           <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
           <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
           <BestSubmissions />
