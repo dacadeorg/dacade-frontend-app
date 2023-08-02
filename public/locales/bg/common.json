@@ -102,6 +102,7 @@
   "communities.overview.trailer.video": "Video",
   "communities.overview.reward.title": "Награди",
   "communities.overview.challenge.title": "Вече сте готови да изпълните предизвикателството?",
+  "communities.overview.challenge.objective.title": "Цели на предизвикателството",
   "communities.overview.reward.subtitle": "Какво може да получите в тази общност:",
   "communities.chapter.objective.subtitle": "Какво може да получите в тази общност:",
   "communities.overview.challenge.rewards": "{{count}} Награди",
