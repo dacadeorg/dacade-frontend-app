@@ -17,6 +17,9 @@ export function OverviewRewards(): ReactElement {
   const challenge = useSelector((state) => state.challenges.current);
   const rewards = useMemo(() => challenge?.rewards?.filter((reward) => reward.type === "SUBMISSION"), [challenge?.rewards]);
   const rewardsDescription = rewards?.length ? `${rewards?.[0].amount} ${rewards?.[0].token}` : "";
+  // Regex pattern to extract the date from the string, expected format 'YYYY-MM-DD'
+  const datePattern = /\d{4}-\d{2}-\d{2}/;
+  const expirationDate = challenge?.expiresAt.match(datePattern)?.[0];
   return (
     <Section title={t("communities.overview.reward.title") as string}>
       <p className="mt-5 text-lg">{t("communities.overview.reward.subtitle")}</p>
@@ -32,7 +35,7 @@ export function OverviewRewards(): ReactElement {
           </p>
         </div>
       </div>
-      {challenge?.expiresAt && <ExpiryDate expiresAt={challenge?.expiresAt} />}
+      {expirationDate && <ExpiryDate expiresAt={expirationDate} />}
     </Section>
   );
 }
