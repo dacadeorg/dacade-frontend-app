@@ -45,7 +45,9 @@ const teamsService = createApi({
           const { data } = await queryFulfilled;
           dispatch(setInvitesData(data));
           return data;
-        } catch (err) {}
+        } catch (err) {
+          console.log("Invite not found");
+        }
       },
     }),
 
@@ -66,9 +68,9 @@ const teamsService = createApi({
         method: "POST",
         body: payload,
       }),
-      onQueryStarted: async (payload, { dispatch, queryFulfilled }) => {
-        await queryFulfilled;
-        dispatch(teamsService.endpoints.getTeamByChallenge.initiate(payload.challenge_id));
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        const { data } = await queryFulfilled;
+        dispatch(setTeamDataAndInvites(data));
       },
     }),
   }),
