@@ -1,6 +1,7 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { setTeamData, setTeamDataAndInvites } from "../feature/teams.slice";
+import { setInvitesData } from "../feature/communities/challenges/invites.slice";
 
 /**
  * Interface for the parameters that the createTeam function will receive
@@ -34,6 +35,20 @@ const teamsService = createApi({
         return data;
       },
     }),
+
+    getUserInvitesByChallenge: builder.query({
+      query: (challengeId: string) => ({
+        url: `/teams/challenge/${challengeId}/invite`,
+      }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setInvitesData(data));
+          return data;
+        } catch (err) {}
+      },
+    }),
+
     getTeamById: builder.query({
       query: (teamId: string) => ({
         url: `/teams/${teamId}`,
@@ -51,9 +66,9 @@ const teamsService = createApi({
         method: "POST",
         body: payload,
       }),
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled;
-        dispatch(setTeamDataAndInvites(data));
+      onQueryStarted: async (payload, { dispatch, queryFulfilled }) => {
+        await queryFulfilled;
+        dispatch(teamsService.endpoints.getTeamByChallenge.initiate(payload.challenge_id));
       },
     }),
   }),
@@ -61,6 +76,8 @@ const teamsService = createApi({
 export const { useGetTeamByChallengeQuery, useGetTeamByIdQuery } = teamsService;
 
 export const getTeamByChallenge = (challengeId: string) => teamsService.endpoints.getTeamByChallenge.initiate(challengeId);
+
+export const getUserInvitesByChallenge = (challengeId: string) => teamsService.endpoints.getUserInvitesByChallenge.initiate(challengeId);
 
 export const getTeamById = (challengeId: string) => teamsService.endpoints.getTeamById.initiate(challengeId);
 export default teamsService;

@@ -5,8 +5,9 @@ import AsyncSelect from "react-select/async";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { User } from "@/types/bounty";
-import { createTeam, getTeamByChallenge } from "@/store/services/teams.service";
+import { createTeam, getTeamByChallenge, getUserInvitesByChallenge } from "@/store/services/teams.service";
 import { getUserByUsername } from "@/store/services/user.service";
+import { authCheck } from "@/store/feature/auth.slice";
 
 /**
  * Props for the SubmissionTeam component.
@@ -50,11 +51,13 @@ interface Option {
  */
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  const { searchResult, challenge, user, team } = useSelector((state) => ({
+  const { searchResult, challenge, user, team, isAuthenticated, invite } = useSelector((state) => ({
     searchResult: state.user.searchUser,
     challenge: state.challenges.current,
     user: state.user.data,
     team: state.teams.current,
+    isAuthenticated: authCheck(state),
+    invite: state.invites.data,
   }));
 
   const [currentOptions, setCurrentOptions] = useState<Option[]>();
@@ -84,11 +87,15 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   //Fetch members for the team that the current user organised if any
 
   useEffect(() => {
-    dispatch(getTeamByChallenge(challenge?.id as string));
-  }, [challenge?.id]);
+    if (challenge && isAuthenticated) {
+      dispatch(getTeamByChallenge(challenge.id));
+      dispatch(getUserInvitesByChallenge(challenge.id));
+    }
+  }, [challenge, isAuthenticated]);
 
   useEffect(() => {
     if (team) {
+      console.log("This is the team", team);
       let tempTeamMembers: TeamCandidate[] = [];
       tempTeamMembers.push({ user: team.organizer, status: "Organiser" });
 
@@ -96,10 +103,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
         team.teamMembers.forEach((member) => tempTeamMembers.push({ user: member.user, status: "Team member" }));
       }
 
-      if (team.invites) {
-        team.invites.forEach((invite) => tempTeamMembers.push({ user: invite.member, status: invite.invite.status }));
+      if (team.teamInvites) {
+        team.teamInvites.forEach(({ user, status }) => tempTeamMembers.push({ user, status }));
       }
-
       setMembersList(tempTeamMembers);
     }
   }, [team]);
@@ -140,7 +146,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                   <div className=" text-sm text-gray-700 font-medium">{user?.displayName}</div>
                   <div className=" text-gray-400 text-xs">{status}</div>
                 </div>
-                {status === "pending" ? (
+                {status === "PENDING" ? (
                   <div
                     className="ml-auto hover:cursor-pointer relative"
                     onClick={() => removeTeamMember(user?.displayName || "")}
@@ -156,7 +162,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
               </div>
             );
           })}
-          {user?.displayName === team.organizer?.displayName || !team ? (
+          {(team && user?.id === team?.organizer_id) || !invite ? (
             <div>
               <AsyncSelect
                 cacheOptions
@@ -173,7 +179,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                 loadOptions={loadUserOptions}
                 onChange={(option) => {
                   // TODO: check if the team is actually closed instead of using this condition
-                  if (membersList.length < 4) {
+                  if (membersList.length < 8) {
                     if (option) selectTeamMember(option);
                   }
                 }}
