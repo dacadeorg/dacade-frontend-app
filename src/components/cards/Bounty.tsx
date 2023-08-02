@@ -123,8 +123,6 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
             value={bounty.metadata?.submissions}
             className="bottom-0 -right-1 absolute p-4"
           />
-        ) : (
-          <></>
         )}
       </Component>
     </div>
