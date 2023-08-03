@@ -8,6 +8,7 @@ import { User } from "@/types/bounty";
 import { createTeam, getTeamByChallenge, getUserInvitesByChallenge } from "@/store/services/teams.service";
 import { getUserByUsername } from "@/store/services/user.service";
 import { authCheck } from "@/store/feature/auth.slice";
+import { setInviteStatus } from "@/store/feature/communities/challenges/invites.slice";
 
 /**
  * Props for the SubmissionTeam component.
@@ -40,7 +41,7 @@ interface TeamCandidate {
 interface Option {
   value?: string;
   label?: string;
-  user: User | null;
+  user: User;
 }
 
 /**
@@ -51,18 +52,20 @@ interface Option {
  */
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  const { searchResult, challenge, user, team, isAuthenticated, invite } = useSelector((state) => ({
+  const { searchResult, challenge, user, team, isAuthenticated, invite, inviteStatus } = useSelector((state) => ({
     searchResult: state.user.searchUser,
     challenge: state.challenges.current,
     user: state.user.data,
     team: state.teams.current,
     isAuthenticated: authCheck(state),
     invite: state.invites.data,
+    inviteStatus: state.invites.inviteStatus,
   }));
 
   const [currentOptions, setCurrentOptions] = useState<Option[]>();
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
   const [visibleHint, setVisibleHint] = useState<"cancel" | "remove" | "">("");
+  const [selectedOption, setSelectedOption] = useState<User>();
   const dispatch = useDispatch();
 
   const filterUsers = async (username: string) => {
@@ -85,7 +88,6 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   };
 
   //Fetch members for the team that the current user organised if any
-
   useEffect(() => {
     if (challenge && isAuthenticated) {
       dispatch(getTeamByChallenge(challenge.id));
@@ -110,20 +112,34 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   }, [team]);
 
   const selectTeamMember = async (option: Option) => {
-    if (membersList.filter((member) => member.user?.displayName === option.user?.displayName).length !== 0) {
+    setSelectedOption(option.user);
+    if (membersList.filter((member) => member.user?.id === option.user?.id).length !== 0) {
       return;
     }
+    setMembersList([...membersList, { user: option.user, status: "Sending invite" }]);
     await dispatch(
       createTeam({
         challenge_id: challenge?.id,
-        members: [option.user?.id],
+        members: [user?.id],
       })
     );
   };
 
-  const removeTeamMember = (username: string) => {
-    setMembersList(membersList.filter((member) => member.user?.displayName !== username));
+  const removeTeamMember = (id: string) => {
+    setMembersList(membersList.filter((member) => member.user?.id !== id));
   };
+
+  useEffect(() => {
+    if (inviteStatus === "sent") {
+      const newMembersList = [...membersList];
+      newMembersList[newMembersList.length - 1].status = "PENDING";
+      setMembersList(newMembersList);
+    } else if (inviteStatus === "not sent") {
+      removeTeamMember(selectedOption?.id as string);
+    }
+
+    dispatch(setInviteStatus(null));
+  }, [inviteStatus]);
 
   return (
     <div className="flex flex-col relative flex-grow p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">
@@ -148,7 +164,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                 {status === "PENDING" ? (
                   <div
                     className="ml-auto hover:cursor-pointer relative"
-                    onClick={() => removeTeamMember(user?.displayName || "")}
+                    onClick={() => removeTeamMember(user?.id || "")}
                     onMouseEnter={() => setVisibleHint("cancel")}
                     onMouseLeave={() => setVisibleHint("")}
                   >

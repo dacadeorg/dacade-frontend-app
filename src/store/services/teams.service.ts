@@ -1,7 +1,8 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
-import { setTeamData, setTeamDataAndInvites } from "../feature/teams.slice";
-import { setInvitesData } from "../feature/communities/challenges/invites.slice";
+import { setTeamData } from "../feature/teams.slice";
+import { setInviteStatus, setInvitesData } from "../feature/communities/challenges/invites.slice";
+import { Team } from "@/types/challenge";
 
 /**
  * Interface for the parameters that the createTeam function will receive
@@ -70,7 +71,9 @@ const teamsService = createApi({
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
-        dispatch(setTeamDataAndInvites(data));
+        if (data.invites.length > 0) dispatch(setInviteStatus("sent"));
+        else dispatch(setInviteStatus("not sent"));
+        return;
       },
     }),
   }),
