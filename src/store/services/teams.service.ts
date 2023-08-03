@@ -2,6 +2,7 @@ import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { setTeamData } from "../feature/teams.slice";
 import { setInviteStatus, setInvitesData } from "../feature/communities/challenges/invites.slice";
+import { Invite } from "@/types/challenge";
 
 /**
  * Interface for the parameters that the createTeam function will receive
@@ -13,6 +14,7 @@ import { setInviteStatus, setInvitesData } from "../feature/communities/challeng
 interface CreateTeamPayload {
   challenge_id?: string;
   members: Array<string | undefined>;
+  invites?: Invite[];
 }
 
 /**
