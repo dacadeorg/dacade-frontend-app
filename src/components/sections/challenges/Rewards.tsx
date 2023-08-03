@@ -3,7 +3,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { ReactElement, useMemo } from "react";
 import RewardsList from "./_partials/RewardsList";
-import ExpiryDate from "@/components/challenge/ExpiryDate";
+
 
 /**
  * Overview reward section component
@@ -32,7 +32,6 @@ export function OverviewRewards(): ReactElement {
           </p>
         </div>
       </div>
-      {challenge?.expiresAt && <ExpiryDate expiresAt={challenge?.expiresAt} />}
     </Section>
   );
 }
