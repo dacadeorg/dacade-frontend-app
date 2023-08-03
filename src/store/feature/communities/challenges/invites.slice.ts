@@ -3,7 +3,7 @@ import { Invite } from "@/types/challenge";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface DefaultState {
-  data: Invite[] | null;
+  data: Invite | null;
   inviteStatus: null | "sent" | "not sent";
 }
 const defaultState: DefaultState = {
