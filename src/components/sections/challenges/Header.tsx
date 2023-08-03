@@ -15,16 +15,18 @@ import { ReactElement } from "react";
  */
 export default function ChallengeHeader(): ReactElement {
   const { t } = useTranslation();
-  const { course, challenge } = useSelector((state) => ({
+  const { challenge } = useSelector((state) => ({
     course: state.courses.current,
     challenge: state.challenges.current,
+    community: state.communities.current,
   }));
 
+  console.log(challenge);
   return (
     <div>
-      <Header isTeamChallenge={challenge?.isTeamChallenge} title={challenge?.name} subtitle={t("communities.challenge.title")} description={challenge?.description} />
-      <Section>
-        <ObjectiveList objectives={challenge?.objectives} />
+      <Header isTeamChallenge={challenge?.isTeamChallenge} title={challenge?.name} subtitle={t("communities.challenge.title")} />
+      <Section subtitle={`${challenge?.name} based on our learning modules`}>
+        <ObjectiveList objectives={challenge?.learningModules.map((module) => module.title)} />
       </Section>
       <Hint>
         <span className="pr-1 font-medium">{t("communities.challenge.hint")}:</span>
