@@ -63,7 +63,7 @@ const teamsService = createApi({
       },
     }),
 
-    createTeam: builder.mutation<CreateTeamPayload, any>({
+    createTeam: builder.mutation<any, CreateTeamPayload>({
       query: (payload: CreateTeamPayload) => ({
         url: "/teams/create",
         method: "POST",
