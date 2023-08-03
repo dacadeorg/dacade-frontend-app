@@ -71,9 +71,16 @@ const teamsService = createApi({
         body: payload,
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled;
-        if (data.invites.length > 0) dispatch(setInviteStatus("sent"));
-        else dispatch(setInviteStatus("not sent"));
+        try {
+          const { data } = await queryFulfilled;
+          if (data.invites.length > 0) dispatch(setInviteStatus("sent"));
+          else dispatch(setInviteStatus("not sent"));
+          console.log("This is the data invites", { length: data.invites.length, invites: data.invites });
+        } catch (err: any) {
+          dispatch(setInviteStatus(err.status));
+          console.log("Error", err);
+        }
+
         return;
       },
     }),

@@ -65,7 +65,6 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   const [currentOptions, setCurrentOptions] = useState<Option[]>();
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
   const [visibleHint, setVisibleHint] = useState<"cancel" | "remove" | "">("");
-  const [selectedOption, setSelectedOption] = useState<User>();
   const dispatch = useDispatch();
 
   const filterUsers = async (username: string) => {
@@ -98,7 +97,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   useEffect(() => {
     if (team) {
       let tempTeamMembers: TeamCandidate[] = [];
-      tempTeamMembers.push({ user: team.organizer, status: "Organiser" });
+      tempTeamMembers.push({ user: team.organizer, status: "Organizer" });
 
       if (team.teamMembers) {
         team.teamMembers.forEach((member) => tempTeamMembers.push({ user: member.user, status: "Team member" }));
@@ -112,7 +111,6 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   }, [team]);
 
   const selectTeamMember = async (option: Option) => {
-    setSelectedOption(option.user);
     if (membersList.filter((member) => member.user?.id === option.user?.id).length !== 0) {
       return;
     }
@@ -135,7 +133,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
       newMembersList[newMembersList.length - 1].status = "PENDING";
       setMembersList(newMembersList);
     } else if (inviteStatus === "not sent") {
-      removeTeamMember(selectedOption?.id as string);
+      const newMembersList = [...membersList];
+      newMembersList[newMembersList.length - 1].status = "Not sent";
+      setMembersList(newMembersList);
     }
 
     dispatch(setInviteStatus(null));
@@ -161,7 +161,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                   <div className=" text-sm text-gray-700 font-medium">{user?.displayName}</div>
                   <div className=" text-gray-400 text-xs">{status}</div>
                 </div>
-                {status === "PENDING" ? (
+                {status !== "Organizer" ? (
                   <div
                     className="ml-auto hover:cursor-pointer relative"
                     onClick={() => removeTeamMember(user?.id || "")}

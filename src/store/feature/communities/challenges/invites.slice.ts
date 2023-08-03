@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface DefaultState {
   data: Invite | null;
-  inviteStatus: null | "sent" | "not sent";
+  inviteStatus: string | null;
 }
 const defaultState: DefaultState = {
   data: null,
