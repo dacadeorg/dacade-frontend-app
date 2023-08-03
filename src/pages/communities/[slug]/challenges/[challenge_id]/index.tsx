@@ -83,8 +83,6 @@ export default function ChallengePage(props: {
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
 
-  const team = useSelector((state) => state.teams.current);
-
   return (
     <>
       <Head>

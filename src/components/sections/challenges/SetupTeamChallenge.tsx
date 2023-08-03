@@ -14,7 +14,6 @@ import AcceptTeamInvitation from "@/components/cards/challenge/AcceptTeamInvitat
 export default function SetupTeamChallenge(): JSX.Element {
   const { notifications } = useSelector((state) => ({
     notifications: state.notifications.notifications,
-    user: state.user.data,
   }));
   const [teamInvitations, setTeamInvitations] = useState<Notification[]>([]);
 
