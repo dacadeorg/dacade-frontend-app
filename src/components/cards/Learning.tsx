@@ -55,7 +55,7 @@ export default function Learning({ learningModule }: LearningProps): ReactElemen
   };
 
   return (
-    <div className="px-5 pt-5 pb-8 bg-gray-50 rounded-3xl min-h-2xs w-full border-solid border-2 border-gray-100 md:mt-0">
+    <div className="px-5 pt-5 pb-8 bg-gray-50 rounded-3xl min-h-2xs w-full border-solid border-2 border-gray-100 md:mt-0 cursor-pointer">
       <div onClick={navigate} className="flex flex-col">
         <div className="w-full">
           <h4 className="font-medium block text-xl">{learningModule.title}</h4>

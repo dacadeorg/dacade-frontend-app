@@ -1,6 +1,7 @@
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { setForwardRoute } from "@/store/feature/index.slice";
+import { setListProfileCommunities } from "@/store/feature/profile/communities.slice";
 import { fetchAllProfileCommunities } from "@/store/services/profile/profileCommunities.service";
 import { fetchUserProfile } from "@/store/services/profile/users.service";
 import { useRouter } from "next/router";
@@ -38,7 +39,7 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
 
   const isGuestRoute = useMemo(
     () => (path: string) => {
-      return matchesRoutes(path, ["/signup", "/login", "/password-reset"]);
+      return matchesRoutes(path, ["/signup","/password-reset"]);
     },
     []
   );
@@ -75,10 +76,19 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
     }
 
     if (route.startsWith("/profile") && auth && auth.emailVerified) {
-      dispatch(fetchUserProfile((router.query?.username as string) || ""));
-      dispatch(fetchAllProfileCommunities((router.query?.username as string) || authUser?.displayName || ""));
+      dispatch(fetchUserProfile((authUser?.username as string) || ""));
+      dispatch(fetchAllProfileCommunities((authUser?.username as string) || authUser?.displayName || ""));
     }
   }, [auth, authUser, dispatch, isGuestRoute, isUserRoute, route, router]);
+
+  useEffect(() => {
+    (async () => {
+      if (route.startsWith("/profile")) {
+        const { data } = await dispatch(fetchAllProfileCommunities((router.query?.username || authUser?.displayName) as string));
+        dispatch(setListProfileCommunities(data));
+      }
+    })();
+  }, [authUser?.displayName, dispatch, route, router.asPath, router.query?.username]);
 
   return <>{children}</>;
 }

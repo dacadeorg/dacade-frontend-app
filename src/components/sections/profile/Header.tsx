@@ -11,18 +11,22 @@ import { useTranslation } from "next-i18next";
 import { useDispatch } from "react-redux";
 import { openVerificationModal } from "@/store/feature/kyc.slice";
 import KYCVerification from "@/components/popups/KYCVerification";
-import { useDiscordConnect } from "@/hooks/useDiscordConnect"
+import { useDiscordConnect } from "@/hooks/useDiscordConnect";
 
-
-const ProfileHeader = () => {
+/**
+ * Profile header component
+ *
+ */
+export default function ProfileHeader() {
   const router = useRouter();
   const { locale } = router;
   const { t } = useTranslation();
   const { authUser, profileUser, isKycVerified } = useSelector((state) => ({
     authUser: state.user.data,
     profileUser: state.profile.user.current,
-    isKycVerified: state.user.data?.isKycVerified,
+    isKycVerified: state.user.data?.kycStatus === "VERIFIED",
   }));
+
   const user = useMemo(() => {
     const username = (router.query?.username as string) || "";
     if (username && username?.toLowerCase() !== authUser?.displayName?.toLowerCase()) return profileUser;
@@ -91,6 +95,4 @@ const ProfileHeader = () => {
       <KYCVerification />
     </div>
   );
-};
-
-export default ProfileHeader;
+}

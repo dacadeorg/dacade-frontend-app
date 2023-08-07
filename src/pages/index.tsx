@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import HomeLayout from "@/layouts/Home";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import { wrapper } from "@/store";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Community } from "@/types/community";

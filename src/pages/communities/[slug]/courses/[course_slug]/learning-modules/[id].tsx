@@ -14,7 +14,7 @@ import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import MaterialSection from "@/components/sections/learning-modules/MaterialSection";
 import DefaultLayout from "@/components/layout/Default";
 import Header from "@/components/sections/learning-modules/Header";
-import { initNavigationMenu } from "@/store/feature/communities/navigation.slice";
+import { initCourseNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import { setColors } from "@/store/feature/ui.slice";
 import useNavigation from "@/hooks/useNavigation";
 import api from "@/config/api";
@@ -24,6 +24,7 @@ import { store } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchCourse } from "@/store/services/course.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import ChallengeOverviewCard from "@/components/cards/challenge/Overview";
 
 /**
  * Learning module page props interfae
@@ -59,7 +60,7 @@ export default function LearningModulePage(props: LearningModulePageProps) {
     dispatch(setCurrentCourse(course));
     dispatch(setCurrentLearningModule(learningModule));
     dispatch(setColors(community.colors));
-    initNavigationMenu(navigation.community)(dispatch);
+    initCourseNavigationMenu(navigation.community)(dispatch);
   }, [community, course, dispatch, learningModule, navigation.community]);
 
   const materials = useMemo(() => learningModule?.materials?.filter((material) => material.type !== "ADDITIONAL") || [], [learningModule?.materials]);
@@ -79,9 +80,11 @@ export default function LearningModulePage(props: LearningModulePageProps) {
         ))}
       </Head>
       <Wrapper>
-        <div className="py-8 flex flex-col divide-y divide-solid divide-gray-200 space-y-8 text-gray-700">
+        <div className="py-8 flex flex-col divide-y space-y-8 text-gray-700">
           <Header />
           <div className="w-full divide-y divide-solid divide-gray-200">
+            {/* TODO: we will have an active challenge here instead picking the first one in the future. */}
+            {course.challenges && <ChallengeOverviewCard challenge={course.challenges[0]} />}
             {materials.map((material, i) => (
               <MaterialSection key={`material-section-${i}`} material={material} />
             ))}

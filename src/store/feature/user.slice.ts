@@ -20,6 +20,7 @@ interface DefaultState {
   token: string | null;
   referrals: Referral[] | null;
   fetchingUserLoading: boolean;
+  searchUser: User[] | null;
 }
 
 /**
@@ -34,6 +35,7 @@ const defaultState: DefaultState = {
   token: null,
   referrals: null,
   fetchingUserLoading: true,
+  searchUser: null,
 };
 
 /**
@@ -60,13 +62,16 @@ const userSlice = createSlice({
     setUserdata: (state, action) => {
       state.data = action.payload;
     },
+    setSearchUserdata: (state, action) => {
+      state.searchUser = action.payload;
+    },
     setUserToken: (state, action) => {
       state.token = action.payload;
     },
   },
 });
 
-export const { clearUserState, setUserdata, setUserToken, fetchingUserLoading } = userSlice.actions;
+export const { clearUserState, setUserdata, setUserToken, fetchingUserLoading, setSearchUserdata } = userSlice.actions;
 
 /**
  * An async action creator that gets the current user's token and sets it in the state.
@@ -80,6 +85,7 @@ export const getToken = createAsyncThunk("user/getToken", async (_, { dispatch }
     dispatch(setUserToken(token));
     return token;
   } catch (e) {
+    dispatch(fetchingUserLoading(false));
     console.log(e);
     dispatch(clearUserState());
   }

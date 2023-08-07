@@ -4,9 +4,10 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { Submission } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
-import { Dispatch, ReactElement, ReactNode, SetStateAction } from "react";
+import { ReactElement, ReactNode, useCallback } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { showSubmission } from "@/store/feature/communities/challenges/submissions";
+import { useRouter } from "next/router";
 
 /**
  * Submission card interface props
@@ -32,7 +33,8 @@ interface SubmissionCardProps {
 export default function SubmissionCard({ submission, link = "", children }: SubmissionCardProps): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const colors = useSelector((state) => state.ui.colors);
+  const router = useRouter();
+  const { colors } = useSelector((state) => ({ colors: state.ui.colors }));
 
   const reviewed = submission?.metadata?.evaluation || submission?.metadata?.reviewed;
 
@@ -46,6 +48,10 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
     "--button-background-color--hover": colors?.textAccent,
     "--button-border-color--hover": colors?.textAccent,
   };
+
+  const displaySubmission = useCallback(() => {
+    router.push({ query: { submission_id: submission?.id }, pathname: router.asPath }, undefined, { shallow: true });
+  }, [router, submission?.id]);
 
   return (
     <UserCard
@@ -101,6 +107,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
               customStyle={arrowButtonStyles}
               arrowClasses=""
               onClick={() => {
+                displaySubmission();
                 dispatch(showSubmission(submission.id));
               }}
             />

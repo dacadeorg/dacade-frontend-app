@@ -60,7 +60,7 @@ export const getSumsubToken = () => async (dispatch: Dispatch) => {
  */
 export const openVerificationModal = (payload: any) => {
   return async (dispatch: Dispatch) => {
-    const isKycVerified = store.getState().user.data?.isKycVerified;
+    const isKycVerified = store.getState().user.data?.kycStatus === "VERIFIED";
     if (isKycVerified) {
       closeVerificationModal()(dispatch);
       triggerCompleteAction()(dispatch);

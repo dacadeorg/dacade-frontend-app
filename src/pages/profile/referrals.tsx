@@ -6,12 +6,10 @@ import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import { userFetchReferrals } from "@/store/services/referrals.service";
-import { GetServerSideProps } from "next";
 
 import Referral from "@/components/cards/profile/Referral";
 import EmptyState from "@/components/ui/EmptyState";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 /**
  * Refferrals component for user profile
@@ -28,6 +26,7 @@ export default function UserReferrals(): ReactElement {
   const user = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
   const showLoadMore = useMemo(() => showButton && referrals?.length >= 30, [referrals?.length, showButton]);
+
   useEffect(() => {
     dispatch(userFetchReferrals({}));
   }, [dispatch, user?.referrals]);
@@ -48,7 +47,7 @@ export default function UserReferrals(): ReactElement {
 
   return (
     <div className="lg:w-9/12 xl:w-2/3">
-      {referrals && referrals.length ? (
+      {referrals.length ? (
         <div className="relative w-full">
           <div className="flex flex-col w-full overflow-hidden border border-gray-200 border-solid divide-y divide-gray-200 rounded-3xl divide-solid">
             <InfiniteScroll

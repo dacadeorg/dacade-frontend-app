@@ -27,7 +27,7 @@ const referralsService = createApi({
 
     userFetchReferrals: builder.query({
       query: ({ startAfter, locale }: { startAfter?: string | null; locale?: string }) => ({
-        url: `referrals/tracking?start_after=${startAfter}`,
+        url: startAfter ? `referrals/tracking?start_after=${startAfter}` : "referrals/tracking",
         headers: {
           "accept-language": locale,
         },

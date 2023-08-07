@@ -1,7 +1,6 @@
 import { Community } from "@/types/community";
-import { Course } from "@/types/course";
+import { Challenge, Course } from "@/types/course";
 import Slugger from "github-slugger";
-// import { NextRouter } from "next/router";
 
 type QueryRoute = {
   course_slug?: string;
@@ -78,6 +77,19 @@ export default class CommunityNavigation {
   }
 
   /**
+   * Get the community path for the specified community slug
+   * @date 3/21/2023 - 12:30:50 PM
+   *
+   * @param {string} [link=""]
+   * @param {string} [communitySlug=this.params().slug]
+   * @returns {string}
+   */
+
+  communityPath(link: string = "", communitySlug: string | undefined = this.params().slug): string {
+    return this.cleanupUrl(`/communities/${communitySlug}/${link}`);
+  }
+
+  /**
    * Get the course path for the specified course slug and community slug
    * @date 3/21/2023 - 12:30:50 PM
    *
@@ -88,7 +100,7 @@ export default class CommunityNavigation {
    */
 
   coursePath(link: string = "", courseSlug: string | undefined = this.params().course_slug, communitySlug: string | undefined = this.params().slug): string {
-    return this.cleanupUrl(`/communities/${communitySlug}/courses/${courseSlug}/${link}`);
+    return this.cleanupUrl(this.communityPath(`courses/${courseSlug}/${link}`, communitySlug));
   }
 
   /**
@@ -115,8 +127,8 @@ export default class CommunityNavigation {
    * @returns {string}
    */
 
-  challengePath(path: string, courseSlug: string | undefined = this.params().course_slug, communitySlug: string | undefined = this.params().slug): string {
-    return this.cleanupUrl(this.coursePath(`challenges/${path}`, courseSlug, communitySlug));
+  challengePath(path: string, communitySlug: string | undefined = this.params().slug): string {
+    return this.cleanupUrl(this.communityPath(`challenges/${path}`, communitySlug));
   }
 
   /**
@@ -130,13 +142,8 @@ export default class CommunityNavigation {
    * @returns {string}
    */
 
-  submissionPath(
-    path: string,
-    challengeId: string | undefined = this.params().challenge_id,
-    courseSlug: string | undefined = this.params().course_slug,
-    communitySlug: string | undefined = this.params().slug
-  ): string {
-    return this.cleanupUrl(this.challengePath(`${challengeId}/submissions/${path}`, courseSlug, communitySlug));
+  submissionPath(path: string, challengeId: string | undefined = this.params().challenge_id, communitySlug: string | undefined = this.params().slug): string {
+    return this.cleanupUrl(this.challengePath(`${challengeId}/submissions/${path}`, communitySlug));
   }
 
   /**
@@ -149,12 +156,8 @@ export default class CommunityNavigation {
    * @returns {string}
    */
 
-  submissionsPath(
-    challengeId: string | undefined = this.params().challenge_id,
-    courseSlug: string | undefined = this.params().course_slug,
-    communitySlug: string | undefined = this.params().slug
-  ): string {
-    return this.cleanupUrl(this.challengePath(`${challengeId}/submissions`, courseSlug, communitySlug));
+  submissionsPath(challengeId: string | undefined = this.params().challenge_id, communitySlug: string | undefined = this.params().slug): string {
+    return this.cleanupUrl(this.challengePath(`${challengeId}/submissions`, communitySlug));
   }
 
   /**
@@ -190,31 +193,62 @@ export default class CommunityNavigation {
   }
 
   /**
-   * Get the bounty links for the specified community slug
-   * @date 3/21/2023 - 1:17:50 PM
+   * TODO: description should be updated after understanding what this method does.
+   * @date 3/21/2023 - 1:36:42 PM
    *
-   * @param {Course} course
-   * @param {(string | undefined)} [communitySlug=this.params().slug]
-   * @returns {BountyLink[]}
+   * @param {{ course: Course; community: Community }} { course, community }
+   * @returns {List}
    */
 
-  bountyLinks(course: Course, communitySlug: string | undefined = this.params().slug): BountyLink[] {
-    if (!course?.challenge) return [];
-
-    return [
+  initForChallenge({ challenge, community }: { challenge: Challenge; community: Community }): List[] {
+    const menuList: List[] = [
       {
-        id: "challenge",
-        label: "communities.navigation.challenge.overview",
-        link: this.challengePath(course.challenge.id, course.slug, communitySlug),
-        exact: true,
-      },
-      {
-        id: "submissions",
-        label: "communities.navigation.submissions",
-        link: this.submissionPath("", course.challenge.id, course.slug, communitySlug),
-        exact: false,
+        id: "bounties",
+        title: "communities.navigation.challenge",
+        items: [
+          {
+            label: "communities.navigation.challenge.overview",
+            exact: true,
+            link: this.challengePath(challenge?.id, community?.slug),
+          },
+          {
+            label: "communities.navigation.submissions",
+            link: this.submissionPath("", challenge?.id, community?.slug),
+            exact: false,
+          },
+        ],
       },
     ];
+
+    const courses =
+      challenge?.courses?.map((course, i) => {
+        return {
+          id: course.id,
+          label: course.name,
+          link: this.coursePath("", course.slug, community?.slug),
+          exact: false,
+        };
+      }) || [];
+
+    const learningModules =
+      challenge?.learningModules?.map((learningModule, i) => {
+        return {
+          id: learningModule.id,
+          label: learningModule.title,
+          link: this.learningModulePath(learningModule.id, "", community.slug),
+          exact: false,
+        };
+      }) || [];
+
+    if (courses.length || learningModules.length) {
+      menuList.push({
+        id: "related-content",
+        title: "communities.navigation.related-content",
+        items: [...courses, ...learningModules],
+      });
+    }
+
+    return menuList;
   }
 
   /**
@@ -226,7 +260,6 @@ export default class CommunityNavigation {
    */
 
   init({ course, community }: { course: Course; community: Community }): List[] {
-    const challenges = this.bountyLinks(course, community?.slug);
     const learningModules = this.learningModuleLinks(course, community?.slug);
 
     const communityNavigationMenuList: List[] = [
@@ -243,6 +276,16 @@ export default class CommunityNavigation {
         ],
       },
     ];
+
+    const challenges =
+      course.challenges?.map((challenge, i) => {
+        return {
+          id: challenge.id,
+          label: challenge.name,
+          link: this.challengePath(challenge.id, community.slug),
+          exact: false,
+        };
+      }) || [];
 
     if (learningModules.length) {
       communityNavigationMenuList.push({

@@ -14,6 +14,7 @@ import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import { createEvent } from "@/store/feature/events.slice";
 import { Submission as TSubmission } from "@/types/bounty";
+import Hint from "@/components/ui/Hint";
 
 interface FormValues {
   text: string;
@@ -37,11 +38,12 @@ export default function Submission(): ReactElement {
   let textValue = watch("text");
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { user, colors, challenge, community } = useSelector((state) => ({
+  const { user, colors, challenge, community, team } = useSelector((state) => ({
     user: state.user.data,
     colors: state.ui.colors,
     challenge: state.challenges.current,
     community: state.communities.current,
+    team: state.teams.current,
   }));
 
   const [submitting, setSubmitting] = useState(false);
@@ -106,69 +108,86 @@ export default function Submission(): ReactElement {
 
   return (
     <Section title={t("communities.challenge.submission")}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {challenge?.format && (
-          <div className="relative w-full md:pl-7.5 my-6">
-            <div className="absolute z-50 left-3 md:left-0 top-3">
-              <Avatar user={user} size="medium" />
-            </div>
+      <p className="text-base font-normal text-slate-700 pt-2 pb-7 md:w-99">Paste the code of your team below and it will automatically link to all the profiles</p>
+      {team?.teamMembers && team.teamMembers.length < 3 && challenge?.isTeamChallenge ? (
+        <Hint className="mb-8">Submitions will be enabled when when all the team mebmers accept the invitation and the team is fully formed.</Hint>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {challenge?.format && (
+            <div className="relative w-full md:pl-7.5 my-6">
+              <div className="absolute z-50 left-3 md:left-0 top-3">
+                <Avatar user={user} size="medium" />
+              </div>
 
-            <div label-for="input-text">
-              <TextInput
-                id="input-text"
-                value={textValue}
-                placeholder={`${t("communities.challenge.submission.placeholder.text")}`}
-                error={errors.text?.message as string}
-                {...register("text", {
-                  required: "This field is required",
-                  maxLength: {
-                    value: 100,
-                    message: "The text is too long",
-                  },
-                })}
-              />
-            </div>
-            {challenge.format.githubLink && (
-              <div
-                className={classNames("w-full border border-solid border-gray-200 m-0 rounded-b text-lg py-0 leading-none items-center space-x-2", {
-                  "border-t-0": challenge.format.text,
-                })}
-              >
-                <div>
-                  <GithubLinkInput
-                    id="input-github"
-                    error={errors.githubLink?.message as string}
-                    className="p-0 border-none border-transparent focus:outline-none outline-none active:border-none focus:border-none block m-0 flex-grow w-full placeholder-gray-400 placeholder-opacity-100"
-                    placeholder={`${t("communities.challenge.submission.placeholder.github")}`}
-                    {...register("githubLink", {
-                      value: githubLinkValue,
-                      required: "This field is required",
-                    })}
-                  />
+              <div label-for="input-text">
+                <TextInput
+                  id="input-text"
+                  value={textValue}
+                  placeholder={`${t("communities.challenge.submission.placeholder.text")}`}
+                  error={errors.text?.message as string}
+                  {...register("text", {
+                    required: "This field is required",
+                    maxLength: {
+                      value: 100,
+                      message: "The text is too long",
+                    },
+                    minLength: {
+                      value: 15,
+                      message: "This field must be at least 15 characters.",
+                    },
+                  })}
+                />
+              </div>
+              {challenge.format.githubLink && (
+                <div
+                  className={classNames("w-full border border-solid border-gray-200 m-0 rounded-b text-lg py-0 leading-none items-center space-x-2", {
+                    "border-t-0": challenge.format.text,
+                  })}
+                >
+                  <div>
+                    <GithubLinkInput
+                      id="input-github"
+                      error={errors.githubLink?.message as string}
+                      className="p-0 border-none border-transparent focus:outline-none outline-none active:border-none focus:border-none block m-0 flex-grow w-full placeholder-gray-400 placeholder-opacity-100"
+                      placeholder={`${t("communities.challenge.submission.placeholder.github")}`}
+                      {...register("githubLink", {
+                        value: githubLinkValue,
+                        required: "This field is required",
+                        pattern: {
+                          /*
+                          This pattern validates a valid GitHub link URL.
+                          The URL should follow the format: https://github.com/username/repository.
+                        */
+                          value: /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/,
+                          message: "This value must be a valid Github repository URL",
+                        },
+                      })}
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
+          )}
+          <div className="pl-7.5">
+            <MarkdownIcon />
           </div>
-        )}
-        <div className="pl-7.5">
-          <MarkdownIcon />
-        </div>
-        <div className="flex justify-between">
-          <div className="flex xl:pl-10.75 flex-col self-center">
-            {challenge?.format.disclaimer && (
-              <div className="flex flex-row max-w-xm space-x-3 items-center">
-                <input type="checkbox" className="xl:w-5 w-10 h-5" name="agree" required onChange={() => setCheckedTerms(!checkedTerms)} checked={checkedTerms} />
-                <span className="max-w-none text-sm leading-none">{challenge.format.disclaimer}</span>
-              </div>
-            )}
+          <div className="flex justify-between">
+            <div className="flex xl:pl-10.75 flex-col self-center">
+              {challenge?.format.disclaimer && (
+                <div className="flex flex-row max-w-xm space-x-3 items-center">
+                  <input type="checkbox" className="xl:w-5 w-10 h-5" name="agree" required onChange={() => setCheckedTerms(!checkedTerms)} checked={checkedTerms} />
+                  <span className="max-w-none text-sm leading-none">{challenge.format.disclaimer}</span>
+                </div>
+              )}
+            </div>
+            <div className="flex text-right self-start">
+              <ArrowButton variant="primary" disabled={disabled} customStyle={activeButtonStyle} loading={submitting}>
+                submit
+              </ArrowButton>
+            </div>
           </div>
-          <div className="flex text-right self-start">
-            <ArrowButton variant="primary" disabled={disabled} customStyle={activeButtonStyle} loading={submitting}>
-              submit
-            </ArrowButton>
-          </div>
-        </div>
-      </form>
+        </form>
+      )}
     </Section>
   );
 }

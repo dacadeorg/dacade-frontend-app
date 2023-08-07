@@ -13,6 +13,7 @@ import { ReactElement, ReactNode } from "react";
  */
 interface WrapperProps {
   children: ReactNode;
+  paths?: string[];
 }
 
 /**
@@ -23,7 +24,7 @@ interface WrapperProps {
  * @param {WrapperProps} { children }
  * @returns {ReactElement}
  */
-export default function Wrapper({ children }: WrapperProps): ReactElement {
+export default function Wrapper({ children, paths }: WrapperProps): ReactElement {
   return (
     <Section type="default">
       <div className="h-auto lg:flex">
@@ -34,7 +35,7 @@ export default function Wrapper({ children }: WrapperProps): ReactElement {
           <MobileNav showTopBorder />
         </div>
         <div className="w-full lg:w-3/4">
-          <CommunityNavigation />
+          <CommunityNavigation paths={paths}/>
           {children}
         </div>
       </div>

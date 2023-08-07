@@ -49,34 +49,32 @@ export default function DiscordConnect(): ReactElement {
    *
    * @type {Function}
    */
-  const discordCallback: Function = useCallback(() => {
-    async () => {
-      try {
-        const { code } = router.query;
-        if (!code) {
-          return;
-        }
-        setDiscordLoading(true);
-        setShowDiscordModal(true);
-
-        const response = await api().server.post("auth/discord", {
-          code,
-        });
-
-        if (!response) {
-          setDiscordError(true);
-          return;
-        }
-        setDiscordSuccess(true);
-        dispatch(fetchUser());
-      } catch (error) {
-        setDiscordError(true);
-      } finally {
-        setDiscordLoading(false);
-        router.replace({ query: {} });
+  const discordCallback: Function = useCallback(async () => {
+    try {
+      const { code } = router.query;
+      if (!code) {
+        return;
       }
-    };
-  }, [dispatch, router]);
+      setDiscordLoading(true);
+      setShowDiscordModal(true);
+
+      const response = await api().client.post("auth/discord", {
+        code,
+      });
+
+      if (!response) {
+        setDiscordError(true);
+        return;
+      }
+      setDiscordSuccess(true);
+      dispatch(fetchUser());
+    } catch (error) {
+      setDiscordError(true);
+    } finally {
+      setDiscordLoading(false);
+      router.replace({ query: {} });
+    }
+  }, []);
 
   useEffect(() => {
     discordCallback();

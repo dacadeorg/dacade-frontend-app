@@ -146,7 +146,7 @@ export default function Avatar({
       </span>
       {showVerificationBadge && (
         <span className={`absolute z-20 rounded-full ${verifiedIconClasses}`}>
-          <VerifiedIcon />
+          <VerifiedIcon className="w-full h-full" />
         </span>
       )}
     </Component>

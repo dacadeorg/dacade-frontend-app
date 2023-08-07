@@ -21,7 +21,8 @@ export type Course = {
   certificateData: CertificateData;
   timestamp: number;
   learningModules: LearningModule[];
-  challenge: Challenge;
+  challenge?: Challenge;
+  challenges?: Challenge[];
   translations: any[];
   trailer: Trailer;
   disclaimer: string;
@@ -47,16 +48,22 @@ export type Challenge = {
   created_at: Date;
   updated_at: Date;
   hint: string;
+  name: string;
   format: Format;
   description: string;
   course: Course;
+  type: string;
+  isTeamChallenge: boolean = false;
   objectives: string[];
   threshold: number;
   community: Community;
   reviewTime: number;
   metadata: Metadata;
   level: number;
-  courses: string[];
+  courses: Course[];
+  learningModules: LearningModule[];
+  expiresAt: string;
+  reward?: Reward;
   certificateIcon: string;
   certificateData: CertificateData;
   ratingCriteria: RatingCriteria[];
@@ -100,6 +107,7 @@ export type Format = {
 };
 
 export type Metadata = {
+  invite_id?: string;
   submissions: number;
   bestSubmissions: string[];
   feedbacks: number;
@@ -113,6 +121,7 @@ export type Metadata = {
   issuerName: string;
   comment: string;
   linkToWork: string;
+  submission?: string;
 };
 
 export type Reward = {

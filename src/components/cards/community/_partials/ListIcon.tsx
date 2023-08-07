@@ -2,6 +2,7 @@ import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import Image from "next/image";
 import { ReactElement } from "react";
 import { useTranslation } from "next-i18next";
+import { Community } from "@/types/community";
 
 /**
  * Colors interface
@@ -15,23 +16,6 @@ interface Colors {
   text: string;
   accent: string;
   primary: string;
-}
-
-/**
- * Community interface
- * @date 3/30/2023 - 3:49:16 PM
- *
- * @interface Community
- * @typedef {Community}
- */
-interface Community {
-  name: string;
-  description?: string;
-  icon: string;
-  metadata?: {
-    submissions?: number;
-  };
-  colors: Colors;
 }
 
 /**

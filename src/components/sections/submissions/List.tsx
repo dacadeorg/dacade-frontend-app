@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
  */
 export default function List(): ReactElement {
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [showButton, setShowButton] = useState(true);
   const { t } = useTranslation();
   const submissions = useSelector((state) => state.submissions.list);
@@ -47,6 +47,7 @@ export default function List(): ReactElement {
       setLoading(false);
     }
   };
+
   return (
     <>
       {submissions && submissions.length ? (
@@ -69,9 +70,7 @@ export default function List(): ReactElement {
           </div>
         </div>
       ) : (
-        <div className="lg:w-2/3">
-          {!loading && <EmptyState title={t("submissions.empty-state.title")} subtitle={t("submissions.empty-state.subtitle")} />}
-        </div>
+        <div className="lg:w-2/3">{!loading && <EmptyState title={t("submissions.empty-state.title")} subtitle={t("submissions.empty-state.subtitle")} />}</div>
       )}
     </>
   );

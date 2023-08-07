@@ -73,6 +73,7 @@ const sortingOptions: Option[] = [
 export default function Filters(): ReactElement {
   const [filterBy, setFilterBy] = useState("all");
   const [sortBy, setSortBy] = useState("score");
+
   const dispatch = useDispatch();
   const list = useSelector((state) => selectList(state));
   const router = useRouter();
@@ -119,6 +120,7 @@ export default function Filters(): ReactElement {
                 defaultChecked={filterBy === option.value}
                 label={option.label}
                 value={option.value}
+                data={filterBy}
                 name="filter-by-option"
                 onChange={handleFilterByChange}
               />
@@ -137,6 +139,7 @@ export default function Filters(): ReactElement {
                 defaultChecked={sortBy === option.value}
                 label={option.label}
                 value={option.value}
+                data={sortBy}
                 name="sort-by-option"
                 onChange={handleSortByChange}
               />

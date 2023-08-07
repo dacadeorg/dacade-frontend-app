@@ -50,29 +50,28 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
   const link = useMemo(() => {
     if (bounty.url) return bounty.url;
     if (bounty.submissions?.link) return `/${bounty.submissions?.link}`;
-    if (isChallenge) return navigation.community.challengePath(bounty.challenge, bounty.course.slug, bounty.slug);
-    return navigation.community.submissionPath(bounty.challenge, bounty.course.slug, bounty.slug);
+    if (isChallenge) return navigation.community.challengePath(bounty.challenge, bounty?.slug);
+    return navigation.community.submissionsPath(bounty.challenge, bounty?.slug);
   }, [bounty.challenge, bounty.course?.slug, bounty.slug, bounty.submissions?.link, bounty.url, isChallenge, navigation.community]);
 
   const Component = link.startsWith("http") ? "a" : Link;
-
   return (
     <div className="cursor-pointer flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative">
       <div className="bg-theme-accent flex-col w-full h-full justify-between md:-space-y-1 pl-3 pr-5 mt-7 mb-5">
-        <Component className="relative w-full block" href="#">
+        <Component className="relative w-full block" href={link}>
           <div className="font-medium text-md md:pt-1.5">{bounty.course ? bounty.course.name : bounty.name}</div>
         </Component>
-        <Component className="inline-flex md:flex h-2/3 md:flex-row flex-col-reverse justify-between" href="#">
+        <Component className="inline-flex md:flex h-2/3 md:flex-row flex-col-reverse justify-between" href={link}>
           <div className="text-sm pt-8 md:pt-2 md:pb-4 text-gray-600">{type()}</div>
           <div>
             <Reward type="gray" reward={bounty.reward}></Reward>
           </div>
         </Component>
-        {bounty.submissions && bounty.submissions.length && (
+        {bounty.submissions?.length ? (
           <div className="mt-4 space-y-0 divide-y divide-gray-200 border-t border-t-solid border-gray-200">
             {bounty.submissions.map((submission) => (
               <Link
-                href={navigation.community.submissionPath(submission.id, bounty.challenge, bounty.course.slug, bounty.slug)}
+                href={navigation.community.submissionPath(submission.id, bounty.challenge, bounty?.slug)}
                 className="flex space-x-1 relative text-sm font-medium py-3"
                 key={submission.id}
               >
@@ -85,20 +84,24 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
                     </div>
                   </div>
                   <div className="text-gray-500 text-base font-normal">
-                    {submission.reviewable && (
+                    {submission.reviewable ? (
                       <span>
                         {t("bounties.prefix.closes")}
                         {convertDate(submission.reviewDeadline)}
                       </span>
+                    ) : (
+                      <span>{t("bounties.closes-soon")}</span>
                     )}
                   </div>
                 </div>
               </Link>
             ))}
           </div>
+        ) : (
+          <></>
         )}
       </div>
-      <Component className="self-start relative mt-15 md:mt-7" href="#">
+      <Component className="self-start relative mt-15 md:mt-7" href={link}>
         <Avatar
           icon={bounty.icon}
           image={bounty.image}
@@ -107,8 +110,9 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
           shape="rounded"
           className="w-15 h-15 rounded-xl overflow-hidden"
           user={null}
+          useLink={false}
         />
-        {bounty.submissions && bounty.submissions.length && (
+        {bounty.metadata?.submissions && (
           <Badge
             custom-style={{
               bottom: "-4px",
@@ -117,8 +121,8 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
               backgroundColor: bounty.colors.accent,
             }}
             size="medium"
-            value={bounty.totalSubmissions}
-            className="bottom-0 -right-1 absolute"
+            value={bounty.metadata?.submissions}
+            className="bottom-0 -right-1 absolute p-4"
           />
         )}
       </Component>

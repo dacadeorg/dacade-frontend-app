@@ -5,6 +5,8 @@ import { setAuthData } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchUser } from "@/store/services/user.service";
 import { getToken } from "@/store/feature/user.slice";
+import { useRouter } from "next/router";
+import { clearError } from "@/store/feature/index.slice";
 
 const UserAuthContext = createContext(null);
 
@@ -13,15 +15,21 @@ export default function UserAuthProvider({ children }: { children: ReactNode }) 
 
   useEffect(() => {
     onIdTokenChanged(auth, async (user) => {
-      dispatch(setAuthData(user));
+      dispatch(setAuthData(user?.toJSON()));
       await dispatch(getToken());
     });
 
     onAuthStateChanged(auth, (user) => {
-      dispatch(setAuthData(user));
+      dispatch(setAuthData(user?.toJSON()));
       dispatch(fetchUser());
     });
   }, [dispatch]);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    dispatch(clearError());
+  }, [router.pathname]);
 
   return <UserAuthContext.Provider value={null}>{children}</UserAuthContext.Provider>;
 }
