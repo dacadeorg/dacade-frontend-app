@@ -82,7 +82,6 @@ export default function ChallengePage(props: {
   }, [challenge, isAuthenticated]);
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
-
   return (
     <>
       <Head>
@@ -93,13 +92,6 @@ export default function ChallengePage(props: {
         <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
           <Header />
           <Rewards />
-          <Hint className="mb-5">
-            <span className="pr-1 font-medium">Hint:</span>
-            If you need an idea what to build or are stuck ask on our
-            <a className="underline cursor-pointer ml-1" target="_blank" href="https://discord.gg/U38KQHDtHe">
-              Dacade Discord server.
-            </a>
-          </Hint>
           <Objectives />
           {challenge.isTeamChallenge && <TeamChallenge />}
           <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />

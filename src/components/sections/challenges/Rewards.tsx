@@ -3,8 +3,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { ReactElement, useMemo } from "react";
 import RewardsList from "./_partials/RewardsList";
-import ExpiryDate from "@/components/challenge/ExpiryDate";
-import DateManager from "@/utilities/DateManager";
+
 
 /**
  * Overview reward section component
@@ -18,7 +17,6 @@ export function OverviewRewards(): ReactElement {
   const challenge = useSelector((state) => state.challenges.current);
   const rewards = useMemo(() => challenge?.rewards?.filter((reward) => reward.type === "SUBMISSION"), [challenge?.rewards]);
   const rewardsDescription = rewards?.length ? `${rewards?.[0].amount} ${rewards?.[0].token}` : "";
-  const expirationDate = challenge?.expiresAt && DateManager.format(challenge.expiresAt, "MMMM d, yyyy", "en");
 
   return (
     <Section title={`${t("communities.overview.reward.title")}`}>
@@ -35,7 +33,6 @@ export function OverviewRewards(): ReactElement {
           </p>
         </div>
       </div>
-      {expirationDate && <ExpiryDate expiresAt={expirationDate} />}
     </Section>
   );
 }
