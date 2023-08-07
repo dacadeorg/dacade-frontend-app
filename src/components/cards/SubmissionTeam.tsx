@@ -177,7 +177,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
               </div>
             );
           })}
-          {(team && user?.id === team?.organizer_id) || !invite ? (
+          {(team && user?.id === team?.organizer_id) || !membersList.some((member) => member?.user?.id === user?.id) ? (
             <div>
               <AsyncSelect
                 cacheOptions
@@ -194,7 +194,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                 loadOptions={loadUserOptions}
                 onChange={(option) => {
                   // TODO: check if the team is actually closed instead of using this condition
-                  if (membersList.length < 8) {
+                  if (membersList.length < 4) {
                     if (option) selectTeamMember(option);
                   }
                 }}
