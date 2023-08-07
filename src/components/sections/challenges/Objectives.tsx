@@ -22,13 +22,16 @@ export default function Objectives(): ReactElement {
     <Section title={`${t("communities.overview.challenge.objective.title")}`}>
       <ObjectiveList objectives={challenge?.objectives} />
       {expirationDate && <ExpiryDate expiresAt={expirationDate} />}
-      <Hint>
-        <span
-          dangerouslySetInnerHTML={{
-            __html: challenge?.hint as string,
-          }}
-        />
-      </Hint>
+      {/* Show hint only when we  have a link */}
+      {/<a\b[^>]*>/i.test(challenge?.hint as string) && (
+        <Hint>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: challenge?.hint as string,
+            }}
+          />
+        </Hint>
+      )}
     </Section>
   );
 }
