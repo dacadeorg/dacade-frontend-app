@@ -21,22 +21,23 @@ export default function ChallengeHeader(): ReactElement {
 
   return (
     <div>
-      {challenge?.isTeamChallenge && (
-        <>
-          <Header isTeamChallenge={challenge?.isTeamChallenge} title={challenge?.name} subtitle={t("communities.challenge.title")} />
-          <Section subtitle={challenge?.description}>
-            <ObjectiveList objectives={challenge?.learningModules?.map((module) => module.title) || []} />
-          </Section>
-          <Hint>
-            <span className="pr-1 font-medium">{t("communities.challenge.hint")}:</span>
-            <span
-              dangerouslySetInnerHTML={{
-                __html: challenge?.hint as string,
-              }}
-            />
-          </Hint>
-        </>
+      <Header isTeamChallenge={challenge?.isTeamChallenge} title={challenge?.name} subtitle={t("communities.challenge.title")} />
+      {challenge?.learningModules.length ? (
+        <Section subtitle={challenge?.description}>
+          <ObjectiveList objectives={challenge?.learningModules?.map((module) => module.title) || []} />
+        </Section>
+      ) : (
+        <></>
       )}
+
+      <Hint>
+        <span className="pr-1 font-medium">{t("communities.challenge.hint")}:</span>
+        <span
+          dangerouslySetInnerHTML={{
+            __html: challenge?.hint as string,
+          }}
+        />
+      </Hint>
     </div>
   );
 }
