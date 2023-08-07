@@ -21,7 +21,7 @@ export default function ChallengeHeader(): ReactElement {
   return (
     <div>
       <Header isTeamChallenge={challenge?.isTeamChallenge} title={challenge?.name} subtitle={t("communities.challenge.title")} />
-      {challenge?.learningModules.length ? (
+      {challenge?.learningModules?.length ? (
         <Section subtitle={challenge?.description}>
           <ObjectiveList objectives={challenge?.learningModules?.map((module) => module.title) || []} />
         </Section>
