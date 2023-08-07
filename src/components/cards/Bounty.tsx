@@ -51,7 +51,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
     if (bounty.url) return bounty.url;
     if (bounty.submissions?.link) return `/${bounty.submissions?.link}`;
     if (isChallenge) return navigation.community.challengePath(bounty.challenge, bounty?.slug);
-    return navigation.community.submissionPath(bounty.challenge, bounty.course?.slug, bounty?.slug);
+    return navigation.community.submissionsPath(bounty.challenge, bounty?.slug);
   }, [bounty.challenge, bounty.course?.slug, bounty.slug, bounty.submissions?.link, bounty.url, isChallenge, navigation.community]);
 
   const Component = link.startsWith("http") ? "a" : Link;
@@ -110,6 +110,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
           shape="rounded"
           className="w-15 h-15 rounded-xl overflow-hidden"
           user={null}
+          useLink={false}
         />
         {bounty.metadata?.submissions && (
           <Badge
