@@ -6,8 +6,7 @@ import { useTranslation } from "next-i18next";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useForm } from "react-hook-form";
 import { updateUserEmail } from "@/store/services/user.service";
-import { fetchEmail } from "@/store/services/user.service";
-import { error } from "console";
+
 
 /**
  * Edit profile component props
@@ -50,14 +49,19 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FormValues>();
+  const emailValue = watch("email");
+  const emailConfirmValue = watch("emailConfirm");
+
+
 
   const onSave = async (form: FormValues) => {
     setLoading(true);
     try {
       const { email, emailConfirm } = form;
-      if (email !== emailConfirm) {
+      if (email !== emailConfirm) return {
       }
       await dispatch(updateUserEmail({ email }));
       onClose();
@@ -74,30 +78,42 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
         <h1 className="text-.5xl leading-none font-medium mb-12">{t("profile.settings.edit.email.update")}</h1>
         <form onSubmit={handleSubmit(onSave)}>
           <div className="mb-2.5">
+
             <Input
+              id="email"
               label={`${t("profile.settings.edit.email")}`}
               error={errors.email?.message}
               type="email"
+              placeholder={`${t("login-page.email.placeholder")}`}
               {...register("email", {
                 required: "This field is required",
+                pattern: {
+                  value: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
+                  message: "This must be a valid email address",
+                },
                 minLength: {
                   value: 2,
-                  message: "You need to enter a valid email",
+                  message:  "This must be a valid email address",
                 },
               })}
             />
-          </div>
+          </div> 
 
           <div className="mb-8">
+
             <Input
               label={`${t("profile.settings.edit.email.confirm")}`}
               error={errors.email?.message}
               type="emailConfirm"
               {...register("emailConfirm", {
                 required: "This field is required",
+                pattern: {
+                  value: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
+                  message: "This must be a valid email address",
+                },
                 minLength: {
                   value: 2,
-                  message: "You need to confirm your email",
+                  message:  "This must be a valid email address",
                 },
               })}
             />

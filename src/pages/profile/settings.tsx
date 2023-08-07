@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import api from "@/config/api";
 
 /**
- * Profile Wallet component
+ * Profile Settings component
  *
  * @returns {ReactElement}
  */
