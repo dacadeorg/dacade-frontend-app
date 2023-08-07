@@ -32,6 +32,7 @@ import useNavigation from "@/hooks/useNavigation";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import Hint from "@/components/ui/Hint";
 import Objectives from "@/components/sections/challenges/Objectives";
+import { getTeamByChallenge } from "@/store/services/teams.service";
 
 /**
  * Challenge view page
@@ -74,6 +75,12 @@ export default function ChallengePage(props: {
     initChallengeNavigationMenu(navigation.community)(dispatch);
   }, [challenge, community, dispatch]);
 
+  useEffect(() => {
+    if (challenge && isAuthenticated) {
+      dispatch(getTeamByChallenge(challenge.id));
+    }
+  }, [challenge, isAuthenticated]);
+
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
   return (
     <>
@@ -98,8 +105,13 @@ export default function ChallengePage(props: {
                   <h4 className="my-8 text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
                   <SubmissionCard submission={submission} />
                 </div>
+              ) : challenge.isTeamChallenge ? (
+                <>
+                  <SetupTeamChallenge />
+                  <SubmissionForm />
+                </>
               ) : (
-                <>{challenge.isTeamChallenge ? <SetupTeamChallenge /> : <SubmissionForm />}</>
+                <SubmissionForm />
               )}
             </div>
           )}

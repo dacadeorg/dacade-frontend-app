@@ -86,7 +86,6 @@ export const learningModulePath = (link: string, router: NextRouter) => {
   return `/communities/${router.query.slug}/courses/${router.query.course_slug}/${link}`;
 };
 
-
 /**
  * Init action
  * @date 4/20/2023 - 4:09:38 PM

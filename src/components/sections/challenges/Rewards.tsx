@@ -17,8 +17,10 @@ export function OverviewRewards(): ReactElement {
   const challenge = useSelector((state) => state.challenges.current);
   const rewards = useMemo(() => challenge?.rewards?.filter((reward) => reward.type === "SUBMISSION"), [challenge?.rewards]);
   const rewardsDescription = rewards?.length ? `${rewards?.[0].amount} ${rewards?.[0].token}` : "";
+  const expirationDate = challenge?.expiresAt && DateManager.format(challenge.expiresAt, "MMMM d, yyyy", "en");
+
   return (
-    <Section title={t("communities.overview.reward.title") as string}>
+    <Section title={`${t("communities.overview.reward.title")}`}>
       <p className="mt-5 text-lg">{t("communities.overview.reward.subtitle")}</p>
       <div className="pt-5 grid grid-cols-1 md:grid-cols-2">
         <RewardsList rewards={rewards} />
