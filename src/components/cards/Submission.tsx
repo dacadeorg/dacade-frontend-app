@@ -32,7 +32,7 @@ interface SubmissionCardProps {
 export default function SubmissionCard({ submission, link = "", children }: SubmissionCardProps): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { colors } = useSelector((state) => ({ colors: state.ui.colors }));
+  const colors = useSelector((state) => state.ui.colors);
 
   const reviewed = submission?.metadata?.evaluation || submission?.metadata?.reviewed;
 

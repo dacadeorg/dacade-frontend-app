@@ -87,7 +87,7 @@ const userService = createApi({
         method: "PATCH",
         body: payload,
       }),
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async (payload, { dispatch, queryFulfilled }) => {
         await queryFulfilled;
         dispatch(userService.endpoints.getEmail.initiate("sp"));
       },

@@ -7,65 +7,42 @@ import { ReactElement } from "react-markdown/lib/react-markdown";
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
-import i18Translate from "@/utilities/I18Translate";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-// import { verifyEmailUpdate } from "@/store/services/auth.service";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-
+import { verifyEmailUpdate } from "@/store/services/auth.service";
 
 /**
  * Email verification update page
  * @date 4/27/2023 - 8:19:02 PM
  *
- * @param {{ verified: boolean }} props
  * @returns
  */
-export default function EmailVerification(props: { verified: boolean }): ReactElement {
-  
-  const { verified } = props;
+export default function EmailVerification(): ReactElement {
   const router = useRouter();
   const { t } = useTranslation();
   const { locale } = useRouter();
   const dispatch = useDispatch();
-  const [isVerified, setIsVerified] = useState(true);
-  const title = useMemo(() => getMetadataTitle(verified ? t("email-verification.success.title") : t("email-verification.processing")), [t, verified]);
+  const [isVerified, setIsVerified] = useState(false);
+  const title = useMemo(() => getMetadataTitle(isVerified ? t("email-verification.success.title") : t("email-verification.processing")), [t, isVerified]);
 
+  useEffect(() => {
+    const verify = async () => {
+      const code = router.query.code as string;
+      if (!code) {
+        return await router.push("/403");
+      }
 
-  // useEffect(() => {
-  //   const verify = async () => {
-  //     const code = router.query.code as string;
-  //     console.log("code client", code)
-  //     // if (!code) return {
-  //       if (!code) return {
-  //       redirect: "/403",
-  //     };;
-  //     try {
-  //       await dispatch(verifyEmailUpdate({ locale: locale as string, payload: { code } }));
-  //       setIsVerified(true);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   verify();
-  // }, [dispatch, locale, router.query.code]);
+      try {
+        await dispatch(verifyEmailUpdate({ locale: locale as string, payload: { code } }));
+        setIsVerified(true);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  console.log("code client", router.query.code )
-    // useEffect(() => {
-  //   const verify = async () => {
-  //     const code = router.query.code as string;
-  //     if (!code) return {
-  //       redirect: "/403",
-  //     };;
-  //     try {
-  //       await dispatch(verifyEmailUpdate({ locale: locale as string, payload: { code } }));
-  //       setVerified(true);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   verify();
-  // }, [dispatch, locale, router.query.code]);
+    void verify();
+  }, [dispatch, locale, router.query.code]);
 
   const goHome = () => {
     router.push("/login");
@@ -74,10 +51,10 @@ export default function EmailVerification(props: { verified: boolean }): ReactEl
   return (
     <div className="flex items-center justify-center absolute min-h-screen top-0 w-full">
       <Head>
-        <title>{getMetadataTitle(verified ? t("email-verification.success.title") : t("email-verification.processing"))}</title>
+        <title>{title}</title>
       </Head>
       <div className="relative p-6 text-center">
-        {!verified ? (
+        {!isVerified ? (
           <>
             <Loader />
             <p className="mt-5">{t("email-verification.processing")}</p>
@@ -104,37 +81,10 @@ EmailVerification.getLayout = function (page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
 
-export const getServerSideProps = async (data: { locale: string; query: any }) => {
-  const { query } = data;
-  console.log("data", data)
-  console.log("query", query)
-
-  if (!query?.code) {
-    console.log("data", data)
-    console.log("query", query?.code)
-    return {
-      redirect: "/403",
-    };
-  }
-
-  try {
-    await verifyEmailUpdate(query?.code as string);
-    console.log("query code", query?.code)
-
-    return {
-      props: {
-        ...(await serverSideTranslations(data.locale as string)),
-        verified: false,
-      },
-    };
-  } catch (err) {
-    return {
-      notFound: true,
-    };
-  }
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string)),
+    },
+  };
 };
-function verifyEmailUpdate(arg0: string) {
-  throw new Error("Function not implemented.")
-}
-
-// export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });
