@@ -16,25 +16,27 @@ import { ReactElement } from "react";
 export default function ChallengeHeader(): ReactElement {
   const { t } = useTranslation();
   const { challenge } = useSelector((state) => ({
-    course: state.courses.current,
     challenge: state.challenges.current,
-    community: state.communities.current,
   }));
 
   return (
     <div>
-      <Header isTeamChallenge={challenge?.isTeamChallenge} title={challenge?.name} subtitle={t("communities.challenge.title")} />
-      <Section subtitle={challenge?.description}>
-        <ObjectiveList objectives={challenge?.learningModules?.map((module) => module.title) || []} />
-      </Section>
-      <Hint>
-        <span className="pr-1 font-medium">{t("communities.challenge.hint")}:</span>
-        <span
-          dangerouslySetInnerHTML={{
-            __html: challenge?.hint as string,
-          }}
-        />
-      </Hint>
+      {challenge?.isTeamChallenge && (
+        <>
+          <Header isTeamChallenge={challenge?.isTeamChallenge} title={challenge?.name} subtitle={t("communities.challenge.title")} />
+          <Section subtitle={challenge?.description}>
+            <ObjectiveList objectives={challenge?.learningModules?.map((module) => module.title) || []} />
+          </Section>
+          <Hint>
+            <span className="pr-1 font-medium">{t("communities.challenge.hint")}:</span>
+            <span
+              dangerouslySetInnerHTML={{
+                __html: challenge?.hint as string,
+              }}
+            />
+          </Hint>
+        </>
+      )}
     </div>
   );
 }
