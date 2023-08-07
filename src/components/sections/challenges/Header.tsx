@@ -1,7 +1,6 @@
 import Section from "@/components/sections/communities/_partials/Section";
 import Header from "@/components/sections/communities/_partials/Header";
 import ObjectiveList from "@/components/list/Objectives";
-import Hint from "@/components/ui/Hint";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
@@ -29,15 +28,6 @@ export default function ChallengeHeader(): ReactElement {
       ) : (
         <></>
       )}
-
-      <Hint>
-        <span className="pr-1 font-medium">{t("communities.challenge.hint")}:</span>
-        <span
-          dangerouslySetInnerHTML={{
-            __html: challenge?.hint as string,
-          }}
-        />
-      </Hint>
     </div>
   );
 }
