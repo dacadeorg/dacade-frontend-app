@@ -31,6 +31,8 @@ import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChalle
 import useNavigation from "@/hooks/useNavigation";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import Hint from "@/components/ui/Hint";
+import Objectives from "@/components/sections/challenges/Objectives";
+import { getTeamByChallenge } from "@/store/services/teams.service";
 
 /**
  * Challenge view page
@@ -73,8 +75,13 @@ export default function ChallengePage(props: {
     initChallengeNavigationMenu(navigation.community)(dispatch);
   }, [challenge, community, dispatch]);
 
-  const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
+  useEffect(() => {
+    if (challenge && isAuthenticated) {
+      dispatch(getTeamByChallenge(challenge.id));
+    }
+  }, [challenge, isAuthenticated]);
 
+  const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
   return (
     <>
       <Head>
@@ -85,14 +92,8 @@ export default function ChallengePage(props: {
         <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
           <Header />
           <Rewards />
-          <Hint className="mb-5">
-            <span className="pr-1 font-medium">Hint:</span>
-            If you need an idea what to build or are stuck ask on our
-            <a className="underline cursor-pointer ml-1" target="_blank" href="https://discord.gg/U38KQHDtHe">
-              Dacade Discord server.
-            </a>
-          </Hint>
-          <TeamChallenge />
+          <Objectives />
+          {challenge.isTeamChallenge && <TeamChallenge />}
           <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
           <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
           <BestSubmissions />
@@ -104,8 +105,13 @@ export default function ChallengePage(props: {
                   <h4 className="my-8 text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
                   <SubmissionCard submission={submission} />
                 </div>
+              ) : challenge.isTeamChallenge ? (
+                <>
+                  <SetupTeamChallenge />
+                  <SubmissionForm />
+                </>
               ) : (
-                <>{challenge.isTeamChallenge ? <SetupTeamChallenge /> : <SubmissionForm />}</>
+                <SubmissionForm />
               )}
             </div>
           )}

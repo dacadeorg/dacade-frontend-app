@@ -1,7 +1,6 @@
 import { Community } from "@/types/community";
 import { Challenge, Course } from "@/types/course";
 import Slugger from "github-slugger";
-// import { NextRouter } from "next/router";
 
 type QueryRoute = {
   course_slug?: string;

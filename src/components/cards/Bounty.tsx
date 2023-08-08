@@ -51,11 +51,10 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
     if (bounty.url) return bounty.url;
     if (bounty.submissions?.link) return `/${bounty.submissions?.link}`;
     if (isChallenge) return navigation.community.challengePath(bounty.challenge, bounty?.slug);
-    return navigation.community.submissionPath(bounty.challenge, bounty.course?.slug, bounty?.slug);
+    return navigation.community.submissionsPath(bounty.challenge, bounty?.slug);
   }, [bounty.challenge, bounty.course?.slug, bounty.slug, bounty.submissions?.link, bounty.url, isChallenge, navigation.community]);
 
   const Component = link.startsWith("http") ? "a" : Link;
-
   return (
     <div className="cursor-pointer flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative">
       <div className="bg-theme-accent flex-col w-full h-full justify-between md:-space-y-1 pl-3 pr-5 mt-7 mb-5">
@@ -68,7 +67,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
             <Reward type="gray" reward={bounty.reward}></Reward>
           </div>
         </Component>
-        {bounty.submissions && bounty.submissions.length && (
+        {bounty.submissions?.length ? (
           <div className="mt-4 space-y-0 divide-y divide-gray-200 border-t border-t-solid border-gray-200">
             {bounty.submissions.map((submission) => (
               <Link
@@ -98,6 +97,8 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
               </Link>
             ))}
           </div>
+        ) : (
+          <></>
         )}
       </div>
       <Component className="self-start relative mt-15 md:mt-7" href={link}>
@@ -109,8 +110,9 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
           shape="rounded"
           className="w-15 h-15 rounded-xl overflow-hidden"
           user={null}
+          useLink={false}
         />
-        {bounty.submissions && bounty.submissions.length && (
+        {bounty.metadata?.submissions && (
           <Badge
             custom-style={{
               bottom: "-4px",
@@ -119,8 +121,8 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
               backgroundColor: bounty.colors.accent,
             }}
             size="medium"
-            value={bounty.totalSubmissions}
-            className="bottom-0 -right-1 absolute"
+            value={bounty.metadata?.submissions}
+            className="bottom-0 -right-1 absolute p-4"
           />
         )}
       </Component>
