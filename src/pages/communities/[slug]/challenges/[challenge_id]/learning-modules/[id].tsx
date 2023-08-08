@@ -72,7 +72,7 @@ export default function LearningModulePage(props: LearningModulePageProps) {
         <div className="py-8 flex flex-col divide-y space-y-8 text-gray-700">
           <Header />
           <div className="w-full divide-y divide-solid divide-gray-200">
-            <ChallengeOverviewCard challenge={challenge} />
+            {challenge.rewards && <ChallengeOverviewCard challenge={challenge} />}
             <LearningModuleSection learningModule={learningModule} />
           </div>
         </div>
