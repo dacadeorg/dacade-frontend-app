@@ -42,7 +42,7 @@ export const learningModulesSlice = createSlice({
 });
 
 export const findLearningModule = createAsyncThunk("learningModules/find", async (id: string) => {
-  const { data } = await api().server.get<LearningModule>(`learning-modules/${id}`);
+  const { data } = await api().server.get(`learning-modules/${id}`);
   return data;
 });
 

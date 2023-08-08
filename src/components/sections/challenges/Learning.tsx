@@ -5,6 +5,7 @@ import LearningCard from "@/components/cards/challenge/_partials/Learning";
 import RelatedLearningCard from "@/components/cards/challenge/_partials/RelatedLearning";
 import { Course, LearningModule } from "@/types/course";
 import { Community } from "@/types/community";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * Data structure for a card.
@@ -20,8 +21,8 @@ interface CardData {
  *
  * @returns {JSX.Element} The Learning component JSX element.
  */
-export default function Learning({ courses, learningModules, community }: { courses: Course[], learningModules: LearningModule[], community: Community }): JSX.Element {
-
+export default function Learning({ courses, learningModules, community }: { courses: Course[]; learningModules: LearningModule[]; community: Community }): JSX.Element {
+  const challenge = useSelector((state) => state.challenges.current);
   return (
     <Section>
       <Accordion
@@ -47,6 +48,7 @@ export default function Learning({ courses, learningModules, community }: { cour
                   key={`related-learning-card-${learning.id}`}
                   title={learning.title}
                   description={learning.description}
+                  path={`/communities/${community.slug}/challenges/${challenge?.id}/learning-modules/${learning.id}`}
                 />
               ))}
             </div>
