@@ -1,13 +1,12 @@
 import Certificate from "@/components/ui/Certificate";
 import Coin from "@/components/ui/Coin";
-import Tag from "@/components/ui/Tag";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { Community } from "@/types/community";
-import { Challenge, Course, LearningModule } from "@/types/course";
+import { Challenge } from "@/types/course";
 import Link from "next/link";
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
-
+import RelatedContent from "./RelatedContent";
+import Badges from "./Badges";
 
 /**
  * `ChallengeCard` is a function component that renders a card
@@ -17,14 +16,10 @@ import { useTranslation } from "react-i18next";
  *
  * @returns {JSX.Element} The rendered ChallengeCard component.
  */
-export default function ChallengeCard({ data, community }: {
-  data: Challenge;
-  community: Community;
-}) {
+export default function ChallengeCard({ data, community }: { data: Challenge; community: Community }) {
   const link = `/communities/${community.slug}/challenges/${data.id}`;
 
-  const expiresAt = useMemo(() => data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null, [data.expiresAt]);
-
+  const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
 
   return (
     <div className="border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">
@@ -67,10 +62,11 @@ export default function ChallengeCard({ data, community }: {
           <Badges challenge={data} />
           <div className="lg:flex lg:flex-row flex-col justify-between pt-6 items-center">
             <div className="text-gray-400 lg:w-2/3 text-sm font-normal mb-6 lg:mb-0">
-              {expiresAt && (<>
-                <span>Deadline</span>
-                <span className="font-medium pl-1">{expiresAt}</span>
-              </>
+              {expiresAt && (
+                <>
+                  <span>Deadline</span>
+                  <span className="font-medium pl-1">{expiresAt}</span>
+                </>
               )}
             </div>
 
@@ -83,23 +79,17 @@ export default function ChallengeCard({ data, community }: {
         </div>
       </div>
 
-      {(data.courses?.length > 0 || data.learningModules?.length > 0) && (<div className="sm:px-8 sm:pt-6 sm:pb-9 w-full p-6 rounded-3xl text-sm">
-        <div className="mb-3 text-gray-400 font-semibold uppercase text-xxs">related content</div>
-        {data.courses?.map((course: any) => <RelatedContent key={course.id} content={course} />)}
-        {data.learningModules?.map((learningModule: any) => <RelatedContent key={learningModule.id} content={learningModule} />)}
-      </div>)}
+      {(data.courses?.length > 0 || data.learningModules?.length > 0) && (
+        <div className="sm:px-8 sm:pt-6 sm:pb-9 w-full p-6 rounded-3xl text-sm">
+          <div className="mb-3 text-gray-400 font-semibold uppercase text-xxs">related content</div>
+          {data.courses?.map((course: any) => (
+            <RelatedContent key={course.id} content={course} />
+          ))}
+          {data.learningModules?.map((learningModule: any) => (
+            <RelatedContent key={learningModule.id} content={learningModule} />
+          ))}
+        </div>
+      )}
     </div>
   );
-};
-
-const RelatedContent = ({ content }: { content: Course | LearningModule | any }) => (<div className="lg:w-10/12 pb-6.5 text-gray-500 font-normal text-sm">
-  <div className="mb-1.5 font-medium leading-normal">{content?.name || content?.title}</div>
-  <div>{content.description}</div>
-</div>)
-const Badges = ({ challenge, className }: { challenge: Challenge, className?: string }) => {
-  const { t } = useTranslation();
-  return (<div className={`uppercase flex gap-2 mb-6 ${className}`}>
-    {challenge?.level && <Tag>{t(`course.challenge.level-${challenge.level}`)}</Tag>}
-    {challenge?.isTeamChallenge && <Tag type="light">Team Challenge</Tag>}
-  </div>)
 }
