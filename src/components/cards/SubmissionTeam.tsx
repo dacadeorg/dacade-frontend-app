@@ -66,6 +66,8 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
   const [visibleHint, setVisibleHint] = useState<"cancel" | "remove" | "">("");
   const dispatch = useDispatch();
+  let isCurrentUserMember = false;
+  let isCurrentUserOrganiser = false;
 
   const filterUsers = async (username: string) => {
     await dispatch(getUserByUsername(username));
@@ -109,6 +111,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
           setMembersList((prev) => [...prev, { user, status }]);
         });
       }
+
+      isCurrentUserOrganiser = user?.id === team?.organizer_id;
+      isCurrentUserMember = membersList.some((member) => member?.user?.id === user?.id);
     }
   }, [team]);
 
@@ -181,7 +186,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
               </div>
             );
           })}
-          {(team && user?.id === team?.organizer_id) || !membersList.some((member) => member?.user?.id === user?.id) ? (
+          {(team && isCurrentUserOrganiser) || !isCurrentUserMember ? (
             <div>
               <AsyncSelect
                 cacheOptions

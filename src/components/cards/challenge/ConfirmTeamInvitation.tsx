@@ -37,7 +37,7 @@ export default function ConfirmTeamInvitation({ index, title, text, invite }: Co
         </div>
       </div>
       <div>
-        <div key={index} className="space-y-3">
+        <div className="space-y-3">
           <p className="text-sm font-normal text-gray-700 max-w-xxs">
             {invite.team?.organizer?.displayName} added you to their team for the {invite.team?.challenge?.name} challenge. Would you like to accept?
           </p>

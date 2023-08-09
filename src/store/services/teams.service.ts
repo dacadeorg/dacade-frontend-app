@@ -48,7 +48,7 @@ const teamsService = createApi({
           dispatch(setInvitesData(data));
           return data;
         } catch (err) {
-          console.log("Invite not found");
+          console.error("Current use has no invites!");
         }
       },
     }),
@@ -75,10 +75,9 @@ const teamsService = createApi({
           const { data } = await queryFulfilled;
           if (data.invites.length > 0) dispatch(setInviteStatus("sent"));
           else dispatch(setInviteStatus("not sent"));
-          console.log("This is the data invites", { length: data.invites.length, invites: data.invites });
         } catch (err: any) {
           dispatch(setInviteStatus(err.status));
-          console.log("Error", err);
+          console.error("Error", err);
         }
 
         return;
