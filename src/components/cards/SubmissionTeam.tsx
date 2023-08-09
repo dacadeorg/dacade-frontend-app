@@ -65,9 +65,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   const [currentOptions, setCurrentOptions] = useState<Option[]>();
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
   const [visibleHint, setVisibleHint] = useState<"cancel" | "remove" | "">("");
+  const [isCurrentUserMember, setIsCurrentUserMember] = useState(false);
+  const [isCurrentUserOrganiser, setIsCurrentUserOrganiser] = useState(false);
   const dispatch = useDispatch();
-  let isCurrentUserMember = false;
-  let isCurrentUserOrganiser = false;
 
   const filterUsers = async (username: string) => {
     await dispatch(getUserByUsername(username));
@@ -111,11 +111,13 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
           setMembersList((prev) => [...prev, { user, status }]);
         });
       }
-
-      isCurrentUserOrganiser = user?.id === team?.organizer_id;
-      isCurrentUserMember = membersList.some((member) => member?.user?.id === user?.id);
     }
   }, [team]);
+
+  useEffect(() => {
+    setIsCurrentUserOrganiser(user?.id === team?.organizer_id);
+    setIsCurrentUserMember(membersList.some((member) => member?.user?.id === user?.id));
+  }, [user, team, membersList]);
 
   const selectTeamMember = async (option: Option) => {
     if (membersList.filter((member) => member.user?.id === option.user?.id).length !== 0) {
