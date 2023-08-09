@@ -22,9 +22,11 @@ export default function ScoreboardOverview(): ReactElement {
     setItems(items + 10);
   };
 
+  console.log({ list, filterBy });
+
   return (
     <>
-      {(list && list.length) || filterBy !== "all" ? (
+      {(list && list.length !== 0) || filterBy !== "all" ? (
         <div className="flex flex-col w-full overflow-hidden border border-gray-200 border-solid divide-y divide-gray-200 divide-solid rounded-3xl">
           {list.slice(0, items).map((item, i) => (
             <ScoreboardCard key={`list-element-${i}`} index={i + 1} value={item} />

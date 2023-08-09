@@ -19,6 +19,7 @@ interface FilterScoreboardsArgs {
 const scoreboardService = createApi({
   reducerPath: "scoreboardService",
   baseQuery: baseQuery(),
+  refetchOnMountOrArgChange: true,
   endpoints: (builder) => ({
     fetchAllScoreboards: builder.query<Scoreboard[], { slug: string; locale?: string }>({
       query: ({ slug, locale }) => ({
@@ -43,29 +44,28 @@ const scoreboardService = createApi({
 
     filterScroreboards: builder.query<Scoreboard[], FilterScoreboardsArgs>({
       query: ({ slug, filterBy, sortBy, locale }) => ({
-        url: `communities/${slug}/scoreboard`,
-        params: {
-          "filter-by": filterBy,
-        },
+        url: `communities/${slug}/scoreboard?filter-by=${filterBy}`,
         headers: {
           "Accept-Language": locale || "en",
         },
       }),
-      onQueryStarted: async ({ filterBy, sortBy }, { dispatch, queryFulfilled }) => {
-        try {
-          setLoading(true);
-          const { data } = await queryFulfilled;
-          if (sortBy) {
-            data.sort((firstItem, secondItem) => secondItem[sortBy] - firstItem[sortBy]);
-          }
-          dispatch(setFilterBy(filterBy));
-          dispatch(setScoreboardList(data));
-        } catch (err) {
-          console.error(err);
-        } finally {
-          setLoading(false);
-        }
-      },
+      // onQueryStarted: async ({ filterBy, sortBy }, { dispatch, queryFulfilled }) => {
+      //   try {
+      //     setLoading(true);
+      //     await queryFulfilled;
+
+      //     // console.log({ data });
+      //     // if (sortBy) {
+      //     //   data.sort((firstItem, secondItem) => secondItem[sortBy] - firstItem[sortBy]);
+      //     // }
+      //     // dispatch(setFilterBy(filterBy));
+      //     // dispatch(setScoreboardList(data));
+      //   } catch (err) {
+      //     console.error(err);
+      //   } finally {
+      //     setLoading(false);
+      //   }
+      // },
     }),
   }),
 });

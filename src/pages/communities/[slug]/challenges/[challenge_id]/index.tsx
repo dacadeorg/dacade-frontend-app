@@ -15,12 +15,9 @@ import { Submission } from "@/types/bounty";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import BestSubmissions from "@/components/sections/submissions/BestSubmissions";
 import DefaultLayout from "@/components/layout/Default";
-import { setColors } from "@/store/feature/ui.slice";
-import { Colors, Community } from "@/types/community";
+import { Community } from "@/types/community";
 import Head from "next/head";
 import MetaData from "@/components/ui/MetaData";
-import { setCurrentChallenge } from "@/store/feature/communities/challenges";
-import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -69,17 +66,14 @@ export default function ChallengePage(props: {
   const navigation = useNavigation();
 
   useEffect(() => {
-    dispatch(setColors(community?.colors as Colors));
-    dispatch(setCurrentCommunity(community as Community));
-    dispatch(setCurrentChallenge(challenge));
     initChallengeNavigationMenu(navigation.community)(dispatch);
-  }, [challenge, community, dispatch]);
+  }, []);
 
   useEffect(() => {
     if (challenge && isAuthenticated) {
       dispatch(getTeamByChallenge(challenge.id));
     }
-  }, [challenge, isAuthenticated]);
+  }, [challenge, dispatch, isAuthenticated]);
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
   return (
@@ -135,15 +129,16 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   };
 
   try {
-    const [{ data: community }, { data: challenge }] = await Promise.all([
+    const [{ data: community }, challenge] = await Promise.all([
       store.dispatch(fetchCurrentCommunity(fetchPayload)),
       store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
     ]);
+
     return {
       props: {
         ...(await serverSideTranslations(data.locale as string)),
         community,
-        challenge,
+        challenge: challenge.data,
       },
     };
   } catch (e) {

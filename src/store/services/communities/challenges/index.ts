@@ -2,6 +2,7 @@ import { createApi } from "@reduxjs/toolkit/dist/query";
 import baseQuery from "@/config/baseQuery";
 import { HYDRATE } from "next-redux-wrapper";
 import { setChallengesList, setChallengeSubmission, setCurrentChallenge } from "@/store/feature/communities/challenges";
+import queryString from "query-string";
 
 /**
  * challenge service, handling all the challenges API call
@@ -17,12 +18,12 @@ export const challengeService = createApi({
   },
   endpoints: (builder) => ({
     findChallengeById: builder.query({
-      query: ({ id, relations }) => ({
-        url: `challenges/${id}`,
-        params: {
-          relations: relations || [],
-        },
-      }),
+      query: ({ id, relations }) => {
+        const params = queryString.stringify({ relations: relations || [] }, { arrayFormat: "bracket" });
+        return {
+          url: `challenges/${id}?${params}`,
+        };
+      },
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
         dispatch(setCurrentChallenge(data));
