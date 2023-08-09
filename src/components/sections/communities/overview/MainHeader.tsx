@@ -18,10 +18,6 @@ export default function CommunitySection(): ReactElement {
   const submissions = community?.metadata?.submissions || 0;
   const feedbacks = community?.metadata?.feedbacks || 0;
 
-  const htmlTagsCleanup = (value: string) => {
-    return value.replace(/<[^>]*(>|$)|&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/g, "");
-  };
-
   return (
     <Section className="bg-theme-primary text-theme-text">
       <div className="py-2 md:py-8 mx-auto">

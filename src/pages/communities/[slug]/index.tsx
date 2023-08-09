@@ -1,20 +1,15 @@
 import { Community } from "@/types/community";
-import { setColors } from "@/store/feature/ui.slice";
-import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ChallengeCard from "@/components/cards/challenge/Challenge";
 import Scoreboard from "@/components/sections/communities/overview/scoreboard/index";
 import CommunityWrapper from "@/components/sections/communities/overview/Wrapper";
 import CommunityLayout from "@/layouts/Community";
-import { ReactElement, useEffect } from "react";
-import { useDispatch } from "@/hooks/useTypedDispatch";
+import { ReactElement } from "react";
 import { Challenge } from "@/types/course";
 import { GetServerSideProps } from "next";
 import { wrapper } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchAllChallenges } from "@/store/services/communities/challenges";
-import { useSelector } from "@/hooks/useTypedSelector";
-
 export default function Slug(props: {
   pageProps: {
     community: Community;
@@ -22,7 +17,6 @@ export default function Slug(props: {
   };
 }): ReactElement {
   const { community, challenges } = props.pageProps;
-
   return (
     <CommunityWrapper>
       {challenges.map((challenge) => (

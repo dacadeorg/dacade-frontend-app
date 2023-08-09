@@ -5,7 +5,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { Community } from "@/types/community";
 import { Challenge, Course, LearningModule } from "@/types/course";
 import Link from "next/link";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 /**
@@ -101,22 +101,23 @@ const RelatedContent = ({ content }: { content: Course | LearningModule | any })
 
 const Badges = ({ challenge, className }: { challenge: Challenge; className?: string }) => {
   const { t } = useTranslation();
+  const [challengeLevel, setChallengeLevel] = useState("");
 
-  const getLevel = (level: number) => {
-    switch (level) {
+  useEffect(() => {
+    switch (challenge.level) {
       case 0:
       case 1:
-        return t("course.challenge.level-0");
+        return setChallengeLevel("course.challenge.level-0");
       case 3:
-        return t("course.challenge.level-2");
+        return setChallengeLevel("course.challenge.level-2");
       default:
         break;
     }
-  };
+  }, [challenge.level]);
 
   return (
     <div className={`uppercase flex gap-2 mb-6 ${className}`}>
-      {challenge?.level && <Tag>{getLevel(challenge.level)}</Tag>}
+      {challenge?.level && <Tag>{t(challengeLevel)}</Tag>}
       {challenge?.isTeamChallenge && <Tag type="light">Team Challenge</Tag>}
     </div>
   );

@@ -52,7 +52,6 @@ const communitiesSlice = createSlice({
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
-      console.log(action.payload["communities"]);
       return {
         ...state,
         ...action.payload["communities"],
