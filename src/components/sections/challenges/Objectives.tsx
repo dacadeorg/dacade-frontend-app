@@ -16,7 +16,7 @@ import { ReactElement } from "react";
  */
 export default function Objectives(): ReactElement {
   // check for a link in the hint
-  const containsLink = new RegExp(/<a\b[^>]*>/i);
+  const containsLink = new RegExp(/<a.*?>.*?<\/a>/g);
 
   const { t } = useTranslation();
   const challenge = useSelector((state) => state.challenges.current);
