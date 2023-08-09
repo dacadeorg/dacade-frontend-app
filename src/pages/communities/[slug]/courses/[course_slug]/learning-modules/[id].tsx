@@ -8,7 +8,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { Community } from "@/types/community";
 import { Course, LearningModule } from "@/types/course";
 import { setCurrentCourse } from "@/store/feature/course.slice";
-import { setCurrentLearningModule } from "@/store/feature/learningModules.slice";
+import { findLearningModule, setCurrentLearningModule } from "@/store/feature/learningModules.slice";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import MaterialSection from "@/components/sections/learning-modules/MaterialSection";
@@ -108,27 +108,26 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
     const courseSlug = params?.course_slug as string;
     const id = params?.id as string;
 
-    const [{ data: community }, { data: course }, { data: learningModule }] = await Promise.all([
+    const [{ data: community }, { data: course }, { payload: learningModule }] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug: communitySlug, locale })),
       store.dispatch(fetchCourse({ slug: courseSlug, locale })),
-      // TODO: need to be replaced by the action defined in learningModule.
-      api(locale).server.get<LearningModule>(`/learning-modules/${id}`),
+      store.dispatch(findLearningModule(id)),
     ]);
 
-    if (Object.entries(learningModule).length === 0 || Object.entries(course).length === 0 || Object.entries(community).length === 0) {
-      return {
-        notFound: true,
-      };
-    } else {
-      return {
-        props: {
-          community,
-          course,
-          learningModule,
-          ...(await serverSideTranslations(locale as string)),
-        },
-      };
-    }
+    // if (Object.entries(learningModule).length === 0 || Object.entries(course).length === 0 || Object.entries(community).length === 0) {
+    //   return {
+    //     notFound: true,
+    //   };
+    // } else {
+    return {
+      props: {
+        community,
+        course,
+        learningModule,
+        ...(await serverSideTranslations(locale as string)),
+      },
+    };
+    // }
   } catch (error) {
     return {
       notFound: true,

@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { HYDRATE } from "next-redux-wrapper";
 import baseQuery from "@/config/baseQuery";
+import { setCurrentCourse } from "../feature/course.slice";
 
 /**
  * courses api
@@ -39,6 +40,10 @@ export const coursesService = createApi({
             "accept-language": locale,
           },
         }),
+        onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+          const { data } = await queryFulfilled;
+          dispatch(setCurrentCourse(data));
+        },
       }),
       fetchAllCourse: builder.query({
         query: ({ locale, slug }) => ({

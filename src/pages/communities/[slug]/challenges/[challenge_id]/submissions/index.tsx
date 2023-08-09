@@ -7,11 +7,9 @@ import MetaData from "@/components/ui/MetaData";
 import useNavigation from "@/hooks/useNavigation";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { wrapper } from "@/store";
-import { setCurrentChallenge } from "@/store/feature/communities/challenges";
-import { fetchAllSubmission, setSubmissionsList, showSubmission } from "@/store/feature/communities/challenges/submissions";
+import { fetchAllSubmission, showSubmission } from "@/store/feature/communities/challenges/submissions";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
-import { setCurrentCommunity } from "@/store/feature/community.slice";
-import { setColors, toggleBodyScrolling } from "@/store/feature/ui.slice";
+import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 import { fetchChallenge } from "@/store/services/communities/challenges";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { Submission as SubmissionType } from "@/types/bounty";
@@ -48,10 +46,6 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
   }, [dispatch, router]);
 
   useEffect(() => {
-    dispatch(setCurrentCommunity(currentCommunity));
-    dispatch(setSubmissionsList(submissions));
-    dispatch(setColors(currentCommunity.colors));
-    dispatch(setCurrentChallenge(challenge));
     initChallengeNavigationMenu(navigation.community)(dispatch);
     // Eslint desabled here for avoiding infinite rendering
     // eslint-disable-next-line react-hooks/exhaustive-deps
