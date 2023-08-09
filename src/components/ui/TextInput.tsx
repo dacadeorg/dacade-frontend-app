@@ -26,7 +26,7 @@ interface TextInputProps extends HTMLProps<HTMLTextAreaElement> {
  * @returns {ReactElement}
  */
 export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInput(
-  { label, disabled = false, placeholder, inputClass = "", error = null, handleInput , ...props},
+  { label, disabled = false, placeholder, inputClass = "", error = null, handleInput, ...props },
   ref
 ): ReactElement {
   const [isFocused, setIsFocused] = useState(false);
@@ -52,7 +52,9 @@ export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInpu
     <div>
       <div className="floating-input relative">
         {label && <label className={labelClassName}>{label}</label>}
+
         <textarea
+          {...props}
           ref={ref}
           value={value}
           placeholder={placeholder}
@@ -62,8 +64,9 @@ export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInpu
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onChange={(e) => setValue(e.target.value)}
-          {...props}
-        />
+        >
+          {value}
+        </textarea>
       </div>
       {error && (
         <div className="bg-red-50 help text-sm text-red-900 px-5 py-1.5">
