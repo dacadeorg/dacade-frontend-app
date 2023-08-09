@@ -15,7 +15,7 @@ import { ReactElement } from "react";
  * @returns {ReactElement}
  */
 export default function Objectives(): ReactElement {
-  const containsLinkRegex = new RegExp(/<a>.*?</a>/gi);
+  const containsLinkRegex = new RegExp(/<a>.*?<\/a>/gi);
   const { t } = useTranslation();
   const challenge = useSelector((state) => state.challenges.current);
   const expirationDate = challenge?.expiresAt && DateManager.format(challenge.expiresAt, "MMMM d, yyyy", "en");
