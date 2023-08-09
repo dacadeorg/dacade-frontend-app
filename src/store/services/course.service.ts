@@ -12,11 +12,7 @@ import { setCurrentCourse } from "../feature/course.slice";
 export const coursesService = createApi({
   reducerPath: "coursesService",
   baseQuery: baseQuery(),
-  extractRehydrationInfo(action, { reducerPath }) {
-    if (action.type === HYDRATE) {
-      return action.payload[reducerPath];
-    }
-  },
+  refetchOnMountOrArgChange: true,
   endpoints:
     /**
      * @date 4/18/2023 - 12:02:37 PM

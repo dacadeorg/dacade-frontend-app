@@ -6,6 +6,7 @@ import { setAllCommunities, setCurrentCommunity } from "../feature/community.sli
 export const communityService = createApi({
   reducerPath: "communityService",
   baseQuery: baseQuery(),
+  refetchOnMountOrArgChange: true,
   endpoints: (builder) => ({
     getCommunities: builder.query({
       query: (locale?: string) => ({

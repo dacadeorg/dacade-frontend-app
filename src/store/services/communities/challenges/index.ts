@@ -11,11 +11,7 @@ import queryString from "query-string";
 export const challengeService = createApi({
   reducerPath: "challengeService",
   baseQuery: baseQuery(),
-  extractRehydrationInfo: (action, { reducerPath }) => {
-    if (action.type === HYDRATE) {
-      return action.payload[reducerPath];
-    }
-  },
+  refetchOnMountOrArgChange: true,
   endpoints: (builder) => ({
     findChallengeById: builder.query({
       query: ({ id, relations }) => {
