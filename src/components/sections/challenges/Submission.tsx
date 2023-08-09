@@ -107,7 +107,7 @@ export default function Submission(): ReactElement {
   };
 
   return (
-    <Section title={t("communities.challenge.submission")}>
+    <Section title={t("communities.challenge.submit")}>
       <p className="text-base font-normal text-slate-700 pt-2 pb-7 md:w-99">Paste the code of your team below and it will automatically link to all the profiles</p>
       {team?.teamMembers && team.teamMembers.length < 3 && challenge?.isTeamChallenge ? (
         <Hint className="mb-8">Submitions will be enabled when when all the team mebmers accept the invitation and the team is fully formed.</Hint>
