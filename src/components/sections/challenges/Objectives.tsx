@@ -15,7 +15,9 @@ import { ReactElement } from "react";
  * @returns {ReactElement}
  */
 export default function Objectives(): ReactElement {
-  const containsLinkRegex = new RegExp(/<a>.*?<\/a>/gi);
+  // check for a link in the hint
+  const containsLink = new RegExp(/<a\b[^>]*>/i);
+
   const { t } = useTranslation();
   const challenge = useSelector((state) => state.challenges.current);
   const expirationDate = challenge?.expiresAt && DateManager.format(challenge.expiresAt, "MMMM d, yyyy", "en");
@@ -23,8 +25,7 @@ export default function Objectives(): ReactElement {
     <Section title={`${t("communities.overview.challenge.objective.title")}`}>
       <ObjectiveList objectives={challenge?.objectives} />
       {expirationDate && <ExpiryDate expiresAt={expirationDate} />}
-      {/* Show hint only when we  have a link */}
-      {containsLinkRegex.test(challenge?.hint as string) && (
+      {containsLink.test(challenge?.hint as string) && (
         <Hint>
           <span
             dangerouslySetInnerHTML={{
