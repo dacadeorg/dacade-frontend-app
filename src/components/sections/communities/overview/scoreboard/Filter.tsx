@@ -1,9 +1,10 @@
 import { ChangeEvent, ReactElement, useEffect, useState } from "react";
 import FilterOption from "./_partials/FilterOption";
-import { filterScoreboards, selectList, setScoreboardList, sortScoreboards } from "@/store/feature/communities/scoreboard.slice";
+import { selectList, setScoreboardList, sortScoreboards } from "@/store/feature/communities/scoreboard.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useRouter } from "next/router";
 import { useSelector } from "@/hooks/useTypedSelector";
+import { filterScoreboards } from "@/store/services/communities/scoreboard.service";
 
 /**
  * Options interface

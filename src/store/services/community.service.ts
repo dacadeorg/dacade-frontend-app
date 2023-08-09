@@ -2,16 +2,10 @@ import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { setColors } from "../feature/ui.slice";
 import { setAllCommunities, setCurrentCommunity } from "../feature/community.slice";
-import { HYDRATE } from "next-redux-wrapper";
 
 export const communityService = createApi({
   reducerPath: "communityService",
   baseQuery: baseQuery(),
-  extractRehydrationInfo: (action, { reducerPath }) => {
-    if (action.type === HYDRATE) {
-      return action.payload[reducerPath];
-    }
-  },
   endpoints: (builder) => ({
     getCommunities: builder.query({
       query: (locale?: string) => ({
