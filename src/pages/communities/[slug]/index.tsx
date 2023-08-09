@@ -1,3 +1,4 @@
+import Section from "@/components/ui/Section";
 import { Community } from "@/types/community";
 import { setColors } from "@/store/feature/ui.slice";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
@@ -8,12 +9,12 @@ import CommunityWrapper from "@/components/sections/communities/overview/Wrapper
 import CommunityLayout from "@/layouts/Community";
 import { ReactElement, useEffect } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { Challenge } from "@/types/course";
+import { Challenge, Course } from "@/types/course";
+import api from "@/config/api";
+import { setCourseList } from "@/store/feature/course.slice";
 import { GetServerSideProps } from "next";
-import { wrapper } from "@/store";
+import { store } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
-import { fetchAllChallenges } from "@/store/services/communities/challenges";
-import { useSelector } from "@/hooks/useTypedSelector";
 
 export default function Slug(props: {
   pageProps: {
@@ -22,6 +23,13 @@ export default function Slug(props: {
   };
 }): ReactElement {
   const { community, challenges } = props.pageProps;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setCurrentCommunity(community));
+    dispatch(setColors(community.colors));
+    // dispatch(setCourseList(courses));
+  }, [community, dispatch]);
 
   return (
     <CommunityWrapper>
@@ -45,11 +53,14 @@ Slug.getLayout = function (page: ReactElement) {
   return <CommunityLayout>{page}</CommunityLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ params, locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
   try {
     const slug = params?.slug as string;
 
-    const [{ data: community }, { data: challenges }] = await Promise.all([store.dispatch(fetchCurrentCommunity({ slug, locale })), store.dispatch(fetchAllChallenges({ slug }))]);
+    const [{ data: community }, { data: challenges }] = await Promise.all([
+      store.dispatch(fetchCurrentCommunity({ slug, locale })),
+      api(locale).server.get<Course[]>(`/communities/${slug}/challenges`),
+    ]);
 
     return {
       props: {
@@ -63,4 +74,4 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       notFound: true,
     };
   }
-});
+};
