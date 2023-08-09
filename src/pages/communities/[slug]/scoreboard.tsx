@@ -10,7 +10,7 @@ import Head from "next/head";
 import { GetServerSideProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
-import { store } from "@/store";
+import { wrapper } from "@/store";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { Scoreboard as ScoreboardType } from "@/types/scoreboard";
 import { Community } from "@/types/community";
@@ -56,7 +56,7 @@ ScoreboardList.getLayout = function (page: ReactElement) {
   return <CommunityLayout>{page}</CommunityLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale, params }) => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ locale, params }) => {
   const slug = params?.slug as string;
 
   const [{ data: community }, { payload: scoreboards }] = await Promise.all([
@@ -65,4 +65,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, params })
   ]);
 
   return { props: { community, scoreboards, ...(await i18Translate(locale as string)) } };
-};
+});

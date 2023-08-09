@@ -44,6 +44,7 @@ import certificateService from "./services/profile/certificate.service";
 import teamsSlice from "./feature/teams.slice";
 import teamsService from "./services/teams.service";
 import invitesSlice from "./feature/communities/challenges/invites.slice";
+import challengeService from "@/store/services/communities/challenges";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -69,6 +70,7 @@ export interface IRootState {
   certificateService: ReturnType<typeof certificateService.reducer>;
   reputationProfileService: ReturnType<typeof reputationProfileService.reducer>;
   profileCommunitiesService: ReturnType<typeof profileCommunitiesService.reducer>;
+  challengeService: ReturnType<typeof challengeService.reducer>;
   authService: ReturnType<typeof authService.reducer>;
   bountiesService: ReturnType<typeof bountiesService.reducer>;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
@@ -139,6 +141,7 @@ export const store = configureStore({
     [payoutsSlice.name]: payoutsSlice.reducer,
     [teamsSlice.name]: teamsSlice.reducer,
     [teamsService.reducerPath]: teamsService.reducer,
+    [challengeService.reducerPath]: challengeService.reducer,
     [invitesSlice.name]: invitesSlice.reducer,
     profile: profileReducer,
   },
@@ -158,7 +161,8 @@ export const store = configureStore({
       profileCommunitiesService.middleware,
       userReputationService.middleware,
       authService.middleware,
-      teamsService.middleware
+      teamsService.middleware,
+      challengeService.middleware
     );
   },
 });

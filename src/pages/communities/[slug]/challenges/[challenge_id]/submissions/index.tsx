@@ -7,11 +7,12 @@ import MetaData from "@/components/ui/MetaData";
 import useNavigation from "@/hooks/useNavigation";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { wrapper } from "@/store";
-import { fetchChallenge, setCurrentChallenge } from "@/store/feature/communities/challenges";
+import { setCurrentChallenge } from "@/store/feature/communities/challenges";
 import { fetchAllSubmission, setSubmissionsList, showSubmission } from "@/store/feature/communities/challenges/submissions";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { setColors, toggleBodyScrolling } from "@/store/feature/ui.slice";
+import { fetchChallenge } from "@/store/services/communities/challenges";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { Submission as SubmissionType } from "@/types/bounty";
 import { Community } from "@/types/community";
@@ -66,8 +67,6 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
 
   if (!submissions) return <></>;
 
-
-
   return (
     <>
       <Head>
@@ -93,10 +92,10 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   const { slug, challenge_id } = query;
   const { dispatch } = store;
 
-  const [{ data: currentCommunity }, { payload: submissions }, { payload: challenge }] = await Promise.all([
+  const [{ data: currentCommunity }, { payload: submissions }, { data: challenge }] = await Promise.all([
     dispatch(fetchCurrentCommunity({ slug: slug as string, locale: locale as string })),
     dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: locale as string })),
-    dispatch(fetchChallenge({ locale, id: challenge_id as string, relations: ['rubric', 'courses', 'learning-modules'] })),
+    dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
   ]);
 
   return {
