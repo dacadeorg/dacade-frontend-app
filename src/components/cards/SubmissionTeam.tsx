@@ -96,17 +96,19 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
 
   useEffect(() => {
     if (team) {
-      let tempTeamMembers: TeamCandidate[] = [];
-      tempTeamMembers.push({ user: team.organizer, status: "Organizer" });
+      setMembersList([{ user: team.organizer, status: "Organizer" }]);
 
       if (team.teamMembers) {
-        team.teamMembers.forEach((member) => tempTeamMembers.push({ user: member.user, status: "Team member" }));
+        team.teamMembers.forEach((member) => {
+          setMembersList((prev) => [...prev, { user: member.user, status: "Team member" }]);
+        });
       }
 
       if (team.teamInvites) {
-        team.teamInvites.forEach(({ user, status }) => tempTeamMembers.push({ user, status }));
+        team.teamInvites.forEach(({ user, status }) => {
+          setMembersList((prev) => [...prev, { user, status }]);
+        });
       }
-      setMembersList(tempTeamMembers);
     }
   }, [team]);
 
@@ -128,17 +130,19 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   };
 
   useEffect(() => {
-    if (inviteStatus === "sent") {
-      const newMembersList = [...membersList];
-      newMembersList[newMembersList.length - 1].status = "PENDING";
-      setMembersList(newMembersList);
-    } else if (inviteStatus === "not sent") {
-      const newMembersList = [...membersList];
-      newMembersList[newMembersList.length - 1].status = "Not sent";
-      setMembersList(newMembersList);
-    }
+    if (inviteStatus) {
+      let status = "";
+      if (inviteStatus === "sent") status = "PENDING";
+      else if (inviteStatus === "not sent") status = "Not sent";
 
-    dispatch(setInviteStatus(null));
+      setMembersList((prev) => {
+        const newMembersList = [...prev];
+        newMembersList[prev.length - 1].status = status;
+        return newMembersList;
+      });
+
+      dispatch(setInviteStatus(null));
+    }
   }, [inviteStatus]);
 
   return (
@@ -194,7 +198,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                 loadOptions={loadUserOptions}
                 onChange={(option) => {
                   // TODO: check if the team is actually closed instead of using this condition
-                  if (membersList.length < 4) {
+                  if (membersList.length < 8) {
                     if (option) selectTeamMember(option);
                   }
                 }}
