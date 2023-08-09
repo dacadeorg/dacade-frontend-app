@@ -6,6 +6,7 @@ import EthIcon from "@/icons/certificates/Eternity.svg";
 import NearIcon from "@/icons/certificates/Near.svg";
 import SolidityIcon from "@/icons/certificates/Solidity.svg";
 import IcpIcon from "@/icons/certificates/Icp.svg";
+import AiIcon from "@/icons/certificates/Ai.svg";
 
 /**
  * Interface for the coin props
@@ -55,6 +56,10 @@ const certificates = [
   {
     name: "ae-dev-101",
     icon: <EthIcon />,
+  },
+  {
+    name: "ai",
+    icon: <AiIcon />,
   },
 ];
 
