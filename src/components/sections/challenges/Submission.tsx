@@ -100,7 +100,7 @@ export default function Submission(): ReactElement {
         );
         textValue = "";
         githubLinkValue = "";
-        dispatch(fetchChallengeAuthenticated({ id: challenge?.id }));
+        dispatch(fetchChallengeAuthenticated({ id: challenge?.id as string }));
       } catch (error) {
         console.error(error);
       } finally {
