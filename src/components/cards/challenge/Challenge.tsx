@@ -104,15 +104,8 @@ const Badges = ({ challenge, className }: { challenge: Challenge; className?: st
   const [challengeLevel, setChallengeLevel] = useState("");
 
   useEffect(() => {
-    switch (challenge.level) {
-      case 0:
-      case 1:
-        return setChallengeLevel("course.challenge.level-0");
-      case 3:
-        return setChallengeLevel("course.challenge.level-2");
-      default:
-        break;
-    }
+    if (challenge.level === 0 || challenge.level === 1) return setChallengeLevel("course.challenge.level-0");
+    return setChallengeLevel("course.challenge.level-2");
   }, [challenge.level]);
 
   return (
