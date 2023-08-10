@@ -49,23 +49,6 @@ const scoreboardService = createApi({
           "Accept-Language": locale || "en",
         },
       }),
-      // onQueryStarted: async ({ filterBy, sortBy }, { dispatch, queryFulfilled }) => {
-      //   try {
-      //     setLoading(true);
-      //     await queryFulfilled;
-
-      //     // console.log({ data });
-      //     // if (sortBy) {
-      //     //   data.sort((firstItem, secondItem) => secondItem[sortBy] - firstItem[sortBy]);
-      //     // }
-      //     // dispatch(setFilterBy(filterBy));
-      //     // dispatch(setScoreboardList(data));
-      //   } catch (err) {
-      //     console.error(err);
-      //   } finally {
-      //     setLoading(false);
-      //   }
-      // },
     }),
   }),
 });

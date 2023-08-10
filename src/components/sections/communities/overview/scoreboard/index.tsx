@@ -22,8 +22,6 @@ export default function ScoreboardOverview(): ReactElement {
     setItems(items + 10);
   };
 
-  console.log({ list, filterBy });
-
   return (
     <>
       {(list && list.length !== 0) || filterBy !== "all" ? (
