@@ -83,8 +83,7 @@ export default function LearningModulePage(props: LearningModulePageProps) {
         <div className="py-8 flex flex-col divide-y space-y-8 text-gray-700">
           <Header />
           <div className="w-full divide-y divide-solid divide-gray-200">
-            {/* TODO: we will have an active challenge here instead picking the first one in the future. */}
-            {course.challenges && <ChallengeOverviewCard challenge={course.challenges[0]} />}
+            {course.challenges && course.challenges.map((challenge) => <ChallengeOverviewCard challenge={challenge} key={challenge.id} />)}
             {materials.map((material, i) => (
               <MaterialSection key={`material-section-${i}`} material={material} />
             ))}
