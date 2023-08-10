@@ -17,14 +17,12 @@ import Badges from "./Badges";
  * @returns {JSX.Element} The rendered ChallengeCard component.
  * @interface ChallengeCardProps
  */
-
 interface ChallengeCardProps {
   data: Challenge;
   community: Community;
 }
 export default function ChallengeCard({ data, community }: ChallengeCardProps) {
   const link = `/communities/${community.slug}/challenges/${data.id}`;
-
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
 
   return (
