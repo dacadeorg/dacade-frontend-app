@@ -52,7 +52,7 @@ export default function LearningModulePage(props: LearningModulePageProps) {
 
   useEffect(() => {
     initCourseNavigationMenu(navigation.community)(dispatch);
-  }, [dispatch, navigation.community]);
+  }, [dispatch]);
 
   const materials = useMemo(() => learningModule?.materials?.filter((material) => material.type !== "ADDITIONAL") || [], [learningModule?.materials]);
   const additionalMaterials = useMemo(() => learningModule?.materials?.filter((material) => material.type === "ADDITIONAL") || [], [learningModule?.materials]);
