@@ -45,7 +45,7 @@ export const challengeSlice = createSlice({
     builder
       .addCase(fetchChallenge.fulfilled, (state, action) => {
         state.current = action.payload;
-        state.submission = action.payload.submission;
+        state.submission = action.payload?.submission;
       })
       .addCase(fetchAllChallenges.fulfilled, (state, action) => {
         state.list = action.payload;
@@ -64,11 +64,31 @@ export const { setCurrentChallenge, setChallengesList, setChallengeSubmission } 
 export const fetchChallenge = createAsyncThunk("challenges/find", async ({ id, locale, relations }: { id: string; locale?: string; relations?: string[] }) => {
   const { data } = await api(locale).server.get(`challenges/${id}`, {
     params: {
-      relations: relations || []
+      relations: relations || [],
     },
   });
   return data;
 });
+
+/**
+ * Fetch the challenge for once the user is logged in
+ * The endpoint is challenges/${id} is hit once again as the second one works for authorised user
+ * @date 08/10/2023 - 15:40:33 PM
+ *
+ * @type {*}
+ */
+export const fetchChallengeAuthenticated = createAsyncThunk(
+  "challenges/find",
+  async ({ id, locale, relations }: { id: string; locale?: string; relations?: string[] }, { dispatch }) => {
+    const { data } = await api(locale).client.get(`challenges/${id}`, {
+      params: {
+        relations: relations || [],
+      },
+    });
+    dispatch(setChallengeSubmission(data?.submission));
+    return data;
+  }
+);
 
 /**
  * fetch all challenges async action
