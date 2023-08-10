@@ -5,6 +5,7 @@ import SubmissionTeamCard from "@/components/cards/SubmissionTeam";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { Notification } from "@/types/notification";
 import AcceptTeamInvitation from "@/components/cards/challenge/AcceptTeamInvitation";
+import { useTranslation } from "next-i18next";
 
 /**
  * SetupTeamChallenge component.
@@ -21,15 +22,26 @@ export default function SetupTeamChallenge(): JSX.Element {
     setTeamInvitations(notifications.filter((notification) => notification.type === "TEAM_INVITE"));
   }, [notifications]);
 
+  const { t } = useTranslation();
+
   return (
     <Section title="Submission">
-      <div className="text-base font-normal text-slate-700 pt-8 pb-7 md:w-99">To complete the team challenge, you need to follow these steps:</div>
+      <div className="text-base font-normal text-slate-700 pt-8 pb-7 md:w-99">{t("communities.overview.challenge.team.setup.info")}</div>
       <div className="md:flex flex-row gap-5">
-        <FormTeamCard index={1} title="Form your team" description="Open discord channel #teams and find your teammates to complete the challenge with you." />
+        <FormTeamCard index={1} title={t("communities.overview.challenge.team.setup.title")} description={t("communities.overview.challenge.team.setup.description")} />
         {teamInvitations ? (
-          <AcceptTeamInvitation index={2} title="Submit your team" text="The maximum team members for this challenge is 3 people" teamInvitations={teamInvitations} />
+          <AcceptTeamInvitation
+            index={2}
+            title={t("communities.overview.challenge.team.setup.submit-title")}
+            text={t("communities.overview.challenge.team.setup.description")}
+            teamInvitations={teamInvitations}
+          />
         ) : (
-          <SubmissionTeamCard index={2} title="Submit your team" text="The maximum team members for this challenge is 3 people" />
+          <SubmissionTeamCard
+            index={2}
+            title={t("communities.overview.challenge.team.setup.submit-title") || ""}
+            text={t("communities.overview.challenge.team.setup.description") || ""}
+          />
         )}
       </div>
     </Section>
