@@ -54,35 +54,4 @@ export const challengeSlice = createSlice({
 
 export const { setCurrentChallenge, setChallengesList, setChallengeSubmission } = challengeSlice.actions;
 
-/**
- * Fetch challenge async action
- * @date 4/18/2023 - 12:00:33 PM
- *
- * @type {*}
- */
-// export const fetchChallenge = createAsyncThunk("challenges/find", async ({ id, locale, relations }: { id: string; locale?: string; relations?: string[] }) => {
-//   const { data } = await api(locale).server.get(`challenges/${id}`, {
-//     params: {
-//       relations: relations || [],
-//     },
-//   });
-//   return data;
-// });
-//
-// /**
-//  * fetch all challenges async action
-//  * @date 4/18/2023 - 12:00:51 PM
-//  *
-//  * @type {*}
-//  */
-// export const fetchAllChallenges = createAsyncThunk("challenges/all", async ({ slug }: { slug: string }) => {
-//   const { data } = await api().server.get(`communities/${slug}/challenges`);
-//   return data;
-// });
-//
-// export const findCommunityChallenge = createAsyncThunk("challenges/all", async ({ slug }: { slug: string }) => {
-//   const { data } = await api().server.get(`communities/${slug}/challenges`);
-//   return data;
-// });
-
 export default challengeSlice.reducer;
