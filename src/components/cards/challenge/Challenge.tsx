@@ -15,8 +15,14 @@ import Badges from "./Badges";
  * reward, deadline, and related content.
  *
  * @returns {JSX.Element} The rendered ChallengeCard component.
+ * @interface ChallengeCardProps
  */
-export default function ChallengeCard({ data, community }: { data: Challenge; community: Community }) {
+
+interface ChallengeCardProps {
+  data: Challenge;
+  community: Community;
+}
+export default function ChallengeCard({ data, community }: ChallengeCardProps) {
   const link = `/communities/${community.slug}/challenges/${data.id}`;
 
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
@@ -28,10 +34,7 @@ export default function ChallengeCard({ data, community }: { data: Challenge; co
           <div className="lg:flex mb-1">
             <div className="lg:pr-20 w-full lg:w-3/5">
               <div className="text-lg text-gray-900 font-medium leading-normal">{data.name}</div>
-              <div className="text-sm mt-3 pb-2 max-w-xxs text-gray-700">
-                {data.description}
-              </div>
-              {/* <div className="md:hidden text-xxs px-2.5 py-0.5 bg-gray-200 text-gray-500 rounded-3xl max-w-max tracking-wider mb-6.5 uppercase font-medium">{t(`course.challenge.level-${data.level}`)}</div> */}
+              <div className="text-sm mt-3 pb-2 max-w-xxs text-gray-700">{data.description}</div>
               <Badges challenge={data} className="md:hidden" />
             </div>
 
@@ -82,10 +85,10 @@ export default function ChallengeCard({ data, community }: { data: Challenge; co
       {(data.courses?.length > 0 || data.learningModules?.length > 0) && (
         <div className="sm:px-8 sm:pt-6 sm:pb-9 w-full p-6 rounded-3xl text-sm">
           <div className="mb-3 text-gray-400 font-semibold uppercase text-xxs">related content</div>
-          {data.courses?.map((course: any) => (
+          {data.courses?.map((course) => (
             <RelatedContent key={course.id} content={course} />
           ))}
-          {data.learningModules?.map((learningModule: any) => (
+          {data.learningModules?.map((learningModule) => (
             <RelatedContent key={learningModule.id} content={learningModule} />
           ))}
         </div>

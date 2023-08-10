@@ -7,8 +7,12 @@ import { Course, LearningModule } from "@/types/course";
  * @export
  * @param {({ content: Course | LearningModule | any })} { content }
  * @returns {*}
+ * @interface RelatedContentProps
  */
-export default function RelatedContent({ content }: { content: Course | LearningModule | any }) {
+interface RelatedContentProps {
+  content: Course | LearningModule | any;
+}
+export default function RelatedContent({ content }: RelatedContentProps) {
   return (
     <div className="lg:w-10/12 pb-6.5 text-gray-500 font-normal text-sm">
       <div className="mb-1.5 font-medium leading-normal">{content?.name || content?.title}</div>
