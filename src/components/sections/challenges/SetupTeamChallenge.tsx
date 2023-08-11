@@ -7,6 +7,9 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { authCheck } from "@/store/feature/auth.slice";
 import { getUserInvitesByChallenge } from "@/store/services/teams.service";
 import ConfirmTeamInvitation from "@/components/cards/challenge/ConfirmTeamInvitation";
+import { Notification } from "@/types/notification";
+import { useTranslation } from "next-i18next";
+
 /**
  * SetupTeamChallenge component.
  *
@@ -26,15 +29,21 @@ export default function SetupTeamChallenge(): JSX.Element {
     }
   }, [challenge, isAuthenticated]);
 
+  const { t } = useTranslation();
+
   return (
     <Section title="Submission">
-      <div className="text-base font-normal text-slate-700 pt-8 pb-7 md:w-99">To complete the team challenge, you need to follow these steps:</div>
+      <div className="text-base font-normal text-slate-700 pt-8 pb-7 md:w-99">{t("communities.overview.challenge.team.setup.info")}</div>
       <div className="md:flex flex-row gap-5">
         <FormTeamCard index={1} title="Form your team" description="Open discord channel #teams and find your teammates to complete the challenge with you." />
         {invite ? (
           <ConfirmTeamInvitation index={2} title="Submit your team" text="The maximum team members for this challenge is 3 people" invite={invite} />
         ) : (
-          <SubmissionTeamCard index={2} title="Submit your team" text="The maximum team members for this challenge is 3 people" />
+          <SubmissionTeamCard
+            index={2}
+            title={t("communities.overview.challenge.team.setup.submit-title") || ""}
+            text={t("communities.overview.challenge.team.setup.description") || ""}
+          />
         )}
       </div>
     </Section>

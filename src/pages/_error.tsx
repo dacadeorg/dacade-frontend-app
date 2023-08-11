@@ -3,6 +3,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSideProps } from "next";
 import { ReactElement } from "react";
 import Error from "@/layouts/Error";
+import i18Translate from "@/utilities/I18Translate";
 
 /**
  * Error page props
@@ -21,12 +22,9 @@ export default function ErrorPage({ error }: ErrorPageProps): ReactElement {
   return <Error error={error} />;
 }
 export const getServerSideProps: GetServerSideProps = async ({ locale, res }) => {
-  // const translations = await serverSideTranslations(locale as string ||  "en");
-  const translations = await serverSideTranslations((locale as string) || "en");
-
   return {
     props: {
-      // ...translations,
+      ...(await i18Translate(locale as string)),
       error: {
         statusCode: res.statusCode,
         message: res.statusMessage ? res.statusMessage : null,
