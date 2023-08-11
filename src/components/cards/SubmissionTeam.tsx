@@ -98,7 +98,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
 
   useEffect(() => {
     if (team) {
-      setMembersList([{ user: team.organizer, status: "Organizer" }]);
+      setMembersList([{ user: team.organizer, status: "organizer" }]);
 
       if (team.teamMembers) {
         team.teamMembers.forEach((member) => {
@@ -133,7 +133,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   };
 
   const removeTeamMember = (id: string) => {
-    setMembersList(membersList.filter((member) => member.user?.id !== id));
+    setMembersList((prev) => prev.filter((member) => member.user?.id !== id));
   };
 
   useEffect(() => {
@@ -172,7 +172,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                   <div className=" text-sm text-gray-700 font-medium">{user?.displayName}</div>
                   <div className=" text-gray-400 text-xs">{status}</div>
                 </div>
-                {status !== "Organizer" ? (
+                {status !== "organizer" ? (
                   <div
                     className="ml-auto hover:cursor-pointer relative"
                     onClick={() => removeTeamMember(user?.id || "")}
