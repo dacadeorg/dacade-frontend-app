@@ -116,7 +116,7 @@ export default function NotificationCard({ user = {}, notification, extended = f
           </span>
         </div>
       </div>
-      {notification?.type === "TEAM_INVITE" && (
+      {notification?.type === "TEAM_INVITE" && notification.created_at === notification.updated_at && (
         <div className="px-5 flex gap-3">
           <InvitationButton text="accept" inviteId={notification.metadata?.invite_id as string} />
           <InvitationButton text="decline" inviteId={notification.metadata?.invite_id as string} />
