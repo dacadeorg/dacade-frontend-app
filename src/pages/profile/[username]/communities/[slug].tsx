@@ -1,6 +1,5 @@
 import CommunityStats from "@/components/sections/profile/communities/Stats";
 import List from "@/components/sections/profile/communities/List";
-import { useRouter } from "next/router";
 import { Fragment, useEffect } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { ReactElement } from "react-markdown/lib/react-markdown";

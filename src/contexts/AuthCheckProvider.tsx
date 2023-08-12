@@ -1,6 +1,5 @@
 import Loader from "@/components/ui/Loader";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { authCheck, authVerify } from "@/store/feature/auth.slice";
 import { useGetUserQuery } from "@/store/services/user.service";
 import { useRouter } from "next/router";
 import { ReactNode, useEffect } from "react";
@@ -18,14 +17,11 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
  * @returns {*}
  */
 export default function AuthCheckProvider({ children }: { children: ReactNode }) {
-  const { auth, authUser, isFetchingUser } = useSelector((state) => ({
-    authUser: state.user.data,
-    auth: state.auth.data,
-    isFetchingUser: state.user.fetchingUserLoading,
-  }));
+  const authUser = useSelector((state) => state.user.data);
   const router = useRouter();
   const dispatch = useDispatch();
   const { isLoading } = useGetUserQuery("en");
+
   useEffect(() => {
     (async () => {
       await Promise.all([dispatch(fetchAllCertificates({ username: authUser?.username || "" })), dispatch(fetchProfileReputation({ username: authUser?.username || "" }))]);

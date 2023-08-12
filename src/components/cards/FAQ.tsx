@@ -28,7 +28,7 @@ export default function FaqCard(): ReactElement {
         </div>
         {course?.faq && (
           <div className="w-full lg:w-1/2 divide-y divide-2 space-y-4 divide-gray-200">
-            {course?.faq.map((question: any, i: any) => (
+            {course?.faq.map((question, i) => (
               <QuestionCard key={`fag-${i}`} details={question} />
             ))}
           </div>

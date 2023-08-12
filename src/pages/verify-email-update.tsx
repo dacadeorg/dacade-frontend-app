@@ -72,7 +72,7 @@ export const getServerSideProps = async (data: { locale: string; query: any }) =
   }
 
   try {
-    await verifyEmailUpdate(query?.code as string);
+    await verifyEmailUpdate();
 
     return {
       props: {
@@ -86,6 +86,6 @@ export const getServerSideProps = async (data: { locale: string; query: any }) =
     };
   }
 };
-function verifyEmailUpdate(arg0: string) {
+function verifyEmailUpdate() {
   throw new Error("Function not implemented.");
 }

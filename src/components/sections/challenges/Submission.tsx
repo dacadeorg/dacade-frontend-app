@@ -1,4 +1,4 @@
-import { CSSProperties, ChangeEvent, useState } from "react";
+import { CSSProperties, useState } from "react";
 import Section from "@/components/sections/communities/_partials/Section";
 import Avatar from "@/components/ui/Avatar";
 import TextInput from "@/components/ui/TextInput";
@@ -79,7 +79,7 @@ export default function Submission(): ReactElement {
         setSubmitting(true);
         const result = await dispatch(
           createSubmission({
-            challengeId: challenge?.id!,
+            challengeId: challenge?.id || "",
             text: form.text,
             link: form.githubLink,
           })

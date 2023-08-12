@@ -3,8 +3,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { fetchAllWallets } from "@/store/services/wallets.service";
-import { GetServerSideProps, GetStaticProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { GetStaticProps } from "next";
 
 import EditProfile from "@/components/sections/profile/modals/EditProfile";
 import Wallet from "@/components/cards/Wallet";

@@ -3,8 +3,6 @@ import { ReactElement, useMemo } from "react";
 import Checkmark from "@/icons/checkMarkIcon.svg";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
-import { useRouter } from "next/router";
-import { useSelector } from "@/hooks/useTypedSelector";
 import classNames from "classnames";
 import { Certificate } from "@/types/certificate";
 
@@ -22,10 +20,6 @@ interface AchievementCardProps {
 
 export default function AchievementCard({ data, minting }: AchievementCardProps): ReactElement {
   const { t } = useTranslation();
-
-  const router = useRouter();
-  const authUser = useSelector((state) => state.user.data);
-  const username = router.query.username || authUser?.displayName;
 
   const minted: boolean = !!data?.minting?.tx && data?.community?.can_mint_certificates;
 

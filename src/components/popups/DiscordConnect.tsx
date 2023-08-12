@@ -49,7 +49,7 @@ export default function DiscordConnect(): ReactElement {
    *
    * @type {Function}
    */
-  const discordCallback: Function = useCallback(async () => {
+  const discordCallback = useCallback(async () => {
     try {
       const { code } = router.query;
       if (!code) {

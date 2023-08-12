@@ -34,7 +34,7 @@ const uiSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(HYDRATE, (state, action) => {
+    builder.addCase(HYDRATE, (state) => {
       return {
         ...state,
       };

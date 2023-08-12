@@ -13,7 +13,7 @@ import Package from "../../package.json";
 const baseQuery = (locale: string = "en"): BaseQueryFn =>
   fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
-    prepareHeaders: async (headers, _) => {
+    prepareHeaders: async (headers) => {
       headers.set("Content-Type", "application/json");
       headers.set("app-name", Package.name);
       headers.set("Accept-Language", locale);

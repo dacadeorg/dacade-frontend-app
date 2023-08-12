@@ -2,7 +2,6 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { ReactElement } from "react";
 import ProfileOverviewSection from "./Section";
 import CommunityCardSmall from "@/components/cards/community/Small";
-import { useRouter } from "next/router";
 
 /**
  * Profile communites component
@@ -12,12 +11,7 @@ import { useRouter } from "next/router";
  * @returns {ReactElement}
  */
 export default function ProfileOverviewCommunities(): ReactElement {
-  const { reputations, authUser } = useSelector((state) => ({
-    reputations: state.profile.reputations.list,
-    authUser: state.user.data,
-  }));
-  const router = useRouter();
-  const username = router.asPath || authUser?.displayName;
+  const reputations = useSelector((state) => state.profile.reputations.list);
 
   if (reputations && reputations.length)
     return (

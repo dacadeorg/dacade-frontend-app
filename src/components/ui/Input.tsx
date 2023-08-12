@@ -32,12 +32,11 @@ interface InputProps extends Omit<HTMLProps<HTMLInputElement>, "onInput"> {
   error,
   inputClass,
   fontSize = "lg",
-  onInput,
 }
  * @returns {ReactElement}
  */
 const Input = forwardRef<HTMLInputElement, InputProps>(function (
-  { type = "text", label, disabled = false, placeholder = null!, error, inputClass, value, fontSize = "lg", onInput, ...props },
+  { type = "text", label, disabled = false, placeholder = null!, error, inputClass, value, fontSize = "lg", ...props },
   ref
 ) {
   const [isFocused, setIsFocused] = useState(false);

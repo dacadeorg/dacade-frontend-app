@@ -19,7 +19,6 @@ import { setColors } from "@/store/feature/ui.slice";
 import useNavigation from "@/hooks/useNavigation";
 import api from "@/config/api";
 import { GetServerSideProps } from "next";
-import i18Translate from "@/utilities/I18Translate";
 import { store } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchCourse } from "@/store/services/course.service";
@@ -68,8 +67,8 @@ export default function LearningModulePage(props: LearningModulePageProps) {
 
   const interactiveModules = learningModule?.interactiveModules || [];
 
-  const title = getMetadataTitle(learningModule?.title!, course?.name!);
-  const descriptions = getMetadataDescription(learningModule?.description!);
+  const title = getMetadataTitle(learningModule.title!, course.name!);
+  const descriptions = getMetadataDescription(learningModule.description!);
 
   return (
     <>

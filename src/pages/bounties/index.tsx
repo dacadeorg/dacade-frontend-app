@@ -6,8 +6,6 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { Bounty } from "@/types/bounty";
 import { GetServerSideProps } from "next";
-import { Referral } from "@/types/community";
-import i18Translate from "@/utilities/I18Translate";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import DefaultLayout from "@/components/layout/Default";
 import { fetchReferrals } from "@/store/services/referrals.service";
@@ -40,11 +38,6 @@ const defaulBounty = {
   url: "https://tacode.dev/courses/dev-starter",
 };
 
-interface BountiesPageProps {
-  bouties: Bounty[];
-  referrals: Referral[];
-}
-
 /**
  * Bounties page component
  * @date 5/16/2023 - 11:39:56 AM
@@ -53,7 +46,7 @@ interface BountiesPageProps {
  * @param {BountiesPageProps} props
  * @returns
  */
-export default function Bounties(props: BountiesPageProps) {
+export default function Bounties() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { user, isFetchingUser } = useSelector((state) => ({

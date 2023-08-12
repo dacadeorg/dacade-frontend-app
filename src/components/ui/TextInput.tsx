@@ -26,7 +26,7 @@ interface TextInputProps extends HTMLProps<HTMLTextAreaElement> {
  * @returns {ReactElement}
  */
 export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInput(
-  { label, disabled = false, placeholder, inputClass = "", error = null, handleInput, ...props },
+  { label, disabled = false, placeholder, inputClass = "", error = null, ...props },
   ref
 ): ReactElement {
   const [isFocused, setIsFocused] = useState(false);

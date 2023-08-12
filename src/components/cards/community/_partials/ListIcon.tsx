@@ -5,20 +5,6 @@ import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
 
 /**
- * Colors interface
- * @date 3/30/2023 - 3:49:04 PM
- *
- * @interface Colors
- * @typedef {Colors}
- */
-interface Colors {
-  textAccent: string;
-  text: string;
-  accent: string;
-  primary: string;
-}
-
-/**
  * Interface for CommunityListCardIcon component props
  * @date 3/30/2023 - 3:49:38 PM
  *

@@ -1,6 +1,5 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
-import { setColors } from "../feature/ui.slice";
 import { setAllCommunities } from "../feature/community.slice";
 
 export const communityService = createApi({

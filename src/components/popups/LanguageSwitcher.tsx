@@ -8,20 +8,6 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 
 /**
- * Language Switcher Interface
- * @date 3/29/2023 - 12:18:26 PM
- * @interface LanguageSwitcherProps
- * @typedef {LanguageSwitcherProps}
- * @param {Function} close
- * @returns {ReactElement}
- *
- * */
-
-interface LanguageSwitcherProps {
-  close?: () => void;
-}
-
-/**
  * Language Switcher Component
  * @date 3/29/2023 - 12:17:37 PM
  * @export
@@ -32,7 +18,7 @@ interface LanguageSwitcherProps {
  *
  * */
 
-export default function LanguageSwitcher({ close }: LanguageSwitcherProps): ReactElement {
+export default function LanguageSwitcher(): ReactElement {
   const [show, setshow] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();

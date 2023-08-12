@@ -89,7 +89,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
 
   useEffect(() => {
     if (team) {
-      let tempTeamMembers: TeamCandidate[] = [];
+      const tempTeamMembers: TeamCandidate[] = [];
       tempTeamMembers.push({ user: team.organizer, status: "Organiser" });
 
       if (team.teamMembers) {

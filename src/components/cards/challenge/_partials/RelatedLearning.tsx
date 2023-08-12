@@ -1,7 +1,6 @@
 import React from "react";
 import ArrowButton from "@/components/ui/button/Arrow";
 import Link from "next/link";
-import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * Props for the RelatedLearning component.

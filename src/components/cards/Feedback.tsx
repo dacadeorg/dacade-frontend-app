@@ -53,7 +53,7 @@ interface FeedbackProps {
 }
  * @returns {ReactElement}
  */
-export default function FeedbackCard({ value, preview = false, buttons = false, last = false, link = "" }: FeedbackProps): ReactElement {
+export default function FeedbackCard({ value, preview = false, last = false, link = "" }: FeedbackProps): ReactElement {
   const { t } = useTranslation();
   const language = value?.metadata?.language || "en";
 

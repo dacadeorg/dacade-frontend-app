@@ -25,7 +25,6 @@ interface ScoreboardCardProps {
  */
 export default function ScoreboardCard({ value, index }: ScoreboardCardProps): JSX.Element {
   const colors = useSelector((state) => state.ui.colors);
-  const community = useSelector((state) => state.communities.current);
 
   return (
     <div className="relative w-full md:flex sm:space-x-5 space-y-0 sm:flex-row-reverse sm:space-x-reverse sm:justify-between overflow-hidden sm:p-7 py-5 px-6 sm:items-center">

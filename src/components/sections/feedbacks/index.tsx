@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useState } from "react";
+import { ReactElement, useCallback, useEffect } from "react";
 import FeedbackCard from "@/components/cards/Feedback";
 import Loader from "@/components/ui/button/Loader";
 import { useSelector } from "@/hooks/useTypedSelector";
@@ -20,7 +20,6 @@ import { useRouter } from "next/router";
 export default function Feedback(): ReactElement {
   const dispatch = useDispatch();
   const route = useRouter();
-  const [loading, setLoading] = useState(false);
 
   const { feedbacks, isAuthenticated, submission, challenge } = useSelector((state) => ({
     feedbacks: state.feedback.list,
@@ -39,8 +38,10 @@ export default function Feedback(): ReactElement {
 
   return (
     <div className="relative">
-      {!loading && feedbacks.map((feedback, index) => <FeedbackCard key={feedback.id} value={feedback} last={index === feedbacks.length - 1} />)}
-      {loading && <Loader loading={loading} />}
+      {feedbacks.map((feedback, index) => (
+        <FeedbackCard key={feedback.id} value={feedback} last={index === feedbacks.length - 1} />
+      ))}
+      <Loader loading={false} />
       {isAuthenticated && challenge?.feedbackInfo && (
         <Section>
           <Criteria />

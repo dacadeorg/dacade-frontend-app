@@ -14,7 +14,7 @@ interface TranslationBoxProps {
   text: string;
   defaultLocale: DefaultLocale;
   disabled?: boolean;
-  textContainerCssClasses: string | object | Array<any>;
+  textContainerCssClasses: string;
   textCssClasses?: string;
 }
 

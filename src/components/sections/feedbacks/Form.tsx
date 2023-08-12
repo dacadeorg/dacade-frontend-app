@@ -32,7 +32,7 @@ interface FormValues {
  * @typedef {FormProps}
  */
 interface FormProps {
-  save: (data: any) => void;
+  save: (data: Feedback) => void;
 }
 
 /**

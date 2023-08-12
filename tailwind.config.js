@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /** @type {import('tailwindcss').Config} */
 const typography = require("@tailwindcss/typography");
 const aspectRatio = require("@tailwindcss/aspect-ratio");

@@ -1,4 +1,3 @@
-import Section from "@/components/ui/Section";
 import { Community } from "@/types/community";
 import { setColors } from "@/store/feature/ui.slice";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
@@ -11,7 +10,6 @@ import { ReactElement, useEffect } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { Challenge, Course } from "@/types/course";
 import api from "@/config/api";
-import { setCourseList } from "@/store/feature/course.slice";
 import { GetServerSideProps } from "next";
 import { store } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";

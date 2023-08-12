@@ -47,7 +47,7 @@ const scoreboardSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllScoreboards.pending, (state, _) => {
+      .addCase(fetchAllScoreboards.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchAllScoreboards.fulfilled, (state, action) => {
@@ -55,10 +55,10 @@ const scoreboardSlice = createSlice({
         state.loading = false;
         state.list = action.payload as Scoreboard[];
       })
-      .addCase(fetchAllScoreboards.rejected, (state, _) => {
+      .addCase(fetchAllScoreboards.rejected, (state) => {
         state.loading = false;
       })
-      .addCase(filterScoreboards.pending, (state, _) => {
+      .addCase(filterScoreboards.pending, (state) => {
         state.loading = true;
       })
       .addCase(filterScoreboards.fulfilled, (state, action) => {
@@ -66,7 +66,7 @@ const scoreboardSlice = createSlice({
         state.loading = false;
         state.list = action.payload?.list as Scoreboard[];
       })
-      .addCase(filterScoreboards.rejected, (state, _) => {
+      .addCase(filterScoreboards.rejected, (state) => {
         state.loading = false;
       });
   },

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ReactElement } from "react";
 import Markdown from "@/icons/markdown-fill.svg";
 

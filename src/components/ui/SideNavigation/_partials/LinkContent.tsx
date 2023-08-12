@@ -2,6 +2,7 @@ import classNames from "classnames";
 import ChevronRightIcon from "@/icons/chevron-right.svg";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
+import { Item } from "./LinkAction";
 
 /**
  * Interface for content link
@@ -13,7 +14,7 @@ import { ReactElement } from "react";
 interface LinkContentProps {
   isActive: boolean;
   expanded: boolean;
-  item: any;
+  item: Item;
 }
 
 /**

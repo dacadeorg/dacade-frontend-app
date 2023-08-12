@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import Link from "next/link";
-import { CSSProperties, ReactElement, ReactNode, useState } from "react";
+import { CSSProperties, ReactElement, ReactNode } from "react";
+import { Item } from "./LinkAction";
 
 /**
  * Activable link props interface
@@ -10,10 +11,7 @@ import { CSSProperties, ReactElement, ReactNode, useState } from "react";
  * @typedef {ActivableLinkProps}
  */
 interface ActivableLinkProps {
-  item: {
-    subitems?: Array<any>;
-    link: string;
-  };
+  item: Item;
   activeLinkStyle?: CSSProperties;
   isActive?: boolean;
   goToLink?: () => void;
@@ -35,8 +33,6 @@ interface ActivableLinkProps {
  * @returns {ReactElement}
  */
 export function ActivableLink({ item, activeLinkStyle, isActive = false, goToLink = () => {}, children }: ActivableLinkProps): ReactElement {
-  const [expanded, setExpanded] = useState(true);
-
   const styles = isActive ? activeLinkStyle : {};
   const classes = classNames("relative block text-gray-500 cursor-pointer", { "activable-link": isActive });
 

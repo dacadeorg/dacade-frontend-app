@@ -35,8 +35,6 @@ export type List = {
   items: ListItem[];
 };
 
-type BountyLink = Omit<LearningModuleLink, "subitems">;
-
 export default class CommunityNavigation {
   private router: any;
 
@@ -174,7 +172,7 @@ export default class CommunityNavigation {
 
     const slugger = new Slugger();
 
-    return course.learningModules?.map((learningModule, i) => ({
+    return course.learningModules?.map((learningModule) => ({
       id: learningModule.id,
       label: learningModule.title,
       link: this.learningModulePath(learningModule.id, course.slug, communitySlug),
@@ -221,7 +219,7 @@ export default class CommunityNavigation {
     ];
 
     const courses =
-      challenge?.courses?.map((course, i) => {
+      challenge?.courses?.map((course) => {
         return {
           id: course.id,
           label: course.name,
@@ -231,7 +229,7 @@ export default class CommunityNavigation {
       }) || [];
 
     const learningModules =
-      challenge?.learningModules?.map((learningModule, i) => {
+      challenge?.learningModules?.map((learningModule) => {
         return {
           id: learningModule.id,
           label: learningModule.title,
@@ -278,7 +276,7 @@ export default class CommunityNavigation {
     ];
 
     const challenges =
-      course.challenges?.map((challenge, i) => {
+      course.challenges?.map((challenge) => {
         return {
           id: challenge.id,
           label: challenge.name,

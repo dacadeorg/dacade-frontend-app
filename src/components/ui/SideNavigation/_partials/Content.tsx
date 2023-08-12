@@ -1,6 +1,7 @@
 import ChevronRightIcon from "@/icons/chevron-right.svg";
 import { ReactElement } from "react";
 import { useTranslation } from "next-i18next";
+import { Item } from "./LinkAction";
 
 /**
  * NavItem props
@@ -10,10 +11,7 @@ import { useTranslation } from "next-i18next";
  * @typedef {NavItemProps}
  */
 interface NavItemProps {
-  item: {
-    label: string;
-    subitems?: any[];
-  };
+  item: Item;
   isActive?: boolean;
   expanded?: boolean;
 }
