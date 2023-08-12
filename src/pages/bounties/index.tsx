@@ -43,7 +43,6 @@ const defaulBounty = {
  * @date 5/16/2023 - 11:39:56 AM
  *
  * @export
- * @param {BountiesPageProps} props
  * @returns
  */
 export default function Bounties() {
