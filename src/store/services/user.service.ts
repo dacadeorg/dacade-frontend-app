@@ -16,7 +16,6 @@ interface User {
 
 interface Email {
   email: string;
-  // emailConfirm: string;
 }
 
 /**
