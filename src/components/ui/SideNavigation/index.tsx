@@ -3,7 +3,8 @@ import { Colors } from "@/types/community";
 import { useTranslation } from "next-i18next";
 import { ReactElement, ReactNode } from "react";
 import SideNavLink from "./_partials/SideNavLink";
-import { Item } from "./_partials/LinkAction";
+import { Items } from "@/store/feature/communities/navigation.slice";
+
 /**
  * Navigation component
  * @date 4/18/2023 - 12:23:40 PM
@@ -11,7 +12,7 @@ import { Item } from "./_partials/LinkAction";
  * @export
  * @returns {ReactElement}
  */
-export default function SideNavigation({ items, colors, children }: { items: Item[]; colors: Colors; children: ReactNode }): ReactElement {
+export default function SideNavigation({ items, colors, children }: { items: Items[]; colors: Colors; children: ReactNode }): ReactElement {
   const { t } = useTranslation();
   return (
     <ThemeWrapper colors={colors}>

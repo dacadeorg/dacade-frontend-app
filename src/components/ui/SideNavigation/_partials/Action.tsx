@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import Link from "next/link";
 import { CSSProperties, ReactElement, ReactNode } from "react";
-import { Item } from "./LinkAction";
 
 /**
  * Activable link props interface
@@ -11,7 +10,10 @@ import { Item } from "./LinkAction";
  * @typedef {ActivableLinkProps}
  */
 interface ActivableLinkProps {
-  item: Item;
+  item: {
+    subitems?: Array<any>;
+    link: string;
+  };
   activeLinkStyle?: CSSProperties;
   isActive?: boolean;
   goToLink?: () => void;

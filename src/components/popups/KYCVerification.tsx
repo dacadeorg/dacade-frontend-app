@@ -45,7 +45,7 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
   const handleCompleted = () => {
     closeModal();
     onCompleted?.();
-    triggerCompleteAction()(dispatch);
+    triggerCompleteAction()();
   };
 
   return (

@@ -4,7 +4,6 @@ import SubLink from "./Sub";
 import { ActivableLink as LinkAction } from "./Action";
 import { ReactElement, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import { Item } from "./LinkAction";
 
 /**
  * Course link props interface
@@ -14,7 +13,16 @@ import { Item } from "./LinkAction";
  * @typedef {courseLinkProps}
  */
 interface courseLinkProps {
-  item: Item;
+  item: {
+    link: string;
+    exact: boolean;
+    subitems?: Array<{
+      link: string;
+      exact: boolean;
+      label: string;
+    }>;
+    label: string;
+  };
 }
 
 /**

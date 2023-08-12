@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { CSSProperties, ReactElement } from "react";
-import { Item } from "./LinkAction";
 
 /**
  * SubLink props interface
@@ -10,9 +9,15 @@ import { Item } from "./LinkAction";
  * @typedef {subLinkProps}
  */
 interface subLinkProps {
-  item: Item;
+  item: {
+    link: string;
+  };
   activeLinkStyle: CSSProperties;
-  subitem: Partial<Item>;
+  subitem: {
+    link: string;
+    label: string;
+    exact: boolean;
+  };
 }
 
 /**

@@ -7,9 +7,8 @@ import TranslationBox from "@/components/cards/TranslationBox";
 
 import { useTranslation } from "next-i18next";
 import classNames from "classnames";
-import { User } from "@/types/bounty";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { Reward } from "@/types/course";
+import { Feedback } from "@/types/feedback";
 
 /**
  * Props for the feedback card
@@ -19,20 +18,7 @@ import { Reward } from "@/types/course";
  * @typedef {Props}
  */
 interface FeedbackProps {
-  value: {
-    user: User;
-    created_at: string;
-    ranking: number;
-    text: string;
-    metadata?: {
-      evaluation?: {
-        reward: Reward;
-        points: number;
-      };
-      language: "en" | "fr";
-    };
-    link?: string;
-  };
+  value: Feedback;
   preview?: boolean;
   buttons?: boolean;
   last?: boolean;

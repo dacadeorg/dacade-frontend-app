@@ -16,7 +16,6 @@ interface InputProps extends Omit<HTMLProps<HTMLInputElement>, "onInput"> {
   error?: string;
   inputClass?: string;
   fontSize?: string;
-  onInput?: (value: string) => void;
 }
 
 /**

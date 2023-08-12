@@ -2,6 +2,7 @@ import { ReactElement, ReactNode } from "react";
 import UserCard from "@/components/cards/User";
 import TranslationBox from "@/components/cards/TranslationBox";
 import { useTranslation } from "next-i18next";
+import { User } from "@/types/bounty";
 
 /**
  * Evaluation interface
@@ -11,8 +12,8 @@ import { useTranslation } from "next-i18next";
  * @typedef {Evaluation}
  */
 interface Evaluation {
-  evaluator: string;
-  created_at: string;
+  evaluator: User;
+  created_at: Date;
   comment: string;
   metadata: {
     language: string;
