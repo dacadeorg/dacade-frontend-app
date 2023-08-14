@@ -1,6 +1,8 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
-import { setTeamData, setTeamDataAndInvites } from "../feature/teams.slice";
+import { setTeamData } from "../feature/teams.slice";
+import { setInviteStatus, setInvitesData } from "../feature/communities/challenges/invites.slice";
+import { Invite } from "@/types/challenge";
 
 /**
  * Interface for the parameters that the createTeam function will receive
@@ -12,6 +14,7 @@ import { setTeamData, setTeamDataAndInvites } from "../feature/teams.slice";
 interface CreateTeamPayload {
   challenge_id?: string;
   members: Array<string | undefined>;
+  invites?: Invite[];
 }
 
 /**
@@ -34,6 +37,22 @@ const teamsService = createApi({
         return data;
       },
     }),
+
+    getUserInvitesByChallenge: builder.query({
+      query: (challengeId: string) => ({
+        url: `/teams/challenge/${challengeId}/invite`,
+      }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setInvitesData(data));
+          return data;
+        } catch (err) {
+          console.error("Current use has no invites!");
+        }
+      },
+    }),
+
     getTeamById: builder.query({
       query: (teamId: string) => ({
         url: `/teams/${teamId}`,
@@ -45,15 +64,23 @@ const teamsService = createApi({
       },
     }),
 
-    createTeam: builder.mutation<CreateTeamPayload, any>({
+    createTeam: builder.mutation<any, CreateTeamPayload>({
       query: (payload: CreateTeamPayload) => ({
         url: "/teams/create",
         method: "POST",
         body: payload,
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled;
-        dispatch(setTeamDataAndInvites(data));
+        try {
+          const { data } = await queryFulfilled;
+          if (data.invites.length > 0) dispatch(setInviteStatus("sent"));
+          else dispatch(setInviteStatus("not sent"));
+        } catch (err: any) {
+          dispatch(setInviteStatus(err.status));
+          console.error("Error", err);
+        }
+
+        return;
       },
     }),
   }),
@@ -61,6 +88,8 @@ const teamsService = createApi({
 export const { useGetTeamByChallengeQuery, useGetTeamByIdQuery } = teamsService;
 
 export const getTeamByChallenge = (challengeId: string) => teamsService.endpoints.getTeamByChallenge.initiate(challengeId);
+
+export const getUserInvitesByChallenge = (challengeId: string) => teamsService.endpoints.getUserInvitesByChallenge.initiate(challengeId);
 
 export const getTeamById = (challengeId: string) => teamsService.endpoints.getTeamById.initiate(challengeId);
 export default teamsService;
