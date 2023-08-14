@@ -29,7 +29,6 @@ export default function ChallengeCard({ data, community }: { data: Challenge; co
             <div className="lg:pr-20 w-full lg:w-3/5">
               <div className="text-lg text-gray-900 font-medium leading-normal">{data.name}</div>
               <div className="text-sm mt-3 pb-2 max-w-xxs text-gray-700">{data.description}</div>
-              {/* <div className="md:hidden text-xxs px-2.5 py-0.5 bg-gray-200 text-gray-500 rounded-3xl max-w-max tracking-wider mb-6.5 uppercase font-medium">{t(`course.challenge.level-${data.level}`)}</div> */}
               <Badges challenge={data} className="md:hidden" />
             </div>
 
