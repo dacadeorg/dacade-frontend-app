@@ -43,7 +43,7 @@ export default function ChallengeCard({ data, community }: { data: Challenge; co
                 </div>
               </div>
               <div className="flex items-center">
-                <Coin size="medium" token="cUSD" />
+                <Coin size="medium" token={data?.reward?.token} />
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
                     <span className="block font-medium  pr-1">{data.reward?.amount}</span>
