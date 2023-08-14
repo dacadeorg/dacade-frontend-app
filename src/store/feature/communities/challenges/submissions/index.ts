@@ -5,6 +5,7 @@ import { Submission } from "@/types/bounty";
 import { setCurrentChallenge } from "..";
 import { IRootState } from "@/store";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { HYDRATE } from "next-redux-wrapper";
 
 /**
  * Submission state interface
@@ -48,11 +49,20 @@ export const submissionsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchAllSubmission.fulfilled, (state, action) => {
-      state.list = action.payload;
-    });
+    builder
+      .addCase(fetchAllSubmission.fulfilled, (state, action) => {
+        state.list = action.payload;
+      })
+      .addCase(HYDRATE, (state, action) => {
+        return {
+          ...state,
+          //@ts-ignore
+          ...action.payload["submissions"],
+        };
+      });
   },
 });
+
 /**
  * Find submission by id
  * @date 4/25/2023 - 8:19:35 PM

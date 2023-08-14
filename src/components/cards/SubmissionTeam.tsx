@@ -5,8 +5,10 @@ import AsyncSelect from "react-select/async";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { User } from "@/types/bounty";
-import { createTeam, getTeamByChallenge } from "@/store/services/teams.service";
+import { createTeam, getTeamByChallenge, getUserInvitesByChallenge } from "@/store/services/teams.service";
 import { getUserByUsername } from "@/store/services/user.service";
+import { authCheck } from "@/store/feature/auth.slice";
+import { setInviteStatus } from "@/store/feature/communities/challenges/invites.slice";
 
 /**
  * Props for the SubmissionTeam component.
@@ -39,7 +41,7 @@ interface TeamCandidate {
 interface Option {
   value?: string;
   label?: string;
-  user: User | null;
+  user: User;
 }
 
 /**
@@ -50,16 +52,21 @@ interface Option {
  */
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  const { searchResult, challenge, user, team } = useSelector((state) => ({
+  const { searchResult, challenge, user, team, isAuthenticated, invite, inviteStatus } = useSelector((state) => ({
     searchResult: state.user.searchUser,
     challenge: state.challenges.current,
     user: state.user.data,
     team: state.teams.current,
+    isAuthenticated: authCheck(state),
+    invite: state.invites.data,
+    inviteStatus: state.invites.inviteStatus,
   }));
 
   const [currentOptions, setCurrentOptions] = useState<Option[]>();
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
   const [visibleHint, setVisibleHint] = useState<"cancel" | "remove" | "">("");
+  const [isCurrentUserMember, setIsCurrentUserMember] = useState(false);
+  const [isCurrentUserOrganiser, setIsCurrentUserOrganiser] = useState(false);
   const dispatch = useDispatch();
 
   const filterUsers = async (username: string) => {
@@ -82,43 +89,68 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   };
 
   //Fetch members for the team that the current user organised if any
-
   useEffect(() => {
-    dispatch(getTeamByChallenge(challenge?.id as string));
-  }, [challenge?.id]);
+    if (challenge && isAuthenticated) {
+      dispatch(getTeamByChallenge(challenge.id));
+      dispatch(getUserInvitesByChallenge(challenge.id));
+    }
+  }, [challenge, isAuthenticated]);
 
   useEffect(() => {
     if (team) {
-      let tempTeamMembers: TeamCandidate[] = [];
-      tempTeamMembers.push({ user: team.organizer, status: "Organiser" });
+      setMembersList([{ user: team.organizer, status: "organizer" }]);
 
       if (team.teamMembers) {
-        team.teamMembers.forEach((member) => tempTeamMembers.push({ user: member.user, status: "Team member" }));
+        team.teamMembers.forEach((member) => {
+          setMembersList((prev) => [...prev, { user: member.user, status: "Team member" }]);
+        });
       }
 
-      if (team.invites) {
-        team.invites.forEach((invite) => tempTeamMembers.push({ user: invite.member, status: invite.invite.status }));
+      if (team.teamInvites) {
+        team.teamInvites.forEach(({ user, status }) => {
+          setMembersList((prev) => [...prev, { user, status }]);
+        });
       }
-
-      setMembersList(tempTeamMembers);
     }
   }, [team]);
 
+  useEffect(() => {
+    setIsCurrentUserOrganiser(user?.id === team?.organizer_id);
+    setIsCurrentUserMember(membersList.some((member) => member?.user?.id === user?.id));
+  }, [user, team, membersList]);
+
   const selectTeamMember = async (option: Option) => {
-    if (membersList.filter((member) => member.user?.displayName === option.user?.displayName).length !== 0) {
+    if (membersList.filter((member) => member.user?.id === option.user?.id).length !== 0) {
       return;
     }
+    setMembersList([...membersList, { user: option.user, status: "Sending invite" }]);
     await dispatch(
       createTeam({
         challenge_id: challenge?.id,
-        members: [option.user?.id],
+        members: [user?.id],
       })
     );
   };
 
-  const removeTeamMember = (username: string) => {
-    setMembersList(membersList.filter((member) => member.user?.displayName !== username));
+  const removeTeamMember = (id: string) => {
+    setMembersList((prev) => prev.filter((member) => member.user?.id !== id));
   };
+
+  useEffect(() => {
+    if (inviteStatus) {
+      let status = "";
+      if (inviteStatus === "sent") status = "PENDING";
+      else if (inviteStatus === "not sent") status = "Not sent";
+
+      setMembersList((prev) => {
+        const newMembersList = [...prev];
+        newMembersList[prev.length - 1].status = status;
+        return newMembersList;
+      });
+
+      dispatch(setInviteStatus(null));
+    }
+  }, [inviteStatus]);
 
   return (
     <div className="flex flex-col relative flex-grow p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">
@@ -140,10 +172,10 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                   <div className=" text-sm text-gray-700 font-medium">{user?.displayName}</div>
                   <div className=" text-gray-400 text-xs">{status}</div>
                 </div>
-                {status === "pending" ? (
+                {status !== "organizer" ? (
                   <div
                     className="ml-auto hover:cursor-pointer relative"
-                    onClick={() => removeTeamMember(user?.displayName || "")}
+                    onClick={() => removeTeamMember(user?.id || "")}
                     onMouseEnter={() => setVisibleHint("cancel")}
                     onMouseLeave={() => setVisibleHint("")}
                   >
@@ -156,7 +188,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
               </div>
             );
           })}
-          {user?.displayName === team.organizer?.displayName || !team ? (
+          {(team && isCurrentUserOrganiser) || !isCurrentUserMember ? (
             <div>
               <AsyncSelect
                 cacheOptions
@@ -173,7 +205,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                 loadOptions={loadUserOptions}
                 onChange={(option) => {
                   // TODO: check if the team is actually closed instead of using this condition
-                  if (membersList.length < 4) {
+                  if (team.teamMembers && team.teamMembers?.length < 2) {
                     if (option) selectTeamMember(option);
                   }
                 }}

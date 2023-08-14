@@ -15,11 +15,10 @@ import { Submission } from "@/types/bounty";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import BestSubmissions from "@/components/sections/submissions/BestSubmissions";
 import DefaultLayout from "@/components/layout/Default";
-import { setColors } from "@/store/feature/ui.slice";
-import { Colors, Community } from "@/types/community";
+import { Community } from "@/types/community";
 import Head from "next/head";
 import MetaData from "@/components/ui/MetaData";
-import { fetchChallenge, fetchChallengeAuthenticated, setCurrentChallenge } from "@/store/feature/communities/challenges";
+// import { fetchChallengeAuthenticated, setCurrentChallenge } from "@/store/feature/communities/challenges";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { GetServerSideProps } from "next";
@@ -30,9 +29,9 @@ import TeamChallenge from "@/components/sections/challenges/TeamChallenge";
 import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChallenge";
 import useNavigation from "@/hooks/useNavigation";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
-import Hint from "@/components/ui/Hint";
 import Objectives from "@/components/sections/challenges/Objectives";
 import { getTeamByChallenge } from "@/store/services/teams.service";
+import { fetchChallenge, fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
 
 /**
  * Challenge view page
@@ -69,11 +68,8 @@ export default function ChallengePage(props: {
   const navigation = useNavigation();
 
   useEffect(() => {
-    dispatch(setColors(community?.colors as Colors));
-    dispatch(setCurrentCommunity(community as Community));
-    dispatch(setCurrentChallenge(challenge));
     initChallengeNavigationMenu(navigation.community)(dispatch);
-  }, [challenge, community, dispatch]);
+  }, []);
 
   useEffect(() => {
     if (challenge && isAuthenticated) {
@@ -135,12 +131,12 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     locale: locale as string,
   };
 
-  const [{ data: community }, { payload: challenge }] = await Promise.all([
-    store.dispatch(fetchCurrentCommunity(fetchPayload)),
-    store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
-  ]);
+  try {
+    const [{ data: community }, { data: challenge }] = await Promise.all([
+      store.dispatch(fetchCurrentCommunity(fetchPayload)),
+      store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
+    ]);
 
-  if (community && challenge) {
     return {
       props: {
         ...(await serverSideTranslations(data.locale as string)),
@@ -148,8 +144,9 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
         challenge,
       },
     };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
   }
-  return {
-    notFound: true,
-  };
 });
