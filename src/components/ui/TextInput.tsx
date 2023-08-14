@@ -55,7 +55,6 @@ export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInpu
         <textarea
           {...props}
           ref={ref}
-          value={value}
           autoComplete="off"
           disabled={disabled}
           className={textareaClassName}

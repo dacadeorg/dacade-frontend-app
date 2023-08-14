@@ -79,11 +79,17 @@ export default function Submission(): ReactElement {
       try {
         setSubmitting(true);
         const result = await dispatch(
-          createSubmission({
+          challenge?.isTeamChallenge ?
+            createSubmission({
             challengeId: challenge?.id!,
             text: form.text,
             link: form.githubLink,
-          })
+          }) :
+          createSubmissionTeam({
+            challengeId: challenge?.id!,
+            text: form.text,
+            link: form.githubLink,
+          }) 
         );
 
         const submission = result.payload as TSubmission;

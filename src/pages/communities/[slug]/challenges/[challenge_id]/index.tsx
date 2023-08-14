@@ -72,9 +72,10 @@ export default function ChallengePage(props: {
   useEffect(() => {
     if (challenge && isAuthenticated) {
       dispatch(getTeamByChallenge(challenge.id));
+      dispatch(fetchChallengeAuthenticated({ id: challenge.id }));
     }
   }, [challenge, dispatch, isAuthenticated]);
-  dispatch(fetchChallengeAuthenticated({ id: challenge.id }));
+
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
   return (
