@@ -116,6 +116,19 @@ export default class CommunityNavigation {
   }
 
   /**
+   * Get the path for the learning module that if from the challenge
+   * @date 8/8/2023 - 12:09:57 PM
+   *
+   * @param {string} path
+   * @param {(string | undefined)} [courseSlug=this.params().course_slug]
+   * @param {(string | undefined)} [communitySlug=this.params().slug]
+   * @returns {string}
+   */
+  challengeLearningModulePath(challenge_id: string, path: string, communitySlug: string | undefined = this.params().slug): string {
+    return this.cleanupUrl(this.challengePath(`${challenge_id}/learning-modules/${path}`, communitySlug));
+  }
+
+  /**
    * Get the challenge path for the specified community and course slug
    * @date 3/21/2023 - 12:34:49 PM
    *
@@ -233,7 +246,7 @@ export default class CommunityNavigation {
         return {
           id: learningModule.id,
           label: learningModule.title,
-          link: this.learningModulePath(learningModule.id, "", community.slug),
+          link: this.challengeLearningModulePath(challenge?.id, learningModule.id, community?.slug),
           exact: false,
         };
       }) || [];
@@ -278,9 +291,9 @@ export default class CommunityNavigation {
     const challenges =
       course.challenges?.map((challenge) => {
         return {
-          id: challenge.id,
+          id: challenge?.id,
           label: challenge.name,
-          link: this.challengePath(challenge.id, community.slug),
+          link: this.challengePath(challenge?.id, community.slug),
           exact: false,
         };
       }) || [];

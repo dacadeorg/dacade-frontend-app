@@ -14,14 +14,13 @@ interface RelatedLearningProps {
    * The description of the related learning material.
    */
   description: string;
+  path: string;
 }
 
 /**
  * Component that displays related learning material with a title, description, and "Start now" button.
  */
-const RelatedLearning: React.FC<RelatedLearningProps> = ({ title, description }) => {
-  const path = `/communities/`;
-
+const RelatedLearning: React.FC<RelatedLearningProps> = ({ title, description, path }) => {
   return (
     <div className="flex flex-col relative w-full p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">
       <div className="flex flex-col justify-between w-full sm:pb-0">

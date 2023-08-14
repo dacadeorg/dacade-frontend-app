@@ -1,17 +1,15 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import CommunityWrapper from "@/components/sections/communities/overview/Wrapper";
 import Scoreboard from "@/components/sections/communities/overview/scoreboard";
 import ScoreboardFilter from "@/components/sections/communities/overview/scoreboard/Filter";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
-import { useDispatch } from "@/hooks/useTypedDispatch";
-import { fetchAllScoreboards, setScoreboardList } from "@/store/feature/communities/scoreboard.slice";
+import { fetchAllScoreboards } from "@/store/services/communities/scoreboard.service";
 import { useTranslation } from "next-i18next";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
-import { store } from "@/store";
-import { setCurrentCommunity } from "@/store/feature/community.slice";
+import { wrapper } from "@/store";
 import { Scoreboard as ScoreboardType } from "@/types/scoreboard";
 import { Community } from "@/types/community";
 import { CommunityLayout } from "@/layouts/Community";
@@ -29,13 +27,7 @@ export default function ScoreboardList(props: {
   };
 }): ReactElement {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { community, scoreboards } = props.pageProps;
-
-  useEffect(() => {
-    dispatch(setCurrentCommunity(community));
-    dispatch(setScoreboardList(scoreboards));
-  }, [community, dispatch, scoreboards]);
+  const { community } = props.pageProps;
 
   return (
     <div>
@@ -56,13 +48,13 @@ ScoreboardList.getLayout = function (page: ReactElement) {
   return <CommunityLayout>{page}</CommunityLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale, params }) => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ locale, params }) => {
   const slug = params?.slug as string;
 
-  const [{ data: community }, { payload: scoreboards }] = await Promise.all([
+  const [{ data: community }, { data: scoreboards }] = await Promise.all([
     store.dispatch(fetchCurrentCommunity({ slug, locale })),
     store.dispatch(fetchAllScoreboards({ slug, locale: locale || "en" })),
   ]);
 
   return { props: { community, scoreboards, ...(await i18Translate(locale as string)) } };
-};
+});

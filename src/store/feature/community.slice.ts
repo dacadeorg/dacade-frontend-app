@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Community } from "@/types/community";
 import { Course } from "@/types/course";
+import { HYDRATE } from "next-redux-wrapper";
 
 /**
  * CommunitiesState interface
@@ -47,6 +48,14 @@ const communitiesSlice = createSlice({
     },
     setCurrentCommunity: (state, action: PayloadAction<Community>) => {
       state.current = action.payload;
+    },
+  },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload["communities"],
+      };
     },
   },
 });

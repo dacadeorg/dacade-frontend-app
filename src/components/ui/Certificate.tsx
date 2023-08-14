@@ -1,5 +1,11 @@
 import { ReactElement } from "react";
 import CeloIcon from "@/icons/certificates/Celo.svg";
+import AlgolandIcon from "@/icons/certificates/Algoland.svg";
+import BlockChainIcon from "@/icons/certificates/Blockchain.svg";
+import EthIcon from "@/icons/certificates/Eternity.svg";
+import NearIcon from "@/icons/certificates/Near.svg";
+import IcpIcon from "@/icons/certificates/Icp.svg";
+import AiIcon from "@/icons/certificates/Ai.svg";
 
 /**
  * Interface for the coin props
@@ -9,8 +15,6 @@ import CeloIcon from "@/icons/certificates/Celo.svg";
  * @typedef {CertificateProps}
  */
 interface CertificateProps {
-  bgColor?: string;
-  textColor?: string;
   size?: "medium" | "medium-mini" | "normal" | "small";
   shape?: "rounded" | "squared" | "circle";
   name?: string;
@@ -27,8 +31,34 @@ const certificates = [
   {
     name: "Celo",
     icon: <CeloIcon />,
-    textColor: "#FFFFFF",
-    bgColor: "#35D07F",
+  },
+  {
+    name: "icp",
+    icon: <IcpIcon />,
+  },
+  {
+    name: "algorand",
+    icon: <AlgolandIcon />,
+  },
+  {
+    name: "near",
+    icon: <NearIcon />,
+  },
+  {
+    name: "ethereum",
+    icon: <EthIcon />,
+  },
+  {
+    name: "into-to-blockchain",
+    icon: <BlockChainIcon />,
+  },
+  {
+    name: "ae-dev-101",
+    icon: <EthIcon />,
+  },
+  {
+    name: "ai",
+    icon: <AiIcon />,
   },
 ];
 
@@ -74,9 +104,5 @@ export default function Certificate({ size = "medium", shape = "circle", name, c
     }
   }
 
-  return (
-    <div className={`relative inline-flex items-center justify-items-center text-white uppercase leading-none md:mr-0  ${sizeClasses} ${shapeClasses} ${className}`}>
-      {certificate?.icon && certificate.icon}
-    </div>
-  );
+  return <div className={`relative grid place-content-center md:mr-0 ${sizeClasses} ${shapeClasses} ${className}`}>{certificate?.icon && certificate.icon}</div>;
 }

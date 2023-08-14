@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { IRootState } from "@/store";
-import api from "@/config/api";
 import { Scoreboard } from "@/types/scoreboard";
+import { HYDRATE } from "next-redux-wrapper";
 
 /**
  * Scoreboard state interface
@@ -44,76 +44,21 @@ const scoreboardSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    setFilterBy: (state, action) => {
+      state.filterBy = action.payload;
+    },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchAllScoreboards.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchAllScoreboards.fulfilled, (state, action) => {
-        state.filterBy = "all";
-        state.loading = false;
-        state.list = action.payload as Scoreboard[];
-      })
-      .addCase(fetchAllScoreboards.rejected, (state) => {
-        state.loading = false;
-      })
-      .addCase(filterScoreboards.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(filterScoreboards.fulfilled, (state, action) => {
-        state.filterBy = action.payload?.filterBy || "";
-        state.loading = false;
-        state.list = action.payload?.list as Scoreboard[];
-      })
-      .addCase(filterScoreboards.rejected, (state) => {
-        state.loading = false;
-      });
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload["scoreboard"],
+      };
+    },
   },
 });
 
-export const { setScoreboardList, setLoading } = scoreboardSlice.actions;
-
-export const fetchAllScoreboards = createAsyncThunk("communities/scoreboard/all", async ({ slug, locale }: { slug: string; locale: string }) => {
-  try {
-    const { data } = await api(locale).server.get<Scoreboard[]>(`communities/${slug}/scoreboard`);
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-});
-
-interface FilterScoreboardsArgs {
-  slug: string;
-  filterBy?: string;
-  sortBy?: string;
-  locale?: string;
-}
-
-/**
- * Filter scoreboard slice
- * @date 4/17/2023 - 9:50:15 AM
- *
- * @type {*}
- */
-
-export const filterScoreboards = createAsyncThunk("communities/scoreboard/filter", async ({ slug, filterBy, sortBy, locale }: FilterScoreboardsArgs) => {
-  try {
-    const { data } = await api(locale).server.get<Scoreboard[]>(`communities/${slug}/scoreboard`, {
-      params: {
-        "filter-by": filterBy,
-      },
-    });
-
-    if (sortBy) {
-      data.sort((firstItem, secondItem) => secondItem[sortBy] - firstItem[sortBy]);
-    }
-
-    return { list: data, filterBy };
-  } catch (error) {
-    console.error(error);
-  }
-});
+export const { setScoreboardList, setLoading, setFilterBy } = scoreboardSlice.actions;
 
 interface SortScoreboardsArgs {
   sortBy: string;

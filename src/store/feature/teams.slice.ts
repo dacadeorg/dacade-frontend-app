@@ -1,8 +1,14 @@
-import { Team } from "@/types/challenge";
+import { User } from "@/types/bounty";
+import { Invite, Team } from "@/types/challenge";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface DefaultState {
   current: Team;
+}
+
+interface ReturnedInvite {
+  invite: Invite;
+  member?: User;
 }
 
 const defaultState: DefaultState = {
@@ -17,7 +23,7 @@ const defaultState: DefaultState = {
     timestamp: "",
     updated_at: "",
     teamMembers: [],
-    invites: [],
+    teamInvites: [],
   },
 };
 const teamsSlice = createSlice({
@@ -28,8 +34,8 @@ const teamsSlice = createSlice({
       state.current = action.payload;
     },
     setTeamDataAndInvites: (state, action) => {
-      state.current = action.payload;
-      state.current.invites = action.payload.invites;
+      const returnedInvites = action.payload.invites.map((invite: ReturnedInvite) => ({ ...invite.invite, user: invite.member }));
+      state.current = { ...action.payload.team, teamInvites: returnedInvites };
     },
   },
 });

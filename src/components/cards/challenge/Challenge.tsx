@@ -1,12 +1,12 @@
 import Certificate from "@/components/ui/Certificate";
 import Coin from "@/components/ui/Coin";
-import Tag from "@/components/ui/Tag";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { Community } from "@/types/community";
-import { Challenge, Course, LearningModule } from "@/types/course";
+import { Challenge } from "@/types/course";
 import Link from "next/link";
+import RelatedContent from "./RelatedContent";
+import Badges from "./Badges";
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
 
 /**
  * `ChallengeCard` is a function component that renders a card
@@ -15,10 +15,14 @@ import { useTranslation } from "react-i18next";
  * reward, deadline, and related content.
  *
  * @returns {JSX.Element} The rendered ChallengeCard component.
+ * @interface ChallengeCardProps
  */
-export default function ChallengeCard({ data, community }: { data: Challenge; community: Community }) {
+interface ChallengeCardProps {
+  data: Challenge;
+  community: Community;
+}
+export default function ChallengeCard({ data, community }: ChallengeCardProps) {
   const link = `/communities/${community.slug}/challenges/${data.id}`;
-
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
 
   return (
@@ -29,7 +33,6 @@ export default function ChallengeCard({ data, community }: { data: Challenge; co
             <div className="lg:pr-20 w-full lg:w-3/5">
               <div className="text-lg text-gray-900 font-medium leading-normal">{data.name}</div>
               <div className="text-sm mt-3 pb-2 max-w-xxs text-gray-700">{data.description}</div>
-              {/* <div className="md:hidden text-xxs px-2.5 py-0.5 bg-gray-200 text-gray-500 rounded-3xl max-w-max tracking-wider mb-6.5 uppercase font-medium">{t(`course.challenge.level-${data.level}`)}</div> */}
               <Badges challenge={data} className="md:hidden" />
             </div>
 
@@ -44,7 +47,7 @@ export default function ChallengeCard({ data, community }: { data: Challenge; co
                 </div>
               </div>
               <div className="flex items-center">
-                <Coin size="medium" token="cUSD" />
+                <Coin size="medium" token={data?.reward?.token} />
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
                     <span className="block font-medium  pr-1">{data.reward?.amount}</span>
@@ -91,19 +94,3 @@ export default function ChallengeCard({ data, community }: { data: Challenge; co
     </div>
   );
 }
-
-const RelatedContent = ({ content }: { content: Partial<Course & LearningModule> }) => (
-  <div className="lg:w-10/12 pb-6.5 text-gray-500 font-normal text-sm">
-    <div className="mb-1.5 font-medium leading-normal">{content?.name || content?.title}</div>
-    <div>{content.description}</div>
-  </div>
-);
-const Badges = ({ challenge, className }: { challenge: Challenge; className?: string }) => {
-  const { t } = useTranslation();
-  return (
-    <div className={`uppercase flex gap-2 mb-6 ${className}`}>
-      {challenge?.level && <Tag>{t(`course.challenge.level-${challenge.level}`)}</Tag>}
-      {challenge?.isTeamChallenge && <Tag type="light">Team Challenge</Tag>}
-    </div>
-  );
-};
