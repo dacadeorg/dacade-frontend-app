@@ -15,7 +15,7 @@ import { ReactElement } from "react";
 import { createEvent } from "@/store/feature/events.slice";
 import { Submission as TSubmission } from "@/types/bounty";
 import Hint from "@/components/ui/Hint";
-import { fetchChallengeAuthenticated } from "@/store/feature/communities/challenges";
+import { fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
 
 interface FormValues {
   text: string;
