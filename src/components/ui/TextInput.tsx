@@ -26,11 +26,10 @@ interface TextInputProps extends HTMLProps<HTMLTextAreaElement> {
  * @returns {ReactElement}
  */
 export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInput(
-  { label, disabled = false, placeholder, inputClass = "", error = null, handleInput, ...props },
+  { label, disabled = false, placeholder, inputClass = "", error = null, handleInput, value = "", ...props },
   ref
 ): ReactElement {
   const [isFocused, setIsFocused] = useState(false);
-  const [value, setValue] = useState("");
   const isFilled = useMemo(() => value.trim().length > 0, [value]);
 
   const labelClassName = classNames(
@@ -57,16 +56,12 @@ export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInpu
           {...props}
           ref={ref}
           value={value}
-          placeholder={placeholder}
           autoComplete="off"
           disabled={disabled}
           className={textareaClassName}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          onChange={(e) => setValue(e.target.value)}
-        >
-          {value}
-        </textarea>
+        />
       </div>
       {error && (
         <div className="bg-red-50 help text-sm text-red-900 px-5 py-1.5">

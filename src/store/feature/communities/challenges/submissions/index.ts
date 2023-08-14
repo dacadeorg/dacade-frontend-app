@@ -124,7 +124,7 @@ export const createSubmission = createAsyncThunk(
     },
     { dispatch }
   ) => {
-    const { data } = await api(locale).server.post("submissions/create", {
+    const { data } = await api(locale).client.post("submissions/create", {
       challenge_id: challengeId,
       text,
       link,
@@ -133,6 +133,40 @@ export const createSubmission = createAsyncThunk(
     return data;
   }
 );
+
+
+/**
+ * Create a submission for a team
+ * @date 4/25/2023 - 8:21:48 PM
+ *
+ * @type {*}
+ */
+export const createSubmissionTeam = createAsyncThunk(
+  "submissions/create/team",
+  async (
+    {
+      text,
+      link,
+      challengeId,
+      locale,
+    }: {
+      text: string;
+      link: string;
+      challengeId: string;
+      locale?: string;
+    },
+    { dispatch }
+  ) => {
+    const { data } = await api(locale).server.post("submissions/create/team", {
+      challenge_id: challengeId,
+      text,
+      link,
+    });
+    dispatch(setSubmission(data));
+    return data;
+  }
+);
+
 
 /**
  * Find challenge with its relation ["evaluation","course","community"]

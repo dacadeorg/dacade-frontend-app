@@ -40,6 +40,20 @@ export const challengeService = createApi({
         }
       },
     }),
+
+    fetchChallengeByIdAuthenticated: builder.query({
+      query: ({ id, relations }) => {
+        const params = queryString.stringify({ relations: relations || [] }, { arrayFormat: "bracket" });
+        return {
+          url: `challenges/${id}?${params}`,
+        };
+      },
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        const { data } = await queryFulfilled;
+        dispatch(setChallengeSubmission(data.submission));
+        return data;
+      },
+    }),
   }),
 });
 
@@ -51,6 +65,17 @@ export const fetchChallenge = ({ id, relations }: { id: string; relations: strin
 
 export const fetchAllChallenges = ({ slug }: { slug: string }) => {
   return challengeService.endpoints.getAllChallenges.initiate(slug);
+};
+
+/**
+ * Refetch the challenge for when the user is authenticated, this only sets the users susbmissions for the current challenge
+ * @date 8/14/2023 - 11:26:05 AM
+ *
+ * @param {{ id: string; locale?: string; relations?: string[] }} { id, locale, relations }
+ * @returns {*}
+ */
+export const fetchChallengeAuthenticated = ({ id, locale, relations }: { id: string; locale?: string; relations?: string[] }) => {
+  return challengeService.endpoints.fetchChallengeByIdAuthenticated.initiate({ id, locale, relations });
 };
 
 export default challengeService;

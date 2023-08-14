@@ -1,4 +1,4 @@
-import { CSSProperties, ChangeEvent, useState } from "react";
+import { CSSProperties, useState } from "react";
 import Section from "@/components/sections/communities/_partials/Section";
 import Avatar from "@/components/ui/Avatar";
 import TextInput from "@/components/ui/TextInput";
@@ -15,7 +15,7 @@ import { ReactElement } from "react";
 import { createEvent } from "@/store/feature/events.slice";
 import { Submission as TSubmission } from "@/types/bounty";
 import Hint from "@/components/ui/Hint";
-
+import { fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
 interface FormValues {
   text: string;
   githubLink: string;
@@ -32,6 +32,7 @@ export default function Submission(): ReactElement {
     watch,
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<FormValues>();
   let githubLinkValue = watch("githubLink");
@@ -98,6 +99,7 @@ export default function Submission(): ReactElement {
         );
         textValue = "";
         githubLinkValue = "";
+        dispatch(fetchChallengeAuthenticated({ id: challenge?.id as string }));
       } catch (error) {
         console.error(error);
       } finally {
@@ -109,6 +111,7 @@ export default function Submission(): ReactElement {
   return (
     <Section title={t("communities.challenge.submission")}>
       {challenge?.isTeamChallenge && <p className="text-base font-normal text-slate-700 pt-2 pb-7 md:w-99">{t("communities.overview.challenge.submission.description")}</p>}
+      {/* <Hint className="mb-8">{t("communities.challenge.submission.hint")}</Hint> */}
       {team?.teamMembers && team.teamMembers.length < 3 && challenge?.isTeamChallenge ? (
         <Hint className="mb-8">{t("communities.challenge.submission.hint")}</Hint>
       ) : (
