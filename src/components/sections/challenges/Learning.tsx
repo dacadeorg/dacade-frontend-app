@@ -5,6 +5,7 @@ import LearningCard from "@/components/cards/challenge/_partials/Learning";
 import RelatedLearningCard from "@/components/cards/challenge/_partials/RelatedLearning";
 import { Course, LearningModule } from "@/types/course";
 import { Community } from "@/types/community";
+import { useTranslation } from "next-i18next";
 
 /**
  * Data structure for a card.
@@ -20,17 +21,15 @@ interface CardData {
  *
  * @returns {JSX.Element} The Learning component JSX element.
  */
-export default function Learning({ courses, learningModules, community }: { courses: Course[], learningModules: LearningModule[], community: Community }): JSX.Element {
-
+export default function Learning({ courses, learningModules, community }: { courses: Course[]; learningModules: LearningModule[]; community: Community }): JSX.Element {
+  const { t } = useTranslation();
   return (
     <Section>
       <Accordion
         title="Learn"
         content={
           <>
-            <div className="text-base font-normal text-slate-700 pt-8 pb-7 md:w-99">
-              The following learning materials will equip you with the technical expertise required to successfully address the challenge.
-            </div>
+            <div className="text-base font-normal text-slate-700 pt-8 pb-7 md:w-99">{t("communities.overview.challenge.learning.title")}</div>
             <div className="md:grid grid-cols-2 gap-3">
               {courses?.map((course) => (
                 <LearningCard
@@ -43,11 +42,7 @@ export default function Learning({ courses, learningModules, community }: { cour
             </div>
             <div className="md:grid grid-cols-3 gap-3">
               {learningModules?.map((learning) => (
-                <RelatedLearningCard
-                  key={`related-learning-card-${learning.id}`}
-                  title={learning.title}
-                  description={learning.description}
-                />
+                <RelatedLearningCard key={`related-learning-card-${learning.id}`} title={learning.title} description={learning.description} />
               ))}
             </div>
           </>

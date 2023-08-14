@@ -2,6 +2,7 @@ import api from "@/config/api";
 import { Submission } from "@/types/bounty";
 import { Challenge } from "@/types/course";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { HYDRATE } from "next-redux-wrapper";
 
 /**
  * Challenge state interface
@@ -41,49 +42,16 @@ export const challengeSlice = createSlice({
       state.submission = action.payload;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchChallenge.fulfilled, (state, action) => {
-        state.current = action.payload;
-        state.submission = action.payload.submission;
-      })
-      .addCase(fetchAllChallenges.fulfilled, (state, action) => {
-        state.list = action.payload;
-      });
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload["challenges"],
+      };
+    },
   },
 });
 
 export const { setCurrentChallenge, setChallengesList, setChallengeSubmission } = challengeSlice.actions;
-
-/**
- * Fetch challenge async action
- * @date 4/18/2023 - 12:00:33 PM
- *
- * @type {*}
- */
-export const fetchChallenge = createAsyncThunk("challenges/find", async ({ id, locale, relations }: { id: string; locale?: string; relations?: string[] }) => {
-  const { data } = await api(locale).server.get(`challenges/${id}`, {
-    params: {
-      relations: relations || []
-    },
-  });
-  return data;
-});
-
-/**
- * fetch all challenges async action
- * @date 4/18/2023 - 12:00:51 PM
- *
- * @type {*}
- */
-export const fetchAllChallenges = createAsyncThunk("challenges/all", async ({ slug }: { slug: string }) => {
-  const { data } = await api().server.get(`communities/${slug}/challenges`);
-  return data;
-});
-
-export const findCommunityChallenge = createAsyncThunk("challenges/all", async ({ slug }: { slug: string }) => {
-  const { data } = await api().server.get(`communities/${slug}/challenges`);
-  return data;
-});
 
 export default challengeSlice.reducer;

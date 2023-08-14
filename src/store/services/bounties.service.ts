@@ -1,7 +1,7 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query";
-import { setBountiesList, setFilteredBountiesList } from "../feature/bouties.slice";
-import { Bounty } from "@/types/bounty";
+import { setBountiesList } from "../feature/bouties.slice";
+import { HYDRATE } from "next-redux-wrapper";
 
 /**
  * Bounties api api service
@@ -9,6 +9,11 @@ import { Bounty } from "@/types/bounty";
 const bountiesService: any = createApi({
   reducerPath: "bountiesApi",
   baseQuery: baseQuery(),
+  extractRehydrationInfo: (action, { reducerPath }) => {
+    if (action.type === HYDRATE) {
+      return action.payload[reducerPath];
+    }
+  },
   endpoints: (builder) => ({
     /**
      * Get Bounties endpoint
