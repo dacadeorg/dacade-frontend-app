@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Course } from "@/types/course";
 import { List } from "@/utilities/CommunityNavigation";
 import api from "@/config/api";
+import { HYDRATE } from "next-redux-wrapper";
 
 // Define initial state
 interface CourseState {
@@ -37,6 +38,14 @@ const courseSlice = createSlice({
     setCourseNavigation: (state, action) => {
       const { list } = action.payload;
       state.menus = list;
+    },
+  },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload["courses"],
+      };
     },
   },
 });

@@ -1,9 +1,10 @@
-import { ChangeEvent, ReactElement, useEffect, useState } from "react";
+import { ChangeEvent, ReactElement, useCallback, useEffect, useState } from "react";
 import FilterOption from "./_partials/FilterOption";
-import { filterScoreboards, selectList, setScoreboardList, sortScoreboards } from "@/store/feature/communities/scoreboard.slice";
+import { selectList, setLoading, setFilterBy as setScoreboardFilterBy, setScoreboardList, sortScoreboards } from "@/store/feature/communities/scoreboard.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useRouter } from "next/router";
 import { useSelector } from "@/hooks/useTypedSelector";
+import { filterScoreboards } from "@/store/services/communities/scoreboard.service";
 
 /**
  * Options interface
@@ -79,8 +80,8 @@ export default function Filters(): ReactElement {
   const router = useRouter();
   const { slug } = router.query;
 
-  useEffect(() => {
-    dispatch(
+  const onFilterScoreboards = useCallback(async () => {
+    const { data } = await dispatch(
       filterScoreboards({
         slug: slug as string,
         filterBy,
@@ -88,7 +89,20 @@ export default function Filters(): ReactElement {
         locale: router.locale as string,
       })
     );
+    if (data) {
+      const filteredData = [...data];
+      dispatch(setScoreboardFilterBy(filterBy));
+      if (sortBy) {
+        filteredData?.sort((firstItem, secondItem) => secondItem[sortBy] - firstItem[sortBy]);
+      }
+      dispatch(setScoreboardList(filteredData));
+    }
+    setLoading(true);
   }, [dispatch, filterBy, router.locale, slug, sortBy]);
+
+  useEffect(() => {
+    onFilterScoreboards();
+  }, [onFilterScoreboards]);
 
   useEffect(() => {
     dispatch(setScoreboardList(sortScoreboards({ sortBy, list })));
