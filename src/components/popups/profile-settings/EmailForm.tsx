@@ -6,7 +6,7 @@ import { useTranslation } from "next-i18next";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useForm } from "react-hook-form";
 import { updateUserEmail } from "@/store/services/user.service";
-
+import { logout } from "@/store/feature/auth.slice";
 
 /**
  * Edit profile component props
@@ -52,18 +52,14 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
     watch,
     formState: { errors },
   } = useForm<FormValues>();
-  const emailValue = watch("email");
-  const emailConfirmValue = watch("emailConfirm");
-
-
 
   const onSave = async (form: FormValues) => {
     setLoading(true);
     try {
       const { email, emailConfirm } = form;
-      if (email !== emailConfirm) return {
-      }
+      if (email !== emailConfirm) return;
       await dispatch(updateUserEmail({ email }));
+      await dispatch(logout());
       onClose();
     } catch (error) {
       console.error(error);
@@ -78,7 +74,6 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
         <h1 className="text-.5xl leading-none font-medium mb-12">{t("profile.settings.edit.email.update")}</h1>
         <form onSubmit={handleSubmit(onSave)}>
           <div className="mb-2.5">
-
             <Input
               id="email"
               label={`${t("profile.settings.edit.email")}`}
@@ -93,14 +88,13 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
                 },
                 minLength: {
                   value: 2,
-                  message:  "This must be a valid email address",
+                  message: "This must be a valid email address",
                 },
               })}
             />
-          </div> 
+          </div>
 
           <div className="mb-8">
-
             <Input
               label={`${t("profile.settings.edit.email.confirm")}`}
               error={errors.email?.message}
@@ -113,7 +107,7 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
                 },
                 minLength: {
                   value: 2,
-                  message:  "This must be a valid email address",
+                  message: "This must be a valid email address",
                 },
               })}
             />

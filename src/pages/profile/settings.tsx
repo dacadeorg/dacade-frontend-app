@@ -10,6 +10,7 @@ import ProfileSettingsInformation from "@/components/sections/profile/settings/O
 import ProfileSettingsLinking from "@/components/sections/profile/settings/Linking";
 import { useRouter } from "next/router";
 import api from "@/config/api";
+import AuthCheckProvider from "@/contexts/AuthCheckProvider";
 
 /**
  * Profile Settings component
@@ -27,7 +28,6 @@ export default function ProfileSettings(): ReactElement {
   const user = useSelector((state) => state.user.data);
   const [showEditProfile, setShowEditProfile] = useState(false);
 
-
   const confirm = async () => {
     if (loading || completed) return;
     setloading(true);
@@ -35,7 +35,7 @@ export default function ProfileSettings(): ReactElement {
       await api(router.locale).server.put(`notifications/email/unsubscribe/${router.query.id}`);
       setcompleted(true);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     } finally {
       setloading(false);
     }
@@ -44,9 +44,7 @@ export default function ProfileSettings(): ReactElement {
   return (
     <div className="flex flex-col divide-y divide-solid divide-gray-200 space-y-8 text-gray-700">
       <ProfileSettingsInformation />
-
       <ProfileSettingsLinking />
-
       <div className="w-full pt-4 flex justify-center mx-auto text-base">
         <Button disabled={loading} variant="outline-primary" onClick={confirm}>
           {t("profile.header.disconnect")}
@@ -57,7 +55,11 @@ export default function ProfileSettings(): ReactElement {
 }
 
 ProfileSettings.getLayout = function (page: ReactElement) {
-  return <ProfileLayout>{page}</ProfileLayout>;
+  return (
+    <AuthCheckProvider>
+      <ProfileLayout>{page}</ProfileLayout>
+    </AuthCheckProvider>
+  );
 };
 
 export const getServerSideProps: GetStaticProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });
