@@ -1,6 +1,7 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { HYDRATE } from "next-redux-wrapper";
-import { setCourseList } from "../feature/course.slice";
+import baseQuery from "@/config/baseQuery";
+import { setCurrentCourse } from "../feature/course.slice";
 
 /**
  * courses api
@@ -10,14 +11,8 @@ import { setCourseList } from "../feature/course.slice";
  */
 export const coursesService = createApi({
   reducerPath: "coursesService",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
-  }),
-  extractRehydrationInfo(action, { reducerPath }) {
-    if (action.type === HYDRATE) {
-      return action.payload[reducerPath];
-    }
-  },
+  baseQuery: baseQuery(),
+  refetchOnMountOrArgChange: true,
   endpoints:
     /**
      * @date 4/18/2023 - 12:02:37 PM
@@ -41,6 +36,10 @@ export const coursesService = createApi({
             "accept-language": locale,
           },
         }),
+        onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+          const { data } = await queryFulfilled;
+          dispatch(setCurrentCourse(data));
+        },
       }),
       fetchAllCourse: builder.query({
         query: ({ locale, slug }) => ({

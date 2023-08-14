@@ -11,10 +11,9 @@ import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import DefaultLayout from "@/components/layout/Default";
 import Header from "@/components/sections/learning-modules/Header";
 import { initCourseNavigationMenu } from "@/store/feature/communities/navigation.slice";
-import { setColors } from "@/store/feature/ui.slice";
 import useNavigation from "@/hooks/useNavigation";
 import { GetServerSideProps } from "next";
-import { store } from "@/store";
+import { wrapper } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchCourse } from "@/store/services/course.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -45,18 +44,14 @@ interface LearningModulePageProps {
  * @returns
  */
 export default function LearningModulePage(props: LearningModulePageProps) {
-  const { community, course, learningModule } = props.pageProps;
+  const { course, learningModule } = props.pageProps;
   const dispatch = useDispatch();
 
   const navigation = useNavigation();
 
   useEffect(() => {
-    dispatch(setCurrentCommunity(community));
-    dispatch(setCurrentCourse(course));
-    dispatch(setCurrentLearningModule(learningModule));
-    dispatch(setColors(community.colors));
     initCourseNavigationMenu(navigation.community)(dispatch);
-  }, [community, course, dispatch, learningModule, navigation.community]);
+  }, [dispatch]);
 
   const title = getMetadataTitle(learningModule?.title!, course?.name!);
   const descriptions = getMetadataDescription(learningModule?.description!);
@@ -74,7 +69,7 @@ export default function LearningModulePage(props: LearningModulePageProps) {
           <Header />
           <div className="w-full divide-y divide-solid divide-gray-200">
             {/* TODO: we will have an active challenge here instead picking the first one in the future. */}
-            {course.challenges && <ChallengeOverviewCard challenge={course.challenges[0]} />}
+            {course.challenges && course.challenges.map((challenge) => <ChallengeOverviewCard challenge={challenge} key={challenge.id} />)}
             <LearningModuleSection learningModule={learningModule} />
           </div>
         </div>
@@ -87,7 +82,7 @@ LearningModulePage.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ params, locale }) => {
   try {
     const communitySlug = params?.slug as string;
     const courseSlug = params?.course_slug as string;
@@ -99,23 +94,17 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
       store.dispatch(findLearningModule(id)),
     ]);
 
-    if (Object.entries(learningModule).length === 0 || Object.entries(course).length === 0 || Object.entries(community).length === 0) {
-      return {
-        notFound: true,
-      };
-    } else {
-      return {
-        props: {
-          community,
-          course,
-          learningModule,
-          ...(await serverSideTranslations(locale as string)),
-        },
-      };
-    }
+    return {
+      props: {
+        community,
+        course,
+        learningModule,
+        ...(await serverSideTranslations(locale as string)),
+      },
+    };
   } catch (error) {
     return {
       notFound: true,
     };
   }
-};
+});
