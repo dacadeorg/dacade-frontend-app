@@ -7,7 +7,7 @@ import MarkdownIcon from "@/components/ui/MarkdownIcon";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { createSubmission } from "@/store/feature/communities/challenges/submissions";
+import { createSubmission, createSubmissionTeam } from "@/store/feature/communities/challenges/submissions";
 import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import { useTranslation } from "next-i18next";
