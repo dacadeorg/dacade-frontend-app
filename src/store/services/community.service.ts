@@ -1,11 +1,15 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { setColors } from "../feature/ui.slice";
-import { setAllCommunities } from "../feature/community.slice";
+import { setAllCommunities, setCurrentCommunity } from "../feature/community.slice";
 
+/**
+ * Community Service
+ */
 export const communityService = createApi({
   reducerPath: "communityService",
   baseQuery: baseQuery(),
+  refetchOnMountOrArgChange: true,
   endpoints: (builder) => ({
     getCommunities: builder.query({
       query: (locale?: string) => ({
@@ -28,12 +32,27 @@ export const communityService = createApi({
           "accept-language": locale,
         },
       }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        const { data } = await queryFulfilled;
+        dispatch(setCurrentCommunity(data));
+        dispatch(setColors(data.colors));
+        return data;
+      },
     }),
   }),
 });
 
+/**
+ * Fetch All communities endpoint
+ * @param locale
+ */
 export const fetchAllCommunities = (locale?: string) => communityService.endpoints.getCommunities.initiate(locale);
 
+/**
+ * Fetch current community
+ * @param slug
+ * @param locale
+ */
 export const fetchCurrentCommunity = ({ slug, locale }: { slug: string; locale?: string }) => {
   return communityService.endpoints.getCurrentCommunity.initiate({
     locale,

@@ -55,6 +55,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
   }, [bounty.challenge, bounty.course?.slug, bounty.slug, bounty.submissions?.link, bounty.url, isChallenge, navigation.community]);
 
   const Component = link.startsWith("http") ? "a" : Link;
+
   return (
     <div className="cursor-pointer flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative">
       <div className="bg-theme-accent flex-col w-full h-full justify-between md:-space-y-1 pl-3 pr-5 mt-7 mb-5">
@@ -86,8 +87,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
                   <div className="text-gray-500 text-base font-normal">
                     {submission.reviewable ? (
                       <span>
-                        {t("bounties.prefix.closes")}
-                        {convertDate(submission.reviewDeadline)}
+                        {t("bounties.prefix.closes")} {convertDate(submission.reviewDeadline)}
                       </span>
                     ) : (
                       <span>{t("bounties.closes-soon")}</span>

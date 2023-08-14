@@ -4,9 +4,10 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { Community } from "@/types/community";
 import { Challenge } from "@/types/course";
 import Link from "next/link";
-import { useMemo } from "react";
 import RelatedContent from "./RelatedContent";
 import Badges from "./Badges";
+import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 /**
  * `ChallengeCard` is a function component that renders a card
