@@ -1,4 +1,4 @@
-import { useMemo, useEffect, ReactElement } from "react";
+import { useEffect, ReactElement } from "react";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import Head from "next/head";
 import { useDispatch } from "@/hooks/useTypedDispatch";
