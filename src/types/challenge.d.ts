@@ -17,25 +17,24 @@ export interface Team {
   name: string;
   organizer?: User;
   organizer_id: string;
+  teamInvites?: Invite[];
   teamMembers?: TeamMember[];
   ref: string;
   timestamp: string;
   updated_at: string;
-  invites: Invite[];
 }
 
 export interface Invite {
-  invite: {
-    created_at: string;
-    id: string;
-    ref: string;
-    status: string;
-    team_ref: string;
-    timestamp: number;
-    updated_at: string;
-    user_id: string;
-  };
-  member: User;
+  created_at: string;
+  id: string;
+  ref: string;
+  status: string;
+  team_ref: string;
+  timestamp: number;
+  updated_at: string;
+  user: User;
+  user_id: string;
+  team?: Team;
 }
 
 /**

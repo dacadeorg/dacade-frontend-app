@@ -1,6 +1,7 @@
 import api from "@/config/api";
 import { LearningModule } from "@/types/course";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { HYDRATE } from "next-redux-wrapper";
 
 /**
  * learning modules state
@@ -37,6 +38,13 @@ export const learningModulesSlice = createSlice({
       })
       .addCase(getAllLearningModules.fulfilled, (state, action) => {
         state.list = action.payload;
+      })
+      .addCase(HYDRATE, (state, action) => {
+        return {
+          ...state,
+          //@ts-ignore
+          ...action.payload["learningModules"],
+        };
       });
   },
 });

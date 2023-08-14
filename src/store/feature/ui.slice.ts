@@ -33,12 +33,13 @@ const uiSlice = createSlice({
       state.showReferralPopup = action.payload as boolean;
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(HYDRATE, (state, action) => {
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
       return {
         ...state,
+        ...action.payload["ui"],
       };
-    });
+    },
   },
 });
 
