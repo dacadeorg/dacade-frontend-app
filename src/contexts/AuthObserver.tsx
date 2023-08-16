@@ -22,8 +22,8 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const user = useSelector((state) => state.user.data);
 
-  function matchesRoutes(path: string, list: string[]) {
-    const matches = list?.filter((el) => path === el);
+  function matchesRoutes(path: string, routes: string[]) {
+    const matches = routes?.filter((route) => path === route);
     return matches?.length > 0;
   }
 
