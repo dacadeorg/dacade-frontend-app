@@ -8,7 +8,7 @@ import { User } from "@/types/bounty";
 import { cancelTeamInvite, createTeam, getTeamByChallenge, getUserInvitesByChallenge, removeTeamMember } from "@/store/services/teams.service";
 import { getUserByUsername } from "@/store/services/user.service";
 import { authCheck } from "@/store/feature/auth.slice";
-import { declineInvitation, setInviteStatus } from "@/store/feature/communities/challenges/invites.slice";
+import { setInviteStatus } from "@/store/feature/communities/challenges/invites.slice";
 import Button from "./challenge/_partials/Button";
 
 /**
@@ -143,7 +143,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     if (challenge) dispatch(getTeamByChallenge(challenge.id));
   };
 
-  const leaveTeam = (id: string) => {
+  const leaveMyTeam = (id: string) => {
     // TODO: Add correct implementation to leave the team
     console.log("Team member is going to leave the team");
   };
@@ -186,7 +186,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                 </div>
                 {isCurrentUserOrganiser && status === "Team member" && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
                 {isCurrentUserOrganiser && status === "PENDING" && <Button onClick={() => cancelInvite(id)} text="Cancel" />}
-                {!isCurrentUserOrganiser && user?.id === member?.id && <Button onClick={() => leaveTeam(id)} text="Leave" />}
+                {!isCurrentUserOrganiser && user?.id === member?.id && <Button onClick={() => leaveMyTeam(id)} text="Leave" />}
               </div>
             );
           })}
