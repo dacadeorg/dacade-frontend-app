@@ -5,7 +5,7 @@ import AsyncSelect from "react-select/async";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { User } from "@/types/bounty";
-import { createTeam, getTeamByChallenge, getUserInvitesByChallenge } from "@/store/services/teams.service";
+import { cancelTeamInvite, createTeam, getTeamByChallenge, getUserInvitesByChallenge, removeTeamMember } from "@/store/services/teams.service";
 import { getUserByUsername } from "@/store/services/user.service";
 import { authCheck } from "@/store/feature/auth.slice";
 import { declineInvitation, setInviteStatus } from "@/store/feature/communities/challenges/invites.slice";
@@ -102,8 +102,8 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
       setMembersList([{ user: team.organizer, status: "organizer", id: team.organizer_id }]);
 
       if (team.teamMembers) {
-        team.teamMembers.forEach(({ user }) => {
-          setMembersList((prev) => [...prev, { user: user, status: "Team member", id: user.id }]);
+        team.teamMembers.forEach(({ user, id }) => {
+          setMembersList((prev) => [...prev, { user: user, status: "Team member", id }]);
         });
       }
 
@@ -133,8 +133,15 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     );
   };
 
-  const removeInvite = (id: string) => {
-    dispatch(declineInvitation(id));
+  const removeTeamMemberFromTeam = async (id: string) => {
+    await dispatch(removeTeamMember({ member_id: id, team_id: team.id }));
+    if (challenge) dispatch(getTeamByChallenge(challenge.id));
+  };
+
+  const cancelInvite = async (id: string) => {
+    console.log("canceling an invite", id);
+    await dispatch(cancelTeamInvite({ invite_id: id }));
+    if (challenge) dispatch(getTeamByChallenge(challenge.id));
   };
 
   const leaveTeam = (id: string) => {
@@ -178,7 +185,8 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                   <div className=" text-sm text-gray-700 font-medium">{member?.displayName}</div>
                   <div className=" text-gray-400 text-xs">{status}</div>
                 </div>
-                {isCurrentUserOrganiser && status !== "organizer" && <Button onClick={() => removeInvite(id)} text="Remove" />}
+                {isCurrentUserOrganiser && status === "Team member" && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
+                {isCurrentUserOrganiser && status === "PENDING" && <Button onClick={() => cancelInvite(id)} text="Cancel" />}
                 {!isCurrentUserOrganiser && user?.id === member?.id && <Button onClick={() => leaveTeam(id)} text="Leave" />}
               </div>
             );
