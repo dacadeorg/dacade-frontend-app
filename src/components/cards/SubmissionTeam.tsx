@@ -139,7 +139,6 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   };
 
   const cancelInvite = async (id: string) => {
-    console.log("canceling an invite", id);
     await dispatch(cancelTeamInvite({ invite_id: id }));
     if (challenge) dispatch(getTeamByChallenge(challenge.id));
   };

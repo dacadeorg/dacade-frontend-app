@@ -119,8 +119,7 @@ const teamsService = createApi({
       }),
       onQueryStarted: async (_, { queryFulfilled }) => {
         try {
-          const { data } = await queryFulfilled;
-          console.log("Data", data);
+          await queryFulfilled;
         } catch (err: any) {
           console.error("Error", err);
         }
