@@ -12,11 +12,10 @@ import { useDispatch } from "react-redux";
 import { openVerificationModal } from "@/store/feature/kyc.slice";
 import KYCVerification from "@/components/popups/KYCVerification";
 
-
 const NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL = process.env.NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL;
 const NEXT_PUBLIC_DISCORD_CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID;
 const NEXT_PUBLIC_DISCORD_SCOPE = process.env.NEXT_PUBLIC_DISCORD_SCOPE;
-const NEXT_PUBLIC_DISCORD_CALLBACK_URL = process.env.NEXT_PUBLIC_DISCORD_CALLBACK_URL
+const NEXT_PUBLIC_DISCORD_CALLBACK_URL = process.env.NEXT_PUBLIC_DISCORD_CALLBACK_URL;
 
 const ProfileHeader = () => {
   const router = useRouter();
@@ -85,7 +84,7 @@ const ProfileHeader = () => {
         )}
       </div>
       {canConnectDiscord && (
-        <div className="pt-5">
+        <div className="pt-5 flex items-center gap-3">
           <Button variant="outline-primary" className="flex mx-auto text-base" onClick={triggerDiscordOauth}>
             {t("profile.header.connect-discord")}
           </Button>
