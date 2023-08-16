@@ -18,7 +18,7 @@ import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ChallengeOverviewCard from "@/components/cards/challenge/Overview";
 import LearningModuleSection from "@/components/sections/learning-modules";
-import { fetchChallenge } from "@/store/feature/communities/challenges";
+import { fetchChallenge } from "@/store/services/communities/challenges";
 
 /**
  * Learning module page props interfae
@@ -91,9 +91,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
     const challenge_id = params?.challenge_id as string;
     const learningModule_id = params?.id as string;
 
-    const [{ data: community }, { payload: challenge }, { payload: learningModule }] = await Promise.all([
+    const [{ data: community }, { data: challenge }, { payload: learningModule }] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug: communitySlug, locale })),
-      store.dispatch(fetchChallenge({ id: challenge_id, locale })),
+      store.dispatch(fetchChallenge({ id: challenge_id })),
       store.dispatch(findLearningModule(learningModule_id)),
     ]);
 
