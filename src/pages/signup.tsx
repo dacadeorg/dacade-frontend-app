@@ -34,6 +34,7 @@ export interface FormValues {
   password: string;
   referralCode: string;
   checkTerms: boolean;
+  
 }
 
 /**

@@ -10,6 +10,7 @@ import Wallet from "@/components/cards/Wallet";
 import Hint from "@/components/ui/Hint";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import i18Translate from "@/utilities/I18Translate";
+import AuthCheckProvider from "@/contexts/AuthCheckProvider";
 
 /**
  * Profile Wallet component
@@ -51,7 +52,11 @@ export default function ProfileWallet(): ReactElement {
 }
 
 ProfileWallet.getLayout = function (page: ReactElement) {
-  return <ProfileLayout>{page}</ProfileLayout>;
+  return (
+    <AuthCheckProvider>
+      <ProfileLayout>{page}</ProfileLayout>
+    </AuthCheckProvider>
+  );
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });
