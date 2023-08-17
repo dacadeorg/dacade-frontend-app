@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useState } from "react";
 import Modal from "@/components/ui/Modal";
 import Input from "@/components/ui/Input";
 import ArrowButton from "@/components/ui/button/Arrow";
@@ -49,7 +49,6 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<FormValues>();
 

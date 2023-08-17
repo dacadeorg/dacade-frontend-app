@@ -33,7 +33,6 @@ export default function Submission(): ReactElement {
     watch,
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
   } = useForm<FormValues>();
   let githubLinkValue = watch("githubLink");

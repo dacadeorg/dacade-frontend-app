@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useState, ChangeEvent, ReactElement, useMemo, HTMLProps, forwardRef } from "react";
+import { useState, ReactElement, useMemo, HTMLProps, forwardRef } from "react";
 
 /**
  * Interface for TextInput component props
