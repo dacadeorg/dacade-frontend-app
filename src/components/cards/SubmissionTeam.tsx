@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Avatar from "@/components/ui/Avatar";
-import CloseIcon from "@/icons/close-top-right.svg";
 import AsyncSelect from "react-select/async";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
@@ -28,7 +27,7 @@ interface SubmissionTeamCardProps {
  * @typedef {TeamCandidate}
  */
 interface TeamCandidate {
-  user?: User;
+  user?: User | null;
   status: string;
   id: string;
 }
@@ -99,7 +98,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
 
   useEffect(() => {
     if (team) {
-      setMembersList([{ user: team.organizer, status: "organizer", id: team.organizer_id }]);
+      if (team.organizer) setMembersList([{ user: team.organizer, status: "organizer", id: team.organizer_id }]);
 
       if (team.teamMembers) {
         team.teamMembers.forEach(({ user, id }) => {
@@ -124,7 +123,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     if (membersList.filter((member) => member.user?.id === option.user?.id).length !== 0) {
       return;
     }
-    setMembersList([...membersList, { user: option.user, status: "Sending invite", id: option.user?.id }]);
+    if (membersList.length === 0) setMembersList([{ user, status: "organizer", id: user?.id as string }]);
+
+    setMembersList((prev) => [...prev, { user: option.user, status: "Sending invite", id: option.user.id }]);
     await dispatch(
       createTeam({
         challenge_id: challenge?.id,
@@ -207,7 +208,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                 loadOptions={loadUserOptions}
                 onChange={(option) => {
                   // TODO: check if the team is actually closed instead of using this condition
-                  if ((team?.teamMembers && team.teamMembers?.length < 4) || !team) {
+                  if (team?.teamMembers && team.teamMembers.length >= 2) {
+                    return;
+                  } else {
                     if (option) selectTeamMember(option);
                   }
                 }}

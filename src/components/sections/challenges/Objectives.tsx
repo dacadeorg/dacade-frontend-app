@@ -23,17 +23,19 @@ export default function Objectives(): ReactElement {
   const expirationDate = challenge?.expiresAt && DateManager.format(challenge.expiresAt, "MMMM d, yyyy", "en");
   return (
     <Section title={`${t("communities.overview.challenge.objective.title")}`}>
-      <ObjectiveList objectives={challenge?.objectives} />
-      {expirationDate && <ExpiryDate expiresAt={expirationDate} />}
-      {containsLink.test(challenge?.hint as string) && (
-        <Hint>
-          <span
-            dangerouslySetInnerHTML={{
-              __html: challenge?.hint as string,
-            }}
-          />
-        </Hint>
-      )}
+      <div className="space-y-5">
+        <ObjectiveList objectives={challenge?.objectives} />
+        {expirationDate && <ExpiryDate expiresAt={expirationDate} />}
+        {containsLink.test(challenge?.hint as string) && (
+          <Hint>
+            <span
+              dangerouslySetInnerHTML={{
+                __html: challenge?.hint as string,
+              }}
+            />
+          </Hint>
+        )}
+      </div>
     </Section>
   );
 }
