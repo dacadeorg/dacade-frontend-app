@@ -50,6 +50,11 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
       return;
     }
 
+    if (route.startsWith("/verify-email-update") && auth?.emailVerified) {
+      router.push("/");
+      return;
+    }
+
     if (route.startsWith("/email-verification") && !auth) {
       router.push("/");
       return;

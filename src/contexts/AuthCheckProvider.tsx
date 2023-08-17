@@ -23,6 +23,7 @@ export default function AuthCheckProvider({ children }: { children: ReactNode })
     auth: state.auth.data,
     isFetchingUser: state.user.fetchingUserLoading,
   }));
+
   const router = useRouter();
   const dispatch = useDispatch();
   const { isLoading } = useGetUserQuery("en");

@@ -124,7 +124,7 @@ export const createSubmission = createAsyncThunk(
     },
     { dispatch }
   ) => {
-    const { data } = await api(locale).server.post("submissions/create", {
+    const { data } = await api(locale).client.post("submissions/create", {
       challenge_id: challengeId,
       text,
       link,
