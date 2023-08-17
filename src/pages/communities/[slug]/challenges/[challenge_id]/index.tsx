@@ -18,6 +18,7 @@ import DefaultLayout from "@/components/layout/Default";
 import { Community } from "@/types/community";
 import Head from "next/head";
 import MetaData from "@/components/ui/MetaData";
+import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -29,7 +30,7 @@ import useNavigation from "@/hooks/useNavigation";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import Objectives from "@/components/sections/challenges/Objectives";
 import { getTeamByChallenge } from "@/store/services/teams.service";
-import { fetchChallenge } from "@/store/services/communities/challenges";
+import { fetchChallenge, fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
 
 /**
  * Challenge view page
@@ -57,7 +58,7 @@ export default function ChallengePage(props: {
   const { t } = useTranslation();
   const { submission, isAuthenticated } = useSelector((state) => ({
     course: state.courses.current,
-    submission: state.submissions.current,
+    submission: state.challenges.submission,
     isAuthenticated: authCheck(state),
   }));
 
@@ -72,6 +73,7 @@ export default function ChallengePage(props: {
   useEffect(() => {
     if (challenge && isAuthenticated) {
       dispatch(getTeamByChallenge(challenge.id));
+      dispatch(fetchChallengeAuthenticated({ id: challenge.id }));
     }
   }, [challenge, dispatch, isAuthenticated]);
 

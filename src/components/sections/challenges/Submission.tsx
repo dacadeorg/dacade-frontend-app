@@ -1,4 +1,4 @@
-import { CSSProperties, ChangeEvent, useState } from "react";
+import { CSSProperties, useState } from "react";
 import Section from "@/components/sections/communities/_partials/Section";
 import Avatar from "@/components/ui/Avatar";
 import TextInput from "@/components/ui/TextInput";
@@ -15,6 +15,7 @@ import { ReactElement } from "react";
 import { createEvent } from "@/store/feature/events.slice";
 import { Submission as TSubmission } from "@/types/bounty";
 import Hint from "@/components/ui/Hint";
+import { fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
 
 interface FormValues {
   text: string;
@@ -32,6 +33,7 @@ export default function Submission(): ReactElement {
     watch,
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<FormValues>();
   let githubLinkValue = watch("githubLink");
@@ -98,6 +100,7 @@ export default function Submission(): ReactElement {
         );
         textValue = "";
         githubLinkValue = "";
+        dispatch(fetchChallengeAuthenticated({ id: challenge?.id as string }));
       } catch (error) {
         console.error(error);
       } finally {
