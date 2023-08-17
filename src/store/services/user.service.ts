@@ -14,6 +14,10 @@ interface User {
   lastName: string;
 }
 
+interface Email {
+  email: string;
+}
+
 /**
  * User API service
  * @date 4/17/2023 - 7:31:21 PM
@@ -49,6 +53,22 @@ const userService = createApi({
       },
     }),
 
+    getEmail: builder.query({
+      query: () => "users/current",
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        dispatch(fetchingUserLoading(true));
+        const { data } = await queryFulfilled;
+        const token = await getUserToken();
+        if (!token) dispatch(clearUserState());
+        else {
+          dispatch(setUserToken(token));
+          dispatch(setUserdata(data));
+        }
+        dispatch(fetchingUserLoading(false));
+        return data;
+      },
+    }),
+
     /**
      * Get user by username endpoint, we search by username
      * @method GET
@@ -70,13 +90,24 @@ const userService = createApi({
      */
     updateUser: builder.mutation<any, User>({
       query: (payload: User) => ({
-        url: "users/update",
+        url: "users/update/name",
         method: "PATCH",
         body: payload,
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         await queryFulfilled;
         dispatch(userService.endpoints.getUser.initiate("sp"));
+      },
+    }),
+    updateUserEmail: builder.mutation<any, Email>({
+      query: (payload: Email) => ({
+        url: "users/update/email",
+        method: "PATCH",
+        body: payload,
+      }),
+      onQueryStarted: async (payload, { dispatch, queryFulfilled }) => {
+        await queryFulfilled;
+        dispatch(userService.endpoints.getEmail.initiate("sp"));
       },
     }),
   }),
@@ -90,11 +121,23 @@ export const { useGetUserQuery, useGetUserByUsernameQuery } = userService;
 export const fetchUser = () => userService.endpoints.getUser.initiate("en");
 
 /**
+ * Get email function
+ */
+export const fetchEmail = () => userService.endpoints.getEmail.initiate("en");
+
+/**
  * Update user function
  * @param user
  * @returns
  */
-export const updateUser = async (user: { firstName: string; lastName: string }) => await userService.endpoints.updateUser.initiate(user);
+export const updateUser = (user: { firstName: string; lastName: string }) => userService.endpoints.updateUser.initiate(user);
+
+/**
+ * Update email function
+ * @param email
+ * @returns
+ */
+export const updateUserEmail = (email: { email: string }) => userService.endpoints.updateUserEmail.initiate(email);
 
 export const getUserByUsername = (username: string) => userService.endpoints.getUserByUsername.initiate(username);
 

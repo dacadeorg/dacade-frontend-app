@@ -54,4 +54,4 @@ export const challengeSlice = createSlice({
 
 export const { setCurrentChallenge, setChallengesList, setChallengeSubmission } = challengeSlice.actions;
 
-export default challengeSlice.reducer;
+export default challengeSlice;

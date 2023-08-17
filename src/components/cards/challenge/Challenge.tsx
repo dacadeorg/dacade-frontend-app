@@ -38,7 +38,7 @@ export default function ChallengeCard({ data, community }: ChallengeCardProps) {
             </div>
 
             <div className="flex flex-col mb-6 lg:mb-0 mt-6 md:mt-0 rounded-full max-w-max text-sm">
-              <div className="flex items-center mb-8">
+              <div className="flex items-center mb-8 gap-2 md:gap-0">
                 <Certificate size="medium" name={community.slug} />
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
