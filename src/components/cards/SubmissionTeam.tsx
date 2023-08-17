@@ -27,7 +27,7 @@ interface SubmissionTeamCardProps {
  * @typedef {TeamCandidate}
  */
 interface TeamCandidate {
-  user?: User;
+  user?: User | null;
   status: string;
 }
 
@@ -98,7 +98,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
 
   useEffect(() => {
     if (team) {
-      setMembersList([{ user: team.organizer, status: "organizer" }]);
+      if (team.organizer) setMembersList([{ user: team.organizer, status: "organizer" }]);
 
       if (team.teamMembers) {
         team.teamMembers.forEach((member) => {
@@ -123,7 +123,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     if (membersList.filter((member) => member.user?.id === option.user?.id).length !== 0) {
       return;
     }
-    setMembersList([...membersList, { user: option.user, status: "Sending invite" }]);
+    if (membersList.length === 0) setMembersList([{ user, status: "organizer" }]);
+
+    setMembersList((prev) => [...prev, { user: option.user, status: "Sending invite" }]);
     await dispatch(
       createTeam({
         challenge_id: challenge?.id,
@@ -205,7 +207,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                 loadOptions={loadUserOptions}
                 onChange={(option) => {
                   // TODO: check if the team is actually closed instead of using this condition
-                  if (team.teamMembers && team.teamMembers?.length < 2) {
+                  if (team?.teamMembers && team.teamMembers.length >= 2) {
+                    return;
+                  } else {
                     if (option) selectTeamMember(option);
                   }
                 }}
