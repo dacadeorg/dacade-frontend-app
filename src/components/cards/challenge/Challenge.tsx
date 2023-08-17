@@ -34,6 +34,7 @@ export default function ChallengeCard({ data, community }: ChallengeCardProps) {
             <div className="lg:pr-20 w-full lg:w-3/5">
               <div className="text-lg text-gray-900 font-medium leading-normal">{data.name}</div>
               <div className="text-sm mt-3 pb-2 text-gray-700">{data.description}</div>
+              <Badges challenge={data} className="md:hidden" />
             </div>
 
             <div className="flex flex-col mb-6 lg:mb-0 mt-6 md:mt-0 rounded-full max-w-max text-sm">
@@ -60,7 +61,7 @@ export default function ChallengeCard({ data, community }: ChallengeCardProps) {
           </div>
         </div>
         <div className="divide-y-2 divide-gray-200 divide-dotted flex flex-col">
-          <Badges challenge={data} />
+          <Badges challenge={data} className="hidden md:flex" />
           <div className="lg:flex lg:flex-row flex-col justify-between pt-6 items-center">
             <div className="text-gray-400 lg:w-2/3 text-sm font-normal mb-6 lg:mb-0">
               {expiresAt && (
