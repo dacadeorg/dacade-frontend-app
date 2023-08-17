@@ -33,8 +33,7 @@ export default function ChallengeCard({ data, community }: ChallengeCardProps) {
           <div className="lg:flex mb-1">
             <div className="lg:pr-20 w-full lg:w-3/5">
               <div className="text-lg text-gray-900 font-medium leading-normal">{data.name}</div>
-              <div className="text-sm mt-3 pb-2 max-w-xxs text-gray-700">{data.description}</div>
-              <Badges challenge={data} className="md:hidden" />
+              <div className="text-sm mt-3 pb-2 text-gray-700">{data.description}</div>
             </div>
 
             <div className="flex flex-col mb-6 lg:mb-0 mt-6 md:mt-0 rounded-full max-w-max text-sm">
