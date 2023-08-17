@@ -130,12 +130,14 @@ export interface User {
   id: string;
   ref: string;
   created_at: Date;
+  firstName: string;
   displayName: string;
   uid: string;
   joined: string;
   disabled: boolean;
   reputation: number;
   username: string;
+  lastName: string;
   emailVerified: boolean;
   email: string;
   avatar?: string;
