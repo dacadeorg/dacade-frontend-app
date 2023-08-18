@@ -31,11 +31,11 @@ export default function Wrapper({ children, paths }: WrapperProps): ReactElement
         <div className="sticky top-0 self-start hidden w-1/4 py-3 lg:block pr-9 lg:py-14">
           <Navigation />
         </div>
-        <div className="w-full pt-8 pb-0 lg:hidden lg:py-14">
+        <div className="w-full pt-6 lg:hidden">
           <MobileNav showTopBorder />
         </div>
         <div className="w-full lg:w-3/4">
-          <CommunityNavigation paths={paths}/>
+          <CommunityNavigation paths={paths} />
           {children}
         </div>
       </div>
