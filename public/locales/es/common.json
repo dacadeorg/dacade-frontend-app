@@ -108,7 +108,7 @@
   "communities.overview.subtitle": "Esto es lo que puedes ganar en esta comunidad",
   "communities.submissions": "Propuestas",
   "communities.challenge.title": "Reto",
-  "communities.overview.challenge.rewards": "{{count}} Recompensas",
+  "communities.overview.challenge.rewards": "Recompensas",
   "communities.overview.challenge.subtitle": "Al completar con éxito",
   "communities.overview.challenge.expiry": "Fecha de vencimiento del desafío:",
   "communities.overview.challenge.learning.title": "Los siguientes materiales de aprendizaje le proporcionarán la experiencia técnica necesaria para abordar con éxito el desafío.",

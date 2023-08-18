@@ -152,7 +152,7 @@
   "communities.overview.scoreboard.description": "On the scoreboard, you can see which users have accumulated the most reputation by giving valuable feedback to their peers.",
   "communities.card.estimated": "Estimated Time",
   "communities.card.earn": "Earn rewards",
-  "communities.overview.challenge.rewards": "{{count}} Nagrade",
+  "communities.overview.challenge.rewards": "Nagrade",
   "communities.overview.challenge.subtitle": "Nakon uspješnog završetka",
   "communities.overview.challenge.expiry": "Datum isteka izazova:",
   "communities.overview.challenge.learning.title": "Sljedeći materijali za učenje opskrbit će vas tehničkim stručnostima potrebnim za uspješno rješavanje izazova.",
