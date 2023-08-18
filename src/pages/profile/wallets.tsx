@@ -11,7 +11,7 @@ import Wallet from "@/components/cards/Wallet";
 import Hint from "@/components/ui/Hint";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import i18Translate from "@/utilities/I18Translate";
-import AuthCheckProvider from "@/contexts/AuthCheckProvider";
+import AuthObserver from "@/contexts/AuthObserver";
 
 /**
  * Profile Wallet component
@@ -54,9 +54,9 @@ export default function ProfileWallet(): ReactElement {
 
 ProfileWallet.getLayout = function (page: ReactElement) {
   return (
-    <AuthCheckProvider>
+    <AuthObserver>
       <ProfileLayout>{page}</ProfileLayout>
-    </AuthCheckProvider>
+    </AuthObserver>
   );
 };
 
