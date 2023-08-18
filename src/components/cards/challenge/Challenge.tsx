@@ -6,8 +6,8 @@ import { Challenge } from "@/types/course";
 import Link from "next/link";
 import RelatedContent from "./RelatedContent";
 import Badges from "./Badges";
-import { useEffect, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useMemo, useState } from "react";
+
 
 /**
  * `ChallengeCard` is a function component that renders a card

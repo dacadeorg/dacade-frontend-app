@@ -44,7 +44,7 @@ interface LearningModulePageProps {
  * @returns
  */
 export default function LearningModulePage(props: LearningModulePageProps) {
-  const { course, learningModule } = props.pageProps;
+  const { course, learningModule, community } = props.pageProps;
   const dispatch = useDispatch();
 
   const navigation = useNavigation();
@@ -69,7 +69,7 @@ export default function LearningModulePage(props: LearningModulePageProps) {
           <Header />
           <div className="w-full divide-y divide-solid divide-gray-200">
             {/* TODO: we will have an active challenge here instead picking the first one in the future. */}
-            {course.challenges && course.challenges.map((challenge) => <ChallengeOverviewCard challenge={challenge} key={challenge.id} />)}
+            {course.challenges && course.challenges.map((challenge) => <ChallengeOverviewCard challenge={challenge} key={challenge.id} community={community}/>)}
             <LearningModuleSection learningModule={learningModule} />
           </div>
         </div>
