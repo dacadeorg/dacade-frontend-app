@@ -19,7 +19,6 @@ interface Props {
  */
 export default function Overview({ challenge, community }: Props) {
   const { t } = useTranslation();
-  console.log(challenge);
 
   // Combine rewards by token
   const rewardsByToken: Reward[] = challenge.rewards.reduce((acc: Reward[], reward: Reward) => {
@@ -45,9 +44,9 @@ export default function Overview({ challenge, community }: Props) {
           <Certificate size="medium" name={community.slug} />
           <div className="md:pl-2 max-w-max">
             <div className="flex text-sm text-gray-700">
-              <span className="block font-medium pr-1">NFT Certificate</span>
+              <span className="block font-medium pr-1">{t("communities.overview.challenge.certificate")}</span>
             </div>
-            <div className="text-gray-400 text-xs font-normal">Upon successful completion</div>
+            <div className="text-gray-400 text-xs font-normal">{t("communities.overview.challenge.subtitle")}</div>
           </div>
         </div>
         {rewardsByToken.map((reward, index) => (
