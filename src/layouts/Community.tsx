@@ -22,7 +22,6 @@ import { useSelector } from "@/hooks/useTypedSelector";
  */
 export function CommunityLayout({ children }: { children: ReactElement }): ReactElement {
   const colors = useSelector((state) => state.ui.colors);
-  console.log(colors);
   return (
     <Wrapper>
       <ThemeWrapper colors={colors}>
