@@ -19,7 +19,9 @@ interface Props {
  */
 export default function Overview({ challenge, community }: Props) {
   const { t } = useTranslation();
-
+  const formatToken = (token:string) => {
+    return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
+  };
   // Combine rewards by token
   const rewardsByToken: Reward[] = challenge.rewards.reduce((acc: Reward[], reward: Reward) => {
     const existingReward = acc.find((item) => item.token === reward.token);
@@ -31,6 +33,7 @@ export default function Overview({ challenge, community }: Props) {
     return acc;
   }, []);
 
+  
   const expirationDate = challenge?.expiresAt && DateManager.format(challenge.expiresAt, "MMMM d, yyyy", "en");
 
   return (
@@ -46,7 +49,7 @@ export default function Overview({ challenge, community }: Props) {
             <div className="flex text-sm text-gray-700">
               <span className="block font-medium pr-1">{t("communities.overview.challenge.certificate")}</span>
             </div>
-            <div className="text-gray-400 text-xs font-normal">{t("communities.overview.challenge.subtitle")}</div>
+            <div className="text-gray-400 text-xs font-medium">{t("communities.overview.challenge.subtitle")}</div>
           </div>
         </div>
         {rewardsByToken.map((reward, index) => (
@@ -58,7 +61,14 @@ export default function Overview({ challenge, community }: Props) {
                 <span>{reward?.token}</span>
                 <span>{t("communities.overview.challenge.rewards")}</span>
               </div>
-              <div className="text-gray-400 text-xs font-normal">{t("communities.overview.challenge.subtitle")}</div>
+              <div className="text-gray-400 text-xs font-medium leading-3 mt-1 flex">
+                {challenge.rewards.map((reward, index) => (
+                  <span key={`reward-${index}`}>
+                    {index > 0 &&";  "}
+                    {reward.amount} {reward.token}/{formatToken (reward.type)}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         ))}
