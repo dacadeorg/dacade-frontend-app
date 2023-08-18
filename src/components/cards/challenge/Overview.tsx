@@ -64,7 +64,7 @@ export default function Overview({ challenge, community }: Props) {
               <div className="text-gray-400 text-xs font-medium leading-3 mt-1 flex">
                 {challenge.rewards.map((reward, index) => (
                   <span key={`reward-${index}`}>
-                    {index > 0 &&";  "}
+                    {index > 0 &&"\u003B "}
                     {reward.amount} {reward.token}/{formatToken (reward.type)}
                   </span>
                 ))}
