@@ -22,12 +22,12 @@ import { useSelector } from "@/hooks/useTypedSelector";
  */
 export function CommunityLayout({ children }: { children: ReactElement }): ReactElement {
   const colors = useSelector((state) => state.ui.colors);
-
+  console.log(colors);
   return (
     <Wrapper>
       <ThemeWrapper colors={colors}>
         <div className="relative overflow-hidden lg:overflow-auto">
-          <Navbar settings={{ colors }} sidebarBurgerColor />
+          <Navbar settings={{ colors }} sidebarBurgerColor={colors?.cover?.text !== "#000000"} />
           <NotificationBar />
           <div className="relative">{children}</div>
           <DiscordButton />
