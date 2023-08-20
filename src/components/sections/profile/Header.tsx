@@ -81,7 +81,7 @@ export default function ProfileHeader() {
         )}
       </div>
       {canConnectDiscord && (
-        <div className="pt-5">
+        <div className="pt-5 space-x-3">
           <Button variant="outline-primary" className="flex mx-auto text-base" onClick={triggerDiscordOauth}>
             {t("profile.header.connect-discord")}
           </Button>

@@ -9,7 +9,7 @@ import ProfileSettingsInformation from "@/components/sections/profile/settings/O
 import ProfileSettingsLinking from "@/components/sections/profile/settings/Linking";
 import { useRouter } from "next/router";
 import api from "@/config/api";
-import AuthCheckProvider from "@/contexts/AuthCheckProvider";
+import AuthObserver from "@/contexts/AuthObserver";
 
 /**
  * Profile Settings component
@@ -52,9 +52,9 @@ export default function ProfileSettings(): ReactElement {
 
 ProfileSettings.getLayout = function (page: ReactElement) {
   return (
-    <AuthCheckProvider>
+    <AuthObserver>
       <ProfileLayout>{page}</ProfileLayout>
-    </AuthCheckProvider>
+    </AuthObserver>
   );
 };
 

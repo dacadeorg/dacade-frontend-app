@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import { GetServerSideProps } from "next";
@@ -12,21 +12,9 @@ import ProfileOverviewSection from "@/components/sections/profile/overview/Secti
 import DiscordConnect from "@/components/popups/DiscordConnect";
 import Head from "next/head";
 import ProfileLayout from "@/layouts/ProfileLayout";
-import AuthCheckProvider from "@/contexts/AuthCheckProvider";
-import { useRouter } from "next/router";
 
 export default function ProfileOverview(): ReactElement {
-
-  const { user, isFetchingUser } = useSelector((state) => ({
-    user: state.user.data,
-    isFetchingUser: state.user.fetchingUserLoading,
-  }));
-  const router = useRouter()
-  useEffect(() => {
-    if (!user && !isFetchingUser) {
-      router.replace("/login");
-    }
-  }, [isFetchingUser, router, user])
+  const user = useSelector((state) => state.user.data);
 
   return (
     <>
@@ -47,11 +35,7 @@ export default function ProfileOverview(): ReactElement {
 }
 
 ProfileOverview.getLayout = function (page: ReactElement) {
-  return (
-    <AuthCheckProvider>
-      <ProfileLayout>{page}</ProfileLayout>
-    </AuthCheckProvider>
-  );
+  return <ProfileLayout>{page}</ProfileLayout>;
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({

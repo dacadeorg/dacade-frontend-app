@@ -34,7 +34,7 @@ const defaultState: DefaultState = {
   walletAddresses: null,
   token: null,
   referrals: null,
-  fetchingUserLoading: true,
+  fetchingUserLoading: false,
   searchUser: null,
 };
 

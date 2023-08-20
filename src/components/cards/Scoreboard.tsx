@@ -13,6 +13,7 @@ interface ScoreboardCardProps {
     };
     feedbacks: number;
     score: number;
+    submissions: number;
   };
   index: number;
 }
@@ -35,25 +36,19 @@ export default function ScoreboardCard({ value, index }: ScoreboardCardProps): J
       </div>
       <div className="flex-1">
         <div className="text-lg font-medium">{value.user.displayName}</div>
-        <div className="flex flex-row divide-x divide-solid divide-gray-300">
-          <div className="whitespace-nowrap text-base sm:pr-4 pr-3">
-            <span className="font-normal text-xs">
-              {value.feedbacks}
-              <span className="font-normal text-xs">{value.feedbacks === 1 ? "Submission" : "Submissions"}</span>
-            </span>
-          </div>
-          <div className="whitespace-nowrap text-base sm:px-4 px-3">
-            <span className="font-normal text-xs">
-              {value.score}
-              <span className="font-normal text-xs">{value.score === 1 ? "Total Point" : "Total Points"}</span>
-            </span>
-          </div>
-          <div className="whitespace-nowrap text-base sm:px-4 px-3">
-            <span className="font-normal text-xs">
-              {value.feedbacks}
-              <span className="font-normal text-xs">{value.feedbacks === 1 ? "Feedback" : "Feedbacks"}</span>
-            </span>
-          </div>
+        <div className="flex items-center divide-x divide-solid divide-gray-300 mt-1">
+          <p className="whitespace-nowrap sm:pr-4 pr-3 text-xs space-x-1">
+            <span>{value.submissions}</span>
+            <span>{value.submissions === 1 ? "Submission" : "Submissions"}</span>
+          </p>
+          <p className="whitespace-nowrap sm:px-4 px-3 text-xs space-x-1">
+            <span>{value.score}</span>
+            <span>{value.score === 1 ? "Total Point" : "Total Points"}</span>
+          </p>
+          <p className="whitespace-nowrap text-xs sm:px-4 px-3 space-x-1">
+            <span>{value.feedbacks}</span>
+            <span>{value.feedbacks === 1 ? "Feedback" : "Feedbacks"}</span>
+          </p>
         </div>
       </div>
 
