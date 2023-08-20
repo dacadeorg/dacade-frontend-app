@@ -144,7 +144,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     if (challenge) dispatch(getTeamByChallenge(challenge.id));
   };
 
-  const leaveMyTeam = (id: string) => {
+  const leaveMyTeam = () => {
     // TODO: Add correct implementation to leave the team
     console.log("Team member is going to leave the team");
   };
@@ -187,7 +187,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                 </div>
                 {isCurrentUserOrganiser && status === "Team member" && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
                 {isCurrentUserOrganiser && status === "PENDING" && <Button onClick={() => cancelInvite(id)} text="Cancel" />}
-                {!isCurrentUserOrganiser && user?.id === member?.id && <Button onClick={() => leaveMyTeam(id)} text="Leave" />}
+                {!isCurrentUserOrganiser && user?.id === member?.id && <Button onClick={() => leaveMyTeam()} text="Leave" />}
               </div>
             );
           })}
