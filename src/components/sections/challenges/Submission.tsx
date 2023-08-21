@@ -38,8 +38,7 @@ export default function Submission(): ReactElement {
   let textValue = watch("text");
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { user, colors, challenge, community, team } = useSelector((state) => ({
-    user: state.user.data,
+  const { colors, challenge, community, team } = useSelector((state) => ({
     colors: state.ui.colors,
     challenge: state.challenges.current,
     community: state.communities.current,
@@ -116,14 +115,14 @@ export default function Submission(): ReactElement {
   return (
     <Section title={t("communities.challenge.submission")}>
       {challenge?.isTeamChallenge && <p className="text-base font-normal text-slate-700 pt-2 pb-7 md:w-99">{t("communities.overview.challenge.submission.description")}</p>}
-      {(team?.teamMembers && team.teamMembers.length !== 1 && challenge?.isTeamChallenge) || (!team && challenge?.isTeamChallenge) ? (
+      {(team?.teamMembers && team.teamMembers.length !== 2 && challenge?.isTeamChallenge) || (!team && challenge?.isTeamChallenge) ? (
         <Hint className="mb-8">{t("communities.challenge.submission.hint")}</Hint>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
           {challenge?.format && (
             <div className="relative w-full md:pl-7.5 my-6">
               <div className="absolute z-50 left-3 md:left-0 top-3">
-                <Avatar user={user} size="medium" />
+                <Avatar user={team?.organizer} size="medium" />
               </div>
 
               <div label-for="input-text">

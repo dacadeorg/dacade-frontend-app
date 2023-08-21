@@ -55,7 +55,6 @@ export default function ChallengePage(props: {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { submission, isAuthenticated } = useSelector((state) => ({
-    course: state.courses.current,
     submission: state.challenges.submission,
     isAuthenticated: authCheck(state),
   }));
