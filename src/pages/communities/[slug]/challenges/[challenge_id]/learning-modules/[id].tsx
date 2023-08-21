@@ -10,7 +10,6 @@ import Header from "@/components/sections/learning-modules/Header";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ChallengeOverviewCard from "@/components/cards/challenge/Overview";
 import LearningModuleSection from "@/components/sections/learning-modules";
-import { fetchChallenge } from "@/store/services/communities/challenges";
 import { wrapper } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchCourse } from "@/store/services/course.service";

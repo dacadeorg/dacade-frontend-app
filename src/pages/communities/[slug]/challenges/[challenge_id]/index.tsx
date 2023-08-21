@@ -18,7 +18,6 @@ import DefaultLayout from "@/components/layout/Default";
 import { Community } from "@/types/community";
 import Head from "next/head";
 import MetaData from "@/components/ui/MetaData";
-import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
