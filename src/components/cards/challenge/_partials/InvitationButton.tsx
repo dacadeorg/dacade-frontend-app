@@ -4,7 +4,6 @@ import CloseIcon from "@/icons/close-icon.svg";
 import CheckIcon from "@/icons/check.svg";
 import { acceptInvitation, declineInvitation } from "@/store/feature/communities/challenges/invites.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import api from "@/config/api";
 
 /**
  * Props for the button component

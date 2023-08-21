@@ -1,5 +1,4 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { HYDRATE } from "next-redux-wrapper";
 import baseQuery from "@/config/baseQuery";
 import { setCurrentCourse } from "../feature/course.slice";
 

@@ -34,7 +34,7 @@ interface NotificationPopupProps {
  *
  * */
 
-export default function NotificationPopup({ buttonStyles, badgeStyles }: NotificationPopupProps) {
+export default function NotificationPopup({ buttonStyles }: NotificationPopupProps) {
   const dispatch = useDispatch();
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
 

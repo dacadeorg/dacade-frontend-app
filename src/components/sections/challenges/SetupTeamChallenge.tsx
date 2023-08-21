@@ -7,7 +7,6 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { authCheck } from "@/store/feature/auth.slice";
 import { getUserInvitesByChallenge } from "@/store/services/teams.service";
 import ConfirmTeamInvitation from "@/components/cards/challenge/ConfirmTeamInvitation";
-import { Notification } from "@/types/notification";
 import { useTranslation } from "next-i18next";
 
 /**

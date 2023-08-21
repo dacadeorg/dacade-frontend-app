@@ -18,6 +18,17 @@ interface CreateTeamPayload {
 }
 
 /**
+ * Interface for the parameters that the removeMember function will receive
+ * @date 8/16/2023 - 7:12:12 PM
+ *
+ * @interface RemoveMemberPayload
+ * @typedef {RemoveMemberPayload}
+ */
+interface RemoveMemberPayload {
+  member_id: string;
+  team_id: string;
+}
+/**
  * Teams service.
  * @date 7/31/2023 - 8:01:21 PM
  *
@@ -83,6 +94,38 @@ const teamsService = createApi({
         return;
       },
     }),
+
+    removeTeamMember: builder.mutation<any, RemoveMemberPayload>({
+      query: (payload: RemoveMemberPayload) => ({
+        url: "/teams/remove-member",
+        method: "POST",
+        body: payload,
+      }),
+      onQueryStarted: async (_, { queryFulfilled }) => {
+        try {
+          await queryFulfilled;
+        } catch (err: any) {
+          console.error("Error", err);
+        }
+        return;
+      },
+    }),
+
+    cancelTeamInvite: builder.mutation<any, { invite_id: string }>({
+      query: (payload: { invite_id: string }) => ({
+        url: "/teams/cancel-invite",
+        method: "POST",
+        body: payload,
+      }),
+      onQueryStarted: async (_, { queryFulfilled }) => {
+        try {
+          await queryFulfilled;
+        } catch (err: any) {
+          console.error("Error", err);
+        }
+        return;
+      },
+    }),
   }),
 });
 export const { useGetTeamByChallengeQuery, useGetTeamByIdQuery } = teamsService;
@@ -95,3 +138,7 @@ export const getTeamById = (challengeId: string) => teamsService.endpoints.getTe
 export default teamsService;
 
 export const createTeam = (payload: CreateTeamPayload) => teamsService.endpoints.createTeam.initiate(payload);
+
+export const removeTeamMember = (payload: RemoveMemberPayload) => teamsService.endpoints.removeTeamMember.initiate(payload);
+
+export const cancelTeamInvite = (payload: { invite_id: string }) => teamsService.endpoints.cancelTeamInvite.initiate(payload);

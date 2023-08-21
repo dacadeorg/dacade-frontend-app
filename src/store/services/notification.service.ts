@@ -46,7 +46,7 @@ const notificationsService = createApi({
      */
     readNotification: builder.mutation({
       query: () => ({
-        url: "notifications/read",
+        url: "notifications/mark-as-read",
         method: "POST",
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {

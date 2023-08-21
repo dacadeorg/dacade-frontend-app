@@ -33,7 +33,6 @@ export default function Submission(): ReactElement {
     watch,
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
   } = useForm<FormValues>();
   let githubLinkValue = watch("githubLink");
@@ -81,7 +80,7 @@ export default function Submission(): ReactElement {
         setSubmitting(true);
         const result = await dispatch(
           createSubmission({
-            challengeId: challenge?.id!,
+            challengeId: challenge?.id || "",
             text: form.text,
             link: form.githubLink,
           })
@@ -112,7 +111,7 @@ export default function Submission(): ReactElement {
   return (
     <Section title={t("communities.challenge.submission")}>
       {challenge?.isTeamChallenge && <p className="text-base font-normal text-slate-700 pt-2 pb-7 md:w-99">{t("communities.overview.challenge.submission.description")}</p>}
-      {(team?.teamMembers && team.teamMembers.length === 2 && challenge?.isTeamChallenge) || !team ? (
+      {(team?.teamMembers && team.teamMembers.length !== 2 && challenge?.isTeamChallenge) || (!team && challenge?.isTeamChallenge) ? (
         <Hint className="mb-8">{t("communities.challenge.submission.hint")}</Hint>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>

@@ -34,7 +34,6 @@ interface interactiveModuleProps {
  * @returns {ReactElement}
  */
 export default function InteractiveModule({ data }: interactiveModuleProps): ReactElement {
-  const [started, setStarted] = useState(false);
   const [current, setCurrent] = useState(0);
   const [ended, setEnded] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -53,7 +52,6 @@ export default function InteractiveModule({ data }: interactiveModuleProps): Rea
       const answers = await checkAnswer(data.ref);
       if (!answers.length) return;
       setCurrent(items.length);
-      setStarted(true);
       setEnded(true);
     } catch (error) {
       console.error(error);
@@ -87,7 +85,7 @@ export default function InteractiveModule({ data }: interactiveModuleProps): Rea
     setEnded(true);
     showPageNavigation()(dispatch);
     if (!isLoggedIn) return;
-    dispatch(submitModuleAnswer({ ref: data.ref, course: course?.ref! }));
+    dispatch(submitModuleAnswer({ ref: data.ref, course: course?.ref || "" }));
   };
 
   const nextItem = () => {
@@ -116,8 +114,10 @@ export default function InteractiveModule({ data }: interactiveModuleProps): Rea
               <Hint className="mt-6">
                 <p>Since you are not logged in, your progress won&#8217;t be saved.</p>
                 <p>
-                  <Link className="underline" href="/login">Login</Link>&nbsp; 
-                  to make sure your progress doesn&#8217;t get lost.
+                  <Link className="underline" href="/login">
+                    Login
+                  </Link>
+                  &nbsp; to make sure your progress doesn&#8217;t get lost.
                 </p>
               </Hint>
             )}

@@ -2,7 +2,7 @@ import UniqBy from "lodash.uniqby";
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import ChevronRightIcon from "@/icons/chevron-right.svg";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { ReactElement, useEffect, useMemo } from "react";
+import { ReactElement, useMemo } from "react";
 import { List } from "@/utilities/CommunityNavigation";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";

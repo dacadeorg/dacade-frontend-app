@@ -1,11 +1,9 @@
 import { ReactElement, useEffect, useMemo } from "react";
 import OverviewSection from "@/components/sections/courses/overview";
-import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { useDispatch } from "react-redux";
-import { setCurrentCourse, setCourseNavigation } from "@/store/feature/course.slice";
+import { setCourseNavigation } from "@/store/feature/course.slice";
 import { Community } from "@/types/community";
 import { Course } from "@/types/course";
-import { setColors } from "@/store/feature/ui.slice";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import Head from "next/head";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";

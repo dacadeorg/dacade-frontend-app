@@ -43,7 +43,6 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
   const {
-    watch,
     register,
     handleSubmit,
     formState: { errors },

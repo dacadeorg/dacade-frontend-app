@@ -1,5 +1,4 @@
 import LayoutWithoutFooter from "@/layouts/WithoutFooter";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSideProps } from "next";
 import { ReactElement } from "react";
 import Error from "@/layouts/Error";

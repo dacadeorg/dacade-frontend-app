@@ -24,7 +24,6 @@ import { fetchUserReputations } from "@/store/services/user/userReputation.servi
  */
 export default function UserPopup({ buttonStyles }: { buttonStyles: CSSProperties }): ReactElement {
   const [show, setShow] = useState(false);
-  const [showReferral, setShowReferral] = useState(false);
   const dispatch = useDispatch();
 
   const { mainWallet, user } = useSelector((state) => ({

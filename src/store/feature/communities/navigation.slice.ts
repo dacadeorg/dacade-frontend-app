@@ -10,6 +10,7 @@ import { cloneDeep } from "lodash";
 import Slugger from "github-slugger";
 
 // Does not support TypeScript
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const extractToc = require("remark-extract-toc");
 
 /**

@@ -36,15 +36,20 @@ const userService = createApi({
       query: () => "users/current",
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         dispatch(fetchingUserLoading(true));
-        const { data } = await queryFulfilled;
-        const token = await getUserToken();
-        if (!token) dispatch(clearUserState());
-        else {
-          dispatch(setUserToken(token));
-          dispatch(setUserdata(data));
+        try {
+          const { data } = await queryFulfilled;
+          const token = await getUserToken();
+          if (!token) dispatch(clearUserState());
+          else {
+            dispatch(setUserToken(token));
+            dispatch(setUserdata(data));
+          }
+          return data;
+        } catch (err) {
+          console.error(err);
+        } finally {
+          dispatch(fetchingUserLoading(false));
         }
-        dispatch(fetchingUserLoading(false));
-        return data;
       },
     }),
 

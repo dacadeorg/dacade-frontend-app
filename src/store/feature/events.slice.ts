@@ -15,11 +15,6 @@ export const eventsSlice = createSlice({
     colors: [],
   },
   reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(createEvent.fulfilled, (state) => {
-      // For state defined later that should be executed after the create event has been fulfilled.
-    });
-  },
 });
 
 export default eventsSlice.reducer;

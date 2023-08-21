@@ -19,10 +19,9 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
   const router = useRouter();
   const route = router.asPath;
   const dispatch = useDispatch();
-  const { auth, authUser, isFetchingUser } = useSelector((state) => ({
+  const { auth, authUser } = useSelector((state) => ({
     authUser: state.user.data,
     auth: state.auth.data,
-    isFetchingUser: state.user.fetchingUserLoading,
   }));
 
   function matchesRoutes(path: string, list: string[]) {
@@ -39,7 +38,7 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
 
   const isGuestRoute = useMemo(
     () => (path: string) => {
-      return matchesRoutes(path, ["/signup","/password-reset"]);
+      return matchesRoutes(path, ["/signup", "/password-reset"]);
     },
     []
   );
@@ -76,8 +75,9 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
     }
 
     if (route.startsWith("/profile") && auth && auth.emailVerified) {
-      dispatch(fetchUserProfile((authUser?.username as string) || ""));
-      dispatch(fetchAllProfileCommunities((authUser?.username as string) || authUser?.displayName || ""));
+      const username = (router.query.username as string) || authUser?.username || "";
+      dispatch(fetchUserProfile(username));
+      dispatch(fetchAllProfileCommunities(username || authUser?.displayName || ""));
     }
   }, [auth, authUser, dispatch, isGuestRoute, isUserRoute, route, router]);
 

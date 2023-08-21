@@ -1,5 +1,3 @@
-const aeAllowedChars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
-
 const ethRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
 const aeRegex = /^(ak_)([${aeAllowedChars}]+)$/;
 const nearRegex = /^([a-fA-F0-9]{5})+([a-fA-F0-9]{49})+([a-fA-F0-9]{10})$/;
@@ -110,7 +108,7 @@ export const truncateAddress = (rawAddress: string, token: string = "eth"): stri
  * @param {string} token
  * @returns {Boolean}
  */
-export const validateAddress = (address?: string, token: string = "eth"): Boolean => {
+export const validateAddress = (address?: string, token: string = "eth") => {
   if (!address) return false;
 
   const trimmedAddress = address.trim();

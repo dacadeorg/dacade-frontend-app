@@ -1,6 +1,5 @@
-import { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import InteractiveModuleAnswer from "./Answer";
-import { useSelector } from "@/hooks/useTypedSelector";
 
 const RETRY_TIME = 14;
 
@@ -43,9 +42,7 @@ export default function InteractiveModuleQuestion({ data, disable = false, onCor
   const [randomizedAnswers, setRandomizedAnswers] = useState<{ text: string; id: number }[]>([]);
 
   const shuffleAnswers = (answers: string[]) => {
-    const shuffledAnswers = [...answers]
-      .map((value, index) => ({ text: value, id: index }))
-      .sort(() => Math.random() - 0.5);
+    const shuffledAnswers = [...answers].map((value, index) => ({ text: value, id: index })).sort(() => Math.random() - 0.5);
     setRandomizedAnswers(shuffledAnswers);
   };
 
@@ -85,7 +82,6 @@ export default function InteractiveModuleQuestion({ data, disable = false, onCor
   useEffect(() => {
     shuffleAnswers(data.answers);
   }, [data.answers]);
-
 
   return (
     <div className="relative">

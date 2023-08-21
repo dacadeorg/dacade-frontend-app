@@ -6,7 +6,6 @@ import CommunityWrapper from "@/components/sections/communities/overview/Wrapper
 import CommunityLayout from "@/layouts/Community";
 import { ReactElement } from "react";
 import { Challenge } from "@/types/course";
-import { GetServerSideProps } from "next";
 import { wrapper } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchAllChallenges } from "@/store/services/communities/challenges";
@@ -39,7 +38,7 @@ Slug.getLayout = function (page: ReactElement) {
   return <CommunityLayout>{page}</CommunityLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ params, locale }) => {
+export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ params, locale }) => {
   try {
     const slug = params?.slug as string;
 

@@ -6,7 +6,7 @@ import { HYDRATE } from "next-redux-wrapper";
 /**
  * Bounties api api service
  */
-const bountiesService: any = createApi({
+const bountiesService = createApi({
   reducerPath: "bountiesApi",
   baseQuery: baseQuery(),
   extractRehydrationInfo: (action, { reducerPath }) => {

@@ -1,6 +1,6 @@
 import Spinner from "@/icons/spinner.svg";
 import ArrowRightIcon from "@/icons/arrow-right.svg";
-import { CSSProperties, ReactElement, ReactNode } from "react";
+import { CSSProperties, ReactElement } from "react";
 import { useRouter } from "next/router";
 import classNames from "classnames";
 import { ButtonProps } from "@/components/ui/button";
@@ -51,16 +51,11 @@ export default function WalletButton({
   loading = false,
   disabled = false,
   rounded = true,
-  variant = "primary",
   type = "submit",
   padding = true,
   margin = "",
   customStyle = null,
   link = "",
-  target = "_self",
-  communityStyles = false,
-  minWidthClass = "min-w-44",
-  direction = "right",
   arrowClasses = "",
   children,
   onClick,

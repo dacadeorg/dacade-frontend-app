@@ -24,7 +24,7 @@ import { getSignature } from "@/store/feature/wallet.slice";
 interface FormValues {
   address: string;
   newAddress: string;
-  onClose: (event: any) => void;
+  onClose: (value: boolean) => void;
 }
 /**
  * Interface for the edit profile props
@@ -35,7 +35,7 @@ interface FormValues {
 interface EditProfileProps {
   show: boolean;
   wallet: Wallet;
-  onClose: (event: any) => void;
+  onClose: (value: boolean) => void;
 }
 
 /**
@@ -52,13 +52,12 @@ interface EditProfileProps {
  */
 export default function EditProfile({ show, wallet, onClose }: EditProfileProps): ReactElement {
   const { t } = useTranslation();
-  const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<CustomError | undefined | null>();
-  const [showEditModal, setShowEditModal] = useState(false);
+  const [, setShowEditModal] = useState(false);
   const [showEditAddress, setShowEditAddress] = useState(false);
-  const [showWalletConnectionMethod, setShowWalletConnectionMethod] = useState(false);
-  const [showWalletInfo, setShowWalletInfo] = useState(false);
+  const [showWalletConnectionMethod] = useState(false);
+  const [showWalletInfo] = useState(false);
   const [connectionMethod, setConnectionMethod] = useState("");
   const {
     watch,
@@ -66,12 +65,16 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
+  const address = watch("address");
+
   const closeModal = () => {
     setShowEditModal(false);
   };
+
   const openEditAddress = () => {
     setShowEditAddress(true);
   };
+
   const wallets = useSelector((state) => state.wallets.current);
   const currentAddress = wallets?.address;
 
@@ -130,7 +133,10 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     return "";
   }, [connectionMethod, isFirstTimeAddressSetup, requireWalletConnection]);
 
-  const isMatchingTheExistingOne = currentAddress && currentAddress === address;
+  const isMatchingTheExistingOne = useMemo(() => {
+    if (newAddress || !currentAddress) return false;
+    return currentAddress?.toLocaleLowerCase() === newAddress?.toLocaleLowerCase();
+  }, [currentAddress, newAddress]);
 
   const filled = useMemo(() => {
     if (isMatchingTheExistingOne) return false;
@@ -139,8 +145,9 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   }, [address, connectionMethod, isMatchingTheExistingOne, newAddress, wallet?.token]);
 
   const getChangeAddressText = useMemo(() => {
-    return filled ? "Save Address" : "Change address";
-  }, [filled]);
+    if (filled || currentAddress) return t("profile.edit.wallet.button.save-address");
+    return t("profile.edit.wallet.button.change-address");
+  }, [currentAddress, filled, t]);
 
   return (
     <Modal show={show} onClose={closeModal}>

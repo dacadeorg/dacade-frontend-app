@@ -1,7 +1,6 @@
-import api from "@/config/api";
 import { User } from "@/types/bounty";
 import { Invite, Team } from "@/types/challenge";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface DefaultState {
   current: Team;

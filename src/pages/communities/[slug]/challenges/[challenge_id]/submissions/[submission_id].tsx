@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import Header from "@/components/sections/communities/_partials/Header";
 import SubmissionView from "@/components/sections/submissions/View";
 import Wrapper from "@/components/sections/courses/Wrapper";
-import { getMetadataTitle } from "@/utilities/Metadata";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useRouter } from "next/router";

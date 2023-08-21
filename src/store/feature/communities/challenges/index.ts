@@ -1,7 +1,6 @@
-import api from "@/config/api";
 import { Submission } from "@/types/bounty";
 import { Challenge } from "@/types/course";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 
 /**
