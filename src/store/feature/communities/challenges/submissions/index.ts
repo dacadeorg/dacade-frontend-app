@@ -120,7 +120,7 @@ export const createSubmission = createAsyncThunk(
     }: {
       text: string;
       link: string;
-      challengeId: string;
+      challengeId?: string;
       locale?: string;
     },
     { dispatch }
