@@ -25,11 +25,7 @@ export default function Overview({ challenge, community }: Props) {
   // Combine rewards by token
   const rewardsByToken: Reward[] = challenge.rewards.reduce((acc: Reward[], reward: Reward) => {
     const existingReward = acc.find((item) => item.token === reward.token);
-    if (existingReward) {
-      existingReward.amount += reward.amount;
-    } else {
-      acc.push({ ...reward });
-    }
+    existingReward? existingReward.amount += reward.amount : acc.push({ ...reward });
     return acc;
   }, []);
 
