@@ -56,8 +56,8 @@ export default function LearningModulePage(props: LearningModulePageProps) {
     initChallengeNavigationMenu(navigation.community)(dispatch);
   }, [community, learningModule, navigation.community]);
 
-  const title = getMetadataTitle(learningModule.title!);
-  const descriptions = getMetadataDescription(learningModule?.description!);
+  const title = getMetadataTitle(learningModule?.title);
+  const descriptions = getMetadataDescription(learningModule?.description);
 
   const paths = useMemo(() => [challenge.name, learningModule?.title], [challenge.name, learningModule?.title]);
   return (
@@ -72,7 +72,7 @@ export default function LearningModulePage(props: LearningModulePageProps) {
         <div className="py-8 flex flex-col divide-y space-y-8 text-gray-700">
           <Header />
           <div className="w-full divide-y divide-solid divide-gray-200">
-            {challenge.rewards && <ChallengeOverviewCard challenge={challenge} community={community}/>}
+            {challenge.rewards && <ChallengeOverviewCard challenge={challenge} community={community} />}
             <LearningModuleSection learningModule={learningModule} />
           </div>
         </div>
