@@ -19,17 +19,16 @@ interface Props {
  */
 export default function Overview({ challenge, community }: Props) {
   const { t } = useTranslation();
-  const formatToken = (token:string) => {
+  const formatToken = (token: string) => {
     return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
   };
   // Combine rewards by token
   const rewardsByToken: Reward[] = challenge.rewards.reduce((acc: Reward[], reward: Reward) => {
     const existingReward = acc.find((item) => item.token === reward.token);
-    existingReward? existingReward.amount += reward.amount : acc.push({ ...reward });
+    existingReward ? (existingReward.amount += reward.amount) : acc.push({ ...reward });
     return acc;
   }, []);
 
-  
   const expirationDate = challenge?.expiresAt && DateManager.format(challenge.expiresAt, "MMMM d, yyyy", "en");
 
   return (
@@ -60,8 +59,8 @@ export default function Overview({ challenge, community }: Props) {
               <div className="text-gray-400 text-xs font-medium leading-3 mt-1 flex">
                 {challenge.rewards.map((reward, index) => (
                   <span key={`reward-${index}`}>
-                    {index > 0 &&"\u003B "}
-                    {reward.amount} {reward.token}/{formatToken (reward.type)}
+                    {index > 0 && "\u003B "}
+                    {reward.amount} {reward.token}/{formatToken(reward.type)}
                   </span>
                 ))}
               </div>

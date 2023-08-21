@@ -65,7 +65,7 @@ export default function LearningModulePage(props: LearningModulePageProps) {
         <div className="py-8 flex flex-col divide-y space-y-8 text-gray-700">
           <Header />
           <div className="w-full divide-y divide-solid divide-gray-200">
-            {course.challenges && course.challenges.map((challenge) => <ChallengeOverviewCard challenge={challenge} key={challenge.id} community={community}/>)}
+            {course.challenges && course.challenges.map((challenge) => <ChallengeOverviewCard challenge={challenge} key={challenge.id} community={community} />)}
             <LearningModuleSection learningModule={learningModule} />
           </div>
         </div>
