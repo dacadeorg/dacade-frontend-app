@@ -129,7 +129,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     await dispatch(
       createTeam({
         challenge_id: challenge?.id,
-        members: [user?.id],
+        members: [option.user?.id],
       })
     );
   };
