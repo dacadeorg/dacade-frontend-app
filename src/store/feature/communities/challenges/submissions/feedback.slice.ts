@@ -36,7 +36,7 @@ export const createFeedback = createAsyncThunk(
     },
     { dispatch }
   ) => {
-    const { data } = await api(locale).server.post("feedbacks/create", {
+    const { data } = await api(locale).client.post("feedbacks/create", {
       submission_id,
       text,
       link,
