@@ -1,6 +1,6 @@
 import React from "react";
 import Coin from "@/components/ui/Coin";
-import { Challenge } from "@/types/course";
+import { Challenge, Reward } from "@/types/course";
 import { useTranslation } from "next-i18next";
 import DateManager from "@/utilities/DateManager";
 import Certificate from "@/components/ui/Certificate";
