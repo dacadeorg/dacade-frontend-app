@@ -38,9 +38,8 @@ export default function api(locale = "en"): {
    *
    * @async
    * @param {InternalAxiosRequestConfig} config
-   * @returns {Promise<InternalAxiosRequestConfig<any>>}
    */
-  const requestHandlerClient = async (config: InternalAxiosRequestConfig): Promise<InternalAxiosRequestConfig<any>> => {
+  const requestHandlerClient = async (config: InternalAxiosRequestConfig) => {
     const token = await getUserToken();
     config.headers["authorization"] = token;
     config.headers["app-name"] = Package.name;
@@ -55,10 +54,9 @@ export default function api(locale = "en"): {
    *
    * @async
    * @param {InternalAxiosRequestConfig} config
-   * @returns {Promise<InternalAxiosRequestConfig<any>>}
    */
 
-  const requestHandlerServer = async (config: InternalAxiosRequestConfig): Promise<InternalAxiosRequestConfig<any>> => {
+  const requestHandlerServer = async (config: InternalAxiosRequestConfig) => {
     // Adding firebase token
     config.headers["app-name"] = Package.name;
     config.headers["app-domain"] = "dacade.org";

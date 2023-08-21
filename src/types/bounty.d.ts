@@ -64,8 +64,8 @@ export interface Faq {
  * @property {string} ref - The unique identifier of the bounty.
  */
 export interface Evaluation {
-  evaluator: string;
-  created_at: string;
+  evaluator: User;
+  created_at: Date;
   comment: string;
   criteria: Rebric[];
   metadata: {
@@ -130,12 +130,14 @@ export interface User {
   id: string;
   ref: string;
   created_at: Date;
+  firstName: string;
   displayName: string;
   uid: string;
   joined: string;
   disabled: boolean;
   reputation: number;
   username: string;
+  lastName: string;
   emailVerified: boolean;
   email: string;
   avatar?: string;

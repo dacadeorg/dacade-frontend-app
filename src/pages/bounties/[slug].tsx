@@ -10,7 +10,6 @@ import BountyList from "@/components/list/Bounty";
 import Head from "next/head";
 import DefaultLayout from "@/components/layout/Default";
 import i18Translate from "@/utilities/I18Translate";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchAllBounties } from "@/store/services/bounties.service";
 import { findBountiesBySlug } from "@/store/feature/bouties.slice";
 

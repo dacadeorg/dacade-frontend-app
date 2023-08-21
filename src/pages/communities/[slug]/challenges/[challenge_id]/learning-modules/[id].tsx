@@ -1,24 +1,19 @@
-import { useMemo, useEffect, ReactElement } from "react";
+import { useMemo, ReactElement } from "react";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import Head from "next/head";
-import { useDispatch } from "@/hooks/useTypedDispatch";
 import { Community } from "@/types/community";
 import { Challenge, LearningModule } from "@/types/course";
-import { findLearningModule, setCurrentLearningModule } from "@/store/feature/learningModules.slice";
-import { setCurrentCommunity } from "@/store/feature/community.slice";
+import { findLearningModule } from "@/store/feature/learningModules.slice";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import DefaultLayout from "@/components/layout/Default";
 import Header from "@/components/sections/learning-modules/Header";
-import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
-import { setColors } from "@/store/feature/ui.slice";
-import useNavigation from "@/hooks/useNavigation";
-import { GetServerSideProps } from "next";
-import { store } from "@/store";
-import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ChallengeOverviewCard from "@/components/cards/challenge/Overview";
 import LearningModuleSection from "@/components/sections/learning-modules";
 import { fetchChallenge } from "@/store/services/communities/challenges";
+import { wrapper } from "@/store";
+import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { fetchCourse } from "@/store/services/course.service";
 
 /**
  * Learning module page props interfae
@@ -44,20 +39,10 @@ interface LearningModulePageProps {
  * @returns
  */
 export default function LearningModulePage(props: LearningModulePageProps) {
-  const { community, learningModule, challenge } = props.pageProps;
-  const dispatch = useDispatch();
-
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    dispatch(setCurrentCommunity(community));
-    dispatch(setCurrentLearningModule(learningModule));
-    dispatch(setColors(community.colors));
-    initChallengeNavigationMenu(navigation.community)(dispatch);
-  }, [community, learningModule, navigation.community]);
+  const { learningModule, challenge } = props.pageProps;
 
   const title = getMetadataTitle(learningModule.title!);
-  const descriptions = getMetadataDescription(learningModule?.description!);
+  const descriptions = getMetadataDescription(learningModule.description!);
 
   const paths = useMemo(() => [challenge.name, learningModule?.title], [challenge.name, learningModule?.title]);
   return (
@@ -85,35 +70,29 @@ LearningModulePage.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
+export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ params, locale }) => {
   try {
     const communitySlug = params?.slug as string;
-    const challenge_id = params?.challenge_id as string;
-    const learningModule_id = params?.id as string;
+    const courseSlug = params?.course_slug as string;
+    const id = params?.id as string;
 
-    const [{ data: community }, { data: challenge }, { payload: learningModule }] = await Promise.all([
+    const [{ data: community }, { data: course }, { payload: learningModule }] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug: communitySlug, locale })),
-      store.dispatch(fetchChallenge({ id: challenge_id })),
-      store.dispatch(findLearningModule(learningModule_id)),
+      store.dispatch(fetchCourse({ slug: courseSlug, locale })),
+      store.dispatch(findLearningModule(id)),
     ]);
 
-    if (Object.entries(community).length === 0 || Object.entries(challenge).length === 0 || Object.entries(learningModule).length === 0) {
-      return {
-        notFound: true,
-      };
-    } else {
-      return {
-        props: {
-          community,
-          learningModule,
-          challenge,
-          ...(await serverSideTranslations(locale as string)),
-        },
-      };
-    }
+    return {
+      props: {
+        community,
+        course,
+        learningModule,
+        ...(await serverSideTranslations(locale as string)),
+      },
+    };
   } catch (error) {
     return {
       notFound: true,
     };
   }
-};
+});

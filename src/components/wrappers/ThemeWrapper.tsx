@@ -1,4 +1,4 @@
-import { CSSProperties, ReactElement, ReactNode, useEffect, useMemo } from "react";
+import { CSSProperties, ReactElement, ReactNode, useMemo } from "react";
 import { Colors } from "@/types/community";
 
 /**

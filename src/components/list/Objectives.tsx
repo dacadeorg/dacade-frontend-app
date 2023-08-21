@@ -21,7 +21,7 @@ interface ObjectiveProps {
 }
  * @returns {ReactElement}
  */
-export default function ObjectiveList({ iconcolor = "", crossmark = false, objectives = [], feedback = [] }: ObjectiveProps): ReactElement {
+export default function ObjectiveList({ iconcolor = "", crossmark = false, objectives = [] }: ObjectiveProps): ReactElement {
   return (
     <div className="flex flex-col gap-y-3 md:grid md:w-99 md:gap-x-3 md:items-stretch pt-6 md:pb-2 md:mb-2">
       {objectives.map((objective, index) => (

@@ -1,6 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/dist/query";
 import baseQuery from "@/config/baseQuery";
-import { HYDRATE } from "next-redux-wrapper";
 import { setChallengesList, setChallengeSubmission, setCurrentChallenge } from "@/store/feature/communities/challenges";
 import queryString from "query-string";
 

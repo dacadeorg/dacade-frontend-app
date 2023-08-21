@@ -1,7 +1,9 @@
 import { useSelector } from "@/hooks/useTypedSelector";
 import ListItem from "./ListItem";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import { useTranslation } from "next-i18next";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { fetchReferrals } from "@/store/services/referrals.service";
 
 /**
  * Referral list component 
@@ -18,6 +20,11 @@ import { useTranslation } from "next-i18next";
 export default function ReferralList({ bounty = false }: { bounty?: boolean }): ReactElement {
   const { t } = useTranslation();
   const referrals = useSelector((state) => state.referrals.list);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchReferrals());
+  }, [dispatch]);
 
   return (
     <div className="relative">

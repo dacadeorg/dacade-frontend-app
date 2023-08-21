@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useState, ChangeEvent, ReactElement, useMemo, HTMLProps, forwardRef } from "react";
+import { useState, ReactElement, useMemo, HTMLProps, forwardRef } from "react";
 
 /**
  * Interface for TextInput component props
@@ -15,7 +15,6 @@ interface TextInputProps extends HTMLProps<HTMLTextAreaElement> {
   placeholder?: string;
   inputClass?: string;
   error?: string | null;
-  handleInput?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 /**
@@ -26,7 +25,7 @@ interface TextInputProps extends HTMLProps<HTMLTextAreaElement> {
  * @returns {ReactElement}
  */
 export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInput(
-  { label, disabled = false, placeholder, inputClass = "", error = null, handleInput, value = "", ...props },
+  { label, disabled = false, placeholder, inputClass = "", error = null, value = "", ...props },
   ref
 ): ReactElement {
   const [isFocused, setIsFocused] = useState(false);
@@ -55,6 +54,7 @@ export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInpu
         <textarea
           {...props}
           ref={ref}
+          placeholder={placeholder}
           autoComplete="off"
           disabled={disabled}
           className={textareaClassName}

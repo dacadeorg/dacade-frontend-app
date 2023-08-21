@@ -16,7 +16,7 @@ interface RubricRatingProps {
     available: number;
     reward: number;
     rewardCoin: string;
-    [key: string]: any;
+    [key: string]: string | number;
   };
   hideTitle?: boolean;
 }

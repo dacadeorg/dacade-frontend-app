@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import Avatar from "@/components/ui/Avatar";
-import CloseIcon from "@/icons/close-top-right.svg";
 import AsyncSelect from "react-select/async";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { User } from "@/types/bounty";
-import { createTeam, getTeamByChallenge, getUserInvitesByChallenge } from "@/store/services/teams.service";
+import { cancelTeamInvite, createTeam, getTeamByChallenge, getUserInvitesByChallenge, removeTeamMember } from "@/store/services/teams.service";
 import { getUserByUsername } from "@/store/services/user.service";
 import { authCheck } from "@/store/feature/auth.slice";
 import { setInviteStatus } from "@/store/feature/communities/challenges/invites.slice";
+import Button from "./challenge/_partials/Button";
 
 /**
  * Props for the SubmissionTeam component.
@@ -27,8 +27,9 @@ interface SubmissionTeamCardProps {
  * @typedef {TeamCandidate}
  */
 interface TeamCandidate {
-  user?: User;
+  user?: User | null;
   status: string;
+  id: string;
 }
 
 /**
@@ -52,7 +53,7 @@ interface Option {
  */
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  const { searchResult, challenge, user, team, isAuthenticated, invite, inviteStatus } = useSelector((state) => ({
+  const { searchResult, challenge, user, team, isAuthenticated, inviteStatus } = useSelector((state) => ({
     searchResult: state.user.searchUser,
     challenge: state.challenges.current,
     user: state.user.data,
@@ -64,7 +65,6 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
 
   const [currentOptions, setCurrentOptions] = useState<Option[]>();
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
-  const [visibleHint, setVisibleHint] = useState<"cancel" | "remove" | "">("");
   const [isCurrentUserMember, setIsCurrentUserMember] = useState(false);
   const [isCurrentUserOrganiser, setIsCurrentUserOrganiser] = useState(false);
   const dispatch = useDispatch();
@@ -98,17 +98,17 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
 
   useEffect(() => {
     if (team) {
-      setMembersList([{ user: team.organizer, status: "organizer" }]);
+      if (team.organizer) setMembersList([{ user: team.organizer, status: "organizer", id: team.organizer_id }]);
 
       if (team.teamMembers) {
-        team.teamMembers.forEach((member) => {
-          setMembersList((prev) => [...prev, { user: member.user, status: "Team member" }]);
+        team.teamMembers.forEach(({ user, id }) => {
+          setMembersList((prev) => [...prev, { user: user, status: "Team member", id }]);
         });
       }
 
       if (team.teamInvites) {
-        team.teamInvites.forEach(({ user, status }) => {
-          setMembersList((prev) => [...prev, { user, status }]);
+        team.teamInvites.forEach(({ user, status, id }) => {
+          setMembersList((prev) => [...prev, { user, status, id }]);
         });
       }
     }
@@ -123,7 +123,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     if (membersList.filter((member) => member.user?.id === option.user?.id).length !== 0) {
       return;
     }
-    setMembersList([...membersList, { user: option.user, status: "Sending invite" }]);
+    if (membersList.length === 0) setMembersList([{ user, status: "organizer", id: user?.id as string }]);
+
+    setMembersList((prev) => [...prev, { user: option.user, status: "Sending invite", id: option.user.id }]);
     await dispatch(
       createTeam({
         challenge_id: challenge?.id,
@@ -132,8 +134,19 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     );
   };
 
-  const removeTeamMember = (id: string) => {
-    setMembersList((prev) => prev.filter((member) => member.user?.id !== id));
+  const removeTeamMemberFromTeam = async (id: string) => {
+    await dispatch(removeTeamMember({ member_id: id, team_id: team.id }));
+    if (challenge) dispatch(getTeamByChallenge(challenge.id));
+  };
+
+  const cancelInvite = async (id: string) => {
+    await dispatch(cancelTeamInvite({ invite_id: id }));
+    if (challenge) dispatch(getTeamByChallenge(challenge.id));
+  };
+
+  const leaveMyTeam = () => {
+    // TODO: Add correct implementation to leave the team
+    console.log("Team member is going to leave the team");
   };
 
   useEffect(() => {
@@ -162,29 +175,19 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
           </div>
           <div className="text-sm font-normal text-gray-700 max-w-xxs pb-2">{text}</div>
 
-          {membersList.map(({ status, user }, index) => {
+          {membersList.map(({ status, user: member, id }, index) => {
             return (
               <div className="flex items-center w-full pr-0" key={`team-member-${index}`}>
                 <div className="flex space-x-1 pr-3.5">
-                  <Avatar user={user} size="medium-fixed" />
+                  <Avatar user={member} size="medium-fixed" />
                 </div>
                 <div className="flex flex-col">
-                  <div className=" text-sm text-gray-700 font-medium">{user?.displayName}</div>
+                  <div className=" text-sm text-gray-700 font-medium">{member?.displayName}</div>
                   <div className=" text-gray-400 text-xs">{status}</div>
                 </div>
-                {status !== "organizer" ? (
-                  <div
-                    className="ml-auto hover:cursor-pointer relative"
-                    onClick={() => removeTeamMember(user?.id || "")}
-                    onMouseEnter={() => setVisibleHint("cancel")}
-                    onMouseLeave={() => setVisibleHint("")}
-                  >
-                    <CloseIcon />
-                    <span className={`absolute -top-8 -right-6 text-sm bg-white p-0.5 px-1.5 rounded shadow-md ${visibleHint === "cancel" ? "block" : "hidden"}`}>Cancel</span>
-                  </div>
-                ) : (
-                  <></>
-                )}
+                {isCurrentUserOrganiser && status === "Team member" && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
+                {isCurrentUserOrganiser && status === "PENDING" && <Button onClick={() => cancelInvite(id)} text="Cancel" />}
+                {!isCurrentUserOrganiser && user?.id === member?.id && <Button onClick={() => leaveMyTeam()} text="Leave" />}
               </div>
             );
           })}
@@ -205,7 +208,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                 loadOptions={loadUserOptions}
                 onChange={(option) => {
                   // TODO: check if the team is actually closed instead of using this condition
-                  if (team.teamMembers && team.teamMembers?.length < 2) {
+                  if (team?.teamMembers && team.teamMembers.length >= 2) {
+                    return;
+                  } else {
                     if (option) selectTeamMember(option);
                   }
                 }}

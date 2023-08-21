@@ -2,6 +2,8 @@ import classNames from "classnames";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { CSSProperties, ReactElement } from "react";
+import { Item } from "./LinkAction";
+import { SubItem } from "@/store/feature/communities/navigation.slice";
 
 /**
  * Interface for subLink
@@ -12,8 +14,8 @@ import { CSSProperties, ReactElement } from "react";
  */
 interface SubLinkProps {
   activeLinkStyle: CSSProperties;
-  item: any;
-  subitem: any;
+  item: Item;
+  subitem: SubItem;
 }
 
 /**

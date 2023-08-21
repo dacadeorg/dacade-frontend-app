@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CSSProperties, ReactElement, ReactNode, useMemo, useState } from "react";
+import { CSSProperties, ReactElement, useMemo, useState } from "react";
 import VerifiedIcon from "@/icons/verified.svg";
 import classNames from "classnames";
 
@@ -40,18 +40,6 @@ interface AvatarProps {
 }
 
 /**
- * Span component
- * @date 3/22/2023 - 5:41:39 PM
- *
- * @param {{ children: ReactNode; }} { children }
- * @returns {ReactElement}
- */
-
-function Span({ children }: { children: ReactNode }): ReactElement {
-  return <span>{children}</span>;
-}
-
-/**
  * Avatar component
  * @date 3/22/2023 - 5:41:18 PM
  *
@@ -75,7 +63,6 @@ export default function Avatar({
   size = "small",
   shape = "circular",
   useLink = true,
-  style,
   className,
   hideVerificationBadge = false,
 }: AvatarProps): ReactElement {

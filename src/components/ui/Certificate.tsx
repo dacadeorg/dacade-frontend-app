@@ -4,7 +4,6 @@ import AlgolandIcon from "@/icons/certificates/Algoland.svg";
 import BlockChainIcon from "@/icons/certificates/Blockchain.svg";
 import EthIcon from "@/icons/certificates/Eternity.svg";
 import NearIcon from "@/icons/certificates/Near.svg";
-import SolidityIcon from "@/icons/certificates/Solidity.svg";
 import IcpIcon from "@/icons/certificates/Icp.svg";
 import AiIcon from "@/icons/certificates/Ai.svg";
 

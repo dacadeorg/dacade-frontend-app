@@ -13,7 +13,6 @@ import { Reputation, Submission } from "@/types/bounty";
 import { Community } from "@/types/community";
 import { Feedback } from "@/types/feedback";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
-import { profile } from "console";
 
 /**
  * Interface for the data returned from the findProfileCommunities endpoint

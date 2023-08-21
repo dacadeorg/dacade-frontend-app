@@ -10,6 +10,7 @@ import { userFetchReferrals } from "@/store/services/referrals.service";
 import Referral from "@/components/cards/profile/Referral";
 import EmptyState from "@/components/ui/EmptyState";
 import InfiniteScroll from "react-infinite-scroll-component";
+import AuthObserver from "@/contexts/AuthObserver";
 
 /**
  * Refferrals component for user profile
@@ -71,7 +72,11 @@ export default function UserReferrals(): ReactElement {
 }
 
 UserReferrals.getLayout = function (page: ReactElement) {
-  return <ProfileLayout>{page}</ProfileLayout>;
+  return (
+    <AuthObserver>
+      <ProfileLayout>{page}</ProfileLayout>
+    </AuthObserver>
+  );
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });

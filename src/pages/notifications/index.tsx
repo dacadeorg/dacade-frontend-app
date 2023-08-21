@@ -6,6 +6,7 @@ import i18Translate from "@/utilities/I18Translate";
 import { GetStaticProps } from "next";
 import Link from "next/link";
 import convertNotificationDate from "@/utilities/convertNotificationDate";
+import { readNotification } from "@/store/services/notification.service";
 
 /**
  * Notifications page.
@@ -27,11 +28,7 @@ export default function Notifications() {
   const markNotificationsRead = () => {
     Object.values(notifications).forEach((notification) => {
       if (!notification.read) {
-        const notificationUpdate = {
-          id: notification.id,
-          userId: notification.user_id,
-        };
-        // dispatch(markAsRead(notificationUpdate));
+        dispatch(readNotification());
       }
     });
   };

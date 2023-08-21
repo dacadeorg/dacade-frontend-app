@@ -1,4 +1,4 @@
-import { ReactElement, useState, useMemo, SetStateAction, Dispatch } from "react";
+import { ReactElement, useState, useMemo } from "react";
 import Loader from "@/components/ui/button/Loader";
 import EmptyState from "@/components/ui/EmptyState";
 import { useTranslation } from "next-i18next";
@@ -33,7 +33,7 @@ export default function List(): ReactElement {
     }
     try {
       setLoading(true);
-      const list = await dispatch(
+      await dispatch(
         fetchAllSubmission({
           startAfter: submissionId as string,
           challengeId: router.query.challenge_id as string,
@@ -61,7 +61,7 @@ export default function List(): ReactElement {
                 // loader is required for InfiniteScroll to work
                 loader={<></>}
               >
-                {submissions.map((submission: any, i: number) => (
+                {submissions.map((submission, i) => (
                   <SubmissionCard key={`submission-${i}`} submission={submission} />
                 ))}
               </InfiniteScroll>

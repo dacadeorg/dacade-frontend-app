@@ -73,6 +73,21 @@ export const authService = createApi({
         body: payload,
       }),
     }),
+    /**
+     * Verify Email Update endpoint
+     * @method POST
+     * @enpoint auth/verify-email-update
+     */
+    verifyEmailUpdate: builder.mutation({
+      query: ({ payload, locale }) => ({
+        url: "auth/verify-email-update",
+        headers: {
+          "accept-language": locale,
+        },
+        method: "POST",
+        body: payload,
+      }),
+    }),
   }),
 });
 
@@ -83,7 +98,7 @@ export const authService = createApi({
  * @param {{locale?: string, payload: {}}} {locale, payload}
  * @returns {*}
  */
-export const signUp = ({ locale, payload }: { locale?: string; payload: {} }) => authService.endpoints.signUp.initiate({ locale, payload });
+export const signUp = ({ locale, payload }: { locale?: string; payload: object }) => authService.endpoints.signUp.initiate({ locale, payload });
 
 /**
  * Resend email verification function
@@ -101,3 +116,12 @@ export const resendEmailVerification = (locale?: string) => authService.endpoint
  * @param {?string} [locale]
  */
 export const verifyEmail = ({ payload, locale }: { payload: { code: string }; locale?: string }) => authService.endpoints.verifyEmail.initiate({ locale, payload });
+
+
+/**
+ * Verify email update function
+ * @date 7/28/2023 - 12:46:07 PM
+ *
+ * @param {?string} [locale]
+ */
+export const verifyEmailUpdate = ({ payload, locale }: { payload: { code: string }; locale?: string }) => authService.endpoints.verifyEmailUpdate.initiate({ locale, payload });

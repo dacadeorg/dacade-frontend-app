@@ -56,6 +56,7 @@ export const submissionsSlice = createSlice({
       .addCase(HYDRATE, (state, action) => {
         return {
           ...state,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore
           ...action.payload["submissions"],
         };

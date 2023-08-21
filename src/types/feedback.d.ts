@@ -5,7 +5,7 @@ export type Feedback = {
   submission: Submission;
   id: string;
   ref: string;
-  created_at: string;
+  created_at: Date;
   updated_at: string;
   criteria: string[];
   positive: boolean;

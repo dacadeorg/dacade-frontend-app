@@ -1,6 +1,6 @@
 import Tag from "@/components/ui/Tag";
 import { Challenge } from "@/types/course";
-import { ReactHTML } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 /**
@@ -18,9 +18,16 @@ interface BadgeProps {
 }
 export default function Badges({ challenge, className }: BadgeProps) {
   const { t } = useTranslation();
+  const [challengeLevel, setChallengeLevel] = useState("");
+
+  useEffect(() => {
+    if (challenge.level === 0 || challenge.level === 1) return setChallengeLevel("course.challenge.level-0");
+    return setChallengeLevel("course.challenge.level-2");
+  }, [challenge.level]);
+
   return (
     <div className={`uppercase flex gap-2 mb-6 ${className}`}>
-      {challenge?.level && <Tag>{t(`course.challenge.level-${challenge.level}`)}</Tag>}
+      {challenge?.level && <Tag>{t(challengeLevel)}</Tag>}
       {challenge?.isTeamChallenge && <Tag type="light">Team Challenge</Tag>}
     </div>
   );

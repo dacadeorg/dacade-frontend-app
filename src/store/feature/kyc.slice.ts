@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction, Dispatch } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, Dispatch } from "@reduxjs/toolkit";
 import { auth as firebaseAuth } from "@/config/firebase";
 import { IRootState, store } from "@/store";
 import { sleep } from "@/utilities";
@@ -63,7 +63,7 @@ export const openVerificationModal = (payload: any) => {
     const isKycVerified = store.getState().user.data?.kycStatus === "VERIFIED";
     if (isKycVerified) {
       closeVerificationModal()(dispatch);
-      triggerCompleteAction()(dispatch);
+      triggerCompleteAction()();
       return;
     }
     dispatch(setShowModal(true));
@@ -86,7 +86,7 @@ export const closeVerificationModal = () => (dispatch: Dispatch) => {
   }
 };
 
-export const triggerCompleteAction = () => async (dispatch: Dispatch) => {
+export const triggerCompleteAction = () => async () => {
   const completedAction = store.getState().sumsubVerification.completedAction;
   if (!completedAction) return;
   try {
@@ -134,7 +134,7 @@ export const launchWebSdk = createAsyncThunk("sumsub/launchWebSdk", async (_, { 
       email: user?.email,
     })
     .withOptions({ addViewportTag: false, adaptIframeHeight: true })
-    .on("idCheck.applicantStatus", (payload: any) => {
+    .on("idCheck.applicantStatus", () => {
       dispatch(completeSumSubVerification());
     })
     .build();

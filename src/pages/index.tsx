@@ -1,20 +1,15 @@
-import Head from "next/head";
-import { useTranslation } from "next-i18next";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import HomeLayout from "@/layouts/Home";
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import { wrapper } from "@/store";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Community } from "@/types/community";
 import CommunitiesSection from "@/components/sections/homepage/Communities";
 import MainSection from "@/components/sections/homepage/Main";
 import TestimonialsSection from "@/components/sections/homepage/Testimonials";
 import { fetchAllCommunities } from "@/store/services/community.service";
-import RequireAuth from "@/layouts/RequireAuth";
 
 const Home = (props: { pageProps: { communities: Community[] } }) => {
-  const { t } = useTranslation();
   const {
     pageProps: { communities },
   } = props;

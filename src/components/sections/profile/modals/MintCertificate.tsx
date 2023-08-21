@@ -7,7 +7,7 @@ import Input from "@/components/ui/Input";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useTranslation } from "next-i18next";
-import { check, connectWallet, disconnectWallet, getSignature } from "@/store/feature/wallet.slice";
+import { check, connectWallet, getSignature } from "@/store/feature/wallet.slice";
 import { mintCertificate } from "@/store/services/profile/certificate.service";
 
 // Wallet interface
@@ -31,10 +31,9 @@ interface Wallet {
 }
  * @returns {ReactElement}
  */
-export default function MintCertificate({ show, wallet, close }: { show: boolean; wallet?: Wallet; close?: (value: boolean) => void }): ReactElement {
+export default function MintCertificate({ show, close }: { show: boolean; wallet?: Wallet; close?: (value: boolean) => void }): ReactElement {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const [amount, setAmount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>();
   const [txData, setTxData] = useState({ tx: "" });
@@ -115,11 +114,6 @@ export default function MintCertificate({ show, wallet, close }: { show: boolean
     } catch (error) {
       console.log(error);
     }
-  };
-
-  // Disconnect wallet function
-  const disconnect = async () => {
-    await dispatch(disconnectWallet());
   };
 
   const handleSave = () => {

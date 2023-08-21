@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import lowlight from "lowlight/lib/core";
 import visit from "unist-util-visit";
 import { Data, Node } from "unist";

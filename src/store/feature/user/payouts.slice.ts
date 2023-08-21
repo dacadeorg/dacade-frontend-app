@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction, ThunkAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import api from "@/config/api";
 import { fetchAllWallets } from "@/store/services/wallets.service";
 import { IRootState } from "@/store";
@@ -49,7 +49,7 @@ export const fetchAllPayouts = createAsyncThunk("payouts/fetchAll", async (_, { 
  *
  * @type {*}
  */
-export const createPayout = createAsyncThunk("payouts/create", async (payload: { wallet_id: String }, { dispatch }) => {
+export const createPayout = createAsyncThunk("payouts/create", async (payload: { wallet_id: string }, { dispatch }) => {
   await api().server.post(`payouts/create`, payload);
   dispatch(fetchAllPayouts());
   dispatch(fetchAllWallets());

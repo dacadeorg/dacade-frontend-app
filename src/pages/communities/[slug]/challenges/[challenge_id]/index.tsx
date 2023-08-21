@@ -76,7 +76,6 @@ export default function ChallengePage(props: {
     }
   }, [challenge, dispatch, isAuthenticated]);
 
-
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
   return (
     <>

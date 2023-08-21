@@ -1,7 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { Course } from "@/types/course";
 import { List } from "@/utilities/CommunityNavigation";
-import api from "@/config/api";
 import { HYDRATE } from "next-redux-wrapper";
 
 // Define initial state

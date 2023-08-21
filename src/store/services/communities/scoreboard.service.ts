@@ -43,7 +43,7 @@ const scoreboardService = createApi({
     }),
 
     filterScroreboards: builder.query<Scoreboard[], FilterScoreboardsArgs>({
-      query: ({ slug, filterBy, sortBy, locale }) => ({
+      query: ({ slug, filterBy, locale }) => ({
         url: `communities/${slug}/scoreboard?filter-by=${filterBy}`,
         headers: {
           "Accept-Language": locale || "en",

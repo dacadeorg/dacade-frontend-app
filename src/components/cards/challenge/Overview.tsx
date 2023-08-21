@@ -1,5 +1,5 @@
 import Coin from "@/components/ui/Coin";
-import { Challenge, Reward } from "@/types/course";
+import { Challenge } from "@/types/course";
 import { useTranslation } from "next-i18next";
 
 /**

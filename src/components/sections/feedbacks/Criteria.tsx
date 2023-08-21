@@ -18,17 +18,15 @@ import classNames from "classnames";
 export default function Criteria(): ReactElement {
   const { t } = useTranslation();
   const [infoVisibility, setinfoVisibility] = useState(false);
-  const { submission, challenge, colors } = useSelector((state) => ({
+  const { submission, challenge } = useSelector((state) => ({
     submission: state.submissions.current,
     challenge: state.challenges.current,
     colors: state.ui.colors,
   }));
 
   const reward = useMemo(() => challenge?.rewards?.find((reward: { type: string }) => reward.type === "FEEDBACK"), [challenge]);
-  const activeButtonStyle = useMemo(() => ({ color: colors?.text, backgroundColor: colors?.textAccent }), [colors]);
   const reviewed = useMemo(() => submission?.metadata?.evaluation || submission?.metadata?.reviewed, [submission?.metadata?.evaluation, submission?.metadata?.reviewed]);
   const deadline = useMemo(() => DateManager.fromNow(submission?.reviewDeadline as Date), [submission?.reviewDeadline]);
-  const list = useMemo(() => challenge?.feedbackInfo, [challenge?.feedbackInfo]);
 
   return (
     <div className={`py-5 border rounded-t relative ${reviewed ? "bg-gray-50 border-gray-200" : "bg-yellow-50 border-yellow-200"}`}>
