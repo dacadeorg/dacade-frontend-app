@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import Avatar from "@/components/ui/Avatar";
 import Button from "@/components/ui/button";
 import { useTranslation } from "next-i18next";
@@ -34,9 +34,9 @@ interface SidebarProps {
  *
  * @export
  * @param {SidebarProps} { burgerColor }
- * @returns {*}
+ * @returns {ReactElement}
  */
-export default function Sidebar({ burgerColor = false }: SidebarProps): any {
+export default function Sidebar({ burgerColor = false }: SidebarProps): ReactElement {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 

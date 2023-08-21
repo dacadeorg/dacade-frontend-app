@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ReactElement } from "react";
 import DiscordIcon from "@/icons/discord.svg";
 import TwitterIcon from "@/icons/twitter.svg";

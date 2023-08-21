@@ -2,7 +2,6 @@ import { ReactElement, useMemo } from "react";
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import Coin from "@/components/ui/Coin";
 import ListIcon from "@/components/cards/community/_partials/ListIcon";
-import DateManager from "@/utilities/DateManager";
 import ArrowButton from "@/components/ui/button/Arrow";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";

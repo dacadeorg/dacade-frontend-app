@@ -1,8 +1,8 @@
 import { ReactElement, ReactNode } from "react";
-import { useSelector } from "@/hooks/useTypedSelector";
 import UserCard from "@/components/cards/User";
 import TranslationBox from "@/components/cards/TranslationBox";
 import { useTranslation } from "next-i18next";
+import { User } from "@/types/bounty";
 
 /**
  * Evaluation interface
@@ -12,8 +12,8 @@ import { useTranslation } from "next-i18next";
  * @typedef {Evaluation}
  */
 interface Evaluation {
-  evaluator: string;
-  created_at: string;
+  evaluator: User;
+  created_at: Date;
   comment: string;
   metadata: {
     language: string;
@@ -35,12 +35,6 @@ interface EvaluationCardProps {
 }
 export default function EvaluationCard({ evaluation, link = "", last, children }: EvaluationCardProps): ReactElement {
   const { t } = useTranslation();
-  const language = evaluation?.metadata?.language || "en";
-
-  const { colors, community } = useSelector((state) => ({
-    colors: state.ui.colors,
-    community: state.community,
-  }));
 
   return (
     <UserCard

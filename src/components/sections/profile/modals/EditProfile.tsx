@@ -3,7 +3,6 @@ import Modal from "@/components/ui/Modal";
 import Input from "@/components/ui/Input";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useTranslation } from "next-i18next";
-import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useForm } from "react-hook-form";
 import { updateUser } from "@/store/services/user.service";
 
@@ -43,7 +42,6 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
   const {
-    watch,
     register,
     handleSubmit,
     formState: { errors },

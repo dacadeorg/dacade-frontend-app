@@ -30,7 +30,6 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
   const { t } = useTranslation();
   const [showEditModal, setShowEditModal] = useState(false);
   const [showPayoutModal, setShowPayoutModal] = useState(false);
-  const [showKycModal, setShowKycModal] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.data);
 
@@ -45,7 +44,6 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
       toggleBodyScrolling(true)(dispatch);
       return;
     }
-    setShowKycModal(true);
   };
 
   const onClose = () => {

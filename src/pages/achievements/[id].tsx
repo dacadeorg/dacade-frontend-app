@@ -53,10 +53,6 @@ const Achievement = () => {
     return !!achievement?.minting?.tx;
   }, [achievement]);
 
-  const contract = useMemo(() => {
-    return truncateAddress(achievement?.minting?.contract as string);
-  }, [achievement]);
-
   const receiver = useMemo(() => {
     return truncateAddress(achievement?.minting?.receiver as string);
   }, [achievement]);
@@ -71,10 +67,6 @@ const Achievement = () => {
 
   const addressURL = useMemo(() => {
     return `${process.env.NEXT_PUBLIC_BLOCK_EXPLORER_URL}/address/${achievement?.minting?.receiver}`;
-  }, [achievement]);
-
-  const contractURL = useMemo(() => {
-    return `${process.env.NEXT_PUBLIC_BLOCK_EXPLORER_URL}/address/${achievement?.minting?.contract}`;
   }, [achievement]);
 
   const metadataPreviewURL = useMemo(() => {

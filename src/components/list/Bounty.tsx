@@ -1,7 +1,7 @@
 import Referral from "@/components/cards/Referral";
 import Bounty from "@/components/cards/Bounty";
 import { Bounty as BountyType } from "@/types/bounty";
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import { Referral as ReferralType } from "@/types/community";
 
 /**

@@ -9,15 +9,6 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 
 /**
- * Data structure for a card.
- */
-interface CardData {
-  id: number;
-  title: string;
-  description: string;
-}
-
-/**
  * Learning component.
  *
  * @returns {JSX.Element} The Learning component JSX element.

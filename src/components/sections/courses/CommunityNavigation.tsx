@@ -11,13 +11,12 @@ import { useSelector } from "@/hooks/useTypedSelector";
  * @returns {ReactElement}
  */
 export default function CommunityNavigation({ paths }: { paths?: string[] }): ReactElement {
-  const { community, course } = useSelector((state) => ({
+  const { community } = useSelector((state) => ({
     community: state.communities?.current,
     course: state.courses?.current,
   }));
 
   const path = useMemo(() => (community ? `/communities/${community.slug}` : ""), [community]);
-
 
   return community ? (
     <div>
@@ -25,13 +24,14 @@ export default function CommunityNavigation({ paths }: { paths?: string[] }): Re
         <div className="leading-none text-gray-500">
           <Link href={path}>{community.name}</Link>
         </div>
-        {paths?.map((path, index) => (
+        {paths?.map((path) => (
           <>
             <div className="px-0.5">
               <ChevronRightIcon viewBox="0 0 20 20" className="w-3 h-3" />
             </div>
             <div className="font-medium leading-none">{path}</div>
-          </>))}
+          </>
+        ))}
       </div>
     </div>
   ) : (

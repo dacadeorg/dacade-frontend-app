@@ -1,6 +1,26 @@
 import classNames from "classnames";
 import Link from "next/link";
-import { ReactElement } from "react";
+import { CSSProperties, ReactElement } from "react";
+
+export interface SubItem {
+  link: string;
+  exact: boolean;
+  label: string;
+}
+export interface Item {
+  exact: boolean;
+  hideTitle: boolean;
+  title: string;
+  items: {
+    link: string;
+    exact: boolean;
+    subitems?: SubItem[];
+    label: string;
+  }[];
+  label: string;
+  subitems?: SubItem[];
+  link: string;
+}
 
 /**
  * Interface for Action Link
@@ -10,8 +30,8 @@ import { ReactElement } from "react";
  * @typedef {LinkActionProps}
  */
 interface LinkActionProps {
-  item: any;
-  activeLinkStyle: any;
+  item: Item;
+  activeLinkStyle: CSSProperties;
   isActive: boolean;
   goToLink: () => void;
   children: React.ReactNode;

@@ -1,7 +1,5 @@
 import SideNavigation from "@/components/ui/SideNavigation";
-import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import LanguageSwitcher from "./_partials/LanguageSwitcher";
 /**
@@ -12,9 +10,6 @@ import LanguageSwitcher from "./_partials/LanguageSwitcher";
  * @returns {ReactElement}
  */
 export default function Navigation(): ReactElement {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-
   const { community, menus } = useSelector((state) => ({
     community: state.communities?.current,
     menus: state.navigation.menus,

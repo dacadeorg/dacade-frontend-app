@@ -4,21 +4,18 @@ import Head from "next/head";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { Community } from "@/types/community";
 import { Course, LearningModule } from "@/types/course";
-import { setCurrentCourse } from "@/store/feature/course.slice";
-import { findLearningModule, setCurrentLearningModule } from "@/store/feature/learningModules.slice";
-import { setCurrentCommunity } from "@/store/feature/community.slice";
+import { findLearningModule } from "@/store/feature/learningModules.slice";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import DefaultLayout from "@/components/layout/Default";
 import Header from "@/components/sections/learning-modules/Header";
 import { initCourseNavigationMenu } from "@/store/feature/communities/navigation.slice";
-import useNavigation from "@/hooks/useNavigation";
-import { GetServerSideProps } from "next";
 import { wrapper } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchCourse } from "@/store/services/course.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ChallengeOverviewCard from "@/components/cards/challenge/Overview";
 import LearningModuleSection from "@/components/sections/learning-modules";
+import useNavigation from "@/hooks/useNavigation";
 
 /**
  * Learning module page props interfae
@@ -53,8 +50,8 @@ export default function LearningModulePage(props: LearningModulePageProps) {
     initCourseNavigationMenu(navigation.community)(dispatch);
   }, [dispatch]);
 
-  const title = getMetadataTitle(learningModule?.title!, course?.name!);
-  const descriptions = getMetadataDescription(learningModule?.description!);
+  const title = getMetadataTitle(learningModule.title!, course.name!);
+  const descriptions = getMetadataDescription(learningModule.description!);
 
   return (
     <>
@@ -82,7 +79,7 @@ LearningModulePage.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ params, locale }) => {
+export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ params, locale }) => {
   try {
     const communitySlug = params?.slug as string;
     const courseSlug = params?.course_slug as string;

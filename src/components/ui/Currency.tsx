@@ -1,5 +1,5 @@
 import { formatCurrency } from "@coingecko/cryptoformat";
-import { ReactElement, ReactNode, useMemo } from "react";
+import { ReactElement, useMemo } from "react";
 
 /**
  * Interface for currency props
@@ -30,7 +30,6 @@ export default function Currency({ value = 0, token = "" }: CurrencyProps): Reac
       decimalPlaces: 2,
       significantFigures: 3,
     });
-    
   }, [token, value]);
   return (
     <span>

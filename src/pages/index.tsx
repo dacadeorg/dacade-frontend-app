@@ -1,4 +1,3 @@
-import { useTranslation } from "next-i18next";
 import { GetStaticProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import HomeLayout from "@/layouts/Home";
@@ -11,7 +10,6 @@ import TestimonialsSection from "@/components/sections/homepage/Testimonials";
 import { fetchAllCommunities } from "@/store/services/community.service";
 
 const Home = (props: { pageProps: { communities: Community[] } }) => {
-  const { t } = useTranslation();
   const {
     pageProps: { communities },
   } = props;

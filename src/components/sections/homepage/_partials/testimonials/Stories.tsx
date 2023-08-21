@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useState } from "react";
 import _ from "lodash";
 import Story from "@/components/cards/Story";
 

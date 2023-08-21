@@ -2,7 +2,6 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import Avatar from "@/components/ui/Avatar";
 import { ReactElement } from "react";
 import { useRouter } from "next/router";
-import { useTranslation } from "next-i18next";
 
 /**
  * Request component
@@ -12,7 +11,6 @@ import { useTranslation } from "next-i18next";
  * @returns {}
  */
 export default function Request(): ReactElement {
-  const { t } = useTranslation();
   const referrals = useSelector((state) => state.userReferrals.userReferralList);
   const previewList = referrals.slice(0, 3);
   const router = useRouter();

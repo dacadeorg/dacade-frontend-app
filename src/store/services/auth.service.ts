@@ -98,7 +98,7 @@ export const authService = createApi({
  * @param {{locale?: string, payload: {}}} {locale, payload}
  * @returns {*}
  */
-export const signUp = ({ locale, payload }: { locale?: string; payload: {} }) => authService.endpoints.signUp.initiate({ locale, payload });
+export const signUp = ({ locale, payload }: { locale?: string; payload: object }) => authService.endpoints.signUp.initiate({ locale, payload });
 
 /**
  * Resend email verification function

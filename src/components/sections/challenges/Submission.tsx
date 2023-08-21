@@ -33,7 +33,6 @@ export default function Submission(): ReactElement {
     watch,
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
   } = useForm<FormValues>();
   let githubLinkValue = watch("githubLink");
@@ -81,7 +80,7 @@ export default function Submission(): ReactElement {
         setSubmitting(true);
         const result = await dispatch(
           createSubmission({
-            challengeId: challenge?.id!,
+            challengeId: challenge?.id || "",
             text: form.text,
             link: form.githubLink,
           })

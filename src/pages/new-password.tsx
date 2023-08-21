@@ -44,15 +44,11 @@ export default function PasswordReset(): ReactElement {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const emailValue = watch("email");
 
-  const onPasswordResetRequest = (formData: Form) => {
+  const onPasswordResetRequest = () => {
     if (passwordValue !== newPassword) {
       setPasswordMatch(false);
       return;
     }
-    const data = {
-      email: formData.email,
-      password: formData.password,
-    };
     setLoading(true);
   };
 

@@ -1,7 +1,6 @@
-import { useState, useEffect, ReactElement } from "react";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useState, ReactElement } from "react";
 import { useTranslation } from "next-i18next";
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetStaticProps } from "next";
 import Button from "@/components/ui/button";
 
 import ProfileLayout from "@/layouts/ProfileLayout";
@@ -24,9 +23,6 @@ export default function ProfileSettings(): ReactElement {
   const [completed, setcompleted] = useState(false);
 
   const router = useRouter();
-
-  const user = useSelector((state) => state.user.data);
-  const [showEditProfile, setShowEditProfile] = useState(false);
 
   const confirm = async () => {
     if (loading || completed) return;

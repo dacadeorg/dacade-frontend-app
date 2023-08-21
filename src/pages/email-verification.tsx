@@ -2,7 +2,6 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
 import i18Translate from "@/utilities/I18Translate";
 import { GetStaticProps } from "next";
-import { useRouter } from "next/router";
 import { ReactNode, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
@@ -20,7 +19,6 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 
 export default function EmailVerification(): ReactElement {
   const { t } = useTranslation();
-  const router = useRouter();
   const [loading, setloading] = useState(false);
   const user = useSelector((state) => state.auth.data);
   const dispatch = useDispatch();

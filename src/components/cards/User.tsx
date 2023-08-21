@@ -3,6 +3,7 @@ import Badge from "@/components/ui/Badge";
 import Currency from "@/components/ui/Currency";
 import Tag from "@/components/ui/Tag";
 import { useSelector } from "@/hooks/useTypedSelector";
+import { User } from "@/types/bounty";
 import DateManager from "@/utilities/DateManager";
 import classNames from "classnames";
 import Link from "next/link";
@@ -20,9 +21,12 @@ interface UserProps {
   boxLayout?: boolean;
   link?: string;
   bordered?: boolean;
-  user: any;
+  user: User;
   badge?: string;
-  timestamp: any;
+  timestamp: {
+    date: Date;
+    text: string;
+  };
   children?: ReactNode;
   className?: string;
 }
@@ -45,7 +49,7 @@ interface UserProps {
  */
 export default function UserCard({ boxLayout, link, bordered, user, badge = "", timestamp, children, className }: UserProps): ReactElement {
   const { locale } = useRouter();
-  const { colors, community } = useSelector((state) => ({
+  const { colors } = useSelector((state) => ({
     colors: state.ui.colors,
     community: state.communities.current,
   }));
