@@ -81,7 +81,7 @@ export default function Form({ save }: FormProps): ReactElement {
       setSaving(true);
       const result = await dispatch(
         createFeedback({
-          submission_id: challenge?.id as string,
+          submission_id: submission?.id as string,
           text: feedback,
           link: githubLink,
         })
