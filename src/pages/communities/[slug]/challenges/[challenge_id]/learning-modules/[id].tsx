@@ -101,16 +101,15 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
       return {
         notFound: true,
       };
-    } else {
-      return {
-        props: {
-          community,
-          learningModule,
-          challenge,
-          ...(await serverSideTranslations(locale as string)),
-        },
-      };
     }
+    return {
+      props: {
+        community,
+        learningModule,
+        challenge,
+        ...(await serverSideTranslations(locale as string)),
+      },
+    };
   } catch (error) {
     return {
       notFound: true,
