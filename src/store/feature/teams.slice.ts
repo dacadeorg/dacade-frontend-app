@@ -31,7 +31,9 @@ const teamsSlice = createSlice({
   initialState: defaultState,
   reducers: {
     setTeamData: (state, action) => {
-      state.current = action.payload;
+      const { locked, teamMembers } = action.payload;
+      const teamData = { ...action.payload, locked: teamMembers.length >= 2 || locked };
+      state.current = teamData;
     },
     setTeamDataAndInvites: (state, action) => {
       const returnedInvites = action.payload.invites.map((invite: ReturnedInvite) => ({ ...invite.invite, user: invite.member }));

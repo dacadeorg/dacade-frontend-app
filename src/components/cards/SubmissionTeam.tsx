@@ -191,7 +191,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
               </div>
             );
           })}
-          {(team && isCurrentUserOrganiser) || !isCurrentUserMember ? (
+          {(team && isCurrentUserOrganiser && !team.locked) || !isCurrentUserMember ? (
             <div>
               <AsyncSelect
                 cacheOptions
@@ -207,8 +207,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                 defaultOptions={currentOptions}
                 loadOptions={loadUserOptions}
                 onChange={(option) => {
-                  // TODO: check if the team is actually closed instead of using this condition
-                  if (team?.teamMembers && team.teamMembers.length >= 2) {
+                  if (team.locked) {
                     return;
                   } else {
                     if (option) selectTeamMember(option);
