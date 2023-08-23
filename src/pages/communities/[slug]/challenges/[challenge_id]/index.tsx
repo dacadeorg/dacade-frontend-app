@@ -30,7 +30,6 @@ import { initChallengeNavigationMenu } from "@/store/feature/communities/navigat
 import Objectives from "@/components/sections/challenges/Objectives";
 import { getTeamByChallenge } from "@/store/services/teams.service";
 import { fetchChallenge, fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
-
 /**
  * Challenge view page
  * @date 4/25/2023 - 8:12:39 PM
@@ -56,7 +55,6 @@ export default function ChallengePage(props: {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { submission, isAuthenticated } = useSelector((state) => ({
-    course: state.courses.current,
     submission: state.challenges.submission,
     isAuthenticated: authCheck(state),
   }));

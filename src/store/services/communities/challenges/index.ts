@@ -59,7 +59,7 @@ export const challengeService = createApi({
 export const fetchChallenge = ({ id, relations }: { id: string; relations?: string[] }) =>
   challengeService.endpoints.findChallengeById.initiate({
     id,
-    relations,
+    relations: relations || [],
   });
 
 export const fetchAllChallenges = ({ slug }: { slug: string }) => {

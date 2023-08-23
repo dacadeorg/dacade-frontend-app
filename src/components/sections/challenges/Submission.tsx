@@ -7,7 +7,7 @@ import MarkdownIcon from "@/components/ui/MarkdownIcon";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { createSubmission } from "@/store/feature/communities/challenges/submissions";
+import { createSubmission, createSubmissionTeam } from "@/store/feature/communities/challenges/submissions";
 import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import { useTranslation } from "next-i18next";
@@ -16,7 +16,6 @@ import { createEvent } from "@/store/feature/events.slice";
 import { Submission as TSubmission } from "@/types/bounty";
 import Hint from "@/components/ui/Hint";
 import { fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
-
 interface FormValues {
   text: string;
   githubLink: string;
@@ -39,8 +38,7 @@ export default function Submission(): ReactElement {
   let textValue = watch("text");
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { user, colors, challenge, community, team } = useSelector((state) => ({
-    user: state.user.data,
+  const { colors, challenge, community, team } = useSelector((state) => ({
     colors: state.ui.colors,
     challenge: state.challenges.current,
     community: state.communities.current,
@@ -79,11 +77,17 @@ export default function Submission(): ReactElement {
       try {
         setSubmitting(true);
         const result = await dispatch(
-          createSubmission({
-            challengeId: challenge?.id || "",
-            text: form.text,
-            link: form.githubLink,
-          })
+          challenge?.isTeamChallenge
+            ? createSubmissionTeam({
+                challengeId: challenge?.id,
+                text: form.text,
+                link: form.githubLink,
+              })
+            : createSubmission({
+                challengeId: challenge?.id,
+                text: form.text,
+                link: form.githubLink,
+              })
         );
 
         const submission = result.payload as TSubmission;
@@ -118,7 +122,7 @@ export default function Submission(): ReactElement {
           {challenge?.format && (
             <div className="relative w-full md:pl-7.5 my-6">
               <div className="absolute z-50 left-3 md:left-0 top-3">
-                <Avatar user={user} size="medium" />
+                <Avatar user={team?.organizer} size="medium" />
               </div>
 
               <div label-for="input-text">
