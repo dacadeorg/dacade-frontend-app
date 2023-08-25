@@ -9,7 +9,7 @@ import { getUserByUsername } from "@/store/services/user.service";
 import { authCheck } from "@/store/feature/auth.slice";
 import { setInviteStatus } from "@/store/feature/communities/challenges/invites.slice";
 import Button from "./challenge/_partials/Button";
-
+import debounce from "lodash.debounce";
 /**
  * Props for the SubmissionTeam component.
  */
@@ -53,7 +53,7 @@ interface Option {
  */
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  const { searchResult, challenge, user, team, isAuthenticated, inviteStatus } = useSelector((state) => ({
+  const { challenge, user, team, isAuthenticated, inviteStatus } = useSelector((state) => ({
     searchResult: state.user.searchUser,
     challenge: state.challenges.current,
     user: state.user.data,
@@ -63,30 +63,22 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     inviteStatus: state.invites.inviteStatus,
   }));
 
-  const [currentOptions, setCurrentOptions] = useState<Option[]>();
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
   const [isCurrentUserMember, setIsCurrentUserMember] = useState(false);
   const [isCurrentUserOrganiser, setIsCurrentUserOrganiser] = useState(false);
   const dispatch = useDispatch();
 
-  const filterUsers = async (username: string) => {
-    await dispatch(getUserByUsername(username));
-
-    if (searchResult && searchResult.length !== 0) {
-      return searchResult.map((user) => {
-        return { value: user.id, label: user.displayName, user };
-      });
-    } else {
-      return [];
-    }
+  const filterUsers = (username: string, callback: any) => {
+    return dispatch(getUserByUsername(username)).then(({ data = [] }) => {
+      return callback(
+        data?.map((user: User) => {
+          return { value: user.id, label: user.displayName, user };
+        })
+      );
+    });
   };
 
-  const loadUserOptions = async (inputValue: string) => {
-    if (inputValue.trim().length <= 4) return [];
-    const data = await filterUsers(inputValue);
-    setCurrentOptions(data);
-    return data;
-  };
+  const loadUserOptions = debounce(filterUsers, 1000);
 
   //Fetch members for the team that the current user organised if any
   useEffect(() => {
@@ -203,8 +195,10 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                     },
                   }),
                 }}
+                placeholder="Enter dacade username"
+                defaultOptions={[]}
                 className="text-lg"
-                defaultOptions={currentOptions}
+                isClearable={true}
                 loadOptions={loadUserOptions}
                 onChange={(option) => {
                   // TODO: check if the team is actually closed instead of using this condition
