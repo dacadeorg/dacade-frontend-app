@@ -87,6 +87,7 @@ export interface Submission {
   map(arg0: (submission: Submission) => JSX.Element): ReactNode;
   id: string;
   ref: string;
+  team_ref?: string;
   created_at: Date;
   updated_at: Date;
   link: string;

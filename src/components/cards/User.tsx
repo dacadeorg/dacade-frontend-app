@@ -29,6 +29,7 @@ interface UserProps {
   };
   children?: ReactNode;
   className?: string;
+  teamMembers?: User[];
 }
 
 /**
@@ -47,7 +48,7 @@ interface UserProps {
 }
  * @returns {ReactElement}
  */
-export default function UserCard({ boxLayout, link, bordered, user, badge = "", timestamp, children, className }: UserProps): ReactElement {
+export default function UserCard({ boxLayout, link, bordered, user, badge = "", timestamp, children, className, teamMembers }: UserProps): ReactElement {
   const { locale } = useRouter();
   const { colors } = useSelector((state) => ({
     colors: state.ui.colors,
@@ -89,17 +90,23 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
       </div>
       <div className={`relative z-0 flex-1 ${bordered ? "group-hover:border-gray-50 border-l border-solid border-gray-200" : ""} ${!boxLayout ? "pl-10.5 pb-12" : ""}`}>
         <div className="pb-4">
-          <div className="flex items-center space-x-1.5 pb-1.5 pt-1">
-            <div className="text-lg font-medium leading-tight">
-              <Link href={profileURL}>{user.displayName}</Link>
-            </div>
-            {user.reputation ? (
-              <Tag type="light-gray" className="leading-tight">
-                <Currency value={user.reputation} token="REP" />
-              </Tag>
-            ) : (
-              <></>
-            )}
+          <div className="flex gap-4 w-full overflow-hidden">
+            {teamMembers?.map((user, index) => {
+              return (
+                <div className="flex items-center space-x-1.5 pb-1.5 pt-1" key={`team-member-${index}`}>
+                  <div className="text-lg font-medium leading-tight">
+                    <Link href={profileURL}>{user.displayName}</Link>
+                  </div>
+                  {user.reputation ? (
+                    <Tag type="light-gray" className="leading-tight">
+                      <Currency value={user.reputation} token="REP" />
+                    </Tag>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              );
+            })}
           </div>
           <span className="block text-sm leading-snug text-gray-700 ">
             {timestamp.text}{" "}
