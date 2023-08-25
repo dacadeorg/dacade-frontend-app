@@ -13,7 +13,7 @@ import { useTranslation } from "next-i18next";
  * SetupTeamChallenge component.
  *
  * @returns {JSX.Element} The SetupTeamChallenge component JSX element.
- */
+ */ //
 export default function SetupTeamChallenge(): JSX.Element {
   const { challenge, invite, isAuthenticated } = useSelector((state) => ({
     challenge: state.challenges.current,
