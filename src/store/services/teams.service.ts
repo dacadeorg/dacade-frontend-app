@@ -1,6 +1,6 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
-import { setTeamData } from "../feature/teams.slice";
+import { setIsTeamDataLoading, setTeamData } from "../feature/teams.slice";
 import { setInviteStatus, setInvitesData } from "../feature/communities/challenges/invites.slice";
 import { Invite } from "@/types/challenge";
 
@@ -43,8 +43,10 @@ const teamsService = createApi({
         url: `/teams/challenge/${challengeId}`,
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        setIsTeamDataLoading(true);
         const { data } = await queryFulfilled;
         dispatch(setTeamData(data));
+        setIsTeamDataLoading(false);
         return data;
       },
     }),
@@ -59,7 +61,7 @@ const teamsService = createApi({
           dispatch(setInvitesData(data));
           return data;
         } catch (err) {
-          console.error("Current use has no invites!");
+          console.error("Current user has no invites!");
         }
       },
     }),
@@ -81,7 +83,7 @@ const teamsService = createApi({
         method: "POST",
         body: payload,
       }),
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async (payload, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
           if (data.invites.length > 0) dispatch(setInviteStatus("sent"));
@@ -89,6 +91,8 @@ const teamsService = createApi({
         } catch (err: any) {
           dispatch(setInviteStatus(err.status));
           console.error("Error", err);
+        } finally {
+          teamsService.endpoints.getTeamByChallenge.initiate(payload.challenge_id as string);
         }
 
         return;
