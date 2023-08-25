@@ -20,7 +20,7 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
   const router = useRouter();
   const route = router.asPath;
   const [loading, setLoading] = useState(true);
-  const user = useSelector((state) => state.user.data);
+  const { user, authUser } = useSelector((state) => ({ user: state.user.data, authUser: state.user.data }));
 
   function matchesRoutes(path: string, routes: string[]) {
     const matches = routes?.filter((route) => path === route);
@@ -74,7 +74,8 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
       }
 
       if (route.startsWith("/profile") && auth && auth.emailVerified) {
-        dispatch(fetchUserProfile((auth?.displayName as string) || ""));
+        const username = (router.query.username as string) || authUser?.username || "";
+        dispatch(fetchUserProfile(username));
         dispatch(fetchAllProfileCommunities(auth?.displayName || ""));
       }
 
