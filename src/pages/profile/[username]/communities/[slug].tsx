@@ -47,7 +47,10 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
   const slug = query?.slug;
   const username = query?.username;
 
-  const { data } = await store.dispatch(fetchProfileCommunity({ username: (username as string) || "", slug: (slug as string) || "" }));
+  const [{ data }, translations] = await Promise.all([
+    store.dispatch(fetchProfileCommunity({ username: (username as string) || "", slug: (slug as string) || "" })),
+    serverSideTranslations(locale as string),
+  ]);
 
   return {
     props: {
@@ -55,7 +58,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
       feedbacks: data.feedbacks,
       submissions: data.submissions,
       reputation: data.reputation,
-      ...(await serverSideTranslations(locale as string)),
+      ...translations,
     },
   };
 };
