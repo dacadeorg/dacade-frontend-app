@@ -102,6 +102,7 @@ export interface Submission {
   status: string;
   evaluation?: Evaluation;
   reward: Reward;
+  team_ref: string;
 }
 
 export interface SubmissionMetadata {

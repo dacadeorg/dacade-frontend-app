@@ -56,6 +56,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
   return (
     <UserCard
       user={submission.user}
+      submission={submission}
       timestamp={{
         date: submission.created_at,
         text: t("submissions.submitted"),

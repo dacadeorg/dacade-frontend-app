@@ -3,12 +3,13 @@ import Badge from "@/components/ui/Badge";
 import Currency from "@/components/ui/Currency";
 import Tag from "@/components/ui/Tag";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { User } from "@/types/bounty";
+import { User, Submission } from "@/types/bounty";
 import DateManager from "@/utilities/DateManager";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
+import TeamProfile from "./TeamProfile";
 
 /**
  * Interface for the user props
@@ -29,6 +30,7 @@ interface UserProps {
   };
   children?: ReactNode;
   className?: string;
+  submission: Submission;
 }
 
 /**
@@ -47,7 +49,7 @@ interface UserProps {
 }
  * @returns {ReactElement}
  */
-export default function UserCard({ boxLayout, link, bordered, user, badge = "", timestamp, children, className }: UserProps): ReactElement {
+export default function UserCard({ boxLayout, link, bordered, user, badge = "", timestamp, children, className, submission }: UserProps): ReactElement {
   const { locale } = useRouter();
   const { colors } = useSelector((state) => ({
     colors: state.ui.colors,
@@ -73,18 +75,24 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
   return (
     <div className={userCardClassName}>
       <div className={`z-10 ${boxLayout ? "relative flex-none" : "absolute top-0 left-0"}`}>
-        <Avatar user={user} size="medium" />
-        {badge && (
-          <Badge
-            value={badge}
-            className="absolute"
-            size="medium"
-            customStyle={{
-              bottom: "-1px",
-              right: "-3px",
-              backgroundColor: colors.textAccent,
-            }}
-          />
+        {submission?.team_ref ? (
+          <TeamProfile avatars={submission.user.avatar} />
+        ) : (
+          <>
+            <Avatar user={user} size="medium" />
+            {badge && (
+              <Badge
+                value={badge}
+                className="absolute"
+                size="medium"
+                customStyle={{
+                  bottom: "-1px",
+                  right: "-3px",
+                  backgroundColor: colors.textAccent,
+                }}
+              />
+            )}
+          </>
         )}
       </div>
       <div className={`relative z-0 flex-1 ${bordered ? "group-hover:border-gray-50 border-l border-solid border-gray-200" : ""} ${!boxLayout ? "pl-10.5 pb-12" : ""}`}>
