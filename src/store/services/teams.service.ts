@@ -44,8 +44,10 @@ const teamsService = createApi({
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
-        dispatch(setTeamData(data));
-        return data;
+        if (data) {
+          dispatch(setTeamData(data));
+          return data;
+        }
       },
     }),
 

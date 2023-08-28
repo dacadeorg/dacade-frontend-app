@@ -185,9 +185,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                   <div className=" text-sm text-gray-700 font-medium">{member?.displayName}</div>
                   <div className=" text-gray-400 text-xs">{status}</div>
                 </div>
-                {isCurrentUserOrganiser && status === "Team member" && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
+                {!team.locked && isCurrentUserOrganiser && status === "Team member" && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
                 {isCurrentUserOrganiser && status === "PENDING" && <Button onClick={() => cancelInvite(id)} text="Cancel" />}
-                {!isCurrentUserOrganiser && user?.id === member?.id && <Button onClick={() => leaveMyTeam()} text="Leave" />}
+                {!team.locked && !isCurrentUserOrganiser && user?.id === member?.id && <Button onClick={() => leaveMyTeam()} text="Leave" />}
               </div>
             );
           })}
