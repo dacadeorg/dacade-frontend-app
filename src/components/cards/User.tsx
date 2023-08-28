@@ -30,7 +30,7 @@ interface UserProps {
   };
   children?: ReactNode;
   className?: string;
-  submission: Submission;
+  submission?: Submission;
 }
 
 /**
