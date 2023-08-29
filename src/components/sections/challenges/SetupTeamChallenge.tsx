@@ -5,7 +5,7 @@ import SubmissionTeamCard from "@/components/cards/SubmissionTeam";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { authCheck } from "@/store/feature/auth.slice";
-import { getUserInvitesByChallenge } from "@/store/services/teams.service";
+import { getTeamByChallenge, getUserInvitesByChallenge } from "@/store/services/teams.service";
 import ConfirmTeamInvitation from "@/components/cards/challenge/ConfirmTeamInvitation";
 import { useTranslation } from "next-i18next";
 
@@ -25,6 +25,7 @@ export default function SetupTeamChallenge(): JSX.Element {
   useEffect(() => {
     if (challenge && isAuthenticated) {
       dispatch(getUserInvitesByChallenge(challenge.id));
+      dispatch(getTeamByChallenge(challenge.id));
     }
   }, [challenge, isAuthenticated]);
 

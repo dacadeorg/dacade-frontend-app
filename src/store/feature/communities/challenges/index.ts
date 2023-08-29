@@ -14,12 +14,14 @@ interface ChallengeState {
   current: Challenge | null;
   list: Challenge[];
   submission: Submission | null;
+  loading: boolean;
 }
 
 const initialState: ChallengeState = {
   current: null,
   list: [],
   submission: null,
+  loading: false,
 };
 
 /**
@@ -40,6 +42,9 @@ export const challengeSlice = createSlice({
     setChallengeSubmission(state, action) {
       state.submission = action.payload;
     },
+    setSubmissionLoading(state, action) {
+      state.loading = action.payload;
+    },
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
@@ -51,6 +56,6 @@ export const challengeSlice = createSlice({
   },
 });
 
-export const { setCurrentChallenge, setChallengesList, setChallengeSubmission } = challengeSlice.actions;
+export const { setCurrentChallenge, setChallengesList, setChallengeSubmission, setSubmissionLoading } = challengeSlice.actions;
 
 export default challengeSlice;

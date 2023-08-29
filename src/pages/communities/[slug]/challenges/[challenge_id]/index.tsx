@@ -30,6 +30,7 @@ import { initChallengeNavigationMenu } from "@/store/feature/communities/navigat
 import Objectives from "@/components/sections/challenges/Objectives";
 import { getTeamByChallenge } from "@/store/services/teams.service";
 import { fetchChallenge, fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
+import Loader from "@/components/ui/Loader";
 /**
  * Challenge view page
  * @date 4/25/2023 - 8:12:39 PM
@@ -54,9 +55,10 @@ export default function ChallengePage(props: {
   const { challenge, community } = props.pageProps;
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { submission, isAuthenticated } = useSelector((state) => ({
+  const { submission, isAuthenticated, isSubmissionLoading } = useSelector((state) => ({
     submission: state.challenges.submission,
     isAuthenticated: authCheck(state),
+    isSubmissionLoading: state.challenges.loading,
   }));
 
   const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), challenge?.name || ""), [challenge?.name, t]);
@@ -93,18 +95,24 @@ export default function ChallengePage(props: {
 
           {isAuthenticated && (
             <div>
-              {submission ? (
-                <div className="mt-8">
-                  <h4 className="my-8 text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
-                  <SubmissionCard submission={submission} />
+              {isSubmissionLoading ? (
+                <div className="h-24 sm:h-48 grid place-items-center">
+                  <Loader />
                 </div>
-              ) : challenge.isTeamChallenge ? (
-                <>
-                  <SetupTeamChallenge />
-                  <SubmissionForm />
-                </>
               ) : (
-                <SubmissionForm />
+                <>
+                  {submission ? (
+                    <div className="mt-8">
+                      <h4 className="my-8 text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
+                      <SubmissionCard submission={submission} />
+                    </div>
+                  ) : (
+                    <>
+                      {challenge.isTeamChallenge && <SetupTeamChallenge />}
+                      <SubmissionForm />
+                    </>
+                  )}
+                </>
               )}
             </div>
           )}

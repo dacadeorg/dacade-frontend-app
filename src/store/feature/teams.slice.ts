@@ -1,14 +1,9 @@
-import { User } from "@/types/bounty";
-import { Invite, Team } from "@/types/challenge";
+import { Team } from "@/types/challenge";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface DefaultState {
   current: Team;
-}
-
-interface ReturnedInvite {
-  invite: Invite;
-  member?: User;
+  loading: boolean;
 }
 
 const defaultState: DefaultState = {
@@ -25,6 +20,7 @@ const defaultState: DefaultState = {
     teamMembers: [],
     teamInvites: [],
   },
+  loading: false,
 };
 const teamsSlice = createSlice({
   name: "teams",
@@ -33,13 +29,12 @@ const teamsSlice = createSlice({
     setTeamData: (state, action) => {
       state.current = action.payload;
     },
-    setTeamDataAndInvites: (state, action) => {
-      const returnedInvites = action.payload.invites.map((invite: ReturnedInvite) => ({ ...invite.invite, user: invite.member }));
-      state.current = { ...action.payload.team, teamInvites: returnedInvites };
+    setIsTeamDataLoading: (state, action) => {
+      state.loading = action.payload;
     },
   },
 });
 
-export const { setTeamData, setTeamDataAndInvites } = teamsSlice.actions;
+export const { setTeamData, setIsTeamDataLoading } = teamsSlice.actions;
 
 export default teamsSlice;
