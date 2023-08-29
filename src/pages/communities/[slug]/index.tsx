@@ -42,13 +42,17 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
   try {
     const slug = params?.slug as string;
 
-    const [{ data: community }, { data: challenges }] = await Promise.all([store.dispatch(fetchCurrentCommunity({ slug, locale })), store.dispatch(fetchAllChallenges({ slug }))]);
+    const [{ data: community }, { data: challenges }, translations] = await Promise.all([
+      store.dispatch(fetchCurrentCommunity({ slug, locale })),
+      store.dispatch(fetchAllChallenges({ slug })),
+      serverSideTranslations(locale as string),
+    ]);
 
     return {
       props: {
         community,
         challenges,
-        ...(await serverSideTranslations(locale as string)),
+        ...translations,
       },
     };
   } catch (error) {

@@ -128,14 +128,15 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   };
 
   try {
-    const [{ data: community }, { data: challenge }] = await Promise.all([
+    const [{ data: community }, { data: challenge }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity(fetchPayload)),
       store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
+      serverSideTranslations(locale as string),
     ]);
 
     return {
       props: {
-        ...(await serverSideTranslations(data.locale as string)),
+        ...translations,
         community,
         challenge,
       },
