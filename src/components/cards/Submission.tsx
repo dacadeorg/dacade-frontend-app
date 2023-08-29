@@ -2,9 +2,9 @@ import Badge from "@/components/ui/Badge";
 import UserCard from "@/components/cards/User";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { Submission } from "@/types/bounty";
+import { Submission, User } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
-import { ReactElement, ReactNode, useCallback } from "react";
+import { ReactElement, ReactNode, useCallback, useEffect, useState } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { showSubmission } from "@/store/feature/communities/challenges/submissions";
 import { useRouter } from "next/router";
@@ -35,6 +35,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
   const { t } = useTranslation();
   const router = useRouter();
   const { colors } = useSelector((state) => ({ colors: state.ui.colors }));
+  const [members, setMembers] = useState<User[]>([]);
 
   const reviewed = submission?.metadata?.evaluation || submission?.metadata?.reviewed;
 
@@ -53,6 +54,18 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
     router.push({ query: { submission_id: submission?.id }, pathname: router.asPath }, undefined, { shallow: true });
   }, [router, submission?.id]);
 
+  useEffect(() => {
+    if (submission.team) {
+      const {
+        team: { organizer, members },
+      } = submission;
+      setMembers(() => [(organizer as User) || submission.user]);
+      members?.forEach(({ user }) => setMembers((prev) => [...prev, user]));
+    } else {
+      setMembers([submission.user]);
+    }
+  }, []);
+
   return (
     <UserCard
       user={submission.user}
@@ -60,6 +73,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
         date: submission.created_at,
         text: t("submissions.submitted"),
       }}
+      teamMembers={members}
       link={link}
       bordered={false}
       className="pt-6"

@@ -3,7 +3,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { useTranslation } from "next-i18next";
 import UserCard from "@/components/cards/User";
 import TranslationBox from "@/components/cards/TranslationBox";
-import { ReactElement, useEffect, useMemo, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { Submission, User } from "@/types/bounty";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { getTeamById } from "@/store/services/teams.service";
@@ -46,7 +46,7 @@ export default function SubmissionViewCard({ submission }: SubmissionViewCardPro
     teamData: state.teams.current,
   }));
 
-  const [submitters, setSubmitters] = useState<User[]>([]);
+  const [members, setMembers] = useState<User[]>([]);
 
   const language = (submission?.metadata?.language || "en") as DefaultLocale;
   const primaryButtonStyles = {
@@ -57,25 +57,27 @@ export default function SubmissionViewCard({ submission }: SubmissionViewCardPro
     "--button-background-color--hover": colors?.accent,
     "--button-border-color--hover": colors?.accent,
   };
-  const teamId = useMemo(() => {
-    if (!submission.team_ref) return "";
-    return submission.team_ref.split("/")[1];
-  }, [submission]);
 
   useEffect(() => {
-    if (teamId) dispatch(getTeamById(teamId));
-  }, [dispatch, teamId]);
+    const teamId = submission.team_ref ? submission.team_ref.split("/")[1] : "";
+    const fetchSubmissionByTeam = async () => {
+      if (teamId) await dispatch(getTeamById(teamId));
+    };
+    fetchSubmissionByTeam();
+  }, [dispatch, submission.team_ref]);
 
   useEffect(() => {
     if (teamData) {
-      setSubmitters(() => [teamData.organizer as User]);
-      teamData.teamMembers?.forEach(({ user }) => setSubmitters((prev) => [...prev, user]));
+      setMembers(() => [teamData.organizer as User]);
+      teamData.members?.forEach(({ user }) => setMembers((prev) => [...prev, user]));
+    } else {
+      setMembers([submission.user]);
     }
-  }, [teamData]);
+  }, [submission.user, teamData]);
   return (
     <UserCard
       user={submission.user}
-      teamMembers={teamId ? submitters : [submission.user]}
+      teamMembers={members}
       timestamp={{
         date: submission.created_at,
         text: t("submissions.submitted"),
