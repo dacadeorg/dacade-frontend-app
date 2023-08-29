@@ -86,10 +86,11 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   const { slug, challenge_id } = query;
   const { dispatch } = store;
 
-  const [{ data: currentCommunity }, { payload: submissions }, { data: challenge }] = await Promise.all([
+  const [{ data: currentCommunity }, { payload: submissions }, { data: challenge }, translations] = await Promise.all([
     dispatch(fetchCurrentCommunity({ slug: slug as string, locale: locale as string })),
     dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: locale as string })),
     dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
+    serverSideTranslations(locale as string),
   ]);
 
   return {
@@ -97,7 +98,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       currentCommunity,
       submissions,
       challenge,
-      ...(await serverSideTranslations(locale as string)),
+      ...translations,
     },
   };
 });

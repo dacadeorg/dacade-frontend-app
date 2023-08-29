@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/dist/query";
 import baseQuery from "@/config/baseQuery";
-import { setChallengesList, setChallengeSubmission, setCurrentChallenge } from "@/store/feature/communities/challenges";
+import { setChallengesList, setChallengeSubmission, setCurrentChallenge, setSubmissionLoading } from "@/store/feature/communities/challenges";
 import queryString from "query-string";
 
 /**
@@ -48,8 +48,10 @@ export const challengeService = createApi({
         };
       },
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        dispatch(setSubmissionLoading(true));
         const { data } = await queryFulfilled;
         dispatch(setChallengeSubmission(data.submission));
+        dispatch(setSubmissionLoading(false));
         return data;
       },
     }),
