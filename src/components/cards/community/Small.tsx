@@ -29,7 +29,7 @@ interface CommunityCardSmallProps {
  */
 export default function CommunityCardSmall({ data }: CommunityCardSmallProps): ReactElement {
   return (
-    <div className="bg-gray-100 rounded-full pl-2 py-2 flex items-center w-fit">
+    <div className="bg-gray-100 w-full rounded-full pl-2 py-2 flex items-center">
       <a target="__blank" className="block flex-none">
         <div className="w-10 h-10 rounded-full border border-solid flex items-center" style={{ backgroundColor: data.community.colors.primary }}>
           <Image src={data.community.icon} className="mx-auto text-center flex items-center w-5" alt="Community icon" width={20} height={20} />
