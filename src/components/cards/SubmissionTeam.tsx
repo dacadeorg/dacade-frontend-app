@@ -206,9 +206,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                     loadOptions={loadUserOptions}
                     onChange={(option) => {
                       // TODO: check if the team is actually closed instead of using this condition
-                      if (team?.teamMembers && team.teamMembers.length >= 2) {
-                        return;
-                      } else {
+                      if (!(team?.teamMembers && team.teamMembers.length >= 2)) {
                         if (option) selectTeamMember(option);
                       }
                     }}
