@@ -67,7 +67,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): any {
   const toggle = () => {
     setshow(!show);
 
-    if (isAuthenticated && show && unread) {
+    if (isAuthenticated && unread) {
       dispatch(readNotification());
     }
     toggleBodyScrolling(show)(dispatch);
