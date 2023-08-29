@@ -91,10 +91,11 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
     const challenge_id = params?.challenge_id as string;
     const learningModule_id = params?.id as string;
 
-    const [{ data: community }, { data: challenge }, { payload: learningModule }] = await Promise.all([
+    const [{ data: community }, { data: challenge }, { payload: learningModule }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug: communitySlug, locale })),
       store.dispatch(fetchChallenge({ id: challenge_id })),
       store.dispatch(findLearningModule(learningModule_id)),
+      serverSideTranslations(locale as string),
     ]);
 
     if (Object.entries(community).length === 0 || Object.entries(challenge).length === 0 || Object.entries(learningModule).length === 0) {
@@ -107,7 +108,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
         community,
         learningModule,
         challenge,
-        ...(await serverSideTranslations(locale as string)),
+        ...translations,
       },
     };
   } catch (error) {
