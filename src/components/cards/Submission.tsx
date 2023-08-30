@@ -76,7 +76,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
                 <span className="font-semibold">
                   {submission.reward.amount} {submission.reward.token}
                 </span>
-                {t("submissions.feedback.bounty")}
+                <span> {t("submissions.feedback.bounty")}</span>
               </div>
             ) : (
               <></>

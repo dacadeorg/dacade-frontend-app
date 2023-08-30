@@ -4,12 +4,13 @@ import AsyncSelect from "react-select/async";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { User } from "@/types/bounty";
-import { cancelTeamInvite, createTeam, getTeamByChallenge, getUserInvitesByChallenge, removeTeamMember } from "@/store/services/teams.service";
+import { cancelTeamInvite, createTeam, getTeamByChallenge, removeTeamMember } from "@/store/services/teams.service";
 import { getUserByUsername } from "@/store/services/user.service";
-import { authCheck } from "@/store/feature/auth.slice";
 import { setInviteStatus } from "@/store/feature/communities/challenges/invites.slice";
 import Button from "./challenge/_partials/Button";
 import debounce from "lodash.debounce";
+import Loader from "../ui/Loader";
+
 /**
  * Props for the SubmissionTeam component.
  */
@@ -53,13 +54,13 @@ interface Option {
  */
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  const { challenge, user, team, isAuthenticated, inviteStatus } = useSelector((state) => ({
+  const { challenge, user, team, inviteStatus, isTeamLoading } = useSelector((state) => ({
     challenge: state.challenges.current,
     user: state.user.data,
     team: state.teams.current,
-    isAuthenticated: authCheck(state),
     invite: state.invites.data,
     inviteStatus: state.invites.inviteStatus,
+    isTeamLoading: state.teams.loading,
   }));
 
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
@@ -78,14 +79,6 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   };
 
   const loadUserOptions = debounce(filterUsers, 1000);
-
-  //Fetch members for the team that the current user organised if any
-  useEffect(() => {
-    if (challenge && isAuthenticated) {
-      dispatch(getTeamByChallenge(challenge.id));
-      dispatch(getUserInvitesByChallenge(challenge.id));
-    }
-  }, [challenge, isAuthenticated]);
 
   useEffect(() => {
     if (team) {
@@ -166,51 +159,59 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
           </div>
           <div className="text-sm font-normal text-gray-700 max-w-xxs pb-2">{text}</div>
 
-          {membersList.map(({ status, user: member, id }, index) => {
-            return (
-              <div className="flex items-center w-full pr-0" key={`team-member-${index}`}>
-                <div className="flex space-x-1 pr-3.5">
-                  <Avatar user={member} size="medium-fixed" />
-                </div>
-                <div className="flex flex-col">
-                  <div className=" text-sm text-gray-700 font-medium">{member?.displayName}</div>
-                  <div className=" text-gray-400 text-xs">{status}</div>
-                </div>
-                {isCurrentUserOrganiser && status === "Team member" && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
-                {isCurrentUserOrganiser && status === "PENDING" && <Button onClick={() => cancelInvite(id)} text="Cancel" />}
-                {!isCurrentUserOrganiser && user?.id === member?.id && <Button onClick={() => leaveMyTeam()} text="Leave" />}
-              </div>
-            );
-          })}
-          {(team && isCurrentUserOrganiser) || !isCurrentUserMember ? (
-            <div>
-              <AsyncSelect
-                cacheOptions
-                styles={{
-                  input: (baseStyles) => ({
-                    ...baseStyles,
-                    input: {
-                      height: "36px",
-                    },
-                  }),
-                }}
-                placeholder="Enter dacade username"
-                defaultOptions={[]}
-                className="text-lg"
-                isClearable={true}
-                loadOptions={loadUserOptions}
-                onChange={(option) => {
-                  // TODO: check if the team is actually closed instead of using this condition
-                  if (team?.teamMembers && team.teamMembers.length >= 2) {
-                    return;
-                  } else {
-                    if (option) selectTeamMember(option);
-                  }
-                }}
-              />
+          {isTeamLoading ? (
+            <div className="h-24 sm:h-48 grid place-items-center">
+              <Loader />
             </div>
           ) : (
-            <></>
+            <>
+              {membersList.map(({ status, user: member, id }, index) => {
+                return (
+                  <div className="flex items-center w-full pr-0" key={`team-member-${index}`}>
+                    <div className="flex space-x-1 pr-3.5">
+                      <Avatar user={member} size="medium-fixed" />
+                    </div>
+                    <div className="flex flex-col">
+                      <div className=" text-sm text-gray-700 font-medium">{member?.displayName}</div>
+                      <div className=" text-gray-400 text-xs">{status}</div>
+                    </div>
+                    {isCurrentUserOrganiser && status === "Team member" && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
+                    {isCurrentUserOrganiser && status === "PENDING" && <Button onClick={() => cancelInvite(id)} text="Cancel" />}
+                    {!isCurrentUserOrganiser && user?.id === member?.id && <Button onClick={() => leaveMyTeam()} text="Leave" />}
+                  </div>
+                );
+              })}
+              {(team && isCurrentUserOrganiser) || !isCurrentUserMember ? (
+                <div>
+                  <AsyncSelect
+                    cacheOptions
+                    styles={{
+                      input: (baseStyles) => ({
+                        ...baseStyles,
+                        input: {
+                          height: "36px",
+                        },
+                      }),
+                    }}
+                    placeholder="Enter dacade username"
+                    defaultOptions={[]}
+                    className="text-lg"
+                    isClearable={true}
+                    loadOptions={loadUserOptions}
+                    onChange={(option) => {
+                      // TODO: check if the team is actually closed instead of using this condition
+                      if (team?.teamMembers && team.teamMembers.length >= 2) {
+                        return;
+                      } else {
+                        if (option) selectTeamMember(option);
+                      }
+                    }}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
+            </>
           )}
         </div>
       </div>
