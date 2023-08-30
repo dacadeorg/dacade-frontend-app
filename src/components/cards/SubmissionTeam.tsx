@@ -54,7 +54,6 @@ interface Option {
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
   const { challenge, user, team, isAuthenticated, inviteStatus } = useSelector((state) => ({
-    searchResult: state.user.searchUser,
     challenge: state.challenges.current,
     user: state.user.data,
     team: state.teams.current,
