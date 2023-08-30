@@ -2,6 +2,8 @@ import { Challenge, Course, Metadata, Reward } from "./course";
 import { Colors, Referral } from "./community";
 import { ReactNode } from "react";
 import { Feedback } from "./feedback";
+import { Team } from "./challenge";
+
 
 export interface Bounty {
   url: string;
@@ -103,6 +105,8 @@ export interface Submission {
   evaluation?: Evaluation;
   reward: Reward;
   team_ref: string;
+  team: Team;
+
 }
 
 export interface SubmissionMetadata {

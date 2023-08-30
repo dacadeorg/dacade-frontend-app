@@ -59,6 +59,7 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
   const [humanizedDate, setHumanizedDate] = useState("");
   const [date, setDate] = useState("");
   const [profileURL, setProfileURL] = useState("");
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     setHumanizedDate(DateManager.fromNow(timestamp.date, locale));
@@ -71,12 +72,21 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
     "pl-5 sm:pl-7.5": !boxLayout,
     "cursor-pointer": link,
   });
+  useEffect(() => {
+    if (submission?.team) {
+      const {
+        team: { organizer, members },
+      } = submission;
+      const updatedMembers = [(organizer as User) || submission?.user, ...members.map(({ user }) => user)];
+      setUsers(updatedMembers);
+    }
+  }, [submission]);
 
   return (
     <div className={userCardClassName}>
       <div className={`z-10 ${boxLayout ? "relative flex-none" : "absolute top-0 left-0"}`}>
-        {submission?.team_ref ? (
-          <TeamProfile avatars={submission.user.avatar} />
+        {submission?.team ? (
+          <TeamProfile users={users} />
         ) : (
           <>
             <Avatar user={user} size="medium" />
