@@ -69,7 +69,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
       </Head>
       <Wrapper paths={headerPaths}>
         <div className="flex flex-col py-4 space-y-8 text-gray-700">
-          <Header title={challenge?.name} subtitle={t("communities.submission.title")} />
+          <Header title={challenge?.name} subtitle={t("communities.submission.title")} isTeamChallenge={challenge?.isTeamChallenge} />
           <SubmissionList />
         </div>
         <SubmissionPopup show={!!selectedSubmission} submissionId={selectedSubmission} onClose={handleCloseSubmission} />
