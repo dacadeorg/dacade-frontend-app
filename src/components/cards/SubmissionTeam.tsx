@@ -68,14 +68,12 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   const [isCurrentUserOrganiser, setIsCurrentUserOrganiser] = useState(false);
   const dispatch = useDispatch();
 
-  const filterUsers = (username: string, callback: any) => {
-    return dispatch(getUserByUsername(username)).then(({ data = [] }) => {
-      return callback(
-        data?.map((user: User) => {
-          return { value: user.id, label: user.displayName, user };
-        })
-      );
+  const filterUsers = async (username: string, callback: any) => {
+    const { data = [] } = await dispatch(getUserByUsername(username));
+    const users = data?.map((user: User) => {
+      return { value: user.id, label: user.displayName, user };
     });
+    return callback(users);
   };
 
   const loadUserOptions = debounce(filterUsers, 1000);
