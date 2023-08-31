@@ -5,8 +5,6 @@ import UserCard from "@/components/cards/User";
 import TranslationBox from "@/components/cards/TranslationBox";
 import { ReactElement, useEffect, useState } from "react";
 import { Submission, User } from "@/types/bounty";
-import { useDispatch } from "@/hooks/useTypedDispatch";
-import { getTeamById } from "@/store/services/teams.service";
 
 /**
  * Type for the default locale
@@ -40,10 +38,9 @@ interface SubmissionViewCardProps {
  */
 export default function SubmissionViewCard({ submission }: SubmissionViewCardProps): ReactElement {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { colors, teamData } = useSelector((state) => ({
+  const { colors, authUser } = useSelector((state) => ({
     colors: state.ui.colors,
-    teamData: state.teams.current,
+    authUser: state.user.data,
   }));
 
   const [members, setMembers] = useState<User[]>([]);
@@ -59,24 +56,18 @@ export default function SubmissionViewCard({ submission }: SubmissionViewCardPro
   };
 
   useEffect(() => {
-    const teamId = submission.team_ref ? submission.team_ref.split("/")[1] : "";
-    const fetchSubmissionByTeam = async () => {
-      if (teamId) await dispatch(getTeamById(teamId));
-    };
-    fetchSubmissionByTeam();
-  }, [dispatch, submission.team_ref]);
-
-  useEffect(() => {
-    if (teamData) {
-      setMembers(() => [teamData.organizer as User]);
-      teamData.members?.forEach(({ user }) => setMembers((prev) => [...prev, user]));
-    } else {
-      setMembers([submission.user]);
+    if (submission?.team) {
+      const { organizer, members } = submission.team;
+      if (members) {
+        const updatedMembers = [organizer || (authUser as User) || submission?.user, ...members.map(({ user }) => user)];
+        setMembers(updatedMembers);
+      }
     }
-  }, [submission.user, teamData]);
+  }, [authUser, submission]);
+
   return (
     <UserCard
-      user={submission.user}
+      user={submission.user || authUser}
       teamMembers={members}
       timestamp={{
         date: submission.created_at,
