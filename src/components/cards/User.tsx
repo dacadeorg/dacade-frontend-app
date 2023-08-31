@@ -9,7 +9,6 @@ import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
-import TeamProfile from "./TeamProfile";
 
 /**
  * Interface for the user props
@@ -65,7 +64,7 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
   useEffect(() => {
     setHumanizedDate(DateManager.fromNow(timestamp.date, locale));
     setDate(DateManager.intlFormat(timestamp.date, locale));
-    setProfileURL(`/profile/${user.username}`);
+    setProfileURL(`/profile/${user?.username}`);
   }, [timestamp, user, locale]);
 
   const userCardClassName = classNames(`group bg-gradient-to-trw-full relative ${className}`, {
@@ -90,7 +89,11 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
     <div className={userCardClassName}>
       <div className={`z-10 ${boxLayout ? "relative flex-none" : "absolute top-0 left-0"}`}>
         {submission?.team ? (
-          <TeamProfile users={users} />
+          <div className="w-15 h-15 rounded-full overflow-hidden grid grid-cols-2 bg-green-800 items-between">
+            {users?.map((user) => (
+              <Avatar key={user.id} user={user} shape="squared" size="fixed" />
+            ))}
+          </div>
         ) : (
           <>
             <Avatar user={user} size="medium" />
