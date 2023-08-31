@@ -3,8 +3,10 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { useTranslation } from "next-i18next";
 import UserCard from "@/components/cards/User";
 import TranslationBox from "@/components/cards/TranslationBox";
-import { ReactElement } from "react";
-import { Submission } from "@/types/bounty";
+import { ReactElement, useEffect, useState } from "react";
+import { Submission, User } from "@/types/bounty";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { getTeamById } from "@/store/services/teams.service";
 
 /**
  * Type for the default locale
@@ -38,7 +40,13 @@ interface SubmissionViewCardProps {
  */
 export default function SubmissionViewCard({ submission }: SubmissionViewCardProps): ReactElement {
   const { t } = useTranslation();
-  const colors = useSelector((state) => state.ui.colors);
+  const dispatch = useDispatch();
+  const { colors, teamData } = useSelector((state) => ({
+    colors: state.ui.colors,
+    teamData: state.teams.current,
+  }));
+
+  const [members, setMembers] = useState<User[]>([]);
 
   const language = (submission?.metadata?.language || "en") as DefaultLocale;
   const primaryButtonStyles = {
@@ -50,9 +58,26 @@ export default function SubmissionViewCard({ submission }: SubmissionViewCardPro
     "--button-border-color--hover": colors?.accent,
   };
 
+  useEffect(() => {
+    const teamId = submission.team_ref ? submission.team_ref.split("/")[1] : "";
+    const fetchSubmissionByTeam = async () => {
+      if (teamId) await dispatch(getTeamById(teamId));
+    };
+    fetchSubmissionByTeam();
+  }, [dispatch, submission.team_ref]);
+
+  useEffect(() => {
+    if (teamData) {
+      setMembers(() => [teamData.organizer as User]);
+      teamData.members?.forEach(({ user }) => setMembers((prev) => [...prev, user]));
+    } else {
+      setMembers([submission.user]);
+    }
+  }, [submission.user, teamData]);
   return (
     <UserCard
       user={submission.user}
+      teamMembers={members}
       timestamp={{
         date: submission.created_at,
         text: t("submissions.submitted"),

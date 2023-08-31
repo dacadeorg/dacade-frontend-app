@@ -4,7 +4,6 @@ import { ReactNode } from "react";
 import { Feedback } from "./feedback";
 import { Team } from "./challenge";
 
-
 export interface Bounty {
   url: string;
   image: string | undefined;
@@ -89,6 +88,7 @@ export interface Submission {
   map(arg0: (submission: Submission) => JSX.Element): ReactNode;
   id: string;
   ref: string;
+  team_ref?: string;
   created_at: Date;
   updated_at: Date;
   link: string;
@@ -104,9 +104,7 @@ export interface Submission {
   status: string;
   evaluation?: Evaluation;
   reward: Reward;
-  team_ref: string;
-  team: Team;
-
+  team?: Team;
 }
 
 export interface SubmissionMetadata {
