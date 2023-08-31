@@ -105,7 +105,7 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
               return (
                 <div className="flex items-center space-x-1.5 pb-1.5 pt-1" key={`team-member-${index}`}>
                   <div className="text-lg font-medium leading-tight">
-                    <Link href={profileURL}>{user?.displayName}</Link>
+                    <Link href={profileURL}>{user?.username}</Link>
                   </div>
                   {user.reputation ? (
                     <Tag type="light-gray" className="leading-tight">
