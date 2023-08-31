@@ -15,7 +15,7 @@ import api from "@/config/api";
  * @export
  * @returns {ReactElement}
  */
-export default function DiscordConnect(): ReactElement {
+export default function DiscordConnect({ username }: { username: string }): ReactElement {
   const [discordError, setDiscordError] = useState<string | boolean>(false);
   const [discordSuccess, setDiscordSuccess] = useState(false);
   const [discordLoading, setDiscordLoading] = useState(false);
@@ -49,6 +49,7 @@ export default function DiscordConnect(): ReactElement {
    *
    * @type {Function}
    */
+  console.log("username:", username);
   const discordCallback = useCallback(async () => {
     try {
       const { code } = router.query;
@@ -72,7 +73,7 @@ export default function DiscordConnect(): ReactElement {
       setDiscordError(true);
     } finally {
       setDiscordLoading(false);
-      router.replace({ query: {} });
+      router.replace({ query: username ? { username: username } : {} });
     }
   }, []);
 
