@@ -89,9 +89,9 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
     <div className={userCardClassName}>
       <div className={`z-10 ${boxLayout ? "relative flex-none" : "absolute top-0 left-0"}`}>
         {submission?.team ? (
-          <div className="w-15 h-15 rounded-full overflow-hidden grid grid-cols-2 bg-green-800 items-between">
+          <div className="w-15 h-15 rounded-full bg-gray-800 overflow-hidden grid grid-cols-2 items-between">
             {users?.map((user) => (
-              <Avatar key={user.id} user={user} shape="squared" size="fixed" />
+              <Avatar key={user.id} user={user} shape="squared" size="fixed" hideVerificationBadge={true} />
             ))}
           </div>
         ) : (
