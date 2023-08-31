@@ -5,7 +5,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import { GetServerSideProps } from "next";
-import { store } from "@/store";
+import { wrapper } from "@/store";
 import { fetchProfileCommunity } from "@/store/services/profile/profileCommunities.service";
 import { Community } from "@/types/community";
 import { Feedback } from "@/types/feedback";
@@ -43,12 +43,11 @@ ProfileCommunities.getLayout = function (page: ReactElement) {
   return <ProfileLayout>{page}</ProfileLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
-  const slug = query?.slug;
-  const username = query?.username;
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ locale, query }) => {
+  const { slug, username } = query;
 
   const [{ data }, translations] = await Promise.all([
-    store.dispatch(fetchProfileCommunity({ username: (username as string) || "", slug: (slug as string) || "" })),
+    store.dispatch(fetchProfileCommunity({ username: username as string, slug: slug as string })),
     serverSideTranslations(locale as string),
   ]);
 
@@ -61,4 +60,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
       ...translations,
     },
   };
-};
+});
