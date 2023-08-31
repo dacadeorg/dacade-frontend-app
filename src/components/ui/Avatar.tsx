@@ -77,7 +77,7 @@ export default function Avatar({
     "w-10 h-10 sm:h-12 sm:w-12 md:w-15 md:h-15 text-xl sm:text-2xl": size === "medium",
     "w-10 h-10 text-2xl": size === "medium-fixed",
     "w-7 h-7 text-xl": size === "small-fixed",
-    "w-[30px] h-[30px] text-sm": size === "fixed",
+    "w-7.5 h-7.5 text-sm font-bold": size === "fixed",
     "w-5 h-5 text-xl": size === "mini",
     "w-9 h-9 text-lg": size === "small",
   });
