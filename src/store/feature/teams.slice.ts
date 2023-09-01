@@ -22,7 +22,7 @@ const defaultState: DefaultState = {
     ref: "",
     timestamp: "",
     updated_at: "",
-    teamMembers: [],
+    members: [],
     teamInvites: [],
   },
 };
@@ -31,8 +31,8 @@ const teamsSlice = createSlice({
   initialState: defaultState,
   reducers: {
     setTeamData: (state, action) => {
-      const { locked, teamMembers } = action.payload;
-      const teamData = { ...action.payload, locked: teamMembers.length >= 2 || locked };
+      const { locked, members } = action.payload;
+      const teamData = { ...action.payload, locked: members.length >= 2 || locked };
       state.current = teamData;
     },
     setTeamDataAndInvites: (state, action) => {

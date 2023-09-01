@@ -100,8 +100,8 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     if (team) {
       if (team.organizer) setMembersList([{ user: team.organizer, status: "organizer", id: team.organizer_id }]);
 
-      if (team.teamMembers) {
-        team.teamMembers.forEach(({ user, id }) => {
+      if (team.members) {
+        team.members.forEach(({ user, id }) => {
           setMembersList((prev) => [...prev, { user: user, status: "Team member", id }]);
         });
       }
@@ -185,9 +185,18 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                   <div className=" text-sm text-gray-700 font-medium">{member?.displayName}</div>
                   <div className=" text-gray-400 text-xs">{status}</div>
                 </div>
-                {!team.locked && isCurrentUserOrganiser && status === "Team member" && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
-                {isCurrentUserOrganiser && status === "PENDING" && <Button onClick={() => cancelInvite(id)} text="Cancel" />}
-                {!team.locked && !isCurrentUserOrganiser && user?.id === member?.id && <Button onClick={() => leaveMyTeam()} text="Leave" />}
+                {!team.locked && (
+                  <>
+                    {isCurrentUserOrganiser ? (
+                      <>
+                        {status === "Team member" && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
+                        {status === "PENDING" && <Button onClick={() => cancelInvite(id)} text="Cancel" />}
+                      </>
+                    ) : (
+                      <> {user?.id === member?.id && <Button onClick={leaveMyTeam} text="Leave" />}</>
+                    )}
+                  </>
+                )}
               </div>
             );
           })}
@@ -207,11 +216,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                 defaultOptions={currentOptions}
                 loadOptions={loadUserOptions}
                 onChange={(option) => {
-                  if (team.locked) {
-                    return;
-                  } else {
-                    if (option) selectTeamMember(option);
-                  }
+                  if (!team.locked && option) selectTeamMember(option);
                 }}
               />
             </div>
