@@ -1,5 +1,6 @@
 import { Reputation } from "@/types/bounty";
 import { createSlice } from "@reduxjs/toolkit";
+import { HYDRATE } from "next-redux-wrapper";
 
 /**
  * Reputation state interface
@@ -23,6 +24,14 @@ const reputationSlice = createSlice({
     },
     clearReputationList(state) {
       state.list = [];
+    },
+  },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload["reputations"],
+      };
     },
   },
 });

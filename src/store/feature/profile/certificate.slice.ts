@@ -1,5 +1,6 @@
 import { Certificate } from "@/types/certificate";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { HYDRATE } from "next-redux-wrapper";
 
 interface ICertificateSlice {
   list: Certificate[];
@@ -38,6 +39,14 @@ export const certificateSlice = createSlice({
     clearCertificate(state) {
       state.list = [];
       state.current = null;
+    },
+  },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload["certificates"],
+      };
     },
   },
 });
