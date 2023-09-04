@@ -6,7 +6,6 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { User } from "@/types/bounty";
 import { cancelTeamInvite, createTeam, getTeamByChallenge, removeTeamMember } from "@/store/services/teams.service";
 import { getUserByUsername } from "@/store/services/user.service";
-import { setInviteStatus } from "@/store/feature/communities/challenges/invites.slice";
 import Button from "./challenge/_partials/Button";
 import debounce from "lodash.debounce";
 import Loader from "../ui/Loader";
@@ -54,18 +53,18 @@ interface Option {
  */
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  const { challenge, user, team, inviteStatus, isTeamLoading } = useSelector((state) => ({
+  const { challenge, user, team, isTeamLoading } = useSelector((state) => ({
     challenge: state.challenges.current,
     user: state.user.data,
     team: state.teams.current,
     invite: state.invites.data,
-    inviteStatus: state.invites.inviteStatus,
     isTeamLoading: state.teams.loading,
   }));
 
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
   const [isCurrentUserMember, setIsCurrentUserMember] = useState(false);
   const [isCurrentUserOrganiser, setIsCurrentUserOrganiser] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const filterUsers = async (username: string, callback: any) => {
@@ -107,23 +106,23 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     }
     if (membersList.length === 0) setMembersList([{ user, status: "organizer", id: user?.id as string }]);
 
-    setMembersList((prev) => [...prev, { user: option.user, status: "Sending invite", id: option.user.id }]);
     await dispatch(
       createTeam({
         challenge_id: challenge?.id,
         members: [option.user?.id],
       })
     );
+    refetchTeam();
   };
 
   const removeTeamMemberFromTeam = async (id: string) => {
     await dispatch(removeTeamMember({ member_id: id, team_id: team.id }));
-    if (challenge) dispatch(getTeamByChallenge(challenge.id));
+    refetchTeam();
   };
 
   const cancelInvite = async (id: string) => {
     await dispatch(cancelTeamInvite({ invite_id: id }));
-    if (challenge) dispatch(getTeamByChallenge(challenge.id));
+    refetchTeam();
   };
 
   const leaveMyTeam = () => {
@@ -131,21 +130,11 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     console.log("Team member is going to leave the team");
   };
 
-  useEffect(() => {
-    if (inviteStatus) {
-      let status = "";
-      if (inviteStatus === "sent") status = "PENDING";
-      else if (inviteStatus === "not sent") status = "Not sent";
-
-      setMembersList((prev) => {
-        const newMembersList = [...prev];
-        newMembersList[prev.length - 1].status = status;
-        return newMembersList;
-      });
-
-      dispatch(setInviteStatus(null));
-    }
-  }, [inviteStatus]);
+  const refetchTeam = async () => {
+    setLoading(true);
+    if (challenge) await dispatch(getTeamByChallenge(challenge.id));
+    setLoading(false);
+  };
 
   return (
     <div className="flex flex-col relative flex-grow p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">
@@ -157,7 +146,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
           </div>
           <div className="text-sm font-normal text-gray-700 max-w-xxs pb-2">{text}</div>
 
-          {isTeamLoading ? (
+          {isTeamLoading || loading ? (
             <div className="h-24 sm:h-48 grid place-items-center">
               <Loader />
             </div>
