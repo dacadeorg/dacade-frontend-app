@@ -13,17 +13,17 @@ To run the project, you will need the following: • Node.js (v16 or higher) •
 - google cloud functions
 - firebase
 ```
-#### Relevant commands
+## 3. Relevant commands
 
-### Install dependencies
+#### Install dependencies
 ```bash
 yarn
 ```
-### Serve with hot reload at localhost:3000
+#### Serve with hot reload at localhost:3000
 ```bash
 yarn run dev
 ```
-### Build for production and launch server
+#### Build for production and launch server
 ```bash
 yarn run build
 yarn start
