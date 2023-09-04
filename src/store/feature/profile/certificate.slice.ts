@@ -21,7 +21,7 @@ const initialState: ICertificateSlice = {
  * @type {*}
  */
 export const certificateSlice = createSlice({
-  name: "certificates",
+  name: "profileCertificate",
   initialState,
   reducers: {
     setCurrentCertificate(state, action: PayloadAction<Certificate>) {
@@ -45,7 +45,7 @@ export const certificateSlice = createSlice({
     [HYDRATE]: (state, action) => {
       return {
         ...state,
-        ...action.payload["certificates"],
+        ...action.payload["profileCertificate"],
       };
     },
   },

@@ -30,7 +30,7 @@ const initialState: InitialState = {
  * @type {*}
  */
 const communitiesProfile = createSlice({
-  name: "communities",
+  name: "profileCommunities",
   initialState,
   reducers: {
     setCurrentProfileCommunity(state, action: PayloadAction<Community>) {
@@ -64,7 +64,7 @@ const communitiesProfile = createSlice({
     [HYDRATE]: (state, action) => {
       return {
         ...state,
-        ...action.payload["communities"],
+        ...action.payload["profileCommunities"],
       };
     },
   },

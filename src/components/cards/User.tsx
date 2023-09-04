@@ -48,7 +48,7 @@ interface UserProps {
  * @returns {ReactElement}
  */
 export default function UserCard({ boxLayout, link, bordered, user, badge = "", timestamp, children, className }: UserProps): ReactElement {
-  const { locale } = useRouter();
+  const { locale, push } = useRouter();
   const { colors } = useSelector((state) => ({
     colors: state.ui.colors,
     community: state.communities.current,
@@ -114,7 +114,7 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
             </span>
           </span>
         </div>
-        {link ? <Link href={link}>{children}</Link> : <>{children}</>}
+        {link ? <div onClick={() => push(link)}>{children}</div> : <>{children}</>}
       </div>
     </div>
   );

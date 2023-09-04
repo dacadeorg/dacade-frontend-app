@@ -28,7 +28,7 @@ export const clearProfile = createAsyncThunk("profile/clear", async (_, { dispat
  * @type {*}
  */
 const userProfileSlice = createSlice({
-  name: "userProfile",
+  name: "profileUser",
   initialState,
   reducers: {
     setCurrentUserProfile(state, action: PayloadAction<any>) {
@@ -42,7 +42,7 @@ const userProfileSlice = createSlice({
     [HYDRATE]: (state, action) => {
       return {
         ...state,
-        ...action.payload["userProfile"],
+        ...action.payload["profileUser"],
       };
     },
   },

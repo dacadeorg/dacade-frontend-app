@@ -1,36 +1,14 @@
 import CommunityStats from "@/components/sections/profile/communities/Stats";
 import List from "@/components/sections/profile/communities/List";
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import { GetServerSideProps } from "next";
 import { wrapper } from "@/store";
 import { fetchProfileCommunity } from "@/store/services/profile/profileCommunities.service";
-import { Community } from "@/types/community";
-import { Feedback } from "@/types/feedback";
-import { Reputation, Submission } from "@/types/bounty";
-import { setCurrentProfileCommunity, setProfileCommunityFeedbacks, setProfileCommunityReputation, setProfileCommunitySubmissions } from "@/store/feature/profile/communities.slice";
-import { useDispatch } from "@/hooks/useTypedDispatch";
 
-export default function ProfileCommunities(props: {
-  pageProps: {
-    community: Community;
-    feedbacks: Feedback[];
-    submissions: Submission[];
-    reputation: Reputation;
-  };
-}) {
-  const dispatch = useDispatch();
-  const { community, feedbacks, reputation, submissions } = props.pageProps;
-
-  useEffect(() => {
-    dispatch(setCurrentProfileCommunity(community));
-    dispatch(setProfileCommunityFeedbacks(feedbacks));
-    dispatch(setProfileCommunitySubmissions(submissions));
-    dispatch(setProfileCommunityReputation(reputation));
-  }, [community, dispatch, feedbacks, reputation, submissions]);
-
+export default function ProfileCommunities() {
   return (
     <Fragment>
       <CommunityStats />

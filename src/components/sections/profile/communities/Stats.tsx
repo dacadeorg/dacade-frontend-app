@@ -1,12 +1,9 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import Avatar from "@/components/ui/Avatar";
 import Tag from "@/components/ui/Tag";
 import Currency from "@/components/ui/Currency";
-import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { useTranslation } from "next-i18next";
-import { useRouter } from "next/router";
 
 /**
  * community stats component
@@ -14,19 +11,12 @@ import { useRouter } from "next/router";
  */
 export default function CommunityStats(): ReactElement {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-
-  const router = useRouter();
-
-  useEffect(() => {
-    dispatch(fetchCurrentCommunity({ slug: router.query.slug as string, locale: router.locale }));
-  }, [dispatch, router.query.slug, router.locale]);
 
   const { community, submissions, reputation, feedbacks } = useSelector((state) => ({
-    community: state.profile.communities.current,
-    feedbacks: state.profile.communities.feedbacks,
-    submissions: state.profile.communities.submissions,
-    reputation: state.profile.communities.reputation,
+    community: state.profileCommunities.current,
+    feedbacks: state.profileCommunities.feedbacks,
+    submissions: state.profileCommunities.submissions,
+    reputation: state.profileCommunities.reputation,
   }));
 
   return (

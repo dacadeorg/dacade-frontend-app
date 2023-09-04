@@ -13,10 +13,11 @@ import SubmissionCard from "@/components/cards/Submission";
 export default function SubmissionList(): ReactElement {
   const { t } = useTranslation();
   const { community, submissions, feedbacks } = useSelector((state) => ({
-    community: state.profile.communities.current,
-    feedbacks: state.profile.communities.feedbacks,
-    submissions: state.profile.communities.submissions,
+    community: state.profileCommunities.current,
+    feedbacks: state.profileCommunities.feedbacks,
+    submissions: state.profileCommunities.submissions,
   }));
+
   const navigation = useNavigation();
 
   return (

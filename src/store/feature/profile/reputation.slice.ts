@@ -14,7 +14,7 @@ interface ReputationState {
  * Reputation slice handles reputation state for the user on the profile page.
  */
 const reputationSlice = createSlice({
-  name: "reputations",
+  name: "profileReputation",
   initialState: {
     list: [],
   } as ReputationState,
@@ -30,7 +30,7 @@ const reputationSlice = createSlice({
     [HYDRATE]: (state, action) => {
       return {
         ...state,
-        ...action.payload["reputations"],
+        ...action.payload["profileReputation"],
       };
     },
   },
