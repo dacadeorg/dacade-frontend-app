@@ -28,7 +28,7 @@ export default function SubmissionPopup({ onClose }: SubmissionPopup): ReactElem
     <div className="flex justify-between items-center border-b border-solid border-gray-200">
       <div className="text-left pl-5 flex items-center space-x-6 cursor-pointer" onClick={onClose}>
         <ArrowLeftIcon className="block" />
-        <span className="text-lg font-medium block">{t("communities.submissions")}</span>
+        <span className="text-lg font-medium block">{t("communities.submission")}</span>
       </div>
       <div className="p-2">
         <button className="bg-gray-100 self-start px-2.5 py-2.5" onClick={onClose}>
