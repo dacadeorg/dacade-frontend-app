@@ -1,6 +1,6 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query";
-import { clearNotifications, setNotifications } from "../feature/notification.slice";
+import { clearNotifications, setNotifications, setUnreadNotifications } from "../feature/notification.slice";
 
 /**
  * Get notifications result type
@@ -33,6 +33,7 @@ const notificationsService = createApi({
         try {
           const { data } = await queryFulfilled;
           dispatch(setNotifications({ list: data.list }));
+          dispatch(setUnreadNotifications({ unread: data.unread }));
         } catch (error) {
           dispatch(clearNotifications());
         }
