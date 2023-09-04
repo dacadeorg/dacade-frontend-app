@@ -19,7 +19,7 @@ export default function ProfileOverviewCommunities(): ReactElement {
         {reputations && reputations.length > 0 && (
           <div className="grid gap-4 md:grid-cols-2">
             {reputations.map((reputation, i) => (
-              <div key={`reputation-${i}`} className="block">
+              <div key={`reputation-${i}`} className="block w-full">
                 <CommunityCardSmall data={reputation} />
               </div>
             ))}

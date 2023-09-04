@@ -9,7 +9,7 @@ import DropdownPopup from "@/components/ui/DropdownPopup";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { User } from "@/types/bounty";
-import { setShowReferralPopup } from "@/store/feature/ui.slice";
+import { setShowReferralPopup, toggleBodyScrolling } from "@/store/feature/ui.slice";
 import { logout } from "@/store/feature/auth.slice";
 import { setBusy, setError } from "@/store/feature/index.slice";
 import Link from "next/link";
@@ -49,6 +49,7 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
    */
   const onLogout = () => {
     dispatch(logout());
+    toggleBodyScrolling(false)(dispatch);
     router.push("/");
   };
 

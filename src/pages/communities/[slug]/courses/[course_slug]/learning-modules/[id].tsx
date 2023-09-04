@@ -41,7 +41,7 @@ interface LearningModulePageProps {
  * @returns
  */
 export default function LearningModulePage(props: LearningModulePageProps) {
-  const { course, learningModule } = props.pageProps;
+  const { course, learningModule, community } = props.pageProps;
   const dispatch = useDispatch();
 
   const navigation = useNavigation();
@@ -65,8 +65,7 @@ export default function LearningModulePage(props: LearningModulePageProps) {
         <div className="py-8 flex flex-col divide-y space-y-8 text-gray-700">
           <Header />
           <div className="w-full divide-y divide-solid divide-gray-200">
-            {/* TODO: we will have an active challenge here instead picking the first one in the future. */}
-            {course.challenges && course.challenges.map((challenge) => <ChallengeOverviewCard challenge={challenge} key={challenge.id} />)}
+            {course.challenges && course.challenges.map((challenge) => <ChallengeOverviewCard challenge={challenge} key={challenge.id} community={community} />)}
             <LearningModuleSection learningModule={learningModule} />
           </div>
         </div>
@@ -85,10 +84,11 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
     const courseSlug = params?.course_slug as string;
     const id = params?.id as string;
 
-    const [{ data: community }, { data: course }, { payload: learningModule }] = await Promise.all([
+    const [{ data: community }, { data: course }, { payload: learningModule }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug: communitySlug, locale })),
       store.dispatch(fetchCourse({ slug: courseSlug, locale })),
       store.dispatch(findLearningModule(id)),
+      serverSideTranslations(locale as string),
     ]);
 
     return {
@@ -96,7 +96,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
         community,
         course,
         learningModule,
-        ...(await serverSideTranslations(locale as string)),
+        ...translations,
       },
     };
   } catch (error) {

@@ -63,16 +63,17 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     const slug = params?.slug as string;
     const course_slug = params?.course_slug as string;
 
-    const [{ data: community }, { data: course }] = await Promise.all([
+    const [{ data: community }, { data: course }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug, locale })),
       store.dispatch(fetchCourse({ slug: course_slug, locale })),
+      serverSideTranslations(locale as string),
     ]);
 
     return {
       props: {
         community,
         course,
-        ...(await serverSideTranslations(locale as string)),
+        ...translations,
       },
     };
   } catch (error) {

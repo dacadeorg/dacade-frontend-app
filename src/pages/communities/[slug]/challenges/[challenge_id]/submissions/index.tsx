@@ -69,7 +69,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
       </Head>
       <Wrapper paths={headerPaths}>
         <div className="flex flex-col py-4 space-y-8 text-gray-700">
-          <Header title={challenge?.name} subtitle={t("communities.submission.title")} />
+          <Header title={challenge?.name} subtitle={t("communities.submission.title")} isTeamChallenge={challenge?.isTeamChallenge} />
           <SubmissionList />
         </div>
         <SubmissionPopup show={!!selectedSubmission} submissionId={selectedSubmission} onClose={handleCloseSubmission} />
@@ -86,10 +86,11 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   const { slug, challenge_id } = query;
   const { dispatch } = store;
 
-  const [{ data: currentCommunity }, { payload: submissions }, { data: challenge }] = await Promise.all([
+  const [{ data: currentCommunity }, { payload: submissions }, { data: challenge }, translations] = await Promise.all([
     dispatch(fetchCurrentCommunity({ slug: slug as string, locale: locale as string })),
     dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: locale as string })),
     dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
+    serverSideTranslations(locale as string),
   ]);
 
   return {
@@ -97,7 +98,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       currentCommunity,
       submissions,
       challenge,
-      ...(await serverSideTranslations(locale as string)),
+      ...translations,
     },
   };
 });
