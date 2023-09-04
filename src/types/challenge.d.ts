@@ -18,7 +18,7 @@ export interface Team {
   organizer?: User;
   organizer_id: string;
   teamInvites?: Invite[];
-  teamMembers?: TeamMember[];
+  members?: TeamMember[];
   ref: string;
   timestamp: string;
   updated_at: string;
