@@ -289,7 +289,7 @@ export default class CommunityNavigation {
     ];
 
     const challenges =
-      course.challenges?.map((challenge) => {
+      course?.challenges?.map((challenge) => {
         return {
           id: challenge?.id,
           label: challenge.name,
