@@ -27,9 +27,9 @@ export default function Submission() {
   const dispatch = useDispatch();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const { course } = useSelector(({ courses, submissions }) => ({
-    course: courses.current,
-    submission: submissions.current,
+  const { course, submission } = useSelector((state) => ({
+    course: state.courses.current,
+    submission: state.submissions.current,
   }));
 
   const { submission_id } = router.query;
@@ -45,6 +45,11 @@ export default function Submission() {
     };
     fetchCourseSubmssion();
   }, [submission_id, router.locale]);
+
+  useEffect(() => {
+    const redirectUrl = `/communities/${submission?.community.slug}/challenges/${submission?.challenge.id}/submissions?submission_id=${submission?.id}`;
+    if (submission) router.push(redirectUrl);
+  }, [submission]);
 
   return (
     <>
