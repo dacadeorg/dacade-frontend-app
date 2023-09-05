@@ -31,7 +31,7 @@ export default function ProfileWallet(): ReactElement {
   const cashable = user?.displayName;
 
   return (
-    <div className="w-full xl:w-2/">
+    <div className="w-full lg:w-10/12">
       {!cashable && (
         <div>
           <Hint className="mb-5">
