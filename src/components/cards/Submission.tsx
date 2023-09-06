@@ -68,7 +68,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
     >
       <div className="divide-y divide-gray-200 flex flex-col">
         <div className="pb-6">
-          <Markdown value={submission.text} markDownStyles="text-base sm:text-lg line-clamp-3 leading-normal text-gray-700 break-words " />
+          <Markdown value={submission.text} markDownStyles="text-base sm:text-lg line-clamp-3 leading-normal text-gray-700 break-words" />
         </div>
         <div className="flex items-center py-4 w-full justify-between">
           <div className="flex space-x-4 items-center">
