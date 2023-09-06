@@ -15,8 +15,11 @@ export const useDiscordConnect = () => {
   }, [authUser, profileUser, router.query?.username]);
 
   const username = useMemo(() => user?.displayName, [user?.displayName]);
+  console.log('username', username)
   const isCurrentUser = useMemo(() => username?.toLowerCase() === authUser?.displayName?.toLowerCase(), [authUser, username]);
+  console.log('isCurrentUser', isCurrentUser)
   const canConnectDiscord = useMemo(() => isCurrentUser && !user?.discord?.connected, [isCurrentUser, user]);
+  console.log('canConnectDiscord', canConnectDiscord)
 
   const NEXT_PUBLIC_DISCORD_CALLBACK_URL = process.env.NEXT_PUBLIC_DISCORD_CALLBACK_URL;
   const NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL = process.env.NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL;
