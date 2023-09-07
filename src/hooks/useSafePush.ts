@@ -1,17 +1,23 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
+/**
+ * UseSafePush hooks to implement safe router.push based on router events
+ * to avoid multiple router.push() calls
+ * @date 9/7/2023 - 6:10:25 PM
+ *
+ * @returns {{ safePush: (path: string) => void; }}
+ */
 const useSafePush = () => {
-  const [onChanging, setOnChanging] = useState(false);
+  const [isRouteChanging, setIsRouteChanging] = useState(false);
   const handleRouteChange = () => {
-    setOnChanging(false);
+    setIsRouteChanging(false);
   };
   const router = useRouter();
   const safePush = (path: string) => {
-    if (onChanging) {
-      return;
-    }
-    setOnChanging(true);
+    if (isRouteChanging) return;
+
+    setIsRouteChanging(true);
     router.push(path);
   };
   useEffect(() => {
@@ -19,7 +25,7 @@ const useSafePush = () => {
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
-  }, [router, setOnChanging]);
+  }, [router, setIsRouteChanging]);
   return { safePush };
 };
 

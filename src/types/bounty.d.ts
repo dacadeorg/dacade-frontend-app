@@ -14,9 +14,9 @@ export interface Bounty {
   active: boolean;
   colors: Colors;
   description: string;
-summary: string;
-name: string;
-slug: string;
+  summary: string;
+  name: string;
+  slug: string;
   metadata: Metadata;
   timestamp: number;
   course: BountyCourse;
@@ -56,7 +56,7 @@ export interface CourseAuthor {
 }
 export interface Faq {
   description: string;
-title: string;
+  title: string;
 }
 
 /**
