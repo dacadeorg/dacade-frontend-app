@@ -4,11 +4,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface DefaultState {
   data: Invite | null;
-  inviteStatus: string | null;
 }
 const defaultState: DefaultState = {
   data: null,
-  inviteStatus: null,
 };
 
 /**
@@ -24,13 +22,10 @@ const invitesSlice = createSlice({
     setInvitesData: (state, action) => {
       state.data = action.payload;
     },
-    setInviteStatus: (state, action) => {
-      state.inviteStatus = action.payload;
-    },
   },
 });
 
-export const { setInvitesData, setInviteStatus } = invitesSlice.actions;
+export const { setInvitesData } = invitesSlice.actions;
 
 /**
  * Accept team invitation action
