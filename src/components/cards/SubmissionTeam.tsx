@@ -190,8 +190,10 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                           },
                         }),
                       }}
-                      className="text-lg"
+                      placeholder="Enter dacade username"
                       defaultOptions={[]}
+                      className="text-lg"
+                      isClearable={true}
                       loadOptions={loadUserOptions}
                       onChange={(option) => {
                         if (!team.locked && option) selectTeamMember(option);
