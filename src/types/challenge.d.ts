@@ -19,9 +19,11 @@ export interface Team {
   organizer_id: string;
   teamInvites?: Invite[];
   teamMembers?: TeamMember[];
+  members?: TeamMember[];
   ref: string;
   timestamp: string;
   updated_at: string;
+  members: TeamMember[]
 }
 
 export interface Invite {
