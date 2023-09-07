@@ -87,8 +87,8 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
         });
       }
 
-      if (team.teamInvites) {
-        team.teamInvites.forEach(({ user, status, id }) => {
+      if (team.invites) {
+        team.invites.forEach(({ user, status, id }) => {
           setMembersList((prev) => [...prev, { user, status, id }]);
         });
       }

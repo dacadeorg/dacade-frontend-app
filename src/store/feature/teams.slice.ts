@@ -18,9 +18,7 @@ const defaultState: DefaultState = {
     timestamp: "",
     updated_at: "",
     members: [],
-    teamInvites: [],
-    members: [],
-
+    invites: [],
   },
   loading: false,
 };
