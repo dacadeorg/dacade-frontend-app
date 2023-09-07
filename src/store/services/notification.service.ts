@@ -21,6 +21,7 @@ interface GetNotificationResult {
  */
 const notificationsService = createApi({
   reducerPath: "notificationsService",
+  refetchOnMountOrArgChange: true,
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
     /**
