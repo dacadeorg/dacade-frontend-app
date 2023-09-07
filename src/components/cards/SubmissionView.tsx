@@ -3,8 +3,8 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { useTranslation } from "next-i18next";
 import UserCard from "@/components/cards/User";
 import TranslationBox from "@/components/cards/TranslationBox";
-import { ReactElement } from "react";
-import { Submission } from "@/types/bounty";
+import { ReactElement, useEffect, useState } from "react";
+import { Submission, User } from "@/types/bounty";
 
 /**
  * Type for the default locale
@@ -38,7 +38,12 @@ interface SubmissionViewCardProps {
  */
 export default function SubmissionViewCard({ submission }: SubmissionViewCardProps): ReactElement {
   const { t } = useTranslation();
-  const colors = useSelector((state) => state.ui.colors);
+  const { colors, authUser } = useSelector((state) => ({
+    colors: state.ui.colors,
+    authUser: state.user.data,
+  }));
+
+  const [members, setMembers] = useState<User[]>([]);
 
   const language = (submission?.metadata?.language || "en") as DefaultLocale;
   const primaryButtonStyles = {
@@ -50,9 +55,20 @@ export default function SubmissionViewCard({ submission }: SubmissionViewCardPro
     "--button-border-color--hover": colors?.accent,
   };
 
+  useEffect(() => {
+    if (submission?.team) {
+      const { organizer, members } = submission.team;
+      if (members) {
+        const updatedMembers = [organizer || (authUser as User) || submission?.user, ...members.map(({ user }) => user)];
+        setMembers(updatedMembers);
+      }
+    }
+  }, [authUser, submission]);
+
   return (
     <UserCard
-      user={submission.user}
+      user={submission.user || authUser}
+      teamMembers={members}
       timestamp={{
         date: submission.created_at,
         text: t("submissions.submitted"),

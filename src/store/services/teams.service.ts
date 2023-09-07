@@ -1,7 +1,7 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { setIsTeamDataLoading, setTeamData } from "../feature/teams.slice";
-import { setInviteStatus, setInvitesData } from "../feature/communities/challenges/invites.slice";
+import { setInvitesData } from "../feature/communities/challenges/invites.slice";
 import { Invite } from "@/types/challenge";
 
 /**
@@ -36,6 +36,7 @@ interface RemoveMemberPayload {
  */
 const teamsService = createApi({
   reducerPath: "teamsService",
+  refetchOnMountOrArgChange: true,
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
     getTeamByChallenge: builder.query({
@@ -83,16 +84,11 @@ const teamsService = createApi({
         method: "POST",
         body: payload,
       }),
-      onQueryStarted: async (payload, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async (payload, { queryFulfilled }) => {
         try {
-          const { data } = await queryFulfilled;
-          if (data.invites.length > 0) dispatch(setInviteStatus("sent"));
-          else dispatch(setInviteStatus("not sent"));
+          await queryFulfilled;
         } catch (err: any) {
-          dispatch(setInviteStatus(err.status));
           console.error("Error", err);
-        } finally {
-          teamsService.endpoints.getTeamByChallenge.initiate(payload.challenge_id as string);
         }
 
         return;

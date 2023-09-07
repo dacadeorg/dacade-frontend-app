@@ -22,6 +22,7 @@ export interface Team {
   ref: string;
   timestamp: string;
   updated_at: string;
+  members: TeamMember[];
 }
 
 export interface Invite {
