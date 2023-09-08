@@ -74,7 +74,7 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
   return (
     <div className={userCardClassName}>
       <div className={`z-10 ${boxLayout ? "relative flex-none" : "absolute top-0 left-0"}`}>
-        {teamMembers ? (
+        {teamMembers && teamMembers.length > 1 ? (
           <div className="w-15 h-15 rounded-full bg-gray-800 overflow-hidden grid grid-cols-2 items-between">
             {teamMembers?.map((user) => (
               <Avatar key={user.id} user={user} shape="squared" size="fixed" hideVerificationBadge={true} />
@@ -101,22 +101,39 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
       <div className={`relative z-0 flex-1 ${bordered ? "group-hover:border-gray-50 border-l border-solid border-gray-200" : ""} ${!boxLayout ? "pl-10.5 pb-12" : ""}`}>
         <div className="pb-4">
           <div className="flex gap-4 w-full overflow-hidden">
-            {teamMembers?.map((user, index) => {
-              return (
-                <div className="flex items-center space-x-1.5 pb-1.5 pt-1" key={`team-member-${index}`}>
-                  <div className="text-lg font-medium leading-tight">
-                    <Link href={profileURL}>{user?.username}</Link>
-                  </div>
-                  {user.reputation ? (
-                    <Tag type="light-gray" className="leading-tight">
-                      <Currency value={user.reputation} token="REP" />
-                    </Tag>
-                  ) : (
-                    <></>
-                  )}
+            {teamMembers && teamMembers.length > 1 ? (
+              <>
+                {teamMembers?.map((user, index) => {
+                  return (
+                    <div className="flex items-center space-x-1.5 pb-1.5 pt-1" key={`team-member-${index}`}>
+                      <div className="text-lg font-medium leading-tight">
+                        <Link href={profileURL}>{user?.username}</Link>
+                      </div>
+                      {user.reputation ? (
+                        <Tag type="light-gray" className="leading-tight">
+                          <Currency value={user.reputation} token="REP" />
+                        </Tag>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <div className="flex items-center space-x-1.5 pb-1.5 pt-1">
+                <div className="text-lg font-medium leading-tight">
+                  <Link href={profileURL}>{user?.displayName}</Link>
                 </div>
-              );
-            })}
+                {user.reputation ? (
+                  <Tag type="light-gray" className="leading-tight">
+                    <Currency value={user.reputation} token="REP" />
+                  </Tag>
+                ) : (
+                  <></>
+                )}
+              </div>
+            )}
           </div>
           <span className="block text-sm leading-snug text-gray-700 ">
             {timestamp.text}{" "}
