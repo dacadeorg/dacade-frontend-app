@@ -61,8 +61,6 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
       } = submission;
       setMembers(() => [(organizer as User) || submission.user]);
       members?.forEach(({ user }) => setMembers((prev) => [...prev, user]));
-    } else {
-      setMembers([submission.user]);
     }
   }, []);
 
