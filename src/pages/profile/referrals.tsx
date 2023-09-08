@@ -23,8 +23,7 @@ export default function UserReferrals(): ReactElement {
   const [showButton, setShowButton] = useState(true);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
-  const referrals = useSelector((state) => state.userReferrals.userReferralList);
-  const user = useSelector((state) => state.user.data);
+  const { user, referrals } = useSelector((state) => ({ user: state.user.data, referrals: state.userReferrals.userReferralList }));
   const dispatch = useDispatch();
   const showLoadMore = useMemo(() => showButton && referrals?.length >= 30, [referrals?.length, showButton]);
 
@@ -47,22 +46,21 @@ export default function UserReferrals(): ReactElement {
   };
 
   return (
-    <div className="lg:w-9/12 xl:w-2/3">
+    <div className="w-full">
       {referrals.length ? (
         <div className="relative w-full">
-          <div className="flex flex-col w-full overflow-hidden border border-gray-200 border-solid divide-y divide-gray-200 rounded-3xl divide-solid">
-            <InfiniteScroll
-              dataLength={referrals.length}
-              next={nextPage}
-              hasMore={showLoadMore}
-              // loader is required for InfiniteScroll to work
-              loader={<></>}
-            >
-              {referrals.map((referral, i) => (
-                <Referral key={`user-referral-${i}`} referral={referral} />
-              ))}
-            </InfiniteScroll>
-          </div>
+          <InfiniteScroll
+            className="flex flex-col w-full overflow-hidden border border-gray-200 border-solid divide-y divide-gray-200 rounded-3xl divide-solid"
+            dataLength={referrals.length}
+            next={nextPage}
+            hasMore={showLoadMore}
+            // loader is required for InfiniteScroll to work
+            loader={<></>}
+          >
+            {referrals.map((referral, i) => (
+              <Referral key={`user-referral-${i}`} referral={referral} />
+            ))}
+          </InfiniteScroll>
         </div>
       ) : (
         <EmptyState title={t("referrals.empty-state.title")} subtitle={t("referrals.empty-state.subtitle")} />

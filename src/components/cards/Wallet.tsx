@@ -77,11 +77,11 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
             </div>
           </div>
         </div>
-        <div className="px-7 pt-6 lg:w-96.5 md:w-8/12 sm:w-8/12 pb-24 lg:pb-24">
+        <div className="px-7 pt-6 flex-1 pb-24 lg:pb-24">
           {cashable ? (
-            <div className="xl:w-72 md:w-72 lg:w-full text-sm text-gray-700">
+            <div className="text-sm text-gray-700">
               {address ? (
-                <p className="leading-5 text-sm">
+                <p className="leading-5 text-sm flex gap-x-2 gap-y-1 flex-wrap font-mono font-normal">
                   {address.map((part, k) => (
                     <span key={`address-${k}`} className="mr-2">
                       {part}

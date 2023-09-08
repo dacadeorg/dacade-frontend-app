@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import { GetServerSideProps } from "next";
@@ -12,10 +12,28 @@ import ProfileOverviewSection from "@/components/sections/profile/overview/Secti
 import DiscordConnect from "@/components/popups/DiscordConnect";
 import Head from "next/head";
 import ProfileLayout from "@/layouts/ProfileLayout";
+import { fetchUserProfile } from "@/store/services/profile/users.service";
+import { fetchAllCertificates } from "@/store/services/profile/certificate.service";
+import { fetchProfileReputation } from "@/store/services/reputation.service";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { userFetchReferrals } from "@/store/services/referrals.service";
+import { useRouter } from "next/router";
 
 export default function ProfileOverview(): ReactElement {
   const user = useSelector((state) => state.user.data);
-
+  const dispatch = useDispatch();
+  const router = useRouter();
+  useEffect(() => {
+    (async () => {
+      const username = user?.username;
+      await Promise.all([
+        dispatch(fetchUserProfile((username as string) || "")),
+        dispatch(fetchAllCertificates({ username: (username as string) || "" })),
+        dispatch(fetchProfileReputation({ username: (username as string) || "" })),
+        dispatch(userFetchReferrals({})),
+      ]);
+    })();
+  }, [dispatch, router.locale, user?.username]);
   return (
     <>
       <Head>

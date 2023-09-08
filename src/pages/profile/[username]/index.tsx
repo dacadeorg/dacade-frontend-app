@@ -53,7 +53,7 @@ export default function ProfileOverview() {
             </ProfileOverviewSection>
           </>
         )}
-        <DiscordConnect />
+        <DiscordConnect username={username} />
       </div>
     </>
   );

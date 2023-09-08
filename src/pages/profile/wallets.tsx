@@ -21,8 +21,7 @@ import AuthObserver from "@/contexts/AuthObserver";
 export default function ProfileWallet(): ReactElement {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const wallets = useSelector((state) => state.wallets.list);
-  const user = useSelector((state) => state.user.data);
+  const { wallets, user } = useSelector((state) => ({ wallets: state.wallets.list, user: state.user.data }));
   const [showEditProfile, setShowEditProfile] = useState(false);
 
   useEffect(() => {
@@ -32,7 +31,7 @@ export default function ProfileWallet(): ReactElement {
   const cashable = user?.displayName;
 
   return (
-    <div className="w-full xl:w-2/">
+    <div className="w-full lg:w-10/12">
       {!cashable && (
         <div>
           <Hint className="mb-5">
