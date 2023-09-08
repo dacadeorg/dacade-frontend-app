@@ -12,6 +12,7 @@ import { fetchAllProfileCommunities } from "@/store/services/profile/profileComm
 import { setListProfileCommunities } from "@/store/feature/profile/communities.slice";
 import Loader from "@/components/ui/Loader";
 import { useSelector } from "@/hooks/useTypedSelector";
+import { AUTH_TOKEN } from "@/constants/localStorage";
 
 const UserAuthContext = createContext(null);
 
@@ -89,6 +90,7 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
   useEffect(() => {
     onIdTokenChanged(auth, async (user) => {
       dispatch(setAuthData(user?.toJSON()));
+      localStorage.setItem(AUTH_TOKEN, (await user?.getIdToken()) ?? "");
       await dispatch(getToken());
     });
 

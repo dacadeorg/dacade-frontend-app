@@ -26,11 +26,13 @@ export default function ProfileOverview() {
   useEffect(() => {
     (async () => {
       const username = router.query.username;
-      await Promise.all([
-        dispatch(fetchUserProfile((username as string) || "")),
-        dispatch(fetchAllCertificates({ username: (username as string) || "" })),
-        dispatch(fetchProfileReputation({ username: (username as string) || "" })),
-      ]);
+      if (username) {
+        await Promise.all([
+          dispatch(fetchUserProfile((username as string) || "")),
+          dispatch(fetchAllCertificates({ username: (username as string) || "" })),
+          dispatch(fetchProfileReputation({ username: (username as string) || "" })),
+        ]);
+      }
     })();
   }, [dispatch, router.query.username]);
 

@@ -1,6 +1,7 @@
 import { getUserToken } from "@/store/feature/user.slice";
 import { BaseQueryFn, fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
 import Package from "../../package.json";
+import { AUTH_TOKEN } from "@/constants/localStorage";
 
 /**
  * Redux base query configuration
@@ -21,8 +22,8 @@ const baseQuery = (locale: string = "en"): BaseQueryFn =>
 
       try {
         const token = await getUserToken();
-        if (token) {
-          headers.set("authorization", token);
+        if (token && !headers.get("authorization")) {
+          headers.set("authorization", localStorage.getItem(AUTH_TOKEN) ?? token);
         }
       } catch (err) {
         console.log(err);
