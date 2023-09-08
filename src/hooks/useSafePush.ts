@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 /**
- * UseSafePush hooks to implement safe router.push based on router events
+ * UseSafePush hook to implement safe router.push() based on router events
  * to avoid multiple router.push() calls
  * @date 9/7/2023 - 6:10:25 PM
  *
