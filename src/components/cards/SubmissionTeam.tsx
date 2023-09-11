@@ -9,7 +9,6 @@ import { getUserByUsername } from "@/store/services/user.service";
 import Button from "./challenge/_partials/Button";
 import debounce from "lodash.debounce";
 import Loader from "../ui/Loader";
-import { MemberStatus } from "@/types/challenge";
 
 /**
  * Props for the SubmissionTeam component.
@@ -18,6 +17,12 @@ interface SubmissionTeamCardProps {
   index?: number | string;
   title?: string;
   text?: string;
+}
+
+enum MemberStatus {
+  teamMember = "Team member",
+  organizer = "organizer",
+  invite = "PENDING",
 }
 
 /**
