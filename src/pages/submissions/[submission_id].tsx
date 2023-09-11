@@ -27,10 +27,7 @@ export default function Submission() {
   const dispatch = useDispatch();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const { course } = useSelector(({ courses, submissions }) => ({
-    course: courses.current,
-    submission: submissions.current,
-  }));
+  const course = useSelector((state) => state.courses.current);
 
   const { submission_id } = router.query;
   useEffect(() => {

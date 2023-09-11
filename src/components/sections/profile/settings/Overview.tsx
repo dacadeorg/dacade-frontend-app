@@ -10,10 +10,7 @@ export default function ProfileOverview(): ReactElement {
 
   const [togglePopupNames, setTogglePopupNames] = useState(false);
   const [togglePopupEmail, setTogglePopupEmail] = useState(false);
-  const { user } = useSelector((state) => ({
-    notifications: state.notifications.notifications,
-    user: state.user,
-  }));
+  const user = useSelector((state) => state.user);
 
   return (
     <ProfileSettingsSection title="Profile Information" see-more see-all>

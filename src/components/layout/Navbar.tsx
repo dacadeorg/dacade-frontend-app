@@ -8,7 +8,7 @@ import Button from "@/components/ui/button";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import LanguageSwitcherPopup from "@/components/popups/LanguageSwitcher";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { authCheck, authVerify } from "@/store/feature/auth.slice";
 import Sidebar from "../popups/Sidebar";
 import { Colors } from "@/types/community";
@@ -32,13 +32,14 @@ interface NavbarProps {
 }
  * @returns {ReactElement}
  */
+
 export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarProps): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
-  const { isAuthenticated, isAuthenticatedAndVerified } = useSelector((state) => ({
-    isAuthenticatedAndVerified: authVerify(state),
-    isAuthenticated: authCheck(state),
-  }));
+  const { isAuthenticated, isAuthenticatedAndVerified } = useMultiSelector<unknown, { isAuthenticated: boolean; isAuthenticatedAndVerified: boolean }>({
+    isAuthenticatedAndVerified: (state) => authVerify(state),
+    isAuthenticated: (state) => authCheck(state),
+  });
 
   const colors = useMemo(() => {
     if (!settings || !settings.colors) return;

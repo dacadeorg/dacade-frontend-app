@@ -51,10 +51,7 @@ interface UserProps {
  */
 export default function UserCard({ boxLayout, link, bordered, user, badge = "", timestamp, children, className, teamMembers }: UserProps): ReactElement {
   const { locale } = useRouter();
-  const { colors } = useSelector((state) => ({
-    colors: state.ui.colors,
-    community: state.communities.current,
-  }));
+  const colors = useSelector((state) => state.ui.colors);
 
   const [humanizedDate, setHumanizedDate] = useState("");
   const [date, setDate] = useState("");
