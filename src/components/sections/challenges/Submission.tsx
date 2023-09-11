@@ -38,11 +38,12 @@ export default function Submission(): ReactElement {
   let textValue = watch("text");
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { colors, challenge, community, team } = useSelector((state) => ({
+  const { colors, challenge, community, team, authUser } = useSelector((state) => ({
     colors: state.ui.colors,
     challenge: state.challenges.current,
     community: state.communities.current,
     team: state.teams.current,
+    authUser: state.user.data,
   }));
 
   const [submitting, setSubmitting] = useState(false);
@@ -122,7 +123,7 @@ export default function Submission(): ReactElement {
           {challenge?.format && (
             <div className="relative w-full md:pl-7.5 my-6">
               <div className="absolute z-50 left-3 md:left-0 top-3">
-                <Avatar user={team?.organizer} size="medium" />
+                <Avatar user={team?.organizer || authUser} size="medium" />
               </div>
 
               <div label-for="input-text">
