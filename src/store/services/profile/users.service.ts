@@ -10,7 +10,7 @@ const userProfileService = createApi({
     fetchUserProfile: builder.query({
       query: (username: string) => {
         const current = store.getState().profileUser.current;
-        if (current && current?.username.toLocaleLowerCase() !== username.toLocaleLowerCase()) {
+        if (current?.username.toLocaleLowerCase() !== username.toLocaleLowerCase()) {
           console.log("cleared");
           store.dispatch(clearProfile());
         }
