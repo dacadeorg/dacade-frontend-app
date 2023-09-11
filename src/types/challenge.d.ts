@@ -72,5 +72,5 @@ export interface NewTeamOption {
 export enum MemberStatus {
   teamMember = "Team member",
   organizer = "organizer",
-  invite = "invite",
+  invite = "PENDING",
 }
