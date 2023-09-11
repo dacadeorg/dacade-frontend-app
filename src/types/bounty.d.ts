@@ -1,5 +1,5 @@
 import { Challenge, Course, Metadata, Reward } from "./course";
-import { Colors, Referral } from "./community";
+import { Colors, Community, Referral } from "./community";
 import { ReactNode } from "react";
 import { Feedback } from "./feedback";
 import { Team } from "./challenge";
@@ -55,7 +55,6 @@ export interface CourseAuthor {
   description: string;
   name: string;
 }
-
 export interface Faq {
   description: string;
   title: string;
@@ -92,7 +91,7 @@ export interface Submission {
   created_at: Date;
   updated_at: Date;
   link: string;
-  community: string;
+  community: Community;
   user_id: string;
   challenge: Challenge;
   text: string;

@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect } from "react";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 import FeedbackCard from "@/components/cards/Feedback";
 import Loader from "@/components/ui/button/Loader";
 import { useSelector } from "@/hooks/useTypedSelector";
@@ -28,8 +28,12 @@ export default function Feedback(): ReactElement {
     challenge: state.challenges.current,
   }));
 
-  const fetchList = useCallback(() => {
-    dispatch(fetchFeedbacks({ submissionId: submission?.id as string, locale: route.locale }));
+  const [isFetching, setIsFetching] = useState(false);
+
+  const fetchList = useCallback(async () => {
+    setIsFetching(true);
+    await dispatch(fetchFeedbacks({ submissionId: submission?.id as string, locale: route.locale }));
+    setIsFetching(false);
   }, [dispatch, route.locale, submission?.id]);
 
   useEffect(() => {
@@ -41,7 +45,7 @@ export default function Feedback(): ReactElement {
       {feedbacks.map((feedback, index) => (
         <FeedbackCard key={feedback.id} value={feedback} last={index === feedbacks.length - 1} />
       ))}
-      <Loader loading={false} />
+      {isFetching && <Loader loading={isFetching} />}
       {isAuthenticated && challenge?.feedbackInfo && (
         <Section>
           <Criteria />

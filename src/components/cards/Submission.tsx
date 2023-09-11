@@ -8,6 +8,7 @@ import { ReactElement, ReactNode, useCallback, useEffect, useState } from "react
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { showSubmission } from "@/store/feature/communities/challenges/submissions";
 import { useRouter } from "next/router";
+import Markdown from "../ui/Markdown";
 
 /**
  * Submission card interface props
@@ -80,7 +81,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
     >
       <div className="divide-y divide-gray-200 flex flex-col">
         <div className="pb-6">
-          <p className="text-base sm:text-lg line-clamp-3 leading-normal text-gray-700 break-words">{submission.text}</p>
+          <Markdown value={submission.text} markDownStyles="text-base sm:text-lg line-clamp-3 leading-normal text-gray-700 break-words" />
         </div>
         <div className="flex items-center py-4 w-full justify-between">
           <div className="flex space-x-4 items-center">

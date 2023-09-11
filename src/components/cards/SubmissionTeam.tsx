@@ -81,14 +81,14 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     if (team) {
       if (team.organizer) setMembersList([{ user: team.organizer, status: "organizer", id: team.organizer_id }]);
 
-      if (team.teamMembers) {
-        team.teamMembers.forEach(({ user, id }) => {
+      if (team.members) {
+        team.members.forEach(({ user, id }) => {
           setMembersList((prev) => [...prev, { user: user, status: "Team member", id }]);
         });
       }
 
-      if (team.teamInvites) {
-        team.teamInvites.forEach(({ user, status, id }) => {
+      if (team.invites) {
+        team.invites.forEach(({ user, status, id }) => {
           setMembersList((prev) => [...prev, { user, status, id }]);
         });
       }
@@ -187,7 +187,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                     loadOptions={loadUserOptions}
                     onChange={(option) => {
                       // TODO: check if the team is actually closed instead of using this condition
-                      if (team?.teamMembers && team.teamMembers.length >= 2) {
+                      if (team?.members && team.members.length >= 2) {
                         return;
                       } else {
                         if (option) selectTeamMember(option);
