@@ -70,7 +70,7 @@ export interface NewTeamOption {
 }
 
 export enum MemberStatus {
-  teamMember = "member",
+  teamMember = "Team member",
   organizer = "organizer",
   invite = "invite",
 }
