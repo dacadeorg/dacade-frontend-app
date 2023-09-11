@@ -84,13 +84,13 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
 
       if (team.members) {
         team.members.forEach(({ user, id }) => {
-          setMembersList((prev) => [...prev, { user: user, status: "Team member", id }]);
+          setMembersList((prev) => [...prev, { user: user, status: MemberStatus.teamMember, id }]);
         });
       }
 
       if (team.invites) {
-        team.invites.forEach(({ user, status, id }) => {
-          setMembersList((prev) => [...prev, { user, status, id }]);
+        team.invites.forEach(({ user, id }) => {
+          setMembersList((prev) => [...prev, { user, status: MemberStatus.invite, id }]);
         });
       }
     }
