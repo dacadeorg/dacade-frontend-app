@@ -9,7 +9,6 @@ import { getUserByUsername } from "@/store/services/user.service";
 import Button from "./challenge/_partials/Button";
 import debounce from "lodash.debounce";
 import Loader from "../ui/Loader";
-import { MemberStatus } from "@/types/challenge";
 
 /**
  * Props for the SubmissionTeam component.
@@ -44,6 +43,18 @@ interface Option {
   value?: string;
   label?: string;
   user: User;
+}
+
+/**
+ * Enum for storing the types if users on the team
+ * @date 9/11/2023 - 12:38:37 PM
+ *
+ * @enum {number}
+ */
+enum MemberStatus {
+  teamMember = "member",
+  organizer = "organizer",
+  invite = "invite",
 }
 
 /**
