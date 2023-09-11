@@ -91,7 +91,7 @@ export default function NotificationCard({ user = {}, notification, extended = f
 
   const notificationsLink = useMemo(() => {
     if (!link) return "";
-    return `/${link}`;
+    return `${link}`;
   }, [link, router.locale]);
 
   const goToLink = () => {

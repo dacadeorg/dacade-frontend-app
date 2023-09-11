@@ -134,7 +134,7 @@ export default function Submission(): ReactElement {
                   {...register("text", {
                     required: "This field is required",
                     maxLength: {
-                      value: 100,
+                      value: 1000,
                       message: "The text is too long",
                     },
                     minLength: {

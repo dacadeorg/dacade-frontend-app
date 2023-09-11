@@ -35,6 +35,7 @@ interface AvatarProps {
   shape?: Shape;
   useLink?: boolean;
   hideVerificationBadge?: boolean;
+  isKycVerified?: boolean;
   style?: CSSProperties;
   className?: string;
 }
@@ -65,6 +66,7 @@ export default function Avatar({
   useLink = true,
   className,
   hideVerificationBadge = false,
+  isKycVerified = false,
 }: AvatarProps): ReactElement {
   const [userAvatarLoaded, setUserAvatarLoaded] = useState(true);
   const initials = user?.displayName ? user?.displayName[0] : null;
@@ -106,7 +108,7 @@ export default function Avatar({
     }
   }, [size]);
 
-  const showVerificationBadge = !hideVerificationBadge && user;
+  const showVerificationBadge = !hideVerificationBadge && user && isKycVerified;
   const Component = useLink ? Link : "span";
 
   return (
