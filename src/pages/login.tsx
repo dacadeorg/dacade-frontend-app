@@ -68,8 +68,8 @@ export default function Login(): ReactElement {
   };
 
   useEffect(() => {
-    if (isAuthenticated) router.push("/bounties");
-  }, [isAuthenticated]);
+    if (isAuthenticated && authUser) router.push("/bounties");
+  }, [isAuthenticated, authUser]);
 
   if (isFetchingUser || authUser) {
     return (
