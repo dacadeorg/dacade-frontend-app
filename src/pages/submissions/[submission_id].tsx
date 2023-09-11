@@ -14,6 +14,7 @@ import { useTranslation } from "next-i18next";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import Head from "next/head";
 import Loader from "@/components/ui/Loader";
+import useSafePush from "@/hooks/useSafePush";
 
 /**
  * Submssion view page
@@ -27,11 +28,11 @@ export default function Submission() {
   const dispatch = useDispatch();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const { course } = useSelector(({ courses, submissions }) => ({
-    course: courses.current,
-    submission: submissions.current,
+  const { course, submission } = useSelector((state) => ({
+    course: state.courses.current,
+    submission: state.submissions.current,
   }));
-
+  const { safePush } = useSafePush();
   const { submission_id } = router.query;
   useEffect(() => {
     setLoading(true);
@@ -45,6 +46,11 @@ export default function Submission() {
     };
     fetchCourseSubmssion();
   }, [submission_id, router.locale]);
+
+  useEffect(() => {
+    const redirectUrl = `/communities/${submission?.community.slug}/challenges/${submission?.challenge.id}/submissions?submission_id=${submission?.id}`;
+    if (submission) safePush(redirectUrl);
+  }, [submission]);
 
   return (
     <>
