@@ -9,6 +9,7 @@ import { getUserByUsername } from "@/store/services/user.service";
 import Button from "./challenge/_partials/Button";
 import debounce from "lodash.debounce";
 import Loader from "../ui/Loader";
+import { MemberStatus } from "@/types/challenge";
 
 /**
  * Props for the SubmissionTeam component.
@@ -79,17 +80,17 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
 
   useEffect(() => {
     if (team) {
-      if (team.organizer) setMembersList([{ user: team.organizer, status: "organizer", id: team.organizer_id }]);
+      if (team.organizer) setMembersList([{ user: team.organizer, status: MemberStatus.organizer, id: team.organizer_id }]);
 
       if (team.members) {
         team.members.forEach(({ user, id }) => {
-          setMembersList((prev) => [...prev, { user: user, status: "Team member", id }]);
+          setMembersList((prev) => [...prev, { user: user, status: MemberStatus.teamMember, id }]);
         });
       }
 
       if (team.teamInvites) {
-        team.teamInvites.forEach(({ user, status, id }) => {
-          setMembersList((prev) => [...prev, { user, status, id }]);
+        team.teamInvites.forEach(({ user, id }) => {
+          setMembersList((prev) => [...prev, { user, status: MemberStatus.invite, id }]);
         });
       }
     }
@@ -104,7 +105,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     if (membersList.filter((member) => member.user?.id === option.user?.id).length !== 0) {
       return;
     }
-    if (membersList.length === 0) setMembersList([{ user, status: "organizer", id: user?.id as string }]);
+    if (membersList.length === 0) setMembersList([{ user, status: MemberStatus.organizer, id: user?.id as string }]);
 
     await dispatch(
       createTeam({
@@ -166,8 +167,8 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                       <>
                         {isCurrentUserOrganiser ? (
                           <>
-                            {status === "Team member" && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
-                            {status === "PENDING" && <Button onClick={() => cancelInvite(id)} text="Cancel" />}
+                            {status === MemberStatus.teamMember && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
+                            {status === MemberStatus.invite && <Button onClick={() => cancelInvite(id)} text="Cancel" />}
                           </>
                         ) : (
                           <> {user?.id === member?.id && <Button onClick={leaveMyTeam} text="Leave" />}</>
