@@ -27,7 +27,9 @@ const teamsSlice = createSlice({
   initialState: defaultState,
   reducers: {
     setTeamData: (state, action) => {
-      state.current = action.payload;
+      const { locked, members } = action.payload;
+      const teamData = { ...action.payload, locked: members.length >= 2 || locked };
+      state.current = teamData;
     },
     setIsTeamDataLoading: (state, action) => {
       state.loading = action.payload;

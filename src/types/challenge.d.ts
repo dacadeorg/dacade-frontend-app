@@ -68,3 +68,9 @@ export interface NewTeamOption {
   name: string;
   members?: string[];
 }
+
+export enum MemberStatus {
+  teamMember = "member",
+  organizer = "organizer",
+  invite = "invite",
+}
