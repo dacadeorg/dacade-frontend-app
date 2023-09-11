@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "@/types/bounty";
 import { clearProfileCommunity } from "./communities.slice";
+import { HYDRATE } from "next-redux-wrapper";
 
 interface InialState {
   current: User | null;
@@ -27,7 +28,7 @@ export const clearProfile = createAsyncThunk("profile/clear", async (_, { dispat
  * @type {*}
  */
 const userProfileSlice = createSlice({
-  name: "userProfile",
+  name: "profileUser",
   initialState,
   reducers: {
     setCurrentUserProfile(state, action: PayloadAction<any>) {
@@ -35,6 +36,14 @@ const userProfileSlice = createSlice({
     },
     clearUserProfile(state) {
       state.current = null;
+    },
+  },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload["profileUser"],
+      };
     },
   },
 });

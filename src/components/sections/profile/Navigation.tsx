@@ -29,7 +29,7 @@ export default function ProfileNagivation(): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
   const { communities, authUser } = useSelector((state) => ({
-    communities: state.profile.communities.list,
+    communities: state.profileCommunities.list,
     authUser: state.user.data,
   }));
 

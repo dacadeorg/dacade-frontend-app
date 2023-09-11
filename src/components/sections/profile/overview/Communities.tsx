@@ -11,7 +11,7 @@ import CommunityCardSmall from "@/components/cards/community/Small";
  * @returns {ReactElement}
  */
 export default function ProfileOverviewCommunities(): ReactElement {
-  const reputations = useSelector((state) => state.profile.reputations.list);
+  const reputations = useSelector((state) => state.profileReputation.list);
 
   if (reputations && reputations.length)
     return (

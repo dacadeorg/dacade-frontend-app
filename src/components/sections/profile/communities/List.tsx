@@ -1,6 +1,7 @@
 import FeedbackCard from "@/components/cards/Feedback";
 import { useSelector } from "@/hooks/useTypedSelector";
-import navigation from "@/config/navigation";
+import useNavigation from "@/hooks/useNavigation";
+
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import SubmissionCard from "@/components/cards/Submission";
@@ -12,10 +13,12 @@ import SubmissionCard from "@/components/cards/Submission";
 export default function SubmissionList(): ReactElement {
   const { t } = useTranslation();
   const { community, submissions, feedbacks } = useSelector((state) => ({
-    community: state.profile.communities.current,
-    feedbacks: state.profile.communities.feedbacks,
-    submissions: state.profile.communities.submissions,
+    community: state.profileCommunities.current,
+    feedbacks: state.profileCommunities.feedbacks,
+    submissions: state.profileCommunities.submissions,
   }));
+
+  const navigation = useNavigation();
 
   return (
     <div>
@@ -48,11 +51,7 @@ export default function SubmissionList(): ReactElement {
                 <div key={feedback.id}>
                   <SubmissionCard
                     stats={true}
-                    link={navigation.community.submissionPath(
-                      feedback.submission?.id,
-                      feedback.submission?.challenge.id,
-                      community?.slug
-                    )}
+                    link={navigation.community.submissionPath(feedback.submission?.id, feedback.submission?.challenge.id, community?.slug)}
                     submission={feedback.submission}
                     last={false}
                   >

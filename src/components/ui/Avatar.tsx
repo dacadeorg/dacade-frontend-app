@@ -109,11 +109,11 @@ export default function Avatar({
   }, [size]);
 
   const showVerificationBadge = !hideVerificationBadge && user && isKycVerified;
-  const Component = useLink ? Link : "span";
+  const Component = useLink ? Link : "div";
 
   return (
     <Component href={link} className={componentClassName}>
-      <span
+      <div
         style={{ backgroundColor: color }}
         className={`bg-primary h-full w-full flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle relative z-0 ${shapeClassName}`}
       >
@@ -133,7 +133,7 @@ export default function Avatar({
 
         {icon && <Image fill={true} src={icon} alt="icon image" className="p-2" />}
         {image && <Image src={image} fill={true} alt="icon image" className="p-0 object-cover w-full h-full" />}
-      </span>
+      </div>
       {showVerificationBadge && (
         <span className={`absolute z-20 rounded-full ${verifiedIconClasses}`}>
           <VerifiedIcon className="w-full h-full" />

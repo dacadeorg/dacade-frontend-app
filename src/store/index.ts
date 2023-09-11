@@ -31,7 +31,7 @@ import walletsSlice from "./feature/user/wallets.slice";
 import walletsService from "./services/wallets.service";
 import userProfileService from "./services/profile/users.service";
 import bountiesService from "./services/bounties.service";
-import profileReducer from "./feature/profile";
+// import profileReducer from "./feature/profile";
 import userReferralsSlice from "./feature/user/referrals.slice";
 import web3WalletSlice from "./feature/wallet.slice";
 import certificateSlice from "./feature/profile/certificate.slice";
@@ -46,6 +46,8 @@ import teamsService from "./services/teams.service";
 import invitesSlice from "./feature/communities/challenges/invites.slice";
 import challengeService from "@/store/services/communities/challenges";
 import scoreboardService from "./services/communities/scoreboard.service";
+import communitiesProfile from "./feature/profile/communities.slice";
+import reputationSlice from "./feature/profile/reputation.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -84,7 +86,13 @@ export interface IRootState {
   courses: ReturnType<typeof courseSlice.reducer>;
   feedback: ReturnType<typeof feedbackSlice.reducer>;
   learningModules: ReturnType<typeof learningModulesSlice.reducer>;
-  profile: ReturnType<typeof profileReducer>;
+  // profile: ReturnType<typeof profileReducer>;
+  //testing
+  profileCommunities: ReturnType<typeof communitiesProfile.reducer>;
+  profileReputation: ReturnType<typeof reputationSlice.reducer>;
+  profileUser: ReturnType<typeof userProfileSlice.reducer>;
+  profileCertificate: ReturnType<typeof certificateSlice.reducer>;
+
   certificates: ReturnType<typeof certificateSlice.reducer>;
   sumsubVerification: ReturnType<typeof sumsubVerificationSlice.reducer>;
   payouts: ReturnType<typeof payoutsSlice.reducer>;
@@ -146,7 +154,12 @@ export const store = configureStore({
     [challengeService.reducerPath]: challengeService.reducer,
     [scoreboardService.reducerPath]: scoreboardService.reducer,
     [invitesSlice.name]: invitesSlice.reducer,
-    profile: profileReducer,
+    // profile: profileReducer,
+    //testing
+    [communitiesProfile.name]: communitiesProfile.reducer,
+    [reputationSlice.name]: reputationSlice.reducer,
+    [userProfileSlice.name]: userProfileSlice.reducer,
+    [certificateSlice.name]: certificateSlice.reducer,
   },
 
   middleware: (getDefaultMiddleware) => {
