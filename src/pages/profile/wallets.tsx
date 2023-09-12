@@ -1,6 +1,6 @@
 import { useState, useEffect, ReactElement } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { fetchAllWallets } from "@/store/services/wallets.service";
 import { GetStaticProps } from "next";
@@ -11,7 +11,14 @@ import Hint from "@/components/ui/Hint";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import i18Translate from "@/utilities/I18Translate";
 import AuthObserver from "@/contexts/AuthObserver";
+import { IRootState } from "@/store";
+import { User } from "@/types/bounty";
+import { Wallet as WalletType } from "@/types/wallet";
 
+interface ProfileWalletMultiSelector {
+  wallets: WalletType[];
+  user: User | null;
+}
 /**
  * Profile Wallet component
  *
@@ -21,7 +28,11 @@ import AuthObserver from "@/contexts/AuthObserver";
 export default function ProfileWallet(): ReactElement {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { wallets, user } = useSelector((state) => ({ wallets: state.wallets.list, user: state.user.data }));
+  // const { wallets, user } = useSelector((state) => ({ wallets: state.wallets.list, user: state.user.data }));
+  const { wallets, user } = useMultiSelector<unknown, ProfileWalletMultiSelector>({
+    wallets: (state: IRootState) => state.wallets.list,
+    user: (state: IRootState) => state.user.data,
+  });
   const [showEditProfile, setShowEditProfile] = useState(false);
 
   useEffect(() => {

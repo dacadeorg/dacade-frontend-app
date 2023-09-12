@@ -2,12 +2,21 @@ import { useEffect } from "react";
 import Section from "@/components/sections/communities/_partials/Section";
 import FormTeamCard from "@/components/cards/challenge/_partials/FormTeam";
 import SubmissionTeamCard from "@/components/cards/SubmissionTeam";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { authCheck } from "@/store/feature/auth.slice";
 import { getTeamByChallenge, getUserInvitesByChallenge } from "@/store/services/teams.service";
 import ConfirmTeamInvitation from "@/components/cards/challenge/ConfirmTeamInvitation";
 import { useTranslation } from "next-i18next";
+import { Challenge } from "@/types/course";
+import { Invite } from "@/types/challenge";
+import { IRootState } from "@/store";
+
+interface SetupTeamChallengeMultiSelector {
+  challenge: Challenge | null;
+  invite: Invite | null;
+  isAuthenticated: boolean;
+}
 
 /**
  * SetupTeamChallenge component.
@@ -15,11 +24,16 @@ import { useTranslation } from "next-i18next";
  * @returns {JSX.Element} The SetupTeamChallenge component JSX element.
  */
 export default function SetupTeamChallenge(): JSX.Element {
-  const { challenge, invite, isAuthenticated } = useSelector((state) => ({
-    challenge: state.challenges.current,
-    invite: state.invites.data,
-    isAuthenticated: authCheck(state),
-  }));
+  // const { challenge, invite, isAuthenticated } = useSelector((state) => ({
+  //   challenge: state.challenges.current,
+  //   invite: state.invites.data,
+  //   isAuthenticated: authCheck(state),
+  // }));
+  const { challenge, invite, isAuthenticated } = useMultiSelector<unknown, SetupTeamChallengeMultiSelector>({
+    challenge: (state: IRootState) => state.challenges.current,
+    invite: (state: IRootState) => state.invites.data,
+    isAuthenticated: (state: IRootState) => authCheck(state),
+  });
   const dispatch = useDispatch();
 
   useEffect(() => {

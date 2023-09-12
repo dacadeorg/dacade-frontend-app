@@ -1,13 +1,24 @@
 import { useRouter } from "next/router";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useMemo } from "react";
+import { User } from "@/types/bounty";
+import { IRootState } from "@/store";
+
+interface useDiscordConnectMultiSelector {
+  authUser: User | null;
+  profileUser: User | null;
+}
 
 export const useDiscordConnect = () => {
   const router = useRouter();
-  const { authUser, profileUser } = useSelector((state) => ({
-    authUser: state.user.data,
-    profileUser: state.profile.user.current,
-  }));
+  // const { authUser, profileUser } = useSelector((state) => ({
+  //   authUser: state.user.data,
+  //   profileUser: state.profile.user.current,
+  // }));
+  const { authUser, profileUser } = useMultiSelector<unknown, useDiscordConnectMultiSelector>({
+    authUser: (state: IRootState) => state.user.data,
+    profileUser: (state: IRootState) => state.profile.user.current,
+  });
   const user = useMemo(() => {
     const username = (router.query?.username as string) || "";
     if (username && username?.toLowerCase() !== authUser?.displayName?.toLowerCase()) return profileUser;

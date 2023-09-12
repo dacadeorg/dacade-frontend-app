@@ -3,14 +3,20 @@ import InteractiveModuleWrapper from "./Wrapper";
 import Markdown from "@/components/ui/Markdown";
 import Loader from "@/components/ui/Loader";
 import Hint from "@/components/ui/Hint";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import Link from "next/link";
 import InteractiveModuleItem from "@/components/sections/learning-modules/InteractiveModule/Item";
 import { authCheck } from "@/store/feature/auth.slice";
-import { InteractiveModule as InteractiveModuleType } from "@/types/course";
+import { Course, InteractiveModule as InteractiveModuleType } from "@/types/course";
 import { hidePageNavigation, showPageNavigation } from "@/store/feature/communities/navigation.slice";
 import { checkAnswer, submitModuleAnswer } from "@/store/feature/learningModules.slice";
+import { IRootState } from "@/store";
+
+interface InteractiveModuleMultiSelector {
+  isLoggedIn: boolean;
+  course: Course | null;
+}
 
 /**
  * interactive Module props interface
@@ -40,10 +46,14 @@ export default function InteractiveModule({ data }: interactiveModuleProps): Rea
   const [answering, setAnswering] = useState(false);
   const dispatch = useDispatch();
 
-  const { isLoggedIn, course } = useSelector((state) => ({
-    isLoggedIn: authCheck(state),
-    course: state.courses.current,
-  }));
+  // const { isLoggedIn, course } = useSelector((state) => ({
+  //   isLoggedIn: authCheck(state),
+  //   course: state.courses.current,
+  // }));
+  const { isLoggedIn, course } = useMultiSelector<unknown, InteractiveModuleMultiSelector>({
+    isLoggedIn: (state: IRootState) => authCheck(state),
+    course: (state: IRootState) => state.courses.current,
+  });
   const items = data?.items?.length ? data.items : [];
 
   const checkIfAnswered = useCallback(async () => {

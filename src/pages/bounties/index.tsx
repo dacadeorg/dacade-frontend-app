@@ -3,13 +3,20 @@ import Navigation from "@/components/sections/bounties/Navigation";
 import BountyList from "@/components/list/Bounty";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { Bounty } from "@/types/bounty";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import DefaultLayout from "@/components/layout/Default";
 import { fetchReferrals } from "@/store/services/referrals.service";
 import { fetchAllBounties } from "@/store/services/bounties.service";
+import { Referral } from "@/types/community";
+import { IRootState } from "@/store";
+
+interface bountiesMultiSelector {
+  referrals: Referral[];
+  bounties: Bounty[];
+}
 
 /**
  * Default bounty
@@ -53,10 +60,14 @@ export default function Bounties() {
     })();
   }, [dispatch]);
 
-  const { referrals, bounties } = useSelector((state) => ({
-    referrals: state.referrals.list,
-    bounties: state.bounties.bountiesList,
-  }));
+  // const { referrals, bounties } = useSelector((state) => ({
+  //   referrals: state.referrals.list,
+  //   bounties: state.bounties.bountiesList,
+  // }));
+  const { referrals, bounties } = useMultiSelector<unknown, bountiesMultiSelector>({
+    referrals: (state: IRootState) => state.referrals.list,
+    bounties: (state: IRootState) => state.bounties.bountiesList,
+  });
 
   const bountiesList = useMemo(() => [defaulBounty, ...(bounties || [])], [bounties]);
 

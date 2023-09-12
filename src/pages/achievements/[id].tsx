@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useMemo, useState } from "react";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import NavItem from "@/components/ui/NavItem";
 import Avatar from "@/components/ui/Avatar";
 import DateManager from "@/utilities/DateManager";
@@ -18,14 +18,28 @@ import { findCertificate } from "@/store/services/profile/certificate.service";
 import { useTranslation } from "next-i18next";
 import Logo from "@/icons/logo.svg";
 import MintCertificate from "@/components/sections/profile/modals/MintCertificate";
+import { Certificate } from "@/types/certificate";
+import { User } from "@/types/bounty";
+import { IRootState } from "@/store";
+
+interface AchievementMultiSelector {
+  achievement: Certificate | null;
+  achievementMinted: boolean;
+  user: User | null;
+}
 
 const Achievement = () => {
   const { t } = useTranslation();
-  const { achievement, achievementMinted, user } = useSelector((state) => ({
-    achievement: state.certificates.current,
-    achievementMinted: state.certificates.currentMinted,
-    user: state.user.data,
-  }));
+  // const { achievement, achievementMinted, user } = useSelector((state) => ({
+  //   achievement: state.certificates.current,
+  //   achievementMinted: state.certificates.currentMinted,
+  //   user: state.user.data,
+  // }));
+  const { achievement, achievementMinted, user } = useMultiSelector<unknown, AchievementMultiSelector>({
+    achievement: (state: IRootState) => state.certificates.current,
+    achievementMinted: (state: IRootState) => state.certificates.currentMinted,
+    user: (state: IRootState) => state.user.data,
+  });
   const [showMintCertificate, setShowMintCertificate] = useState(false);
   const dispatch = useDispatch();
   const { locale, query } = useRouter();

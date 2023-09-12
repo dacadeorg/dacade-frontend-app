@@ -1,9 +1,19 @@
 import FeedbackCard from "@/components/cards/Feedback";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import navigation from "@/config/navigation";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import SubmissionCard from "@/components/cards/Submission";
+import { Community } from "@/types/community";
+import { Feedback } from "@/types/feedback";
+import { Submission } from "@/types/bounty";
+import { IRootState } from "@/store";
+
+interface SubmissionListMultiSelector {
+  community: Community | null;
+  feedbacks: Feedback[];
+  submissions: Submission[];
+}
 
 /**
  * Submission list component
@@ -11,11 +21,16 @@ import SubmissionCard from "@/components/cards/Submission";
  */
 export default function SubmissionList(): ReactElement {
   const { t } = useTranslation();
-  const { community, submissions, feedbacks } = useSelector((state) => ({
-    community: state.profile.communities.current,
-    feedbacks: state.profile.communities.feedbacks,
-    submissions: state.profile.communities.submissions,
-  }));
+  // const { community, submissions, feedbacks } = useSelector((state) => ({
+  //   community: state.profile.communities.current,
+  //   feedbacks: state.profile.communities.feedbacks,
+  //   submissions: state.profile.communities.submissions,
+  // }));
+  const { community, submissions, feedbacks } = useMultiSelector<unknown, SubmissionListMultiSelector>({
+    community: (state: IRootState) => state.profile.communities.current,
+    feedbacks: (state: IRootState) => state.profile.communities.feedbacks,
+    submissions: (state: IRootState) => state.profile.communities.submissions,
+  });
 
   return (
     <div>
@@ -48,11 +63,7 @@ export default function SubmissionList(): ReactElement {
                 <div key={feedback.id}>
                   <SubmissionCard
                     stats={true}
-                    link={navigation.community.submissionPath(
-                      feedback.submission?.id,
-                      feedback.submission?.challenge.id,
-                      community?.slug
-                    )}
+                    link={navigation.community.submissionPath(feedback.submission?.id, feedback.submission?.challenge.id, community?.slug)}
                     submission={feedback.submission}
                     last={false}
                   >

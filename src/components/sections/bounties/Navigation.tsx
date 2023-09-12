@@ -1,14 +1,21 @@
 import UniqBy from "lodash.uniqby";
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import ChevronRightIcon from "@/icons/chevron-right.svg";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { ReactElement, useMemo } from "react";
 import { List } from "@/utilities/CommunityNavigation";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Colors } from "@/types/community";
+import { Bounty } from "@/types/bounty";
+import { IRootState } from "@/store";
 
+interface BountiesNavigationMultiSelector {
+  colors: Colors;
+  bounties: Bounty[];
+}
 /**
  * Bounties Navigation component
  * @date 5/2/2023 - 1:41:29 PM
@@ -19,10 +26,14 @@ import { useRouter } from "next/router";
 export default function BountiesNavigation(): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
-  const { colors, bounties } = useSelector((state) => ({
-    colors: state.ui.colors,
-    bounties: state.bounties.bountiesList,
-  }));
+  // const { colors, bounties } = useSelector((state) => ({
+  //   colors: state.ui.colors,
+  //   bounties: state.bounties.bountiesList,
+  // }));
+  const { colors, bounties } = useMultiSelector<unknown, BountiesNavigationMultiSelector>({
+    colors: (state: IRootState) => state.ui.colors,
+    bounties: (state: IRootState) => state.bounties.bountiesList,
+  });
 
   /**
    * Array of menu items for the bounties navigation.

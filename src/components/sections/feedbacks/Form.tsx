@@ -5,12 +5,24 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { useTranslation } from "next-i18next";
 import TextInput from "@/components/ui/TextInput";
 import Avatar from "@/components/ui/Avatar";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useForm } from "react-hook-form";
 import { createEvent } from "@/store/feature/events.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { Feedback } from "@/types/feedback";
 import { createFeedback } from "@/store/feature/communities/challenges/submissions/feedback.slice";
+import { Colors, Community } from "@/types/community";
+import { Submission, User } from "@/types/bounty";
+import { Challenge } from "@/types/course";
+import { IRootState } from "@/store";
+
+interface FormMultiSelector {
+  community: Community | null;
+  user: User | null;
+  colors: Colors;
+  submission: Submission | null;
+  challenge: Challenge | null;
+}
 
 /**
  * FormValues Intercase
@@ -54,13 +66,20 @@ export default function Form({ save }: FormProps): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [saving, setSaving] = useState(false);
-  const { community, user, colors, submission, challenge } = useSelector((state) => ({
-    community: state.communities.current,
-    user: state.user.data,
-    colors: state.ui.colors,
-    submission: state.submissions.current,
-    challenge: state.challenges.current,
-  }));
+  // const { community, user, colors, submission, challenge } = useSelector((state) => ({
+  //   community: state.communities.current,
+  //   user: state.user.data,
+  //   colors: state.ui.colors,
+  //   submission: state.submissions.current,
+  //   challenge: state.challenges.current,
+  // }));
+  const { community, user, colors, submission, challenge } = useMultiSelector<unknown, FormMultiSelector>({
+    community: (state: IRootState) => state.communities.current,
+    user: (state: IRootState) => state.user.data,
+    colors: (state: IRootState) => state.ui.colors,
+    submission: (state: IRootState) => state.submissions.current,
+    challenge: (state: IRootState) => state.challenges.current,
+  });
 
   const activeButtonStyle = useMemo(
     () => ({

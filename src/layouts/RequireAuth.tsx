@@ -1,11 +1,18 @@
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
+import { IRootState } from "@/store";
 import { setForwardRoute } from "@/store/feature/index.slice";
 import { setListProfileCommunities } from "@/store/feature/profile/communities.slice";
 import { fetchAllProfileCommunities } from "@/store/services/profile/profileCommunities.service";
 import { fetchUserProfile } from "@/store/services/profile/users.service";
+import { User } from "@/types/bounty";
 import { useRouter } from "next/router";
 import { ReactElement, ReactNode, useEffect, useMemo } from "react";
+
+interface RequireAuthMultiSelector {
+  authUser: User | null;
+  auth: User | null;
+}
 
 /**
  * This higher order component handles routing according to the user authentication state
@@ -19,10 +26,14 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
   const router = useRouter();
   const route = router.asPath;
   const dispatch = useDispatch();
-  const { auth, authUser } = useSelector((state) => ({
-    authUser: state.user.data,
-    auth: state.auth.data,
-  }));
+  // const { auth, authUser } = useSelector((state) => ({
+  //   authUser: state.user.data,
+  //   auth: state.auth.data,
+  // }));
+  const { auth, authUser } = useMultiSelector<unknown, RequireAuthMultiSelector>({
+    authUser: (state: IRootState) => state.user.data,
+    auth: (state: IRootState) => state.auth.data,
+  });
 
   function matchesRoutes(path: string, list: string[]) {
     const matches = list?.filter((el) => path?.startsWith(el));

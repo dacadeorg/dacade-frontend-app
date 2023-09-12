@@ -2,11 +2,17 @@ import Section from "@/components/sections/communities/_partials/Section";
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import Coin from "@/components/ui/Coin";
 import Checkmark from "@/icons/checkmark.svg";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import classNames from "classnames";
 import { ReactElement } from "react";
+import { Colors, Community } from "@/types/community";
+import { IRootState } from "@/store";
 
+interface RubricRatingMultiSelector {
+  community: Community | null;
+  colors: Colors;
+}
 interface RubricRatingProps {
   rubricRating?: {
     relevance: number;
@@ -54,10 +60,14 @@ export default function RubricRating({
 }: RubricRatingProps): ReactElement {
   const { t } = useTranslation();
 
-  const { community, colors } = useSelector((state) => ({
-    community: state.communities.current,
-    colors: state.ui.colors,
-  }));
+  // const { community, colors } = useSelector((state) => ({
+  //   community: state.communities.current,
+  //   colors: state.ui.colors,
+  // }));
+  const { community, colors } = useMultiSelector<unknown, RubricRatingMultiSelector>({
+    community: (state: IRootState) => state.communities.current,
+    colors: (state: IRootState) => state.ui.colors,
+  });
 
   return (
     <ThemeWrapper colors={colors}>

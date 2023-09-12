@@ -3,10 +3,21 @@ import Avatar from "@/components/ui/Avatar";
 import Tag from "@/components/ui/Tag";
 import Currency from "@/components/ui/Currency";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
+import { Community } from "@/types/community";
+import { Feedback } from "@/types/feedback";
+import { Submission } from "@/types/bounty";
+import { IRootState } from "@/store";
+
+interface CommunityStatsMultiSelector {
+  community: Community | null;
+  feedbacks: Feedback[];
+  submissions: Submission[];
+  reputation: number;
+}
 
 /**
  * community stats component
@@ -22,12 +33,18 @@ export default function CommunityStats(): ReactElement {
     dispatch(fetchCurrentCommunity({ slug: router.query.slug as string, locale: router.locale }));
   }, [dispatch, router.query.slug, router.locale]);
 
-  const { community, submissions, reputation, feedbacks } = useSelector((state) => ({
-    community: state.profile.communities.current,
-    feedbacks: state.profile.communities.feedbacks,
-    submissions: state.profile.communities.submissions,
-    reputation: state.profile.communities.reputation,
-  }));
+  // const { community, submissions, reputation, feedbacks } = useSelector((state) => ({
+  //   community: state.profile.communities.current,
+  //   feedbacks: state.profile.communities.feedbacks,
+  //   submissions: state.profile.communities.submissions,
+  //   reputation: state.profile.communities.reputation,
+  // }));
+  const { community, submissions, reputation, feedbacks } = useMultiSelector<unknown, CommunityStatsMultiSelector>({
+    community: (state: IRootState) => state.profile.communities.current,
+    feedbacks: (state: IRootState) => state.profile.communities.feedbacks,
+    submissions: (state: IRootState) => state.profile.communities.submissions,
+    reputation: (state: IRootState) => state.profile.communities.reputation,
+  });
 
   return (
     <div className="bg-gray-100 sm:flex sm:justify-between rounded-3xl w-full">
