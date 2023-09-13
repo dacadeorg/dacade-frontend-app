@@ -11,7 +11,7 @@ import { fetchFeedbacks } from "@/store/feature/communities/challenges/submissio
 import { useRouter } from "next/router";
 import { Submission } from "@/types/bounty";
 import { Challenge } from "@/types/course";
-import { Feedback } from "@/types/feedback";
+import { Feedback as FeedbackType } from "@/types/feedback";
 import { IRootState } from "@/store";
 
 /**
@@ -22,7 +22,7 @@ import { IRootState } from "@/store";
  * @typedef {FeedbackMultiSelector}
  */
 interface FeedbackMultiSelector {
-  feedbacks: Feedback[];
+  feedbacks: FeedbackType[];
   isAuthenticated: boolean;
   submission: Submission | null;
   challenge: Challenge | null;
