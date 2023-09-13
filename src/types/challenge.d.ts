@@ -17,13 +17,11 @@ export interface Team {
   name: string;
   organizer?: User;
   organizer_id: string;
-  teamInvites?: Invite[];
-  teamMembers?: TeamMember[];
+  invites?: Invite[];
   members?: TeamMember[];
   ref: string;
   timestamp: string;
   updated_at: string;
-  members: TeamMember[]
 }
 
 export interface Invite {

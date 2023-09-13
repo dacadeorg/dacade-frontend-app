@@ -52,7 +52,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
   const [error, setError] = useState<any>();
   const [txData, setTxData] = useState({ tx: "" });
   const { achievement, walletAddress } = useMultiSelector<unknown, MintCertificateMultiSelector>({
-    achievement: (state: IRootState) => state.profile.certificate.current,
+    achievement: (state: IRootState) => state.profileCertificate.current,
     walletAddress: (state: IRootState) => state.web3Wallet.address,
   });
 

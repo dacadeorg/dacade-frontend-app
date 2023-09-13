@@ -9,8 +9,9 @@ const userProfileService = createApi({
   endpoints: (builder) => ({
     fetchUserProfile: builder.query({
       query: (username: string) => {
-        const current = store.getState().profile.user.current;
-        if (!current || current?.username.toLocaleLowerCase() !== username.toLocaleLowerCase()) {
+        const current = store.getState().profileUser.current;
+        if (current?.username.toLocaleLowerCase() !== username.toLocaleLowerCase()) {
+          console.log("cleared");
           store.dispatch(clearProfile());
         }
         return `users/${username}`;

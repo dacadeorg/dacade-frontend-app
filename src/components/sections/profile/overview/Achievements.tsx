@@ -11,7 +11,7 @@ import { ReactElement } from "react";
  * @returns {ReactElement}
  */
 export default function ProfileOverviewAchievements(): ReactElement {
-  const achievements = useSelector((state) => state.profile.certificate.list);
+  const achievements = useSelector((state) => state.profileCertificate.list);
 
   if (achievements && achievements.length)
     return (

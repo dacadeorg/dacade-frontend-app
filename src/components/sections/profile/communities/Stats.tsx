@@ -1,12 +1,9 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import Avatar from "@/components/ui/Avatar";
 import Tag from "@/components/ui/Tag";
 import Currency from "@/components/ui/Currency";
-import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
-import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { useTranslation } from "next-i18next";
-import { useRouter } from "next/router";
 import { Community } from "@/types/community";
 import { Feedback } from "@/types/feedback";
 import { Submission } from "@/types/bounty";
@@ -32,19 +29,12 @@ interface CommunityStatsMultiSelector {
  */
 export default function CommunityStats(): ReactElement {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-
-  const router = useRouter();
-
-  useEffect(() => {
-    dispatch(fetchCurrentCommunity({ slug: router.query.slug as string, locale: router.locale }));
-  }, [dispatch, router.query.slug, router.locale]);
 
   const { community, submissions, reputation, feedbacks } = useMultiSelector<unknown, CommunityStatsMultiSelector>({
-    community: (state: IRootState) => state.profile.communities.current,
-    feedbacks: (state: IRootState) => state.profile.communities.feedbacks,
-    submissions: (state: IRootState) => state.profile.communities.submissions,
-    reputation: (state: IRootState) => state.profile.communities.reputation,
+    community: (state: IRootState) => state.profileCommunities.current,
+    feedbacks: (state: IRootState) => state.profileCommunities.feedbacks,
+    submissions: (state: IRootState) => state.profileCommunities.submissions,
+    reputation: (state: IRootState) => state.profileCommunities.reputation,
   });
 
   return (

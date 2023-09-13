@@ -26,7 +26,7 @@ interface AchievementLinkFieldProps {
  */
 export default function AchievementLinkField({ link }: AchievementLinkFieldProps): ReactElement {
   const { t } = useTranslation();
-  const current = useSelector((state) => state.profile.certificate.current);
+  const current = useSelector((state) => state.profileCertificate.current);
 
   const currentSubmissionId = current?.submission?.id;
   const copy = () => navigator.clipboard.writeText(link as string);

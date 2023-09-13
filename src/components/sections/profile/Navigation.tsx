@@ -44,7 +44,7 @@ export default function ProfileNagivation(): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
   const { communities, authUser } = useMultiSelector<unknown, ProfileNavigationMultiSelector>({
-    communities: (state: IRootState) => state.profile.communities.list,
+    communities: (state: IRootState) => state.profileCommunities.list,
     authUser: (state: IRootState) => state.user.data,
   });
 

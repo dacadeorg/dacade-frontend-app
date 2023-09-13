@@ -1,6 +1,6 @@
 import FeedbackCard from "@/components/cards/Feedback";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
-import navigation from "@/config/navigation";
+import useNavigation from "@/hooks/useNavigation";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import SubmissionCard from "@/components/cards/Submission";
@@ -29,10 +29,12 @@ interface SubmissionListMultiSelector {
 export default function SubmissionList(): ReactElement {
   const { t } = useTranslation();
   const { community, submissions, feedbacks } = useMultiSelector<unknown, SubmissionListMultiSelector>({
-    community: (state: IRootState) => state.profile.communities.current,
-    feedbacks: (state: IRootState) => state.profile.communities.feedbacks,
-    submissions: (state: IRootState) => state.profile.communities.submissions,
+    community: (state: IRootState) => state.profileCommunities.current,
+    feedbacks: (state: IRootState) => state.profileCommunities.feedbacks,
+    submissions: (state: IRootState) => state.profileCommunities.submissions,
   });
+
+  const navigation = useNavigation();
 
   return (
     <div>
