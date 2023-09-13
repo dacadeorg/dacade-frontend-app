@@ -12,12 +12,19 @@ import EmptyState from "@/components/ui/EmptyState";
 import InfiniteScroll from "react-infinite-scroll-component";
 import AuthObserver from "@/contexts/AuthObserver";
 import { User } from "@/types/bounty";
-import { Referral } from "@/types/community";
+import { Referral as ReferralType } from "@/types/community";
 import { IRootState } from "@/store";
 
+/**
+ * interface for UserReferrals multiSelector
+ * @date 9/13/2023 - 9:27:17 AM
+ *
+ * @interface UserReferralsMultiSelector
+ * @typedef {UserReferralsMultiSelector}
+ */
 interface UserReferralsMultiSelector {
   user: User | null;
-  referrals: Referral[];
+  referrals: ReferralType[];
 }
 
 /**
@@ -31,7 +38,6 @@ export default function UserReferrals(): ReactElement {
   const [showButton, setShowButton] = useState(true);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
-  // const { user, referrals } = useSelector((state) => ({ user: state.user.data, referrals: state.userReferrals.userReferralList }));
   const { user, referrals } = useMultiSelector<unknown, UserReferralsMultiSelector>({
     user: (state: IRootState) => state.user.data,
     referrals: (state: IRootState) => state.userReferrals.userReferralList,

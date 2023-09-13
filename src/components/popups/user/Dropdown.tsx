@@ -19,7 +19,7 @@ import { IRootState } from "@/store";
 import { Wallet } from "@/types/wallet";
 
 /**
- * UserProfileDropdown multiSelector
+ * interface for UserProfileDropdown multiSelector
  * @date 9/12/2023 - 4:02:26 PM
  *
  * @interface UserProfileDropdownMultiSelector
@@ -49,13 +49,6 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
   const { t } = useTranslation();
   const router = useRouter();
   const showLanguageSwitcher = useMemo(() => process.env.NEXT_PUBLIC_SHOW_LANGUAGE_SELECTOR === "true", []);
-  // const { wallets, reputations, user, error, busy } = useSelector((state) => ({
-  //   wallets: state.wallets.list,
-  //   reputations: state.userReputations.list,
-  //   user: state.user.data,
-  //   busy: state.store.busy,
-  //   error: state.store.error,
-  // }));
   const { wallets, reputations, user, error, busy } = useMultiSelector<unknown, UserProfileDropdownMultiSelector>({
     wallets: (state: IRootState) => state.wallets.list,
     reputations: (state: IRootState) => state.userReputations.list,

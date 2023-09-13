@@ -9,6 +9,13 @@ import { User } from "@/types/bounty";
 import { useRouter } from "next/router";
 import { ReactElement, ReactNode, useEffect, useMemo } from "react";
 
+/**
+ * interface for RequireAuth multiSelector
+ * @date 9/13/2023 - 9:22:42 AM
+ *
+ * @interface RequireAuthMultiSelector
+ * @typedef {RequireAuthMultiSelector}
+ */
 interface RequireAuthMultiSelector {
   authUser: User | null;
   auth: User | null;
@@ -26,10 +33,6 @@ export default function RequireAuth({ children }: { children: ReactNode }): Reac
   const router = useRouter();
   const route = router.asPath;
   const dispatch = useDispatch();
-  // const { auth, authUser } = useSelector((state) => ({
-  //   authUser: state.user.data,
-  //   auth: state.auth.data,
-  // }));
   const { auth, authUser } = useMultiSelector<unknown, RequireAuthMultiSelector>({
     authUser: (state: IRootState) => state.user.data,
     auth: (state: IRootState) => state.auth.data,

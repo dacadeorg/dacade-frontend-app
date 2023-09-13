@@ -13,6 +13,13 @@ import { hidePageNavigation, showPageNavigation } from "@/store/feature/communit
 import { checkAnswer, submitModuleAnswer } from "@/store/feature/learningModules.slice";
 import { IRootState } from "@/store";
 
+/**
+ * interface for InteractiveModule multiSelector
+ * @date 9/13/2023 - 9:14:58 AM
+ *
+ * @interface InteractiveModuleMultiSelector
+ * @typedef {InteractiveModuleMultiSelector}
+ */
 interface InteractiveModuleMultiSelector {
   isLoggedIn: boolean;
   course: Course | null;
@@ -46,10 +53,6 @@ export default function InteractiveModule({ data }: interactiveModuleProps): Rea
   const [answering, setAnswering] = useState(false);
   const dispatch = useDispatch();
 
-  // const { isLoggedIn, course } = useSelector((state) => ({
-  //   isLoggedIn: authCheck(state),
-  //   course: state.courses.current,
-  // }));
   const { isLoggedIn, course } = useMultiSelector<unknown, InteractiveModuleMultiSelector>({
     isLoggedIn: (state: IRootState) => authCheck(state),
     course: (state: IRootState) => state.courses.current,

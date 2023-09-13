@@ -12,6 +12,13 @@ import { fetchUserReputations } from "@/store/services/user/userReputation.servi
 import { Wallet } from "@/types/wallet";
 import { IRootState } from "@/store";
 
+/**
+ * interface for UserPopup multiSelector
+ * @date 9/13/2023 - 9:03:14 AM
+ *
+ * @interface UserPopupMultiSelector
+ * @typedef {UserPopupMultiSelector}
+ */
 interface UserPopupMultiSelector {
   mainWallet: Wallet | null;
   user: User | null;
@@ -32,10 +39,6 @@ interface UserPopupMultiSelector {
 export default function UserPopup({ buttonStyles }: { buttonStyles: CSSProperties }): ReactElement {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
-  // const { mainWallet, user } = useSelector((state) => ({
-  //   mainWallet: state.wallets.main,
-  //   user: state.user.data,
-  // }));
   const { mainWallet, user } = useMultiSelector<unknown, UserPopupMultiSelector>({
     mainWallet: (state: IRootState) => state.wallets.main,
     user: (state: IRootState) => state.user.data,

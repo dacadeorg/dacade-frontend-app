@@ -10,7 +10,14 @@ import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
 import { Community } from "@/types/community";
 
-interface ProfileNagivationMultiSelector {
+/**
+ * interface for ProfileNavigation multiSelector
+ * @date 9/13/2023 - 9:17:00 AM
+ *
+ * @interface ProfileNavigationMultiSelector
+ * @typedef {ProfileNavigationMultiSelector}
+ */
+interface ProfileNavigationMultiSelector {
   communities: Community[];
   authUser: User | null;
 }
@@ -36,11 +43,7 @@ interface Menu {
 export default function ProfileNagivation(): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
-  // const { communities, authUser } = useSelector((state) => ({
-  //   communities: state.profile.communities.list,
-  //   authUser: state.user.data,
-  // }));
-  const { communities, authUser } = useMultiSelector<unknown, ProfileNagivationMultiSelector>({
+  const { communities, authUser } = useMultiSelector<unknown, ProfileNavigationMultiSelector>({
     communities: (state: IRootState) => state.profile.communities.list,
     authUser: (state: IRootState) => state.user.data,
   });

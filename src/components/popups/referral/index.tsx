@@ -37,11 +37,6 @@ export default function ReferralPopup(): ReactElement {
   const dispatch = useDispatch();
   const [referralLink, setReferralLink] = useState("");
 
-  // const { user, showReferral, referrals } = useSelector((state) => ({
-  //   user: state.user.data,
-  //   showReferral: state.ui.showReferralPopup,
-  //   referrals: state.referrals.list,
-  // }));
   const { user, showReferral, referrals } = useMultiSelector<unknown, ReferralPopupMultiSelector>({
     user: (state: IRootState) => state.user.data,
     showReferral: (state: IRootState) => state.ui.showReferralPopup,

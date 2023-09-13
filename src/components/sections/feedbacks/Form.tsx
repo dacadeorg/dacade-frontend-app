@@ -16,6 +16,13 @@ import { Submission, User } from "@/types/bounty";
 import { Challenge } from "@/types/course";
 import { IRootState } from "@/store";
 
+/**
+ * interface for Form multiSelector
+ * @date 9/13/2023 - 9:12:21 AM
+ *
+ * @interface FormMultiSelector
+ * @typedef {FormMultiSelector}
+ */
 interface FormMultiSelector {
   community: Community | null;
   user: User | null;
@@ -66,13 +73,6 @@ export default function Form({ save }: FormProps): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [saving, setSaving] = useState(false);
-  // const { community, user, colors, submission, challenge } = useSelector((state) => ({
-  //   community: state.communities.current,
-  //   user: state.user.data,
-  //   colors: state.ui.colors,
-  //   submission: state.submissions.current,
-  //   challenge: state.challenges.current,
-  // }));
   const { community, user, colors, submission, challenge } = useMultiSelector<unknown, FormMultiSelector>({
     community: (state: IRootState) => state.communities.current,
     user: (state: IRootState) => state.user.data,

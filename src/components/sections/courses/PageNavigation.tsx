@@ -10,6 +10,13 @@ import { Items } from "@/store/feature/communities/navigation.slice";
 import { Colors } from "@/types/community";
 import { IRootState } from "@/store";
 
+/**
+ * interface for PageNavigation multiSelector
+ * @date 9/13/2023 - 9:10:46 AM
+ *
+ * @interface PageNavigationMultiSelector
+ * @typedef {PageNavigationMultiSelector}
+ */
 interface PageNavigationMultiSelector {
   menus: Items[];
   show: boolean;
@@ -27,11 +34,6 @@ export default function PageNavigation(): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
 
-  // const { menus, show, colors } = useSelector((state) => ({
-  //   menus: state.navigation.menus,
-  //   show: state.navigation.showPageNavigation,
-  //   colors: state.ui?.colors,
-  // }));
   const { menus, show, colors } = useMultiSelector<unknown, PageNavigationMultiSelector>({
     menus: (state: IRootState) => state.navigation.menus,
     show: (state: IRootState) => state.navigation.showPageNavigation,

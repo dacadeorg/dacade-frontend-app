@@ -9,6 +9,13 @@ import { Feedback } from "@/types/feedback";
 import { Submission } from "@/types/bounty";
 import { IRootState } from "@/store";
 
+/**
+ * interface for SubmissionList multiSelector
+ * @date 9/13/2023 - 9:18:58 AM
+ *
+ * @interface SubmissionListMultiSelector
+ * @typedef {SubmissionListMultiSelector}
+ */
 interface SubmissionListMultiSelector {
   community: Community | null;
   feedbacks: Feedback[];
@@ -21,11 +28,6 @@ interface SubmissionListMultiSelector {
  */
 export default function SubmissionList(): ReactElement {
   const { t } = useTranslation();
-  // const { community, submissions, feedbacks } = useSelector((state) => ({
-  //   community: state.profile.communities.current,
-  //   feedbacks: state.profile.communities.feedbacks,
-  //   submissions: state.profile.communities.submissions,
-  // }));
   const { community, submissions, feedbacks } = useMultiSelector<unknown, SubmissionListMultiSelector>({
     community: (state: IRootState) => state.profile.communities.current,
     feedbacks: (state: IRootState) => state.profile.communities.feedbacks,

@@ -15,6 +15,13 @@ import { useDiscordConnect } from "@/hooks/useDiscordConnect";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
 
+/**
+ * interface for ProfileHeader multiSelector
+ * @date 9/13/2023 - 9:16:05 AM
+ *
+ * @interface ProfileHeaderMultiSelector
+ * @typedef {ProfileHeaderMultiSelector}
+ */
 interface ProfileHeaderMultiSelector {
   authUser: User | null;
   profileUser: User | null;
@@ -29,11 +36,6 @@ export default function ProfileHeader() {
   const router = useRouter();
   const { locale } = router;
   const { t } = useTranslation();
-  // const { authUser, profileUser, isKycVerified } = useSelector((state) => ({
-  //   authUser: state.user.data,
-  //   profileUser: state.profile.user.current,
-  //   isKycVerified: state.user.data?.kycStatus === "VERIFIED",
-  // }));
   const { authUser, profileUser, isKycVerified } = useMultiSelector<unknown, ProfileHeaderMultiSelector>({
     authUser: (state: IRootState) => state.user.data,
     profileUser: (state: IRootState) => state.profile.user.current,

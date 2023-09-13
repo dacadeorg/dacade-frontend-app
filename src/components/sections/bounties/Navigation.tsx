@@ -12,6 +12,13 @@ import { Colors } from "@/types/community";
 import { Bounty } from "@/types/bounty";
 import { IRootState } from "@/store";
 
+/**
+ * interface for BountiesNavigation multiSelector
+ * @date 9/13/2023 - 9:04:18 AM
+ *
+ * @interface BountiesNavigationMultiSelector
+ * @typedef {BountiesNavigationMultiSelector}
+ */
 interface BountiesNavigationMultiSelector {
   colors: Colors;
   bounties: Bounty[];
@@ -26,10 +33,6 @@ interface BountiesNavigationMultiSelector {
 export default function BountiesNavigation(): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
-  // const { colors, bounties } = useSelector((state) => ({
-  //   colors: state.ui.colors,
-  //   bounties: state.bounties.bountiesList,
-  // }));
   const { colors, bounties } = useMultiSelector<unknown, BountiesNavigationMultiSelector>({
     colors: (state: IRootState) => state.ui.colors,
     bounties: (state: IRootState) => state.bounties.bountiesList,

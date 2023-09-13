@@ -39,10 +39,6 @@ interface SubmissionViewCardProps {
  */
 export default function SubmissionViewCard({ submission }: SubmissionViewCardProps): ReactElement {
   const { t } = useTranslation();
-  // const { colors, authUser } = useSelector((state) => ({
-  //   colors: state.ui.colors,
-  //   authUser: state.user.data,
-  // }));
 
   const { colors, authUser } = useMultiSelector<unknown, { colors: Colors; authUser: User | null }>({
     colors: (state) => state.ui.colors,

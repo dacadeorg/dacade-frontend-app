@@ -14,6 +14,13 @@ import { Challenge } from "@/types/course";
 import { Feedback } from "@/types/feedback";
 import { IRootState } from "@/store";
 
+/**
+ * interface for Feedback multiSelector
+ * @date 9/13/2023 - 9:12:52 AM
+ *
+ * @interface FeedbackMultiSelector
+ * @typedef {FeedbackMultiSelector}
+ */
 interface FeedbackMultiSelector {
   feedbacks: Feedback[];
   isAuthenticated: boolean;
@@ -32,12 +39,6 @@ export default function Feedback(): ReactElement {
   const dispatch = useDispatch();
   const route = useRouter();
 
-  // const { feedbacks, isAuthenticated, submission, challenge } = useSelector((state) => ({
-  //   feedbacks: state.feedback.list,
-  //   isAuthenticated: authCheck(state),
-  //   submission: state.submissions.current,
-  //   challenge: state.challenges.current,
-  // }));
   const { feedbacks, isAuthenticated, submission, challenge } = useMultiSelector<unknown, FeedbackMultiSelector>({
     feedbacks: (state: IRootState) => state.feedback.list,
     isAuthenticated: (state: IRootState) => authCheck(state),

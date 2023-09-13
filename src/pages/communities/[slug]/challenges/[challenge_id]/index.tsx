@@ -32,6 +32,13 @@ import { getTeamByChallenge } from "@/store/services/teams.service";
 import { fetchChallenge, fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
 import Loader from "@/components/ui/Loader";
 
+/**
+ * interface for ChallengePage multiSelector
+ * @date 9/13/2023 - 9:26:15 AM
+ *
+ * @interface ChallengePageMultiSelector
+ * @typedef {ChallengePageMultiSelector}
+ */
 interface ChallengePageMultiSelector {
   submission: Submission | null;
   isAuthenticated: boolean;
@@ -62,11 +69,6 @@ export default function ChallengePage(props: {
   const { challenge, community } = props.pageProps;
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  // const { submission, isAuthenticated, isSubmissionLoading } = useSelector((state) => ({
-  //   submission: state.challenges.submission,
-  //   isAuthenticated: authCheck(state),
-  //   isSubmissionLoading: state.challenges.loading,
-  // }));
   const { submission, isAuthenticated, isSubmissionLoading } = useMultiSelector<unknown, ChallengePageMultiSelector>({
     submission: (state: IRootState) => state.challenges.submission,
     isAuthenticated: (state: IRootState) => authCheck(state),

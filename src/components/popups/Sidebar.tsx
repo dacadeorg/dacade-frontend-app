@@ -55,11 +55,6 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  // const { user, isAuthenticated, unread } = useSelector((state) => ({
-  //   user: state.user.data,
-  //   isAuthenticated: authVerify(state),
-  //   unread: state.notifications.unread,
-  // }));
   const { user, isAuthenticated, unread } = useMultiSelector<unknown, SidebarMultiSelector>({
     user: (state: IRootState) => state.user.data,
     isAuthenticated: (state: IRootState) => authVerify(state),

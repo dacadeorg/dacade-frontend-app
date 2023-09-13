@@ -13,6 +13,13 @@ import { fetchAllBounties } from "@/store/services/bounties.service";
 import { Referral } from "@/types/community";
 import { IRootState } from "@/store";
 
+/**
+ * interface for Bounties multiSelector
+ * @date 9/13/2023 - 9:25:40 AM
+ *
+ * @interface bountiesMultiSelector
+ * @typedef {bountiesMultiSelector}
+ */
 interface bountiesMultiSelector {
   referrals: Referral[];
   bounties: Bounty[];
@@ -60,10 +67,6 @@ export default function Bounties() {
     })();
   }, [dispatch]);
 
-  // const { referrals, bounties } = useSelector((state) => ({
-  //   referrals: state.referrals.list,
-  //   bounties: state.bounties.bountiesList,
-  // }));
   const { referrals, bounties } = useMultiSelector<unknown, bountiesMultiSelector>({
     referrals: (state: IRootState) => state.referrals.list,
     bounties: (state: IRootState) => state.bounties.bountiesList,

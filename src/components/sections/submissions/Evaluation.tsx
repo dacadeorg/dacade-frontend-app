@@ -9,6 +9,13 @@ import { Colors } from "@/types/community";
 import { Challenge } from "@/types/course";
 import { IRootState } from "@/store";
 
+/**
+ * interface for Evaluations multiSelector
+ * @date 9/13/2023 - 9:21:32 AM
+ *
+ * @interface EvaluationsMultiSelector
+ * @typedef {EvaluationsMultiSelector}
+ */
 interface EvaluationsMultiSelector {
   colors: Colors;
   submission: Submission | null;
@@ -24,11 +31,6 @@ interface EvaluationsMultiSelector {
  */
 export default function Evaluations(): ReactElement {
   const { t } = useTranslation();
-  // const { colors, submission, challenge } = useSelector((state) => ({
-  //   colors: state.ui.colors,
-  //   submission: state.submissions.current,
-  //   challenge: state.challenges.current,
-  // }));
   const { colors, submission, challenge } = useMultiSelector<unknown, EvaluationsMultiSelector>({
     colors: (state: IRootState) => state.ui.colors,
     submission: (state: IRootState) => state.submissions.current,

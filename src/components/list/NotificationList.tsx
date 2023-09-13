@@ -30,11 +30,6 @@ interface NotificationProps {
  */
 
 export default function NotificationList({ extended }: NotificationProps): ReactElement {
-  // const { notifications, user } = useSelector((state) => ({
-  //   notifications: state.notifications.notifications,
-  //   user: state.user.data,
-  // }));
-
   const { notifications, user } = useMultiSelector<unknown, { notifications: Notification[]; user: User | null }>({
     notifications: (state) => state.notifications.notifications,
     user: (state) => state.user.data,

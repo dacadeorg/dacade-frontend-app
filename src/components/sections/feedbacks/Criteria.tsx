@@ -12,6 +12,13 @@ import { Submission } from "@/types/bounty";
 import { Challenge } from "@/types/course";
 import { Colors } from "@/types/community";
 
+/**
+ * interface for Criteria multiSelector
+ * @date 9/13/2023 - 9:11:31 AM
+ *
+ * @interface CriteriaMultiSelector
+ * @typedef {CriteriaMultiSelector}
+ */
 interface CriteriaMultiSelector {
   submission: Submission | null;
   challenge: Challenge | null;
@@ -28,11 +35,6 @@ interface CriteriaMultiSelector {
 export default function Criteria(): ReactElement {
   const { t } = useTranslation();
   const [infoVisibility, setinfoVisibility] = useState(false);
-  // const { submission, challenge } = useSelector((state) => ({
-  //   submission: state.submissions.current,
-  //   challenge: state.challenges.current,
-  //   colors: state.ui.colors,
-  // }));
 
   const { submission, challenge } = useMultiSelector<unknown, CriteriaMultiSelector>({
     submission: (state: IRootState) => state.submissions.current,

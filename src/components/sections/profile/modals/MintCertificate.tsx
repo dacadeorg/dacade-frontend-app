@@ -12,6 +12,13 @@ import { mintCertificate } from "@/store/services/profile/certificate.service";
 import { Certificate } from "@/types/certificate";
 import { IRootState } from "@/store";
 
+/**
+ * interface for MintCertificate multiSelector
+ * @date 9/13/2023 - 9:20:47 AM
+ *
+ * @interface MintCertificateMultiSelector
+ * @typedef {MintCertificateMultiSelector}
+ */
 interface MintCertificateMultiSelector {
   achievement: Certificate | null;
   walletAddress: string | null;
@@ -44,10 +51,6 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>();
   const [txData, setTxData] = useState({ tx: "" });
-  // const { achievement, walletAddress } = useSelector((state) => ({
-  //   achievement: state.profile.certificate.current,
-  //   walletAddress: state.web3Wallet.address,
-  // }));
   const { achievement, walletAddress } = useMultiSelector<unknown, MintCertificateMultiSelector>({
     achievement: (state: IRootState) => state.profile.certificate.current,
     walletAddress: (state: IRootState) => state.web3Wallet.address,

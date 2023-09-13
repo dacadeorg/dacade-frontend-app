@@ -16,6 +16,13 @@ import { Bounty } from "@/types/bounty";
 import { Referral } from "@/types/community";
 import { IRootState } from "@/store";
 
+/**
+ * interface for BountiesPage multiSelector
+ * @date 9/13/2023 - 9:25:01 AM
+ *
+ * @interface BountiesPageMultiSelector
+ * @typedef {BountiesPageMultiSelector}
+ */
 interface BountiesPageMultiSelector {
   bountiesFiltered: Bounty[];
   referralsFiltered: Referral[];
@@ -40,10 +47,6 @@ export default function BountiesPage(): ReactElement {
     })();
   }, [dispatch, router.query.slug]);
 
-  // const { bountiesFiltered, referralsFiltered } = useSelector((state) => ({
-  //   bountiesFiltered: state.bounties.filteredBountyList,
-  //   referralsFiltered: state.referrals.filteredList,
-  // }));
   const { bountiesFiltered, referralsFiltered } = useMultiSelector<unknown, BountiesPageMultiSelector>({
     bountiesFiltered: (state: IRootState) => state.bounties.filteredBountyList,
     referralsFiltered: (state: IRootState) => state.referrals.filteredList,

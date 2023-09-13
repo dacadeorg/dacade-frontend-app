@@ -9,6 +9,13 @@ import { ReactElement } from "react";
 import { Colors, Community } from "@/types/community";
 import { IRootState } from "@/store";
 
+/**
+ * interface for RubricRating multiSelector
+ * @date 9/13/2023 - 9:05:04 AM
+ *
+ * @interface RubricRatingMultiSelector
+ * @typedef {RubricRatingMultiSelector}
+ */
 interface RubricRatingMultiSelector {
   community: Community | null;
   colors: Colors;
@@ -60,10 +67,6 @@ export default function RubricRating({
 }: RubricRatingProps): ReactElement {
   const { t } = useTranslation();
 
-  // const { community, colors } = useSelector((state) => ({
-  //   community: state.communities.current,
-  //   colors: state.ui.colors,
-  // }));
   const { community, colors } = useMultiSelector<unknown, RubricRatingMultiSelector>({
     community: (state: IRootState) => state.communities.current,
     colors: (state: IRootState) => state.ui.colors,

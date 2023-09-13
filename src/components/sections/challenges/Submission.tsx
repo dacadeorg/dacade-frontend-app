@@ -21,6 +21,13 @@ import { Challenge } from "@/types/course";
 import { Team } from "@/types/challenge";
 import { IRootState } from "@/store";
 
+/**
+ * interface for Submission multiSelector
+ * @date 9/13/2023 - 9:07:18 AM
+ *
+ * @interface SubmissionMultiSelector
+ * @typedef {SubmissionMultiSelector}
+ */
 interface SubmissionMultiSelector {
   colors: Colors;
   challenge: Challenge | null;
@@ -51,12 +58,6 @@ export default function Submission(): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  // const { colors, challenge, community, team } = useSelector((state) => ({
-  //   colors: state.ui.colors,
-  //   challenge: state.challenges.current,
-  //   community: state.communities.current,
-  //   team: state.teams.current,
-  // }));
   const { colors, challenge, community, team } = useMultiSelector<unknown, SubmissionMultiSelector>({
     colors: (state: IRootState) => state.ui.colors,
     challenge: (state: IRootState) => state.challenges.current,

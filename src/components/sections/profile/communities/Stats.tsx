@@ -12,6 +12,13 @@ import { Feedback } from "@/types/feedback";
 import { Submission } from "@/types/bounty";
 import { IRootState } from "@/store";
 
+/**
+ * interface for CommunityStats multiSelector
+ * @date 9/13/2023 - 9:20:04 AM
+ *
+ * @interface CommunityStatsMultiSelector
+ * @typedef {CommunityStatsMultiSelector}
+ */
 interface CommunityStatsMultiSelector {
   community: Community | null;
   feedbacks: Feedback[];
@@ -33,12 +40,6 @@ export default function CommunityStats(): ReactElement {
     dispatch(fetchCurrentCommunity({ slug: router.query.slug as string, locale: router.locale }));
   }, [dispatch, router.query.slug, router.locale]);
 
-  // const { community, submissions, reputation, feedbacks } = useSelector((state) => ({
-  //   community: state.profile.communities.current,
-  //   feedbacks: state.profile.communities.feedbacks,
-  //   submissions: state.profile.communities.submissions,
-  //   reputation: state.profile.communities.reputation,
-  // }));
   const { community, submissions, reputation, feedbacks } = useMultiSelector<unknown, CommunityStatsMultiSelector>({
     community: (state: IRootState) => state.profile.communities.current,
     feedbacks: (state: IRootState) => state.profile.communities.feedbacks,

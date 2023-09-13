@@ -12,6 +12,13 @@ import { Challenge } from "@/types/course";
 import { Invite } from "@/types/challenge";
 import { IRootState } from "@/store";
 
+/**
+ * interface for SetupTeamChallenge multiSelector
+ * @date 9/13/2023 - 9:05:40 AM
+ *
+ * @interface SetupTeamChallengeMultiSelector
+ * @typedef {SetupTeamChallengeMultiSelector}
+ */
 interface SetupTeamChallengeMultiSelector {
   challenge: Challenge | null;
   invite: Invite | null;
@@ -24,11 +31,6 @@ interface SetupTeamChallengeMultiSelector {
  * @returns {JSX.Element} The SetupTeamChallenge component JSX element.
  */
 export default function SetupTeamChallenge(): JSX.Element {
-  // const { challenge, invite, isAuthenticated } = useSelector((state) => ({
-  //   challenge: state.challenges.current,
-  //   invite: state.invites.data,
-  //   isAuthenticated: authCheck(state),
-  // }));
   const { challenge, invite, isAuthenticated } = useMultiSelector<unknown, SetupTeamChallengeMultiSelector>({
     challenge: (state: IRootState) => state.challenges.current,
     invite: (state: IRootState) => state.invites.data,

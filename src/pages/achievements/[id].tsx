@@ -22,6 +22,13 @@ import { Certificate } from "@/types/certificate";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
 
+/**
+ * interface for Achievement multiSelector
+ * @date 9/13/2023 - 9:24:16 AM
+ *
+ * @interface AchievementMultiSelector
+ * @typedef {AchievementMultiSelector}
+ */
 interface AchievementMultiSelector {
   achievement: Certificate | null;
   achievementMinted: boolean;
@@ -30,11 +37,6 @@ interface AchievementMultiSelector {
 
 const Achievement = () => {
   const { t } = useTranslation();
-  // const { achievement, achievementMinted, user } = useSelector((state) => ({
-  //   achievement: state.certificates.current,
-  //   achievementMinted: state.certificates.currentMinted,
-  //   user: state.user.data,
-  // }));
   const { achievement, achievementMinted, user } = useMultiSelector<unknown, AchievementMultiSelector>({
     achievement: (state: IRootState) => state.certificates.current,
     achievementMinted: (state: IRootState) => state.certificates.currentMinted,

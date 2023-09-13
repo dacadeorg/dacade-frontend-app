@@ -4,6 +4,13 @@ import { useMemo } from "react";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
 
+/**
+ * interface for UseDiscordConnect multiSelector
+ * @date 9/13/2023 - 9:22:05 AM
+ *
+ * @interface useDiscordConnectMultiSelector
+ * @typedef {useDiscordConnectMultiSelector}
+ */
 interface useDiscordConnectMultiSelector {
   authUser: User | null;
   profileUser: User | null;
@@ -11,10 +18,6 @@ interface useDiscordConnectMultiSelector {
 
 export const useDiscordConnect = () => {
   const router = useRouter();
-  // const { authUser, profileUser } = useSelector((state) => ({
-  //   authUser: state.user.data,
-  //   profileUser: state.profile.user.current,
-  // }));
   const { authUser, profileUser } = useMultiSelector<unknown, useDiscordConnectMultiSelector>({
     authUser: (state: IRootState) => state.user.data,
     profileUser: (state: IRootState) => state.profile.user.current,

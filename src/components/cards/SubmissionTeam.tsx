@@ -13,7 +13,14 @@ import { IRootState } from "@/store";
 import { Challenge } from "@/types/course";
 import { Invite, Team } from "@/types/challenge";
 
-interface SubmissionMultiSelector {
+/**
+ * interface for submissionTeamCard  multiSelector
+ * @date 9/13/2023 - 8:57:31 AM
+ *
+ * @interface SubmissionTeamCardMultiSelector
+ * @typedef {SubmissionTeamCardMultiSelector}
+ */
+interface SubmissionTeamCardMultiSelector {
   challenge: Challenge | null;
   user: User | null;
   team: Team;
@@ -64,15 +71,7 @@ interface Option {
  */
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  // const { challenge, user, team, isTeamLoading } = useSelector((state) => ({
-  //   challenge: state.challenges.current,
-  //   user: state.user.data,
-  //   team: state.teams.current,
-  //   invite: state.invites.data,
-  //   isTeamLoading: state.teams.loading,
-  // }));
-
-  const { challenge, user, team, isTeamLoading } = useMultiSelector<unknown, SubmissionMultiSelector>({
+  const { challenge, user, team, isTeamLoading } = useMultiSelector<unknown, SubmissionTeamCardMultiSelector>({
     challenge: (state: IRootState) => state.challenges.current,
     user: (state: IRootState) => state.user.data,
     team: (state: IRootState) => state.teams.current,
