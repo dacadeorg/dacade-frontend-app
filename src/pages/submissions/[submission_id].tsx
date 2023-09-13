@@ -16,7 +16,7 @@ import Head from "next/head";
 import Loader from "@/components/ui/Loader";
 import useSafePush from "@/hooks/useSafePush";
 import { Course } from "@/types/course";
-import { Submission } from "@/types/bounty";
+import { Submission as SubmissionType } from "@/types/bounty";
 import { IRootState } from "@/store";
 
 /**
@@ -28,7 +28,7 @@ import { IRootState } from "@/store";
  */
 interface SubmissionMultiSelector {
   course: Course | null;
-  submission: Submission | null;
+  submission: SubmissionType | null;
 }
 /**
  * Submssion view page
