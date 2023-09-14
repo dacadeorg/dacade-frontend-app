@@ -4,6 +4,8 @@ import Coin from "@/components/ui/Coin";
 import Currency from "@/components/ui/Currency";
 import { truncateAddress } from "@/utilities/Address";
 import { Wallet } from "@/types/wallet";
+import { toggleBodyScrolling } from "@/store/feature/ui.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  * Interface for balance card props
@@ -28,9 +30,15 @@ interface BalanceProps {
  */
 export default function Balance({ details }: BalanceProps): ReactElement {
   const address = details.address ? truncateAddress(details.address, details.token) : null;
+  const dispatch = useDispatch();
 
   return (
-    <Link href={`/profile/wallets`}>
+    <Link
+      onClick={() => {
+        toggleBodyScrolling(false)(dispatch);
+      }}
+      href={`/profile/wallets`}
+    >
       <div className="flex px-5 py-3 -mx-5 space-x-3 text-left hover:bg-gray-50">
         <Coin token={details.token} size="medium" />
         <div className="w-3/4 pt-1">
