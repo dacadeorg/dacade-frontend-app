@@ -4,8 +4,6 @@ import Loader from "@/components/ui/Loader";
 import Button from "@/components/ui/button";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import { fetchUser } from "@/store/services/user.service";
-import { useDispatch } from "@/hooks/useTypedDispatch";
 import api from "@/config/api";
 
 /**
@@ -22,7 +20,7 @@ export default function DiscordConnect({ username }: { username?: string }): Rea
   const [showDiscordModal, setShowDiscordModal] = useState(false);
   const { t } = useTranslation();
   const router = useRouter();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const closeModal = () => {
     setShowDiscordModal(false);
@@ -67,12 +65,11 @@ export default function DiscordConnect({ username }: { username?: string }): Rea
         return;
       }
       setDiscordSuccess(true);
-      dispatch(fetchUser());
+      router.replace({ query: username ? { username: username } : {} });
     } catch (error) {
       setDiscordError(true);
     } finally {
       setDiscordLoading(false);
-      router.replace({ query: username ? { username: username } : {} });
     }
   }, []);
 
