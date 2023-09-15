@@ -27,6 +27,7 @@ interface Email {
 const userService = createApi({
   reducerPath: "userService",
   baseQuery: baseQuery(),
+  refetchOnMountOrArgChange: true,
   endpoints: (builder) => ({
     /**
      * Get user endpoint

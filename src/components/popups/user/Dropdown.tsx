@@ -6,7 +6,6 @@ import LanguageList from "@/components/list/LanguageList";
 import Avatar from "@/components/ui/Avatar";
 import Button from "@/components/ui/button";
 import DropdownPopup from "@/components/ui/DropdownPopup";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { Reputation, User } from "@/types/bounty";
 import { setShowReferralPopup, toggleBodyScrolling } from "@/store/feature/ui.slice";
@@ -47,7 +46,6 @@ interface UserProfileDropdownMultiSelector {
 const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProperties; onClose: () => void }): ReactElement => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const router = useRouter();
   const showLanguageSwitcher = useMemo(() => process.env.NEXT_PUBLIC_SHOW_LANGUAGE_SELECTOR === "true", []);
   const { wallets, reputations, user, error, busy } = useMultiSelector<unknown, UserProfileDropdownMultiSelector>({
     wallets: (state: IRootState) => state.wallets.list,
@@ -67,7 +65,6 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
   const onLogout = () => {
     dispatch(logout());
     toggleBodyScrolling(false)(dispatch);
-    router.push("/");
   };
 
   /**
