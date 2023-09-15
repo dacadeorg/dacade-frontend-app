@@ -6,7 +6,6 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { User } from "@/types/bounty";
 import { cancelTeamInvite, createTeam, getTeamByChallenge, removeTeamMember } from "@/store/services/teams.service";
 import { getUserByUsername } from "@/store/services/user.service";
-import { setInviteStatus } from "@/store/feature/communities/challenges/invites.slice";
 import Button from "./challenge/_partials/Button";
 import debounce from "lodash.debounce";
 import Loader from "../ui/Loader";
@@ -47,6 +46,18 @@ interface Option {
 }
 
 /**
+ * Enum for storing the types if users on the team
+ * @date 9/11/2023 - 12:38:37 PM
+ *
+ * @enum {number}
+ */
+enum MemberStatus {
+  teamMember = "member",
+  organizer = "organizer",
+  invite = "invite",
+}
+
+/**
  * SubmissionTeam component.
  *
  * @param {SubmissionTeamProps} props - The props for the SubmissionTeam component.
@@ -54,18 +65,18 @@ interface Option {
  */
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  const { challenge, user, team, inviteStatus, isTeamLoading } = useSelector((state) => ({
+  const { challenge, user, team, isTeamLoading } = useSelector((state) => ({
     challenge: state.challenges.current,
     user: state.user.data,
     team: state.teams.current,
     invite: state.invites.data,
-    inviteStatus: state.invites.inviteStatus,
     isTeamLoading: state.teams.loading,
   }));
 
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
   const [isCurrentUserMember, setIsCurrentUserMember] = useState(false);
   const [isCurrentUserOrganiser, setIsCurrentUserOrganiser] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const filterUsers = async (username: string, callback: any) => {
@@ -80,17 +91,17 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
 
   useEffect(() => {
     if (team) {
-      if (team.organizer) setMembersList([{ user: team.organizer, status: "organizer", id: team.organizer_id }]);
+      if (team.organizer) setMembersList([{ user: team.organizer, status: MemberStatus.organizer, id: team.organizer_id }]);
 
-      if (team.teamMembers) {
-        team.teamMembers.forEach(({ user, id }) => {
-          setMembersList((prev) => [...prev, { user: user, status: "Team member", id }]);
+      if (team.members) {
+        team.members.forEach(({ user, id }) => {
+          setMembersList((prev) => [...prev, { user: user, status: MemberStatus.teamMember, id }]);
         });
       }
 
-      if (team.teamInvites) {
-        team.teamInvites.forEach(({ user, status, id }) => {
-          setMembersList((prev) => [...prev, { user, status, id }]);
+      if (team.invites) {
+        team.invites.forEach(({ user, id }) => {
+          setMembersList((prev) => [...prev, { user, status: MemberStatus.invite, id }]);
         });
       }
     }
@@ -105,25 +116,25 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     if (membersList.filter((member) => member.user?.id === option.user?.id).length !== 0) {
       return;
     }
-    if (membersList.length === 0) setMembersList([{ user, status: "organizer", id: user?.id as string }]);
+    if (membersList.length === 0) setMembersList([{ user, status: MemberStatus.organizer, id: user?.id as string }]);
 
-    setMembersList((prev) => [...prev, { user: option.user, status: "Sending invite", id: option.user.id }]);
     await dispatch(
       createTeam({
         challenge_id: challenge?.id,
         members: [option.user?.id],
       })
     );
+    refetchTeam();
   };
 
   const removeTeamMemberFromTeam = async (id: string) => {
     await dispatch(removeTeamMember({ member_id: id, team_id: team.id }));
-    if (challenge) dispatch(getTeamByChallenge(challenge.id));
+    refetchTeam();
   };
 
   const cancelInvite = async (id: string) => {
     await dispatch(cancelTeamInvite({ invite_id: id }));
-    if (challenge) dispatch(getTeamByChallenge(challenge.id));
+    refetchTeam();
   };
 
   const leaveMyTeam = () => {
@@ -131,21 +142,11 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     console.log("Team member is going to leave the team");
   };
 
-  useEffect(() => {
-    if (inviteStatus) {
-      let status = "";
-      if (inviteStatus === "sent") status = "PENDING";
-      else if (inviteStatus === "not sent") status = "Not sent";
-
-      setMembersList((prev) => {
-        const newMembersList = [...prev];
-        newMembersList[prev.length - 1].status = status;
-        return newMembersList;
-      });
-
-      dispatch(setInviteStatus(null));
-    }
-  }, [inviteStatus]);
+  const refetchTeam = async () => {
+    setLoading(true);
+    if (challenge) await dispatch(getTeamByChallenge(challenge.id));
+    setLoading(false);
+  };
 
   return (
     <div className="flex flex-col relative flex-grow p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">
@@ -157,7 +158,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
           </div>
           <div className="text-sm font-normal text-gray-700 max-w-xxs pb-2">{text}</div>
 
-          {isTeamLoading ? (
+          {isTeamLoading || loading ? (
             <div className="h-24 sm:h-48 grid place-items-center">
               <Loader />
             </div>
@@ -173,42 +174,45 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                       <div className=" text-sm text-gray-700 font-medium">{member?.displayName}</div>
                       <div className=" text-gray-400 text-xs">{status}</div>
                     </div>
-                    {isCurrentUserOrganiser && status === "Team member" && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
-                    {isCurrentUserOrganiser && status === "PENDING" && <Button onClick={() => cancelInvite(id)} text="Cancel" />}
-                    {!isCurrentUserOrganiser && user?.id === member?.id && <Button onClick={() => leaveMyTeam()} text="Leave" />}
+                    {!team.locked && (
+                      <>
+                        {isCurrentUserOrganiser ? (
+                          <>
+                            {status === MemberStatus.teamMember && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
+                            {status === MemberStatus.invite && <Button onClick={() => cancelInvite(id)} text="Cancel" />}
+                          </>
+                        ) : (
+                          <> {user?.id === member?.id && <Button onClick={leaveMyTeam} text="Leave" />}</>
+                        )}
+                      </>
+                    )}
                   </div>
                 );
               })}
-              {(team && isCurrentUserOrganiser) || !isCurrentUserMember ? (
-                <div>
-                  <AsyncSelect
-                    cacheOptions
-                    styles={{
-                      input: (baseStyles) => ({
-                        ...baseStyles,
-                        input: {
-                          height: "36px",
-                        },
-                      }),
-                    }}
-                    placeholder="Enter dacade username"
-                    defaultOptions={[]}
-                    className="text-lg"
-                    isClearable={true}
-                    loadOptions={loadUserOptions}
-                    onChange={(option) => {
-                      // TODO: check if the team is actually closed instead of using this condition
-                      if (team?.teamMembers && team.teamMembers.length >= 2) {
-                        return;
-                      } else {
-                        if (option) selectTeamMember(option);
-                      }
-                    }}
-                  />
-                </div>
-              ) : (
-                <></>
-              )}
+              {(team && isCurrentUserOrganiser && !team.locked) ||
+                (!isCurrentUserMember && (
+                  <div>
+                    <AsyncSelect
+                      cacheOptions
+                      styles={{
+                        input: (baseStyles) => ({
+                          ...baseStyles,
+                          input: {
+                            height: "36px",
+                          },
+                        }),
+                      }}
+                      placeholder="Enter dacade username"
+                      defaultOptions={[]}
+                      className="text-lg"
+                      isClearable={true}
+                      loadOptions={loadUserOptions}
+                      onChange={(option) => {
+                        if (!team.locked && option) selectTeamMember(option);
+                      }}
+                    />
+                  </div>
+                ))}
             </>
           )}
         </div>

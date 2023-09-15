@@ -17,7 +17,9 @@ const baseQuery = (locale: string = "en"): BaseQueryFn =>
     prepareHeaders: async (headers) => {
       headers.set("Content-Type", "application/json");
       headers.set("app-name", Package.name);
-      headers.set("Accept-Language", locale);
+      if (!headers.has("Accept-Language")) {
+        headers.set("Accept-Language", locale);
+      }
       headers.set("app-domain", typeof window !== "undefined" ? window.location.hostname : "dacade.org");
 
       try {

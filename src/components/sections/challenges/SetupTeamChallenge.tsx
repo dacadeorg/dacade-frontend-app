@@ -36,7 +36,7 @@ export default function SetupTeamChallenge(): JSX.Element {
       <div className="text-base font-normal text-slate-700 pt-8 pb-7 md:w-99">{t("communities.overview.challenge.team.setup.info")}</div>
       <div className="md:flex flex-row gap-5">
         <FormTeamCard index={1} title="Form your team" description="Open discord channel #teams and find your teammates to complete the challenge with you." />
-        {invite ? (
+        {invite && !invite.team?.locked ? (
           <ConfirmTeamInvitation index={2} title="Submit your team" text="The maximum team members for this challenge is 3 people" invite={invite} />
         ) : (
           <SubmissionTeamCard

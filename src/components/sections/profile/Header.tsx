@@ -23,7 +23,7 @@ export default function ProfileHeader() {
   const { t } = useTranslation();
   const { authUser, profileUser, isKycVerified } = useSelector((state) => ({
     authUser: state.user.data,
-    profileUser: state.profile.user.current,
+    profileUser: state.profileUser.current,
     isKycVerified: state.user.data?.kycStatus === "VERIFIED",
   }));
 
@@ -49,7 +49,7 @@ export default function ProfileHeader() {
 
   return (
     <div className="relative pb-24 font-sans text-center">
-      <Avatar size="extra" user={user} useLink={false} />
+      <Avatar size="extra" user={user} useLink={false} isKycVerified={isKycVerified}/>
       <span className="block mt-5 text-5xl leading-none capitalize">{username}</span>
       <div className="flex justify-center mt-2 text-sm leading-snug divide-x divide-solid">
         {!canConnectDiscord && (

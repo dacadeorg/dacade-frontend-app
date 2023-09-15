@@ -11,7 +11,7 @@ export const useDiscordConnect = () => {
   const router = useRouter();
   const { authUser, profileUser } = useSelector((state) => ({
     authUser: state.user.data,
-    profileUser: state.profile.user.current,
+    profileUser: state.profileUser.current,
   }));
   const user = useMemo(() => {
     const username = (router.query?.username as string) || "";

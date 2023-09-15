@@ -3,6 +3,7 @@ import { Community } from "@/types/community";
 import { Feedback } from "@/types/feedback";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { setColors } from "../ui.slice";
+import { HYDRATE } from "next-redux-wrapper";
 
 interface InitialState {
   list: Community[];
@@ -29,7 +30,7 @@ const initialState: InitialState = {
  * @type {*}
  */
 const communitiesProfile = createSlice({
-  name: "communities",
+  name: "profileCommunities",
   initialState,
   reducers: {
     setCurrentProfileCommunity(state, action: PayloadAction<Community>) {
@@ -57,6 +58,14 @@ const communitiesProfile = createSlice({
       state.current = null;
       state.feedbacks = [];
       state.submissions = [];
+    },
+  },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload["profileCommunities"],
+      };
     },
   },
 });

@@ -38,7 +38,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
   const [error, setError] = useState<any>();
   const [txData, setTxData] = useState({ tx: "" });
   const { achievement, walletAddress } = useSelector((state) => ({
-    achievement: state.profile.certificate.current,
+    achievement: state.profileCertificate.current,
     walletAddress: state.web3Wallet.address,
   }));
 

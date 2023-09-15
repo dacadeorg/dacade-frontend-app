@@ -2,12 +2,13 @@ import Badge from "@/components/ui/Badge";
 import UserCard from "@/components/cards/User";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { Submission } from "@/types/bounty";
+import { Submission, User } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
-import { ReactElement, ReactNode, useCallback } from "react";
+import { ReactElement, ReactNode, useCallback, useEffect, useState } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { showSubmission } from "@/store/feature/communities/challenges/submissions";
 import { useRouter } from "next/router";
+import Markdown from "../ui/Markdown";
 
 /**
  * Submission card interface props
@@ -35,6 +36,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
   const { t } = useTranslation();
   const router = useRouter();
   const { colors } = useSelector((state) => ({ colors: state.ui.colors }));
+  const [members, setMembers] = useState<User[]>([]);
 
   const reviewed = submission?.metadata?.evaluation || submission?.metadata?.reviewed;
 
@@ -53,13 +55,25 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
     router.push({ query: { submission_id: submission?.id }, pathname: router.asPath }, undefined, { shallow: true });
   }, [router, submission?.id]);
 
+  useEffect(() => {
+    if (submission.team) {
+      const {
+        team: { organizer, members },
+      } = submission;
+      setMembers(() => [(organizer as User) || submission.user]);
+      members?.forEach(({ user }) => setMembers((prev) => [...prev, user]));
+    }
+  }, []);
+
   return (
     <UserCard
       user={submission.user}
+      submission={submission}
       timestamp={{
         date: submission.created_at,
         text: t("submissions.submitted"),
       }}
+      teamMembers={members}
       link={link}
       bordered={false}
       className="pt-6"
@@ -67,7 +81,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
     >
       <div className="divide-y divide-gray-200 flex flex-col">
         <div className="pb-6">
-          <p className="text-base sm:text-lg line-clamp-3 leading-normal text-gray-700 break-words">{submission.text}</p>
+          <Markdown value={submission.text} markDownStyles="text-base sm:text-lg line-clamp-3 leading-normal text-gray-700 break-words" />
         </div>
         <div className="flex items-center py-4 w-full justify-between">
           <div className="flex space-x-4 items-center">

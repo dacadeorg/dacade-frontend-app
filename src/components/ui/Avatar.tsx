@@ -23,7 +23,7 @@ interface User {
  *
  * @typedef {AvatarProps}
  */
-type Size = "extra" | "large" | "medium" | "medium-fixed" | "small-fixed" | "mini" | "small";
+type Size = "extra" | "large" | "medium" | "medium-fixed" | "small-fixed" | "mini" | "small" | "fixed";
 
 type Shape = "rounded" | "rounded-3xl" | "full" | "squared" | "circular";
 interface AvatarProps {
@@ -35,6 +35,7 @@ interface AvatarProps {
   shape?: Shape;
   useLink?: boolean;
   hideVerificationBadge?: boolean;
+  isKycVerified?: boolean;
   style?: CSSProperties;
   className?: string;
 }
@@ -65,6 +66,7 @@ export default function Avatar({
   useLink = true,
   className,
   hideVerificationBadge = false,
+  isKycVerified = false,
 }: AvatarProps): ReactElement {
   const [userAvatarLoaded, setUserAvatarLoaded] = useState(true);
   const initials = user?.displayName ? user?.displayName[0] : null;
@@ -77,6 +79,7 @@ export default function Avatar({
     "w-10 h-10 sm:h-12 sm:w-12 md:w-15 md:h-15 text-xl sm:text-2xl": size === "medium",
     "w-10 h-10 text-2xl": size === "medium-fixed",
     "w-7 h-7 text-xl": size === "small-fixed",
+    "w-7.5 h-7.5 text-sm font-bold": size === "fixed",
     "w-5 h-5 text-xl": size === "mini",
     "w-9 h-9 text-lg": size === "small",
   });
@@ -105,12 +108,12 @@ export default function Avatar({
     }
   }, [size]);
 
-  const showVerificationBadge = !hideVerificationBadge && user;
-  const Component = useLink ? Link : "span";
+  const showVerificationBadge = !hideVerificationBadge && user && isKycVerified;
+  const Component = useLink ? Link : "div";
 
   return (
     <Component href={link} className={componentClassName}>
-      <span
+      <div
         style={{ backgroundColor: color }}
         className={`bg-primary h-full w-full flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle relative z-0 ${shapeClassName}`}
       >
@@ -130,7 +133,7 @@ export default function Avatar({
 
         {icon && <Image fill={true} src={icon} alt="icon image" className="p-2" />}
         {image && <Image src={image} fill={true} alt="icon image" className="p-0 object-cover w-full h-full" />}
-      </span>
+      </div>
       {showVerificationBadge && (
         <span className={`absolute z-20 rounded-full ${verifiedIconClasses}`}>
           <VerifiedIcon className="w-full h-full" />

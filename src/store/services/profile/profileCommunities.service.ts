@@ -37,13 +37,16 @@ interface FindUserProfileCommuniyResult {
  * @type {*}
  */
 const profileCommunitiesService: any = createApi({
-  reducerPath: "profileCommunities",
+  reducerPath: "profileCommunitiesService",
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
     fetchAllProfileCommunities: builder.query<Community[], string>({
       query: (username: string) => {
         if (!username) return;
-        if (username !== store.getState().profile.communities.listDataUsername) clearProfileCommunity();
+        if (username !== store.getState().profileCommunities.listDataUsername) {
+          console.log("cleaned");
+          clearProfileCommunity();
+        }
         return `profile/${username}/communities`;
       },
 
