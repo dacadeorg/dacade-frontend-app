@@ -26,14 +26,17 @@ export default function ProfileOverview(): ReactElement {
   useEffect(() => {
     (async () => {
       const username = user?.username;
-      await Promise.all([
-        dispatch(fetchUserProfile((username as string) || "")),
-        dispatch(fetchAllCertificates({ username: (username as string) || "" })),
-        dispatch(fetchProfileReputation({ username: (username as string) || "" })),
-        dispatch(userFetchReferrals({})),
-      ]);
+      if (username) {
+        await Promise.all([
+          dispatch(fetchUserProfile((username as string) || "")),
+          dispatch(fetchAllCertificates({ username: (username as string) || "" })),
+          dispatch(fetchProfileReputation({ username: (username as string) || "" })),
+          dispatch(userFetchReferrals({})),
+        ]);
+      }
     })();
   }, [dispatch, router.locale, user?.username]);
+
   return (
     <>
       <Head>

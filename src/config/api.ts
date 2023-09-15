@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from "axios";
 import Package from "../../package.json";
 import { getUserToken } from "@/store/feature/user.slice";
+import { AUTH_TOKEN } from "@/constants/localStorage";
 
 /**
  * Instance of axios
@@ -41,7 +42,7 @@ export default function api(locale = "en"): {
    */
   const requestHandlerClient = async (config: InternalAxiosRequestConfig) => {
     const token = await getUserToken();
-    config.headers["authorization"] = token;
+    config.headers["authorization"] = localStorage.getItem(AUTH_TOKEN) ?? token;
     config.headers["app-name"] = Package.name;
     config.headers["app-domain"] = typeof window !== "undefined" ? window.location.hostname : "dacade.org";
     config.headers["Accept-Language"] = locale;
