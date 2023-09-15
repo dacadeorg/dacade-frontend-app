@@ -1,4 +1,4 @@
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import Avatar from "@/components/ui/Avatar";
 import DateManager from "@/utilities/DateManager";
 import Button from "@/components/ui/button";
@@ -12,6 +12,21 @@ import { useDispatch } from "react-redux";
 import { openVerificationModal } from "@/store/feature/kyc.slice";
 import KYCVerification from "@/components/popups/KYCVerification";
 import { useDiscordConnect } from "@/hooks/useDiscordConnect";
+import { User } from "@/types/bounty";
+import { IRootState } from "@/store";
+
+/**
+ * interface for ProfileHeader multiSelector
+ * @date 9/13/2023 - 9:16:05 AM
+ *
+ * @interface ProfileHeaderMultiSelector
+ * @typedef {ProfileHeaderMultiSelector}
+ */
+interface ProfileHeaderMultiSelector {
+  authUser: User | null;
+  profileUser: User | null;
+  isKycVerified: boolean;
+}
 
 /**
  * Profile header component
@@ -21,11 +36,11 @@ export default function ProfileHeader() {
   const router = useRouter();
   const { locale } = router;
   const { t } = useTranslation();
-  const { authUser, profileUser, isKycVerified } = useSelector((state) => ({
-    authUser: state.user.data,
-    profileUser: state.profileUser.current,
-    isKycVerified: state.user.data?.kycStatus === "VERIFIED",
-  }));
+  const { authUser, profileUser, isKycVerified } = useMultiSelector<unknown, ProfileHeaderMultiSelector>({
+    authUser: (state: IRootState) => state.user.data,
+    profileUser: (state: IRootState) => state.profileUser.current,
+    isKycVerified: (state: IRootState) => state.user.data?.kycStatus === "VERIFIED",
+  });
 
   const user = useMemo(() => {
     const username = (router.query?.username as string) || "";
@@ -49,7 +64,7 @@ export default function ProfileHeader() {
 
   return (
     <div className="relative pb-24 font-sans text-center">
-      <Avatar size="extra" user={user} useLink={false} isKycVerified={isKycVerified}/>
+      <Avatar size="extra" user={user} useLink={false} isKycVerified={isKycVerified} />
       <span className="block mt-5 text-5xl leading-none capitalize">{username}</span>
       <div className="flex justify-center mt-2 text-sm leading-snug divide-x divide-solid">
         {!canConnectDiscord && (

@@ -14,9 +14,7 @@ import { ReactElement } from "react";
  */
 export default function ChallengeHeader(): ReactElement {
   const { t } = useTranslation();
-  const { challenge } = useSelector((state) => ({
-    challenge: state.challenges.current,
-  }));
+  const challenge = useSelector((state) => state.challenges.current);
 
   return (
     <div>

@@ -5,7 +5,7 @@ import TextInput from "@/components/ui/TextInput";
 import GithubLinkInput from "@/components/ui/GithubLinkInput";
 import MarkdownIcon from "@/components/ui/MarkdownIcon";
 import ArrowButton from "@/components/ui/button/Arrow";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { createSubmission, createSubmissionTeam } from "@/store/feature/communities/challenges/submissions";
 import { useForm } from "react-hook-form";
@@ -13,9 +13,29 @@ import classNames from "classnames";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import { createEvent } from "@/store/feature/events.slice";
-import { Submission as TSubmission } from "@/types/bounty";
+import { Submission as TSubmission, User } from "@/types/bounty";
 import Hint from "@/components/ui/Hint";
 import { fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
+import { Colors, Community } from "@/types/community";
+import { Challenge } from "@/types/course";
+import { Team } from "@/types/challenge";
+import { IRootState } from "@/store";
+
+/**
+ * interface for Submission multiSelector
+ * @date 9/13/2023 - 9:07:18 AM
+ *
+ * @interface SubmissionMultiSelector
+ * @typedef {SubmissionMultiSelector}
+ */
+interface SubmissionMultiSelector {
+  colors: Colors;
+  challenge: Challenge | null;
+  community: Community | null;
+  team: Team;
+  authUser: User | null;
+}
+
 interface FormValues {
   text: string;
   githubLink: string;
@@ -38,13 +58,14 @@ export default function Submission(): ReactElement {
   let textValue = watch("text");
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { colors, challenge, community, team, authUser } = useSelector((state) => ({
-    colors: state.ui.colors,
-    challenge: state.challenges.current,
-    community: state.communities.current,
-    team: state.teams.current,
-    authUser: state.user.data,
-  }));
+
+  const { colors, challenge, community, team, authUser } = useMultiSelector<unknown, SubmissionMultiSelector>({
+    colors: (state: IRootState) => state.ui.colors,
+    challenge: (state: IRootState) => state.challenges.current,
+    community: (state: IRootState) => state.communities.current,
+    team: (state: IRootState) => state.teams.current,
+    authUser: (state: IRootState) => state.user.data,
+  });
 
   const [submitting, setSubmitting] = useState(false);
   const [checkedTerms, setCheckedTerms] = useState(false);

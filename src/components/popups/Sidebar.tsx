@@ -10,12 +10,27 @@ import CommunitiesIcon from "@/icons/communities.svg";
 import WalletIcon from "@/icons/wallet.svg";
 import Popup from "@/components/ui/Popup";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { toggleBodyScrolling, toggleShowReferralPopup } from "@/store/feature/ui.slice";
 import { logout } from "@/store/feature/auth.slice";
 import { authVerify } from "@/store/feature/auth.slice";
 import { readNotification } from "@/store/services/notification.service";
 import NotificationList from "../list/NotificationList";
+import { User } from "@/types/bounty";
+import { IRootState } from "@/store";
+
+/**
+ * interface for Sidebar multiSelector
+ * @date 9/12/2023 - 3:23:04 PM
+ *
+ * @interface SidebarMultiSelector
+ * @typedef {SidebarMultiSelector}
+ */
+interface SidebarMultiSelector {
+  user: User | null;
+  isAuthenticated: boolean;
+  unread: number;
+}
 
 /**
  * Sidebar props interface
@@ -40,12 +55,11 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const { user, isAuthenticated, unread } = useSelector((state) => ({
-    user: state.user.data,
-    isAuthenticated: authVerify(state),
-    unread: state.notifications.unread,
-  }));
-
+  const { user, isAuthenticated, unread } = useMultiSelector<unknown, SidebarMultiSelector>({
+    user: (state: IRootState) => state.user.data,
+    isAuthenticated: (state: IRootState) => authVerify(state),
+    unread: (state: IRootState) => state.notifications.unread,
+  });
   const username = user?.username;
 
   const [show, setshow] = useState(false);

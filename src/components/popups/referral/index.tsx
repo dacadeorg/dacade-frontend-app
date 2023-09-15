@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { toggleShowReferralPopup } from "@/store/feature/ui.slice";
 import List from "./List";
 import Box from "./Box";
@@ -7,6 +7,22 @@ import Crossmark from "@/icons/crossmark-2.svg";
 import Modal from "@/components/ui/Modal";
 import { useTranslation } from "next-i18next";
 import { ReactElement, useEffect, useState } from "react";
+import { IRootState } from "@/store";
+import { User } from "@/types/bounty";
+import { Referral } from "@/types/community";
+
+/**
+ * Interface for ReferralPopup multiselector
+ * @date 9/12/2023 - 3:21:02 PM
+ *
+ * @interface ReferralPopupMultiSelector
+ * @typedef {ReferralPopupMultiSelector}
+ */
+interface ReferralPopupMultiSelector {
+  user: User | null;
+  showReferral: boolean;
+  referrals: Referral[];
+}
 
 /**
  * Referreal popup component
@@ -21,12 +37,11 @@ export default function ReferralPopup(): ReactElement {
   const dispatch = useDispatch();
   const [referralLink, setReferralLink] = useState("");
 
-  const { user, showReferral, referrals } = useSelector((state) => ({
-    user: state.user.data,
-    showReferral: state.ui.showReferralPopup,
-    referrals: state.referrals.list,
-  }));
-
+  const { user, showReferral, referrals } = useMultiSelector<unknown, ReferralPopupMultiSelector>({
+    user: (state: IRootState) => state.user.data,
+    showReferral: (state: IRootState) => state.ui.showReferralPopup,
+    referrals: (state: IRootState) => state.referrals.list,
+  });
   useEffect(() => {
     // Construct referral link using the user's display name
     if (window !== undefined) setReferralLink(() => `${window.location.origin}/signup?invite=${user?.displayName}`);

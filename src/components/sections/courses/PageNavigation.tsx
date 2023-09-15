@@ -1,11 +1,27 @@
 import ArrowButton from "@/components/ui/button/Arrow";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactElement, useMemo } from "react";
 import { useTranslation } from "next-i18next";
 import Section from "../communities/_partials/Section";
+import { Items } from "@/store/feature/communities/navigation.slice";
+import { Colors } from "@/types/community";
+import { IRootState } from "@/store";
+
+/**
+ * interface for PageNavigation multiSelector
+ * @date 9/13/2023 - 9:10:46 AM
+ *
+ * @interface PageNavigationMultiSelector
+ * @typedef {PageNavigationMultiSelector}
+ */
+interface PageNavigationMultiSelector {
+  menus: Items[];
+  show: boolean;
+  colors: Colors;
+}
 
 /**
  * PageNavigation component
@@ -18,11 +34,11 @@ export default function PageNavigation(): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
 
-  const { menus, show, colors } = useSelector((state) => ({
-    menus: state.navigation.menus,
-    show: state.navigation.showPageNavigation,
-    colors: state.ui?.colors,
-  }));
+  const { menus, show, colors } = useMultiSelector<unknown, PageNavigationMultiSelector>({
+    menus: (state: IRootState) => state.navigation.menus,
+    show: (state: IRootState) => state.navigation.showPageNavigation,
+    colors: (state: IRootState) => state.ui?.colors,
+  });
 
   const list = useMemo(() => menus?.map((menu) => menu?.items).flat(), [menus]);
 

@@ -2,8 +2,9 @@ import { ReactElement } from "react";
 import classNames from "classnames";
 import { useTranslation } from "next-i18next";
 import NotificationCard from "@/components/cards/NotificationCard";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { User } from "@/types/bounty";
+import { Notification } from "@/types/notification";
 
 /**
  * Notification props interface
@@ -29,10 +30,10 @@ interface NotificationProps {
  */
 
 export default function NotificationList({ extended }: NotificationProps): ReactElement {
-  const { notifications, user } = useSelector((state) => ({
-    notifications: state.notifications.notifications,
-    user: state.user.data,
-  }));
+  const { notifications, user } = useMultiSelector<unknown, { notifications: Notification[]; user: User | null }>({
+    notifications: (state) => state.notifications.notifications,
+    user: (state) => state.user.data,
+  });
 
   const { t } = useTranslation();
 

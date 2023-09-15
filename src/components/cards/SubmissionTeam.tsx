@@ -2,13 +2,31 @@ import { useEffect, useState } from "react";
 import Avatar from "@/components/ui/Avatar";
 import AsyncSelect from "react-select/async";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { User } from "@/types/bounty";
 import { cancelTeamInvite, createTeam, getTeamByChallenge, removeTeamMember } from "@/store/services/teams.service";
 import { getUserByUsername } from "@/store/services/user.service";
 import Button from "./challenge/_partials/Button";
 import debounce from "lodash.debounce";
 import Loader from "../ui/Loader";
+import { IRootState } from "@/store";
+import { Challenge } from "@/types/course";
+import { Invite, Team } from "@/types/challenge";
+
+/**
+ * interface for submissionTeamCard  multiSelector
+ * @date 9/13/2023 - 8:57:31 AM
+ *
+ * @interface SubmissionTeamCardMultiSelector
+ * @typedef {SubmissionTeamCardMultiSelector}
+ */
+interface SubmissionTeamCardMultiSelector {
+  challenge: Challenge | null;
+  user: User | null;
+  team: Team;
+  invite: Invite | null;
+  isTeamLoading: boolean;
+}
 
 /**
  * Props for the SubmissionTeam component.
@@ -65,13 +83,12 @@ enum MemberStatus {
  */
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  const { challenge, user, team, isTeamLoading } = useSelector((state) => ({
-    challenge: state.challenges.current,
-    user: state.user.data,
-    team: state.teams.current,
-    invite: state.invites.data,
-    isTeamLoading: state.teams.loading,
-  }));
+  const { challenge, user, team, isTeamLoading } = useMultiSelector<unknown, SubmissionTeamCardMultiSelector>({
+    challenge: (state: IRootState) => state.challenges.current,
+    user: (state: IRootState) => state.user.data,
+    team: (state: IRootState) => state.teams.current,
+    isTeamLoading: (state: IRootState) => state.teams.loading,
+  });
 
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
   const [isCurrentUserMember, setIsCurrentUserMember] = useState(false);

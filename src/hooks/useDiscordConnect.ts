@@ -1,6 +1,20 @@
 import { useRouter } from "next/router";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useMemo } from "react";
+import { User } from "@/types/bounty";
+import { IRootState } from "@/store";
+
+/**
+ * interface for UseDiscordConnect multiSelector
+ * @date 9/13/2023 - 9:22:05 AM
+ *
+ * @interface useDiscordConnectMultiSelector
+ * @typedef {useDiscordConnectMultiSelector}
+ */
+interface useDiscordConnectMultiSelector {
+  authUser: User | null;
+  profileUser: User | null;
+}
 
 const NEXT_PUBLIC_DISCORD_CALLBACK_URL = process.env.NEXT_PUBLIC_DISCORD_CALLBACK_URL;
 const NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL = process.env.NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL;
@@ -9,10 +23,10 @@ const NEXT_PUBLIC_DISCORD_CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID;
 
 export const useDiscordConnect = () => {
   const router = useRouter();
-  const { authUser, profileUser } = useSelector((state) => ({
-    authUser: state.user.data,
-    profileUser: state.profileUser.current,
-  }));
+  const { authUser, profileUser } = useMultiSelector<unknown, useDiscordConnectMultiSelector>({
+    authUser: (state: IRootState) => state.user.data,
+    profileUser: (state: IRootState) => state.profileUser.current,
+  });
   const user = useMemo(() => {
     const username = (router.query?.username as string) || "";
     if (username && username?.toLowerCase() !== authUser?.displayName?.toLowerCase()) return profileUser;

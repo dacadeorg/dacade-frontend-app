@@ -1,5 +1,5 @@
 import { CSSProperties, ReactElement, useEffect, useMemo } from "react";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import BalanceList from "@/components/list/Balance";
 import ReputationList from "@/components/list/Reputation";
 import LanguageList from "@/components/list/LanguageList";
@@ -8,13 +8,30 @@ import Button from "@/components/ui/button";
 import DropdownPopup from "@/components/ui/DropdownPopup";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import { User } from "@/types/bounty";
+import { Reputation, User } from "@/types/bounty";
 import { setShowReferralPopup, toggleBodyScrolling } from "@/store/feature/ui.slice";
 import { logout } from "@/store/feature/auth.slice";
 import { setBusy, setError } from "@/store/feature/index.slice";
 import Link from "next/link";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import VerifiedIcon from "@/icons/verified.svg";
+import { IRootState } from "@/store";
+import { Wallet } from "@/types/wallet";
+
+/**
+ * interface for UserProfileDropdown multiSelector
+ * @date 9/12/2023 - 4:02:26 PM
+ *
+ * @interface UserProfileDropdownMultiSelector
+ * @typedef {UserProfileDropdownMultiSelector}
+ */
+interface UserProfileDropdownMultiSelector {
+  wallets: Wallet[];
+  reputations: Reputation[];
+  user: User | null;
+  error: any;
+  busy: boolean;
+}
 
 /**
  * User profile dropdown component
@@ -32,13 +49,13 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
   const { t } = useTranslation();
   const router = useRouter();
   const showLanguageSwitcher = useMemo(() => process.env.NEXT_PUBLIC_SHOW_LANGUAGE_SELECTOR === "true", []);
-  const { wallets, reputations, user, error, busy } = useSelector((state) => ({
-    wallets: state.wallets.list,
-    reputations: state.userReputations.list,
-    user: state.user.data,
-    busy: state.store.busy,
-    error: state.store.error,
-  }));
+  const { wallets, reputations, user, error, busy } = useMultiSelector<unknown, UserProfileDropdownMultiSelector>({
+    wallets: (state: IRootState) => state.wallets.list,
+    reputations: (state: IRootState) => state.userReputations.list,
+    user: (state: IRootState) => state.user.data,
+    busy: (state: IRootState) => state.store.busy,
+    error: (state: IRootState) => state.store.error,
+  });
   const username = user?.displayName;
   const isKycVerified = useMemo(() => user?.kycStatus === "VERIFIED", [user]);
 

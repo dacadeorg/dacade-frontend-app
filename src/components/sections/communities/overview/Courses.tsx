@@ -4,7 +4,20 @@ import CourseCard from "@/components/cards/course";
 import { Course } from "@/types/course";
 import { ReactElement } from "react";
 import { SectionWrapper } from "./_partials/SectionWrapper";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
+import { IRootState } from "@/store";
+
+/**
+ * interface for CourseOverview multiSelector
+ * @date 9/13/2023 - 9:09:09 AM
+ *
+ * @interface CoursesOverviewMultiSelector
+ * @typedef {CoursesOverviewMultiSelector}
+ */
+interface CoursesOverviewMultiSelector {
+  courseList: Course[];
+  community: Community | null;
+}
 
 /**
  * Course overview component
@@ -14,10 +27,10 @@ import { useSelector } from "@/hooks/useTypedSelector";
  * @returns {ReactElement}
  */
 export function CoursesOverview(): ReactElement {
-  const { courseList, community } = useSelector((state) => ({
-    courseList: state.courses.list,
-    community: state.communities.current,
-  }));
+  const { courseList, community } = useMultiSelector<unknown, CoursesOverviewMultiSelector>({
+    courseList: (state: IRootState) => state.courses.list,
+    community: (state: IRootState) => state.communities.current,
+  });
   const { t } = useTranslation();
 
   return (

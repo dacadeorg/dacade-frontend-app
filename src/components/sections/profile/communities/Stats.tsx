@@ -2,8 +2,26 @@ import { ReactElement } from "react";
 import Avatar from "@/components/ui/Avatar";
 import Tag from "@/components/ui/Tag";
 import Currency from "@/components/ui/Currency";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
+import { Community } from "@/types/community";
+import { Feedback } from "@/types/feedback";
+import { Submission } from "@/types/bounty";
+import { IRootState } from "@/store";
+
+/**
+ * interface for CommunityStats multiSelector
+ * @date 9/13/2023 - 9:20:04 AM
+ *
+ * @interface CommunityStatsMultiSelector
+ * @typedef {CommunityStatsMultiSelector}
+ */
+interface CommunityStatsMultiSelector {
+  community: Community | null;
+  feedbacks: Feedback[];
+  submissions: Submission[];
+  reputation: number;
+}
 
 /**
  * community stats component
@@ -12,12 +30,12 @@ import { useTranslation } from "next-i18next";
 export default function CommunityStats(): ReactElement {
   const { t } = useTranslation();
 
-  const { community, submissions, reputation, feedbacks } = useSelector((state) => ({
-    community: state.profileCommunities.current,
-    feedbacks: state.profileCommunities.feedbacks,
-    submissions: state.profileCommunities.submissions,
-    reputation: state.profileCommunities.reputation,
-  }));
+  const { community, submissions, reputation, feedbacks } = useMultiSelector<unknown, CommunityStatsMultiSelector>({
+    community: (state: IRootState) => state.profileCommunities.current,
+    feedbacks: (state: IRootState) => state.profileCommunities.feedbacks,
+    submissions: (state: IRootState) => state.profileCommunities.submissions,
+    reputation: (state: IRootState) => state.profileCommunities.reputation,
+  });
 
   return (
     <div className="bg-gray-100 sm:flex sm:justify-between rounded-3xl w-full">

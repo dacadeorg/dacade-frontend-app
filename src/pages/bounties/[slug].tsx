@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useMemo } from "react";
 import { getMetadataTitle } from "@/utilities/Metadata";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
@@ -12,6 +12,21 @@ import DefaultLayout from "@/components/layout/Default";
 import i18Translate from "@/utilities/I18Translate";
 import { fetchAllBounties } from "@/store/services/bounties.service";
 import { findBountiesBySlug } from "@/store/feature/bouties.slice";
+import { Bounty } from "@/types/bounty";
+import { Referral } from "@/types/community";
+import { IRootState } from "@/store";
+
+/**
+ * interface for BountiesPage multiSelector
+ * @date 9/13/2023 - 9:25:01 AM
+ *
+ * @interface BountiesPageMultiSelector
+ * @typedef {BountiesPageMultiSelector}
+ */
+interface BountiesPageMultiSelector {
+  bountiesFiltered: Bounty[];
+  referralsFiltered: Referral[];
+}
 
 /**
  * Bounties by slug page
@@ -32,10 +47,10 @@ export default function BountiesPage(): ReactElement {
     })();
   }, [dispatch, router.query.slug]);
 
-  const { bountiesFiltered, referralsFiltered } = useSelector((state) => ({
-    bountiesFiltered: state.bounties.filteredBountyList,
-    referralsFiltered: state.referrals.filteredList,
-  }));
+  const { bountiesFiltered, referralsFiltered } = useMultiSelector<unknown, BountiesPageMultiSelector>({
+    bountiesFiltered: (state: IRootState) => state.bounties.filteredBountyList,
+    referralsFiltered: (state: IRootState) => state.referrals.filteredList,
+  });
 
   const title = useMemo(() => getMetadataTitle(router.query.slug as string, t("nav.bounties")), [router.query.slug, t]);
 

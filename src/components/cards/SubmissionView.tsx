@@ -1,10 +1,11 @@
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useTranslation } from "next-i18next";
 import UserCard from "@/components/cards/User";
 import TranslationBox from "@/components/cards/TranslationBox";
 import { ReactElement, useEffect, useState } from "react";
 import { Submission, User } from "@/types/bounty";
+import { Colors } from "@/types/community";
 
 /**
  * Type for the default locale
@@ -38,10 +39,11 @@ interface SubmissionViewCardProps {
  */
 export default function SubmissionViewCard({ submission }: SubmissionViewCardProps): ReactElement {
   const { t } = useTranslation();
-  const { colors, authUser } = useSelector((state) => ({
-    colors: state.ui.colors,
-    authUser: state.user.data,
-  }));
+
+  const { colors, authUser } = useMultiSelector<unknown, { colors: Colors; authUser: User | null }>({
+    colors: (state) => state.ui.colors,
+    authUser: (state) => state.user.data,
+  });
 
   const [members, setMembers] = useState<User[]>([]);
 

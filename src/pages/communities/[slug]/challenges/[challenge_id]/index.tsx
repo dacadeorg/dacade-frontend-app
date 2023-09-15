@@ -5,9 +5,9 @@ import { OverviewRewards as Rewards } from "@/components/sections/challenges/Rew
 import SubmissionForm from "@/components/sections/challenges/Submission";
 import SubmissionCard from "@/components/cards/SubmissionView";
 import { getMetadataTitle } from "@/utilities/Metadata";
-import { wrapper } from "@/store";
+import { IRootState, wrapper } from "@/store";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { authCheck } from "@/store/feature/auth.slice";
 import { Challenge } from "@/types/course";
@@ -31,6 +31,20 @@ import Objectives from "@/components/sections/challenges/Objectives";
 import { getTeamByChallenge } from "@/store/services/teams.service";
 import { fetchChallenge, fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
 import Loader from "@/components/ui/Loader";
+
+/**
+ * interface for ChallengePage multiSelector
+ * @date 9/13/2023 - 9:26:15 AM
+ *
+ * @interface ChallengePageMultiSelector
+ * @typedef {ChallengePageMultiSelector}
+ */
+interface ChallengePageMultiSelector {
+  submission: Submission | null;
+  isAuthenticated: boolean;
+  isSubmissionLoading: boolean;
+}
+
 /**
  * Challenge view page
  * @date 4/25/2023 - 8:12:39 PM
@@ -55,11 +69,11 @@ export default function ChallengePage(props: {
   const { challenge, community } = props.pageProps;
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { submission, isAuthenticated, isSubmissionLoading } = useSelector((state) => ({
-    submission: state.challenges.submission,
-    isAuthenticated: authCheck(state),
-    isSubmissionLoading: state.challenges.loading,
-  }));
+  const { submission, isAuthenticated, isSubmissionLoading } = useMultiSelector<unknown, ChallengePageMultiSelector>({
+    submission: (state: IRootState) => state.challenges.submission,
+    isAuthenticated: (state: IRootState) => authCheck(state),
+    isSubmissionLoading: (state: IRootState) => state.challenges.loading,
+  });
 
   const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), challenge?.name || ""), [challenge?.name, t]);
 

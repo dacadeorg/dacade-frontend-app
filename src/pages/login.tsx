@@ -13,10 +13,24 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import { authCheck, login } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import EmailInput from "@/components/ui/EmailInput";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { FormValues } from "./signup";
 import Loader from "@/components/ui/Loader";
+import { IRootState } from "@/store";
+import { User } from "@/types/bounty";
 
+/**
+ * interface for Login multiSelector
+ * @date 9/13/2023 - 9:23:32 AM
+ *
+ * @interface LoginMultiSelector
+ * @typedef {LoginMultiSelector}
+ */
+interface LoginMultiSelector {
+  authUser: User | null;
+  isFetchingUser: boolean;
+  isAuthenticated: boolean;
+}
 /**
  * Login form values
  * @date 4/6/2023 - 4:15:39 PM
@@ -45,11 +59,11 @@ export default function Login(): ReactElement {
   const router = useRouter();
   const emailValue = watch("email");
   const passwordValue = watch("password");
-  const { authUser, isFetchingUser, isAuthenticated } = useSelector((state) => ({
-    authUser: state.user.data,
-    isFetchingUser: state.user.fetchingUserLoading,
-    isAuthenticated: authCheck(state),
-  }));
+  const { authUser, isFetchingUser, isAuthenticated } = useMultiSelector<unknown, LoginMultiSelector>({
+    authUser: (state: IRootState) => state.user.data,
+    isFetchingUser: (state: IRootState) => state.user.fetchingUserLoading,
+    isAuthenticated: (state: IRootState) => authCheck(state),
+  });
 
   const onSubmit = async (form: FormValues) => {
     const loginData = {

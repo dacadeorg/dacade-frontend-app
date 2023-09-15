@@ -1,11 +1,26 @@
 import { useMemo, ReactElement } from "react";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useRouter } from "next/router";
 
 import ChevronRightIcon from "@/icons/chevron-right.svg";
 import ProfileOverviewSection from "@/components/sections/profile/overview/Section";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
+import { User } from "@/types/bounty";
+import { IRootState } from "@/store";
+import { Community } from "@/types/community";
+
+/**
+ * interface for ProfileNavigation multiSelector
+ * @date 9/13/2023 - 9:17:00 AM
+ *
+ * @interface ProfileNavigationMultiSelector
+ * @typedef {ProfileNavigationMultiSelector}
+ */
+interface ProfileNavigationMultiSelector {
+  communities: Community[];
+  authUser: User | null;
+}
 
 interface MenuItem {
   label: string;
@@ -28,10 +43,10 @@ interface Menu {
 export default function ProfileNagivation(): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
-  const { communities, authUser } = useSelector((state) => ({
-    communities: state.profileCommunities.list,
-    authUser: state.user.data,
-  }));
+  const { communities, authUser } = useMultiSelector<unknown, ProfileNavigationMultiSelector>({
+    communities: (state: IRootState) => state.profileCommunities.list,
+    authUser: (state: IRootState) => state.user.data,
+  });
 
   const username = (router.query?.username as string) || authUser?.displayName;
   const isCurrentUser = username?.toLowerCase() === authUser?.displayName?.toLowerCase();

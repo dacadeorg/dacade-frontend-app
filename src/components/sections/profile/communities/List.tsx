@@ -1,10 +1,26 @@
 import FeedbackCard from "@/components/cards/Feedback";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import useNavigation from "@/hooks/useNavigation";
-
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import SubmissionCard from "@/components/cards/Submission";
+import { Community } from "@/types/community";
+import { Feedback } from "@/types/feedback";
+import { Submission } from "@/types/bounty";
+import { IRootState } from "@/store";
+
+/**
+ * interface for SubmissionList multiSelector
+ * @date 9/13/2023 - 9:18:58 AM
+ *
+ * @interface SubmissionListMultiSelector
+ * @typedef {SubmissionListMultiSelector}
+ */
+interface SubmissionListMultiSelector {
+  community: Community | null;
+  feedbacks: Feedback[];
+  submissions: Submission[];
+}
 
 /**
  * Submission list component
@@ -12,11 +28,11 @@ import SubmissionCard from "@/components/cards/Submission";
  */
 export default function SubmissionList(): ReactElement {
   const { t } = useTranslation();
-  const { community, submissions, feedbacks } = useSelector((state) => ({
-    community: state.profileCommunities.current,
-    feedbacks: state.profileCommunities.feedbacks,
-    submissions: state.profileCommunities.submissions,
-  }));
+  const { community, submissions, feedbacks } = useMultiSelector<unknown, SubmissionListMultiSelector>({
+    community: (state: IRootState) => state.profileCommunities.current,
+    feedbacks: (state: IRootState) => state.profileCommunities.feedbacks,
+    submissions: (state: IRootState) => state.profileCommunities.submissions,
+  });
 
   const navigation = useNavigation();
 

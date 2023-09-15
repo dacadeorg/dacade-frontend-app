@@ -35,7 +35,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const router = useRouter();
-  const { colors } = useSelector((state) => ({ colors: state.ui.colors }));
+  const colors = useSelector((state) => state.ui.colors);
   const [members, setMembers] = useState<User[]>([]);
 
   const reviewed = submission?.metadata?.evaluation || submission?.metadata?.reviewed;

@@ -1,10 +1,26 @@
 import EvaluationCard from "@/components/cards/EvaluationCard";
 import Coin from "@/components/ui/Coin";
-import { useSelector } from "@/hooks/useTypedSelector";
-import { Evaluation } from "@/types/bounty";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
+import { Evaluation, Submission } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import RatingRubric from "../challenges/Rubric";
+import { Colors } from "@/types/community";
+import { Challenge } from "@/types/course";
+import { IRootState } from "@/store";
+
+/**
+ * interface for Evaluations multiSelector
+ * @date 9/13/2023 - 9:21:32 AM
+ *
+ * @interface EvaluationsMultiSelector
+ * @typedef {EvaluationsMultiSelector}
+ */
+interface EvaluationsMultiSelector {
+  colors: Colors;
+  submission: Submission | null;
+  challenge: Challenge | null;
+}
 
 /**
  * Evaluation Component
@@ -15,11 +31,11 @@ import RatingRubric from "../challenges/Rubric";
  */
 export default function Evaluations(): ReactElement {
   const { t } = useTranslation();
-  const { colors, submission, challenge } = useSelector((state) => ({
-    colors: state.ui.colors,
-    submission: state.submissions.current,
-    challenge: state.challenges.current,
-  }));
+  const { colors, submission, challenge } = useMultiSelector<unknown, EvaluationsMultiSelector>({
+    colors: (state: IRootState) => state.ui.colors,
+    submission: (state: IRootState) => state.submissions.current,
+    challenge: (state: IRootState) => state.challenges.current,
+  });
   const evaluation = submission?.evaluation as Evaluation;
 
   return (
