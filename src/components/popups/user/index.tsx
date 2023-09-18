@@ -11,6 +11,7 @@ import { fetchAllWallets } from "@/store/services/wallets.service";
 import { fetchUserReputations } from "@/store/services/user/userReputation.service";
 import { Wallet } from "@/types/wallet";
 import { IRootState } from "@/store";
+import useUnlockPageScroll from "@/hooks/useUnlockPageScroll";
 
 /**
  * interface for UserPopup multiSelector
@@ -39,6 +40,7 @@ interface UserPopupMultiSelector {
 export default function UserPopup({ buttonStyles }: { buttonStyles: CSSProperties }): ReactElement {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
+  const unLockScroll = useUnlockPageScroll();
   const { mainWallet, user } = useMultiSelector<unknown, UserPopupMultiSelector>({
     mainWallet: (state: IRootState) => state.wallets.main,
     user: (state: IRootState) => state.user.data,
@@ -59,7 +61,9 @@ export default function UserPopup({ buttonStyles }: { buttonStyles: CSSPropertie
       toggleBodyScrolling(false)(dispatch);
     }
   };
-
+  useEffect(() => {
+    unLockScroll();
+  }, []);
   return (
     <div>
       <div>
