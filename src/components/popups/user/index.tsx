@@ -40,7 +40,6 @@ interface UserPopupMultiSelector {
 export default function UserPopup({ buttonStyles }: { buttonStyles: CSSProperties }): ReactElement {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
-  const unLockScroll = useUnlockPageScroll();
   const { mainWallet, user } = useMultiSelector<unknown, UserPopupMultiSelector>({
     mainWallet: (state: IRootState) => state.wallets.main,
     user: (state: IRootState) => state.user.data,
@@ -61,9 +60,9 @@ export default function UserPopup({ buttonStyles }: { buttonStyles: CSSPropertie
       toggleBodyScrolling(false)(dispatch);
     }
   };
-  useEffect(() => {
-    unLockScroll();
-  }, []);
+
+  useUnlockPageScroll();
+
   return (
     <div>
       <div>
