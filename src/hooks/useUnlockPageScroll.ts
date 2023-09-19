@@ -16,7 +16,7 @@ export default function useUnlockPageScroll() {
 
   useEffect(() => {
     router.events.on("routeChangeComplete", unLockScroll);
-    return router.events.on("routeChangeComplete", unLockScroll);
+    return router.events.off("routeChangeComplete", unLockScroll);
   }, [router]);
 
   return unLockScroll;

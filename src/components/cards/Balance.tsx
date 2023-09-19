@@ -30,7 +30,7 @@ export default function Balance({ details }: BalanceProps): ReactElement {
   const address = details.address ? truncateAddress(details.address, details.token) : null;
 
   return (
-    <Link href={`/profile/wallets`}>
+    <Link href="/profile/wallets">
       <div className="flex px-5 py-3 -mx-5 space-x-3 text-left hover:bg-gray-50">
         <Coin token={details.token} size="medium" />
         <div className="w-3/4 pt-1">
