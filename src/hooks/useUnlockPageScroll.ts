@@ -3,12 +3,16 @@ import { useEffect } from "react";
 import { useDispatch } from "./useTypedDispatch";
 import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 
-const useUnlockPageScroll = () => {
+/**
+ * useUnlockPageScroll custom hook to unlock scroll on router change Complete
+ * @date 9/19/2023 - 8:59:08 AM
+ *
+ * @returns {() => any}
+ */
+export default function useUnlockPageScroll() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const unLockScroll = () => {
-    return toggleBodyScrolling(false)(dispatch);
-  };
+  const unLockScroll = () => toggleBodyScrolling(false)(dispatch);
 
   useEffect(() => {
     router.events.on("routeChangeComplete", unLockScroll);
@@ -16,5 +20,4 @@ const useUnlockPageScroll = () => {
   }, [router]);
 
   return unLockScroll;
-};
-export default useUnlockPageScroll;
+}
