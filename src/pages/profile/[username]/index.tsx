@@ -10,7 +10,7 @@ import ProfileOverviewCommunities from "@/components/sections/profile/overview/C
 import ProfileOverviewAchievements from "@/components/sections/profile/overview/Achievements";
 import ProfileOverviewReferrals from "@/components/sections/profile/overview/Referrals";
 import ProfileOverviewSection from "@/components/sections/profile/overview/Section";
-import DiscordConnect from "@/components/popups/DiscordConnect";
+// import DiscordConnect from "@/components/popups/DiscordConnect";
 import Head from "next/head";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import { GetServerSideProps } from "next";
@@ -55,7 +55,7 @@ export default function ProfileOverview() {
             </ProfileOverviewSection>
           </>
         )}
-        <DiscordConnect username={username} />
+        {/* <DiscordConnect username={username} /> */}
       </div>
     </>
   );

@@ -2,7 +2,7 @@ import { useState, ReactElement } from "react";
 import { useTranslation } from "next-i18next";
 import { GetStaticProps } from "next";
 import Button from "@/components/ui/button";
-
+import DiscordDisconnect from '@/components/popups/DiscordDisconnect'
 import ProfileLayout from "@/layouts/ProfileLayout";
 import i18Translate from "@/utilities/I18Translate";
 import ProfileSettingsInformation from "@/components/sections/profile/settings/Overview";
@@ -21,28 +21,30 @@ export default function ProfileSettings(): ReactElement {
   const { t } = useTranslation();
   const [loading, setloading] = useState(false);
   const [completed, setcompleted] = useState(false);
+  const [togglePopupDiscordDisconnect, setTtogglePopupDiscordDisconnect] = useState(false);
 
   const router = useRouter();
 
-  const confirm = async () => {
-    if (loading || completed) return;
-    setloading(true);
-    try {
-      await api(router.locale).server.put(`notifications/email/unsubscribe/${router.query.id}`);
-      setcompleted(true);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setloading(false);
-    }
-  };
+  // const confirm = async () => {
+  //   if (loading || completed) return;
+  //   setloading(true);
+  //   try {
+  //     await api(router.locale).server.put(`notifications/email/unsubscribe/${router.query.id}`);
+  //     setcompleted(true);
+  //   } catch (e) {
+  //     console.error(e);
+  //   } finally {
+  //     setloading(false);
+  //   }
+  // };
 
   return (
     <div className="flex flex-col divide-y divide-solid divide-gray-200 space-y-8 text-gray-700">
       <ProfileSettingsInformation />
       <ProfileSettingsLinking />
+      <DiscordDisconnect show={togglePopupDiscordDisconnect} onClose={() => setTtogglePopupDiscordDisconnect(false)}/>
       <div className="w-full pt-4 flex justify-center mx-auto text-base">
-        <Button disabled={loading} variant="outline-primary" onClick={confirm}>
+        <Button disabled={loading} variant="outline-primary" onClick={() => setTtogglePopupDiscordDisconnect(true)}>
           {t("profile.header.disconnect")}
         </Button>
       </div>

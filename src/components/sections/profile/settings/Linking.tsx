@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 import ProfileSettingsSection from "@/components/sections/profile/overview/Section";
 import DiscordIcon from "@/icons/discord.svg";
 import { useDiscordConnect } from "@/hooks/useDiscordConnect";
-import DiscordConnect from "@/components/popups/DiscordConnect";
+// import DiscordConnect from "@/components/popups/DiscordConnect";
 
 export default function ProfileLinking(): ReactElement {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ export default function ProfileLinking(): ReactElement {
             </button>
           )}
         </div>
-        <DiscordConnect />
+        {/* <DiscordConnect /> */}
       </div>
     </ProfileSettingsSection>
   );
