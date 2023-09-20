@@ -58,7 +58,7 @@ export default function Referral({ referral }: ReferralProps): ReactElement {
         <Avatar
           icon={referral.community.icon}
           image={referral.community.image}
-          color={referral.community.colors?.cover?.background || referral.community.colors.primary}
+          color={referral.community.colors?.cover?.background || referral.community.colors?.primary}
           size="large"
           shape="rounded"
           user={null}
