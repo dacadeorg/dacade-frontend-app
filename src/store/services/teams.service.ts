@@ -46,7 +46,7 @@ const teamsService = createApi({
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         setIsTeamDataLoading(true);
         const { data } = await queryFulfilled;
-        dispatch(setTeamData(data));
+        if (data) dispatch(setTeamData(data));
         setIsTeamDataLoading(false);
         return data;
       },
