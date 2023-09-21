@@ -47,7 +47,7 @@ export default function ReferralListItem({ referral, bounty = false }: ReferralL
           className="w-6 h-6 rounded overflow-hidden"
           icon={referral.community.icon}
           image={referral.community.image}
-          color={referral.community.colors.primary}
+          color={referral.community.colors?.cover?.background || referral.community.colors.primary}
           size="mini"
           shape="squared"
         />

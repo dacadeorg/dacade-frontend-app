@@ -55,7 +55,14 @@ export default function Referral({ referral }: ReferralProps): ReactElement {
         </div>
       </div>
       <div className="self-start relative mt-15 md:mt-7">
-        <Avatar icon={referral.community.icon} image={referral.community.image} color={referral.community.colors.primary} size="large" shape="rounded" user={null} />
+        <Avatar
+          icon={referral.community.icon}
+          image={referral.community.image}
+          color={referral.community.colors?.cover?.background || referral.community.colors?.primary}
+          size="large"
+          shape="rounded"
+          user={null}
+        />
       </div>
     </div>
   );

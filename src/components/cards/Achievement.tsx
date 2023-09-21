@@ -38,7 +38,7 @@ export default function AchievementCard({ data, minting }: AchievementCardProps)
           <div className="flex-grow w-full mx-auto text-left px-7">
             <div
               className={`mx-auto relative rounded-full mb-5 ${!isNotCertificateIcon ? "w-20 h-20" : ""}`}
-              style={{ backgroundColor: isNotCertificateIcon ? data?.community.colors.primary : "" }}
+              style={{ backgroundColor: isNotCertificateIcon ? data?.community.colors?.cover?.background || data?.community.colors.primary : "" }}
             >
               <img src={data?.metadata?.image} alt="achievement" />
             </div>

@@ -105,7 +105,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
         <Avatar
           icon={bounty.icon}
           image={bounty.image}
-          color={bounty.colors.primary}
+          color={bounty.colors?.cover?.background || bounty.colors?.primary}
           size="medium-fixed"
           shape="rounded"
           className="w-15 h-15 rounded-xl overflow-hidden"
@@ -114,7 +114,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
         />
         {bounty.metadata?.submissions && (
           <Badge
-            custom-style={{
+            customStyle={{
               bottom: "-4px",
               right: "-4px",
               fontSize: 14,

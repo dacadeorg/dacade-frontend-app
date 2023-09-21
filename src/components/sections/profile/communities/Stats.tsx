@@ -40,7 +40,7 @@ export default function CommunityStats(): ReactElement {
   return (
     <div className="bg-gray-100 sm:flex sm:justify-between rounded-3xl w-full">
       <div className="relative items-center ml-7 flex sm:flex-row">
-        <Avatar icon={community?.icon} color={community?.colors.primary} size="medium" shape="rounded" />
+        <Avatar icon={community?.icon} color={community?.colors?.cover?.background || community?.colors.primary} size="medium" shape="rounded" />
         <div className="py-7 px-10 sm:px-7 md:px-0 md:pl-7">
           <div className="text-lg font-medium text-gray-800 pb-2">{community?.name}</div>
           <Tag>
