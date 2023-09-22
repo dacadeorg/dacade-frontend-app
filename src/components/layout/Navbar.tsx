@@ -14,6 +14,7 @@ import Sidebar from "../popups/Sidebar";
 import { Colors } from "@/types/community";
 import classNames from "classnames";
 import Loader from "../ui/Loader";
+import { IRootState } from "@/store";
 
 interface NavbarProps {
   settings?: {
@@ -41,9 +42,9 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
     unknown,
     { isAuthenticated: boolean; isAuthenticatedAndVerified: boolean; isAuthLoading: boolean }
   >({
-    isAuthenticatedAndVerified: (state) => authVerify(state),
-    isAuthenticated: (state) => authCheck(state),
-    isAuthLoading: (state) => state.auth.isAuthLoading,
+    isAuthenticatedAndVerified: (state: IRootState) => authVerify(state),
+    isAuthenticated: (state: IRootState) => authCheck(state),
+    isAuthLoading: (state: IRootState) => state.auth.isAuthLoading,
   });
 
   const colors = useMemo(() => {
