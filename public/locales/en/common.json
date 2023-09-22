@@ -288,6 +288,8 @@
   "profile.header.discord.disconnect": "Disconnect from Discord",
   "profile.header.discord.error": "Discord verification has failed.",
   "profile.header.discord.success": "Discord has been linked to your account successfully.",
+  "profile.header.discord.disconnect.success": "Discord has been disconnected successfully",
+  "profile.header.discord.disconnect.error": "Discord disconnection failed",
   "profile.header.discord.close": "Close",
   "profile.header.sumsub.verify": "Verify",
   "profile.header.sumsub.verified": "Verified",

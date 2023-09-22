@@ -3,13 +3,11 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-
 import NotificationList from "@/components/list/NotificationList";
 import ProfileOverviewCommunities from "@/components/sections/profile/overview/Communities";
 import ProfileOverviewAchievements from "@/components/sections/profile/overview/Achievements";
 import ProfileOverviewReferrals from "@/components/sections/profile/overview/Referrals";
 import ProfileOverviewSection from "@/components/sections/profile/overview/Section";
-// import DiscordConnect from "@/components/popups/DiscordConnect";
 import Head from "next/head";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import { fetchUserProfile } from "@/store/services/profile/users.service";
@@ -18,6 +16,7 @@ import { fetchProfileReputation } from "@/store/services/reputation.service";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { userFetchReferrals } from "@/store/services/referrals.service";
 import { useRouter } from "next/router";
+import DiscordConnect from "@/components/popups/DiscordConnect";
 
 export default function ProfileOverview(): ReactElement {
   const user = useSelector((state) => state.user.data);
@@ -49,7 +48,7 @@ export default function ProfileOverview(): ReactElement {
         <ProfileOverviewSection title="Notifications">
           <NotificationList extended />
         </ProfileOverviewSection>
-        {/* <DiscordConnect /> */}
+        <DiscordConnect />
       </div>
     </>
   );

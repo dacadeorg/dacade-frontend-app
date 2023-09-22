@@ -1,13 +1,11 @@
-import { useState, useEffect, useCallback, ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import Modal from "@/components/ui/Modal";
-import Loader from "@/components/ui/Loader";
-import Button from "@/components/ui/button";
 import { useTranslation } from "next-i18next";
-import { useRouter } from "next/router";
-// import api from "@/config/api";
 import { disconnectDiscord } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import ArrowButton from "@/components/ui/button/Arrow";
+import { useRouter } from "next/router";
+
 
 
 /**
@@ -18,10 +16,10 @@ import ArrowButton from "@/components/ui/button/Arrow";
  * @typedef {DiscordDisconnectProps}
  */
 interface DiscordDisconnectProps {
-    show: boolean;
-    username?: string;
-    onClose: () => void;
-  }
+  show: boolean;
+  username?: string;
+  onClose: () => void;
+}
 
 export default function DiscordDisconnect({ username, show, onClose }: DiscordDisconnectProps): ReactElement {
     const [discordError, setDiscordError] = useState<string | boolean>(false);
