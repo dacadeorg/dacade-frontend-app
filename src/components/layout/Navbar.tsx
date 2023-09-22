@@ -13,6 +13,7 @@ import { authCheck, authVerify } from "@/store/feature/auth.slice";
 import Sidebar from "../popups/Sidebar";
 import { Colors } from "@/types/community";
 import classNames from "classnames";
+import Loader from "../ui/Loader";
 
 interface NavbarProps {
   settings?: {
@@ -36,9 +37,13 @@ interface NavbarProps {
 export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarProps): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
-  const { isAuthenticated, isAuthenticatedAndVerified } = useMultiSelector<unknown, { isAuthenticated: boolean; isAuthenticatedAndVerified: boolean }>({
+  const { isAuthenticated, isAuthenticatedAndVerified, isAuthLoading } = useMultiSelector<
+    unknown,
+    { isAuthenticated: boolean; isAuthenticatedAndVerified: boolean; isAuthLoading: boolean }
+  >({
     isAuthenticatedAndVerified: (state) => authVerify(state),
     isAuthenticated: (state) => authCheck(state),
+    isAuthLoading: (state) => state.auth.isAuthLoading,
   });
 
   const colors = useMemo(() => {
@@ -87,62 +92,70 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
             <NavItem to={"/communities"}>{t("nav.communities")}</NavItem>
           </ul>
         )}
-        <ul className="ml-auto text-right relative flex lg:hidden items-center">
-          <Sidebar burgerColor={sidebarBurgerColor} />
-        </ul>
-        {!isAuthenticated && (
-          <ul className="ml-auto text-right relative hidden lg:block">
-            {router.pathname !== "/login" && (
-              <div className="inline-block">
-                {router.pathname === "/signup" && <span className="text-sm">{t("nav.signup.already-exist")}</span>}
-                <NavItem type="item" to="/login">
-                  <span
-                    className={classNames("py-2 text-sm", {
-                      "text-primary": router.pathname === "/signup",
-                      inherit: router.pathname !== "/signup",
-                    })}
-                  >
-                    {t("nav.login")}
-                  </span>
-                </NavItem>
-              </div>
-            )}
-            {router.pathname !== "/signup" && (
-              <div className="inline-block">
-                {router.pathname === "/login" && <span className="text-sm">{t("nav.signin.new-accout")}</span>}
-                <NavItem type="item" to="/signup">
-                  {router.pathname === "/login" ? (
-                    <span className="py-2 text-sm text-primary">{t("nav.sign-up")}</span>
-                  ) : (
-                    <Button
-                      variant="secondary"
-                      padding={false}
-                      loading={false}
-                      disabled={false}
-                      type="button"
-                      rounded={false}
-                      onClick={() => null}
-                      className={classNames("text-sm py-2", {
-                        "text-primary": router.pathname === "/login",
-                        "text-gray-900": router.pathname !== "/login",
-                      })}
-                    >
-                      {t("nav.sign-up")}
-                    </Button>
-                  )}
-                </NavItem>
-              </div>
-            )}
-            <div className="inline-block">
-              <LanguageSwitcherPopup />
-            </div>
+
+        {isAuthLoading ? (
+          <ul className="ml-auto relative">
+            <Loader isSmallSpinner />
           </ul>
-        )}
-        {isAuthenticated && (
-          <ul className="hidden lg:flex ml-auto text-right relative">
-            <NotificationPopup buttonStyles={buttonStyle} badgeStyles={badgeStyle} />
-            <UserPopup buttonStyles={buttonStyle} />
-          </ul>
+        ) : (
+          <>
+            <ul className="ml-auto text-right relative flex lg:hidden items-center">
+              <Sidebar burgerColor={sidebarBurgerColor} />
+            </ul>
+            {isAuthenticated ? (
+              <ul className="hidden lg:flex ml-auto text-right relative">
+                <NotificationPopup buttonStyles={buttonStyle} badgeStyles={badgeStyle} />
+                <UserPopup buttonStyles={buttonStyle} />
+              </ul>
+            ) : (
+              <ul className="ml-auto text-right relative hidden lg:block">
+                {router.pathname !== "/login" && (
+                  <div className="inline-block">
+                    {router.pathname === "/signup" && <span className="text-sm">{t("nav.signup.already-exist")}</span>}
+                    <NavItem type="item" to="/login">
+                      <span
+                        className={classNames("py-2 text-sm", {
+                          "text-primary": router.pathname === "/signup",
+                          inherit: router.pathname !== "/signup",
+                        })}
+                      >
+                        {t("nav.login")}
+                      </span>
+                    </NavItem>
+                  </div>
+                )}
+                {router.pathname !== "/signup" && (
+                  <div className="inline-block">
+                    {router.pathname === "/login" && <span className="text-sm">{t("nav.signin.new-accout")}</span>}
+                    <NavItem type="item" to="/signup">
+                      {router.pathname === "/login" ? (
+                        <span className="py-2 text-sm text-primary">{t("nav.sign-up")}</span>
+                      ) : (
+                        <Button
+                          variant="secondary"
+                          padding={false}
+                          loading={false}
+                          disabled={false}
+                          type="button"
+                          rounded={false}
+                          onClick={() => null}
+                          className={classNames("text-sm py-2", {
+                            "text-primary": router.pathname === "/login",
+                            "text-gray-900": router.pathname !== "/login",
+                          })}
+                        >
+                          {t("nav.sign-up")}
+                        </Button>
+                      )}
+                    </NavItem>
+                  </div>
+                )}
+                <div className="inline-block">
+                  <LanguageSwitcherPopup />
+                </div>
+              </ul>
+            )}
+          </>
         )}
       </div>
     </div>
