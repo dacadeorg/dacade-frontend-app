@@ -46,7 +46,7 @@ export default function NotificationPopup({ buttonStyles }: NotificationPopupPro
 
   const toggle = () => {
     setIsNotificationVisible(!isNotificationVisible);
-    if (unread && isNotificationVisible) {
+    if (unread) {
       dispatch(readNotification());
     }
     toggleBodyScrolling(!isNotificationVisible)(dispatch);
@@ -61,11 +61,7 @@ export default function NotificationPopup({ buttonStyles }: NotificationPopupPro
   return (
     <div>
       <span onClick={externalClick}>
-        <li
-          className={`inline-block align-middle mr-2 relative text-gray-500 ${isNotificationVisible ? "z-50" : "z-10"}`}
-          style={{ width: "calc(100vw - 40px)", maxWidth: "340px" }}
-          onClick={toggle}
-        >
+        <li className={`inline-block align-middle mr-2 relative text-gray-500 max-w-80 ${isNotificationVisible ? "z-50" : "z-10"}`} onClick={toggle}>
           <Button type="button" padding={false} variant="secondary" className="p-2 bg-gray-100 bg-opacity-75 hover:bg-gray-50 text-primary" customStyle={buttonStyles}>
             <BellIcon />
             {unread > 0 && <Badge value={unread} className="top-0 -right-1 absolute" />}
