@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 // import api from "@/config/api";
 import { disconnectDiscord } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import ArrowButton from "@/components/ui/button/Arrow";
+
 
 /**
  * Discord Disconnect Props
@@ -93,25 +95,44 @@ export default function DiscordDisconnect({ username, show, onClose }: DiscordDi
       };
   
     return (
-      <Modal show={show} size="medium" onClose={onClose}>
-        <div className="px-6 pt-6">
-          <div className="pb-7">
-            <p className="text-.5xl font-medium leading-snug">{t("profile.header.discord.disconnect")}</p>
-          </div>
+    //   <Modal show={show} size="medium" onClose={onClose}>
+    //     <div className="px-6 pt-6">
+    //       <div className="pb-7">
+    //         <p className="text-.5xl font-medium leading-snug">{t("profile.header.discord.disconnect")}</p>
+    //       </div>
   
-       <div className="flex flex-col space-x-3 pb-2">
-            <p> {t("profile.settings.discord.disconnect.confirm")}</p>
-            <Button className="font-semibold w-1/4 mt-8 my-4 justify-self-center" onClick={onDisconnect} variant="outline-primary" type="button">
-            {t("profile.settings.discord.disconnect")}
-            </Button>
-          </div>
+    //    <div className="flex flex-col space-x-3 pb-2">
+    //         <p> {t("profile.settings.discord.disconnect.confirm")}</p>
+    //         <Button className="font-semibold w-1/4 mt-8 my-4 justify-self-center" onClick={onDisconnect} variant="outline-primary" type="button">
+    //         {t("profile.settings.discord.disconnect")}
+    //         </Button>
+    //       </div>
 
-          <div className="pb-7">
-            <Button disabled={discordLoading} className="-ml-4 font-semibold border-none!" variant="outline-primary" onClick={onClose} type="button">
-              {t("profile.header.discord.close")}
-            </Button>
+    //       <div className="pb-7">
+    //         <Button disabled={discordLoading} className="-ml-4 font-semibold border-none!" variant="outline-primary" onClick={onClose} type="button">
+    //           {t("profile.header.discord.close")}
+    //         </Button>
+    //       </div>
+    //     </div>
+    //   </Modal>
+          <Modal show={show} onClose={onClose}>
+          <div className="px-6 py-6">
+           
+              <div className="flex flex-col text-left">
+                <h1 className="text-.5xl leading-snug font-medium">{t("profile.header.discord.disconnect")}</h1>
+                <p className="pt-8">{t("profile.settings.discord.disconnect.confirm")}</p>
+              </div>
+    
+            <div id="sumsub-websdk-container" className="pb-5"></div>
           </div>
-        </div>
-      </Modal>
+          <div className="flex items-center justify-between pt-4 pb-2 pl-6 pr-2">
+            <span className="text-sm font-medium cursor-pointer text-primary" onClick={onClose}>
+            {t("profile.header.discord.close")}
+            </span>
+              <ArrowButton disabled={discordLoading} onClick={onDisconnect}>
+              {t("profile.settings.discord.disconnect")}
+              </ArrowButton>
+          </div>
+        </Modal>
     );
   }
