@@ -46,11 +46,6 @@ export default function DiscordDisconnect({ username, show, onClose }: DiscordDi
      *
      * @returns {string}
      */
-    // const getDiscordMessage = (): string => {
-    //   if (discordError) return t("profile.header.discord.error");
-    //   if (discordSuccess) return t("profile.header.discord.success");
-    //   return t("profile.header.discord.connect");
-    // };
   
     /**
      * Connect or disconnect user from discord
@@ -58,36 +53,6 @@ export default function DiscordDisconnect({ username, show, onClose }: DiscordDi
      *
      * @type {Function}
      */
-    // const discordCallback = useCallback(async () => {
-    //   try {
-    //     const { code } = router.query;
-    //     if (!code) {
-    //       return;
-    //     }
-    //     setDiscordLoading(true);
-    //     setShowDiscordModal(true);
-  
-    //     const response = await api().client.post("auth/discord/disconnect", {
-    //       code,
-    //     });
-  
-    //     if (!response) {
-    //       setDiscordError(true);
-    //       return;
-    //     }
-    //     setDiscordSuccess(true);
-    //     router.replace({ query: username ? { username: username } : {} });
-    //   } catch (error) {
-    //     setDiscordError(true);
-    //   } finally {
-    //     setDiscordLoading(false);
-    //   }
-    // }, []);
-  
-    // useEffect(() => {
-    //   discordCallback();
-    // }, [discordCallback]);
-
 
     const onDisconnect = () => {
         dispatch(disconnectDiscord());
@@ -95,26 +60,6 @@ export default function DiscordDisconnect({ username, show, onClose }: DiscordDi
       };
   
     return (
-    //   <Modal show={show} size="medium" onClose={onClose}>
-    //     <div className="px-6 pt-6">
-    //       <div className="pb-7">
-    //         <p className="text-.5xl font-medium leading-snug">{t("profile.header.discord.disconnect")}</p>
-    //       </div>
-  
-    //    <div className="flex flex-col space-x-3 pb-2">
-    //         <p> {t("profile.settings.discord.disconnect.confirm")}</p>
-    //         <Button className="font-semibold w-1/4 mt-8 my-4 justify-self-center" onClick={onDisconnect} variant="outline-primary" type="button">
-    //         {t("profile.settings.discord.disconnect")}
-    //         </Button>
-    //       </div>
-
-    //       <div className="pb-7">
-    //         <Button disabled={discordLoading} className="-ml-4 font-semibold border-none!" variant="outline-primary" onClick={onClose} type="button">
-    //           {t("profile.header.discord.close")}
-    //         </Button>
-    //       </div>
-    //     </div>
-    //   </Modal>
           <Modal show={show} onClose={onClose}>
           <div className="px-6 py-6">
            
