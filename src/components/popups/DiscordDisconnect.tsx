@@ -89,6 +89,7 @@ export default function DiscordDisconnect({ username, show, onClose }: DiscordDi
 
     const onDisconnect = () => {
         dispatch(disconnectDiscord());
+        router.reload()
       };
   
     return (
