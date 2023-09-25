@@ -14,6 +14,7 @@ interface AuthState {
   userBalance: number | null;
   balance: number | null;
   walletAddresses: string[] | null;
+  isAuthLoading: boolean;
 }
 
 // Define the initial state
@@ -22,6 +23,7 @@ const initialState: AuthState = {
   userBalance: null,
   balance: null,
   walletAddresses: null,
+  isAuthLoading: false,
 };
 
 // Define the auth slice using Redux Toolkit
@@ -35,6 +37,9 @@ const authSlice = createSlice({
     clearAuthData(state) {
       state.data = null;
     },
+    setIsAuthLoading(state, action) {
+      state.isAuthLoading = action.payload;
+    },
   },
 });
 
@@ -43,7 +48,7 @@ export const authCheck = (state: IRootState) => state.auth.data !== null && stat
 export const authVerify = (state: IRootState) => authCheck(state) && (state.auth.data?.emailVerified as boolean);
 
 // Export the auth actions
-export const { setAuthData, clearAuthData } = authSlice.actions;
+export const { setAuthData, clearAuthData, setIsAuthLoading } = authSlice.actions;
 export default authSlice;
 
 // Define the login async thunks using Redux Toolkit
