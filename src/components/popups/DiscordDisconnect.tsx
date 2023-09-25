@@ -6,6 +6,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import Loader from "@/components/ui/Loader";
 import { useRouter } from "next/router";
 import ArrowButton from "@/components/ui/button/Arrow";
+import { fetchUser } from "@/store/services/user.service";
 
 /**
  * Discord Disconnect Props
@@ -38,7 +39,8 @@ export default function DiscordDisconnect({ show, onClose }: DiscordDisconnectPr
       setDisconnectLoading(true);
       await dispatch(disconnectDiscord());
       setDiscordDisconnectSuccess(true);
-      router.reload();
+      await dispatch(fetchUser());
+      onClose();
     } catch (e) {
       console.error(e);
       setDiscordDisconnectError(true);
@@ -49,21 +51,15 @@ export default function DiscordDisconnect({ show, onClose }: DiscordDisconnectPr
 
   return (
     <Modal show={show} size="medium" onClose={onClose}>
-
-        <div className="px-6 py-6">
-            
+        <div className="px-6 py-6">           
             <div className="flex flex-col text-left">
                 <h1 className="text-.5xl leading-snug font-medium">{t("profile.header.discord.disconnect")}</h1>
                 {!disconnectLoading && !discordDisconnectSuccess && (
                     <p className="pt-8">{t("profile.settings.discord.disconnect.confirm")}</p>
                 )}
             </div>
-    
             <div id="sumsub-websdk-container" className="pb-5"></div>
-
         </div>
-
-
         <div>
             {disconnectLoading && <Loader className="w-6 h-6 pt-6 text-green-400" />}
             <p
@@ -74,22 +70,16 @@ export default function DiscordDisconnect({ show, onClose }: DiscordDisconnectPr
                 {getDiscordMessage()}
             </p>
         </div>
-
         <div className="flex items-center justify-between pt-4 pb-2 pl-6 pr-6">
-        
             <span className="text-sm font-medium cursor-pointer text-primary self-end mb-4" onClick={onClose}>
                 {t("profile.header.discord.close")}
             </span>
-
             {!disconnectLoading && !discordDisconnectSuccess && (
                 <ArrowButton className="font-semibold w-1/4 mt-8 my-4 justify-self-center" onClick={onDisconnect} variant="outline-primary" type="button">
                     {t("profile.settings.discord.disconnect")}
                 </ArrowButton>
             )}
-
-        
         </div>
-
     </Modal>
   );
 }
