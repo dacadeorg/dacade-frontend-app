@@ -60,10 +60,10 @@ export default function DiscordDisconnect({ show, onClose }: DiscordDisconnectPr
             </div>
             <div id="sumsub-websdk-container" className="pb-5"></div>
         </div>
-        <div>
-            {disconnectLoading && <Loader className="w-6 h-6 pt-6 text-green-400" />}
+        <div className="flex flex-col items-center">
+            {disconnectLoading && <Loader className="w-6 h-6 pt-6 pb-6 text-green-400" />}
             <p
-                className={`p-3 rounded text-.2xl font-medium leading-snug flex-1 ${
+                className={`p-3 pt-4 rounded text-.2xl font-medium leading-snug flex-1 ${
                 discordDisconnectError ? "bg-red-50 text-red-700" : discordDisconnectSuccess ? "bg-green-50 text-green-700" : "bg-white"
                 }`}
             >
