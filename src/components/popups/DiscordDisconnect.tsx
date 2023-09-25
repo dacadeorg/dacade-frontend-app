@@ -4,7 +4,6 @@ import { useTranslation } from "next-i18next";
 import { disconnectDiscord } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import Loader from "@/components/ui/Loader";
-import { useRouter } from "next/router";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { fetchUser } from "@/store/services/user.service";
 
