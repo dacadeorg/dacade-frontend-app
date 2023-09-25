@@ -76,15 +76,15 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
                 className="flex space-x-1 relative text-sm font-medium py-3"
                 key={submission.id}
               >
-                <div className="flex justify-between w-full pr-0">
+                <div className="flex justify-between w-full pr-0 gap-1 sm:gap-0">
                   <div className="flex space-x-1">
                     <Avatar user={submission.user} size="mini" />
-                    <div>{submission.user.displayName}</div>
+                    <div className="text-ellipsis overflow-hidden w-17 sm:w-auto whitespace-nowrap">{submission.user.displayName}</div>
                     <div className="flex align-middle text-gray-500 text-middle bg-gray-200 px-2 text-xxs rounded-xl m-0 h-5">
                       {submission.metadata && submission.metadata.feedbacks ? submission.metadata.feedbacks : 0}
                     </div>
                   </div>
-                  <div className="text-gray-500 text-base font-normal">
+                  <div className="text-gray-500 text-base font-normal whitespace-nowrap">
                     {submission.reviewable ? (
                       <span>
                         {t("bounties.prefix.closes")} {convertDate(submission.reviewDeadline)}
