@@ -1,6 +1,7 @@
 import { auth as firebaseAuth } from "@/config/firebase";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { signInWithEmailAndPassword, sendPasswordResetEmail, signOut } from "firebase/auth";
+import api from "@/config/api";
 
 import { clearError, setBusy, setError, setJobDone } from "./index.slice";
 import { IRootState } from "..";
@@ -86,3 +87,17 @@ export const logout = createAsyncThunk("logout", async (_, { dispatch }) => {
   await signOut(firebaseAuth);
   dispatch(clearAuthData());
 });
+
+// Discord Disconnect
+export const disconnectDiscord = () => async () => {
+  const user = firebaseAuth?.currentUser;
+  if (user) {
+    try {
+      const { data } = await api().client.post("auth/discord/disconnect");
+      return data;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
+};
