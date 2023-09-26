@@ -6,7 +6,9 @@ Learning and community are the core principles that dacade approaches with a mul
 
 ## 1. Requirements
 
-To run the project, you will need the following: • Node.js (v16 or higher) • npm (v6 or higher)
+To run the project, you will need the following:
+- Node.js (v16 or higher)
+- npm (v6 or higher)
 
 ## 2. Tech stack
 
