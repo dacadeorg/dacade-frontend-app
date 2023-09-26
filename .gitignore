@@ -28,9 +28,16 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+.env.development
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local Netlify folder
+.netlify
+
+# Editor
+/.idea
