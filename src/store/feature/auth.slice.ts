@@ -23,7 +23,7 @@ const initialState: AuthState = {
   userBalance: null,
   balance: null,
   walletAddresses: null,
-  isAuthLoading: false,
+  isAuthLoading: true,
 };
 
 // Define the auth slice using Redux Toolkit

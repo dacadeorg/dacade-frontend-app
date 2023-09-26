@@ -96,7 +96,6 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
 
     onAuthStateChanged(auth, async (user) => {
       setLoading(true);
-      dispatch(setIsAuthLoading(true));
       await emailVerificationChecker(user);
       await guestAndUserRoutesChecker(user);
       dispatch(setAuthData(user?.toJSON()));
