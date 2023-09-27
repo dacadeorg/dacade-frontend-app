@@ -115,7 +115,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
           <div className="text-right ml-auto xl:m-0 hidden sm:block">
             <ArrowButton
               padding={false}
-              className="action-button inline-flex bg-gray-100 text-gray-500 w-10 h-10 sm:w-11 sm:h-11 text-2xl rounded-full"
+              className="action-button inline-flex bg-gray-100 text-gray-500 w-10 h-10 text-2xl rounded-full"
               variant="none"
               minWidthClass="w-10 h-10"
               customStyle={arrowButtonStyles}
