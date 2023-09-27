@@ -105,7 +105,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
     try {
       const signature = await getSignature();
 
-      const data = (
+      const data = await (
         await mintCertificate({
           id: achievement?.id as string,
           address: address as string,
@@ -186,7 +186,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
           </a>
           {!minted ? (
             <ArrowButton loading={loading} disabled={loading} variant="primary" onClick={handleSave}>
-              {buttonText}
+              {t(buttonText)}
             </ArrowButton>
           ) : (
             <ArrowButton link="/profile" variant="primary">
