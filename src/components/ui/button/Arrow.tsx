@@ -108,7 +108,7 @@ export default function ArrowButton({
         "py-2 pl-5 pr-3.5": padding,
       })}
     >
-      <span className="flex items-center justify-between h-full text-left">
+      <span className={`flex items-center h-full text-left ${children ? "justify-between" : "justify-center"}`}>
         {isLeft && (
           <span className={classNames("block", { "pr-2.5": children })}>
             {!loading ? <ArrowRightIcon className={`${directionClass} ${arrowClassNames} transform`} /> : <Spinner className={`${arrowClassNames} animate-spin`} />}
