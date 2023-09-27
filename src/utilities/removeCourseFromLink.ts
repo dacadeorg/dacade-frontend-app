@@ -1,3 +1,13 @@
+/**
+ * Function to determine which router object is passed and then redirect to the correct
+ *  links which does not include the `/course/[course_slug]/`
+ * @date 9/27/2023 - 11:06:19 AM
+ *
+ * @param {*} routerObject
+ * @param {?string} [finalPage]
+ * @returns {string}
+ */
+
 const removeCourseFromLink = (routerObject: any, finalPage?: string): string => {
   let redirectLink = "";
   const paths = Object.keys(routerObject);

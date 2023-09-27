@@ -10,6 +10,13 @@ import removeCourseFromLink from "@/utilities/removeCourseFromLink";
 import Loader from "@/components/ui/Loader";
 import useSafePush from "@/hooks/useSafePush";
 
+/**
+ * For redirecting all the links that contains the `/courses/[course_slug]/`
+ * @date 9/27/2023 - 11:10:55 AM
+ *
+ * @export
+ * @returns
+ */
 export default function OldSubmissionsPage() {
   const router = useRouter();
   const { safePush } = useSafePush();
