@@ -1,7 +1,6 @@
-import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 
 /**
  * Achievement link field props
@@ -26,9 +25,15 @@ interface AchievementLinkFieldProps {
  */
 export default function AchievementLinkField({ link }: AchievementLinkFieldProps): ReactElement {
   const { t } = useTranslation();
-  const current = useSelector((state) => state.profileCertificate.current);
+  const [fullLink, setFullink] = useState("");
 
-  const currentSubmissionId = current?.submission?.id;
+  useEffect(() => {
+    const pathName = link?.split("https://dacade.org/")[1];
+    if (typeof window !== "undefined") {
+      setFullink(`${window.location.origin}/${pathName}`);
+    }
+  }, [link]);
+
   const copy = () => navigator.clipboard.writeText(link as string);
 
   return (
@@ -37,7 +42,7 @@ export default function AchievementLinkField({ link }: AchievementLinkFieldProps
         {link}
       </p>
       <div className="bg-gradient-to-l input-background absolute h-full w-40 top-0 flex justify-end items-center pr-2 right-0">
-        <Link href={`/submissions/${currentSubmissionId}`}>
+        <Link href={fullLink}>
           <button className="p-1 py-0 bg-white border border-blue-600 text-blue-600">{t("profile.achievement.open")}</button>
         </Link>
       </div>
