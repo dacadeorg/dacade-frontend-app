@@ -60,12 +60,11 @@ export default function List(): ReactElement {
                 hasMore={showLoadMore}
                 // loader is required for InfiniteScroll to work
                 loader={<></>}
+                className="divide-y divide-gray-200"
               >
-                <div className="divide-y divide-gray-200">
-                  {submissions.map((submission, i) => (
-                    <SubmissionCard key={`submission-${i}`} submission={submission} />
-                  ))}
-                </div>
+                {submissions.map((submission, i) => (
+                  <SubmissionCard key={`submission-${i}`} submission={submission} />
+                ))}
               </InfiniteScroll>
             </div>
             {loading && <Loader loading={loading} className="sm:absolute sm:left-6 sm:-bottom-7.5" onClick={() => nextPage()} />}
