@@ -5,7 +5,11 @@ import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import CodeHighlighter from "@/components/sections/learning-modules/_partials/CodeHighlighter";
 import { PluggableList } from "react-markdown/lib/react-markdown";
-
+import rehypeExternalLinks from "rehype-external-links";
+import rehypeSlug from "rehype-slug";
+import rehypeRaw from "rehype-raw";
+import rehypeFormat from "rehype-format";
+import rehypeStringify from "rehype-stringify";
 /**
  * Markdown props interface
  * @date 4/28/2023 - 5:58:38 PM
@@ -38,6 +42,7 @@ export default function Markdown({ value, markDownStyles }: MarkDownProps): Reac
     <div style={{ ...(themeStyles as CSSProperties) }} className={`prose ${markDownStyles}`}>
       <ReactMarkdown
         className="markdown-content"
+        rehypePlugins={[rehypeExternalLinks, rehypeSlug, rehypeRaw, rehypeFormat, rehypeStringify]}
         remarkPlugins={[remarkGfm, remarkParse] as PluggableList}
         components={{
           code: ({ inline, className, children, ...props }) => {
