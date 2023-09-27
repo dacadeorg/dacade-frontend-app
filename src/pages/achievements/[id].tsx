@@ -38,8 +38,8 @@ interface AchievementMultiSelector {
 const Achievement = () => {
   const { t } = useTranslation();
   const { achievement, achievementMinted, user } = useMultiSelector<unknown, AchievementMultiSelector>({
-    achievement: (state: IRootState) => state.certificates.current,
-    achievementMinted: (state: IRootState) => state.certificates.currentMinted,
+    achievement: (state: IRootState) => state.profileCertificate.current,
+    achievementMinted: (state: IRootState) => state.profileCertificate.currentMinted,
     user: (state: IRootState) => state.user.data,
   });
   const [showMintCertificate, setShowMintCertificate] = useState(false);

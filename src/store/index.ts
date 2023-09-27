@@ -159,7 +159,7 @@ export const store = configureStore({
     [communitiesProfile.name]: communitiesProfile.reducer,
     [reputationSlice.name]: reputationSlice.reducer,
     [userProfileSlice.name]: userProfileSlice.reducer,
-    [certificateSlice.name]: certificateSlice.reducer,
+    // [certificateSlice.name]: certificateSlice.reducer,
   },
 
   middleware: (getDefaultMiddleware) => {
