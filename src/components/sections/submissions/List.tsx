@@ -51,7 +51,7 @@ export default function List(): ReactElement {
   return (
     <>
       {submissions && submissions.length ? (
-        <div className="text-xl md:text-.5xl px-0 py-5 md:py-10 md:pb-5">
+        <div className="text-xl md:text-.5xl px-0 py-5 md:py-10 md:pb-5 relative">
           <InfiniteScroll
             dataLength={submissions.length}
             next={nextPage}
