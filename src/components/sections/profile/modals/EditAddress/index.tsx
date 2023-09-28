@@ -1,4 +1,4 @@
-import { ReactElement, useMemo, useState } from "react";
+import { ReactElement, useEffect, useMemo, useState } from "react";
 import Modal from "@/components/ui/Modal";
 import Input from "@/components/ui/Input";
 import ArrowButton from "@/components/ui/button/Arrow";
@@ -35,7 +35,7 @@ interface FormValues {
 interface EditProfileProps {
   show: boolean;
   wallet: Wallet;
-  onClose: (value: boolean) => void;
+  onClose: () => void;
 }
 
 /**
@@ -56,9 +56,9 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const [error, setError] = useState<CustomError | undefined | null>();
   const [, setShowEditModal] = useState(false);
   const [showEditAddress, setShowEditAddress] = useState(false);
-  const [showWalletConnectionMethod] = useState(false);
-  const [showWalletInfo] = useState(false);
-  const [connectionMethod, setConnectionMethod] = useState("");
+  const [showWalletConnectionMethod, setShowWalletConnectionMethod] = useState(false);
+  const [showWalletInfo, setShowWalletInfo] = useState(false);
+  const [connectionMethodState, setConnectionMethodState] = useState("");
   const {
     watch,
     register,
@@ -68,20 +68,61 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const address = watch("address");
 
   const closeModal = () => {
+    clearState();
+    onClose();
+  };
+
+  const clearState = () => {
     setShowEditModal(false);
+    setShowEditAddress(false);
+    setShowWalletConnectionMethod(false);
+    setConnectionMethodState("");
+    setShowWalletInfo(false);
   };
 
   const openEditAddress = () => {
+    setShowWalletConnectionMethod(true);
     setShowEditAddress(true);
+    setConnectionMethodState("manual");
   };
 
   const wallets = useSelector((state) => state.wallets.current);
   const currentAddress = wallets?.address;
 
+  const setConnectionMethod = (method: string) => {
+    if (!method) return;
+
+    if (method === "wallet" && !requireWalletConnection) return;
+
+    // if (this.isWalletConnected) {
+    //   await this.$store.dispatch('wallet/disconnect')
+    // }
+
+    setShowWalletConnectionMethod(false);
+    setConnectionMethodState(method);
+    setShowEditAddress(true);
+
+    if (method === "wallet") {
+      setShowWalletInfo(false);
+      return connect();
+    }
+    setShowWalletInfo(true);
+  };
+
+  const connect = async () => {
+    try {
+      // await this.$store.dispatch('wallet/connect')
+      setShowEditAddress(true);
+    } catch (e) {
+      console.log(e);
+      openEditAddress();
+    }
+  };
+
   const onSave = async () => {
     setLoading(true);
     setError(null);
-    onClose(true);
+    onClose();
     const signature = await getSignature();
     try {
       const validAddress = validateAddress(address, wallets?.token);
@@ -104,11 +145,11 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   };
 
   const newAddress = useMemo(() => {
-    if (connectionMethod === "wallet") {
+    if (connectionMethodState === "wallet") {
       return wallets?.address;
     }
     return address;
-  }, [address, connectionMethod, wallets?.address]);
+  }, [address, connectionMethodState, wallets?.address]);
 
   const requireWalletConnection = useMemo(() => {
     return wallets?.require_wallet_connection || false;
@@ -122,16 +163,20 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     return requireWalletConnection && !!wallet?.address;
   }, [requireWalletConnection, wallet?.address]);
 
+  const showForm = useMemo(() => {
+    return showEditAddress && !showWalletConnectionMethod && connectionMethodState;
+  }, [connectionMethodState, showEditAddress, showWalletConnectionMethod]);
+
   const newAddressTitle = useMemo(() => {
-    if (connectionMethod === "manual") {
+    if (connectionMethodState === "manual") {
       return "Enter new address";
     }
-    if (connectionMethod === "wallet" || (requireWalletConnection && isFirstTimeAddressSetup)) {
+    if (connectionMethodState === "wallet" || (requireWalletConnection && isFirstTimeAddressSetup)) {
       return "New address";
     }
 
     return "";
-  }, [connectionMethod, isFirstTimeAddressSetup, requireWalletConnection]);
+  }, [connectionMethodState, isFirstTimeAddressSetup, requireWalletConnection]);
 
   const isMatchingTheExistingOne = useMemo(() => {
     if (newAddress || !currentAddress) return false;
@@ -140,14 +185,20 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
 
   const filled = useMemo(() => {
     if (isMatchingTheExistingOne) return false;
-    if (connectionMethod === "wallet") return validateAddress(newAddress, wallet?.token);
+    if (connectionMethodState === "wallet") return validateAddress(newAddress, wallet?.token);
     return validateAddress(address, wallet?.token);
-  }, [address, connectionMethod, isMatchingTheExistingOne, newAddress, wallet?.token]);
+  }, [address, connectionMethodState, isMatchingTheExistingOne, newAddress, wallet?.token]);
 
   const getChangeAddressText = useMemo(() => {
     if (filled || currentAddress) return t("profile.edit.wallet.button.save-address");
     return t("profile.edit.wallet.button.change-address");
   }, [currentAddress, filled, t]);
+
+  useEffect(() => {
+    if (currentAddress) {
+      setShowWalletInfo(true);
+    }
+  }, [currentAddress]);
 
   return (
     <Modal show={show} onClose={closeModal}>
@@ -193,7 +244,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
       </div>
       <form className="flex flex-col space-y-4" onSubmit={handleSubmit(onSave)}>
         <div className="px-6">
-          {showEditAddress && !showWalletConnectionMethod && connectionMethod === "wallet" && (
+          {showForm && connectionMethodState === "wallet" && (
             <Input
               /* In backticks `` because label requires a string.*/
               label={`${t("profile.edit.label.account-address")}`}
@@ -209,9 +260,8 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
               })}
             />
           )}
-          {connectionMethod === "manual" && (
+          {showForm && connectionMethodState === "manual" && (
             <Input
-              /* In backticks `` because label requires a string.*/
               label={`${t("profile.edit.label.account-address")}`}
               error={errors.address?.message}
               type="address"
