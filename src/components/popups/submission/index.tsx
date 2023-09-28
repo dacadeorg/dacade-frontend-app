@@ -19,7 +19,7 @@ interface SubmissionPopup {
 
 export default function SubmissionPopup({ show, onClose }: SubmissionPopup): ReactElement {
   return (
-    <Popup show={show} onClose={onClose} className="">
+    <Popup show={show} onClose={onClose}>
       <div className="py-8 overflow-hidden h-full w-full">
         <div className="bg-white my-auto lg:w-10/12 w-11/12 rounded-3.5xl relative mx-auto h-screen flex flex-col">
           <div className="w-full flex-none">

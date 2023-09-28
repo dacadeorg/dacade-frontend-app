@@ -42,7 +42,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
   const handleCloseSubmission = useCallback(() => {
     setSelectedSubmission("");
     dispatch(showSubmission(""));
-    router.replace(router.asPath.split("?")[0], undefined, { shallow: true });
+    router.push(router.asPath.split("?")[0], undefined, { shallow: true });
   }, [dispatch, router]);
 
   useEffect(() => {

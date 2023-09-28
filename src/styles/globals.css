@@ -32,7 +32,6 @@
 
 html,
 body {
-  @apply !scroll-smooth;
   font-family: "Graphik", sans-serif;
 }
 

@@ -53,6 +53,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
   const displaySubmission = useCallback(() => {
     router.push({ query: { submission_id: submission?.id }, pathname: router.asPath }, undefined, { shallow: true });
   }, [router, submission?.id]);
+
   const submissionFeedback = () => {
     displaySubmission();
     dispatch(showSubmission(submission.id));
