@@ -31,7 +31,7 @@ export default function OldSubmissionsPage() {
         <title>Redirecting...</title>
       </Head>
 
-      <Section>
+      <Section className="h-[50vh] grid place-items-center">
         <Loader />
       </Section>
     </>
