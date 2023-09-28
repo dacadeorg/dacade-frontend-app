@@ -9,7 +9,9 @@ import rehypeExternalLinks from "rehype-external-links";
 import rehypeSlug from "rehype-slug";
 import Loader from "@/components/ui/Loader";
 import CodeHighlighter from "./CodeHighlighter";
-
+import rehypeRaw from "rehype-raw";
+import rehypeFormat from "rehype-format";
+import rehypeStringify from "rehype-stringify";
 /**
  * Markdown props interface
  * @date 4/19/2023 - 8:58:51 PM
@@ -71,7 +73,7 @@ export default function Markdown({ url }: MarkDownProps): ReactElement {
       {content && (
         <div style={{ ...(themeStyles as CSSProperties) }} className="prose">
           <ReactMarkdown
-            rehypePlugins={[rehypeExternalLinks, rehypeSlug]}
+            rehypePlugins={[rehypeExternalLinks, rehypeSlug, rehypeRaw, rehypeFormat, rehypeStringify]}
             remarkPlugins={[remarkGfm]}
             components={{
               code: ({ inline, className, children, ...props }) => {
