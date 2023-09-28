@@ -5,6 +5,7 @@ import Wrapper from "@/components/sections/courses/Wrapper";
 import SubmissionList from "@/components/sections/submissions/List";
 import MetaData from "@/components/ui/MetaData";
 import useNavigation from "@/hooks/useNavigation";
+import useSafePush from "@/hooks/useSafePush";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { wrapper } from "@/store";
 import { fetchAllSubmission, showSubmission } from "@/store/feature/communities/challenges/submissions";
@@ -38,6 +39,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
   const { submission_id } = router.query;
   const { t } = useTranslation();
   const navigation = useNavigation();
+  const { safePush } = useSafePush();
 
   const handleCloseSubmission = useCallback(() => {
     setSelectedSubmission("");
@@ -56,6 +58,10 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
     dispatch(showSubmission(submission_id as string));
     toggleBodyScrolling(!!submission_id)(dispatch);
   }, [dispatch, router.query, submission_id]);
+
+  useEffect(() => {
+    if (router.query?.["submission_id"]) safePush(`${router.asPath.split("?")[0]}/${submission_id}`);
+  }, [router, submission_id]);
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
 
