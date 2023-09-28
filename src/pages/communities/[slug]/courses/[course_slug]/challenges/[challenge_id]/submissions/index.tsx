@@ -1,14 +1,9 @@
-import { useEffect } from "react";
-import Section from "@/components/ui/Section";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import DefaultLayout from "@/components/layout/Default";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSideProps } from "next";
-import Head from "next/head";
 import { useRouter } from "next/router";
-import removeCourseFromLink from "@/utilities/removeCourseFromLink";
-import Loader from "@/components/ui/Loader";
-import useSafePush from "@/hooks/useSafePush";
+import { Redirecting } from "@/layouts/Redirecting";
 
 /**
  * For redirecting all the links that contains the `/courses/[course_slug]/`
@@ -19,23 +14,7 @@ import useSafePush from "@/hooks/useSafePush";
  */
 export default function OldSubmissionsPage() {
   const router = useRouter();
-  const { safePush } = useSafePush();
-  useEffect(() => {
-    const redirectUrl = removeCourseFromLink(router.query, "submissions");
-    safePush(redirectUrl);
-  }, []);
-
-  return (
-    <>
-      <Head>
-        <title>Redirecting...</title>
-      </Head>
-
-      <Section className="h-[50vh] grid place-items-center">
-        <Loader />
-      </Section>
-    </>
-  );
+  return <Redirecting router={router.query} finalPage="submissions" />;
 }
 
 OldSubmissionsPage.getLayout = function (page: ReactElement) {
