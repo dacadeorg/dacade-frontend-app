@@ -31,6 +31,7 @@ interface UserProps {
   className?: string;
   submission?: Submission;
   teamMembers?: User[];
+  onClick?: () => void;
 }
 
 /**
@@ -49,7 +50,7 @@ interface UserProps {
 }
  * @returns {ReactElement}
  */
-export default function UserCard({ boxLayout, link, bordered, user, badge = "", timestamp, children, className, teamMembers }: UserProps): ReactElement {
+export default function UserCard({ boxLayout, link, bordered, user, badge = "", timestamp, children, className, teamMembers, onClick }: UserProps): ReactElement {
   const { locale, push } = useRouter();
   const colors = useSelector((state) => state.ui.colors);
 
@@ -63,13 +64,13 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
     setProfileURL(`/profile/${user?.username}`);
   }, [timestamp, user, locale]);
 
-  const userCardClassName = classNames(`group bg-gradient-to-trw-full relative ${className}`, {
+  const userCardClassName = classNames(`group py-3 relative ${className}`, {
     "sm:p-6 flex space-x-3": boxLayout,
     "pl-5 sm:pl-7.5": !boxLayout,
     "cursor-pointer": link,
   });
   return (
-    <div className={userCardClassName}>
+    <div className={userCardClassName} onClick={onClick}>
       <div className={`z-10 ${boxLayout ? "relative flex-none" : "absolute top-0 left-0"}`}>
         {teamMembers && teamMembers?.length ? (
           <div className="w-15 h-15 rounded-full bg-gray-800 overflow-hidden grid grid-cols-2 items-between">
