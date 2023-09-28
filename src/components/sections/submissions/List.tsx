@@ -52,7 +52,7 @@ export default function List(): ReactElement {
     <>
       {submissions && submissions.length ? (
         <div className="text-xl md:text-.5xl px-0 py-5 md:py-10 md:pb-5">
-          <div className="sm:border sm:border-gray-200 sm:border-solid rounded-3.5xl relative">
+          <div className="sm:border sm:border-gray-200 sm:border-solid rounded-3.5xl relative overflow-hidden">
             <div className="flex flex-col divide-y" id="scrollableDiv">
               <InfiniteScroll
                 dataLength={submissions.length}
@@ -60,6 +60,7 @@ export default function List(): ReactElement {
                 hasMore={showLoadMore}
                 // loader is required for InfiniteScroll to work
                 loader={<></>}
+                className="divide-y divide-gray-200"
               >
                 {submissions.map((submission, i) => (
                   <SubmissionCard key={`submission-${i}`} submission={submission} />

@@ -8,7 +8,6 @@ import { ReactElement, ReactNode, useCallback, useEffect, useState } from "react
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { showSubmission } from "@/store/feature/communities/challenges/submissions";
 import { useRouter } from "next/router";
-import Markdown from "../ui/Markdown";
 
 /**
  * Submission card interface props
@@ -54,6 +53,10 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
   const displaySubmission = useCallback(() => {
     router.push({ query: { submission_id: submission?.id }, pathname: router.asPath }, undefined, { shallow: true });
   }, [router, submission?.id]);
+  const submissionFeedback = () => {
+    displaySubmission();
+    dispatch(showSubmission(submission.id));
+  };
 
   useEffect(() => {
     if (submission.team) {
@@ -76,12 +79,13 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
       teamMembers={members}
       link={link}
       bordered={false}
-      className="pt-6"
+      className="pt-6 hover:bg-gray-50 cursor-pointer"
       boxLayout
+      onClick={submissionFeedback}
     >
       <div className="divide-y divide-gray-200 flex flex-col">
-        <div className="pb-6">
-          <Markdown value={submission.text} markDownStyles="text-base sm:text-lg line-clamp-3 leading-normal text-gray-700 break-words" />
+        <div className="pb-5">
+          <p className="text-base sm:text-lg line-clamp-3 leading-normal text-gray-700 break-words">{submission.text}</p>
         </div>
         <div className="flex items-center py-4 w-full justify-between">
           <div className="flex space-x-4 items-center">
@@ -120,10 +124,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
               minWidthClass="w-10 h-10"
               customStyle={arrowButtonStyles}
               arrowClasses=""
-              onClick={() => {
-                displaySubmission();
-                dispatch(showSubmission(submission.id));
-              }}
+              onClick={submissionFeedback}
             />
           </div>
         </div>
