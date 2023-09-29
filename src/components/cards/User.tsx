@@ -21,6 +21,7 @@ interface UserProps {
   boxLayout?: boolean;
   link?: string;
   bordered?: boolean;
+  expanded?: boolean;
   user: User;
   badge?: string;
   timestamp: {
@@ -50,7 +51,7 @@ interface UserProps {
 }
  * @returns {ReactElement}
  */
-export default function UserCard({ boxLayout, link, bordered, user, badge = "", timestamp, children, className, teamMembers, onClick }: UserProps): ReactElement {
+export default function UserCard({ boxLayout, link, bordered, expanded, user, badge = "", timestamp, children, className, teamMembers, onClick }: UserProps): ReactElement {
   const { locale, push } = useRouter();
   const colors = useSelector((state) => state.ui.colors);
 
@@ -64,7 +65,7 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
     setProfileURL(`/profile/${user?.username}`);
   }, [timestamp, user, locale]);
 
-  const userCardClassName = classNames(`group py-3 relative ${className}`, {
+  const userCardClassName = classNames(`group relative ${className}`, {
     "sm:p-6 flex space-x-3": boxLayout,
     "pl-5 sm:pl-7.5": !boxLayout,
     "cursor-pointer": link,
@@ -96,7 +97,11 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
           </>
         )}
       </div>
-      <div className={`relative z-0 flex-1 ${bordered ? "group-hover:border-gray-50 border-l border-solid border-gray-200" : ""} ${!boxLayout ? "pl-10.5 pb-12" : ""}`}>
+      <div
+        className={`relative z-0 flex-1 ${expanded ? "pb-24" : ""} ${bordered ? "group-hover:border-gray-50 border-l border-solid border-gray-200" : ""} ${
+          !boxLayout ? "pl-10.5 pb-12" : ""
+        }`}
+      >
         <div className="pb-4">
           <div className="flex gap-4 w-full overflow-hidden">
             {teamMembers && teamMembers?.length ? (
