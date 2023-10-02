@@ -6,13 +6,15 @@ import ErrorBox from "@/components/ui/ErrorBox";
 import WalletHeader from "@/components/sections/profile/WalletHeader";
 import WalletButton from "./_partials/Wallet";
 import { validateAddress } from "@/utilities/Address";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "next-i18next";
 import { CustomError } from "@/types/error";
-import { updateWallet } from "@/store/services/wallets.service";
+import { fetchAllWallets, updateWallet } from "@/store/services/wallets.service";
 import { Wallet } from "@/types/wallet";
-import { getSignature } from "@/store/feature/wallet.slice";
+import { connectWallet, getSignature } from "@/store/feature/wallet.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { IRootState } from "@/store";
 
 /**
  * Inferface for form's inputs values
@@ -54,7 +56,6 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<CustomError | undefined | null>();
-  const [, setShowEditModal] = useState(false);
   const [showEditAddress, setShowEditAddress] = useState(false);
   const [showWalletConnectionMethod, setShowWalletConnectionMethod] = useState(false);
   const [showWalletInfo, setShowWalletInfo] = useState(false);
@@ -63,9 +64,12 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     watch,
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>();
-  const address = watch("address");
+  const address = watch("newAddress");
+
+  const dispatch = useDispatch();
 
   const closeModal = () => {
     clearState();
@@ -73,7 +77,6 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   };
 
   const clearState = () => {
-    setShowEditModal(false);
     setShowEditAddress(false);
     setShowWalletConnectionMethod(false);
     setConnectionMethodState("");
@@ -86,7 +89,10 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     setConnectionMethodState("manual");
   };
 
-  const wallets = useSelector((state) => state.wallets.current);
+  const { wallets, web3Adrress } = useMultiSelector<unknown, { wallets: Wallet; web3Adrress: string | null }>({
+    wallets: (state: IRootState) => state.wallets.current,
+    web3Adrress: (state: IRootState) => state.web3Wallet.address,
+  });
   const currentAddress = wallets?.address;
 
   const setConnectionMethod = (method: string) => {
@@ -111,7 +117,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
 
   const connect = async () => {
     try {
-      // await this.$store.dispatch('wallet/connect')
+      dispatch(connectWallet());
       setShowEditAddress(true);
     } catch (e) {
       console.log(e);
@@ -122,17 +128,21 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const onSave = async () => {
     setLoading(true);
     setError(null);
-    onClose();
     const signature = await getSignature();
+
     try {
-      const validAddress = validateAddress(address, wallets?.token);
+      const validAddress = validateAddress(address || newAddress, wallets?.token);
       if (!validAddress) return;
 
-      await updateWallet({
-        id: wallets?.id,
-        address: newAddress || address,
-        signature,
-      });
+      await dispatch(
+        updateWallet({
+          id: wallets?.id,
+          address: address || newAddress,
+          signature,
+        })
+      );
+
+      await dispatch(fetchAllWallets());
       closeModal();
     } catch (err) {
       const error = err as CustomError;
@@ -200,6 +210,10 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     }
   }, [currentAddress]);
 
+  useEffect(() => {
+    if (web3Adrress) setValue("newAddress", web3Adrress, { shouldValidate: true });
+    console.log("this is the web 3 addreess", web3Adrress);
+  }, [web3Adrress]);
   return (
     <Modal show={show} onClose={closeModal}>
       <div className="px-6 pt-6">
@@ -249,8 +263,9 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
               /* In backticks `` because label requires a string.*/
               label={`${t("profile.edit.label.account-address")}`}
               error={errors.newAddress?.message}
-              type="newAddress"
+              type="text"
               required
+              // value={addressValue}
               {...register("newAddress", {
                 required: "This field is required",
                 minLength: {
@@ -289,7 +304,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
           </span>
 
           <ArrowButton disabled={loading || !filled} loading={loading}>
-            {getChangeAddressText}
+            {getChangeAddressText} {loading ? "true" : "false"}
           </ArrowButton>
         </div>
       </form>
