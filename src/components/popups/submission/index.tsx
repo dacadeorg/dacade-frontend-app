@@ -13,7 +13,6 @@ import SubmissionView from "@/components/sections/submissions/View";
  */
 interface SubmissionPopup {
   show: boolean;
-  submissionId: string | null;
   onClose: () => void;
 }
 
