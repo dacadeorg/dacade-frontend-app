@@ -21,6 +21,7 @@ interface UserProps {
   boxLayout?: boolean;
   link?: string;
   bordered?: boolean;
+  expanded?: boolean;
   user: User;
   badge?: string;
   timestamp: {
@@ -31,6 +32,7 @@ interface UserProps {
   className?: string;
   submission?: Submission;
   teamMembers?: User[];
+  onClick?: () => void;
 }
 
 /**
@@ -49,7 +51,7 @@ interface UserProps {
 }
  * @returns {ReactElement}
  */
-export default function UserCard({ boxLayout, link, bordered, user, badge = "", timestamp, children, className, teamMembers }: UserProps): ReactElement {
+export default function UserCard({ boxLayout, link, bordered, expanded, user, badge = "", timestamp, children, className, teamMembers, onClick }: UserProps): ReactElement {
   const { locale, push } = useRouter();
   const colors = useSelector((state) => state.ui.colors);
 
@@ -63,13 +65,13 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
     setProfileURL(`/profile/${user?.username}`);
   }, [timestamp, user, locale]);
 
-  const userCardClassName = classNames(`group bg-gradient-to-trw-full relative ${className}`, {
+  const userCardClassName = classNames(`group relative ${className}`, {
     "sm:p-6 flex space-x-3": boxLayout,
     "pl-5 sm:pl-7.5": !boxLayout,
     "cursor-pointer": link,
   });
   return (
-    <div className={userCardClassName}>
+    <div className={userCardClassName} onClick={onClick}>
       <div className={`z-10 ${boxLayout ? "relative flex-none" : "absolute top-0 left-0"}`}>
         {teamMembers && teamMembers?.length ? (
           <div className="w-15 h-15 rounded-full bg-gray-800 overflow-hidden grid grid-cols-2 items-between">
@@ -95,7 +97,11 @@ export default function UserCard({ boxLayout, link, bordered, user, badge = "", 
           </>
         )}
       </div>
-      <div className={`relative z-0 flex-1 ${bordered ? "group-hover:border-gray-50 border-l border-solid border-gray-200" : ""} ${!boxLayout ? "pl-10.5 pb-12" : ""}`}>
+      <div
+        className={`relative z-0 flex-1 ${expanded ? "pb-24" : ""} ${bordered ? "group-hover:border-gray-50 border-l border-solid border-gray-200" : ""} ${
+          !boxLayout ? "pl-10.5 pb-12" : ""
+        }`}
+      >
         <div className="pb-4">
           <div className="flex gap-4 w-full overflow-hidden">
             {teamMembers && teamMembers?.length ? (
