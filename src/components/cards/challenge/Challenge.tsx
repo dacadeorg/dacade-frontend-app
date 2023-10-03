@@ -20,9 +20,8 @@ import { useMemo } from "react";
 interface ChallengeCardProps {
   data: Challenge;
   community: Community;
-  isCourseEnd?: boolean
 }
-export default function ChallengeCard({ data, community, isCourseEnd }: ChallengeCardProps) {
+export default function ChallengeCard({ data, community }: ChallengeCardProps) {
   const link = `/communities/${community.slug}/challenges/${data.id}`;
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
 
@@ -74,14 +73,14 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
 
             <Link href={link}>
               <ArrowButton communityStyles={true} variant="outline-primary">
-                {isCourseEnd ? "Take the challenge" : "See the challenge"}
+                See the challenge
               </ArrowButton>
             </Link>
           </div>
         </div>
       </div>
 
-      {(data.courses?.length > 0 || data.learningModules?.length > 0) && !isCourseEnd && (
+      {(data.courses?.length > 0 || data.learningModules?.length > 0) && (
         <div className="sm:px-8 sm:pt-6 sm:pb-9 w-full p-6 rounded-3xl text-sm">
           <div className="mb-3 text-gray-400 font-semibold uppercase text-xxs">related content</div>
           {data.courses?.map((course) => (
