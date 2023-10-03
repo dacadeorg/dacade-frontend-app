@@ -17,7 +17,7 @@ export default function LearningModuleSection({ learningModule }: { learningModu
       ))}
       <AdditionalMaterialsSection materials={additionalMaterials} />
       {interactiveModules.length > 0 && <InteractiveModule data={interactiveModules[0]} />}
-      <PageNavigation />
+      {/* <PageNavigation /> */}
     </div>
   );
 }
