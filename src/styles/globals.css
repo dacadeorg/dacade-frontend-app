@@ -442,6 +442,11 @@ div {
   margin-bottom: 14px !important;
   font-size: 22px !important;
 }
+
+.prose .markdown-content > h1:first-child:not(.not-prose h1) {
+  margin-top: 24px !important;
+}
+
 @media (max-width: 768px) {
   .markdown-content h2 {
     font-size: 20px !important;
