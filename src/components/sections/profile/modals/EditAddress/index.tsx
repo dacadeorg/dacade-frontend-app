@@ -82,6 +82,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     setShowWalletConnectionMethod(false);
     setConnectionMethodState("");
     setShowWalletInfo(false);
+    setError(null);
   };
 
   const openEditAddress = () => {
@@ -130,17 +131,16 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   };
 
   const onSave = async () => {
-    console.log("Onsance called");
-    closeModal();
-    return;
     setLoading(true);
     setError(null);
 
     try {
-      const signature = await getSignature();
       const validAddress = validateAddress(address || newAddress, wallets?.token);
-      if (!validAddress) return;
-
+      if (!validAddress) {
+        setError({ name: "Failed validation", message: "Message", details: { message: "address does not match any of the allowed types" } });
+        return;
+      }
+      const signature = await getSignature();
       await dispatch(
         updateWallet({
           id: wallets?.id,
@@ -156,7 +156,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
       if (error.details) {
         setError(error);
       }
-      console.error("Any error", err);
+      setError({ name: "Wallet connection failed", message: "Failed connection", details: { one: "Unable to connect wallet" } });
     } finally {
       setLoading(false);
     }
