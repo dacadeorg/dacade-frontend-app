@@ -8,6 +8,7 @@ import { ReactElement, ReactNode, useCallback, useEffect, useState } from "react
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { showSubmission } from "@/store/feature/communities/challenges/submissions";
 import { useRouter } from "next/router";
+import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 
 /**
  * Submission card interface props
@@ -52,6 +53,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
 
   const displaySubmission = useCallback(() => {
     window.history.pushState("", "", `${router.asPath}/${submission?.id}`);
+    toggleBodyScrolling(true)(dispatch);
   }, [router, submission?.id]);
 
   const submissionFeedback = () => {
