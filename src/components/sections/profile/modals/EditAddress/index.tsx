@@ -59,7 +59,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const [showEditAddress, setShowEditAddress] = useState(false);
   const [showWalletConnectionMethod, setShowWalletConnectionMethod] = useState(false);
   const [showWalletInfo, setShowWalletInfo] = useState(false);
-  const [connectionMethodState, setConnectionMethodState] = useState("");
+  const [connectionMethod, setConnectionMethodState] = useState("");
   const {
     watch,
     register,
@@ -97,7 +97,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   });
   const currentAddress = wallets?.address;
 
-  const setConnectionMethod = (method: string) => {
+  const setWalletConnectionMethod = (method: string) => {
     if (!method) return;
 
     if (method === "wallet" && !requireWalletConnection) return;
@@ -105,7 +105,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     if (isWalletConnected) disconnect();
 
     setShowWalletConnectionMethod(false);
-    setConnectionMethodState(method);
+    setConnectionMethod(method);
     setShowEditAddress(true);
 
     if (method === "wallet") {
@@ -163,10 +163,10 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   };
 
   const newAddress = useMemo(() => {
-    if (connectionMethodState === "wallet") return wallets?.address;
-    else if (connectionMethodState === "manual") return formAddress;
+    if (connectionMethod === "wallet") return wallets?.address;
+    else if (connectionMethod === "manual") return formAddress;
     return address;
-  }, [address, connectionMethodState, wallets?.address, formAddress]);
+  }, [address, connectionMethod, wallets?.address, formAddress]);
 
   const requireWalletConnection = useMemo(() => {
     return wallets?.require_wallet_connection || false;
@@ -181,19 +181,19 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   }, [requireWalletConnection, wallet?.address]);
 
   const showForm = useMemo(() => {
-    return showEditAddress && !showWalletConnectionMethod && connectionMethodState;
-  }, [connectionMethodState, showEditAddress, showWalletConnectionMethod]);
+    return showEditAddress && !showWalletConnectionMethod && connectionMethod;
+  }, [connectionMethod, showEditAddress, showWalletConnectionMethod]);
 
   const newAddressTitle = useMemo(() => {
-    if (connectionMethodState === "manual") {
+    if (connectionMethod === "manual") {
       return "Enter new address";
     }
-    if (connectionMethodState === "wallet" || (requireWalletConnection && isFirstTimeAddressSetup)) {
+    if (connectionMethod === "wallet" || (requireWalletConnection && isFirstTimeAddressSetup)) {
       return "New address";
     }
 
     return "";
-  }, [connectionMethodState, isFirstTimeAddressSetup, requireWalletConnection]);
+  }, [connectionMethod, isFirstTimeAddressSetup, requireWalletConnection]);
 
   const isMatchingTheExistingOne = useMemo(() => {
     if (!newAddress || !currentAddress) return false;
@@ -202,9 +202,9 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
 
   const filled = useMemo(() => {
     if (isMatchingTheExistingOne) return false;
-    if (connectionMethodState === "wallet" || connectionMethodState === "manual") return validateAddress(newAddress, wallet?.token);
+    if (connectionMethod === "wallet" || connectionMethod === "manual") return validateAddress(newAddress, wallet?.token);
     return validateAddress(address, wallet?.token);
-  }, [address, connectionMethodState, isMatchingTheExistingOne, newAddress, wallet?.token, formAddress]);
+  }, [address, connectionMethod, isMatchingTheExistingOne, newAddress, wallet?.token, formAddress]);
 
   const getChangeAddressText = useMemo(() => {
     if (filled || currentAddress) return t("profile.edit.wallet.button.save-address");
@@ -225,8 +225,8 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
             <div>
               <p className="mb-5 text-base font-medium">{t("profile.edit.wallet.select.title")}</p>
               <div className="overflow-hidden border border-gray-400 border-solid divide-y rounded-xl">
-                <WalletButton onClick={() => setConnectionMethod("manual")}>{t("profile.edit.wallet.select.option.manual")}</WalletButton>
-                {requireWalletConnection && <WalletButton onClick={() => setConnectionMethod("wallet")}>{t("profile.edit.wallet.select.option.connect")}</WalletButton>}
+                <WalletButton onClick={() => setWalletConnectionMethod("manual")}>{t("profile.edit.wallet.select.option.manual")}</WalletButton>
+                {requireWalletConnection && <WalletButton onClick={() => setWalletConnectionMethod("wallet")}>{t("profile.edit.wallet.select.option.connect")}</WalletButton>}
               </div>
             </div>
           ) : (
@@ -264,7 +264,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
       </div>
       <form className="flex flex-col space-y-4" onSubmit={handleSubmit(onSave)}>
         <div className="px-6">
-          {showForm && connectionMethodState === "wallet" && (
+          {showForm && connectionMethod === "wallet" && (
             <Input
               /* In backticks `` because label requires a string.*/
               label={`${t("profile.edit.label.account-address")}`}
@@ -281,7 +281,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
               })}
             />
           )}
-          {showForm && connectionMethodState === "manual" && (
+          {showForm && connectionMethod === "manual" && (
             <Input
               label={`${t("profile.edit.label.account-address")}`}
               error={errors.address?.message}

@@ -93,7 +93,7 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
               ) : (
                 <p>{wallet.description}</p>
               )}
-              <div className="text-gray-700 text-sm mt-3 bg-lime-400">
+              <div className="text-gray-700 text-sm mt-3">
                 <span
                   className="cursor-pointer hover:underline"
                   onClick={() => {
