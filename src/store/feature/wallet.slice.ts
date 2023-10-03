@@ -107,7 +107,7 @@ export const connectWallet = createAsyncThunk("web3/connect", async (_, { dispat
   const network = await web3Provider.getNetwork();
   const networkName = network.name;
   currentChainId = network.chainId;
-  dispatch(subscribeProvider());
+  await dispatch(subscribeProvider());
 
   const data = {
     address,
