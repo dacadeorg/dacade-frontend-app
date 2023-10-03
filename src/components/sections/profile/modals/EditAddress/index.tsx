@@ -12,7 +12,7 @@ import { useTranslation } from "next-i18next";
 import { CustomError } from "@/types/error";
 import { fetchAllWallets, updateWallet } from "@/store/services/wallets.service";
 import { Wallet } from "@/types/wallet";
-import { connectWallet, getSignature } from "@/store/feature/wallet.slice";
+import { connectWallet, disconnectWallet, getSignature } from "@/store/feature/wallet.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { IRootState } from "@/store";
 
@@ -100,9 +100,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
 
     if (method === "wallet" && !requireWalletConnection) return;
 
-    // if (this.isWalletConnected) {
-    //   await this.$store.dispatch('wallet/disconnect')
-    // }
+    if (isWalletConnected) disconnect();
 
     setShowWalletConnectionMethod(false);
     setConnectionMethodState(method);
@@ -115,9 +113,14 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     setShowWalletInfo(true);
   };
 
+  const disconnect = async () => {
+    await dispatch(disconnectWallet());
+  };
+
   const connect = async () => {
     try {
       dispatch(connectWallet());
+      if (web3Adrress) setValue("newAddress", web3Adrress, { shouldValidate: true });
       setShowEditAddress(true);
     } catch (e) {
       console.log(e);
@@ -128,9 +131,9 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const onSave = async () => {
     setLoading(true);
     setError(null);
-    const signature = await getSignature();
 
     try {
+      const signature = await getSignature();
       const validAddress = validateAddress(address || newAddress, wallets?.token);
       if (!validAddress) return;
 
@@ -149,6 +152,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
       if (error.details) {
         setError(error);
       }
+      console.error("Any error", err);
     } finally {
       setLoading(false);
     }
@@ -210,10 +214,6 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     }
   }, [currentAddress]);
 
-  useEffect(() => {
-    if (web3Adrress) setValue("newAddress", web3Adrress, { shouldValidate: true });
-    console.log("this is the web 3 addreess", web3Adrress);
-  }, [web3Adrress]);
   return (
     <Modal show={show} onClose={closeModal}>
       <div className="px-6 pt-6">
