@@ -116,7 +116,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
     <div className="relative w-full">
       {currentText ? (
         <div className={`-my-5 text-lime-400 ${textContainerCssClasses}`}>
-          <Markdown value={currentText} markDownStyles={textCssClasses} />
+          <Markdown value={currentText} markDownStyles={textCssClasses} translationBoxClass="translationBoxClass" />
         </div>
       ) : (
         <></>

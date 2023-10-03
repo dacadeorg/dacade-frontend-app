@@ -20,6 +20,7 @@ import rehypeStringify from "rehype-stringify";
 interface MarkDownProps {
   value: string;
   markDownStyles?: string;
+  translationBoxClass?: string;
 }
 
 /**
@@ -32,14 +33,14 @@ interface MarkDownProps {
 }
  * @returns {ReactElement}
  */
-export default function Markdown({ value, markDownStyles }: MarkDownProps): ReactElement {
+export default function Markdown({ value, markDownStyles, translationBoxClass }: MarkDownProps): ReactElement {
   const colors = useSelector((state) => state.ui.colors);
   const themeStyles = {
     "--text-accent-color": colors?.textAccent,
   };
 
   return (
-    <div style={{ ...(themeStyles as CSSProperties) }} className={`prose ${markDownStyles}`}>
+    <div style={{ ...(themeStyles as CSSProperties) }} className={`prose ${markDownStyles} ${translationBoxClass}`}>
       <ReactMarkdown
         className="markdown-content"
         rehypePlugins={[rehypeExternalLinks, rehypeSlug, rehypeRaw, rehypeFormat, rehypeStringify]}

@@ -443,7 +443,10 @@ div {
   font-size: 22px !important;
 }
 
-.prose .markdown-content > h1:first-child:not(.not-prose h1) {
+.prose.translationBoxClass h1 {
+  font-size: 22px !important;
+}
+.prose.translationBoxClass .markdown-content > h1:first-child {
   margin-top: 24px !important;
 }
 
