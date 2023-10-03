@@ -64,9 +64,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   const { locale } = data;
   const { username } = data.query;
   const userProfile = await store.dispatch(fetchUserProfile((username as string) || ""));
-  if (userProfile.isError) {
-    return { notFound: true };
-  }
+  if (userProfile.isError) return { notFound: true };
   return {
     props: {
       userProfile,
@@ -74,4 +72,3 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     },
   };
 });
-
