@@ -11,6 +11,7 @@ import { fetchAllWallets } from "@/store/services/wallets.service";
 import { fetchUserReputations } from "@/store/services/user/userReputation.service";
 import { Wallet } from "@/types/wallet";
 import { IRootState } from "@/store";
+import useUnlockPageScroll from "@/hooks/useUnlockPageScroll";
 
 /**
  * interface for UserPopup multiSelector
@@ -59,6 +60,8 @@ export default function UserPopup({ buttonStyles }: { buttonStyles: CSSPropertie
       toggleBodyScrolling(false)(dispatch);
     }
   };
+
+  useUnlockPageScroll();
 
   return (
     <div>

@@ -1,6 +1,7 @@
 import { auth as firebaseAuth } from "@/config/firebase";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { signInWithEmailAndPassword, sendPasswordResetEmail, signOut } from "firebase/auth";
+import api from "@/config/api";
 
 import { clearError, setBusy, setError, setJobDone } from "./index.slice";
 import { IRootState } from "..";
@@ -13,6 +14,7 @@ interface AuthState {
   userBalance: number | null;
   balance: number | null;
   walletAddresses: string[] | null;
+  isAuthLoading: boolean;
 }
 
 // Define the initial state
@@ -21,6 +23,7 @@ const initialState: AuthState = {
   userBalance: null,
   balance: null,
   walletAddresses: null,
+  isAuthLoading: true,
 };
 
 // Define the auth slice using Redux Toolkit
@@ -34,6 +37,9 @@ const authSlice = createSlice({
     clearAuthData(state) {
       state.data = null;
     },
+    setIsAuthLoading(state, action) {
+      state.isAuthLoading = action.payload;
+    },
   },
 });
 
@@ -42,7 +48,7 @@ export const authCheck = (state: IRootState) => state.auth.data !== null && stat
 export const authVerify = (state: IRootState) => authCheck(state) && (state.auth.data?.emailVerified as boolean);
 
 // Export the auth actions
-export const { setAuthData, clearAuthData } = authSlice.actions;
+export const { setAuthData, clearAuthData, setIsAuthLoading } = authSlice.actions;
 export default authSlice;
 
 // Define the login async thunks using Redux Toolkit
@@ -86,3 +92,17 @@ export const logout = createAsyncThunk("logout", async (_, { dispatch }) => {
   await signOut(firebaseAuth);
   dispatch(clearAuthData());
 });
+
+// Discord Disconnect
+export const disconnectDiscord = () => async () => {
+  const user = firebaseAuth?.currentUser;
+  if (user) {
+    try {
+      const { data } = await api().client.post("auth/discord/disconnect");
+      return data;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
+};

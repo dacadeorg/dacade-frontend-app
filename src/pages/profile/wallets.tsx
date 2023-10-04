@@ -28,7 +28,6 @@ interface ProfileWalletMultiSelector {
 export default function ProfileWallet(): ReactElement {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  // const { wallets, user } = useSelector((state) => ({ wallets: state.wallets.list, user: state.user.data }));
   const { wallets, user } = useMultiSelector<unknown, ProfileWalletMultiSelector>({
     wallets: (state: IRootState) => state.wallets.list,
     user: (state: IRootState) => state.user.data,

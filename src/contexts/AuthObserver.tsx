@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useCallback, useEffect, useMemo, useState } from "react";
 import { User, onAuthStateChanged, onIdTokenChanged } from "firebase/auth";
 import { auth } from "@/config/firebase";
-import { setAuthData } from "@/store/feature/auth.slice";
+import { setAuthData, setIsAuthLoading } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchUser } from "@/store/services/user.service";
 import { getToken } from "@/store/feature/user.slice";
@@ -96,11 +96,13 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
 
     onAuthStateChanged(auth, async (user) => {
       setLoading(true);
+      dispatch(setIsAuthLoading(true));
       await emailVerificationChecker(user);
       await guestAndUserRoutesChecker(user);
       dispatch(setAuthData(user?.toJSON()));
       await dispatch(fetchUser());
       setLoading(false);
+      dispatch(setIsAuthLoading(false));
     });
   }, [dispatch, emailVerificationChecker, guestAndUserRoutesChecker]);
 

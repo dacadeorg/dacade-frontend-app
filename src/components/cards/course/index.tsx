@@ -72,7 +72,14 @@ export default function CourseCard({ course, community }: CourseCardProps): Reac
       ) : (
         <div className="text-base text-left sm:flex flex-start flex flex-col pt-6 sm:pt-0 space-y-4 pb-5 sm:pl-7 sm:pb-10 w-full sm:w-2/5 lg:w-1/3 tracking-wider">
           <span className="text-xxs tracking-wider px-1 font-semibold uppercase text-gray-500">{t(`course.challenge.certificate`)}</span>
-          <Avatar className="w-15 h-15 p-3 overflow-hidden" icon={community.icon} color={community.colors.primary} size="extra" shape="rounded-3xl" user={null} />
+          <Avatar
+            className="w-15 h-15 p-3 overflow-hidden"
+            icon={community.icon}
+            color={community.colors?.cover?.background || community.colors.primary}
+            size="extra"
+            shape="rounded-3xl"
+            user={null}
+          />
           <div className="font-light text-sm max-w-xs pb-2 text-gray-700">
             <p>{t("course.challenge.certificate.description")}</p>
           </div>

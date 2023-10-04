@@ -30,7 +30,7 @@ export default function DiscordConnect({ username }: { username?: string }): Rea
   };
 
   /**
-   * Get transilated discord status messages related to discord connection
+   * Get translated discord status messages related to discord connection
    * @date 4/4/2023 - 10:05:46 AM
    *
    * @returns {string}
@@ -42,7 +42,7 @@ export default function DiscordConnect({ username }: { username?: string }): Rea
   };
 
   /**
-   * Connect or disconnect user from discord
+   * Connect user to discord
    * @date 4/4/2023 - 9:39:06 AM
    *
    * @type {Function}
