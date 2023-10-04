@@ -11,6 +11,7 @@ import { Wallet } from "@/types/wallet";
 import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useSelector } from "@/hooks/useTypedSelector";
+import { setCurrentWallet } from "@/store/feature/user/wallets.slice";
 
 /**
  * Cards wallet props interface
@@ -47,14 +48,15 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
   };
 
   const onClose = () => {
+    setShowEditModal(false);
     setShowPayoutModal(false);
     toggleBodyScrolling(false)(dispatch);
   };
 
   return (
     <div className="relative mb-7">
-      <div className="bg-gray-100 relative lg:flex md:flex sm:flex rounded-3.5xl">
-        <EditAddress show={showEditModal} onClose={() => setShowEditModal(false)} wallet={wallet} />
+      <div className="relative lg:flex md:flex sm:flex rounded-3.5xl">
+        <EditAddress show={showEditModal} onClose={onClose} wallet={wallet} />
         <Payout wallet={wallet} show={showPayoutModal} onClose={onClose} />
         <div className="bg-gray-50 lg:w-60 md:w-60 sm:w-60 rounded-3.5xl">
           <div className="p-6">
@@ -92,7 +94,13 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
                 <p>{wallet.description}</p>
               )}
               <div className="text-gray-700 text-sm mt-3">
-                <span className="cursor-pointer hover:underline" onClick={() => setShowEditModal(true)}>
+                <span
+                  className="cursor-pointer hover:underline"
+                  onClick={() => {
+                    dispatch(setCurrentWallet(wallet));
+                    setShowEditModal(true);
+                  }}
+                >
                   {address ? t("profile.wallets.address-change") : t("profile.wallets.address-set")}
                 </span>
               </div>

@@ -4,7 +4,6 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchAllCertificates } from "@/store/services/profile/certificate.service";
 import { fetchProfileReputation } from "@/store/services/profile/reputation.service";
 import { getMetadataTitle } from "@/utilities/Metadata";
-
 import NotificationList from "@/components/list/NotificationList";
 import ProfileOverviewCommunities from "@/components/sections/profile/overview/Communities";
 import ProfileOverviewAchievements from "@/components/sections/profile/overview/Achievements";
@@ -63,12 +62,13 @@ ProfileOverview.getLayout = function (page: ReactElement) {
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ locale, params }) => {
   const { username } = params as any;
 
-  const [, , translations] = await Promise.all([
+  const [profile, , translations] = await Promise.all([
     store.dispatch(fetchUserProfile((username as string) || "")),
     store.dispatch(fetchAllCertificates({ username: (username as string) || "", locale })),
     i18Translate(locale as string),
   ]);
 
+  if (profile.isError) return { notFound: true };
   return {
     props: {
       ...translations,

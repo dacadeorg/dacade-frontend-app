@@ -1,4 +1,4 @@
-import { ReactElement, useMemo, useState } from "react";
+import { ReactElement, useEffect, useMemo, useState } from "react";
 import Modal from "@/components/ui/Modal";
 import Input from "@/components/ui/Input";
 import ArrowButton from "@/components/ui/button/Arrow";
@@ -6,13 +6,15 @@ import ErrorBox from "@/components/ui/ErrorBox";
 import WalletHeader from "@/components/sections/profile/WalletHeader";
 import WalletButton from "./_partials/Wallet";
 import { validateAddress } from "@/utilities/Address";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "next-i18next";
 import { CustomError } from "@/types/error";
-import { updateWallet } from "@/store/services/wallets.service";
+import { fetchAllWallets, updateWallet } from "@/store/services/wallets.service";
 import { Wallet } from "@/types/wallet";
-import { getSignature } from "@/store/feature/wallet.slice";
+import { connectWallet, disconnectWallet, getSignature } from "@/store/feature/wallet.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { IRootState } from "@/store";
 
 /**
  * Inferface for form's inputs values
@@ -35,7 +37,7 @@ interface FormValues {
 interface EditProfileProps {
   show: boolean;
   wallet: Wallet;
-  onClose: (value: boolean) => void;
+  onClose: () => void;
 }
 
 /**
@@ -54,61 +56,117 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<CustomError | undefined | null>();
-  const [, setShowEditModal] = useState(false);
   const [showEditAddress, setShowEditAddress] = useState(false);
-  const [showWalletConnectionMethod] = useState(false);
-  const [showWalletInfo] = useState(false);
+  const [showWalletConnectionMethod, setShowWalletConnectionMethod] = useState(false);
+  const [showWalletInfo, setShowWalletInfo] = useState(false);
   const [connectionMethod, setConnectionMethod] = useState("");
   const {
     watch,
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>();
-  const address = watch("address");
+  const address = watch("newAddress");
+  const formAddress = watch("address");
+
+  const dispatch = useDispatch();
 
   const closeModal = () => {
-    setShowEditModal(false);
+    clearState();
+    onClose();
+  };
+
+  const clearState = () => {
+    setShowEditAddress(false);
+    setShowWalletConnectionMethod(false);
+    setConnectionMethod("");
+    setShowWalletInfo(false);
+    setError(null);
   };
 
   const openEditAddress = () => {
+    setShowWalletConnectionMethod(true);
     setShowEditAddress(true);
+    setConnectionMethod("manual");
   };
 
-  const wallets = useSelector((state) => state.wallets.current);
+  const { wallets, web3Adrress } = useMultiSelector<unknown, { wallets: Wallet; web3Adrress: string | null }>({
+    wallets: (state: IRootState) => state.wallets.current,
+    web3Adrress: (state: IRootState) => state.web3Wallet.address,
+  });
   const currentAddress = wallets?.address;
+
+  const setWalletConnectionMethod = (method: string) => {
+    if (!method) return;
+
+    if (method === "wallet" && !requireWalletConnection) return;
+
+    if (isWalletConnected) disconnect();
+
+    setShowWalletConnectionMethod(false);
+    setConnectionMethod(method);
+    setShowEditAddress(true);
+
+    if (method === "wallet") {
+      setShowWalletInfo(false);
+      return connect();
+    }
+    setShowWalletInfo(true);
+  };
+
+  const disconnect = async () => {
+    await dispatch(disconnectWallet());
+  };
+
+  const connect = async () => {
+    try {
+      await dispatch(connectWallet());
+      if (web3Adrress) setValue("newAddress", web3Adrress, { shouldValidate: true });
+      setShowEditAddress(true);
+    } catch (e) {
+      console.log(e);
+      openEditAddress();
+    }
+  };
 
   const onSave = async () => {
     setLoading(true);
     setError(null);
-    onClose(true);
-    const signature = await getSignature();
-    try {
-      const validAddress = validateAddress(address, wallets?.token);
-      if (!validAddress) return;
 
-      await updateWallet({
-        id: wallets?.id,
-        address: newAddress || address,
-        signature,
-      });
+    try {
+      const validAddress = validateAddress(address || newAddress, wallets?.token);
+      if (!validAddress) {
+        setError({ name: "Failed validation", message: "Message", details: { message: "address does not match any of the allowed types" } });
+        return;
+      }
+      const signature = await getSignature();
+      await dispatch(
+        updateWallet({
+          id: wallets?.id,
+          address: address || newAddress,
+          signature,
+        })
+      );
+
+      await dispatch(fetchAllWallets());
       closeModal();
     } catch (err) {
       const error = err as CustomError;
       if (error.details) {
         setError(error);
       }
+      setError({ name: "Wallet connection failed", message: "Failed connection", details: { one: "Unable to connect wallet" } });
     } finally {
       setLoading(false);
     }
   };
 
   const newAddress = useMemo(() => {
-    if (connectionMethod === "wallet") {
-      return wallets?.address;
-    }
+    if (connectionMethod === "wallet") return wallets?.address;
+    else if (connectionMethod === "manual") return formAddress;
     return address;
-  }, [address, connectionMethod, wallets?.address]);
+  }, [address, connectionMethod, wallets?.address, formAddress]);
 
   const requireWalletConnection = useMemo(() => {
     return wallets?.require_wallet_connection || false;
@@ -122,6 +180,10 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     return requireWalletConnection && !!wallet?.address;
   }, [requireWalletConnection, wallet?.address]);
 
+  const showForm = useMemo(() => {
+    return showEditAddress && !showWalletConnectionMethod && connectionMethod;
+  }, [connectionMethod, showEditAddress, showWalletConnectionMethod]);
+
   const newAddressTitle = useMemo(() => {
     if (connectionMethod === "manual") {
       return "Enter new address";
@@ -134,20 +196,26 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   }, [connectionMethod, isFirstTimeAddressSetup, requireWalletConnection]);
 
   const isMatchingTheExistingOne = useMemo(() => {
-    if (newAddress || !currentAddress) return false;
+    if (!newAddress || !currentAddress) return false;
     return currentAddress?.toLocaleLowerCase() === newAddress?.toLocaleLowerCase();
   }, [currentAddress, newAddress]);
 
   const filled = useMemo(() => {
     if (isMatchingTheExistingOne) return false;
-    if (connectionMethod === "wallet") return validateAddress(newAddress, wallet?.token);
+    if (connectionMethod === "wallet" || connectionMethod === "manual") return validateAddress(newAddress, wallet?.token);
     return validateAddress(address, wallet?.token);
-  }, [address, connectionMethod, isMatchingTheExistingOne, newAddress, wallet?.token]);
+  }, [address, connectionMethod, isMatchingTheExistingOne, newAddress, wallet?.token, formAddress]);
 
   const getChangeAddressText = useMemo(() => {
     if (filled || currentAddress) return t("profile.edit.wallet.button.save-address");
     return t("profile.edit.wallet.button.change-address");
   }, [currentAddress, filled, t]);
+
+  useEffect(() => {
+    if (currentAddress) {
+      setShowWalletInfo(true);
+    }
+  }, [currentAddress]);
 
   return (
     <Modal show={show} onClose={closeModal}>
@@ -155,11 +223,10 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
         <WalletHeader wallet={wallet}>
           {showWalletConnectionMethod ? (
             <div>
-              <p className="mb-5 text-base font-medium">How would you like to add your address?</p>
+              <p className="mb-5 text-base font-medium">{t("profile.edit.wallet.select.title")}</p>
               <div className="overflow-hidden border border-gray-400 border-solid divide-y rounded-xl">
-                <WalletButton onClick={() => setConnectionMethod("manual")}>Enter address manually</WalletButton>
-
-                <WalletButton onClick={() => setConnectionMethod("wallet")}>Connect a wallet</WalletButton>
+                <WalletButton onClick={() => setWalletConnectionMethod("manual")}>{t("profile.edit.wallet.select.option.manual")}</WalletButton>
+                {requireWalletConnection && <WalletButton onClick={() => setWalletConnectionMethod("wallet")}>{t("profile.edit.wallet.select.option.connect")}</WalletButton>}
               </div>
             </div>
           ) : (
@@ -169,11 +236,15 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
         {showWalletInfo && !showWalletConnectionMethod && (
           <div className="flex flex-col space-y-3">
             <div className="flex">
-              {currentAddress ? <p className="text-base font-medium">Current Address:</p> : <p className="text-base font-medium">Enter Address:</p>}
+              {currentAddress ? (
+                <p className="text-base font-medium">{t("profile.edit.wallet.current.address")}</p>
+              ) : (
+                <p className="text-base font-medium">{t("profile.edit.wallet.input.label.manual")}:</p>
+              )}
 
               {currentAddress ? (
                 <span className="ml-auto text-base font-medium cursor-pointer text-primary" onClick={openEditAddress}>
-                  Change
+                  {t("profile.edit.wallet.button.change")}
                 </span>
               ) : (
                 <></>
@@ -193,13 +264,14 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
       </div>
       <form className="flex flex-col space-y-4" onSubmit={handleSubmit(onSave)}>
         <div className="px-6">
-          {showEditAddress && !showWalletConnectionMethod && connectionMethod === "wallet" && (
+          {showForm && connectionMethod === "wallet" && (
             <Input
               /* In backticks `` because label requires a string.*/
               label={`${t("profile.edit.label.account-address")}`}
               error={errors.newAddress?.message}
-              type="newAddress"
+              type="text"
               required
+              // value={addressValue}
               {...register("newAddress", {
                 required: "This field is required",
                 minLength: {
@@ -209,12 +281,11 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
               })}
             />
           )}
-          {connectionMethod === "manual" && (
+          {showForm && connectionMethod === "manual" && (
             <Input
-              /* In backticks `` because label requires a string.*/
               label={`${t("profile.edit.label.account-address")}`}
               error={errors.address?.message}
-              type="address"
+              type="text"
               required
               {...register("address", {
                 required: "This field is required",
@@ -227,7 +298,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
           )}
           {isMatchingTheExistingOne && (
             <div className="pt-4">
-              <p className="text-base">New address matches the existing one</p>
+              <p className="text-base">{t("profile.edit.wallet.error.matches-existing")}</p>
             </div>
           )}
           {isWalletConnected && !currentAddress && <p className="mb-3 text-base">{newAddress}</p>}
