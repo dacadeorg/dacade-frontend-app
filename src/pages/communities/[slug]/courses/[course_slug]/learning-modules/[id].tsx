@@ -90,13 +90,11 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
   try {
     const communitySlug = params?.slug as string;
     const courseSlug = params?.course_slug as string;
-    // const challengeSlug = params?.challenge_slug as string;
     const id = params?.id as string;
 
     const [{ data: community }, { data: course }, { payload: learningModule }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug: communitySlug, locale })),
       store.dispatch(fetchCourse({ slug: courseSlug, locale })),
-      // store.dispatch(fetchAllChallenges({ slug: communitySlug })),
       store.dispatch(findLearningModule(id)),
       serverSideTranslations(locale as string),
     ]);
@@ -105,7 +103,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
       props: {
         community,
         course,
-        // challenges,
         learningModule,
         ...translations,
       },
