@@ -43,9 +43,8 @@ interface LearningModulePageProps {
  * @returns
  */
 export default function LearningModulePage(props: LearningModulePageProps): ReactElement {
-  const { course, learningModule, community, challenges } = props.pageProps;
+  const { course, learningModule, community } = props.pageProps;
   const dispatch = useDispatch();
-  console.log(challenges, "challenges");
   const navigation = useNavigation();
 
   useEffect(() => {
