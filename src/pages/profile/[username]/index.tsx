@@ -62,10 +62,16 @@ ProfileOverview.getLayout = function (page: ReactElement) {
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ locale, params }) => {
   const { username } = params as any;
-  await Promise.all([store.dispatch(fetchUserProfile((username as string) || "")), store.dispatch(fetchAllCertificates({ username: (username as string) || "", locale }))]);
+
+  const [, , translations] = await Promise.all([
+    store.dispatch(fetchUserProfile((username as string) || "")),
+    store.dispatch(fetchAllCertificates({ username: (username as string) || "", locale })),
+    i18Translate(locale as string),
+  ]);
+
   return {
     props: {
-      ...(await i18Translate(locale as string)),
+      ...translations,
     },
   };
 });
