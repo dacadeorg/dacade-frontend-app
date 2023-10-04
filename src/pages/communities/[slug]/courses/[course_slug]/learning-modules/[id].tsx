@@ -17,9 +17,6 @@ import ChallengeOverviewCard from "@/components/cards/challenge/Overview";
 import LearningModuleSection from "@/components/sections/learning-modules";
 import useNavigation from "@/hooks/useNavigation";
 import ChallengeCard from "@/components/cards/challenge/Challenge";
-import { fetchAllChallenges } from "@/store/services/communities/challenges";
-import Overview from "@/components/cards/challenge/Overview";
-import OverviewSection from "@/components/sections/courses/overview";
 
 /**
  * Learning module page props interfae
@@ -48,7 +45,7 @@ interface LearningModulePageProps {
 export default function LearningModulePage(props: LearningModulePageProps): ReactElement {
   const { course, learningModule, community, challenges } = props.pageProps;
   const dispatch = useDispatch();
-  console.log(challenges, "challenges")
+  console.log(challenges, "challenges");
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -74,9 +71,7 @@ export default function LearningModulePage(props: LearningModulePageProps): Reac
             <LearningModuleSection learningModule={learningModule} />
             <div>
               <div className="mt-6 mb-5 gap-3">
-                <h2 className="font-medium text-[1.375rem] text-gray-700">
-                  Challenge
-                </h2>
+                <h2 className="font-medium text-[1.375rem] text-gray-700">Challenge</h2>
                 <p className="text-lg">After finishing the learning materials you can take part in this challenge:</p>
               </div>
               {course.challenges && course.challenges.map((challenge) => <ChallengeCard data={challenge} key={challenge.id} community={community} isCourseEnd />)}

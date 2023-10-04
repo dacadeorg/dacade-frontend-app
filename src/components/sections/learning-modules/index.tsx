@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import PageNavigation from "../courses/PageNavigation";
 import InteractiveModule from "./InteractiveModule";
 import MaterialSection from "./MaterialSection";
 import AdditionalMaterialsSection from "@/components/sections/learning-modules/AdditionalMaterials";
