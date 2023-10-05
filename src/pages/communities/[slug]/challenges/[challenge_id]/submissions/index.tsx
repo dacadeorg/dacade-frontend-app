@@ -51,7 +51,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
     initChallengeNavigationMenu(navigation.community)(dispatch);
   }, [navigation.community, dispatch]);
 
-  // Temporary fix for links copied whose have submission_id as a query parameter
+  // Temporary fix for links copied which have submission_id as a query parameter
   useEffect(() => {
     if (submission_id) router.push(`${router.asPath.split("?")[0]}/${submission_id}`);
   }, [router, submission_id]);
