@@ -445,8 +445,6 @@ div {
 
 .prose.translation-box h1 {
   font-size: 22px !important;
-}
-.prose.translation-box .markdown-content > h1:first-child {
   margin-top: 24px !important;
 }
 
