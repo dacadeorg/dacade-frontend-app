@@ -54,10 +54,8 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
   }, [currentCommunity, dispatch, submissions]);
 
   useEffect(() => {
-    dispatch(showSubmission(submission_id as string));
-    toggleBodyScrolling(!!submission_id)(dispatch);
-  }, [dispatch, router.query, submission_id]);
-
+    if (submission_id) router.push(`${router.asPath.split("?")[0]}/${submission_id}`);
+  }, [router, submission_id]);
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
 
   if (!submissions) return <></>;
