@@ -90,10 +90,10 @@ body {
   height: 0;
   content: "";
   position: absolute;
-  border-left: 28px solid transparent;
+  border-left: 1.75rem solid transparent;
   bottom: 0;
-  border-right: 28px solid transparent;
-  border-bottom: 28px solid #fefce8;
+  border-right: 1.75rem solid transparent;
+  border-bottom: 1.75rem solid #fefce8;
 }
 
 .message-bubble {
@@ -106,20 +106,20 @@ body {
 .message-bubble::before {
   width: 0;
   height: 0;
-  left: -28px;
+  left: -1.75rem;
   content: "";
   position: absolute;
-  border-left: 28px solid transparent;
+  border-left: 1.75rem solid transparent;
   bottom: 0;
-  border-right: 28px solid transparent;
-  border-bottom: 28px solid #fefce8;
+  border-right: 1.75rem solid transparent;
+  border-bottom: 1.75rem solid #fefce8;
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 62rem) {
   .quadratic-card {
     @apply p-8 mb-5;
 
-    width: calc(50% - 10px);
+    width: calc(50% - 0.625rem);
   }
 }
 
@@ -226,12 +226,12 @@ div {
 
 .list li::before {
   content: url("../icons/list.svg");
-  margin-left: -52px;
+  margin-left: -3.25rem;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 37.5rem) {
   .list li {
-    height: 44px;
+    height: 2.75rem;
     line-height: 1rem;
   }
 }
@@ -253,7 +253,7 @@ div {
   background-repeat: no-repeat;
   background-size: 100% 100%;
   border-color: transparent;
-  border: currentColor 3px solid;
+  border: currentColor 0.1875rem solid;
 }
 [type="checkbox"],
 [type="radio"] {
@@ -282,15 +282,15 @@ div {
 }
 
 .achievement-content {
-  max-width: 1024px;
+  max-width: 64rem;
 }
 
 .prose ul {
-  max-width: 730px;
+  max-width: 45.625rem;
 }
 
 .prose ol li p {
-  max-width: 730px;
+  max-width: 45.625rem;
 }
 
 .contains-ordered-list > ol {
@@ -318,18 +318,18 @@ div {
 }
 
 .notification {
-  border: 1.6px solid #0000;
+  border: 0.1rem solid #0000;
   border-radius: 0.35rem;
   background: #343b42;
   padding: 1em;
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%);
+  box-shadow: 0 0.0625rem 0.1875rem 0 rgb(0 0 0 / 20%), 0 0.0625rem 0.0625rem 0 rgb(0 0 0 / 14%), 0 0.125rem 0.0625rem -0.0625rem rgb(0 0 0 / 12%);
 }
 
 .notification:hover {
-  border: 1.6px solid #53d1af;
+  border: 0.1rem solid #53d1af;
   background: #343b42;
   padding: 1em;
-  box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%);
+  box-shadow: 0 0.3125rem 0.3125rem -0.1875rem rgb(0 0 0 / 20%), 0 0.5rem 0.625rem 0.0625rem rgb(0 0 0 / 14%), 0 0.1875rem 0.875rem 0.125rem rgb(0 0 0 / 12%);
 }
 
 .notification:hover a {
@@ -338,7 +338,7 @@ div {
 
 .unread {
   color: rgb(255 255 255 / 80%);
-  border-bottom: 2px solid rgb(255 255 255 / 80%);
+  border-bottom: 0.125rem solid rgb(255 255 255 / 80%);
 
   /* animation: glow 0.5s infinite alternate; */
 }
@@ -356,7 +356,7 @@ div {
   max-width: auto !important;
 }
 .markdown-wrapper pre {
-  margin: 28px 0;
+  margin: 1.75rem 0;
 }
 .markdown-wrapper ol > li::before {
   color: var(--text-primary-color);
@@ -390,15 +390,15 @@ div {
 }
 
 .markdown-content p {
-  max-width: 730px;
+  max-width: 45.625rem;
 }
 .markdown-content img {
   max-width: 100%;
   position: static;
 }
 .markdown-content pre {
-  margin: 28px 0;
-  max-width: 730px;
+  margin: 1.75rem 0;
+  max-width: 45.625rem;
 }
 .markdown-content ol > li::before {
   color: var(--text-primary-color);
@@ -421,7 +421,7 @@ div {
 }
 .markdown-content code {
   text-shadow: none !important;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 400;
   color: var(--text-accent-color);
   max-width: -moz-fit-content;
@@ -431,32 +431,32 @@ div {
 .markdown-content code::after {
   content: "" !important;
 }
-@media (min-width: 1024px) {
+@media (min-width: 64rem) {
   .markdown-content code {
     width: 125%;
   }
 }
 .markdown-content h2 {
   font-weight: 500 !important;
-  margin-top: 24px !important;
-  margin-bottom: 14px !important;
-  font-size: 22px !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.875rem !important;
+  font-size: 1.375rem !important;
 }
 
 .prose.translation-box h1 {
-  font-size: 22px !important;
+  font-size: 1.375rem !important;
 }
 .prose.translation-box .markdown-content > h1:first-child {
-  margin-top: 24px !important;
+  margin-top: 1.5rem !important;
 }
 
 .prose.translation-box .markdown-content summary {
-  margin: 20px 0 !important;
+  margin: 1.25rem 0 !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .markdown-content h2 {
-    font-size: 20px !important;
+    font-size: 1.25rem !important;
   }
 }
 
