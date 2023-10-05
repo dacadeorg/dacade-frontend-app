@@ -50,7 +50,7 @@ export const fetchAllPayouts = createAsyncThunk("payouts/fetchAll", async (_, { 
  * @type {*}
  */
 export const createPayout = createAsyncThunk("payouts/create", async (payload: { wallet_id: string }, { dispatch }) => {
-await api().client.post(`payouts/create`, payload);
+  await api().client.post(`payouts/create`, payload);
 
   dispatch(fetchAllPayouts());
   dispatch(fetchAllWallets());
