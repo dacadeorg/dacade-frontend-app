@@ -32,7 +32,7 @@ import { ReactElement, useCallback, useEffect, useMemo } from "react";
  * @returns
  */
 export default function Submission(props: { pageProps: { currentCommunity: Community; submissions: SubmissionType[]; challenge: Challenge } }) {
-  const { currentCommunity, submissions, challenge } = props.pageProps;
+  const { submissions, challenge } = props.pageProps;
   const selectedSubmission = useSelector((state) => state.submissions.current);
 
   const dispatch = useDispatch();
@@ -49,14 +49,12 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
 
   useEffect(() => {
     initChallengeNavigationMenu(navigation.community)(dispatch);
-    // Eslint desabled here for avoiding infinite rendering
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentCommunity, dispatch, submissions]);
+  }, [navigation.community, dispatch]);
 
+  // Temporary fix for links copied which have submission_id as a query parameter
   useEffect(() => {
-    dispatch(showSubmission(submission_id as string));
-    toggleBodyScrolling(!!submission_id)(dispatch);
-  }, [dispatch, router.query, submission_id]);
+    if (submission_id) router.push(`${router.asPath.split("?")[0]}/${submission_id}`);
+  }, [router, submission_id]);
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
 

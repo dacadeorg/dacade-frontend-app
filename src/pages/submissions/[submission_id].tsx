@@ -63,7 +63,7 @@ export default function Submission() {
   }, [submission_id, router.locale]);
 
   useEffect(() => {
-    const redirectUrl = `/communities/${submission?.community.slug}/challenges/${submission?.challenge.id}/submissions?submission_id=${submission?.id}`;
+    const redirectUrl = `/communities/${submission?.community.slug}/challenges/${submission?.challenge.id}/submissions/${submission?.id}`;
     if (submission) safePush(redirectUrl);
   }, [submission]);
 
