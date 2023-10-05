@@ -38,7 +38,7 @@ const referralsService = createApi({
           const { data } = await queryFulfilled;
           const list: Referral[] = [];
           if (startAfter) {
-            list.push(...(state.referrals.list || []));
+            list.push(...(state.userReferrals.userReferralList || []));
           } else {
             dispatch(clear());
           }
