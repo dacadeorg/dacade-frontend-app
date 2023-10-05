@@ -24,6 +24,7 @@ interface UpdateWalletPayload {
 const walletsService = createApi({
   reducerPath: "walletService",
   baseQuery: baseQuery(),
+  refetchOnMountOrArgChange:true,
   endpoints: (builder) => ({
     /**
      * Update wallet endpoint
