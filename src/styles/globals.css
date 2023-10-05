@@ -448,6 +448,15 @@ div {
   margin-top: 24px !important;
 }
 
+.prose.translation-box .markdown-content > h1:first-child {
+  margin-top: 24px !important;
+}
+
+.prose.translation-box .markdown-content summary {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 @media (max-width: 768px) {
   .markdown-content h2 {
     font-size: 20px !important;
