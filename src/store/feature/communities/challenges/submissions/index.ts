@@ -49,18 +49,14 @@ export const submissionsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      // .addCase(fetchAllSubmission.fulfilled, (state, action) => {
-      //   state.list = action.payload;
-      // })
-      .addCase(HYDRATE, (state, action) => {
-        return {
-          ...state,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          //@ts-ignore
-          ...action.payload["submissions"],
-        };
-      });
+    builder.addCase(HYDRATE, (state, action) => {
+      return {
+        ...state,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        ...action.payload["submissions"],
+      };
+    });
   },
 });
 
@@ -79,29 +75,6 @@ export const findSubmssionById = createAsyncThunk("submissions/find", async ({ i
   dispatch(setCurrent(data));
   return data;
 });
-
-/**
- * Fetch all submission
- * @date 4/25/2023 - 8:20:21 PM
- *
- * @type {*}
- */
-// export const fetchAllSubmission = createAsyncThunk(
-//   "submissions/all",
-//   async ({ challengeId, startAfter, locale }: { challengeId: string; startAfter?: string; locale?: string }, { getState }) => {
-//     const state = getState();
-//     const { data } = await api(locale).server.get(`challenges/${challengeId}/submissions`, {
-//       params: { start_after: startAfter },
-//     });
-//     const list = [];
-//     if (startAfter) {
-//       const selectedList = selectList(state as IRootState);
-//       list.push(...selectedList);
-//     }
-//     list.push(...(data || []));
-//     return list;
-//   }
-// );
 
 /**
  * Create a submission

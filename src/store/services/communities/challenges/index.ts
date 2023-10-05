@@ -77,7 +77,7 @@ export const challengeService = createApi({
           list.push(...(data || []));
           dispatch(setSubmissionsList(list));
         } catch (error) {
-          console.log("error in fething submissions ", error);
+          console.log("error in fetching submissions", error);
         }
       },
     }),
@@ -94,6 +94,13 @@ export const fetchAllChallenges = ({ slug }: { slug: string }) => {
   return challengeService.endpoints.getAllChallenges.initiate(slug);
 };
 
+/**
+ * Fetch all submissions of a challenge in chunks
+ * @date 10/5/2023 - 1:02:27 PM
+ *
+ * @param {{ challengeId: string; startAfter?: string; locale?: string }} { challengeId, startAfter, locale }
+ * @returns {*}
+ */
 export const fetchAllSubmission = ({ challengeId, startAfter, locale }: { challengeId: string; startAfter?: string; locale?: string }) => {
   return challengeService.endpoints.fetchAllSubmission.initiate({ challengeId, startAfter, locale });
 };
