@@ -50,9 +50,9 @@ export const submissionsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllSubmission.fulfilled, (state, action) => {
-        state.list = action.payload;
-      })
+      // .addCase(fetchAllSubmission.fulfilled, (state, action) => {
+      //   state.list = action.payload;
+      // })
       .addCase(HYDRATE, (state, action) => {
         return {
           ...state,
@@ -86,22 +86,22 @@ export const findSubmssionById = createAsyncThunk("submissions/find", async ({ i
  *
  * @type {*}
  */
-export const fetchAllSubmission = createAsyncThunk(
-  "submissions/all",
-  async ({ challengeId, startAfter, locale }: { challengeId: string; startAfter?: string; locale?: string }, { getState }) => {
-    const state = getState();
-    const { data } = await api(locale).server.get(`challenges/${challengeId}/submissions`, {
-      params: { start_after: startAfter },
-    });
-    const list = [];
-    if (startAfter) {
-      const selectedList = selectList(state as IRootState);
-      list.push(...selectedList);
-    }
-    list.push(...(data || []));
-    return list;
-  }
-);
+// export const fetchAllSubmission = createAsyncThunk(
+//   "submissions/all",
+//   async ({ challengeId, startAfter, locale }: { challengeId: string; startAfter?: string; locale?: string }, { getState }) => {
+//     const state = getState();
+//     const { data } = await api(locale).server.get(`challenges/${challengeId}/submissions`, {
+//       params: { start_after: startAfter },
+//     });
+//     const list = [];
+//     if (startAfter) {
+//       const selectedList = selectList(state as IRootState);
+//       list.push(...selectedList);
+//     }
+//     list.push(...(data || []));
+//     return list;
+//   }
+// );
 
 /**
  * Create a submission

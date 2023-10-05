@@ -6,8 +6,9 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import SubmissionCard from "@/components/cards/Submission";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { fetchAllSubmission } from "@/store/feature/communities/challenges/submissions";
+// import { fetchAllSubmission } from "@/store/feature/communities/challenges/submissions";
 import { useRouter } from "next/router";
+import { fetchAllSubmission } from "@/store/services/communities/challenges";
 
 /**
  * Submissions list component
@@ -33,17 +34,19 @@ export default function List(): ReactElement {
     }
     try {
       setLoading(true);
-      await dispatch(
+      const { data } = await dispatch(
         fetchAllSubmission({
           startAfter: submissionId as string,
           challengeId: router.query.challenge_id as string,
         })
       );
+      console.log("stuff", data);
+      if (!data?.length) setShowButton(false);
+
       setPage(page + 1);
     } catch (error) {
       console.error(error);
     } finally {
-      setShowButton(false);
       setLoading(false);
     }
   };

@@ -7,10 +7,10 @@ import MetaData from "@/components/ui/MetaData";
 import useNavigation from "@/hooks/useNavigation";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { wrapper } from "@/store";
-import { fetchAllSubmission, showSubmission } from "@/store/feature/communities/challenges/submissions";
+import { showSubmission } from "@/store/feature/communities/challenges/submissions";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import { toggleBodyScrolling } from "@/store/feature/ui.slice";
-import { fetchChallenge } from "@/store/services/communities/challenges";
+import { fetchAllSubmission, fetchChallenge } from "@/store/services/communities/challenges";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { Submission as SubmissionType } from "@/types/bounty";
 import { Community } from "@/types/community";
@@ -86,7 +86,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   const { slug, challenge_id } = query;
   const { dispatch } = store;
 
-  const [{ data: currentCommunity }, { payload: submissions }, { data: challenge }, translations] = await Promise.all([
+  const [{ data: currentCommunity }, { data: submissions }, { data: challenge }, translations] = await Promise.all([
     dispatch(fetchCurrentCommunity({ slug: slug as string, locale: locale as string })),
     dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: locale as string })),
     dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
