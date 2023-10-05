@@ -451,8 +451,7 @@ div {
 }
 
 .prose.translation-box .markdown-content summary {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px 0 !important;
 }
 
 @media (max-width: 768px) {
