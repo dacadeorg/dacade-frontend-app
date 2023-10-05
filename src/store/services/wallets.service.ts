@@ -24,7 +24,7 @@ interface UpdateWalletPayload {
 const walletsService = createApi({
   reducerPath: "walletService",
   baseQuery: baseQuery(),
-  refetchOnMountOrArgChange:true,
+  refetchOnMountOrArgChange: true,
   endpoints: (builder) => ({
     /**
      * Update wallet endpoint
@@ -37,14 +37,16 @@ const walletsService = createApi({
       query: ({ payload, locale }: { payload: UpdateWalletPayload; locale: string }) => ({
         url: `wallets/update/${payload.id}`,
         method: "PATCH",
-        body: payload,
+        body: {
+          address: payload.address,
+          signature: payload.signature,
+        },
         headers: {
           "accept-language": locale,
         },
       }),
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled;
-        dispatch(setWalletList(data));
+      onQueryStarted: async (_, { queryFulfilled }) => {
+        await queryFulfilled;
       },
     }),
 
@@ -76,7 +78,7 @@ const walletsService = createApi({
  * @param {string} locale
  * @returns {*}
  */
-export const updateWallet = async (payload: UpdateWalletPayload, locale: string = "en") => await walletsService.endpoints.updateWallet.initiate({ payload, locale });
+export const updateWallet = (payload: UpdateWalletPayload, locale: string = "en") => walletsService.endpoints.updateWallet.initiate({ payload, locale });
 
 /**
  * Get all wallets function
