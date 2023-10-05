@@ -32,7 +32,6 @@
 
 html,
 body {
-  @apply !scroll-smooth;
   font-family: "Graphik", sans-serif;
 }
 
@@ -443,6 +442,14 @@ div {
   margin-bottom: 14px !important;
   font-size: 22px !important;
 }
+
+.prose.translation-box h1 {
+  font-size: 22px !important;
+}
+.prose.translation-box .markdown-content > h1:first-child {
+  margin-top: 24px !important;
+}
+
 @media (max-width: 768px) {
   .markdown-content h2 {
     font-size: 20px !important;

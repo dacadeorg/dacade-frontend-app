@@ -6,6 +6,7 @@ import SubmissionList from "@/components/sections/submissions/List";
 import MetaData from "@/components/ui/MetaData";
 import useNavigation from "@/hooks/useNavigation";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import { useSelector } from "@/hooks/useTypedSelector";
 import { wrapper } from "@/store";
 import { showSubmission } from "@/store/feature/communities/challenges/submissions";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
@@ -20,7 +21,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
+import { ReactElement, useCallback, useEffect, useMemo } from "react";
 
 /**
  * Submission page
@@ -32,7 +33,8 @@ import { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
  */
 export default function Submission(props: { pageProps: { currentCommunity: Community; submissions: SubmissionType[]; challenge: Challenge } }) {
   const { currentCommunity, submissions, challenge } = props.pageProps;
-  const [selectedSubmission, setSelectedSubmission] = useState("");
+  const selectedSubmission = useSelector((state) => state.submissions.current);
+
   const dispatch = useDispatch();
   const router = useRouter();
   const { submission_id } = router.query;
@@ -40,9 +42,9 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
   const navigation = useNavigation();
 
   const handleCloseSubmission = useCallback(() => {
-    setSelectedSubmission("");
     dispatch(showSubmission(""));
-    router.replace(router.asPath.split("?")[0], undefined, { shallow: true });
+    window.history.pushState(null, "", router.asPath);
+    toggleBodyScrolling(false)(dispatch);
   }, [dispatch, router]);
 
   useEffect(() => {
@@ -52,7 +54,6 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
   }, [currentCommunity, dispatch, submissions]);
 
   useEffect(() => {
-    setSelectedSubmission(submission_id as string);
     dispatch(showSubmission(submission_id as string));
     toggleBodyScrolling(!!submission_id)(dispatch);
   }, [dispatch, router.query, submission_id]);
@@ -72,7 +73,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
           <Header title={challenge?.name} subtitle={t("communities.submission.title")} isTeamChallenge={challenge?.isTeamChallenge} />
           <SubmissionList />
         </div>
-        <SubmissionPopup show={!!selectedSubmission} submissionId={selectedSubmission} onClose={handleCloseSubmission} />
+        <SubmissionPopup show={!!selectedSubmission} onClose={handleCloseSubmission} />
       </Wrapper>
     </>
   );
