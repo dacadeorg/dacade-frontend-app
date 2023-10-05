@@ -77,7 +77,7 @@ export const challengeService = createApi({
           list.push(...(data || []));
           dispatch(setSubmissionsList(list));
         } catch (error) {
-          console.log("error in fething submissions ", error);
+          console.log("error in fetching submissions", error);
         }
       },
     }),
