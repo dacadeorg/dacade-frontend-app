@@ -90,10 +90,10 @@ body {
   height: 0;
   content: "";
   position: absolute;
-  border-left: 1.75rem solid transparent;
+  border-left: 28px solid transparent;
   bottom: 0;
-  border-right: 1.75rem solid transparent;
-  border-bottom: 1.75rem solid #fefce8;
+  border-right: 28px solid transparent;
+  border-bottom: 28px solid #fefce8;
 }
 
 .message-bubble {
@@ -106,20 +106,20 @@ body {
 .message-bubble::before {
   width: 0;
   height: 0;
-  left: -1.75rem;
+  left: -28px;
   content: "";
   position: absolute;
-  border-left: 1.75rem solid transparent;
+  border-left: 28px solid transparent;
   bottom: 0;
-  border-right: 1.75rem solid transparent;
-  border-bottom: 1.75rem solid #fefce8;
+  border-right: 28px solid transparent;
+  border-bottom: 28px solid #fefce8;
 }
 
-@media only screen and (min-width: 62rem) {
+@media only screen and (min-width: 992px) {
   .quadratic-card {
     @apply p-8 mb-5;
 
-    width: calc(50% - 0.625rem);
+    width: calc(50% - 10px);
   }
 }
 
@@ -229,7 +229,7 @@ div {
   margin-left: -3.25rem;
 }
 
-@media only screen and (max-width: 37.5rem) {
+@media only screen and (max-width: 600px) {
   .list li {
     height: 2.75rem;
     line-height: 1rem;
@@ -253,7 +253,7 @@ div {
   background-repeat: no-repeat;
   background-size: 100% 100%;
   border-color: transparent;
-  border: currentColor 0.1875rem solid;
+  border: currentColor 3px solid;
 }
 [type="checkbox"],
 [type="radio"] {
@@ -318,18 +318,18 @@ div {
 }
 
 .notification {
-  border: 0.1rem solid #0000;
+  border: 1.6px solid #0000;
   border-radius: 0.35rem;
   background: #343b42;
   padding: 1em;
-  box-shadow: 0 0.0625rem 0.1875rem 0 rgb(0 0 0 / 20%), 0 0.0625rem 0.0625rem 0 rgb(0 0 0 / 14%), 0 0.125rem 0.0625rem -0.0625rem rgb(0 0 0 / 12%);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%);
 }
 
 .notification:hover {
-  border: 0.1rem solid #53d1af;
+  border: 1.6px solid #53d1af;
   background: #343b42;
   padding: 1em;
-  box-shadow: 0 0.3125rem 0.3125rem -0.1875rem rgb(0 0 0 / 20%), 0 0.5rem 0.625rem 0.0625rem rgb(0 0 0 / 14%), 0 0.1875rem 0.875rem 0.125rem rgb(0 0 0 / 12%);
+  box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%);
 }
 
 .notification:hover a {
@@ -338,7 +338,7 @@ div {
 
 .unread {
   color: rgb(255 255 255 / 80%);
-  border-bottom: 0.125rem solid rgb(255 255 255 / 80%);
+  border-bottom: 2px solid rgb(255 255 255 / 80%);
 
   /* animation: glow 0.5s infinite alternate; */
 }
@@ -431,7 +431,7 @@ div {
 .markdown-content code::after {
   content: "" !important;
 }
-@media (min-width: 64rem) {
+@media (min-width: 1024px) {
   .markdown-content code {
     width: 125%;
   }
@@ -454,7 +454,7 @@ div {
   margin: 1.25rem 0 !important;
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 768px) {
   .markdown-content h2 {
     font-size: 1.25rem !important;
   }
