@@ -23,7 +23,7 @@ export default function ErrorPage({ error }: ErrorPageProps): ReactElement {
 export const getServerSideProps: GetServerSideProps = async ({ locale, res }) => {
   return {
     props: {
-      ...(await i18Translate((locale as string) || "en")),
+      ...(await i18Translate(locale as string)),
       error: {
         statusCode: res.statusCode,
         message: res.statusMessage ? res.statusMessage : null,
