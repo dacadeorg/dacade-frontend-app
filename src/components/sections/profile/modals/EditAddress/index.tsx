@@ -124,7 +124,6 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const connect = async () => {
     try {
       await dispatch(connectWallet());
-      if (web3Adrress) setValue("newAddress", web3Adrress, { shouldValidate: true });
       setShowEditAddress(true);
     } catch (e) {
       console.log(e);
@@ -220,6 +219,10 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
       setShowWalletInfo(false);
     }
   }, [currentAddress, isFirstTimeAddressSetup]);
+
+  useEffect(() => {
+    if (web3Adrress) setValue("newAddress", web3Adrress);
+  }, [web3Adrress]);
 
   return (
     <Modal show={show} onClose={closeModal}>
