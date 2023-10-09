@@ -83,6 +83,8 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     setConnectionMethod("");
     setShowWalletInfo(false);
     setError(null);
+    setValue("newAddress", "");
+    setValue("address", "");
   };
 
   const openEditAddress = () => {
@@ -122,7 +124,6 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const connect = async () => {
     try {
       await dispatch(connectWallet());
-      if (web3Adrress) setValue("newAddress", web3Adrress, { shouldValidate: true });
       setShowEditAddress(true);
     } catch (e) {
       console.log(e);
@@ -173,7 +174,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   }, [wallets?.require_wallet_connection]);
 
   const isFirstTimeAddressSetup = useMemo(() => {
-    return Boolean(!currentAddress && newAddress);
+    return Boolean(!currentAddress && !newAddress);
   }, [currentAddress, newAddress]);
 
   const isWalletConnected = useMemo(() => {
@@ -202,26 +203,32 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
 
   const filled = useMemo(() => {
     if (isMatchingTheExistingOne) return false;
-    if (connectionMethod === "wallet" || connectionMethod === "manual") return validateAddress(newAddress, wallet?.token);
+    if (!isFirstTimeAddressSetup && (connectionMethod === "wallet" || connectionMethod === "manual")) return validateAddress(newAddress, wallet?.token);
     return validateAddress(address, wallet?.token);
-  }, [address, connectionMethod, isMatchingTheExistingOne, newAddress, wallet?.token, formAddress]);
+  }, [address, connectionMethod, isMatchingTheExistingOne, newAddress, wallet?.token, isFirstTimeAddressSetup]);
 
   const getChangeAddressText = useMemo(() => {
-    if (filled || currentAddress) return t("profile.edit.wallet.button.save-address");
+    if (filled || currentAddress || isFirstTimeAddressSetup) return t("profile.edit.wallet.button.save-address");
     return t("profile.edit.wallet.button.change-address");
-  }, [currentAddress, filled, t]);
+  }, [currentAddress, filled, t, isFirstTimeAddressSetup]);
 
   useEffect(() => {
     if (currentAddress) {
       setShowWalletInfo(true);
+    } else if (isFirstTimeAddressSetup) {
+      setShowWalletInfo(false);
     }
-  }, [currentAddress]);
+  }, [currentAddress, isFirstTimeAddressSetup]);
+
+  useEffect(() => {
+    if (web3Adrress) setValue("newAddress", web3Adrress);
+  }, [web3Adrress]);
 
   return (
     <Modal show={show} onClose={closeModal}>
       <div className="px-6 pt-6">
         <WalletHeader wallet={wallet}>
-          {showWalletConnectionMethod ? (
+          {showWalletConnectionMethod || isFirstTimeAddressSetup ? (
             <div>
               <p className="mb-5 text-base font-medium">{t("profile.edit.wallet.select.title")}</p>
               <div className="overflow-hidden border border-gray-400 border-solid divide-y rounded-xl">
