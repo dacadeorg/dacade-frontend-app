@@ -26,7 +26,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
   const link = `/communities/${community.slug}/challenges/${data.id}`;
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
   const reward = isCourseEnd ? data?.rewards?.find((reward) => reward.type === "SUBMISSION") : data?.reward;
-  const totalRewardAmount = data?.rewards?.reduce((acc, reward) => (acc += reward.amount), 0);
+  const totalReward = data?.rewards?.reduce((acc, reward) => (acc += reward.amount), 0);
 
   return (
     <div className="border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">
@@ -53,7 +53,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
                 <Coin size="medium" token={reward?.token} />
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
-                    <span className="block font-medium pr-1">{totalRewardAmount}</span>
+                    <span className="block font-medium pr-1">{totalReward}</span>
                     <span className="block font-medium">{reward?.token} Rewards</span>
                   </div>
                   <div className="text-gray-400 text-xs font-normal">For submission and feedback</div>
