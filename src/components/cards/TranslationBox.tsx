@@ -112,6 +112,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
 
   const translatable = currentLocale !== defaultLocale && !disabled && getLocaleName(defaultLocale);
 
+  console.log({ currentLocale, defaultLocale, disabled, name: getLocaleName });
   return (
     <div className="relative w-full">
       {currentText ? (
@@ -122,7 +123,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
         <></>
       )}
 
-      {translatable && (
+      {translatable ? (
         <div className="pt-5 text-gray-400">
           {loading ? (
             <span>Translating...</span>
@@ -141,6 +142,11 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
             </div>
           )}
         </div>
+      ) : (
+        <span>
+          currentLocale: {currentLocale} <br />
+          defaultLocale
+        </span>
       )}
     </div>
   );
