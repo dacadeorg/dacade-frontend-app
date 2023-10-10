@@ -46,7 +46,6 @@ const referralsService = createApi({
           }
 
           list.push(...(data || []));
-          console.log("The list is now this big", list.length);
           dispatch(setUserReferralsList(list));
         } catch (error) {
           console.log("error in fething the userFetchReferrals ", error);

@@ -44,7 +44,8 @@ export default function UserReferrals(): ReactElement {
     referrals: (state: IRootState) => state.userReferrals.userReferralList,
   });
   const dispatch = useDispatch();
-  const showLoadMore = useMemo(() => showButton && referrals?.length >= 30, [referrals?.length, showButton]);
+  // const showLoadMore = useMemo(() => showButton && referrals?.length >= 30, [referrals?.length, showButton]);
+  const showLoadMore = useMemo(() => showButton && referrals?.length >= 3, [referrals?.length, showButton]);
 
   useEffect(() => {
     const fetchReferrals = async () => {
@@ -56,7 +57,8 @@ export default function UserReferrals(): ReactElement {
   const nextPage = async () => {
     if (loading || !showButton) return;
     setLoading(true);
-    const referralId = referrals[referrals.length - 1]?.id || null;
+    const referralId = referrals[referrals.length - 2]?.id || null;
+    // const referralId = referrals[referrals.length - 1]?.id || null;
     const { data } = await dispatch(userFetchReferrals({ startAfter: referralId || null }));
     setPage(page + 1);
     setLoading(false);
@@ -83,7 +85,8 @@ export default function UserReferrals(): ReactElement {
               <Referral key={`user-referral-${i}`} referral={referral} />
             ))}
           </InfiniteScroll>
-          {loading && <Loader loading={loading} className="sm:absolute sm:left-6 sm:-bottom-7.5" onClick={() => nextPage()} />}
+          {<Loader loading={loading} className="sm:absolute sm:left-6 sm:-bottom-7.5" onClick={() => nextPage()} />}
+          {/* {loading && <Loader loading={loading} className="sm:absolute sm:left-6 sm:-bottom-7.5" onClick={() => nextPage()} />} */}
         </div>
       ) : (
         <EmptyState title={t("referrals.empty-state.title")} subtitle={t("referrals.empty-state.subtitle")} />
