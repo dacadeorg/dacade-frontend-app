@@ -1,10 +1,13 @@
 import Section from "@/components/sections/communities/_partials/Section";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { ReactElement, useMemo } from "react";
 import Coin from "@/components/ui/Coin";
 import Certificate from "@/components/ui/Certificate";
 import { useRouter } from "next/router";
+import { Challenge } from "@/types/course";
+import { Community } from "@/types/community";
+import { IRootState } from "@/store";
 
 /**
  * Overview reward section component
@@ -15,7 +18,10 @@ import { useRouter } from "next/router";
  */
 export function OverviewRewards(): ReactElement {
   const { t } = useTranslation();
-  const challenge = useSelector((state) => state.challenges.current);
+  const { challenge, community } = useMultiSelector<unknown, { challenge: Challenge; community: Community }>({
+    challenge: (state: IRootState) => state.challenges.current,
+    community: (state: IRootState) => state.communities.current,
+  });
   const rewards = useMemo(() => challenge?.rewards?.filter((reward) => reward.type === "SUBMISSION"), [challenge?.rewards]);
   const formatToken = (token: string) => {
     return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
@@ -30,7 +36,9 @@ export function OverviewRewards(): ReactElement {
           <Certificate size="medium" name={router.query?.slug as string} />
           <div className="md:pl-2 space-y-2 max-w-max">
             <div className="flex text-sm text-gray-700">
-              <span className="block font-medium pr-1">{t("communities.overview.challenge.certificate")}</span>
+              <span className="block font-medium pr-1">
+                {community.slug === "celo" && "NFT"} {t("communities.overview.challenge.certificate")}
+              </span>
             </div>
             <div className="text-gray-400 text-xs font-medium">{t("communities.overview.challenge.subtitle")}</div>
           </div>
