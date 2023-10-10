@@ -30,9 +30,9 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const allThings = useSelector((state) => state.sumsubVerification);
+  const verificationData = useSelector((state) => state.sumsubVerification);
 
-  const { showModal, completed, completedText, verificationReasonText, verifying, completedActionText, actionText, loading, title } = allThings;
+  const { showModal, completed, completedText, verificationDescription, verifying, completedActionText, actionText, loading, title } = verificationData;
 
   const closeModal = () => {
     closeVerificationModal()(dispatch);
@@ -54,7 +54,7 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
         {!verifying ? (
           <div className="flex flex-col text-left">
             <h1 className="text-.5xl leading-snug font-medium">{title || t("kyc.default.title")}</h1>
-            <p className="pt-8">{completed ? completedText || t("kyc.default.completed") : verificationReasonText || t("kyc.default.reason")}</p>
+            <p className="pt-8">{completed ? completedText || t("kyc.default.completed") : verificationDescription || t("kyc.default.reason")}</p>
           </div>
         ) : (
           <></>

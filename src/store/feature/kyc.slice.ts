@@ -12,7 +12,7 @@ interface SumsubVerificationState {
   loading: boolean;
   verifying: boolean;
   completed: boolean;
-  verificationReasonText: string | null;
+  verificationDescription: string | null;
   title: string | null;
   completedText: string | null;
   actionText: string | null;
@@ -26,7 +26,7 @@ const defaultState: SumsubVerificationState = {
   loading: false,
   verifying: false,
   completed: false,
-  verificationReasonText: null,
+  verificationDescription: null,
   title: null,
   completedText: null,
   actionText: null,
@@ -167,7 +167,7 @@ const sumsubVerificationSlice = createSlice({
       state.completed = action.payload;
     },
     setModelText: (state, action) => {
-      state.verificationReasonText = action.payload.verificationReasonText;
+      state.verificationDescription = action.payload.verificationDescription;
       state.title = action.payload.title;
       state.completedText = action.payload.completedText;
       state.actionText = action.payload.actionText;
@@ -184,7 +184,7 @@ export const selectShowModal = (state: IRootState) => state.sumsubVerification.s
 export const selectLoading = (state: IRootState) => state.sumsubVerification.loading;
 export const selectVerifying = (state: IRootState) => state.sumsubVerification.verifying;
 export const selectCompleted = (state: IRootState) => state.sumsubVerification.completed;
-export const selectVerificationReasonText = (state: IRootState) => state.sumsubVerification.verificationReasonText;
+export const selectverificationDescription = (state: IRootState) => state.sumsubVerification.verificationDescription;
 
 export const selectTitle = (state: IRootState) => state.sumsubVerification.title;
 export const selectCompletedText = (state: IRootState) => state.sumsubVerification.completedText;
