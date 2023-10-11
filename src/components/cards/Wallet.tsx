@@ -46,7 +46,7 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
 
   const triggerKYCVerification = () => {
     openVerificationModal({
-      verificationDescription: t("kyc.payout.reason"),
+      description: t("kyc.payout.reason"),
       completedActionText: t("kyc.payout.button.completed"),
       completedAction: () => {
         triggerCashout();

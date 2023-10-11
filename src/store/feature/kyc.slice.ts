@@ -12,7 +12,7 @@ interface SumsubVerificationState {
   loading: boolean;
   verifying: boolean;
   completed: boolean;
-  verificationDescription: string | null;
+  description: string | null;
   title: string | null;
   completedText: string | null;
   actionText: string | null;
@@ -26,7 +26,7 @@ const defaultState: SumsubVerificationState = {
   loading: false,
   verifying: false,
   completed: false,
-  verificationDescription: null,
+  description: null,
   title: null,
   completedText: null,
   actionText: null,
@@ -67,7 +67,7 @@ export const openVerificationModal = (payload: any) => {
       return;
     }
     dispatch(setShowModal(true));
-    dispatch(setModelText(payload || {}));
+    dispatch(setModelContent(payload || {}));
   };
 };
 
@@ -166,8 +166,8 @@ const sumsubVerificationSlice = createSlice({
     setCompleted: (state, action) => {
       state.completed = action.payload;
     },
-    setModelText: (state, action) => {
-      state.verificationDescription = action.payload.verificationDescription;
+    setModelContent: (state, action) => {
+      state.description = action.payload.description;
       state.title = action.payload.title;
       state.completedText = action.payload.completedText;
       state.actionText = action.payload.actionText;
@@ -177,14 +177,14 @@ const sumsubVerificationSlice = createSlice({
   },
 });
 
-export const { setSumsubToken, setShowModal, setLoading, setVerifying, setCompleted, setModelText } = sumsubVerificationSlice.actions;
+export const { setSumsubToken, setShowModal, setLoading, setVerifying, setCompleted, setModelContent } = sumsubVerificationSlice.actions;
 
 export const selectSumsubToken = (state: IRootState) => state.sumsubVerification.sumsubToken;
 export const selectShowModal = (state: IRootState) => state.sumsubVerification.showModal;
 export const selectLoading = (state: IRootState) => state.sumsubVerification.loading;
 export const selectVerifying = (state: IRootState) => state.sumsubVerification.verifying;
 export const selectCompleted = (state: IRootState) => state.sumsubVerification.completed;
-export const selectverificationDescription = (state: IRootState) => state.sumsubVerification.verificationDescription;
+export const selectDescription = (state: IRootState) => state.sumsubVerification.description;
 
 export const selectTitle = (state: IRootState) => state.sumsubVerification.title;
 export const selectCompletedText = (state: IRootState) => state.sumsubVerification.completedText;
