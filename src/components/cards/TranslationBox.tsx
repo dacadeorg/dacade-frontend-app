@@ -1,6 +1,10 @@
-import { useState, useEffect, useCallback, ReactElement, useMemo } from "react";
+import { useState, useCallback, ReactElement, useMemo, useEffect } from "react";
 import { Translate } from "@/utilities/Translate";
 import Markdown from "@/components/ui/Markdown";
+import { useRouter } from "next/router";
+import LOCALES from "@/constants/locales";
+import { languages } from "@/constants/languages";
+import { useTranslation } from "react-i18next";
 type DefaultLocale = "en" | "fr";
 /**
  * TranslationBox card component props
@@ -17,26 +21,30 @@ interface TranslationBoxProps {
   textContainerCssClasses: string;
   textCssClasses?: string;
 }
+interface Locale {
+  [key: string]: { code: string; name: string };
+}
 
 /**
- * Locale languages
- * @date 3/29/2023 - 3:00:38 PM
+ * Constructuct accepted locales with their languages
+ * @date 10/11/2023 - 4:51:12 PM
  *
- * @type {{ en: { code: string; name: string; }; fr: { code: string; name: string; }; }}
+ * @returns {Locale}
  */
-
-const locales = {
-  en: {
-    code: "en",
-    name: "English",
-  },
-  fr: {
-    code: "fr",
-    name: "Français",
-  },
+const acceptedLocales = () => {
+  const newLocales: Locale = {};
+  Object.keys(languages).forEach((language) => {
+    if (LOCALES.includes(language)) {
+      newLocales[language] = {
+        code: language,
+        name: languages[language],
+      };
+    }
+  });
+  return newLocales;
 };
 
-const currentLocale = "en";
+const locales = acceptedLocales();
 
 /**
  * TranslationBox card component
@@ -54,16 +62,20 @@ const currentLocale = "en";
  */
 
 export default function TranslationBox({ text, defaultLocale, disabled, textContainerCssClasses, textCssClasses }: TranslationBoxProps): ReactElement {
-  const [currentText, setCurrentText] = useState("");
+  const [currentText, setCurrentText] = useState(text);
   const [locale, setLocale] = useState("");
   const [loading, setLoading] = useState(false);
+  const [description, setDescription] = useState<string | null>("");
+
+  const { t } = useTranslation();
+  const router = useRouter();
 
   const getDefaultLocale = useCallback(() => {
     return defaultLocale || "en";
   }, [defaultLocale]);
 
-  const translated = useMemo(() => locale !== getDefaultLocale(), [getDefaultLocale, locale]);
-
+  const translated = useMemo(() => locale && locale !== getDefaultLocale(), [getDefaultLocale, locale]);
+  const currentLocale = router.locale || "en";
   /**
    * Translate using google translate
    * @date 3/29/2023 - 2:54:49 PM
@@ -91,11 +103,6 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
     setLoading(false);
   }, [getDefaultLocale, text, translated]);
 
-  useEffect(() => {
-    setCurrentText(text);
-    translate();
-  }, [defaultLocale, text, translate]);
-
   /**
    * Reset the language translation to default
    * @date 3/29/2023 - 2:59:06 PM
@@ -106,17 +113,20 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
     setLocale(defaultLocale);
   };
 
-  const getLocaleName = (code: "en" | "fr") => {
+  const getLocaleName = (code: "en" | "fr" | string) => {
     return locales[code]?.name;
   };
 
+  useEffect(() => {
+    setDescription(translated ? t("ui.translated") : t("ui.translate"));
+  }, [translated]);
+
   const translatable = currentLocale !== defaultLocale && !disabled && getLocaleName(defaultLocale);
 
-  console.log({ currentLocale, defaultLocale, disabled, name: getLocaleName });
   return (
-    <div className="relative w-full">
+    <div className="relative w-full pb-5">
       {currentText ? (
-        <div className={`-my-5 text-lime-400 ${textContainerCssClasses}`}>
+        <div className={`-my-5 ${textContainerCssClasses}`}>
           <Markdown value={currentText} markDownStyles={`${textCssClasses} translation-box`} />
         </div>
       ) : (
@@ -131,7 +141,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
             <div className="flex divide-x divide-gray-200">
               <div className={`pr-3 ${!translated ? "cursor-pointer underline" : ""}`} onClick={translate}>
                 <span>
-                  {translated ? "Translated" : "Translate"} {getLocaleName(currentLocale)}
+                  {description} {getLocaleName(currentLocale)}
                 </span>
               </div>
               {translated && (
@@ -143,10 +153,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
           )}
         </div>
       ) : (
-        <span>
-          currentLocale: {currentLocale} <br />
-          defaultLocale
-        </span>
+        <></>
       )}
     </div>
   );
