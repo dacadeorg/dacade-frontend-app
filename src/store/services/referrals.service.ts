@@ -11,7 +11,7 @@ import { Referral } from "@/types/community";
  */
 const referralsService = createApi({
   reducerPath: "referralsService",
-  // refetchOnMountOrArgChange: true,
+  refetchOnMountOrArgChange: true,
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
     /**
@@ -37,7 +37,6 @@ const referralsService = createApi({
         const state = store.getState();
         try {
           const { data } = await queryFulfilled;
-          console.log("The returned thing is this big", data.length);
           const list: Referral[] = [];
           if (startAfter) {
             list.push(...(state.userReferrals.userReferralList || []));
@@ -64,6 +63,6 @@ const referralsService = createApi({
  */
 export const fetchReferrals = (locale?: string) => referralsService.endpoints.getReferrals.initiate(locale);
 
-export const userFetchReferrals = ({ startAfter, locale }: { startAfter?: string | null; locale?: string }) =>
+export const userFetchReferrals = ({ startAfter, locale }: { startAfter?: string | null; locale?: string } = {}) =>
   referralsService.endpoints.userFetchReferrals.initiate({ startAfter, locale });
 export default referralsService;

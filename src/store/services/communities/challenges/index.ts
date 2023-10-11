@@ -74,8 +74,6 @@ export const challengeService = createApi({
           if (startAfter) {
             list.push(...(state.submissions.list || []));
           }
-          console.log("the returned data", data.length);
-
           list.push(...(data || []));
           dispatch(setSubmissionsList(list));
         } catch (error) {
