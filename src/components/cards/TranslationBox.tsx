@@ -1,4 +1,4 @@
-import { useState, useCallback, ReactElement, useMemo, useEffect } from "react";
+import { useState, useEffect, useCallback, ReactElement, useMemo } from "react";
 import { Translate } from "@/utilities/Translate";
 import Markdown from "@/components/ui/Markdown";
 import { useRouter } from "next/router";
@@ -74,7 +74,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
     return defaultLocale || "en";
   }, [defaultLocale]);
 
-  const translated = useMemo(() => locale && locale !== getDefaultLocale(), [getDefaultLocale, locale]);
+  const translated = useMemo(() => locale !== getDefaultLocale(), [getDefaultLocale, locale]);
   const currentLocale = router.locale || "en";
   /**
    * Translate using google translate
@@ -133,7 +133,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
         <></>
       )}
 
-      {translatable ? (
+      {translatable && (
         <div className="pt-5 text-gray-400">
           {loading ? (
             <span>Translating...</span>
@@ -152,8 +152,6 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
             </div>
           )}
         </div>
-      ) : (
-        <></>
       )}
     </div>
   );
