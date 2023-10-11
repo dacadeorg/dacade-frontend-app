@@ -55,9 +55,11 @@ export default function UserReferrals(): ReactElement {
   }, [dispatch, user?.referrals]);
 
   const nextPage = async () => {
+    console.log("The next page", { loading, showButton, length: referrals.length });
     if (loading || !showButton) return;
     setLoading(true);
-    const referralId = referrals[referrals.length - 2]?.id || null;
+    const referralId = "22407577-0b0a-4bf5-932c-70fadbbded62";
+    console.log({ referralId, length: referrals.length });
     // const referralId = referrals[referrals.length - 1]?.id || null;
     const { data } = await dispatch(userFetchReferrals({ startAfter: referralId || null }));
     setPage(page + 1);

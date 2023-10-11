@@ -11,7 +11,7 @@ import { Referral } from "@/types/community";
  */
 const referralsService = createApi({
   reducerPath: "referralsService",
-  refetchOnMountOrArgChange: true,
+  // refetchOnMountOrArgChange: true,
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
     /**

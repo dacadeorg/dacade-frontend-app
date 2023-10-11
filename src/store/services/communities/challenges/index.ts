@@ -13,7 +13,7 @@ import { setSubmissionsList } from "@/store/feature/communities/challenges/submi
 export const challengeService = createApi({
   reducerPath: "challengeService",
   baseQuery: baseQuery(),
-  // refetchOnMountOrArgChange: true,
+  refetchOnMountOrArgChange: true,
   endpoints: (builder) => ({
     findChallengeById: builder.query({
       query: ({ id, relations }) => {
