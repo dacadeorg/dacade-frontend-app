@@ -13,7 +13,7 @@ interface PopupProps {
   onClose?: () => void;
   show?: boolean;
   children?: React.ReactNode;
-  className: string;
+  className?: string;
 }
 
 /**

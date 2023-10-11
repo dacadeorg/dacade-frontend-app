@@ -14,6 +14,7 @@ import AuthObserver from "@/contexts/AuthObserver";
 import { User } from "@/types/bounty";
 import { Referral as ReferralType } from "@/types/community";
 import { IRootState } from "@/store";
+import Loader from "@/components/ui/button/Loader";
 
 /**
  * interface for UserReferrals multiSelector
@@ -57,7 +58,7 @@ export default function UserReferrals(): ReactElement {
     setPage(page + 1);
     setLoading(false);
 
-    if (!list?.payload.length) {
+    if (!list?.length) {
       setShowButton(false);
       return;
     }
@@ -79,6 +80,7 @@ export default function UserReferrals(): ReactElement {
               <Referral key={`user-referral-${i}`} referral={referral} />
             ))}
           </InfiniteScroll>
+          {loading && <Loader loading={loading} className="sm:absolute sm:left-6 sm:-bottom-7.5" onClick={() => nextPage()} />}
         </div>
       ) : (
         <EmptyState title={t("referrals.empty-state.title")} subtitle={t("referrals.empty-state.subtitle")} />

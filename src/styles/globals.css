@@ -32,7 +32,6 @@
 
 html,
 body {
-  @apply !scroll-smooth;
   font-family: "Graphik", sans-serif;
 }
 
@@ -227,12 +226,12 @@ div {
 
 .list li::before {
   content: url("../icons/list.svg");
-  margin-left: -52px;
+  margin-left: -3.25rem;
 }
 
 @media only screen and (max-width: 600px) {
   .list li {
-    height: 44px;
+    height: 2.75rem;
     line-height: 1rem;
   }
 }
@@ -283,15 +282,15 @@ div {
 }
 
 .achievement-content {
-  max-width: 1024px;
+  max-width: 64rem;
 }
 
 .prose ul {
-  max-width: 730px;
+  max-width: 45.625rem;
 }
 
 .prose ol li p {
-  max-width: 730px;
+  max-width: 45.625rem;
 }
 
 .contains-ordered-list > ol {
@@ -357,7 +356,7 @@ div {
   max-width: auto !important;
 }
 .markdown-wrapper pre {
-  margin: 28px 0;
+  margin: 1.75rem 0;
 }
 .markdown-wrapper ol > li::before {
   color: var(--text-primary-color);
@@ -391,15 +390,15 @@ div {
 }
 
 .markdown-content p {
-  max-width: 730px;
+  max-width: 45.625rem;
 }
 .markdown-content img {
   max-width: 100%;
   position: static;
 }
 .markdown-content pre {
-  margin: 28px 0;
-  max-width: 730px;
+  margin: 1.75rem 0;
+  max-width: 45.625rem;
 }
 .markdown-content ol > li::before {
   color: var(--text-primary-color);
@@ -422,7 +421,7 @@ div {
 }
 .markdown-content code {
   text-shadow: none !important;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 400;
   color: var(--text-accent-color);
   max-width: -moz-fit-content;
@@ -439,13 +438,25 @@ div {
 }
 .markdown-content h2 {
   font-weight: 500 !important;
-  margin-top: 24px !important;
-  margin-bottom: 14px !important;
-  font-size: 22px !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.875rem !important;
+  font-size: 1.375rem !important;
 }
+
+.prose.translation-box h1 {
+  font-size: 1.375rem !important;
+}
+.prose.translation-box .markdown-content > h1:first-child {
+  margin-top: 1.5rem !important;
+}
+
+.prose.translation-box .markdown-content summary {
+  margin: 1.25rem 0 !important;
+}
+
 @media (max-width: 768px) {
   .markdown-content h2 {
-    font-size: 20px !important;
+    font-size: 1.25rem !important;
   }
 }
 

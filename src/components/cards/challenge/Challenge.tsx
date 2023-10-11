@@ -7,6 +7,7 @@ import Link from "next/link";
 import RelatedContent from "./RelatedContent";
 import Badges from "./Badges";
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 /**
  * `ChallengeCard` is a function component that renders a card
@@ -23,6 +24,7 @@ interface ChallengeCardProps {
   isCourseEnd?: boolean;
 }
 export default function ChallengeCard({ data, community, isCourseEnd }: ChallengeCardProps) {
+  const { t } = useTranslation();
   const link = `/communities/${community.slug}/challenges/${data.id}`;
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
   const reward = isCourseEnd ? data?.rewards?.find((reward) => reward.type === "SUBMISSION") : data?.reward;
@@ -44,7 +46,9 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
                 <Certificate size="medium" name={community.slug} />
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
-                    <span className="block font-medium pr-1">NFT Certificate</span>
+                    <span className="block font-medium pr-1">
+                      {community.slug === "celo" && "NFT"} {t("communities.overview.challenge.certificate")}
+                    </span>
                   </div>
                   <div className="text-gray-400 text-xs font-normal">Upon successful completion</div>
                 </div>

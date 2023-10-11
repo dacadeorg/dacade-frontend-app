@@ -4,7 +4,6 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchAllCertificates } from "@/store/services/profile/certificate.service";
 import { fetchProfileReputation } from "@/store/services/profile/reputation.service";
 import { getMetadataTitle } from "@/utilities/Metadata";
-
 import NotificationList from "@/components/list/NotificationList";
 import ProfileOverviewCommunities from "@/components/sections/profile/overview/Communities";
 import ProfileOverviewAchievements from "@/components/sections/profile/overview/Achievements";
@@ -16,6 +15,7 @@ import { GetServerSideProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
 import { useRouter } from "next/router";
 import { fetchUserProfile } from "@/store/services/profile/users.service";
+import { wrapper } from "@/store";
 
 export default function ProfileOverview() {
   const authUser = useSelector((state) => state.user.data);
@@ -26,11 +26,7 @@ export default function ProfileOverview() {
     (async () => {
       const username = router.query.username;
       if (username) {
-        await Promise.all([
-          dispatch(fetchUserProfile((username as string) || "")),
-          dispatch(fetchAllCertificates({ username: (username as string) || "" })),
-          dispatch(fetchProfileReputation({ username: (username as string) || "" })),
-        ]);
+        await Promise.all([dispatch(fetchProfileReputation({ username: (username as string) || "" }))]);
       }
     })();
   }, [dispatch, router.query.username]);
@@ -63,4 +59,19 @@ ProfileOverview.getLayout = function (page: ReactElement) {
   return <ProfileLayout>{page}</ProfileLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ locale, params }) => {
+  const { username } = params as any;
+
+  const [profile, , translations] = await Promise.all([
+    store.dispatch(fetchUserProfile((username as string) || "")),
+    store.dispatch(fetchAllCertificates({ username: (username as string) || "", locale })),
+    i18Translate(locale as string),
+  ]);
+
+  if (profile.isError) return { notFound: true };
+  return {
+    props: {
+      ...translations,
+    },
+  };
+});
