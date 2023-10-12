@@ -145,13 +145,15 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
         return;
       }
       const signature = await getSignature();
-      await dispatch(
-        updateWallet({
-          id: wallets?.id,
-          address: address || newAddress,
-          signature,
-        })
-      );
+      if (signature) {
+        await dispatch(
+          updateWallet({
+            id: wallets?.id,
+            address: address || newAddress,
+            signature,
+          })
+        );
+      } else setError({ name: "Failed validation", message: "Message", details: { message: "Failed to get the signature" } });
 
       await dispatch(fetchAllWallets());
       closeModal();
@@ -159,8 +161,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
       const error = err as CustomError;
       if (error.details) {
         setError(error);
-      }
-      setError({ name: "Wallet connection failed", message: "Failed connection", details: { one: "Unable to connect wallet" } });
+      } else setError({ name: "Wallet connection failed", message: "Failed connection", details: { one: "Unable to connect wallet" } });
     } finally {
       setLoading(false);
     }
