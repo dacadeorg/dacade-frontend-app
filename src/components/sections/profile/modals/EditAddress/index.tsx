@@ -15,6 +15,7 @@ import { Wallet } from "@/types/wallet";
 import { connectWallet, disconnectWallet, getSignature } from "@/store/feature/wallet.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { IRootState } from "@/store";
+import { clearCurrentWallet } from "@/store/feature/user/wallets.slice";
 
 /**
  * Inferface for form's inputs values
@@ -85,6 +86,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     setError(null);
     setValue("newAddress", "");
     setValue("address", "");
+    dispatch(clearCurrentWallet());
   };
 
   const openEditAddress = () => {
@@ -100,13 +102,14 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const currentAddress = wallets?.address;
 
   const setWalletConnectionMethod = (method: string) => {
+    setShowWalletConnectionMethod(false);
+
     if (!method) return;
 
     if (method === "wallet" && !requireWalletConnection) return;
 
     if (isWalletConnected) disconnect();
 
-    setShowWalletConnectionMethod(false);
     setConnectionMethod(method);
     setShowEditAddress(true);
 
@@ -202,6 +205,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   }, [currentAddress, newAddress]);
 
   const filled = useMemo(() => {
+    setError(null);
     if (isMatchingTheExistingOne) return false;
     if (!isFirstTimeAddressSetup && (connectionMethod === "wallet" || connectionMethod === "manual")) return validateAddress(newAddress, wallet?.token);
     return validateAddress(address, wallet?.token);
@@ -216,6 +220,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     if (currentAddress) {
       setShowWalletInfo(true);
     } else if (isFirstTimeAddressSetup) {
+      setShowWalletConnectionMethod(true);
       setShowWalletInfo(false);
     }
   }, [currentAddress, isFirstTimeAddressSetup]);
@@ -228,7 +233,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     <Modal show={show} onClose={closeModal}>
       <div className="px-6 pt-6">
         <WalletHeader wallet={wallet}>
-          {showWalletConnectionMethod || isFirstTimeAddressSetup ? (
+          {showWalletConnectionMethod ? (
             <div>
               <p className="mb-5 text-base font-medium">{t("profile.edit.wallet.select.title")}</p>
               <div className="overflow-hidden border border-gray-400 border-solid divide-y rounded-xl">

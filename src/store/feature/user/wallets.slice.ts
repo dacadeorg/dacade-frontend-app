@@ -34,6 +34,9 @@ export const walletsSlice = createSlice({
     setCurrentWallet: (state, action) => {
       state.current = action.payload;
     },
+    clearCurrentWallet: (state) => {
+      state.current = null;
+    },
     setWalletList(state, action) {
       const list = action.payload;
       state.list = list;
@@ -47,6 +50,6 @@ export const walletsSlice = createSlice({
   },
 });
 
-export const { setCurrentWallet, clear, setWalletList } = walletsSlice.actions;
+export const { setCurrentWallet, clear, setWalletList, clearCurrentWallet } = walletsSlice.actions;
 
 export default walletsSlice;
