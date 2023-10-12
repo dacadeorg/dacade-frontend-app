@@ -18,6 +18,7 @@ import { readNotification } from "@/store/services/notification.service";
 import NotificationList from "../list/NotificationList";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
+import LanguageList from "@/components/list/LanguageList";
 
 /**
  * interface for Sidebar multiSelector
@@ -155,6 +156,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
                 </div>
               )}
             </div>
+            <LanguageList />
             {isAuthenticated && (
               <div className="p-4 flex justify-center bg-indigo-50">
                 <div className="z-10">
