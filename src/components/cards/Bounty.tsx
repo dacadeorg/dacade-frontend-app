@@ -121,7 +121,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
               backgroundColor: bounty.colors.accent,
             }}
             size="medium"
-            value={`${bounty?.unreviewedSubmissionsCount}`}
+            value={bounty?.unreviewedSubmissionsCount}
             className="bottom-0 -right-1 absolute p-4"
           />
         )}
