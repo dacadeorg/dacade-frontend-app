@@ -26,6 +26,7 @@ export interface Bounty {
   totalSubmissions?: number;
   submissions?: Submission;
   author?: BountyAuthor;
+  unreviewedSubmissionsCount?: number;
 }
 
 export interface BountyCourse extends Course {
