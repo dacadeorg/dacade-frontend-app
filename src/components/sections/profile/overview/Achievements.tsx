@@ -16,7 +16,7 @@ export default function ProfileOverviewAchievements(): ReactElement {
   if (achievements && achievements.length)
     return (
       <ProfileOverviewSection title="Achievements">
-        <div className="grid grid-cols-2 gap-5 md:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
           {achievements.map((achievement, index) => (
             <AchievementCard key={`profile-achievement-${index}`} data={achievement} />
           ))}

@@ -3,7 +3,6 @@ import Avatar from "@/components/ui/Avatar";
 import DateManager from "@/utilities/DateManager";
 import Button from "@/components/ui/button";
 import TimeIcon from "@/icons/time.svg";
-import GithubIcon from "@/icons/github.svg";
 import DiscordIcon from "@/icons/discordIcon.svg";
 import CompassIcon from "@/icons/compass.svg";
 import { useRouter } from "next/router";
@@ -76,13 +75,7 @@ export default function ProfileHeader() {
             <span className="inline-block mx-1">Discord</span>
           </div>
         )}
-       <div className="flex items-center justify-center px-2">
-          <span>
-            <GithubIcon />
-          </span>
-          <span className="mx-1">Github</span>
-        </div>
-        
+
         <div className="flex items-center justify-center px-2">
           <span>
             <TimeIcon />
@@ -90,7 +83,6 @@ export default function ProfileHeader() {
           <span className="mx-1">{t("profile.header.joined")}</span>
           {joined && <span className="text-sm">{joined}</span>}
         </div>
-        
 
         {isKycVerified ? (
           <div className="flex items-center px-3">
