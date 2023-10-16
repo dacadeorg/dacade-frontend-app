@@ -30,7 +30,7 @@ export default function ProfileOverview(): ReactElement {
           dispatch(fetchUserProfile((username as string) || "")),
           dispatch(fetchAllCertificates({ username: (username as string) || "" })),
           dispatch(fetchProfileReputation({ username: (username as string) || "" })),
-          dispatch(userFetchReferrals({})),
+          dispatch(userFetchReferrals()),
         ]);
       }
     })();

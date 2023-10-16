@@ -26,6 +26,7 @@ export interface Bounty {
   totalSubmissions?: number;
   submissions?: Submission;
   author?: BountyAuthor;
+  unreviewedSubmissionsCount?: number;
 }
 
 export interface BountyCourse extends Course {
@@ -80,7 +81,7 @@ export interface Evaluation {
 }
 
 export interface Submission {
-  length: Submission | undefined;
+  length: number;
   /**
    *@property {function((submission: any) => JSX.Element): import("react").ReactNode} map - Applies the provided function to each element in the submission array, returning a new array of React elements.
    */

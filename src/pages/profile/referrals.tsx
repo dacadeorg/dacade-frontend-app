@@ -44,21 +44,23 @@ export default function UserReferrals(): ReactElement {
     referrals: (state: IRootState) => state.userReferrals.userReferralList,
   });
   const dispatch = useDispatch();
-  const showLoadMore = useMemo(() => showButton && referrals?.length >= 30, [referrals?.length, showButton]);
-
+  const showLoadMore = useMemo(() => showButton && referrals?.length >= 10, [referrals?.length, showButton]);
   useEffect(() => {
-    dispatch(userFetchReferrals({}));
+    const fetchReferrals = async () => {
+      await dispatch(userFetchReferrals());
+    };
+    fetchReferrals();
   }, [dispatch, user?.referrals]);
 
   const nextPage = async () => {
     if (loading || !showButton) return;
     setLoading(true);
     const referralId = referrals[referrals.length - 1]?.id || null;
-    const list = (await dispatch(userFetchReferrals({ startAfter: referralId || null }))).data;
+    const { data } = await dispatch(userFetchReferrals({ startAfter: referralId || null }));
     setPage(page + 1);
     setLoading(false);
 
-    if (!list?.length) {
+    if (!data?.length) {
       setShowButton(false);
       return;
     }

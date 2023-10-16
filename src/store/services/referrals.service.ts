@@ -11,6 +11,7 @@ import { Referral } from "@/types/community";
  */
 const referralsService = createApi({
   reducerPath: "referralsService",
+  refetchOnMountOrArgChange: true,
   baseQuery: baseQuery(),
   endpoints: (builder) => ({
     /**
@@ -62,6 +63,6 @@ const referralsService = createApi({
  */
 export const fetchReferrals = (locale?: string) => referralsService.endpoints.getReferrals.initiate(locale);
 
-export const userFetchReferrals = ({ startAfter, locale }: { startAfter?: string | null; locale?: string }) =>
+export const userFetchReferrals = ({ startAfter, locale }: { startAfter?: string | null; locale?: string } = {}) =>
   referralsService.endpoints.userFetchReferrals.initiate({ startAfter, locale });
 export default referralsService;
