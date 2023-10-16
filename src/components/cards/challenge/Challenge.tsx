@@ -21,11 +21,14 @@ import { useTranslation } from "react-i18next";
 interface ChallengeCardProps {
   data: Challenge;
   community: Community;
+  isCourseEnd?: boolean;
 }
-export default function ChallengeCard({ data, community }: ChallengeCardProps) {
+export default function ChallengeCard({ data, community, isCourseEnd }: ChallengeCardProps) {
   const { t } = useTranslation();
   const link = `/communities/${community.slug}/challenges/${data.id}`;
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
+  const reward = isCourseEnd ? data?.rewards?.find((reward) => reward.type === "SUBMISSION") : data?.reward;
+  const totalReward = data?.rewards?.reduce((acc, reward) => (acc += reward.amount), 0);
 
   return (
     <div className="border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">
@@ -43,19 +46,21 @@ export default function ChallengeCard({ data, community }: ChallengeCardProps) {
                 <Certificate size="medium" name={community.slug} />
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
-                    <span className="block font-medium pr-1">{t("communities.overview.challenge.certificate")}</span>
+                    <span className="block font-medium pr-1">
+                      {community.slug === "celo" && "NFT"} {t("communities.overview.challenge.certificate")}
+                    </span>
                   </div>
                   <div className="text-gray-400 text-xs font-normal">Upon successful completion</div>
                 </div>
               </div>
               <div className="flex items-center">
-                <Coin size="medium" token={data?.reward?.token} />
+                <Coin size="medium" token={reward?.token} />
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
-                    <span className="block font-medium  pr-1">{data.reward?.amount}</span>
-                    <span className="block font-medium">{data?.reward?.token} Rewards</span>
+                    <span className="block font-medium pr-1">{totalReward}</span>
+                    <span className="block font-medium">{reward?.token} Rewards</span>
                   </div>
-                  <div className="text-gray-400 text-xs font-normal">Upon successful completion</div>
+                  <div className="text-gray-400 text-xs font-normal">For submission and feedback</div>
                 </div>
               </div>
             </div>
@@ -75,14 +80,14 @@ export default function ChallengeCard({ data, community }: ChallengeCardProps) {
 
             <Link href={link}>
               <ArrowButton communityStyles={true} variant="outline-primary">
-                See the challenge
+                {isCourseEnd ? "Take the challenge" : "See the challenge"}
               </ArrowButton>
             </Link>
           </div>
         </div>
       </div>
 
-      {(data.courses?.length > 0 || data.learningModules?.length > 0) && (
+      {(data.courses?.length > 0 || data.learningModules?.length > 0) && !isCourseEnd && (
         <div className="sm:px-8 sm:pt-6 sm:pb-9 w-full p-6 rounded-3xl text-sm">
           <div className="mb-3 text-gray-400 font-semibold uppercase text-xxs">related content</div>
           {data.courses?.map((course) => (
