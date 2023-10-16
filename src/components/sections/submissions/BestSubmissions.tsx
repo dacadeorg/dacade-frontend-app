@@ -26,7 +26,7 @@ export default function BestSubmissions(): ReactElement {
     <Section>
       <Accordion
         title={t("communities.challenge.best-submissions.title")}
-        isExpanded={true}
+        isExpanded
         content={
           <div>
             <p className="leading-normal text-sm capitalize w-64 pt-3">{t("communities.challenge.best-submissions.description")}</p>
