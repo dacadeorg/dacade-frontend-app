@@ -146,7 +146,9 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
               </div>
               {translated && (
                 <div className="pl-3 underline cursor-pointer" onClick={revert}>
-                  <span>{`Original (${getLocaleName(defaultLocale)})`}</span>
+                  <span>
+                    {t("ui.translation.action.original")} {getLocaleName(defaultLocale)}
+                  </span>
                 </div>
               )}
             </div>
