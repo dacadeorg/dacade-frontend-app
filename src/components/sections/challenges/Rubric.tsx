@@ -41,6 +41,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
     <Section>
       <Accordion
         title={!hideTitle ? (t("communities.challenge.criteria.title") as string) : ""}
+        isExpanded={true}
         content={
           <>
             <div className="text-base font-normal text-slate-700 pt-8 md:w-99">{t("communities.challenge.criteria.subtitle")}</div>

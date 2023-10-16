@@ -20,6 +20,7 @@ export default function Learning({ courses, learningModules, community }: { cour
     <Section>
       <Accordion
         title="Learn"
+        isExpanded={true}
         content={
           <>
             <div className="text-base font-normal text-slate-700 pt-8 pb-7 md:w-99">{t("communities.overview.challenge.learning.title")}</div>
