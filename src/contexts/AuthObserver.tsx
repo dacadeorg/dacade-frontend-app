@@ -75,8 +75,10 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
 
       if (route.startsWith("/profile") && auth && auth.emailVerified) {
         const username = (router.query.username as string) || user?.username || "";
-        dispatch(fetchUserProfile(username));
-        dispatch(fetchAllProfileCommunities(auth?.displayName || ""));
+        if (username) {
+          dispatch(fetchUserProfile(username));
+          dispatch(fetchAllProfileCommunities(auth?.displayName || ""));
+        }
       }
 
       if (route.startsWith("/profile")) {
