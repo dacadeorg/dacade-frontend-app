@@ -105,10 +105,10 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
     try {
       const signature = await getSignature();
 
-      if (signature) {
+      if (signature && achievement?.id) {
         const data = await (
           await mintCertificate({
-            id: achievement?.id as string,
+            id: achievement.id as string,
             address: address as string,
             signature,
           })
