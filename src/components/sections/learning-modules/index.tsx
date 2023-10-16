@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import PageNavigation from "../courses/PageNavigation";
 import InteractiveModule from "./InteractiveModule";
 import MaterialSection from "./MaterialSection";
 import AdditionalMaterialsSection from "@/components/sections/learning-modules/AdditionalMaterials";
@@ -17,7 +16,6 @@ export default function LearningModuleSection({ learningModule }: { learningModu
       ))}
       <AdditionalMaterialsSection materials={additionalMaterials} />
       {interactiveModules.length > 0 && <InteractiveModule data={interactiveModules[0]} />}
-      <PageNavigation />
     </div>
   );
 }
