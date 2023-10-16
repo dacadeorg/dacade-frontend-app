@@ -112,7 +112,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
           user={null}
           useLink={false}
         />
-        {bounty.submissions && bounty.submissions.length > 0 && (
+        {bounty?.submissions && (
           <Badge
             customStyle={{
               bottom: "-4px",
