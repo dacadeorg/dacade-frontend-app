@@ -83,7 +83,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
           <NavItem to="/" type="logo w-8 h-8 md:w-11 md:h-11">
             <Logo />
           </NavItem>
-          <NavItem to="/" type="brand mx-0.5 lg:-mt-0.5">
+          <NavItem to="/" type="brand mx-0.5">
             {t("app.name")}
           </NavItem>
         </ul>
