@@ -168,10 +168,10 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   };
 
   const newAddress = useMemo(() => {
-    if (connectionMethod === "wallet") return wallets?.address;
+    if (connectionMethod === "wallet") return address;
     else if (connectionMethod === "manual") return formAddress;
-    return address;
-  }, [address, connectionMethod, wallets?.address, formAddress]);
+    return "";
+  }, [address, connectionMethod, formAddress]);
 
   const requireWalletConnection = useMemo(() => {
     return wallets?.require_wallet_connection || false;
