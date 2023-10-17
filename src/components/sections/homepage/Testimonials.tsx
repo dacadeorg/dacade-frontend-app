@@ -41,14 +41,23 @@ const stories = (t: TFunction<"translation", undefined, "translation">): Testimo
     },
     {
       icon: "/assets/img/user_jet.png",
-      content: `${t("testimonials.text")}`,
+      content: `Thanks for your support, love and care on Dacade(Telegram and Website) it has being an awesome experience. I have learnt a lot and am still learning a lot. Thanks a lot`,
     },
     {
       icon: "/assets/img/user_tosin_edit.png",
-      content: `${t("testimonials.text")}`,
+      content: `I just made submission of my quote deapp on dacade.org 
+
+I'm so excited i took the course really enjoyed and learnt more 
+
+Please your feedback is welcome 😊
+`,
     },
     {
       icon: "/assets/img/user_susen.png",
+      content: `Dacade is really encouraging, I didn't realize the little that I know would matter. Thank you for making us learn more and to make research too.`,
+    },
+    {
+      icon: "/assets/img/yannick.png",
       content: `${t("testimonials.text")}`,
     },
     {
