@@ -65,14 +65,14 @@ export default function LearningModulePage(props: LearningModulePageProps): Reac
         ))}
       </Head>
       <Wrapper>
-        <div className="py-8 flex flex-col divide-y space-y-8 text-gray-700">
+        <div className="py-8 flex flex-col space-y-8 text-gray-700">
           <Header />
-          <div className="w-full divide-y divide-solid divide-gray-200">
+          <div className="w-full">
             {course.challenges && course.challenges.map((challenge) => <ChallengeOverviewCard challenge={challenge} key={challenge.id} community={community} />)}
             <LearningModuleSection learningModule={learningModule} />
             <div>
-              <div className="mt-6 mb-5 gap-3">
-                <h2 className="font-medium text-[1.375rem] text-gray-700">Challenge</h2>
+              <div className="mt-6 mb-5">
+                <h2 className="font-medium text-.5xl text-gray-700 pb-3">Challenge</h2>
                 <p className="text-lg">{t("communities.overview.learning-modules-challenge-introduction")}</p>
               </div>
               {course.challenges && course.challenges.map((challenge) => <ChallengeCard data={challenge} key={challenge.id} community={community} isCourseEnd />)}
