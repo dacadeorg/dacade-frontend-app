@@ -69,9 +69,9 @@ export default function LearningModulePage(props: LearningModulePageProps) {
         ))}
       </Head>
       <Wrapper paths={paths}>
-        <div className="py-8 flex flex-col divide-y space-y-8 text-gray-700">
+        <div className="py-8 flex flex-col space-y-8 text-gray-700">
           <Header />
-          <div className="w-full divide-y divide-solid divide-gray-200">
+          <div className="w-full">
             {challenge.rewards && <ChallengeOverviewCard challenge={challenge} community={community} />}
             <LearningModuleSection learningModule={learningModule} />
           </div>

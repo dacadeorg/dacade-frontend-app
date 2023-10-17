@@ -53,11 +53,12 @@ body {
 .nav-item {
   @apply font-normal ml-2 opacity-70 hover:opacity-100;
 }
-
+.nav-item a {
+  @apply align-text-top;
+}
 .nav-brand {
   @apply font-semibold mx-1.5;
 }
-
 .content-wrapper {
   @apply relative;
 }
