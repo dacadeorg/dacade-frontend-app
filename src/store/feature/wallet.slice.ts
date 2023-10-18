@@ -126,10 +126,16 @@ export const connectWallet = createAsyncThunk("web3/connect", async (_, { dispat
  * @type {*}
  */
 export const getSignature = async () => {
+  if (!web3Modal) return;
+  if (!provider) provider = await web3Modal?.connect();
   const web3Provider = new providers.Web3Provider(provider);
-  const signer = web3Provider.getSigner();
-  const signature = await signer.signMessage(SIGNATURE_HASH_STRING);
-  return signature;
+  try {
+    const signer = web3Provider.getSigner();
+    const signature = await signer.signMessage(SIGNATURE_HASH_STRING);
+    return signature;
+  } catch (error) {
+    return;
+  }
 };
 
 /**
