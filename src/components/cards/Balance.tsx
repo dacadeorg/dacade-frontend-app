@@ -27,7 +27,7 @@ interface BalanceProps {
  * @returns {ReactElement}
  */
 export default function Balance({ details }: BalanceProps): ReactElement {
-  const address = details.address ? truncateAddress(details.address, details.token) : null;
+  const address = details.address && details.token.toUpperCase() !== "DAC" ? truncateAddress(details.address, details.token) : null;
 
   return (
     <Link href="/profile/wallets">
