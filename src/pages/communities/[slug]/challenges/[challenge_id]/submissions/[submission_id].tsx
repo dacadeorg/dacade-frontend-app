@@ -50,10 +50,11 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   };
 
   try {
-    const [{ data: community }, { payload: submission }, { data: challenge }] = await Promise.all([
+    const [{ data: community }, { payload: submission }, { data: challenge }, translations] = await Promise.all([
       dispatch(fetchCurrentCommunity(fetchPayload)),
       dispatch(findSubmssionById({ id: submission_id as string })),
       dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
+      serverSideTranslations(locale as string),
     ]);
 
     return {
@@ -61,7 +62,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
         community,
         submission,
         challenge,
-        ...(await serverSideTranslations(locale as string)),
+        ...translations,
       },
     };
   } catch (e) {
