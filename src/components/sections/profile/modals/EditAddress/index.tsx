@@ -15,6 +15,7 @@ import { Wallet } from "@/types/wallet";
 import { connectWallet, disconnectWallet, getSignature } from "@/store/feature/wallet.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { IRootState } from "@/store";
+import { clearCurrentWallet } from "@/store/feature/user/wallets.slice";
 
 /**
  * Inferface for form's inputs values
@@ -85,6 +86,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     setError(null);
     setValue("newAddress", "");
     setValue("address", "");
+    dispatch(clearCurrentWallet());
   };
 
   const openEditAddress = () => {
@@ -100,13 +102,14 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const currentAddress = wallets?.address;
 
   const setWalletConnectionMethod = (method: string) => {
+    setShowWalletConnectionMethod(false);
+
     if (!method) return;
 
     if (method === "wallet" && !requireWalletConnection) return;
 
     if (isWalletConnected) disconnect();
 
-    setShowWalletConnectionMethod(false);
     setConnectionMethod(method);
     setShowEditAddress(true);
 
@@ -142,13 +145,15 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
         return;
       }
       const signature = await getSignature();
-      await dispatch(
-        updateWallet({
-          id: wallets?.id,
-          address: address || newAddress,
-          signature,
-        })
-      );
+      if (signature) {
+        await dispatch(
+          updateWallet({
+            id: wallets?.id,
+            address: address || newAddress,
+            signature,
+          })
+        );
+      } else setError({ name: "Failed validation", message: "Message", details: { message: "Failed to get the signature" } });
 
       await dispatch(fetchAllWallets());
       closeModal();
@@ -156,18 +161,17 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
       const error = err as CustomError;
       if (error.details) {
         setError(error);
-      }
-      setError({ name: "Wallet connection failed", message: "Failed connection", details: { one: "Unable to connect wallet" } });
+      } else setError({ name: "Wallet connection failed", message: "Failed connection", details: { one: "Unable to connect wallet" } });
     } finally {
       setLoading(false);
     }
   };
 
   const newAddress = useMemo(() => {
-    if (connectionMethod === "wallet") return wallets?.address;
+    if (connectionMethod === "wallet") return address;
     else if (connectionMethod === "manual") return formAddress;
-    return address;
-  }, [address, connectionMethod, wallets?.address, formAddress]);
+    return "";
+  }, [address, connectionMethod, formAddress]);
 
   const requireWalletConnection = useMemo(() => {
     return wallets?.require_wallet_connection || false;
@@ -202,6 +206,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   }, [currentAddress, newAddress]);
 
   const filled = useMemo(() => {
+    setError(null);
     if (isMatchingTheExistingOne) return false;
     if (!isFirstTimeAddressSetup && (connectionMethod === "wallet" || connectionMethod === "manual")) return validateAddress(newAddress, wallet?.token);
     return validateAddress(address, wallet?.token);
@@ -216,6 +221,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     if (currentAddress) {
       setShowWalletInfo(true);
     } else if (isFirstTimeAddressSetup) {
+      setShowWalletConnectionMethod(true);
       setShowWalletInfo(false);
     }
   }, [currentAddress, isFirstTimeAddressSetup]);
@@ -226,12 +232,12 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
 
   return (
     <Modal show={show} onClose={closeModal}>
-      <div className="px-6 pt-6">
+      <div className="px-6">
         <WalletHeader wallet={wallet}>
-          {showWalletConnectionMethod || isFirstTimeAddressSetup ? (
-            <div>
-              <p className="mb-5 text-base font-medium">{t("profile.edit.wallet.select.title")}</p>
-              <div className="overflow-hidden border border-gray-400 border-solid divide-y rounded-xl">
+          {showWalletConnectionMethod ? (
+            <div className="grid gap-2.5">
+              <p className="mb-2 text-base font-medium">{t("profile.edit.wallet.select.title")}</p>
+              <div className="overflow-hidden border border-gray-200 border-solid divide-y rounded-xl">
                 <WalletButton onClick={() => setWalletConnectionMethod("manual")}>{t("profile.edit.wallet.select.option.manual")}</WalletButton>
                 {requireWalletConnection && <WalletButton onClick={() => setWalletConnectionMethod("wallet")}>{t("profile.edit.wallet.select.option.connect")}</WalletButton>}
               </div>
