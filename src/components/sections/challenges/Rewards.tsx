@@ -23,6 +23,7 @@ export function OverviewRewards(): ReactElement {
     community: (state: IRootState) => state.communities.current,
   });
   const rewards = useMemo(() => challenge?.rewards?.filter((reward) => reward.type === "SUBMISSION"), [challenge?.rewards]);
+  const totalReward = challenge?.rewards?.reduce((acc, reward) => (acc += reward.amount), 0);
   const formatToken = (token: string) => {
     return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
   };
@@ -48,7 +49,7 @@ export function OverviewRewards(): ReactElement {
             <Coin size="medium" token={reward?.token} />
             <div className="text-sm space-y-2 md:pl-2 max-w-max">
               <div className="flex gap-1 text-gray-700 font-medium">
-                <span>{reward.amount}</span>
+                <span>{totalReward}</span>
                 <span>{reward?.token}</span>
                 <span>{t("communities.overview.challenge.rewards")}</span>
               </div>
