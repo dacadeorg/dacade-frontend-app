@@ -20,7 +20,6 @@ interface TranslationBoxProps {
   disabled?: boolean;
   textContainerCssClasses?: string;
   textCssClasses?: string;
-  isSubmissionText?: boolean;
 }
 interface Locale {
   [key: string]: { code: string; name: string };
@@ -62,7 +61,7 @@ const locales = acceptedLocales();
  * @returns {ReactElement}
  */
 
-export default function TranslationBox({ text, defaultLocale, disabled, textContainerCssClasses, textCssClasses, isSubmissionText }: TranslationBoxProps): ReactElement {
+export default function TranslationBox({ text, defaultLocale, disabled, textContainerCssClasses, textCssClasses }: TranslationBoxProps): ReactElement {
   const [currentText, setCurrentText] = useState(text);
   const [locale, setLocale] = useState("");
   const [loading, setLoading] = useState(false);
@@ -120,7 +119,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
 
   useEffect(() => {
     setDescription(translated ? t("ui.translated") : t("ui.translate"));
-    if (isSubmissionText) translate();
+    translate();
   }, [translated]);
 
   const translatable = currentLocale !== defaultLocale && !disabled && getLocaleName(defaultLocale);

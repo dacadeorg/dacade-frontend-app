@@ -78,7 +78,7 @@ export default function SubmissionViewCard({ submission }: SubmissionViewCardPro
       bordered
       expanded
     >
-      <TranslationBox isSubmissionText text={submission.text} defaultLocale={language} textCssClasses="text-base md:text-lg leading-normal text-gray-700" />
+      <TranslationBox text={submission.text} defaultLocale={language} textCssClasses="text-base md:text-lg leading-normal text-gray-700" />
       <div className="inline-grid space-y-2 md:space-y-5 md:contents space-x-0 md:space-x-2">
         {submission.link && (
           <ArrowButton link={submission.link} target="__blank" customStyle={primaryButtonStyles} variant="outline-primary">
