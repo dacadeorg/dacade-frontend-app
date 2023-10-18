@@ -23,7 +23,7 @@ export function OverviewRewards(): ReactElement {
     community: (state: IRootState) => state.communities.current,
   });
   const rewards = useMemo(() => challenge?.rewards?.filter((reward) => reward.type === "SUBMISSION"), [challenge?.rewards]);
-  const totalReward = challenge?.rewards?.reduce((acc, reward) => (acc += reward.amount), 0);
+  const totalReward = challenge?.rewards?.reduce((acc, reward) => (acc += Number(reward.amount)), 0);
   const formatToken = (token: string) => {
     return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
   };
