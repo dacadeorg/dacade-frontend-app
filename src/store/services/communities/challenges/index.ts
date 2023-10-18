@@ -101,7 +101,7 @@ export const fetchAllChallenges = ({ slug }: { slug: string }) => {
  * @param {{ challengeId: string; startAfter?: string; locale?: string }} { challengeId, startAfter, locale }
  * @returns {*}
  */
-export const fetchAllSubmission = ({ challengeId, startAfter, locale }: { challengeId: string; startAfter?: string; locale?: string }) => {
+export const fetchAllSubmission = ({ challengeId, startAfter = "", locale }: { challengeId: string; startAfter?: string; locale?: string }) => {
   return challengeService.endpoints.fetchAllSubmission.initiate({ challengeId, startAfter, locale });
 };
 
