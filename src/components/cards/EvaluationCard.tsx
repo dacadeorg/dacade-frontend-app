@@ -47,7 +47,7 @@ export default function EvaluationCard({ evaluation, link = "", last, children }
       bordered={!last}
       boxLayout={false}
     >
-      <TranslationBox text={evaluation.comment} textCssClasses="text-base md:text-lg leading-normal" defaultLocale={"en"} disabled={false} textContainerCssClasses="" />
+      <TranslationBox text={evaluation.comment} textCssClasses="text-base md:text-lg leading-normal" defaultLocale="en" disabled={false} />
       {children}
     </UserCard>
   );
