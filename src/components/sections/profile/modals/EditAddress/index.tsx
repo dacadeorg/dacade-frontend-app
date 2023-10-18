@@ -232,12 +232,12 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
 
   return (
     <Modal show={show} onClose={closeModal}>
-      <div className="px-6 pt-6">
+      <div className="px-6">
         <WalletHeader wallet={wallet}>
           {showWalletConnectionMethod ? (
-            <div>
-              <p className="mb-5 text-base font-medium">{t("profile.edit.wallet.select.title")}</p>
-              <div className="overflow-hidden border border-gray-400 border-solid divide-y rounded-xl">
+            <div className="grid gap-2.5">
+              <p className="mb-2 text-base font-medium">{t("profile.edit.wallet.select.title")}</p>
+              <div className="overflow-hidden border border-gray-200 border-solid divide-y rounded-xl">
                 <WalletButton onClick={() => setWalletConnectionMethod("manual")}>{t("profile.edit.wallet.select.option.manual")}</WalletButton>
                 {requireWalletConnection && <WalletButton onClick={() => setWalletConnectionMethod("wallet")}>{t("profile.edit.wallet.select.option.connect")}</WalletButton>}
               </div>

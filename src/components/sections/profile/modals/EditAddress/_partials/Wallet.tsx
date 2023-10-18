@@ -62,7 +62,7 @@ export default function WalletButton({
   ...props
 }: WalletButtonProps): ReactElement {
   const router = useRouter();
-  const walletClassName = classNames(`py-5.5 pl-5 pr-3.5 w-full rounded-none text-gray-400 bg-transparent z-999 hover:bg-gray-100 hover:text-gray-800 ${margin}`, {
+  const walletClassName = classNames(`py-5.5 pl-5 pr-3.5 w-full rounded-none text-gray-800 bg-transparent z-999 hover:bg-gray-100 ${margin}`, {
     "rounded-full": rounded,
     "px-4": padding,
   });
