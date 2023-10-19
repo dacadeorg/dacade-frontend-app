@@ -101,7 +101,7 @@ export interface IRootState {
   invites: ReturnType<typeof invitesSlice.reducer>;
 }
 
-export const store = configureStore({
+export const makeStore = () => configureStore({
   reducer: {
     [ui.name]: ui.reducer,
     [referralSlice.name]: referralSlice.reducer,
@@ -184,4 +184,7 @@ export const store = configureStore({
   },
 });
 
-export const wrapper = createWrapper(() => store);
+export const wrapper = createWrapper(() => makeStore());
+
+// get rid of store
+export const store = makeStore();
