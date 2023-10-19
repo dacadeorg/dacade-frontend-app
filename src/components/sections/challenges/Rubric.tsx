@@ -1,11 +1,14 @@
 import Section from "@/components/sections/communities/_partials/Section";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import Checkmark from "@/icons/checkmark.svg";
-import { Rubric } from "@/types/course";
+import { Challenge, Rubric } from "@/types/course";
 import { RatingCriteria } from "@/types/course";
 import { useTranslation } from "next-i18next";
-import { ReactElement } from "react";
+import { Fragment, ReactElement } from "react";
 import Accordion from "@/components/ui/accordion/Accordion";
+import { IRootState } from "@/store";
+import { Colors } from "@/types/community";
+import Coin from "@/components/ui/Coin";
 
 /**
  * Rubic header component props interface
@@ -34,8 +37,37 @@ interface RubricHeaderProps {
  */
 export default function RubricHeader({ ratingCriteria, selected, hideTitle = false }: RubricHeaderProps): ReactElement {
   const { t } = useTranslation();
-  const colors = useSelector((state) => state.ui.colors);
+  const { challenge, colors } = useMultiSelector<unknown, { challenge: Challenge; colors: Colors }>({
+    challenge: (state: IRootState) => state.challenges.current,
+    colors: (state: IRootState) => state.ui.colors,
+  });
   const selectedRubric = (id: string) => selected?.find((rubric) => rubric.id === id);
+  const reward = challenge?.rewards?.find((reward) => reward.type === "SUBMISSION");
+
+  const translatedPassingScore = () => {
+    const passingScore = t("communities.challenge.criteria.passing.score.description", {
+      amount: reward?.amount,
+      token: reward?.token,
+      minPoints: challenge?.minPoints,
+      maxPoints: challenge?.maxPoints,
+    });
+    const coinPlaceholder = "{{coinPlaceholder}}";
+
+    const passingScoreParts = passingScore.split(coinPlaceholder);
+    return (
+      <div className="text-base font-normal text-slate-700 pt-8 md:w-99 inline-flex items-center gap-1">
+        {passingScoreParts.map((part, index) => {
+          return index === passingScoreParts.length - 1 ? (
+            <span dangerouslySetInnerHTML={{ __html: part }} key={index} />
+          ) : (
+            <Fragment key={index}>
+              <span dangerouslySetInnerHTML={{ __html: part }} /> {<Coin token={reward?.token} size="small" />}
+            </Fragment>
+          );
+        })}
+      </div>
+    );
+  };
 
   return (
     <Section>
@@ -44,7 +76,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
         isExpanded
         content={
           <>
-            <div className="text-base font-normal text-slate-700 pt-8 md:w-99">{t("communities.challenge.criteria.subtitle")}</div>
+            {translatedPassingScore()}
             <div>
               {ratingCriteria.map((criteria, i) => (
                 <div key={`rating-criteria-item-${i}`} className="mt-8">
