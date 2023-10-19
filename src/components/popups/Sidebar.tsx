@@ -67,7 +67,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
 
   const onLogout = () => {
     dispatch(logout());
-    toggleBodyScrolling(false)(dispatch);
+    dispatch(toggleBodyScrolling(false));
   };
 
   const displayInvitationPopup = () => {
@@ -77,7 +77,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
 
   const externalClick = () => {
     setshow(!show);
-    toggleBodyScrolling(false)(dispatch);
+    dispatch(toggleBodyScrolling(false));
   };
 
   const toggle = () => {
@@ -86,7 +86,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
     if (isAuthenticated && unread) {
       dispatch(readNotification());
     }
-    toggleBodyScrolling(!show)(dispatch);
+    dispatch(toggleBodyScrolling(!show));
     window.scrollTo(0, 0);
   };
 

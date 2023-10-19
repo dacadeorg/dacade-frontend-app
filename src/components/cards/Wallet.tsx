@@ -41,7 +41,7 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
   const cashable = String(wallet.token).toUpperCase() !== "DAC";
   const triggerCashout = () => {
     setShowPayoutModal(true);
-    toggleBodyScrolling(true)(dispatch);
+    dispatch(toggleBodyScrolling(true));
   };
 
   const triggerKYCVerification = () => {
@@ -62,13 +62,13 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
   const onClose = () => {
     setShowEditModal(false);
     setShowPayoutModal(false);
-    toggleBodyScrolling(false)(dispatch);
+    dispatch(toggleBodyScrolling(false));
   };
 
   const triggerEditAddress = () => {
     dispatch(setCurrentWallet(wallet));
     setShowEditModal(true);
-    toggleBodyScrolling(true)(dispatch);
+    dispatch(toggleBodyScrolling(true));
   };
 
   return (

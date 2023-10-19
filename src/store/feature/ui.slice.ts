@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 import { IRootState } from "..";
 import { Colors } from "@/types/community";
@@ -50,7 +50,8 @@ export default uiSlice;
  * Toggles the scrolling capability of the body.
  * @param {boolean} lock Whether or not to lock the body scrolling.
  */
-export const toggleBodyScrolling = (lock: boolean) => (dispatch: any) => {
+
+export const toggleBodyScrolling = createAsyncThunk("toggleBodyScrolling", async (lock: boolean, { dispatch }) => {
   const body = document.body;
   dispatch(setLocked(lock));
   if (lock) {
@@ -64,7 +65,7 @@ export const toggleBodyScrolling = (lock: boolean) => (dispatch: any) => {
   body.style.removeProperty("top");
   body.style.removeProperty("overflow-y");
   window.scrollTo(0, scrollTop);
-};
+});
 
 /**
  * Unlocks the body scrolling if it is currently locked.

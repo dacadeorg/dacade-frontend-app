@@ -53,7 +53,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
 
   const displaySubmission = useCallback(() => {
     window.history.pushState("", "", `${router.asPath}/${submission?.id}`);
-    toggleBodyScrolling(true)(dispatch);
+    dispatch(toggleBodyScrolling(true));
   }, [router, submission?.id]);
 
   const submissionFeedback = () => {
