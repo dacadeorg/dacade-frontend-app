@@ -1,20 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SubmissionView from "@/components/sections/submissions/View";
 import Section from "@/components/ui/Section";
 import Header from "@/components/sections/communities/_partials/Header";
-import { useRouter } from "next/router";
 import { findWithRelations } from "@/store/feature/communities/challenges/submissions";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import DefaultLayout from "@/components/layout/Default";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import Head from "next/head";
 import Loader from "@/components/ui/Loader";
-import useSafePush from "@/hooks/useSafePush";
-import { Submission as SubmissionType } from "@/types/bounty";
 import { wrapper } from "@/store";
 /**
  * Submission view page
@@ -23,28 +19,10 @@ import { wrapper } from "@/store";
  * @export
  * @returns
  */
-export default function Submission(props: {
-  pageProps: {
-    submission: SubmissionType;
-  };
-}) {
+export default function Submission() {
   const { t } = useTranslation();
-  const router = useRouter();
   const [loading] = useState(true);
   const course = useSelector((state) => state.courses.current);
-  const { safePush } = useSafePush();
-  const { submission } = props.pageProps;
-
-  useEffect(() => {
-    try {
-      if (submission?.community.slug && submission?.challenge.id) {
-        const redirectUrl = `/communities/${submission?.community.slug}/challenges/${submission?.challenge.id}/submissions/${submission?.id}`;
-        safePush(redirectUrl);
-      }
-    } catch (error) {
-      router.back();
-    }
-  }, [submission, router.locale]);
 
   return (
     <>
@@ -78,15 +56,18 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     query: { submission_id },
   } = data;
   try {
-    const [submissions, translations] = await Promise.all([
-      store.dispatch(findWithRelations({ id: submission_id as string, locale: locale })),
-      serverSideTranslations(locale as string),
-    ]);
+    const { payload: submission } = await store.dispatch(findWithRelations({ id: submission_id as string, locale: locale }));
+    if (submission?.community.slug && submission?.challenge.id) {
+      const redirectUrl = `/communities/${submission?.community.slug}/challenges/${submission?.challenge.id}/submissions/${submission?.id}`;
+      return {
+        redirect: {
+          destination: redirectUrl,
+          statusCode: 301,
+        },
+      };
+    }
     return {
-      props: {
-        submission: submissions.payload,
-        ...translations,
-      },
+      notFound: true,
     };
   } catch (error) {
     return {
