@@ -35,7 +35,7 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
   const { showModal, completed, completedText, description, verifying, completedActionText, actionText, loading, title } = verificationData;
 
   const closeModal = () => {
-    closeVerificationModal()(dispatch);
+    dispatch(closeVerificationModal());
   };
   const verify = () => {
     if (completed) return handleCompleted();

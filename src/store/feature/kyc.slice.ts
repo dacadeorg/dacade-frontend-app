@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, Dispatch } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { auth as firebaseAuth } from "@/config/firebase";
 import { IRootState, store } from "@/store";
 import { sleep } from "@/utilities";
@@ -36,7 +36,7 @@ const defaultState: SumsubVerificationState = {
 
 let snsWebSdkInstance: any = null;
 
-export const getSumsubToken = () => async (dispatch: Dispatch) => {
+export const getSumsubToken = () => async (dispatch: any) => {
   const user = firebaseAuth?.currentUser;
   if (user) {
     try {
@@ -59,10 +59,10 @@ export const getSumsubToken = () => async (dispatch: Dispatch) => {
  * @returns {(dispatch: any) => any}
  */
 export const openVerificationModal = (payload: any) => {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: any) => {
     const isKycVerified = store.getState().user.data?.kycStatus === "VERIFIED";
     if (isKycVerified) {
-      closeVerificationModal()(dispatch);
+      dispatch(closeVerificationModal());
       triggerCompleteAction()();
       return;
     }
@@ -77,7 +77,7 @@ export const openVerificationModal = (payload: any) => {
  *
  * @returns {(dispatch: any) => void}
  */
-export const closeVerificationModal = () => (dispatch: Dispatch) => {
+export const closeVerificationModal_ = () => (dispatch: any) => {
   dispatch(setShowModal(false));
   dispatch(setLoading(false));
   dispatch(setVerifying(false));
@@ -85,6 +85,15 @@ export const closeVerificationModal = () => (dispatch: Dispatch) => {
     snsWebSdkInstance?.destroy();
   }
 };
+
+export const closeVerificationModal = createAsyncThunk("verificationModal/close", (_, { dispatch }) => {
+  dispatch(setShowModal(false));
+  dispatch(setLoading(false));
+  dispatch(setVerifying(false));
+  if (snsWebSdkInstance) {
+    snsWebSdkInstance?.destroy();
+  }
+});
 
 export const triggerCompleteAction = () => async () => {
   const completedAction = store.getState().sumsubVerification.completedAction;
