@@ -81,7 +81,8 @@ export const unlockBodyScrolling = (dispatch: any, state: IRootState) => {
  * Toggles the visibility of the referral popup and locks/unlocks the body scrolling accordingly.
  * @param {boolean} show Whether or not to show the referral popup.
  */
-export const toggleShowReferralPopup = (show: boolean) => (dispatch: any) => {
+
+export const toggleShowReferralPopup = createAsyncThunk("referralPopup/toggle", (show: boolean, { dispatch }) => {
   dispatch(toggleBodyScrolling(show));
   dispatch(setShowReferralPopup(show));
-};
+});

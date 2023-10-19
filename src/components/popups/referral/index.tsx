@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { toggleShowReferralPopup } from "@/store/feature/ui.slice";
 import List from "./List";
@@ -10,6 +9,7 @@ import { ReactElement, useEffect, useState } from "react";
 import { IRootState } from "@/store";
 import { User } from "@/types/bounty";
 import { Referral } from "@/types/community";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  * Interface for ReferralPopup multiselector
@@ -56,7 +56,7 @@ export default function ReferralPopup(): ReactElement {
    */
   const close = () => {
     if (showReferral) {
-      toggleShowReferralPopup(false)(dispatch);
+      dispatch(toggleShowReferralPopup(false));
     }
   };
 

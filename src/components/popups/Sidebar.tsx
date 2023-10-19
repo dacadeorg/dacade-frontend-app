@@ -72,7 +72,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
 
   const displayInvitationPopup = () => {
     setshow(!show);
-    toggleShowReferralPopup(true)(dispatch);
+    dispatch(toggleShowReferralPopup(true));
   };
 
   const externalClick = () => {
