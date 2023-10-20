@@ -31,7 +31,6 @@ export default function SubmissionPage(props: { pageProps: { challenge: Challeng
   return (
     <Wrapper paths={headerPaths}>
       <div className="flex flex-col py-4 space-y-8">
-        <Header title={challenge.name} subtitle={t("communities.submission.title")} />
         <SubmissionView />
       </div>
     </Wrapper>

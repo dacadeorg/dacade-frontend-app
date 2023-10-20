@@ -52,11 +52,18 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
   };
 
   const displaySubmission = useCallback(() => {
-    window.history.pushState("", "", `${router.asPath}/${submission?.id}`);
+    window.history.pushState("", "", `/${router.locale}${router.asPath}/${submission?.id}`);
+  
     toggleBodyScrolling(true)(dispatch);
   }, [router, submission?.id]);
 
   const submissionFeedback = () => {
+    console.log("router asPath", router.asPath)
+    console.log("router locale", router.locale)
+    console.log("router locales", router.locales)
+    console.log("router basePath", router.asPath)
+    console.log("router query", router.query)
+    console.log("router pathname", router.pathname)
     displaySubmission();
     dispatch(showSubmission(submission.id));
   };
