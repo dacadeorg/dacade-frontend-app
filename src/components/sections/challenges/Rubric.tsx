@@ -45,7 +45,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
   const reward = challenge?.rewards?.find((reward) => reward.type === "SUBMISSION");
 
   const translatedPassingScore = () => {
-    const passingScore = t("communities.challenge.criteria.passing.score.description", {
+    const passingScore = t("communities.challenge.passing.score.description", {
       amount: reward?.amount,
       token: reward?.token,
       minPoints: challenge?.minPoints,
