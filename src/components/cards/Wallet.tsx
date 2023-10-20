@@ -45,13 +45,15 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
   };
 
   const triggerKYCVerification = () => {
-    openVerificationModal({
-      description: t("kyc.payout.reason"),
-      completedActionText: t("kyc.payout.button.completed"),
-      completedAction: () => {
-        triggerCashout();
-      },
-    })(dispatch);
+    dispatch(
+      openVerificationModal({
+        description: t("kyc.payout.reason"),
+        completedActionText: t("kyc.payout.button.completed"),
+        completedAction: () => {
+          triggerCashout();
+        },
+      })
+    );
   };
 
   const cashout = () => {

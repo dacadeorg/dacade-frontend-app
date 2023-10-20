@@ -58,18 +58,16 @@ export const getSumsubToken = () => async (dispatch: any) => {
  * @param {*} payload
  * @returns {(dispatch: any) => any}
  */
-export const openVerificationModal = (payload: any) => {
-  return async (dispatch: any) => {
-    const isKycVerified = store.getState().user.data?.kycStatus === "VERIFIED";
-    if (isKycVerified) {
-      dispatch(closeVerificationModal());
-      triggerCompleteAction()();
-      return;
-    }
-    dispatch(setShowModal(true));
-    dispatch(setModelContent(payload || {}));
-  };
-};
+export const openVerificationModal = createAsyncThunk("Verificationmodal/open", async (payload: any, { dispatch }) => {
+  const isKycVerified = store.getState().user.data?.kycStatus === "VERIFIED";
+  if (isKycVerified) {
+    dispatch(closeVerificationModal());
+    triggerCompleteAction()();
+    return;
+  }
+  dispatch(setShowModal(true));
+  dispatch(setModelContent(payload || {}));
+});
 
 /**
  * Close the modal
@@ -126,9 +124,8 @@ export const completeSumSubVerification = createAsyncThunk("sumsub/completeSumSu
  */
 export const launchWebSdk = createAsyncThunk("sumsub/launchWebSdk", async (_, { dispatch }) => {
   dispatch(setLoading(true));
-  await dispatch(getSumsubToken());
 
-  const accessToken = await getSumsubToken()(dispatch);
+  const accessToken = await dispatch(getSumsubToken());
 
   if (!accessToken) return;
   const user = store.getState().user.data;

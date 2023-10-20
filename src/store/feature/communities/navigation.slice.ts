@@ -109,7 +109,7 @@ export const initChallengeNavigationMenu = createAsyncThunk("challengeNavigation
  *
  * @returns {(dispatch: any) => void}
  */
-export const initCourseNavigationMenu = (navigation: any) => (dispatch: Dispatch) => {
+export const initCourseNavigationMenu = createAsyncThunk("courseNavigation/init", (navigation: any, { dispatch }) => {
   dispatch(setNavigationList([]));
   const course = store.getState().courses.current as Course;
   const community = store.getState().communities.current as Community;
@@ -118,7 +118,7 @@ export const initCourseNavigationMenu = (navigation: any) => (dispatch: Dispatch
     community,
   });
   dispatch(setNavigationList(menus));
-};
+});
 
 /**
  * Hide navigation action

@@ -9,12 +9,12 @@ import CompassIcon from "@/icons/compass.svg";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
-import { useDispatch } from "react-redux";
 import { openVerificationModal } from "@/store/feature/kyc.slice";
 import KYCVerification from "@/components/popups/KYCVerification";
 import { useDiscordConnect } from "@/hooks/useDiscordConnect";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  * interface for ProfileHeader multiSelector
@@ -58,7 +58,7 @@ export default function ProfileHeader() {
 
   const dispatch = useDispatch();
   const triggerKYCVerification = () => {
-    openVerificationModal({})(dispatch);
+    dispatch(openVerificationModal({}));
   };
 
   const { canConnectDiscord, triggerDiscordOauth } = useDiscordConnect();
@@ -76,13 +76,13 @@ export default function ProfileHeader() {
             <span className="inline-block mx-1">Discord</span>
           </div>
         )}
-       <div className="flex items-center justify-center px-2">
+        <div className="flex items-center justify-center px-2">
           <span>
             <GithubIcon />
           </span>
           <span className="mx-1">Github</span>
         </div>
-        
+
         <div className="flex items-center justify-center px-2">
           <span>
             <TimeIcon />
@@ -90,7 +90,6 @@ export default function ProfileHeader() {
           <span className="mx-1">{t("profile.header.joined")}</span>
           {joined && <span className="text-sm">{joined}</span>}
         </div>
-        
 
         {isKycVerified ? (
           <div className="flex items-center px-3">
