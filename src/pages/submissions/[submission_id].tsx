@@ -58,7 +58,9 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   try {
     const { payload: submission } = await store.dispatch(findWithRelations({ id: submission_id as string, locale: locale }));
     if (submission?.community.slug && submission?.challenge.id) {
-      const redirectUrl = `/communities/${submission?.community.slug}/challenges/${submission?.challenge.id}/submissions/${submission?.id}`;
+      const redirectUrl = `${locale && locale !== "en" ? "/" + locale : ""}/communities/${submission?.community.slug}/challenges/${submission?.challenge.id}/submissions/${
+        submission?.id
+      }`;
       return {
         redirect: {
           destination: redirectUrl,
