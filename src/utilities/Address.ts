@@ -3,7 +3,7 @@ const ethRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
 const aeRegex = new RegExp(`^(ak_)[${aeAllowedChars}]+$`);
 const nearRegex = /^([a-fA-F0-9]{5})+([a-fA-F0-9]{49})+([a-fA-F0-9]{10})$/;
 const algoRegex = /^([A-Z2-7]{6})+([A-Z2-7]{46})+([A-Z2-7]{6})$/;
-const icpRegex = /`^[a-fA-F0-9]{64}$`/;
+const icpRegex = /^[a-fA-F0-9]{64}$/;
 
 /**
  * Validates the regex pattern
@@ -111,6 +111,7 @@ export const truncateAddress = (rawAddress: string, token: string = "eth"): stri
  * @returns {Boolean}
  */
 export const validateAddress = (address?: string, token: string = "eth") => {
+  console.log("The address validation", { address, token, icpRegex });
   if (!address) return false;
 
   const trimmedAddress = address.trim();
