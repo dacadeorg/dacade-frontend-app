@@ -50,26 +50,18 @@ Submission.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async (data) => {
-  const {
-    locale,
-    query: { submission_id },
-  } = data;
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ locale, query: { submission_id } }) => {
   try {
     const { payload: submission } = await store.dispatch(findWithRelations({ id: submission_id as string, locale: locale }));
-    if (submission?.community.slug && submission?.challenge.id) {
-      const redirectUrl = `${locale && locale !== "en" ? "/" + locale : ""}/communities/${submission?.community.slug}/challenges/${submission?.challenge.id}/submissions/${
-        submission?.id
-      }`;
-      return {
-        redirect: {
-          destination: redirectUrl,
-          statusCode: 301,
-        },
-      };
-    }
+    if (!submission?.community.slug || !submission?.challenge.id) throw new Error("Submission not found");
+    const redirectUrl = `${locale && locale !== "en" ? "/" + locale : ""}/communities/${submission?.community.slug}/challenges/${submission?.challenge.id}/submissions/${
+      submission?.id
+    }`;
     return {
-      notFound: true,
+      redirect: {
+        destination: redirectUrl,
+        statusCode: 301,
+      },
     };
   } catch (error) {
     return {
