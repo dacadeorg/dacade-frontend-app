@@ -43,7 +43,7 @@ export default function BountiesPage(): ReactElement {
   useEffect(() => {
     (async () => {
       await dispatch(await fetchAllBounties());
-      findBountiesBySlug(router.query.slug as string)(dispatch);
+      dispatch(findBountiesBySlug(router.query.slug as string));
     })();
   }, [dispatch, router.query.slug]);
 

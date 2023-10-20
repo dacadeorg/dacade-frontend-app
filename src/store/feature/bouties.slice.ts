@@ -1,5 +1,5 @@
 import { Bounty } from "@/types/bounty";
-import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { store } from "..";
 
 interface InitialState {
@@ -40,10 +40,10 @@ export const { setBountiesList, setFilteredBountiesList } = bountiesSlice.action
  * @param {string} slug
  * @returns {(dispatch: Dispatch) => void}
  */
-export const findBountiesBySlug = (slug: string) => async (dispatch: Dispatch) => {
+export const findBountiesBySlug = createAsyncThunk("bounties/findBySlug", (slug: string, { dispatch }) => {
   const allBounties = store.getState().bounties.bountiesList;
   const filteredBounties = allBounties.filter((bounty) => bounty.slug === slug);
   dispatch(setFilteredBountiesList(filteredBounties));
-};
+});
 
 export default bountiesSlice;

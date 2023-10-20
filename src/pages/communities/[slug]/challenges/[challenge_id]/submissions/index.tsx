@@ -48,7 +48,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
   }, [dispatch, router]);
 
   useEffect(() => {
-    initChallengeNavigationMenu(navigation.community)(dispatch);
+    dispatch(initChallengeNavigationMenu(navigation.community));
   }, [navigation.community, dispatch]);
 
   // Temporary fix for links copied which have submission_id as a query parameter

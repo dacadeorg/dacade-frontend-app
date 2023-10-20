@@ -93,7 +93,7 @@ export const learningModulePath = (link: string, router: NextRouter) => {
  *
  * @returns {(dispatch: any) => void}
  */
-export const initChallengeNavigationMenu = (navigation: any) => (dispatch: Dispatch) => {
+export const initChallengeNavigationMenu = createAsyncThunk("challengeNavigationMenu/initiate", (navigation: any, { dispatch }) => {
   const challenge = store.getState().challenges.current as Challenge;
   const community = store.getState().communities.current as Community;
   const menus: List[] = navigation.initForChallenge({
@@ -101,7 +101,7 @@ export const initChallengeNavigationMenu = (navigation: any) => (dispatch: Dispa
     community,
   });
   dispatch(setNavigationList(menus));
-};
+});
 
 /**
  * Init action
