@@ -81,10 +81,10 @@ export default function InteractiveModule({ data }: interactiveModuleProps): Rea
 
   useEffect(() => {
     setLoading(true);
-    hidePageNavigation()(dispatch);
+    dispatch(hidePageNavigation());
     checkIfAnswered();
     return () => {
-      showPageNavigation()(dispatch);
+      dispatch(showPageNavigation());
     };
   }, [checkIfAnswered, dispatch]);
 
@@ -96,7 +96,7 @@ export default function InteractiveModule({ data }: interactiveModuleProps): Rea
 
   const completed = () => {
     setEnded(true);
-    showPageNavigation()(dispatch);
+    dispatch(showPageNavigation());
     if (!isLoggedIn) return;
     dispatch(submitModuleAnswer({ ref: data.ref, course: course?.ref || "" }));
   };

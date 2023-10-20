@@ -1,4 +1,4 @@
-import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import { NextRouter } from "next/router";
 import { store } from "@/store";
 import { Challenge, Course } from "@/types/course";
@@ -127,9 +127,9 @@ export const initCourseNavigationMenu = (navigation: any) => (dispatch: Dispatch
  * @returns {(dispatch: Dispatch) => void}
  */
 
-export const hidePageNavigation = () => (dispatch: Dispatch) => {
+export const hidePageNavigation = createAsyncThunk("pageNagivation/hide", (_, { dispatch }) => {
   dispatch(setShowPageNavigation(false));
-};
+});
 
 /**
  * Show navigation action
@@ -138,9 +138,9 @@ export const hidePageNavigation = () => (dispatch: Dispatch) => {
  * @returns {(dispatch: Dispatch) => void}
  */
 
-export const showPageNavigation = () => (dispatch: Dispatch) => {
+export const showPageNavigation = createAsyncThunk("pageNavigation/show", (_, { dispatch }) => {
   dispatch(setShowPageNavigation(true));
-};
+});
 
 /**
  * Updates the navigation menu with the contents of a Markdown string.
