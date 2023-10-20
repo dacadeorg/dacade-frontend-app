@@ -111,7 +111,6 @@ export const truncateAddress = (rawAddress: string, token: string = "eth"): stri
  * @returns {Boolean}
  */
 export const validateAddress = (address?: string, token: string = "eth") => {
-  console.log("The address validation", { address, token, icpRegex });
   if (!address) return false;
 
   const trimmedAddress = address.trim();
