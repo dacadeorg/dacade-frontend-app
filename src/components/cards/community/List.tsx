@@ -7,6 +7,8 @@ import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+
 
 /**
  * Interface for CommunityListCard component props
@@ -37,6 +39,10 @@ export default function CommunityListCard({ community }: CommunityListCardProps)
   const reward = useMemo(() => {
     return community.rewards.find((reward) => reward.type === "SUBMISSION");
   }, [community.rewards]);
+
+  useEffect(() => {
+     console.log("community", community)
+  }, []);
 
   return (
     <ThemeWrapper className="w-full" colors={community.colors}>

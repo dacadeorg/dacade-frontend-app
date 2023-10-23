@@ -8,6 +8,7 @@ import DAIIcon from "@/icons/tokens/DAI.svg";
 import NEARIcon from "@/icons/tokens/NEAR.svg";
 import USDCIcon from "@/icons/tokens/USDC.svg";
 import NFTIcon from "@/icons/tokens/NFT.svg";
+import ICPcon from "@/icons/tokens/ICP.svg";
 
 /**
  * Interface for the coin props
@@ -49,6 +50,12 @@ const coins = [
     token: "DAC",
     icon: <DACIcon />,
     bgColor: "#FBBF24",
+    textColor: "#FFFFFF",
+  },
+  {
+    token: "ICP",
+    icon: <ICPcon />,
+    bgColor: "#FBB03B",
     textColor: "#FFFFFF",
   },
   {
