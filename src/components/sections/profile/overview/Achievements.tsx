@@ -2,6 +2,7 @@ import ProfileOverviewSection from "@/components/sections/profile/overview/Secti
 import AchievementCard from "@/components/cards/Achievement";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { ReactElement } from "react";
+import Plus from "@/icons/plus.svg";
 
 /**
  * profile- Achievents component
@@ -21,6 +22,12 @@ export default function ProfileOverviewAchievements(): ReactElement {
             <AchievementCard key={`profile-achievement-${index}`} data={achievement} />
           ))}
         </div>
+        <a className="text-primary pt-4 flex items-center gap-4 cursor-pointer">
+        {" "}
+        <Plus />
+        <span>See all</span>
+        
+      </a>
       </ProfileOverviewSection>
     );
   return <></>;
