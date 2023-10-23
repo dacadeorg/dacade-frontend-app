@@ -92,8 +92,7 @@ export default function Submission(): ReactElement {
    * @returns {*}
    */
   const onSubmit = async (form: FormValues) => {
-    const isValid = form.text.length > 0 && form.githubLink.length > 0;
-
+    const isValid = challenge?.format.githubLink ? form.text.length > 0 && form.githubLink.length > 0 : form.text.length > 0;
     if (isValid) {
       if (submitting) return;
       try {
