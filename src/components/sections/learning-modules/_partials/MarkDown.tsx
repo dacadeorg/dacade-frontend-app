@@ -60,7 +60,7 @@ export default function Markdown({ url }: MarkDownProps): ReactElement {
   }, [url]);
 
   useEffect(() => {
-    updateNavigationMarkdownMenu()(content, route, dispatch);
+    dispatch(updateNavigationMarkdownMenu({ markdown: content, route }));
   }, [content, dispatch, route, url]);
 
   useEffect(() => {

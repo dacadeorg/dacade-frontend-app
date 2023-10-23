@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { NextRouter } from "next/router";
-import { store } from "@/store";
+import { IRootState } from "@/store";
 import { Challenge, Course } from "@/types/course";
 import { Community } from "@/types/community";
 import { List } from "@/utilities/CommunityNavigation";
@@ -93,9 +93,11 @@ export const learningModulePath = (link: string, router: NextRouter) => {
  *
  * @returns {(dispatch: any) => void}
  */
-export const initChallengeNavigationMenu = createAsyncThunk("challengeNavigationMenu/initiate", (navigation: any, { dispatch }) => {
-  const challenge = store.getState().challenges.current as Challenge;
-  const community = store.getState().communities.current as Community;
+export const initChallengeNavigationMenu = createAsyncThunk("challengeNavigationMenu/initiate", (navigation: any, { dispatch, getState }) => {
+  const state = getState() as IRootState;
+
+  const challenge = state.challenges.current as Challenge;
+  const community = state.communities.current as Community;
   const menus: List[] = navigation.initForChallenge({
     challenge,
     community,
@@ -109,10 +111,12 @@ export const initChallengeNavigationMenu = createAsyncThunk("challengeNavigation
  *
  * @returns {(dispatch: any) => void}
  */
-export const initCourseNavigationMenu = createAsyncThunk("courseNavigation/init", (navigation: any, { dispatch }) => {
+export const initCourseNavigationMenu = createAsyncThunk("courseNavigation/init", (navigation: any, { dispatch, getState }) => {
   dispatch(setNavigationList([]));
-  const course = store.getState().courses.current as Course;
-  const community = store.getState().communities.current as Community;
+  const state = getState() as IRootState;
+
+  const course = state.courses.current as Course;
+  const community = state.communities.current as Community;
   const menus: List[] = navigation.init({
     course,
     community,
@@ -153,86 +157,90 @@ export const showPageNavigation = createAsyncThunk("pageNavigation/show", (_, { 
  *
  * @date 4/25/2023 - 7:49:47 PM
  */
-export const updateNavigationMarkdownMenu = () => (markdown: string, route: NextRouter, dispatch: Dispatch) => {
-  // Get the current menus state
-  const menus = store.getState().navigation.menus;
+export const updateNavigationMarkdownMenu = createAsyncThunk(
+  "navigationmarkDownMenu/update",
+  ({ markdown, route }: { markdown: string; route: NextRouter }, { getState, dispatch }) => {
+    // Get the current menus state
+    const store = getState() as IRootState;
+    const menus = store.navigation.menus;
 
-  /**
-   * Markdown processor uses remark-extract-toc library to extract all the headlines
-   * @date 4/25/2023 - 7:49:47 PM
-   *
-   * @type {*}
-   */
-  const processor = unified().use(remarkParse).use(extractToc);
-
-  /**
-   * The parsed AST (abstract syntax tree) of the Markdown string.
-   *
-   * @type {Root}
-   *
-   * @date 4/25/2023 - 7:51:22 PM
-   */
-  const node = processor.parse(markdown);
-
-  /**
-   * The tree structure representing the extracted headlines.
-   * Casting with any because processor.runSync has not arrays methods type infered.
-   * @type {any[]}
-   */
-  const tree = processor.runSync(node) as any;
-  /**
-   * A deep clone of the current navigation menu state.
-   *
-   * @type {Items[]}
-   */
-  const data: Items[] = cloneDeep(menus);
-
-  /**
-   * A slugger instance to generate unique slugs for the headlines.
-   *
-   * @type {Slugger}
-   */
-  const slugger: Slugger = new Slugger();
-
-  /**
-   * The updated navigation menu list.
-   *
-   * @type {Items[]}
-   */
-  const list: Items[] = data.map((menu) => {
-    if (menu.id !== "learning-modules") {
-      return menu;
-    }
     /**
-     * Filters the learning modules menu and replaces the subitems with the extracted headlines.
+     * Markdown processor uses remark-extract-toc library to extract all the headlines
+     * @date 4/25/2023 - 7:49:47 PM
      *
-     * @param {Menu} menu - The menu object to update.
-     *
-     * @returns {Menu} The updated menu object.
+     * @type {*}
      */
-    menu.items = menu.items.map((item) => {
-      if (item.id !== route.query.id) {
-        return item;
-      }
-      slugger.reset();
-      item.subitems = tree.map((el: { value: string }) => {
-        return {
-          label: String(el.value).replace(/^\d+\.+\d\s*/, ""),
-          link: `${slugger.slug(el.value)}`,
-          exact: false,
-        };
-      });
-      return item;
-    });
-    return menu;
-  });
+    const processor = unified().use(remarkParse).use(extractToc);
 
-  /**
-   * Updates the Redux store with the new navigation menu state.
-   *
-   * @param {Menu[]} list - The new list of menus.
-   *
-   * @returns {void}
-   */
-  dispatch(setNavigationList(list));
-};
+    /**
+     * The parsed AST (abstract syntax tree) of the Markdown string.
+     *
+     * @type {Root}
+     *
+     * @date 4/25/2023 - 7:51:22 PM
+     */
+    const node = processor.parse(markdown);
+
+    /**
+     * The tree structure representing the extracted headlines.
+     * Casting with any because processor.runSync has not arrays methods type infered.
+     * @type {any[]}
+     */
+    const tree = processor.runSync(node) as any;
+    /**
+     * A deep clone of the current navigation menu state.
+     *
+     * @type {Items[]}
+     */
+    const data: Items[] = cloneDeep(menus);
+
+    /**
+     * A slugger instance to generate unique slugs for the headlines.
+     *
+     * @type {Slugger}
+     */
+    const slugger: Slugger = new Slugger();
+
+    /**
+     * The updated navigation menu list.
+     *
+     * @type {Items[]}
+     */
+    const list: Items[] = data.map((menu) => {
+      if (menu.id !== "learning-modules") {
+        return menu;
+      }
+      /**
+       * Filters the learning modules menu and replaces the subitems with the extracted headlines.
+       *
+       * @param {Menu} menu - The menu object to update.
+       *
+       * @returns {Menu} The updated menu object.
+       */
+      menu.items = menu.items.map((item) => {
+        if (item.id !== route.query.id) {
+          return item;
+        }
+        slugger.reset();
+        item.subitems = tree.map((el: { value: string }) => {
+          return {
+            label: String(el.value).replace(/^\d+\.+\d\s*/, ""),
+            link: `${slugger.slug(el.value)}`,
+            exact: false,
+          };
+        });
+        return item;
+      });
+      return menu;
+    });
+
+    /**
+     * Updates the Redux store with the new navigation menu state.
+     *
+     * @param {Menu[]} list - The new list of menus.
+     *
+     * @returns {void}
+     */
+    dispatch(setNavigationList(list));
+  }
+);
