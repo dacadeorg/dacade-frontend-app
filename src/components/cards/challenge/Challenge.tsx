@@ -28,7 +28,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
   const link = `/communities/${community.slug}/challenges/${data.id}`;
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
   const reward = isCourseEnd ? data?.rewards?.find((reward) => reward.type === "SUBMISSION") : data?.reward;
-  const totalReward = data?.rewards?.reduce((acc, reward) => (acc += reward.amount), 0);
+  const totalReward = data?.rewards?.reduce((acc, reward) => (acc += Number(reward.amount)), 0);
 
   return (
     <div className="border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">
