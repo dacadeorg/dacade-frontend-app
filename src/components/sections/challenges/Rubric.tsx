@@ -52,20 +52,27 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
       maxPoints: challenge?.maxPoints,
     });
     const coinPlaceholder = "{{coinPlaceholder}}";
-
     const passingScoreParts = passingScore.split(coinPlaceholder);
+
     return (
-      <div className="text-base font-normal text-slate-700 pt-8 md:w-99 inline-flex items-center gap-1">
-        {passingScoreParts.map((part, index) => {
-          return index === passingScoreParts.length - 1 ? (
-            <span dangerouslySetInnerHTML={{ __html: part }} key={index} />
-          ) : (
-            <Fragment key={index}>
-              <span dangerouslySetInnerHTML={{ __html: part }} /> {<Coin token={reward?.token} size="small" />}
-            </Fragment>
-          );
-        })}
-      </div>
+      <>
+        <div className="text-base font-normal text-slate-700 pt-8 md:w-99 inline-flex flex-wrap items-center gap-1">
+          {passingScoreParts.map((part, index) => {
+            if (index === passingScoreParts.length - 1) {
+              return part.split(" ").map((word, index) => <span key={index} dangerouslySetInnerHTML={{ __html: word }} />);
+            } else {
+              return (
+                <Fragment key={index}>
+                  {part.split(" ").map((word, index) => (
+                    <span key={index} dangerouslySetInnerHTML={{ __html: word }} />
+                  ))}
+                  {<Coin token={reward?.token} size="small" className="!-mr-1 md:!-mr-1 -ml-1" />}
+                </Fragment>
+              );
+            }
+          })}
+        </div>
+      </>
     );
   };
 

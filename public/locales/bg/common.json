@@ -127,7 +127,7 @@
   "communities.challenge.criteria.title": "Rating Rubric",
   "communities.challenge.criteria.subtitle": "Следните учебни материали ще ви дадат необходимата техническа експертиза, за да се справите успешно с предизвикателството.",
   "communities.challenge.criteria.points": "Points",
-  "communities.challenge.passing.score.description": "За да спечелите {{coinPlaceholder}} <strong> {{amount}} {{token}}</strong>, трябва да получите поне <strong>{{minPoints}}</strong> от <strong>{{maxPoints}}</strong> точки в този предизвикателство",
+  "communities.challenge.passing.score.description": "За да спечелите {{coinPlaceholder}} <strong>{{amount}}</strong> <strong>{{token}}</strong>, трябва да получите поне <strong>{{minPoints}}</strong> от <strong>{{maxPoints}}</strong> точки в този предизвикателство.",
   "communities.challenge.submission": "заявка",
   "communities.challenge.submit": "Изпращане",
   "communities.challenge.feedback": "обратна връзка",

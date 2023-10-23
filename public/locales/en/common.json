@@ -128,7 +128,7 @@
   "communities.challenge.criteria.title": "Rating Rubric",
   "communities.challenge.criteria.subtitle": "The following learning materials will equip you with the technical expertise required to successfully address the challenge.",
   "communities.challenge.criteria.points": "Points",
-  "communities.challenge.passing.score.description": "In order to earn {{coinPlaceholder}} <strong> {{amount}} {{token}}</strong> you must get at least <strong>{{minPoints}}</strong> out of <strong>{{maxPoints}}</strong> Points in this challenge.",
+  "communities.challenge.passing.score.description": "In order to earn {{coinPlaceholder}} <strong>{{amount}}</strong> <strong>{{token}}</strong> you must get at least <strong>{{minPoints}}</strong> out of <strong>{{maxPoints}}</strong> Points in this challenge.",
   "communities.challenge.submission": "Submission",
   "communities.challenge.submit": "Submit",
   "communities.challenge.feedback": "Feedback",

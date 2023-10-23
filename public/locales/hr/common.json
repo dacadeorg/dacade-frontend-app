@@ -115,7 +115,7 @@
   "communities.overview.challenge.title": "Već ste spremni ispuniti izazov?",
   "communities.challenge.criteria.subtitle": "Sljedeći materijali za učenje opremit će vas tehničkom stručnošću potrebnom za uspješno rješavanje izazova.",
   "communities.challenge.criteria.points": "bodova",
-  "communities.challenge.passing.score.description": "U svrhu zarade {{coinPlaceholder}} <strong> {{amount}} {{token}}</strong>-ova morate osvojiti barem <strong>{{minPoints}}</strong> od <strong>{{maxPoints}}</strong> bodova u ovom izazovu.",
+  "communities.challenge.passing.score.description": "U svrhu zarade {{coinPlaceholder}} <strong>{{amount}}</strong> <strong>{{token}}</strong>-ova morate osvojiti barem <strong>{{minPoints}}</strong> od <strong>{{maxPoints}}</strong> bodova u ovom izazovu.",
   "communities.challenge.submission": "predaji zadatka",
   "communities.challenge.submit": "podnijeti",
   "communities.challenge.feedback": "povratnoj informaciji",
