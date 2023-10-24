@@ -76,14 +76,6 @@ export const openVerificationModal = createAsyncThunk("Verificationmodal/open", 
  *
  * @returns {(dispatch: any) => void}
  */
-export const closeVerificationModal_ = () => (dispatch: any) => {
-  dispatch(setShowModal(false));
-  dispatch(setLoading(false));
-  dispatch(setVerifying(false));
-  if (snsWebSdkInstance) {
-    snsWebSdkInstance?.destroy();
-  }
-};
 
 export const closeVerificationModal = createAsyncThunk("verificationModal/close", (_, { dispatch }) => {
   dispatch(setShowModal(false));
@@ -128,9 +120,9 @@ export const launchWebSdk = createAsyncThunk("sumsub/launchWebSdk", async (_, { 
   dispatch(setLoading(true));
 
   const accessToken = await dispatch(getSumsubToken());
-  const state = getState() as IRootState;
 
   if (!accessToken) return;
+  const state = getState() as IRootState;
   const user = state.user.data;
 
   snsWebSdkInstance = snsWebSdk

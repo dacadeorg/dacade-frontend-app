@@ -1,3 +1,4 @@
+import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { toggleShowReferralPopup } from "@/store/feature/ui.slice";
 import List from "./List";
@@ -9,7 +10,6 @@ import { ReactElement, useEffect, useState } from "react";
 import { IRootState } from "@/store";
 import { User } from "@/types/bounty";
 import { Referral } from "@/types/community";
-import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  * Interface for ReferralPopup multiselector

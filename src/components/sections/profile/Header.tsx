@@ -9,12 +9,12 @@ import CompassIcon from "@/icons/compass.svg";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 import { openVerificationModal } from "@/store/feature/kyc.slice";
 import KYCVerification from "@/components/popups/KYCVerification";
 import { useDiscordConnect } from "@/hooks/useDiscordConnect";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
-import { useDispatch } from "@/hooks/useTypedDispatch";
 
 /**
  * interface for ProfileHeader multiSelector
@@ -82,7 +82,6 @@ export default function ProfileHeader() {
           </span>
           <span className="mx-1">Github</span>
         </div>
-
         <div className="flex items-center justify-center px-2">
           <span>
             <TimeIcon />

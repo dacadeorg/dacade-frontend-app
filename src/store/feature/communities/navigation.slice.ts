@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { NextRouter } from "next/router";
 import { IRootState } from "@/store";
 import { Challenge, Course } from "@/types/course";

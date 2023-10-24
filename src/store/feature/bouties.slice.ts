@@ -1,5 +1,5 @@
 import { Bounty } from "@/types/bounty";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { IRootState } from "..";
 
 interface InitialState {
