@@ -40,10 +40,6 @@ export default function CommunityListCard({ community }: CommunityListCardProps)
     return community.rewards.find((reward) => reward.type === "SUBMISSION");
   }, [community.rewards]);
 
-  useEffect(() => {
-     console.log("community", community)
-  }, []);
-
   return (
     <ThemeWrapper className="w-full" colors={community.colors}>
       <div onClick={() => router.push(path)} className="cursor-pointer">
