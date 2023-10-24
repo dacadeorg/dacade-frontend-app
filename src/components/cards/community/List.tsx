@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 
 /**
