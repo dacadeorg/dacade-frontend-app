@@ -65,11 +65,11 @@ export default function UserCard({ boxLayout, link, bordered, expanded, user, ba
     setProfileURL(`/profile/${user?.username}`);
   }, [timestamp, user, locale]);
 
-  const isSelectionOrClick = () => {
+  const handleClick = () => {
     if (!onClick) return;
     if (window) {
       const selection = window.getSelection();
-      selection?.type === "Caret" && onClick();
+      selection?.type === "Caret" && onClick(); //whereas With the selection you get "Range"
     } else onClick();
   };
   const userCardClassName = classNames(`group relative ${className}`, {
@@ -78,7 +78,7 @@ export default function UserCard({ boxLayout, link, bordered, expanded, user, ba
     "cursor-pointer": link,
   });
   return (
-    <div className={userCardClassName} onClick={isSelectionOrClick}>
+    <div className={userCardClassName} onClick={handleClick}>
       <div className={`z-10 ${boxLayout ? "relative flex-none" : "absolute top-0 left-0"}`}>
         {teamMembers && teamMembers?.length ? (
           <div className="w-15 h-15 rounded-full bg-gray-800 overflow-hidden grid grid-cols-2 items-between">
