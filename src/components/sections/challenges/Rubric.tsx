@@ -51,8 +51,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
       minPoints: challenge?.minPoints,
       maxPoints: challenge?.maxPoints,
     });
-    const coinPlaceholder = "{{coinPlaceholder}}";
-    const passingScoreParts = passingScore.split(coinPlaceholder);
+    const passingScoreParts = passingScore.split("{{coinPlaceholder}}");
 
     return (
       <>
