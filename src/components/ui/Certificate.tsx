@@ -49,7 +49,7 @@ const certificates = [
     icon: <EthIcon />,
   },
   {
-    name: "intro-to-blockchain",
+    name: "blockchain",
     icon: <BlockChainIcon />,
   },
   {
