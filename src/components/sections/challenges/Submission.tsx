@@ -97,8 +97,7 @@ export default function Submission(): ReactElement {
    * @returns {*}
    */
   const onSubmit = async (form: FormValues) => {
-    const isSubmissionValid = isValid(form, challenge);
-    if (!isSubmissionValid || submitting) return;
+    if (!isValid(form, challenge) || submitting) return;
     try {
       setSubmitting(true);
       const result = await dispatch(
