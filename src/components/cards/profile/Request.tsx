@@ -3,6 +3,7 @@ import Avatar from "@/components/ui/Avatar";
 import { ReactElement } from "react";
 import { useRouter } from "next/router";
 import Right from "@/icons/angle-right.svg";
+import Link from "next/link";
 
 /**
  * Request component
@@ -21,8 +22,8 @@ export default function Request(): ReactElement {
   };
 
   return (
-    <div className="flex items-center justify-between text-sm ">
-      <div className={`relative flex text-gray-500 items-center divide-x divide-solid ${referrals && referrals.length ? "" : "hidden"}`}>
+    <div className="md:flex items-center justify-between text-sm ">
+      <div className={`relative md:flex text-gray-500 items-center md:divide-x divide-solid ${referrals && referrals.length ? "" : "hidden"}`}>
         <div className="flex pr-3 items-center">
           <div className="cursor-pointer" onClick={onClick}>
             {previewList?.map((referral, index) => (
@@ -34,13 +35,13 @@ export default function Request(): ReactElement {
           </div>
         </div>
 
-        <div className="pl-4">4 Pending invitations</div>
+        <div className="md:pl-4 py-4 md:py-0">4 Pending invitations</div>
       </div>
-      <a className="text-primary flex items-center justify-between gap-4 cursor-pointer">
+      <Link href={`/profile/referrals`} className="text-primary flex items-center justify-between gap-4 cursor-pointer">
         {" "}
         <span>See all</span>
         <Right />
-      </a>
+      </Link>
     </div>
   );
 }
