@@ -52,7 +52,8 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
   };
 
   const displaySubmission = useCallback(() => {
-    window.history.pushState("", "", `${router.asPath}/${submission?.id}`);
+    window.history.pushState("", "", `/${router.locale}${router.asPath}/${submission?.id}`);
+  
     toggleBodyScrolling(true)(dispatch);
   }, [router, submission?.id]);
 
