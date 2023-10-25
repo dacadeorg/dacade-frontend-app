@@ -12,6 +12,7 @@ import { HYDRATE } from "next-redux-wrapper";
  */
 interface State {
   list: Scoreboard[];
+  filteredList?: Scoreboard[];
   loading: boolean;
   filterBy: string;
 }
@@ -41,6 +42,9 @@ const scoreboardSlice = createSlice({
     setScoreboardList: (state, action) => {
       state.list = action.payload;
     },
+    setScoreboardFilteredList: (state, action) => {
+      state.list = action.payload;
+    },
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
@@ -58,7 +62,7 @@ const scoreboardSlice = createSlice({
   },
 });
 
-export const { setScoreboardList, setLoading, setFilterBy } = scoreboardSlice.actions;
+export const { setScoreboardList, setScoreboardFilteredList, setLoading, setFilterBy } = scoreboardSlice.actions;
 
 interface SortScoreboardsArgs {
   sortBy: string;
@@ -77,6 +81,7 @@ export const sortScoreboards = ({ sortBy, list }: SortScoreboardsArgs): Scoreboa
 };
 
 export const selectList = (state: IRootState) => state.scoreboard.list;
+export const selectFilteredList = (state: IRootState) => state.scoreboard.filteredList;
 export const selectLoading = (state: IRootState) => state.scoreboard.loading;
 
 export default scoreboardSlice;

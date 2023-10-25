@@ -33,13 +33,15 @@ export default function List(): ReactElement {
     }
     try {
       setLoading(true);
-      const { data } = await dispatch(
+      await dispatch(
         fetchAllSubmission({
           startAfter: submissionId as string,
           challengeId: router.query.challenge_id as string,
         })
       );
-      if (!data?.length) setShowButton(false);
+
+      // #TODO: Move the function above to the slice or something because we won't be able to fetch more submissions
+      if (4 < 5) setShowButton(false);
       setPage(page + 1);
     } catch (error) {
       console.error(error);

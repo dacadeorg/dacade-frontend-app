@@ -1,7 +1,7 @@
 import api from "@/config/api";
 import { Feedback } from "@/types/feedback";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { setSubmission } from ".";
+// import { setSubmission } from ".";
 
 /**
  * Feedback state interface
@@ -41,7 +41,8 @@ export const createFeedback = createAsyncThunk(
       text,
       link,
     });
-    dispatch(setSubmission(data));
+    // #TODO: I think this should not dispatch this data to the submissions.submission state
+    dispatch(setCurrent(data));
     return data;
   }
 );

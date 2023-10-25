@@ -34,6 +34,7 @@ interface SubmissionMultiSelector {
   community: Community | null;
   team: Team;
   authUser: User | null;
+  submissionFromState: TSubmission;
 }
 
 interface FormValues {
@@ -64,12 +65,13 @@ export default function Submission(): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const { colors, challenge, community, team, authUser } = useMultiSelector<unknown, SubmissionMultiSelector>({
+  const { colors, challenge, community, team, authUser, submissionFromState } = useMultiSelector<unknown, SubmissionMultiSelector>({
     colors: (state: IRootState) => state.ui.colors,
     challenge: (state: IRootState) => state.challenges.current,
     community: (state: IRootState) => state.communities.current,
     team: (state: IRootState) => state.teams.current,
     authUser: (state: IRootState) => state.user.data,
+    submissionFromState: (state: IRootState) => state.submissions.submission,
   });
 
   const [submitting, setSubmitting] = useState(false);
@@ -100,7 +102,8 @@ export default function Submission(): ReactElement {
     if (!isValid(form, challenge) || submitting) return;
     try {
       setSubmitting(true);
-      const result = await dispatch(
+      // const result = await dispatch(
+      await dispatch(
         challenge?.isTeamChallenge
           ? createSubmissionTeam({
               challengeId: challenge?.id,
@@ -114,7 +117,7 @@ export default function Submission(): ReactElement {
             })
       );
 
-      const submission = result.payload as TSubmission;
+      const submission = submissionFromState;
 
       dispatch(
         createEvent({

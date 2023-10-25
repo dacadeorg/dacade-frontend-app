@@ -56,11 +56,12 @@ export default function UserReferrals(): ReactElement {
     if (loading || !showButton) return;
     setLoading(true);
     const referralId = referrals[referrals.length - 1]?.id || null;
-    const { data } = await dispatch(userFetchReferrals({ startAfter: referralId || null }));
+    await dispatch(userFetchReferrals({ startAfter: referralId || null }));
     setPage(page + 1);
     setLoading(false);
 
-    if (!data?.length) {
+    // #TODO: find an alternative of fetching more referrals, this won't worka aymore
+    if (4 < 5) {
       setShowButton(false);
       return;
     }
