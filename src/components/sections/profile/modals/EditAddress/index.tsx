@@ -12,7 +12,7 @@ import { useTranslation } from "next-i18next";
 import { CustomError } from "@/types/error";
 import { fetchAllWallets, updateWallet } from "@/store/services/wallets.service";
 import { Wallet } from "@/types/wallet";
-import { connectWallet, disconnectWallet, getSignature } from "@/store/feature/wallet.slice";
+import { connectWallet, disconnectWallet } from "@/store/feature/wallet.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { IRootState } from "@/store";
 import { clearCurrentWallet } from "@/store/feature/user/wallets.slice";
@@ -144,16 +144,12 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
         setError({ name: "Failed validation", message: "Message", details: { message: "address does not match any of the allowed types" } });
         return;
       }
-      const signature = await getSignature();
-      if (signature) {
-        await dispatch(
-          updateWallet({
-            id: wallets?.id,
-            address: address || newAddress,
-            signature,
-          })
-        );
-      } else setError({ name: "Failed validation", message: "Message", details: { message: "Failed to get the signature" } });
+      await dispatch(
+        updateWallet({
+          id: wallets?.id,
+          address: address || newAddress,
+        })
+      );
 
       await dispatch(fetchAllWallets());
       closeModal();
