@@ -47,6 +47,11 @@ interface FormValues {
  *
  * @returns {ReactElement}
  */
+
+const isValid = (form: FormValues, challenge: Challenge | null) => {
+  return challenge?.format.githubLink ? form.text.length > 0 && form.githubLink.length > 0 : form.text.length > 0;
+};
+
 export default function Submission(): ReactElement {
   const {
     watch,
@@ -92,45 +97,41 @@ export default function Submission(): ReactElement {
    * @returns {*}
    */
   const onSubmit = async (form: FormValues) => {
-    const isValid = form.text.length > 0 && form.githubLink.length > 0;
+    if (!isValid(form, challenge) || submitting) return;
+    try {
+      setSubmitting(true);
+      const result = await dispatch(
+        challenge?.isTeamChallenge
+          ? createSubmissionTeam({
+              challengeId: challenge?.id,
+              text: form.text,
+              link: form.githubLink,
+            })
+          : createSubmission({
+              challengeId: challenge?.id,
+              text: form.text,
+              link: form.githubLink,
+            })
+      );
 
-    if (isValid) {
-      if (submitting) return;
-      try {
-        setSubmitting(true);
-        const result = await dispatch(
-          challenge?.isTeamChallenge
-            ? createSubmissionTeam({
-                challengeId: challenge?.id,
-                text: form.text,
-                link: form.githubLink,
-              })
-            : createSubmission({
-                challengeId: challenge?.id,
-                text: form.text,
-                link: form.githubLink,
-              })
-        );
+      const submission = result.payload as TSubmission;
 
-        const submission = result.payload as TSubmission;
-
-        dispatch(
-          createEvent({
-            name: "submission-created",
-            attributes: {
-              submissionId: submission.id,
-              community: community?.slug,
-            },
-          })
-        );
-        textValue = "";
-        githubLinkValue = "";
-        dispatch(fetchChallengeAuthenticated({ id: challenge?.id as string }));
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setSubmitting(false);
-      }
+      dispatch(
+        createEvent({
+          name: "submission-created",
+          attributes: {
+            submissionId: submission.id,
+            community: community?.slug,
+          },
+        })
+      );
+      textValue = "";
+      githubLinkValue = "";
+      dispatch(fetchChallengeAuthenticated({ id: challenge?.id as string }));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSubmitting(false);
     }
   };
 
