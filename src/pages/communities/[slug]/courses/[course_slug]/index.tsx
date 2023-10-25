@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useMemo } from "react";
 import OverviewSection from "@/components/sections/courses/overview";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 import { setCourseNavigation } from "@/store/feature/course.slice";
 import { Community } from "@/types/community";
 import { Course } from "@/types/course";
@@ -32,7 +32,7 @@ export default function CourseViewPage(props: {
 
   useEffect(() => {
     dispatch(setCourseNavigation({ list }));
-    initCourseNavigationMenu(navigation.community)(dispatch);
+    dispatch(initCourseNavigationMenu(navigation.community));
   }, [community, course, dispatch, list, navigation.community]);
 
   const title = getMetadataTitle(course.name);

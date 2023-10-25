@@ -23,7 +23,7 @@ export default function SubmissionPage(props: { pageProps: { challenge: Challeng
   const navigation = useNavigation();
 
   useEffect(() => {
-    initChallengeNavigationMenu(navigation.community)(dispatch);
+    dispatch(initChallengeNavigationMenu(navigation.community));
   }, [dispatch, navigation.community]);
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);

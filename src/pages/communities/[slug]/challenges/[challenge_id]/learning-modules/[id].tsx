@@ -53,7 +53,7 @@ export default function LearningModulePage(props: LearningModulePageProps) {
     dispatch(setCurrentCommunity(community));
     dispatch(setCurrentLearningModule(learningModule));
     dispatch(setColors(community.colors));
-    initChallengeNavigationMenu(navigation.community)(dispatch);
+    dispatch(initChallengeNavigationMenu(navigation.community));
   }, [community, learningModule, navigation.community]);
 
   const title = getMetadataTitle(learningModule?.title);
