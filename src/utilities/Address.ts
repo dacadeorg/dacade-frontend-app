@@ -3,7 +3,8 @@ const ethRegex = /^(0x[a-zA-Z0-9]{4})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/;
 const aeRegex = new RegExp(`^(ak_)[${aeAllowedChars}]+$`);
 const nearRegex = /^([a-fA-F0-9]{5})+([a-fA-F0-9]{49})+([a-fA-F0-9]{10})$/;
 const algoRegex = /^([A-Z2-7]{6})+([A-Z2-7]{46})+([A-Z2-7]{6})$/;
-const icpRegex = /^([a-zA-Z\d]{6}).*([a-zA-Z\d]{6})$/;
+const icpRegex = /^[a-fA-F0-9]{64}$/;
+const defaultRegex = /^([a-zA-Z\d]{6}).*([a-zA-Z\d]{6})$/;
 
 /**
  * Validates the regex pattern
@@ -78,14 +79,14 @@ export const truncateAlgoAddress = (address: string): string => {
 };
 
 /**
- * Truncate Icp address
+ * Default truncator for address
  * @date 3/21/2023 - 11:37:50 AM
  *
  * @param {string} address - address to truncate
  * @returns {string} truncated address
  */
-export const truncateIcpAddress = (address: string): string => {
-  return truncateHandler(address, icpRegex, (match) => {
+export const defaultAddressTruncate = (address: string): string => {
+  return truncateHandler(address, defaultRegex, (match) => {
     return`${match?.[1]}…${match?.[2]}`
   });
 };
@@ -109,10 +110,10 @@ export const truncateAddress = (rawAddress: string, token: string = "eth"): stri
       return truncateAEAddress(address);
     case "algo":
       return truncateAlgoAddress(address);
-    case "icp":
-      return truncateIcpAddress(address);
-    default:
+    case "eth":
       return truncateEthAddress(address);
+    default: 
+      return defaultAddressTruncate(address)
   }
 };
 
