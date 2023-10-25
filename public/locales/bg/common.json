@@ -106,7 +106,7 @@
   "communities.overview.challenge.objective.title": "Цели на предизвикателството",
   "communities.overview.reward.subtitle": "Какво може да получите в тази общност:",
   "communities.chapter.objective.subtitle": "Какво може да получите в тази общност:",
-  "communities.overview.challenge.rewards": "{{count}} Награди",
+  "communities.overview.challenge.rewards": "Награди",
   "communities.overview.challenge.subtitle": "При успешно завършване",
   "communities.overview.challenge.expiry": "Срок на изтичане на предизвикателството:",
   "communities.overview.challenge.learning.title": "Следните учебни материали ще ви осигурят техническите умения, необходими за успешното справяне с предизвикателството.",
