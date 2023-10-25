@@ -67,10 +67,9 @@ export default function UserCard({ boxLayout, link, bordered, expanded, user, ba
 
   const handleClick = () => {
     if (!onClick) return;
-    if (window) {
-      const selection = window.getSelection();
-      selection?.type === "Caret" && onClick(); //whereas With the selection you get "Range"
-    } else onClick();
+    if (!window) return onClick();
+    const selection = window.getSelection();
+    if (selection?.type === "Caret") return onClick();
   };
   const userCardClassName = classNames(`group relative ${className}`, {
     "sm:p-6 flex space-x-3": boxLayout,
