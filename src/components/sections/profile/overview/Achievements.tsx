@@ -1,9 +1,9 @@
-
 import React, { ReactElement, useState } from "react";
 import ProfileOverviewSection from "@/components/sections/profile/overview/Section";
 import AchievementCard from "@/components/cards/Achievement";
 import { useSelector } from "@/hooks/useTypedSelector";
 import Plus from "@/icons/plus.svg";
+import Less from "@/icons/less.svg";
 
 /**
  * profile- Achievents component
@@ -26,11 +26,19 @@ export default function ProfileOverviewAchievements(): ReactElement {
             <AchievementCard key={`profile-achievement-${index}`} data={achievement} />
           ))}
         </div>
-        <button onClick={() => setShowAll(true)} className="text-primary bg-transparent pt-4.5 flex items-center gap-4 cursor-pointer">
-          {" "}
-          <Plus />
-          <span>See all</span>
-        </button>
+        {showAll ? (
+          <button  onClick={() => setShowAll(false)} className="text-primary bg-transparent pt-4 flex items-center gap-1.5 cursor-pointer">
+            {" "}
+            <Less />
+            <span>See Less</span>
+          </button>
+        ) : (
+          <button  onClick={() => setShowAll(true)} className="text-primary bg-transparent pt-4 flex items-center gap-1.5 cursor-pointer">
+            {" "}
+            <Plus />
+            <span>See All</span>
+          </button>
+        )}
       </ProfileOverviewSection>
     );
   }
