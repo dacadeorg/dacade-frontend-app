@@ -17,12 +17,25 @@ export interface Certificate {
   timestamp: number;
   description: string;
   submission: Submission;
-  minting: {
-    tx: string;
-    block: number;
-    timestamp: number;
-    contract: string;
-    receiver: string;
-    tokenURI: string;
-  };
+  minting: Minting;
+}
+
+/**
+ *
+ * @date 10/26/2023 - 4:43:36 PM
+ *
+ * @export
+ * @interface Minting
+ * @typedef {Minting}
+ */
+export interface Minting {
+  tx: string;
+  blockNumber: number;
+  timestamp: number;
+  contract: string | null;
+  from?: string;
+  receiver?: string;
+  tokenURI: string;
+  tokenId: string;
+  type?: string;
 }

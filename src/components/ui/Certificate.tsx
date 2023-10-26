@@ -104,5 +104,5 @@ export default function Certificate({ size = "medium", shape = "circle", name, c
     }
   }
 
-  return <div className={`relative grid place-content-center md:mr-0 bg-lime-400 ${sizeClasses} ${shapeClasses} ${className}`}>{certificate?.icon && certificate.icon}</div>;
+  return <div className={`relative grid place-content-center md:mr-0 ${sizeClasses} ${shapeClasses} ${className}`}>{certificate?.icon && certificate.icon}</div>;
 }

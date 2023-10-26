@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import baseQuery from "@/config/baseQuery";
-import { setCertificateList, setCurrentCertificate, setCurrentMintingStatus } from "@/store/feature/profile/certificate.slice";
+import { setCertificateList, setCurrentCertificate, setCurrentMintingStatus, setMintingTxData } from "@/store/feature/profile/certificate.slice";
 import { Certificate } from "@/types/certificate";
 
 const certificateService = createApi({
@@ -55,6 +55,7 @@ const certificateService = createApi({
 
       onQueryStarted: async (_, { dispatch, queryFulfilled, getState }) => {
         const { data } = await queryFulfilled;
+        console.log("This is the returned thing", data);
         if (data.certificate) {
           const state: any = getState();
           const currentCertificate = state.profileCertificate.current;
@@ -64,6 +65,7 @@ const certificateService = createApi({
               minting: data.certificate.minting,
             })
           );
+          dispatch(setMintingTxData(data?.txData));
         }
       },
     }),
@@ -88,16 +90,12 @@ interface MintCertificateArgs {
   address: string;
   signature: string;
 }
-export const mintCertificate =
-  async ({ id, address, signature }: MintCertificateArgs) =>
-  (dispatch: any) =>
-    dispatch(
-      certificateService.endpoints.mint.initiate({
-        id,
-        address,
-        signature,
-      })
-    );
+export const mintCertificate = ({ id, address, signature }: MintCertificateArgs) =>
+  certificateService.endpoints.mint.initiate({
+    id,
+    address,
+    signature,
+  });
 
 export const { useFetchAllCertificatesQuery, useFindCertificateQuery } = certificateService;
 export default certificateService;

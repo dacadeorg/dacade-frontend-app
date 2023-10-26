@@ -2,13 +2,19 @@ import { ReactElement, useState, useMemo } from "react";
 import Loader from "@/components/ui/button/Loader";
 import EmptyState from "@/components/ui/EmptyState";
 import { useTranslation } from "next-i18next";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import SubmissionCard from "@/components/cards/Submission";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useRouter } from "next/router";
 import { fetchAllSubmission } from "@/store/services/communities/challenges";
+import { IRootState } from "@/store";
+import { Submission } from "@/types/bounty";
 
+interface SubmissionListMultiSelector {
+  submissions: Submission[];
+  hasMore: boolean;
+}
 /**
  * Submissions list component
  * @date 4/25/2023 - 2:21:17 PM
@@ -19,16 +25,18 @@ import { fetchAllSubmission } from "@/store/services/communities/challenges";
 export default function List(): ReactElement {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [showButton, setShowButton] = useState(true);
   const { t } = useTranslation();
-  const submissions = useSelector((state) => state.submissions.list);
+  const { submissions, hasMore } = useMultiSelector<unknown, SubmissionListMultiSelector>({
+    submissions: (state: IRootState) => state.submissions.list,
+    hasMore: (state: IRootState) => state.submissions.hasMore,
+  });
   const router = useRouter();
-  const showLoadMore = useMemo(() => showButton && submissions.length >= 30, [showButton, submissions.length]);
+  const showLoadMore = useMemo(() => hasMore && submissions.length >= 30, [hasMore, submissions.length]);
   const submissionId = submissions[submissions.length - 1]?.id || null;
   const dispatch = useDispatch();
 
   const nextPage = async () => {
-    if (loading || !showButton) {
+    if (loading || !hasMore) {
       return;
     }
     try {
@@ -39,9 +47,6 @@ export default function List(): ReactElement {
           challengeId: router.query.challenge_id as string,
         })
       );
-
-      // #TODO: Move the function above to the slice or something because we won't be able to fetch more submissions
-      if (4 < 5) setShowButton(false);
       setPage(page + 1);
     } catch (error) {
       console.error(error);

@@ -26,6 +26,7 @@ import Loader from "@/components/ui/button/Loader";
 interface UserReferralsMultiSelector {
   user: User | null;
   referrals: ReferralType[];
+  hasMore: boolean;
 }
 
 /**
@@ -36,15 +37,15 @@ interface UserReferralsMultiSelector {
 
 export default function UserReferrals(): ReactElement {
   const { t } = useTranslation();
-  const [showButton, setShowButton] = useState(true);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
-  const { user, referrals } = useMultiSelector<unknown, UserReferralsMultiSelector>({
+  const { user, referrals, hasMore } = useMultiSelector<unknown, UserReferralsMultiSelector>({
     user: (state: IRootState) => state.user.data,
     referrals: (state: IRootState) => state.userReferrals.userReferralList,
+    hasMore: (state: IRootState) => state.userReferrals.hasMore,
   });
   const dispatch = useDispatch();
-  const showLoadMore = useMemo(() => showButton && referrals?.length >= 10, [referrals?.length, showButton]);
+  const showLoadMore = useMemo(() => hasMore && referrals?.length >= 10, [referrals?.length, hasMore]);
   useEffect(() => {
     const fetchReferrals = async () => {
       await dispatch(userFetchReferrals());
@@ -53,18 +54,12 @@ export default function UserReferrals(): ReactElement {
   }, [dispatch, user?.referrals]);
 
   const nextPage = async () => {
-    if (loading || !showButton) return;
+    if (loading || !hasMore) return;
     setLoading(true);
     const referralId = referrals[referrals.length - 1]?.id || null;
     await dispatch(userFetchReferrals({ startAfter: referralId || null }));
     setPage(page + 1);
     setLoading(false);
-
-    // #TODO: find an alternative of fetching more referrals, this won't worka aymore
-    if (4 < 5) {
-      setShowButton(false);
-      return;
-    }
   };
 
   return (

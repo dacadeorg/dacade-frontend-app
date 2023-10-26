@@ -19,12 +19,14 @@ interface SubmissionState {
   list: Submission[];
   text: string;
   submission?: Submission;
+  hasMore?: boolean;
 }
 
 const initialState: SubmissionState = {
   current: null,
   list: [],
   text: "",
+  hasMore: true,
 };
 
 export const submissionsSlice = createSlice({
@@ -46,6 +48,9 @@ export const submissionsSlice = createSlice({
     showSubmission: (state, action: PayloadAction<string>) => {
       const current = state.list.find((submission) => submission.id === action.payload);
       state.current = current || null;
+    },
+    setHasMoreSubmissions: (state, action) => {
+      state.hasMore = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -159,7 +164,7 @@ export const findWithRelations = createAsyncThunk("submissions/findWithRelations
   return data;
 });
 
-export const { setCurrent, setSubmissionsList, setText, setSubmission, showSubmission } = submissionsSlice.actions;
+export const { setCurrent, setSubmissionsList, setText, setSubmission, showSubmission, setHasMoreSubmissions } = submissionsSlice.actions;
 export const selectCurrent = (state: IRootState) => state.submissions.current;
 export const selectList = (state: IRootState) => state.submissions.list;
 
