@@ -58,17 +58,15 @@ export const getSumsubToken = () => async (dispatch: Dispatch) => {
  * @param {*} payload
  * @returns {(dispatch: any) => any}
  */
-export const openVerificationModal = (payload: any) => {
-  return async (dispatch: Dispatch) => {
-    const isKycVerified = store.getState().user.data?.kycStatus === "VERIFIED";
-    if (isKycVerified) {
-      closeVerificationModal()(dispatch);
-      triggerCompleteAction()();
-      return;
-    }
-    dispatch(setShowModal(true));
-    dispatch(setModelContent(payload || {}));
-  };
+export const openVerificationModal = (payload: any) => (dispatch: any) => {
+  const isKycVerified = store.getState().user.data?.kycStatus === "VERIFIED";
+  if (isKycVerified) {
+    dispatch(closeVerificationModal());
+    triggerCompleteAction();
+    return;
+  }
+  dispatch(setShowModal(true));
+  dispatch(setModelContent(payload || {}));
 };
 
 /**
@@ -119,7 +117,7 @@ export const launchWebSdk = createAsyncThunk("sumsub/launchWebSdk", async (_, { 
   dispatch(setLoading(true));
   await dispatch(getSumsubToken());
 
-  const accessToken = await getSumsubToken()(dispatch);
+  const accessToken = await dispatch(getSumsubToken());
 
   if (!accessToken) return;
   const user = store.getState().user.data;

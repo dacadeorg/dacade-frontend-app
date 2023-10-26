@@ -1,4 +1,4 @@
-import { useEffect, ReactElement, useMemo } from "react";
+import { useEffect, ReactElement, useMemo, useCallback } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchAllCertificates } from "@/store/services/profile/certificate.service";
@@ -22,14 +22,17 @@ export default function ProfileOverview() {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const fethUserReputation = useCallback(
+    async (username: string) => {
+      await Promise.all([dispatch(fetchProfileReputation({ username }))]);
+    },
+    [dispatch]
+  );
+
   useEffect(() => {
-    (async () => {
-      const username = router.query.username;
-      if (username) {
-        await Promise.all([dispatch(fetchProfileReputation({ username: (username as string) || "" }))]);
-      }
-    })();
-  }, [dispatch, router.query.username]);
+    const username = router.query.username;
+    if (username) fethUserReputation(username as string);
+  }, [fethUserReputation, router.query.username]);
 
   const username: string = useMemo(() => router.query.username || authUser?.displayName, [authUser?.displayName, router.query.username]) as string;
   const isCurrentUser = () => username.toLocaleLowerCase() === authUser?.displayName.toLocaleLowerCase();

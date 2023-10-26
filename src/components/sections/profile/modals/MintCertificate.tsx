@@ -106,14 +106,15 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
       const signature = await getSignature();
 
       if (signature && achievement?.id) {
-        const data = await (
-          await mintCertificate({
+        await dispatch(
+          mintCertificate({
             id: achievement.id as string,
             address: address as string,
             signature,
           })
-        )(dispatch);
-        setTxData((prev) => ({ ...prev, tx: data.txData }));
+        );
+        // #TODO: define what data does the mintCertificate returns
+        // setTxData((prev) => ({ ...prev, tx: data.txData }));
       }
     } catch (error: any) {
       setError(error);
