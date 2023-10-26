@@ -29,7 +29,7 @@ interface FormMultiSelector {
   colors: Colors;
   submission: Submission | null;
   challenge: Challenge | null;
-  stateFeedback: Feedback;
+  currentFeedback: Feedback;
 }
 
 /**
@@ -74,13 +74,13 @@ export default function Form({ save }: FormProps): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [saving, setSaving] = useState(false);
-  const { community, user, colors, submission, challenge, stateFeedback } = useMultiSelector<unknown, FormMultiSelector>({
+  const { community, user, colors, submission, challenge, currentFeedback } = useMultiSelector<unknown, FormMultiSelector>({
     community: (state: IRootState) => state.communities.current,
     user: (state: IRootState) => state.user.data,
     colors: (state: IRootState) => state.ui.colors,
     submission: (state: IRootState) => state.submissions.current,
     challenge: (state: IRootState) => state.challenges.current,
-    stateFeedback: (state: IRootState) => state.feedback.current,
+    currentFeedback: (state: IRootState) => state.feedback.current,
   });
 
   const activeButtonStyle = useMemo(
@@ -108,7 +108,7 @@ export default function Form({ save }: FormProps): ReactElement {
         })
       );
 
-      const response = stateFeedback;
+      const response = currentFeedback;
 
       dispatch(
         createEvent({
