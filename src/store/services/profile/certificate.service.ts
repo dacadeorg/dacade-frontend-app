@@ -1,7 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import baseQuery from "@/config/baseQuery";
 import { setCertificateList, setCurrentCertificate, setCurrentMintingStatus } from "@/store/feature/profile/certificate.slice";
-import { store } from "@/store";
 import { Certificate } from "@/types/certificate";
 
 const certificateService = createApi({
@@ -54,10 +53,11 @@ const certificateService = createApi({
         },
       }),
 
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async (_, { dispatch, queryFulfilled, getState }) => {
         const { data } = await queryFulfilled;
         if (data.certificate) {
-          const currentCertificate = store.getState().profileCertificate.current;
+          const state: any = getState();
+          const currentCertificate = state.profileCertificate.current;
           dispatch(
             setCurrentCertificate({
               ...(currentCertificate || data.certificate),
