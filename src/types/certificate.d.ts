@@ -21,6 +21,7 @@ export interface Certificate {
 }
 
 /**
+ * type for what is returned after certificate mintin
  *
  * @date 10/26/2023 - 4:43:36 PM
  *
