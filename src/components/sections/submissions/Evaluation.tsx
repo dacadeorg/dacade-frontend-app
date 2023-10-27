@@ -3,11 +3,15 @@ import Coin from "@/components/ui/Coin";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { Evaluation, Submission } from "@/types/bounty";
 import { useTranslation } from "next-i18next";
-import { ReactElement } from "react";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 import RatingRubric from "../challenges/Rubric";
 import { Colors } from "@/types/community";
 import { Challenge } from "@/types/course";
 import { IRootState } from "@/store";
+import { findSubmssionById } from "@/store/feature/communities/challenges/submissions";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+// import Loader from "@/components/ui/Loader";
+import Loader from "@/components/ui/button/Loader";
 
 /**
  * interface for Evaluations multiSelector
@@ -31,14 +35,31 @@ interface EvaluationsMultiSelector {
  */
 export default function Evaluations(): ReactElement {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const { colors, submission, challenge } = useMultiSelector<unknown, EvaluationsMultiSelector>({
     colors: (state: IRootState) => state.ui.colors,
     submission: (state: IRootState) => state.submissions.current,
     challenge: (state: IRootState) => state.challenges.current,
   });
+  const [isFetching, setIsFetching] = useState(true);
+  const fetchSubmission = useCallback(async () => {
+    setIsFetching(true);
+    await dispatch(findSubmssionById({ id: submission?.id as string }));
+    setIsFetching(false);
+  }, [submission?.id, dispatch]);
+
+  useEffect(() => {
+    fetchSubmission();
+  }, []);
   const evaluation = submission?.evaluation as Evaluation;
 
-  return (
+  if (!evaluation) return <></>;
+
+  return isFetching ? (
+    <div className="relative my-5">
+      <Loader loading={isFetching} />
+    </div>
+  ) : (
     <EvaluationCard evaluation={evaluation}>
       <>
         {challenge && <RatingRubric hideTitle ratingCriteria={challenge.ratingCriteria} selected={evaluation.criteria} />}

@@ -16,7 +16,7 @@ export default function View(): ReactElement {
   return submission ? (
     <>
       <SubmissionViewCard submission={submission} />
-      {submission?.evaluation && <Evaluation />}
+      <Evaluation />
       <Feedback />
     </>
   ) : (
