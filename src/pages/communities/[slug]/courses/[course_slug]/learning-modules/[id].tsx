@@ -56,7 +56,7 @@ export default function LearningModulePage(props: LearningModulePageProps): Reac
 
   const title = getMetadataTitle(learningModule.title!, course.name!);
   const descriptions = getMetadataDescription(learningModule.description!);
-  const paths = useMemo(() => [course.name, learningModule?.title], [course.name, learningModule?.title]);
+  const paths = useMemo(() => [learningModule?.title], [learningModule?.title]);
   const isLastLearningModule = learningModule?.id === course?.learningModules[course.learningModules.length - 1].id;
 
   return (
