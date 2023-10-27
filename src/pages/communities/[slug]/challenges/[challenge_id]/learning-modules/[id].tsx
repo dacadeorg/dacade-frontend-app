@@ -12,7 +12,7 @@ import Header from "@/components/sections/learning-modules/Header";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import { setColors } from "@/store/feature/ui.slice";
 import useNavigation from "@/hooks/useNavigation";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { wrapper } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -85,7 +85,7 @@ LearningModulePage.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
-export const getStaticProps: GetStaticProps = wrapper.getStaticProps((store: any) => async ({ params, locale }) => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store: any) => async ({ params, locale }) => {
   try {
     const communitySlug = params?.slug as string;
     const challenge_id = params?.challenge_id as string;
@@ -98,11 +98,9 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps((store: any
       serverSideTranslations(locale as string),
     ]);
 
-    if (Object.entries(community).length === 0 || Object.entries(challenge).length === 0 || Object.entries(learningModule).length === 0) {
-      return {
-        notFound: true,
-      };
-    }
+    if (Object.entries(community).length === 0 || Object.entries(challenge).length === 0 || Object.entries(learningModule).length === 0)
+      throw new Error("Failed to fetch learning module");
+
     return {
       props: {
         community,
