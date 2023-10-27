@@ -114,6 +114,7 @@ Contributions to the project are welcome. To contribute, follow these steps:
 - Create a new branch for your changes.
 - Make your changes and commit them to your branch.
 - Submit a pull request to merge your changes into the main branch.
+- Follow the instructions in this contribution guideline document for more information [Contribution guideline doc](https://github.com/dacadeorg/dacade-frontend-app/blob/dev/CONTRIBUTING.md)
 
 ### License
 
