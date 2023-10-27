@@ -12,7 +12,7 @@ import { setWalletList } from "../feature/user/wallets.slice";
 interface UpdateWalletPayload {
   id?: string;
   address: string;
-  signature: string;
+  signature?: string;
 }
 
 /**
