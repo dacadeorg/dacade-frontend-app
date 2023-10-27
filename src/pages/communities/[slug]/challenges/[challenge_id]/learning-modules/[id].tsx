@@ -12,8 +12,8 @@ import Header from "@/components/sections/learning-modules/Header";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import { setColors } from "@/store/feature/ui.slice";
 import useNavigation from "@/hooks/useNavigation";
-import { GetServerSideProps } from "next";
-import { store } from "@/store";
+import { GetStaticProps } from "next";
+import { wrapper } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ChallengeOverviewCard from "@/components/cards/challenge/Overview";
@@ -85,7 +85,7 @@ LearningModulePage.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
+export const getStaticProps: GetStaticProps = wrapper.getStaticProps((store: any) => async ({ params, locale }) => {
   try {
     const communitySlug = params?.slug as string;
     const challenge_id = params?.challenge_id as string;
@@ -116,4 +116,4 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
       notFound: true,
     };
   }
-};
+});
