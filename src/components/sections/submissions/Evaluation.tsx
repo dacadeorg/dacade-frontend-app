@@ -10,7 +10,6 @@ import { Challenge } from "@/types/course";
 import { IRootState } from "@/store";
 import { findSubmssionById } from "@/store/feature/communities/challenges/submissions";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-// import Loader from "@/components/ui/Loader";
 import Loader from "@/components/ui/button/Loader";
 
 /**
