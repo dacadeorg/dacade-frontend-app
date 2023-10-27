@@ -6,6 +6,5 @@ const DEFAULT_DOMAIN = "https://dacade.org";
 export function localePath(router: NextRouter, path: string) {
     const locale = router.locale !== router.defaultLocale ? router.locale : '';
     const url = new URL(`/${locale}/${path}`, DEFAULT_DOMAIN);
-    console.log(url.pathname);
     return url.pathname;
 }
