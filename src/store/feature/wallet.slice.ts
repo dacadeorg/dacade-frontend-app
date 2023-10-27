@@ -1,8 +1,8 @@
+import { SIGNATURE_HASH_STRING } from "@/constants/wallet";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 import { providers } from "ethers";
 import Web3Modal from "web3modal";
-import WalletConnectProvider from "@walletconnect/web3-provider";
-import { SIGNATURE_HASH_STRING } from "@/constants/wallet";
 
 const INFURA_ID = "460f40a260564ac4a4f4b3fffb032dad";
 
@@ -94,7 +94,7 @@ if (typeof window !== "undefined") {
  *
  * @type {*}
  */
-export const connectWallet = createAsyncThunk("web3/connect", async (_, { dispatch }) => {
+export const connectWallet = () => async (dispatch: any) => {
   provider = await web3Modal?.connect();
   dispatch(setConnectWallet(true));
 
@@ -117,7 +117,7 @@ export const connectWallet = createAsyncThunk("web3/connect", async (_, { dispat
 
   dispatch(setWeb3WalletData(data));
   return data;
-});
+};
 
 /**
  * Get wallet signature action
