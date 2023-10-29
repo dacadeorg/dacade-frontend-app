@@ -89,7 +89,7 @@ export default function WalletAddressChangeForm({ connectionMethod, currentAddre
   }, [show]);
 
   return (
-    <form className="flex flex-col space-y-4" onSubmit={handleSubmit(save)}>
+    <form className="flex flex-col" onSubmit={handleSubmit(save)}>
       {show && (
         <div className="px-6">
           <Input
