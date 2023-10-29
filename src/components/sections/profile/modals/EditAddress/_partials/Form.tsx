@@ -91,7 +91,7 @@ export default function WalletAddressChangeForm({ connectionMethod, currentAddre
   return (
     <form className="flex flex-col" onSubmit={handleSubmit(save)}>
       {show && (
-        <div className="px-6">
+        <div className="px-6 mb-4">
           <Input
             /* In backticks `` because label requires a string.*/
             label={`${t("profile.edit.label.account-address")}`}
