@@ -16,7 +16,7 @@ import { findSubmssionById } from "@/store/feature/communities/challenges/submis
 interface SubmissionPopup {
   show: boolean;
   onClose: () => void;
-  submissionId: string | undefined;
+  submissionId?: string;
 }
 
 export default function SubmissionPopup({ show, onClose, submissionId }: SubmissionPopup): ReactElement {
