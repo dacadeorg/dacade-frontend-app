@@ -9,6 +9,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { showSubmission } from "@/store/feature/communities/challenges/submissions";
 import { useRouter } from "next/router";
 import { toggleBodyScrolling } from "@/store/feature/ui.slice";
+import { localePath } from "@/utilities/Routing";
 
 /**
  * Submission card interface props
@@ -52,8 +53,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
   };
 
   const displaySubmission = useCallback(() => {
-    window.history.pushState("", "", `/${router.locale}${router.asPath}/${submission?.id}`);
-
+    window.history.pushState("", "", localePath(router, `/${router.asPath}/${submission?.id}`));
     dispatch(toggleBodyScrolling(true));
   }, [router, submission?.id]);
 
