@@ -58,7 +58,7 @@ export default function LearningModulePage(props: LearningModulePageProps): Reac
   const descriptions = getMetadataDescription(learningModule.description!);
   const paths = useMemo(() => [learningModule?.title], [learningModule?.title]);
   const isLastLearningModule = useMemo(() => {
-    if (!course.learningModules) return false;
+    if (!course.learningModules || !course.learningModules.length) return false;
     return learningModule.id === course.learningModules[course.learningModules.length - 1].id;
   }, [learningModule.id, course.learningModules]);
 
