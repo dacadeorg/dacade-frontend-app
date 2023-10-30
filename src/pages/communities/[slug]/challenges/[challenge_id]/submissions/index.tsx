@@ -16,6 +16,7 @@ import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { Submission as SubmissionType } from "@/types/bounty";
 import { Community } from "@/types/community";
 import { Challenge } from "@/types/course";
+import { localePath } from "@/utilities/Routing";
 import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -43,12 +44,12 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
 
   const handleCloseSubmission = useCallback(() => {
     dispatch(showSubmission(""));
-    window.history.pushState("", "", `/${router.locale}${router.asPath}}`);
-    toggleBodyScrolling(false)(dispatch);
+    window.history.pushState("", "", localePath(router, router.asPath));
+    dispatch(toggleBodyScrolling(false));
   }, [dispatch, router]);
 
   useEffect(() => {
-    initChallengeNavigationMenu(navigation.community)(dispatch);
+    dispatch(initChallengeNavigationMenu(navigation.community));
   }, [navigation.community, dispatch]);
 
   // Temporary fix for links copied which have submission_id as a query parameter

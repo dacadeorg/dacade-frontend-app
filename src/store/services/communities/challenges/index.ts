@@ -2,9 +2,8 @@ import { createApi } from "@reduxjs/toolkit/dist/query";
 import baseQuery from "@/config/baseQuery";
 import { setChallengesList, setChallengeSubmission, setCurrentChallenge, setSubmissionLoading } from "@/store/feature/communities/challenges";
 import queryString from "query-string";
-import { store } from "@/store";
 import { Submission } from "@/types/bounty";
-import { setSubmissionsList } from "@/store/feature/communities/challenges/submissions";
+import { setHasMoreSubmissions, setSubmissionsList } from "@/store/feature/communities/challenges/submissions";
 
 /**
  * challenge service, handling all the challenges API call
@@ -66,8 +65,8 @@ export const challengeService = createApi({
           "accept-language": locale,
         },
       }),
-      onQueryStarted: async ({ startAfter }, { dispatch, queryFulfilled }) => {
-        const state = store.getState();
+      onQueryStarted: async ({ startAfter }, { dispatch, queryFulfilled, getState }) => {
+        const state: any = getState();
         try {
           const { data } = await queryFulfilled;
           const list: Submission[] = [];
@@ -76,6 +75,7 @@ export const challengeService = createApi({
           }
           list.push(...(data || []));
           dispatch(setSubmissionsList(list));
+          dispatch(setHasMoreSubmissions(data?.length > 0 ? true : false));
         } catch (error) {
           console.log("error in fetching submissions", error);
         }

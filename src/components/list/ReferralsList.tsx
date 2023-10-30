@@ -30,7 +30,7 @@ export default function ReferralsList({ text }: ReferralsListProps): ReactElemen
   const { t } = useTranslation();
 
   const togglePopUp = () => {
-    toggleShowReferralPopup(true)(dispatch);
+    dispatch(toggleShowReferralPopup(true));
   };
 
   return (

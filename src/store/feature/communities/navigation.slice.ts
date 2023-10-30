@@ -1,6 +1,5 @@
 import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import { NextRouter } from "next/router";
-import { store } from "@/store";
 import { Challenge, Course } from "@/types/course";
 import { Community } from "@/types/community";
 import { List } from "@/utilities/CommunityNavigation";
@@ -93,9 +92,9 @@ export const learningModulePath = (link: string, router: NextRouter) => {
  *
  * @returns {(dispatch: any) => void}
  */
-export const initChallengeNavigationMenu = (navigation: any) => (dispatch: Dispatch) => {
-  const challenge = store.getState().challenges.current as Challenge;
-  const community = store.getState().communities.current as Community;
+export const initChallengeNavigationMenu = (navigation: any) => (dispatch: Dispatch, getState: any) => {
+  const challenge = getState().challenges.current as Challenge;
+  const community = getState().communities.current as Community;
   const menus: List[] = navigation.initForChallenge({
     challenge,
     community,
@@ -109,10 +108,10 @@ export const initChallengeNavigationMenu = (navigation: any) => (dispatch: Dispa
  *
  * @returns {(dispatch: any) => void}
  */
-export const initCourseNavigationMenu = (navigation: any) => (dispatch: Dispatch) => {
+export const initCourseNavigationMenu = (navigation: any) => (dispatch: Dispatch, getState: any) => {
   dispatch(setNavigationList([]));
-  const course = store.getState().courses.current as Course;
-  const community = store.getState().communities.current as Community;
+  const course = getState().courses.current as Course;
+  const community = getState().communities.current as Community;
   const menus: List[] = navigation.init({
     course,
     community,
@@ -153,9 +152,9 @@ export const showPageNavigation = () => (dispatch: Dispatch) => {
  *
  * @date 4/25/2023 - 7:49:47 PM
  */
-export const updateNavigationMarkdownMenu = () => (markdown: string, route: NextRouter, dispatch: Dispatch) => {
+export const updateNavigationMarkdownMenu = (markdown: string, route: NextRouter) => (dispatch: Dispatch, getState: any) => {
   // Get the current menus state
-  const menus = store.getState().navigation.menus;
+  const menus = getState().navigation.menus;
 
   /**
    * Markdown processor uses remark-extract-toc library to extract all the headlines

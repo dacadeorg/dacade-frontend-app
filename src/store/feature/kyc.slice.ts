@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, Dispatch } from "@reduxjs/toolkit";
 import { auth as firebaseAuth } from "@/config/firebase";
-import { IRootState, store } from "@/store";
+import { IRootState } from "@/store";
 import { sleep } from "@/utilities";
 import api from "@/config/api";
 import { fetchUser } from "../services/user.service";
@@ -58,17 +58,15 @@ export const getSumsubToken = () => async (dispatch: Dispatch) => {
  * @param {*} payload
  * @returns {(dispatch: any) => any}
  */
-export const openVerificationModal = (payload: any) => {
-  return async (dispatch: Dispatch) => {
-    const isKycVerified = store.getState().user.data?.kycStatus === "VERIFIED";
-    if (isKycVerified) {
-      closeVerificationModal()(dispatch);
-      triggerCompleteAction()();
-      return;
-    }
-    dispatch(setShowModal(true));
-    dispatch(setModelContent(payload || {}));
-  };
+export const openVerificationModal = (payload: any) => (dispatch: any, getState: () => IRootState) => {
+  const isKycVerified = getState().user.data?.kycStatus === "VERIFIED";
+  if (isKycVerified) {
+    dispatch(closeVerificationModal());
+    triggerCompleteAction();
+    return;
+  }
+  dispatch(setShowModal(true));
+  dispatch(setModelContent(payload || {}));
 };
 
 /**
@@ -86,8 +84,8 @@ export const closeVerificationModal = () => (dispatch: Dispatch) => {
   }
 };
 
-export const triggerCompleteAction = () => async () => {
-  const completedAction = store.getState().sumsubVerification.completedAction;
+export const triggerCompleteAction = () => async (getState: () => IRootState) => {
+  const completedAction = getState().sumsubVerification.completedAction;
   if (!completedAction) return;
   try {
     await completedAction();
@@ -115,14 +113,15 @@ export const completeSumSubVerification = createAsyncThunk("sumsub/completeSumSu
  * @date 5/22/2023 - 9:24:24 AM
  *
  */
-export const launchWebSdk = createAsyncThunk("sumsub/launchWebSdk", async (_, { dispatch }) => {
+export const launchWebSdk = createAsyncThunk("sumsub/launchWebSdk", async (_, { dispatch, getState }) => {
   dispatch(setLoading(true));
   await dispatch(getSumsubToken());
 
-  const accessToken = await getSumsubToken()(dispatch);
+  const accessToken = await dispatch(getSumsubToken());
 
   if (!accessToken) return;
-  const user = store.getState().user.data;
+  const state = getState() as IRootState;
+  const user = state.user.data;
 
   snsWebSdkInstance = snsWebSdk
     .init(accessToken, async () => {

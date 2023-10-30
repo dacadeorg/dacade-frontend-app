@@ -20,7 +20,7 @@ interface DefaultState {
   token: string | null;
   referrals: Referral[] | null;
   fetchingUserLoading: boolean;
-  searchUser: User[] | null;
+  filteredUsers: User[] | null;
 }
 
 /**
@@ -35,7 +35,7 @@ const defaultState: DefaultState = {
   token: null,
   referrals: null,
   fetchingUserLoading: false,
-  searchUser: null,
+  filteredUsers: null,
 };
 
 /**
@@ -63,7 +63,7 @@ const userSlice = createSlice({
       state.data = action.payload;
     },
     setSearchUserdata: (state, action) => {
-      state.searchUser = action.payload;
+      state.filteredUsers = action.payload;
     },
     setUserToken: (state, action) => {
       state.token = action.payload;
