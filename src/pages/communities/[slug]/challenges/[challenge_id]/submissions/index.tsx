@@ -43,14 +43,33 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
   const navigation = useNavigation();
 
   const handleCloseSubmission = useCallback(() => {
+    if(!selectedSubmission) return;
     dispatch(showSubmission(""));
     window.history.pushState("", "", localePath(router, router.asPath));
     dispatch(toggleBodyScrolling(false));
-  }, [dispatch, router]);
+  }, [dispatch, router, selectedSubmission]);
 
   useEffect(() => {
     dispatch(initChallengeNavigationMenu(navigation.community));
   }, [navigation.community, dispatch]);
+
+  const handleShowSubmission = useCallback((e: any) => {
+      const newUrl = e.detail;
+      const submissionId = newUrl.replace(localePath(router, router.asPath), "").replace(/\//g, '');
+      const submission = submissions.find((submission) => submission.id === submissionId);
+      if(!submission) return;
+      dispatch(showSubmission(submissionId));
+      dispatch(toggleBodyScrolling(true));
+  }, [dispatch, router, submissions]);
+
+  useEffect(() => {
+    window.addEventListener('onSoftNavigation', handleShowSubmission);
+    window.addEventListener('popstate', handleCloseSubmission);
+    return () => {
+      window.removeEventListener('onSoftNavigation', handleShowSubmission);
+      window.removeEventListener('popstate', handleCloseSubmission);
+    };
+  }, [handleCloseSubmission, handleShowSubmission]);
 
   // Temporary fix for links copied which have submission_id as a query parameter
   useEffect(() => {
