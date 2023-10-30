@@ -71,7 +71,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
           <Header title={challenge?.name} subtitle={t("communities.submission.title")} isTeamChallenge={challenge?.isTeamChallenge} />
           <SubmissionList />
         </div>
-        <SubmissionPopup show={!!selectedSubmission} onClose={handleCloseSubmission} />
+        <SubmissionPopup show={!!selectedSubmission} onClose={handleCloseSubmission} submissionId={selectedSubmission?.id} />
       </Wrapper>
     </>
   );
