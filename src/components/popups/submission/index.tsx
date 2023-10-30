@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement, useCallback, useEffect } from "react";
 import Popup from "@/components/ui/Popup";
 import Header from "./_partials/Header";
 import Section from "@/components/ui/Section";
@@ -21,13 +21,13 @@ interface SubmissionPopup {
 
 export default function SubmissionPopup({ show, onClose, submissionId }: SubmissionPopup): ReactElement {
   const dispatch = useDispatch();
+  const fetchSubmission = useCallback(async () => {
+    await dispatch(findSubmssionById({ id: submissionId as string }));
+  }, [dispatch, submissionId]);
 
   useEffect(() => {
-    const fetchSubmission = async () => {
-      await dispatch(findSubmssionById({ id: submissionId as string }));
-    };
     fetchSubmission();
-  }, [submissionId, dispatch]);
+  }, [fetchSubmission]);
   return (
     <Popup show={show} onClose={onClose}>
       <div className="py-8 overflow-hidden h-full w-full">
