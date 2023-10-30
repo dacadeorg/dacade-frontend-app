@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useMemo } from "react";
+import { ReactElement, useCallback, useEffect, useMemo } from "react";
 import Navigation from "@/components/sections/bounties/Navigation";
 import BountyList from "@/components/list/Bounty";
 import { useTranslation } from "react-i18next";
@@ -61,11 +61,13 @@ export default function Bounties() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    (async () => {
-      await Promise.all([dispatch(await fetchAllBounties()), dispatch(fetchReferrals())]);
-    })();
+  const getBountiesData = useCallback(async () => {
+    await Promise.all([dispatch(fetchAllBounties()), dispatch(fetchReferrals())]);
   }, [dispatch]);
+
+  useEffect(() => {
+    getBountiesData();
+  }, [getBountiesData]);
 
   const { referrals, bounties } = useMultiSelector<unknown, bountiesMultiSelector>({
     referrals: (state: IRootState) => state.referrals.list,

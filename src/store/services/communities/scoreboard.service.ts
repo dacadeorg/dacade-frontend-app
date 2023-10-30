@@ -1,5 +1,5 @@
 import baseQuery from "@/config/baseQuery";
-import { setFilterBy, setLoading, setScoreboardList } from "@/store/feature/communities/scoreboard.slice";
+import { setFilterBy, setLoading, setScoreboardFilteredList, setScoreboardList } from "@/store/feature/communities/scoreboard.slice";
 import { Scoreboard } from "@/types/scoreboard";
 import { createApi } from "@reduxjs/toolkit/dist/query";
 
@@ -49,6 +49,17 @@ const scoreboardService = createApi({
           "Accept-Language": locale || "en",
         },
       }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          dispatch(setLoading(true));
+          const { data } = await queryFulfilled;
+          dispatch(setScoreboardFilteredList(data));
+        } catch (err) {
+          console.error(err);
+        } finally {
+          setLoading(false);
+        }
+      },
     }),
   }),
 });

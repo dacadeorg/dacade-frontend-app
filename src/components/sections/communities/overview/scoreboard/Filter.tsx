@@ -77,11 +77,12 @@ export default function Filters(): ReactElement {
 
   const dispatch = useDispatch();
   const list = useSelector((state) => selectList(state));
+  const filteredScoreboards = useSelector((state) => selectList(state));
   const router = useRouter();
   const { slug } = router.query;
 
   const onFilterScoreboards = useCallback(async () => {
-    const { data } = await dispatch(
+    await dispatch(
       filterScoreboards({
         slug: slug as string,
         filterBy,
@@ -89,6 +90,7 @@ export default function Filters(): ReactElement {
         locale: router.locale as string,
       })
     );
+    const data = filteredScoreboards;
     if (data) {
       const filteredData = [...data];
       dispatch(setScoreboardFilterBy(filterBy));

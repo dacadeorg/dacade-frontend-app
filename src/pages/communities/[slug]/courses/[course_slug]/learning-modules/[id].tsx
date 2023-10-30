@@ -50,7 +50,7 @@ export default function LearningModulePage(props: LearningModulePageProps): Reac
   const { t } = useTranslation();
 
   useEffect(() => {
-    initCourseNavigationMenu(navigation.community)(dispatch);
+    dispatch(initCourseNavigationMenu(navigation.community));
   }, [dispatch]);
 
   const title = getMetadataTitle(learningModule.title!, course.name!);

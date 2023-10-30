@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useMemo } from "react";
+import { ReactElement, useCallback, useEffect, useMemo } from "react";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
@@ -40,12 +40,14 @@ export default function BountiesPage(): ReactElement {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    (async () => {
-      await dispatch(await fetchAllBounties());
-      findBountiesBySlug(router.query.slug as string)(dispatch);
-    })();
+  const fetchBounties = useCallback(async () => {
+    dispatch(fetchAllBounties());
+    dispatch(findBountiesBySlug(router.query.slug as string));
   }, [dispatch, router.query.slug]);
+
+  useEffect(() => {
+    fetchBounties();
+  }, [fetchBounties]);
 
   const { bountiesFiltered, referralsFiltered } = useMultiSelector<unknown, BountiesPageMultiSelector>({
     bountiesFiltered: (state: IRootState) => state.bounties.filteredBountyList,

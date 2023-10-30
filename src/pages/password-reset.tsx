@@ -11,6 +11,7 @@ import { GetStaticProps } from "next";
 import { useForm } from "react-hook-form";
 import { passwordResetRequest } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * Password reset form values
@@ -34,6 +35,7 @@ export default function PasswordReset(): ReactElement {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const jobDone = useSelector((state) => state.store.jobDone);
 
   const {
     watch,
@@ -45,8 +47,8 @@ export default function PasswordReset(): ReactElement {
   const onPasswordResetRequest = async ({ email }: FormValues) => {
     setLoading(true);
     try {
-      const res = await dispatch(passwordResetRequest({ email }));
-      if (res.meta.requestStatus === "fulfilled") router.push("/login");
+      await dispatch(passwordResetRequest({ email }));
+      if (jobDone) router.push("/login");
     } finally {
       setLoading(false);
     }

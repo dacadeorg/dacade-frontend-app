@@ -51,13 +51,13 @@ export default function UserPopup({ buttonStyles }: { buttonStyles: CSSPropertie
 
   const toggle = () => {
     setShow(!show);
-    toggleBodyScrolling(!show)(dispatch);
+    dispatch(toggleBodyScrolling(!show));
   };
 
   const externalClick = () => {
     if (show) {
       setShow(false);
-      toggleBodyScrolling(false)(dispatch);
+      dispatch(toggleBodyScrolling(false));
     }
   };
 

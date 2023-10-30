@@ -28,13 +28,13 @@ export default function LanguageSwitcher(): ReactElement {
 
   const toggle = () => {
     setshow((prev) => !prev);
-    toggleBodyScrolling(!show)(dispatch);
+    dispatch(toggleBodyScrolling(!show));
   };
 
   const externalClick = () => {
     if (show) {
       setshow(false);
-      toggleBodyScrolling(false)(dispatch);
+      dispatch(toggleBodyScrolling(false));
     }
   };
   useOnClickOutside(popupRef, externalClick);
