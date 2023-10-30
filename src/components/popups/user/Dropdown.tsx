@@ -64,7 +64,7 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
    */
   const onLogout = () => {
     dispatch(logout());
-    toggleBodyScrolling(false)(dispatch);
+    dispatch(toggleBodyScrolling(false));
   };
 
   /**

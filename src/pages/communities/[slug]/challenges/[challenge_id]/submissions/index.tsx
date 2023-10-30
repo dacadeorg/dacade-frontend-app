@@ -45,11 +45,11 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
   const handleCloseSubmission = useCallback(() => {
     dispatch(showSubmission(""));
     window.history.pushState("", "", localePath(router, router.asPath));
-    toggleBodyScrolling(false)(dispatch);
+    dispatch(toggleBodyScrolling(false));
   }, [dispatch, router]);
 
   useEffect(() => {
-    initChallengeNavigationMenu(navigation.community)(dispatch);
+    dispatch(initChallengeNavigationMenu(navigation.community));
   }, [navigation.community, dispatch]);
 
   // Temporary fix for links copied which have submission_id as a query parameter

@@ -1,6 +1,6 @@
 import baseQuery from "@/config/baseQuery";
-import { store } from "@/store";
 import { clearProfile, setCurrentUserProfile } from "@/store/feature/profile/users.slice";
+import { User } from "@/types/bounty";
 import { createApi } from "@reduxjs/toolkit/query";
 
 const userProfileService = createApi({
@@ -9,16 +9,16 @@ const userProfileService = createApi({
   endpoints: (builder) => ({
     fetchUserProfile: builder.query({
       query: (username: string) => {
-        const current = store.getState().profileUser.current;
-        if (current?.username.toLocaleLowerCase() !== username.toLocaleLowerCase()) {
-          console.log("cleared");
-          store.dispatch(clearProfile());
-        }
         return `users/${username}`;
       },
 
-      onQueryStarted: async (username: string, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async (username: string, { dispatch, queryFulfilled, getState }) => {
         try {
+          const state: any = getState();
+          const current: User = state.profileUser.current;
+          if (current?.username.toLocaleLowerCase() !== username.toLocaleLowerCase()) {
+            dispatch(clearProfile());
+          }
           const { data } = await queryFulfilled;
           dispatch(setCurrentUserProfile(data));
         } catch (error) {

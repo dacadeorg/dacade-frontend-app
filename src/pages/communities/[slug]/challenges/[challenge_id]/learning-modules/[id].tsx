@@ -13,7 +13,7 @@ import { initChallengeNavigationMenu } from "@/store/feature/communities/navigat
 import { setColors } from "@/store/feature/ui.slice";
 import useNavigation from "@/hooks/useNavigation";
 import { GetServerSideProps } from "next";
-import { store } from "@/store";
+import { wrapper } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ChallengeOverviewCard from "@/components/cards/challenge/Overview";
@@ -53,7 +53,7 @@ export default function LearningModulePage(props: LearningModulePageProps) {
     dispatch(setCurrentCommunity(community));
     dispatch(setCurrentLearningModule(learningModule));
     dispatch(setColors(community.colors));
-    initChallengeNavigationMenu(navigation.community)(dispatch);
+    dispatch(initChallengeNavigationMenu(navigation.community));
   }, [community, learningModule, navigation.community]);
 
   const title = getMetadataTitle(learningModule?.title);
@@ -85,7 +85,7 @@ LearningModulePage.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store: any) => async ({ params, locale }) => {
   try {
     const communitySlug = params?.slug as string;
     const challenge_id = params?.challenge_id as string;
@@ -98,11 +98,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
       serverSideTranslations(locale as string),
     ]);
 
-    if (Object.entries(community).length === 0 || Object.entries(challenge).length === 0 || Object.entries(learningModule).length === 0) {
-      return {
-        notFound: true,
-      };
-    }
+    if (Object.entries(community).length === 0 || Object.entries(challenge).length === 0 || Object.entries(learningModule).length === 0)
+      throw new Error("Failed to fetch learning module");
+
     return {
       props: {
         community,
@@ -116,4 +114,4 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
       notFound: true,
     };
   }
-};
+});

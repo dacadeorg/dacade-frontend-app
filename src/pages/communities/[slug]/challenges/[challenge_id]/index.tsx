@@ -80,7 +80,7 @@ export default function ChallengePage(props: {
   const navigation = useNavigation();
 
   useEffect(() => {
-    initChallengeNavigationMenu(navigation.community)(dispatch);
+    dispatch(initChallengeNavigationMenu(navigation.community));
   }, []);
 
   useEffect(() => {
