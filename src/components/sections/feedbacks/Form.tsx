@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useMemo, useState } from "react";
+import { ReactElement, useMemo, useState } from "react";
 import GithubLinkInput from "@/components/ui/GithubLinkInput";
 import MarkdownIcon from "@/components/ui/MarkdownIcon";
 import ArrowButton from "@/components/ui/button/Arrow";
@@ -7,7 +7,6 @@ import TextInput from "@/components/ui/TextInput";
 import Avatar from "@/components/ui/Avatar";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useForm } from "react-hook-form";
-import { createEvent } from "@/store/feature/events.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { Feedback } from "@/types/feedback";
 import { createFeedback } from "@/store/feature/communities/challenges/submissions/feedback.slice";
@@ -74,8 +73,7 @@ export default function Form({ save }: FormProps): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [saving, setSaving] = useState(false);
-  const { community, user, colors, submission, challenge, userFeedback } = useMultiSelector<unknown, FormMultiSelector>({
-    community: (state: IRootState) => state.communities.current,
+  const { user, colors, submission, challenge, userFeedback } = useMultiSelector<unknown, FormMultiSelector>({
     user: (state: IRootState) => state.user.data,
     colors: (state: IRootState) => state.ui.colors,
     submission: (state: IRootState) => state.submissions.current,
@@ -107,28 +105,14 @@ export default function Form({ save }: FormProps): ReactElement {
           link: githubLink,
         })
       );
+      reset();
+      save(userFeedback);
     } catch (error) {
       console.error(error);
     } finally {
       setSaving(false);
     }
   };
-
-  useEffect(() => {
-    if (!userFeedback) return;
-    dispatch(
-      createEvent({
-        name: "Feedback-created",
-        attributes: {
-          submissionId: submission?.id,
-          community: community?.slug,
-          feedbackId: userFeedback.id,
-        },
-      })
-    );
-    reset();
-    save(userFeedback);
-  }, [userFeedback]);
 
   return (
     <div>

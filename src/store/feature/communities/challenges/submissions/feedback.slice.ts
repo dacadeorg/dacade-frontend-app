@@ -1,4 +1,6 @@
 import api from "@/config/api";
+import { IRootState } from "@/store";
+import { createEvent } from "@/store/feature/events.slice";
 import { Feedback } from "@/types/feedback";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
@@ -33,16 +35,30 @@ export const createFeedback = createAsyncThunk(
       submission_id: string;
       locale?: string;
     },
-    { dispatch }
+    { dispatch, getState }
   ) => {
-    const { data } = await api(locale).client.post("feedbacks/create", {
+    const { data: feedback } = await api(locale).client.post("feedbacks/create", {
       submission_id,
       text,
       link,
     });
 
-    dispatch(setCurrent(data));
-    return data;
+    dispatch(setCurrent(feedback));
+    if (feedback?.id) {
+      const state = getState() as IRootState;
+      const community = state.communities.current?.slug;
+      dispatch(
+        createEvent({
+          name: "Feedback-created",
+          attributes: {
+            submissionId: submission_id,
+            community,
+            feedbackId: feedback.id,
+          },
+        })
+      );
+    }
+    return feedback;
   }
 );
 // Define the slice
