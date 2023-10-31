@@ -21,8 +21,8 @@ interface SubmissionPopup {
 
 export default function SubmissionPopup({ show, onClose, submissionId }: SubmissionPopup): ReactElement {
   const dispatch = useDispatch();
-  const fetchSubmission = useCallback(async () => {
-    await dispatch(findSubmssionById({ id: submissionId as string }));
+  const fetchSubmission = useCallback(() => {
+    dispatch(findSubmssionById({ id: submissionId as string }));
   }, [dispatch, submissionId]);
 
   useEffect(() => {
