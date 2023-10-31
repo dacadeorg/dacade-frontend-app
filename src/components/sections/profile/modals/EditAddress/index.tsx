@@ -12,10 +12,12 @@ import { useTranslation } from "next-i18next";
 import { CustomError } from "@/types/error";
 import { fetchAllWallets, updateWallet } from "@/store/services/wallets.service";
 import { Wallet } from "@/types/wallet";
-import { connectWallet, disconnectWallet } from "@/store/feature/wallet.slice";
+import { disconnectWallet } from "@/store/feature/wallet.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { IRootState } from "@/store";
 import { clearCurrentWallet } from "@/store/feature/user/wallets.slice";
+import { useWeb3Modal, useWeb3ModalState } from "@web3modal/wagmi/react";
+import { useAccount, useEnsName } from "wagmi";
 
 /**
  * Inferface for form's inputs values
@@ -68,6 +70,10 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     setValue,
     formState: { errors },
   } = useForm<FormValues>();
+
+  const { open: openWalletConnect } = useWeb3Modal();
+  const { selectedNetworkId } = useWeb3ModalState();
+
   const address = watch("newAddress");
   const formAddress = watch("address");
 
@@ -126,7 +132,8 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
 
   const connect = async () => {
     try {
-      await dispatch(connectWallet());
+      // await dispatch(connectWallet());
+      openWalletConnect();
       setShowEditAddress(true);
     } catch (e) {
       console.log(e);
@@ -233,6 +240,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
           {showWalletConnectionMethod ? (
             <div className="grid gap-2.5">
               <p className="mb-2 text-base font-medium">{t("profile.edit.wallet.select.title")}</p>
+              <p className="mb-2 text-base font-medium">----{selectedNetworkId}</p>
               <div className="overflow-hidden border border-gray-200 border-solid divide-y rounded-xl">
                 <WalletButton onClick={() => setWalletConnectionMethod("manual")}>{t("profile.edit.wallet.select.option.manual")}</WalletButton>
                 {requireWalletConnection && <WalletButton onClick={() => setWalletConnectionMethod("wallet")}>{t("profile.edit.wallet.select.option.connect")}</WalletButton>}

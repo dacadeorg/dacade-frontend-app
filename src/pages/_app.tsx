@@ -8,6 +8,30 @@ import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
 import AuthObserver from "@/contexts/AuthObserver";
 import NextNProgress from "nextjs-progressbar";
+import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
+
+import { WagmiConfig } from "wagmi";
+import { arbitrum, mainnet } from "wagmi/chains";
+const projectId = "d8aaadc6360d76bdc9fb5793d85d9e69";
+const metadata = {
+  name: "Web3Modal",
+  description: "Web3Modal Example",
+  url: "https://web3modal.com",
+  icons: ["https://avatars.githubusercontent.com/u/37784886"],
+};
+
+const chains = [mainnet, arbitrum];
+const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
+createWeb3Modal({
+  wagmiConfig,
+  projectId,
+  chains,
+  themeVariables: {
+    "--w3m-color-mix": "#00BB7F",
+    "--w3m-color-mix-strength": 40,
+    "--w3m-z-index": 1000,
+  },
+});
 
 /**
  * Represents a Next.js page with a custom layout.
@@ -45,28 +69,30 @@ const App = ({ Component, ...rest }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout || ((page) => page);
 
   return (
-    <Provider store={store}>
-      <AuthObserver>
-        {getLayout(
-          <>
-            <NextNProgress
-              color="#1B66F8"
-              startPosition={0.2}
-              stopDelayMs={100}
-              height={2.5}
-              showOnShallow={true}
-              options={{
-                showSpinner: false,
-                easing: "ease",
-                speed: 500,
-              }}
-            />
+    <WagmiConfig config={wagmiConfig}>
+      <Provider store={store}>
+        <AuthObserver>
+          {getLayout(
+            <>
+              <NextNProgress
+                color="#1B66F8"
+                startPosition={0.2}
+                stopDelayMs={100}
+                height={2.5}
+                showOnShallow={true}
+                options={{
+                  showSpinner: false,
+                  easing: "ease",
+                  speed: 500,
+                }}
+              />
 
-            <Component {...pageProps} />
-          </>
-        )}
-      </AuthObserver>
-    </Provider>
+              <Component {...pageProps} />
+            </>
+          )}
+        </AuthObserver>
+      </Provider>
+    </WagmiConfig>
   );
 };
 

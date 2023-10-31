@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { providers } from "ethers";
+// import { providers } from "ethers";
 import Web3Modal from "web3modal";
-import WalletConnectProvider from "@walletconnect/web3-provider";
-import { SIGNATURE_HASH_STRING } from "@/constants/wallet";
+// import WalletConnectProvider from "@walletconnect/web3-provider";
+// import { SIGNATURE_HASH_STRING } from "@/constants/wallet";
 
-const INFURA_ID = "460f40a260564ac4a4f4b3fffb032dad";
+// const INFURA_ID = "460f40a260564ac4a4f4b3fffb032dad";
 
 interface InitialState {
   address: string | null;
@@ -67,24 +67,24 @@ export const { clearWeb3WalletState, setWeb3WalletData, setConnectWallet, setCha
  *
  * @type {{ walletconnect: { package: any; options: { infuraId: string; }; }; }}
  */
-const providerOptions = {
-  walletconnect: {
-    package: WalletConnectProvider, // required
-    options: {
-      infuraId: INFURA_ID, // required
-    },
-  },
-};
+// const providerOptions = {
+//   walletconnect: {
+//     package: WalletConnectProvider, // required
+//     options: {
+//       infuraId: INFURA_ID, // required
+//     },
+//   },
+// };
 
 let web3Modal: Web3Modal | null = null;
 let provider: any = null;
-let currentChainId = null;
+// let currentChainId = null;
 
 if (typeof window !== "undefined") {
   web3Modal = new Web3Modal({
     network: "mainnet", // optional
     cacheProvider: true,
-    providerOptions, // required
+    // providerOptions, // required
   });
 }
 
@@ -94,30 +94,30 @@ if (typeof window !== "undefined") {
  *
  * @type {*}
  */
-export const connectWallet = createAsyncThunk("web3/connect", async (_, { dispatch }) => {
-  provider = await web3Modal?.connect();
-  dispatch(setConnectWallet(true));
+// export const connectWallet = createAsyncThunk("web3/connect", async (_, { dispatch }) => {
+//   provider = await web3Modal?.connect();
+//   dispatch(setConnectWallet(true));
 
-  // We plug the initial `provider` into ethers.js and get back
-  // a Web3Provider. This will add on methods from ethers.js and
-  // event listeners such as `.on()` will be different.
-  const web3Provider = new providers.Web3Provider(provider);
-  const signer = web3Provider.getSigner();
-  const address = await signer.getAddress();
-  const network = await web3Provider.getNetwork();
-  const networkName = network.name;
-  currentChainId = network.chainId;
-  await dispatch(subscribeProvider());
+//   // We plug the initial `provider` into ethers.js and get back
+//   // a Web3Provider. This will add on methods from ethers.js and
+//   // event listeners such as `.on()` will be different.
+//   const web3Provider = new providers.Web3Provider(provider);
+//   const signer = web3Provider.getSigner();
+//   const address = await signer.getAddress();
+//   const network = await web3Provider.getNetwork();
+//   const networkName = network.name;
+//   currentChainId = network.chainId;
+//   await dispatch(subscribeProvider());
 
-  const data = {
-    address,
-    chainId: currentChainId,
-    networkName,
-  };
+//   const data = {
+//     address,
+//     chainId: currentChainId,
+//     networkName,
+//   };
 
-  dispatch(setWeb3WalletData(data));
-  return data;
-});
+//   dispatch(setWeb3WalletData(data));
+//   return data;
+// });
 
 /**
  * Get wallet signature action
@@ -125,18 +125,18 @@ export const connectWallet = createAsyncThunk("web3/connect", async (_, { dispat
  *
  * @type {*}
  */
-export const getSignature = async () => {
-  if (!web3Modal) return;
-  if (!provider) provider = await web3Modal?.connect();
-  const web3Provider = new providers.Web3Provider(provider);
-  try {
-    const signer = web3Provider.getSigner();
-    const signature = await signer.signMessage(SIGNATURE_HASH_STRING);
-    return signature;
-  } catch (error) {
-    return;
-  }
-};
+// export const getSignature = async () => {
+//   if (!web3Modal) return;
+//   if (!provider) provider = await web3Modal?.connect();
+//   const web3Provider = new providers.Web3Provider(provider);
+//   try {
+//     const signer = web3Provider.getSigner();
+//     const signature = await signer.signMessage(SIGNATURE_HASH_STRING);
+//     return signature;
+//   } catch (error) {
+//     return;
+//   }
+// };
 
 /**
  * Disconnect wallet action
@@ -161,11 +161,11 @@ export const disconnectWallet = createAsyncThunk("web3/disconnect", async (_, { 
  *
  * @type {*}
  */
-export const check = createAsyncThunk("web3/check", async (_, { dispatch }) => {
-  if (web3Modal && web3Modal.cachedProvider) {
-    await dispatch(connectWallet());
-  }
-});
+// export const check = createAsyncThunk("web3/check", async (_, { dispatch }) => {
+//   if (web3Modal && web3Modal.cachedProvider) {
+//     await dispatch(connectWallet());
+//   }
+// });
 
 /**
  * Subscribe to the wallet action
@@ -173,20 +173,20 @@ export const check = createAsyncThunk("web3/check", async (_, { dispatch }) => {
  *
  * @type {*}
  */
-export const subscribeProvider = createAsyncThunk("web3/subscribeProvider", async (_, { dispatch }) => {
-  if (!provider?.on) return;
-  provider.on("disconnect", () => dispatch(disconnectWallet()));
-  provider.on("accountsChanged", async (accounts: string | any[]) => {
-    if (!accounts.length) return dispatch(disconnectWallet());
-    setWeb3WalletData(accounts[0]);
-  });
+// export const subscribeProvider = createAsyncThunk("web3/subscribeProvider", async (_, { dispatch }) => {
+//   if (!provider?.on) return;
+//   provider.on("disconnect", () => dispatch(disconnectWallet()));
+//   provider.on("accountsChanged", async (accounts: string | any[]) => {
+//     if (!accounts.length) return dispatch(disconnectWallet());
+//     setWeb3WalletData(accounts[0]);
+//   });
 
-  provider.on("chainChanged", async (chainId: string) => {
-    currentChainId = chainId;
-    setChainId(chainId);
-    const { name } = await new providers.Web3Provider(provider).getNetwork();
-    setNetworkName(name);
-  });
-});
+//   provider.on("chainChanged", async (chainId: string) => {
+//     currentChainId = chainId;
+//     setChainId(chainId);
+//     const { name } = await new providers.Web3Provider(provider).getNetwork();
+//     setNetworkName(name);
+//   });
+// });
 
 export default web3WalletSlice;
