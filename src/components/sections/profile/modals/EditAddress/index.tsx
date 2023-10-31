@@ -13,7 +13,7 @@ import { ReactElement, useEffect, useMemo, useState } from "react";
 import WalletAddressChangeForm from "./_partials/Form";
 import { WalletInfo } from "./_partials/Info";
 import SelectWalletConnectionMethod from "./_partials/SelectConnectionMethod";
-import { useAccount } from "wagmi";
+import { useWeb3Modal } from "@web3modal/wagmi/react";
 
 /**
  * Interface for the edit profile props
@@ -46,7 +46,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const [showWalletConnectionMethod, setShowWalletConnectionMethod] = useState(false);
   const [connectionMethod, setConnectionMethod] = useState("");
 
-  const { address } = useAccount();
+  const { open: openWalletConnectModal } = useWeb3Modal();
   const dispatch = useDispatch();
 
   const closeModal = () => {
@@ -96,7 +96,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
 
   const connect = async () => {
     try {
-      // await dispatch(connectWallet());
+      openWalletConnectModal();
       setShowEditAddress(true);
     } catch (e) {
       console.log(e);
@@ -155,7 +155,6 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     <Modal show={show} onClose={closeModal}>
       <div className="px-6">
         <WalletHeader wallet={wallet} />
-        <span>This ihe addreess {address}</span>
         {showWalletConnectionMethod && <SelectWalletConnectionMethod enableWalletConnection={requireWalletConnection} onSelect={setWalletConnectionMethod} />}
 
         {!showWalletConnectionMethod && <WalletInfo address={currentAddress} connectionMethod={connectionMethod} onClick={openEditAddress} />}

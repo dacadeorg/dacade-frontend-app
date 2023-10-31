@@ -7,6 +7,7 @@ import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import EditAdressFooter from "./Footer";
+import { useAccount } from "wagmi";
 
 type Props = {
   connectionMethod: string;
@@ -63,6 +64,8 @@ export default function WalletAddressChangeForm({ connectionMethod, currentAddre
 
   const address = watch("address");
 
+  const { address: walletConnectAddress } = useAccount();
+
   const isMatchingTheExistingOne = useMemo(() => {
     if (!address || !currentAddress) return false;
     return currentAddress?.toLocaleLowerCase() === address?.toLocaleLowerCase();
@@ -87,6 +90,10 @@ export default function WalletAddressChangeForm({ connectionMethod, currentAddre
   useEffect(() => {
     if (!show) clear();
   }, [show]);
+
+  useEffect(() => {
+    setValue("address", walletConnectAddress || "");
+  }, [walletConnectAddress]);
 
   return (
     <form className="flex flex-col" onSubmit={handleSubmit(save)}>
