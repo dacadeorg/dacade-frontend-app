@@ -1,4 +1,4 @@
-import { useEffect, ReactElement } from "react";
+import { useEffect, ReactElement, useMemo } from "react";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import Head from "next/head";
 import { useDispatch } from "@/hooks/useTypedDispatch";
@@ -18,6 +18,7 @@ import LearningModuleSection from "@/components/sections/learning-modules";
 import useNavigation from "@/hooks/useNavigation";
 import ChallengeCard from "@/components/cards/challenge/Challenge";
 import { useTranslation } from "react-i18next";
+import PageNavigation from "@/components/sections/courses/PageNavigation";
 
 /**
  * Learning module page props interfae
@@ -50,11 +51,16 @@ export default function LearningModulePage(props: LearningModulePageProps): Reac
   const { t } = useTranslation();
 
   useEffect(() => {
-    initCourseNavigationMenu(navigation.community)(dispatch);
+    dispatch(initCourseNavigationMenu(navigation.community));
   }, [dispatch]);
 
   const title = getMetadataTitle(learningModule.title!, course.name!);
   const descriptions = getMetadataDescription(learningModule.description!);
+  const paths = useMemo(() => [learningModule?.title], [learningModule?.title]);
+  const isLastLearningModule = useMemo(() => {
+    if (!course.learningModules || !course.learningModules.length) return false;
+    return learningModule.id === course.learningModules[course.learningModules.length - 1].id;
+  }, [learningModule.id, course.learningModules]);
 
   return (
     <>
@@ -64,19 +70,27 @@ export default function LearningModulePage(props: LearningModulePageProps): Reac
           <meta key={`learning-module-head-${i}`} {...meta} />
         ))}
       </Head>
-      <Wrapper>
+      <Wrapper paths={paths}>
         <div className="py-8 flex flex-col space-y-8 text-gray-700">
           <Header />
           <div className="w-full">
             {course.challenges && course.challenges.map((challenge) => <ChallengeOverviewCard challenge={challenge} key={challenge.id} community={community} />)}
             <LearningModuleSection learningModule={learningModule} />
-            <div>
-              <div className="mt-6 mb-5">
-                <h2 className="font-medium text-.5xl text-gray-700 pb-3">Challenge</h2>
-                <p className="text-lg">{t("communities.overview.learning-modules-challenge-introduction")}</p>
-              </div>
-              {course.challenges && course.challenges.map((challenge) => <ChallengeCard data={challenge} key={challenge.id} community={community} isCourseEnd />)}
-            </div>
+            {isLastLearningModule ? (
+              course.challenges && (
+                <div>
+                  <div className="mt-6 mb-5">
+                    <h2 className="font-medium text-.5xl text-gray-700 pb-3">{t("communities.challenge.title")}</h2>
+                    <p className="text-lg">{t("communities.overview.learning-modules-challenge-introduction")}</p>
+                  </div>
+                  {course.challenges.map((challenge) => (
+                    <ChallengeCard data={challenge} key={challenge.id} community={community} isCourseEnd />
+                  ))}
+                </div>
+              )
+            ) : (
+              <PageNavigation />
+            )}
           </div>
         </div>
       </Wrapper>

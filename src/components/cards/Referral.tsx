@@ -37,7 +37,7 @@ export default function Referral({ referral }: ReferralProps): ReactElement {
   const dispatch = useDispatch();
 
   const openLink = () => {
-    toggleShowReferralPopup(true)(dispatch);
+    dispatch(toggleShowReferralPopup(true));
   };
 
   return (

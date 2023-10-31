@@ -9,7 +9,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useTranslation } from "next-i18next";
 import { check, connectWallet, getSignature } from "@/store/feature/wallet.slice";
 import { mintCertificate } from "@/store/services/profile/certificate.service";
-import { Certificate } from "@/types/certificate";
+import { Certificate, Minting } from "@/types/certificate";
 import { IRootState } from "@/store";
 
 /**
@@ -22,6 +22,7 @@ import { IRootState } from "@/store";
 interface MintCertificateMultiSelector {
   achievement: Certificate | null;
   walletAddress: string | null;
+  mintingTx: Minting | null;
 }
 
 // Wallet interface
@@ -51,9 +52,10 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>();
   const [txData, setTxData] = useState({ tx: "" });
-  const { achievement, walletAddress } = useMultiSelector<unknown, MintCertificateMultiSelector>({
+  const { achievement, walletAddress, mintingTx } = useMultiSelector<unknown, MintCertificateMultiSelector>({
     achievement: (state: IRootState) => state.profileCertificate.current,
     walletAddress: (state: IRootState) => state.web3Wallet.address,
+    mintingTx: (state: IRootState) => state.certificates.mintingTx,
   });
 
   const connected = check();
@@ -106,14 +108,14 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
       const signature = await getSignature();
 
       if (signature && achievement?.id) {
-        const data = await (
-          await mintCertificate({
+        await dispatch(
+          mintCertificate({
             id: achievement.id as string,
             address: address as string,
             signature,
           })
-        )(dispatch);
-        setTxData((prev) => ({ ...prev, tx: data.txData }));
+        );
+        mintingTx && setTxData((prev) => ({ ...prev, tx: mintingTx.tx }));
       }
     } catch (error: any) {
       setError(error);
@@ -166,6 +168,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
             ) : (
               <>
                 <p className="pt-3 pb-4">This certificate is awarded for passing the {achievement?.metadata?.name} course.</p>
+                {/* #TODO: this is not right, this connected is aways true and it should not */}
                 {!connected ? (
                   <div className="border-t border-gray-100 border-solid">
                     <p className="pt-4">Minting this certificate will not cost you gas fees.</p>

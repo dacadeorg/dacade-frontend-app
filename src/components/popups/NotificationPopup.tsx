@@ -49,13 +49,13 @@ export default function NotificationPopup({ buttonStyles }: NotificationPopupPro
     if (unread) {
       dispatch(readNotification());
     }
-    toggleBodyScrolling(!isNotificationVisible)(dispatch);
+    dispatch(toggleBodyScrolling(!isNotificationVisible));
   };
 
   const externalClick = () => {
     if (!isNotificationVisible) return;
     setIsNotificationVisible(false);
-    toggleBodyScrolling(false)(dispatch);
+    dispatch(toggleBodyScrolling(false));
   };
 
   return (

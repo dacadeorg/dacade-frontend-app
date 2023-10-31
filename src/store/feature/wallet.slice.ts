@@ -1,3 +1,4 @@
+// import { SIGNATURE_HASH_STRING } from "@/constants/wallet";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // import { providers } from "ethers";
 import Web3Modal from "web3modal";

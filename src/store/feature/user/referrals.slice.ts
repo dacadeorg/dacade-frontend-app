@@ -8,11 +8,13 @@ import { createSlice } from "@reduxjs/toolkit";
 interface UserReferralsState {
   userReferralList: Referral[];
   current: Referral | null;
+  hasMore: boolean;
 }
 
 const initialState: UserReferralsState = {
   userReferralList: [],
   current: null,
+  hasMore: true,
 };
 
 /**
@@ -33,9 +35,12 @@ const userReferralsSlice = createSlice({
       state.userReferralList = [];
       state.current = null;
     },
+    setHasMoreReferrals: (state, action) => {
+      state.hasMore = action.payload;
+    },
   },
 });
 
-export const { setCurrent, clear, setUserReferralsList } = userReferralsSlice.actions;
+export const { setCurrent, clear, setUserReferralsList, setHasMoreReferrals } = userReferralsSlice.actions;
 
 export default userReferralsSlice;

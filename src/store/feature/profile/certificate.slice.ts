@@ -1,4 +1,4 @@
-import { Certificate } from "@/types/certificate";
+import { Certificate, Minting } from "@/types/certificate";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 
@@ -6,6 +6,7 @@ interface ICertificateSlice {
   list: Certificate[];
   current: Certificate | null;
   currentMinted: boolean;
+  mintingTx?: Minting;
 }
 
 const initialState: ICertificateSlice = {
@@ -40,6 +41,9 @@ export const certificateSlice = createSlice({
       state.list = [];
       state.current = null;
     },
+    setMintingTxData(state, action: PayloadAction<Minting>) {
+      state.mintingTx = action.payload;
+    },
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
@@ -51,6 +55,6 @@ export const certificateSlice = createSlice({
   },
 });
 
-export const { setCurrentCertificate, setCertificateList, clearCertificate, setCurrentMintingStatus } = certificateSlice.actions;
+export const { setCurrentCertificate, setCertificateList, clearCertificate, setCurrentMintingStatus, setMintingTxData } = certificateSlice.actions;
 
 export default certificateSlice;

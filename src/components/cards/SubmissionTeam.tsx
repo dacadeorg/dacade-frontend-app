@@ -26,6 +26,7 @@ interface SubmissionTeamCardMultiSelector {
   team: Team;
   invite: Invite | null;
   isTeamLoading: boolean;
+  filteredUsers: User[] | null;
 }
 
 /**
@@ -83,11 +84,12 @@ enum MemberStatus {
  */
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  const { challenge, user, team, isTeamLoading } = useMultiSelector<unknown, SubmissionTeamCardMultiSelector>({
+  const { challenge, user, team, isTeamLoading, filteredUsers } = useMultiSelector<unknown, SubmissionTeamCardMultiSelector>({
     challenge: (state: IRootState) => state.challenges.current,
     user: (state: IRootState) => state.user.data,
     team: (state: IRootState) => state.teams.current,
     isTeamLoading: (state: IRootState) => state.teams.loading,
+    filteredUsers: (state: IRootState) => state.user.filteredUsers,
   });
 
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
@@ -97,8 +99,8 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   const dispatch = useDispatch();
 
   const filterUsers = async (username: string, callback: any) => {
-    const { data = [] } = await dispatch(getUserByUsername(username));
-    const users = data?.map((user: User) => {
+    await dispatch(getUserByUsername(username));
+    const users = filteredUsers?.map((user: User) => {
       return { value: user.id, label: user.displayName, user };
     });
     return callback(users);
