@@ -8,10 +8,14 @@ import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
 import AuthObserver from "@/contexts/AuthObserver";
 import NextNProgress from "nextjs-progressbar";
-import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
+import { createWeb3Modal } from "@web3modal/wagmi/react";
+import { publicProvider } from "wagmi/providers/public";
+import { WagmiConfig, configureChains, createConfig } from "wagmi";
+import { polygonMumbai, mainnet } from "wagmi/chains";
+import { InjectedConnector } from "wagmi/connectors/injected";
+import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
+import { walletConnectProvider } from "@web3modal/wagmi";
 
-import { WagmiConfig } from "wagmi";
-import { arbitrum, mainnet } from "wagmi/chains";
 const projectId = "d8aaadc6360d76bdc9fb5793d85d9e69";
 const metadata = {
   name: "Web3Modal",
@@ -20,15 +24,17 @@ const metadata = {
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 
-const chains = [mainnet, arbitrum];
-const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
+const { chains, publicClient } = configureChains([mainnet, polygonMumbai], [walletConnectProvider({ projectId }), publicProvider()]);
+const wagmiConfig = createConfig({
+  autoConnect: true,
+  connectors: [new WalletConnectConnector({ chains, options: { projectId, showQrModal: false, metadata } }), new InjectedConnector({ chains, options: { shimDisconnect: true } })],
+  publicClient,
+});
 createWeb3Modal({
   wagmiConfig,
   projectId,
   chains,
   themeVariables: {
-    "--w3m-color-mix": "#00BB7F",
-    "--w3m-color-mix-strength": 40,
     "--w3m-z-index": 1000,
   },
 });

@@ -4,7 +4,6 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { IRootState } from "@/store";
 import { clearCurrentWallet } from "@/store/feature/user/wallets.slice";
-import { disconnectWallet } from "@/store/feature/wallet.slice";
 import { fetchAllWallets, updateWallet } from "@/store/services/wallets.service";
 import { CustomError } from "@/types/error";
 import { Wallet } from "@/types/wallet";
@@ -80,18 +79,12 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
 
     if (method === "wallet" && !requireWalletConnection) return;
 
-    if (isWalletConnected) disconnect();
-
     setConnectionMethod(method);
     setShowEditAddress(true);
 
     if (method === "wallet") {
       return connect();
     }
-  };
-
-  const disconnect = async () => {
-    await dispatch(disconnectWallet());
   };
 
   const connect = async () => {
@@ -136,10 +129,6 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const requireWalletConnection = useMemo(() => {
     return wallets?.require_wallet_connection || false;
   }, [wallets?.require_wallet_connection]);
-
-  const isWalletConnected = useMemo(() => {
-    return requireWalletConnection && !!wallet?.address;
-  }, [requireWalletConnection, wallet?.address]);
 
   const showForm = useMemo(() => {
     return Boolean(showEditAddress && !showWalletConnectionMethod && connectionMethod);
