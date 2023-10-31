@@ -1,7 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-// const INFURA_ID = "460f40a260564ac4a4f4b3fffb032dad";
-
 interface InitialState {
   address: string | null;
   chainId: number | null;
