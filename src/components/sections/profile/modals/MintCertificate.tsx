@@ -61,7 +61,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
 
   const { isConnected, address: walletConnectAddress } = useAccount();
   const { open: openWeb3Modal } = useWeb3Modal();
-  const { data: signature, isLoading: signatureLoading, signMessage } = useSignMessage();
+  const { data: signature, isLoading: signatureLoading, signMessage, error: getSignatureError } = useSignMessage();
 
   // User wallet address
   const address = useMemo(() => {
@@ -88,7 +88,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
   }, [address, loading]);
 
   useEffect(() => {
-    if (!achievement?.minting.tx || !mintingTx) return;
+    if (!achievement?.minting?.tx || !mintingTx) return;
     const tx = achievement?.minting?.tx || mintingTx.tx;
     setTxData((prev) => ({
       ...prev,
@@ -144,6 +144,11 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
     if (!address) return connect();
     onSave();
   };
+
+  useEffect(() => {
+    if (!getSignatureError) return;
+    setError({ name: "Minting failed", message: "Failed connection", details: { one: "User denied message signature" } });
+  }, [getSignatureError]);
 
   useEffect(() => {
     setLoading(signatureLoading);
