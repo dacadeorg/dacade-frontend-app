@@ -1,6 +1,6 @@
 import api from "@/config/api";
 import { IRootState } from "@/store";
-import { createEvent } from "@/store/feature/events.slice";
+import { createAnalyticEvent } from "@/store/feature/events.slice";
 import { Feedback } from "@/types/feedback";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
@@ -48,7 +48,7 @@ export const createFeedback = createAsyncThunk(
       const state = getState() as IRootState;
       const community = state.communities.current?.slug;
       dispatch(
-        createEvent({
+        createAnalyticEvent({
           name: "Feedback-created",
           attributes: {
             submissionId: submission_id,
