@@ -8,37 +8,8 @@ import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
 import AuthObserver from "@/contexts/AuthObserver";
 import NextNProgress from "nextjs-progressbar";
-import { createWeb3Modal } from "@web3modal/wagmi/react";
-import { publicProvider } from "wagmi/providers/public";
-import { WagmiConfig, configureChains, createConfig } from "wagmi";
-import { polygonMumbai, mainnet } from "wagmi/chains";
-import { InjectedConnector } from "wagmi/connectors/injected";
-import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-import { walletConnectProvider } from "@web3modal/wagmi";
-
-// #TODO: use Dacade's infura KEY to 460f40a260564ac4a4f4b3fffb032dad
-const projectId = "d8aaadc6360d76bdc9fb5793d85d9e69";
-const metadata = {
-  name: "Dacade",
-  description: "Peer to peer learning platform",
-  url: "https://dacade.org/",
-  icons: ["https://avatars.githubusercontent.com/u/37784886"],
-};
-
-const { chains, publicClient } = configureChains([mainnet, polygonMumbai], [walletConnectProvider({ projectId }), publicProvider()]);
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors: [new WalletConnectConnector({ chains, options: { projectId, showQrModal: false, metadata } }), new InjectedConnector({ chains, options: { shimDisconnect: true } })],
-  publicClient,
-});
-createWeb3Modal({
-  wagmiConfig,
-  projectId,
-  chains,
-  themeVariables: {
-    "--w3m-z-index": 1000,
-  },
-});
+import { WagmiConfig } from "wagmi";
+import { config } from "@/config/Web3Modal";
 
 /**
  * Represents a Next.js page with a custom layout.
@@ -76,7 +47,7 @@ const App = ({ Component, ...rest }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout || ((page) => page);
 
   return (
-    <WagmiConfig config={wagmiConfig}>
+    <WagmiConfig config={config}>
       <Provider store={store}>
         <AuthObserver>
           {getLayout(

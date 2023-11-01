@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import EditAdressFooter from "./Footer";
 import { useAccount } from "wagmi";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { setWeb3Address } from "@/store/feature/wallet.slice";
 
 type Props = {
   connectionMethod: string;
@@ -59,6 +61,7 @@ export default function WalletAddressChangeForm({ connectionMethod, currentAddre
     setValue,
     formState: { errors },
   } = useForm<FormValues>();
+  const dispatch = useDispatch();
 
   const web3Adrress = useSelector((state) => state.web3Wallet.address);
 
@@ -93,6 +96,7 @@ export default function WalletAddressChangeForm({ connectionMethod, currentAddre
 
   useEffect(() => {
     setValue("address", walletConnectAddress || "");
+    dispatch(setWeb3Address(walletConnectAddress));
   }, [walletConnectAddress]);
 
   return (
