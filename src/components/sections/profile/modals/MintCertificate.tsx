@@ -10,8 +10,7 @@ import { useTranslation } from "next-i18next";
 import { mintCertificate } from "@/store/services/profile/certificate.service";
 import { Certificate, Minting } from "@/types/certificate";
 import { IRootState } from "@/store";
-import { useAccount, useSignMessage } from "wagmi";
-import { useWeb3Modal } from "@web3modal/wagmi/react";
+import useWalletConnect from "@/hooks/useWalletConnect";
 
 /**
  * interface for MintCertificate multiSelector
@@ -59,9 +58,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
     mintingTx: (state: IRootState) => state.certificates?.mintingTx,
   });
 
-  const { isConnected, address: walletConnectAddress } = useAccount();
-  const { open: openWeb3Modal } = useWeb3Modal();
-  const { data: signature, isLoading: signatureLoading, signMessage, error: getSignatureError } = useSignMessage();
+  const { isConnected, walletConnectAddress, openWeb3Modal, signature, signatureLoading, signMessage, getSignatureError } = useWalletConnect();
 
   // User wallet address
   const address = useMemo(() => {
@@ -159,7 +156,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
   }, [mint, signature]);
 
   return (
-    <Modal show={show} size="medium">
+    <Modal show={show} size="medium" onClose={onClose}>
       <div className="px-6 pt-6">
         <div className="pb-7">
           <p className="text-.5xl font-medium leading-snug">{achievement?.metadata?.name}</p>
