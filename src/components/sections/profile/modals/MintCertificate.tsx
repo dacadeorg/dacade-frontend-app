@@ -11,6 +11,7 @@ import { mintCertificate } from "@/store/services/profile/certificate.service";
 import { Certificate, Minting } from "@/types/certificate";
 import { IRootState } from "@/store";
 import useWalletConnect from "@/hooks/useWalletConnect";
+import { SIGNATURE_HASH_STRING } from "@/constants/wallet";
 
 /**
  * interface for MintCertificate multiSelector
@@ -103,7 +104,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
     setError((prev: any) => ({ ...prev, message: "" }));
     try {
       // Trigger the modal to get the signature
-      signMessage({ message: `Mint ${achievement?.metadata?.name} certificate from Dacade` });
+      signMessage({ message: SIGNATURE_HASH_STRING });
     } catch (error: any) {
       setError(error);
     }

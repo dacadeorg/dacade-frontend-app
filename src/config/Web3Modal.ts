@@ -6,8 +6,7 @@ import { InjectedConnector } from "wagmi/connectors/injected";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { walletConnectProvider } from "@web3modal/wagmi";
 
-// #TODO: use Dacade's infura KEY to 460f40a260564ac4a4f4b3fffb032dad
-const projectId = "d8aaadc6360d76bdc9fb5793d85d9e69";
+const projectId = "460f40a260564ac4a4f4b3fffb032dad";
 const metadata = {
   name: "Dacade",
   description: "Peer to peer learning platform",
