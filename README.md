@@ -7,6 +7,7 @@ Learning and community are the core principles that dacade approaches with a mul
 ## 1. Requirements
 
 To run the project, you will need the following:
+
 - Node.js (v16 or higher)
 - npm (v6 or higher)
 
@@ -40,7 +41,38 @@ yarn build
 yarn start
 ```
 
-## 4. Setup
+## 4. Features
+
+- authentication feature:
+  Users can sign up and log in to the platform using their email and password or through their Google  
+   accounts. Firebase Authentication API is used to manage user authentication
+
+- Learning Materials
+  The platform provides users with access to learning materials, including videos, quizzes, and text-based content. Users can navigate through the materials and track their progress.
+
+- Feedback and Collaboration
+  Users can provide feedback to each other on their projects through a custom API. The API allows users to comment on each other's work and collaborate on their projects.
+
+- Gamification
+  The platform features gamification elements, including badges and rewards, to motivate users and encourage participation.
+
+## Running Locally
+
+### 1. Clone Repo
+
+```bash
+git clone https://github.com/dacadeorg/dacade-frontend-app.git
+```
+
+### 2. Install Dependencies
+
+```bash
+yarn install
+```
+
+### 3. Configuration
+
+Before running the application locally, the following environment variables are required to be set:
 
 ```js
 NEXT_PUBLIC_FIREBASE_API_KEY = "AIzaSyDjGCuQB-aOc0qFZPNJTfF9Is-UywXakUg";
@@ -66,20 +98,11 @@ NEXT_PUBLIC_BLOCK_EXPLORER_URL = "https://alfajores.celoscan.io";
 NEXT_PUBLIC_IPFS_URL = "https://gateway.pinata.cloud/ipfs/";
 ```
 
-## 5. Features
+### 4. Run App
 
-- authentication feature:
-  Users can sign up and log in to the platform using their email and password or through their Google  
-   accounts. Firebase Authentication API is used to manage user authentication
-
-- Learning Materials
-  The platform provides users with access to learning materials, including videos, quizzes, and text-based content. Users can navigate through the materials and track their progress.
-
-- Feedback and Collaboration
-  Users can provide feedback to each other on their projects through a custom API. The API allows users to comment on each other's work and collaborate on their projects.
-
-- Gamification
-  The platform features gamification elements, including badges and rewards, to motivate users and encourage participation.
+```bash
+yarn run dev
+```
 
 ### User Roles and Privileges
 
