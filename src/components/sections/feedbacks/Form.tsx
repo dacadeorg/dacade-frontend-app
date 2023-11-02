@@ -49,7 +49,7 @@ interface FormValues {
  * @typedef {FormProps}
  */
 interface FormProps {
-  save: () => void;
+  onSave: () => void;
 }
 
 /**
@@ -60,7 +60,7 @@ interface FormProps {
  * @param {FormProps} { save }
  * @returns {ReactElement}
  */
-export default function Form({ save: fetchFeedbacks }: FormProps): ReactElement {
+export default function Form({ onSave }: FormProps): ReactElement {
   const {
     register,
     handleSubmit,
@@ -103,7 +103,7 @@ export default function Form({ save: fetchFeedbacks }: FormProps): ReactElement 
         })
       );
       reset();
-      fetchFeedbacks();
+      onSave();
     } catch (error) {
       console.error(error);
     } finally {
