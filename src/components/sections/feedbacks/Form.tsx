@@ -51,7 +51,7 @@ interface FormValues {
  * @typedef {FormProps}
  */
 interface FormProps {
-  save: (data: Feedback) => void;
+  save: () => void;
 }
 
 /**
@@ -62,7 +62,7 @@ interface FormProps {
  * @param {FormProps} { save }
  * @returns {ReactElement}
  */
-export default function Form({ save }: FormProps): ReactElement {
+export default function Form({ save: fetchFeedbacks }: FormProps): ReactElement {
   const {
     register,
     handleSubmit,
@@ -73,12 +73,11 @@ export default function Form({ save }: FormProps): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [saving, setSaving] = useState(false);
-  const { user, colors, submission, challenge, userFeedback } = useMultiSelector<unknown, FormMultiSelector>({
+  const { user, colors, submission, challenge } = useMultiSelector<unknown, FormMultiSelector>({
     user: (state: IRootState) => state.user.data,
     colors: (state: IRootState) => state.ui.colors,
     submission: (state: IRootState) => state.submissions.current,
     challenge: (state: IRootState) => state.challenges.current,
-    userFeedback: (state: IRootState) => state.feedback.current,
   });
 
   const activeButtonStyle = useMemo(
@@ -106,7 +105,7 @@ export default function Form({ save }: FormProps): ReactElement {
         })
       );
       reset();
-      save(userFeedback);
+      fetchFeedbacks();
     } catch (error) {
       console.error(error);
     } finally {
