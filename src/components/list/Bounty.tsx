@@ -35,8 +35,8 @@ export default function BountyList({ bounties = [], referrals = [] }: BountyList
           {referrals.map((referral) => (
             <Referral referral={referral} key={referral.name} />
           ))}
-          {bounties.map((bounty) => (
-            <Bounty bounty={bounty} key={bounty.id} />
+          {bounties.map((bounty, index) => (
+            <Bounty bounty={bounty} key={`${index}-${bounty.id}`} />
           ))}
         </div>
       )}

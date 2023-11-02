@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import { ReactElement, useMemo } from "react";
 import { useRouter } from "next/router";
-import { Bounty } from "@/types/bounty";
+import { Bounty, Submission } from "@/types/bounty";
 
 import DateManager from "@/utilities/DateManager";
 import Badge from "@/components/ui/Badge";
@@ -38,6 +38,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
   const { t } = useTranslation();
   const { locale } = useRouter();
   const navigation = useNavigation();
+  const router = useRouter();
 
   const convertDate = (date: Date) => DateManager.fromNow(date, locale);
 
@@ -55,6 +56,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
   }, [bounty.challenge, bounty.course?.slug, bounty.slug, bounty.submissions?.link, bounty.url, isChallenge, navigation.community]);
 
   const Component = link.startsWith("http") ? "a" : Link;
+  const onSubmissionClick = (submission: Submission) => router.push(navigation.community.submissionPath(submission.id, bounty.challenge, bounty?.slug));
 
   return (
     <div className="cursor-pointer flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative">
@@ -71,11 +73,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
         {bounty.submissions?.length ? (
           <div className="mt-4 space-y-0 divide-y divide-gray-200 border-t border-t-solid border-gray-200">
             {bounty.submissions.map((submission) => (
-              <Link
-                href={navigation.community.submissionPath(submission.id, bounty.challenge, bounty?.slug)}
-                className="flex space-x-1 relative text-sm font-medium py-3"
-                key={submission.id}
-              >
+              <div className="flex space-x-1 relative text-sm font-medium py-3 cursor-pointer" key={submission.id} onClick={() => onSubmissionClick(submission)}>
                 <div className="flex justify-between w-full pr-0 gap-1 sm:gap-0">
                   <div className="flex space-x-1">
                     <Avatar user={submission.user} size="mini" />
@@ -94,7 +92,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
                     )}
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         ) : (
