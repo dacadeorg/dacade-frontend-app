@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
-import { createEvent } from "@/store/feature/events.slice";
+import { createAnalyticEvent } from "@/store/feature/events.slice";
 import { Submission as TSubmission, User } from "@/types/bounty";
 import Hint from "@/components/ui/Hint";
 import { fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
@@ -119,7 +119,7 @@ export default function Submission(): ReactElement {
       const submission = currentSubmission;
 
       dispatch(
-        createEvent({
+        createAnalyticEvent({
           name: "submission-created",
           attributes: {
             submissionId: submission.id,
