@@ -51,10 +51,18 @@ ScoreboardList.getLayout = function (page: ReactElement) {
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ locale, params }) => {
   const slug = params?.slug as string;
 
-  const [{ data: community }, { data: scoreboards }] = await Promise.all([
-    store.dispatch(fetchCurrentCommunity({ slug, locale })),
-    store.dispatch(fetchAllScoreboards({ slug, locale: locale || "en" })),
-  ]);
+  try {
+    const [{ data: community }, { data: scoreboards }] = await Promise.all([
+      store.dispatch(fetchCurrentCommunity({ slug, locale })),
+      store.dispatch(fetchAllScoreboards({ slug, locale: locale || "en" })),
+    ]);
+    if (!community) throw new Error("Community not found");
+    if (!scoreboards) throw new Error("Scoreboards not found");
 
-  return { props: { community, scoreboards, ...(await i18Translate(locale as string)) } };
+    return { props: { community, scoreboards, ...(await i18Translate(locale as string)) } };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 });

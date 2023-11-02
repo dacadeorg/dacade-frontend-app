@@ -155,7 +155,8 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string, relations: ["rubric", "courses", "learning-modules", "best-submissions"] })),
       serverSideTranslations(locale as string),
     ]);
-
+    if (!community) throw new Error("Community not found");
+    if (!challenge) throw new Error("Challenge not found");
     return {
       props: {
         ...translations,

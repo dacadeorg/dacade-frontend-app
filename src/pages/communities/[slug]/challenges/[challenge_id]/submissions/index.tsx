@@ -43,7 +43,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
   const navigation = useNavigation();
 
   const handleCloseSubmission = useCallback(() => {
-    if(!selectedSubmission) return;
+    if (!selectedSubmission) return;
     dispatch(showSubmission(""));
     window.history.pushState("", "", localePath(router, router.asPath));
     dispatch(toggleBodyScrolling(false));
@@ -53,21 +53,24 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
     dispatch(initChallengeNavigationMenu(navigation.community));
   }, [navigation.community, dispatch]);
 
-  const handleShowSubmission = useCallback((e: any) => {
+  const handleShowSubmission = useCallback(
+    (e: any) => {
       const newUrl = e.detail;
-      const submissionId = newUrl.replace(localePath(router, router.asPath), "").replace(/\//g, '');
+      const submissionId = newUrl.replace(localePath(router, router.asPath), "").replace(/\//g, "");
       const submission = submissions.find((submission) => submission.id === submissionId);
-      if(!submission) return;
+      if (!submission) return;
       dispatch(showSubmission(submissionId));
       dispatch(toggleBodyScrolling(true));
-  }, [dispatch, router, submissions]);
+    },
+    [dispatch, router, submissions]
+  );
 
   useEffect(() => {
-    window.addEventListener('onSoftNavigation', handleShowSubmission);
-    window.addEventListener('popstate', handleCloseSubmission);
+    window.addEventListener("onSoftNavigation", handleShowSubmission);
+    window.addEventListener("popstate", handleCloseSubmission);
     return () => {
-      window.removeEventListener('onSoftNavigation', handleShowSubmission);
-      window.removeEventListener('popstate', handleCloseSubmission);
+      window.removeEventListener("onSoftNavigation", handleShowSubmission);
+      window.removeEventListener("popstate", handleCloseSubmission);
     };
   }, [handleCloseSubmission, handleShowSubmission]);
 
@@ -105,19 +108,29 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   const { slug, challenge_id } = query;
   const { dispatch } = store;
 
-  const [{ data: currentCommunity }, { data: submissions }, { data: challenge }, translations] = await Promise.all([
-    dispatch(fetchCurrentCommunity({ slug: slug as string, locale: locale as string })),
-    dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: locale as string })),
-    dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
-    serverSideTranslations(locale as string),
-  ]);
+  try {
+    const [{ data: currentCommunity }, { data: submissions }, { data: challenge }, translations] = await Promise.all([
+      dispatch(fetchCurrentCommunity({ slug: slug as string, locale: locale as string })),
+      dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: locale as string })),
+      dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
+      serverSideTranslations(locale as string),
+    ]);
 
-  return {
-    props: {
-      currentCommunity,
-      submissions,
-      challenge,
-      ...translations,
-    },
-  };
+    if (!currentCommunity) throw new Error("Community not found");
+    if (!submissions) throw new Error("Submission not found");
+    if (!challenge) throw new Error("Challenge not found");
+
+    return {
+      props: {
+        currentCommunity,
+        submissions,
+        challenge,
+        ...translations,
+      },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 });
