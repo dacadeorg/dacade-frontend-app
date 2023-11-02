@@ -13,6 +13,7 @@ import WalletAddressChangeForm from "./_partials/Form";
 import { WalletInfo } from "./_partials/Info";
 import SelectWalletConnectionMethod from "./_partials/SelectConnectionMethod";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
+import { useAccount, useDisconnect } from "wagmi";
 
 /**
  * Interface for the edit profile props
@@ -47,6 +48,8 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
 
   const { open: openWalletConnectModal } = useWeb3Modal();
   const dispatch = useDispatch();
+  const { disconnect: disconnectWallet } = useDisconnect();
+  const { isConnected } = useAccount();
 
   const closeModal = () => {
     clearState();
@@ -79,12 +82,18 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
 
     if (method === "wallet" && !requireWalletConnection) return;
 
+    if (isWalletConnected) disconnect();
+
     setConnectionMethod(method);
     setShowEditAddress(true);
 
     if (method === "wallet") {
       return connect();
     }
+  };
+
+  const disconnect = async () => {
+    await disconnectWallet();
   };
 
   const connect = async () => {
@@ -129,6 +138,10 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const requireWalletConnection = useMemo(() => {
     return wallets?.require_wallet_connection || false;
   }, [wallets?.require_wallet_connection]);
+
+  const isWalletConnected = useMemo(() => {
+    return isConnected || (requireWalletConnection && !!wallet?.address);
+  }, [requireWalletConnection, wallet?.address, isConnected]);
 
   const showForm = useMemo(() => {
     return Boolean(showEditAddress && !showWalletConnectionMethod && connectionMethod);
