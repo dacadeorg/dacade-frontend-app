@@ -8,7 +8,6 @@ import Avatar from "@/components/ui/Avatar";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { Feedback } from "@/types/feedback";
 import { createFeedback } from "@/store/feature/communities/challenges/submissions/feedback.slice";
 import { Colors, Community } from "@/types/community";
 import { Submission, User } from "@/types/bounty";
@@ -28,7 +27,6 @@ interface FormMultiSelector {
   colors: Colors;
   submission: Submission | null;
   challenge: Challenge | null;
-  userFeedback: Feedback;
 }
 
 /**
