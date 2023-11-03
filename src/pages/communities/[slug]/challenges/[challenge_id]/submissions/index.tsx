@@ -43,7 +43,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
   const navigation = useNavigation();
 
   const handleCloseSubmission = useCallback(() => {
-    if(!selectedSubmission) return;
+    if (!selectedSubmission) return;
     dispatch(showSubmission(""));
     window.history.pushState("", "", localePath(router, router.asPath));
     dispatch(toggleBodyScrolling(false));
@@ -53,21 +53,24 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
     dispatch(initChallengeNavigationMenu(navigation.community));
   }, [navigation.community, dispatch]);
 
-  const handleShowSubmission = useCallback((e: any) => {
+  const handleShowSubmission = useCallback(
+    (e: any) => {
       const newUrl = e.detail;
-      const submissionId = newUrl.replace(localePath(router, router.asPath), "").replace(/\//g, '');
+      const submissionId = newUrl.replace(localePath(router, router.asPath), "").replace(/\//g, "");
       const submission = submissions.find((submission) => submission.id === submissionId);
-      if(!submission) return;
+      if (!submission) return;
       dispatch(showSubmission(submissionId));
       dispatch(toggleBodyScrolling(true));
-  }, [dispatch, router, submissions]);
+    },
+    [dispatch, router, submissions]
+  );
 
   useEffect(() => {
-    window.addEventListener('onSoftNavigation', handleShowSubmission);
-    window.addEventListener('popstate', handleCloseSubmission);
+    window.addEventListener("onSoftNavigation", handleShowSubmission);
+    window.addEventListener("popstate", handleCloseSubmission);
     return () => {
-      window.removeEventListener('onSoftNavigation', handleShowSubmission);
-      window.removeEventListener('popstate', handleCloseSubmission);
+      window.removeEventListener("onSoftNavigation", handleShowSubmission);
+      window.removeEventListener("popstate", handleCloseSubmission);
     };
   }, [handleCloseSubmission, handleShowSubmission]);
 
@@ -91,7 +94,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
           <Header title={challenge?.name} subtitle={t("communities.submission.title")} isTeamChallenge={challenge?.isTeamChallenge} />
           <SubmissionList />
         </div>
-        <SubmissionPopup show={!!selectedSubmission} onClose={handleCloseSubmission} submissionId={selectedSubmission?.id} />
+        {selectedSubmission && <SubmissionPopup show={!!selectedSubmission} onClose={handleCloseSubmission} submissionId={selectedSubmission?.id} />}
       </Wrapper>
     </>
   );

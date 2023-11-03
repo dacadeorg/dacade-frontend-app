@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useMemo } from "react";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 import Navigation from "@/components/sections/bounties/Navigation";
 import BountyList from "@/components/list/Bounty";
 import { useTranslation } from "react-i18next";
@@ -73,8 +73,14 @@ export default function Bounties() {
     referrals: (state: IRootState) => state.referrals.list,
     bounties: (state: IRootState) => state.bounties.bountiesList,
   });
+  const [bountiesList, setBountiesList] = useState<Bounty[]>([]);
 
-  const bountiesList = useMemo(() => [defaulBounty, ...(bounties || [])], [bounties]);
+  useEffect(() => {
+    if (bounties) {
+      const bountiesList = [defaulBounty, ...bounties];
+      setBountiesList(bountiesList);
+    }
+  }, [bounties]);
 
   return (
     <div className="flex justify-center content-wrapper">
