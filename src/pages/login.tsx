@@ -57,8 +57,8 @@ export default function Login(): ReactElement {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
-  const emailValue = watch("email");
-  const passwordValue = watch("password");
+  const emailValue = watch("email") || "";
+  const passwordValue = watch("password") || "";
   const { authUser, isFetchingUser, isAuthenticated } = useMultiSelector<unknown, LoginMultiSelector>({
     authUser: (state: IRootState) => state.user.data,
     isFetchingUser: (state: IRootState) => state.user.fetchingUserLoading,
