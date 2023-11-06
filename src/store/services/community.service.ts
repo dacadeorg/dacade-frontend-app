@@ -2,6 +2,7 @@ import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { setColors } from "../feature/ui.slice";
 import { setAllCommunities, setCurrentCommunity } from "../feature/community.slice";
+import { setBusy, setError } from "../feature/index.slice";
 
 /**
  * Community Service
@@ -33,10 +34,15 @@ export const communityService = createApi({
         },
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled;
-        dispatch(setCurrentCommunity(data));
-        dispatch(setColors(data.colors));
-        return data;
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setCurrentCommunity(data));
+          dispatch(setColors(data.colors));
+          return data;
+        } catch (error) {
+          dispatch(setBusy(false));
+          dispatch(setError(error));
+        }
       },
     }),
   }),
