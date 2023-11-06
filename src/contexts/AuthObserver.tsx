@@ -92,8 +92,7 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
   );
 
   const userStateChanged = () => {
-    if (!currentUser || currentUser?.id !== user?.id) return true;
-    else return false;
+    return !currentUser || currentUser?.id !== user?.id;
   };
 
   useEffect(() => {
@@ -104,13 +103,13 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
       await dispatch(getToken());
     });
 
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, async (_user) => {
       setLoading(true);
       dispatch(setIsAuthLoading(true));
-      await emailVerificationChecker(user);
-      await guestAndUserRoutesChecker(user);
-      dispatch(setAuthData(user?.toJSON()));
-      await dispatch(fetchUser());
+      await emailVerificationChecker(_user);
+      await guestAndUserRoutesChecker(_user);
+      dispatch(setAuthData(_user?.toJSON()));
+      if (router.query.username || user?.username) await dispatch(fetchUser());
       setLoading(false);
       dispatch(setIsAuthLoading(false));
     });
