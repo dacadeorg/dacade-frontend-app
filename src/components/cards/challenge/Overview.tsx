@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Coin from "@/components/ui/Coin";
 import { Challenge, Reward } from "@/types/course";
 import { useTranslation } from "next-i18next";
@@ -22,6 +22,7 @@ export default function Overview({ challenge, community }: Props) {
   const formatToken = (token: string) => {
     return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
   };
+  const [description, setDescription] = useState("");
   // Combine rewards by token
   const rewardsByToken: Reward[] = challenge.rewards.reduce((acc: Reward[], reward: Reward) => {
     const existingReward = acc.find((item) => item.token === reward.token);
@@ -30,6 +31,10 @@ export default function Overview({ challenge, community }: Props) {
   }, []);
 
   const expirationDate = challenge?.expiresAt && DateManager.format(challenge.expiresAt, "MMMM d, yyyy", "en");
+
+  useEffect(() => {
+    setDescription(`${community.slug === "celo" && "NFT"} ${t("communities.overview.challenge.certificate")}`);
+  }, [community, t]);
 
   return (
     <div className="border border-gray-200 rounded-3xl mb-5 group text-gray-700 p-6">
@@ -42,9 +47,7 @@ export default function Overview({ challenge, community }: Props) {
           <Certificate size="medium" name={community.slug} />
           <div className="md:pl-2 max-w-max">
             <div className="flex text-sm text-gray-700">
-              <span className="block font-medium pr-1">
-                {community.slug === "celo" && "NFT"} {t("communities.overview.challenge.certificate")}
-              </span>
+              <span className="block font-medium pr-1">{description}</span>
             </div>
             <div className="text-gray-400 text-xs font-medium">{t("communities.overview.challenge.subtitle")}</div>
           </div>

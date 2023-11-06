@@ -13,6 +13,7 @@ import { setListProfileCommunities } from "@/store/feature/profile/communities.s
 import Loader from "@/components/ui/Loader";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { AUTH_TOKEN } from "@/constants/localStorage";
+import { User as Tuser } from "@/types/bounty";
 
 const UserAuthContext = createContext(null);
 
@@ -21,6 +22,7 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
   const router = useRouter();
   const route = router.asPath;
   const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState<Tuser | null>(null);
   const user = useSelector((state) => state.user.data);
   function matchesRoutes(path: string, routes: string[]) {
     const matches = routes?.filter((route) => path === route);
@@ -89,7 +91,13 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
     [dispatch, isGuestRoute, isUserRoute, route, router]
   );
 
+  const userStateChanged = () => {
+    if (!currentUser || currentUser?.id !== user?.id) return true;
+    else return false;
+  };
+
   useEffect(() => {
+    if (!userStateChanged()) return;
     onIdTokenChanged(auth, async (user) => {
       dispatch(setAuthData(user?.toJSON()));
       localStorage.setItem(AUTH_TOKEN, (await user?.getIdToken()) ?? "");
@@ -106,6 +114,8 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
       setLoading(false);
       dispatch(setIsAuthLoading(false));
     });
+
+    if ((!currentUser && user) || (!user && currentUser)) setCurrentUser(user);
   }, [dispatch, emailVerificationChecker, guestAndUserRoutesChecker]);
 
   useEffect(() => {

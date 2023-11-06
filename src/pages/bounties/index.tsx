@@ -73,10 +73,10 @@ export default function Bounties() {
     referrals: (state: IRootState) => state.referrals.list,
     bounties: (state: IRootState) => state.bounties.bountiesList,
   });
-  const [bountiesList, setBountiesList] = useState<Bounty[]>([]);
+  const [bountiesList, setBountiesList] = useState<any>(null);
 
   useEffect(() => {
-    if (bounties) {
+    if (bounties?.length) {
       const bountiesList = [defaulBounty, ...bounties];
       setBountiesList(bountiesList);
     }
