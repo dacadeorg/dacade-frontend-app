@@ -20,9 +20,14 @@ export const communityService = createApi({
         },
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled;
-        dispatch(setAllCommunities(data));
-        return data;
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setAllCommunities(data));
+          return data;
+        } catch (error) {
+          dispatch(setBusy(false));
+          dispatch(setError(error));
+        }
       },
     }),
 
