@@ -58,7 +58,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
       const newUrl = e.detail;
       const submissionId = newUrl.replace(localePath(router, router.asPath), "").replace(/\//g, "");
       const submission = submissions.find((submission) => submission.id === submissionId);
-      if (!submission) return;
+      if(!submission) return;
       dispatch(showSubmission(submissionId));
       dispatch(toggleBodyScrolling(true));
     },
@@ -116,10 +116,9 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       serverSideTranslations(locale as string),
     ]);
 
-    if (!currentCommunity) throw new Error("Community not found");
-    if (!submissions) throw new Error("Submission not found");
-    if (!challenge) throw new Error("Challenge not found");
-
+    if (!currentCommunity || !challenge || !submissions) {
+      throw new Error("Not found!");
+    }
     return {
       props: {
         currentCommunity,

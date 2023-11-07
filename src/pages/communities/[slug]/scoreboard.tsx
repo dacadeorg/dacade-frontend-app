@@ -56,8 +56,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       store.dispatch(fetchCurrentCommunity({ slug, locale })),
       store.dispatch(fetchAllScoreboards({ slug, locale: locale || "en" })),
     ]);
-    if (!community) throw new Error("Community not found");
-    if (!scoreboards) throw new Error("Scoreboards not found");
+    if (!community || !scoreboards) throw new Error("Not found!")
 
     return { props: { community, scoreboards, ...(await i18Translate(locale as string)) } };
   } catch (error) {
