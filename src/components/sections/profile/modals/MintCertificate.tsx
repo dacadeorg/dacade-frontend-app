@@ -86,12 +86,13 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
   }, [address, loading]);
 
   useEffect(() => {
-    if (!achievement?.minting?.tx || !mintingTx) return;
-    const tx = achievement?.minting?.tx || mintingTx.tx;
-    setTxData((prev) => ({
-      ...prev,
-      tx,
-    }));
+    const tx = achievement?.minting?.tx || mintingTx?.tx;
+    if (tx) {
+      setTxData((prev) => ({
+        ...prev,
+        tx,
+      }));
+    }
   }, [achievement, mintingTx]);
 
   const onClose = () => {

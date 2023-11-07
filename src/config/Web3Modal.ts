@@ -12,7 +12,7 @@ const metadata = {
   name: "Dacade",
   description: "Peer to peer learning platform",
   url: "https://dacade.org/",
-  icons: ["https://avatars.githubusercontent.com/u/37784886"],
+  icons: ["https://asset.cloudinary.com/dl1vj7yr9/8b5ea898819e51aef029c7b7971f1168"],
 };
 
 const { chains, publicClient } = configureChains([polygonMumbai], [walletConnectProvider({ projectId }), publicProvider()]);
