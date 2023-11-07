@@ -159,7 +159,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
 
   return (
     <Modal show={show} size="medium" onClose={onClose}>
-      <div className="px-6 pt-6">
+      <div className="px-6">
         <div className="pb-7">
           <p className="text-.5xl font-medium leading-snug">{achievement?.metadata?.name}</p>
         </div>
@@ -202,7 +202,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
             )}
           </div>
         </div>
-        <div className="flex items-center justify-between my-8">
+        <div className="flex items-center justify-between mt-8">
           <a className="text-sm font-medium cursor-pointer text-primary" onClick={onClose}>
             Close
           </a>

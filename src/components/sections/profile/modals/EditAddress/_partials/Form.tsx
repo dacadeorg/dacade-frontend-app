@@ -10,6 +10,7 @@ import EditAdressFooter from "./Footer";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { setWeb3Address } from "@/store/feature/wallet.slice";
 import useWalletConnect from "@/hooks/useWalletConnect";
+import { modal } from "@/config/Web3Modal";
 
 type Props = {
   connectionMethod: string;
@@ -21,6 +22,7 @@ type Props = {
   error: CustomError | undefined | null;
   clearError: () => void;
   show: boolean;
+  openEditAddress: () => void;
 };
 
 /**
@@ -52,7 +54,7 @@ interface FormValues {
  * @param {boolean} param0.show
  * @returns {*}
  */
-export default function WalletAddressChangeForm({ connectionMethod, currentAddress, token, closeModal, onSave, loading, error, clearError, show }: Props) {
+export default function WalletAddressChangeForm({ connectionMethod, currentAddress, token, closeModal, onSave, loading, error, clearError, show, openEditAddress }: Props) {
   const { t } = useTranslation();
   const {
     watch,
@@ -100,6 +102,16 @@ export default function WalletAddressChangeForm({ connectionMethod, currentAddre
       dispatch(setWeb3Address(walletConnectAddress));
     }
   }, [walletConnectAddress]);
+
+  useEffect(() => {
+    modal.subscribeEvents(({ data }) => {
+      if (data.event === "MODAL_CLOSE" && !address) {
+        openEditAddress();
+      } else if (data.event === "CONNECT_ERROR") {
+        modal.close();
+      }
+    });
+  }, []);
 
   return (
     <form className="flex flex-col" onSubmit={handleSubmit(save)}>

@@ -1,7 +1,7 @@
-import { createWeb3Modal } from "@web3modal/wagmi/react";
+import { EIP6963Connector, createWeb3Modal } from "@web3modal/wagmi/react";
 import { publicProvider } from "wagmi/providers/public";
 import { configureChains, createConfig } from "wagmi";
-import { polygonMumbai } from "wagmi/chains";
+import { polygonMumbai, mainnet } from "wagmi/chains";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { walletConnectProvider } from "@web3modal/wagmi";
@@ -12,17 +12,21 @@ const metadata = {
   name: "Dacade",
   description: "Peer to peer learning platform",
   url: "https://dacade.org/",
-  icons: ["https://asset.cloudinary.com/dl1vj7yr9/8b5ea898819e51aef029c7b7971f1168"],
+  icons: ["https://dacade.org/fav-icons/apple-touch-icon.png"],
 };
 
-const { chains, publicClient } = configureChains([polygonMumbai], [walletConnectProvider({ projectId }), publicProvider()]);
+const { chains, publicClient } = configureChains([polygonMumbai, mainnet], [walletConnectProvider({ projectId }), publicProvider()]);
 export const config = createConfig({
   autoConnect: true,
-  connectors: [new WalletConnectConnector({ chains, options: { projectId, showQrModal: false, metadata } }), new InjectedConnector({ chains, options: { shimDisconnect: true } })],
+  connectors: [
+    new WalletConnectConnector({ chains, options: { projectId, showQrModal: false, metadata } }),
+    new EIP6963Connector({ chains }),
+    new InjectedConnector({ chains, options: { shimDisconnect: true } }),
+  ],
   publicClient,
 });
 
-createWeb3Modal({
+export const modal = createWeb3Modal({
   wagmiConfig: config,
   projectId,
   chains,

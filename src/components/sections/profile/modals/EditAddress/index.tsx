@@ -168,6 +168,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
         connectionMethod={connectionMethod}
         closeModal={closeModal}
         clearError={() => setError(null)}
+        openEditAddress={openEditAddress}
       />
     </Modal>
   );
