@@ -1,4 +1,4 @@
-import { ReactElement, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import Loader from "@/components/ui/button/Loader";
 import EmptyState from "@/components/ui/EmptyState";
 import { useTranslation } from "next-i18next";
@@ -22,7 +22,7 @@ interface SubmissionListMultiSelector {
  * @export
  * @returns {ReactElement}
  */
-export default function List(): ReactElement {
+export default function List(): any {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
@@ -67,9 +67,11 @@ export default function List(): ReactElement {
             loader={<></>}
             className="flex flex-col w-full overflow-hidden border border-gray-200 border-solid divide-y divide-gray-200 rounded-3xl divide-solid"
           >
-            {submissions.map((submission, i) => (
-              <SubmissionCard key={`submission-${i}`} submission={submission} />
-            ))}
+            <>
+              {submissions.map((submission, i) => (
+                <SubmissionCard key={`submission-${i}`} submission={submission} />
+              ))}
+            </>
           </InfiniteScroll>
           {loading && <Loader loading={loading} className="sm:absolute sm:left-6 sm:-bottom-7.5" onClick={() => nextPage()} />}
         </div>
