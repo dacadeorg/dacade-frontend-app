@@ -13,7 +13,6 @@ import { setListProfileCommunities } from "@/store/feature/profile/communities.s
 import Loader from "@/components/ui/Loader";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { AUTH_TOKEN } from "@/constants/localStorage";
-import { User as Tuser } from "@/types/bounty";
 
 const UserAuthContext = createContext(null);
 
@@ -22,7 +21,6 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
   const router = useRouter();
   const route = router.asPath;
   const [loading, setLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState<Tuser | null>(null);
   const user = useSelector((state) => state.user.data);
   function matchesRoutes(path: string, routes: string[]) {
     const matches = routes?.filter((route) => path === route);
@@ -91,30 +89,24 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
     [dispatch, isGuestRoute, isUserRoute, route, router]
   );
 
-  const userStateChanged = () => {
-    return !currentUser || currentUser?.id !== user?.id;
-  };
-
   useEffect(() => {
-    if (!userStateChanged()) return;
     onIdTokenChanged(auth, async (user) => {
+      console.log("Token thing changed");
       dispatch(setAuthData(user?.toJSON()));
       localStorage.setItem(AUTH_TOKEN, (await user?.getIdToken()) ?? "");
       await dispatch(getToken());
     });
 
-    onAuthStateChanged(auth, async (_user) => {
+    onAuthStateChanged(auth, async (user) => {
       setLoading(true);
       dispatch(setIsAuthLoading(true));
-      await emailVerificationChecker(_user);
-      await guestAndUserRoutesChecker(_user);
-      dispatch(setAuthData(_user?.toJSON()));
-      if (router.query.username || user?.username) await dispatch(fetchUser());
+      await emailVerificationChecker(user);
+      await guestAndUserRoutesChecker(user);
+      dispatch(setAuthData(user?.toJSON()));
+      await dispatch(fetchUser());
       setLoading(false);
       dispatch(setIsAuthLoading(false));
     });
-
-    if ((!currentUser && user) || (!user && currentUser)) setCurrentUser(user);
   }, [dispatch, emailVerificationChecker, guestAndUserRoutesChecker]);
 
   useEffect(() => {
