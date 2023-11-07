@@ -68,8 +68,8 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       store.dispatch(fetchCourse({ slug: course_slug, locale })),
       serverSideTranslations(locale as string),
     ]);
-    if (!community) throw new Error("Community not found");
-    if (!course) throw new Error("Course not found");
+    if (!community || !course) throw new Error("Not found!");
+    
     return {
       props: {
         community,

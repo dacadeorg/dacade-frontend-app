@@ -114,9 +114,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
       store.dispatch(findLearningModule(id)),
       serverSideTranslations(locale as string),
     ]);
-    if (!community) throw new Error("Community not found");
-    if (!course) throw new Error("Course not found");
-    if (!learningModule) throw new Error("Learning module not found");
+    if (!community || !course || !learningModule) throw new Error("Not found!");
     return {
       props: {
         community,

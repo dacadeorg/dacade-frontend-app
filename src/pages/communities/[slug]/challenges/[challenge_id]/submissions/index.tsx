@@ -43,7 +43,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
   const navigation = useNavigation();
 
   const handleCloseSubmission = useCallback(() => {
-    if (!selectedSubmission) return;
+    if(!selectedSubmission) return;
     dispatch(showSubmission(""));
     window.history.pushState("", "", localePath(router, router.asPath));
     dispatch(toggleBodyScrolling(false));
