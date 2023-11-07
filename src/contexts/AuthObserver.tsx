@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useCallback, useEffect, useMemo, useState } from "react";
 import { User, onAuthStateChanged, onIdTokenChanged } from "firebase/auth";
 import { auth } from "@/config/firebase";
-import { setAuthData, setIsAuthLoading } from "@/store/feature/auth.slice";
+import { authCheck, setAuthData, setIsAuthLoading } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchUser } from "@/store/services/user.service";
 import { getToken } from "@/store/feature/user.slice";
@@ -11,17 +11,25 @@ import { fetchUserProfile } from "@/store/services/profile/users.service";
 import { fetchAllProfileCommunities } from "@/store/services/profile/profileCommunities.service";
 import { setListProfileCommunities } from "@/store/feature/profile/communities.slice";
 import Loader from "@/components/ui/Loader";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { AUTH_TOKEN } from "@/constants/localStorage";
+import { IRootState } from "@/store";
+import { User as TUser } from "@/types/bounty";
 
 const UserAuthContext = createContext(null);
-
+interface authObserverMultiSeletor {
+  user: TUser;
+  isAuthenticated: boolean;
+}
 export default function AuthObserver({ children }: { children: ReactNode }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const route = router.asPath;
   const [loading, setLoading] = useState(true);
-  const user = useSelector((state) => state.user.data);
+  const { user, isAuthenticated } = useMultiSelector<unknown, authObserverMultiSeletor>({
+    user: (state: IRootState) => state.user.data,
+    isAuthenticated: (state: IRootState) => authCheck(state),
+  });
   function matchesRoutes(path: string, routes: string[]) {
     const matches = routes?.filter((route) => path === route);
     return matches?.length > 0;
@@ -91,19 +99,18 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     onIdTokenChanged(auth, async (user) => {
-      console.log("Token thing changed");
       dispatch(setAuthData(user?.toJSON()));
       localStorage.setItem(AUTH_TOKEN, (await user?.getIdToken()) ?? "");
       await dispatch(getToken());
     });
 
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, async (_user) => {
       setLoading(true);
       dispatch(setIsAuthLoading(true));
-      await emailVerificationChecker(user);
-      await guestAndUserRoutesChecker(user);
-      dispatch(setAuthData(user?.toJSON()));
-      await dispatch(fetchUser());
+      await emailVerificationChecker(_user);
+      await guestAndUserRoutesChecker(_user);
+      dispatch(setAuthData(_user?.toJSON()));
+      if ((user || isAuthenticated) && isAuthenticated !== !!user) await dispatch(fetchUser());
       setLoading(false);
       dispatch(setIsAuthLoading(false));
     });
