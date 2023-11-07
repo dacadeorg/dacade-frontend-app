@@ -31,7 +31,7 @@ export default function AchievementCard({ data, minting }: AchievementCardProps)
 
   const badgeText = useMemo(() => {
     if (!mintable) {
-      return "Minting N/A";
+      return t("profile.achievement.mintable-na");
     }
     return !minted && !minting ? t("profile.achievement.mintable") : "NFT";
   }, [mintable, minted, t]);

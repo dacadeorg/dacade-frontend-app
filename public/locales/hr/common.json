@@ -276,6 +276,8 @@
   "profile.wallet.payout.request": "Payout request",
   "profile.wallet.payout.amount": "Amount",
   "profile.wallet.payout.send": "Send request",
+  "profile.achievement.mintable": "Mintable",
+  "profile.achievement.mintable-na": "Mintable N/A",
   "faq.title": "FAQ",
   "faq.subtitle": "If you have any additional questions or need help visit our ",
   "faq.discord": "Discord server.",

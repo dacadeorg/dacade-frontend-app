@@ -95,8 +95,10 @@ export default function WalletAddressChangeForm({ connectionMethod, currentAddre
   }, [show]);
 
   useEffect(() => {
-    setValue("address", walletConnectAddress || "");
-    dispatch(setWeb3Address(walletConnectAddress));
+    if (connectionMethod === "wallet") {
+      setValue("address", walletConnectAddress || "");
+      dispatch(setWeb3Address(walletConnectAddress));
+    }
   }, [walletConnectAddress]);
 
   return (
