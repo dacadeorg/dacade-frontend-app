@@ -57,9 +57,8 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       serverSideTranslations(locale as string),
     ]);
 
-    if (!community || !challenge || !submission) {
-      throw new Error("Not found!");
-    }
+    if (!community || !challenge || !submission) throw new Error("Not found!");
+
     return {
       props: {
         community,
