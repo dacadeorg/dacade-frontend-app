@@ -15,6 +15,7 @@ import { Challenge } from "@/types/course";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import useNavigation from "@/hooks/useNavigation";
 import { fetchChallenge } from "@/store/services/communities/challenges";
+import { NotFoundError } from "@/utilities/customErrors/NotFoundError";
 
 export default function SubmissionPage(props: { pageProps: { challenge: Challenge } }) {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       serverSideTranslations(locale as string),
     ]);
 
-    if (!community || !challenge || !submission) throw new Error("Not found!");
+    if (!community || !challenge || !submission) throw new NotFoundError();
 
     return {
       props: {

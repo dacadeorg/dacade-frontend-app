@@ -16,6 +16,7 @@ import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { Submission as SubmissionType } from "@/types/bounty";
 import { Community } from "@/types/community";
 import { Challenge } from "@/types/course";
+import { NotFoundError } from "@/utilities/customErrors/NotFoundError";
 import { localePath } from "@/utilities/Routing";
 import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
@@ -116,7 +117,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       serverSideTranslations(locale as string),
     ]);
 
-    if (!currentCommunity || !challenge || !submissions) throw new Error("Not found!");
+    if (!currentCommunity || !challenge || !submissions) throw new NotFoundError();
     return {
       props: {
         currentCommunity,

@@ -9,6 +9,7 @@ import { Challenge } from "@/types/course";
 import { wrapper } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchAllChallenges } from "@/store/services/communities/challenges";
+import { NotFoundError } from "@/utilities/customErrors/NotFoundError";
 export default function Slug(props: {
   pageProps: {
     community: Community;
@@ -47,7 +48,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
       store.dispatch(fetchAllChallenges({ slug })),
       serverSideTranslations(locale as string),
     ]);
-    if (!community || !challenges) throw new Error("Not found!");
+    if (!community || !challenges) throw new NotFoundError();;
     return {
       props: {
         community,

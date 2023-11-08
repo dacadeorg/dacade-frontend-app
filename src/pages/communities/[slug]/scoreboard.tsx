@@ -13,6 +13,7 @@ import { wrapper } from "@/store";
 import { Scoreboard as ScoreboardType } from "@/types/scoreboard";
 import { Community } from "@/types/community";
 import { CommunityLayout } from "@/layouts/Community";
+import { NotFoundError } from "@/utilities/customErrors/NotFoundError";
 
 /**
  * Scoreboard list page
@@ -56,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       store.dispatch(fetchCurrentCommunity({ slug, locale })),
       store.dispatch(fetchAllScoreboards({ slug, locale: locale || "en" })),
     ]);
-    if (!community || !scoreboards) throw new Error("Not found!")
+    if (!community || !scoreboards) throw new NotFoundError();
 
     return { props: { community, scoreboards, ...(await i18Translate(locale as string)) } };
   } catch (error) {
