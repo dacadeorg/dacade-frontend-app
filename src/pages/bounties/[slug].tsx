@@ -26,6 +26,7 @@ import { IRootState } from "@/store";
 interface BountiesPageMultiSelector {
   bountiesFiltered: Bounty[];
   referralsFiltered: Referral[];
+  isBountiesLoading: boolean
 }
 
 /**
@@ -49,9 +50,10 @@ export default function BountiesPage(): ReactElement {
     fetchBounties();
   }, [fetchBounties]);
 
-  const { bountiesFiltered, referralsFiltered } = useMultiSelector<unknown, BountiesPageMultiSelector>({
+  const { bountiesFiltered, referralsFiltered, isBountiesLoading } = useMultiSelector<unknown, BountiesPageMultiSelector>({
     bountiesFiltered: (state: IRootState) => state.bounties.filteredBountyList,
     referralsFiltered: (state: IRootState) => state.referrals.filteredList,
+    bountiesLoading: (state: IRootState) => state.bounties.bountiesLoading,
   });
 
   const title = useMemo(() => getMetadataTitle(router.query.slug as string, t("nav.bounties")), [router.query.slug, t]);
@@ -67,7 +69,7 @@ export default function BountiesPage(): ReactElement {
         </div>
         <div className="flex-col w-full">
           <h1 className="text-4xl sm:text-5xl pt-10 md:pt-20 pb-10">{t("nav.bounties")}</h1>
-          <BountyList bounties={bountiesFiltered.filter((bounty) => bounty.slug === router.query.slug)} referrals={referralsFiltered} />
+          <BountyList bounties={bountiesFiltered.filter((bounty) => bounty.slug === router.query.slug)} referrals={referralsFiltered} bountiesLoading={isBountiesLoading} />
         </div>
       </div>
     </>

@@ -23,6 +23,7 @@ import { IRootState } from "@/store";
 interface bountiesMultiSelector {
   referrals: Referral[];
   bounties: Bounty[];
+  isBountiesLoading: boolean;
 }
 
 /**
@@ -69,9 +70,10 @@ export default function Bounties() {
     getBountiesData();
   }, [getBountiesData]);
 
-  const { referrals, bounties } = useMultiSelector<unknown, bountiesMultiSelector>({
+  const { referrals, bounties, isBountiesLoading } = useMultiSelector<unknown, bountiesMultiSelector>({
     referrals: (state: IRootState) => state.referrals.list,
     bounties: (state: IRootState) => state.bounties.bountiesList,
+    isBountiesLoading: (state: IRootState) => state.bounties.bountiesLoading
   });
 
   const bountiesList = useMemo(() => [defaulBounty, ...(bounties || [])], [bounties]);
@@ -83,7 +85,7 @@ export default function Bounties() {
       </div>
       <div className="flex-col w-full">
         <h1 className="text-4xl sm:text-5xl pt-10 md:pt-20 pb-10">{t("nav.bounties")}</h1>
-        <BountyList bounties={bountiesList as Bounty[]} referrals={referrals} />
+        <BountyList bounties={bountiesList as Bounty[]} referrals={referrals} bountiesLoading={isBountiesLoading} />
       </div>
     </div>
   );
