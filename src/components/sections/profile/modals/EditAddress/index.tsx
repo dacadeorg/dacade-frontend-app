@@ -95,7 +95,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
 
   const connect = async () => {
     try {
-      openWeb3Modal();
+      isConnected ? disconnect() : openWeb3Modal();
       setShowEditAddress(true);
     } catch (e) {
       console.log(e);
@@ -137,8 +137,8 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   }, [wallets?.require_wallet_connection]);
 
   const isWalletConnected = useMemo(() => {
-    return isConnected || (requireWalletConnection && !!wallet?.address);
-  }, [requireWalletConnection, wallet?.address, isConnected]);
+    return requireWalletConnection && !!wallet?.address;
+  }, [requireWalletConnection, wallet?.address]);
 
   const showForm = useMemo(() => {
     return Boolean(showEditAddress && !showWalletConnectionMethod && connectionMethod);
