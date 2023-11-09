@@ -15,6 +15,7 @@ import Loader from "../ui/Loader";
 interface BountyListProps {
   bounties: BountyType[];
   referrals: ReferralType[];
+  bountiesLoading: boolean;
 }
 
 /**
@@ -28,10 +29,10 @@ interface BountyListProps {
 }
  * @returns {ReactElement}
  */
-export default function BountyList({ bounties = [], referrals = [] }: BountyListProps): ReactElement {
+export default function BountyList({ bounties = [], referrals = [], bountiesLoading = true }: BountyListProps): ReactElement {
   return (
     <div>
-      {bounties && bounties.length > 1 ? (
+      {bounties && !bountiesLoading && bounties.length > 1 ? (
         <div className="relative w-full px-0 mb-10 space-y-0 overflow-hidden divide-y divide-gray-200 bg-gray-50 rounded-3xl lg:max-w-2xl">
           {referrals.map((referral) => (
             <Referral referral={referral} key={referral.name} />
