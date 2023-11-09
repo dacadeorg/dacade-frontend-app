@@ -5,13 +5,13 @@ import { IRootState } from "..";
 interface InitialState {
   bountiesList: Bounty[];
   filteredBountyList: Bounty[];
-  bountiesLoading: boolean;
+  isLoading: boolean;
 }
 
 const initialState: InitialState = {
   bountiesList: [],
   filteredBountyList: [],
-  bountiesLoading: false
+  isLoading: false
 };
 
 /**
@@ -30,13 +30,13 @@ const bountiesSlice = createSlice({
     setFilteredBountiesList: (state, action: PayloadAction<Bounty[]>) => {
       state.filteredBountyList = action.payload;
     },
-    setBountiesLoading: (state, action) => {
-      state.bountiesLoading = action.payload;
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
     }
   },
 });
 
-export const { setBountiesList, setFilteredBountiesList } = bountiesSlice.actions;
+export const { setBountiesList, setFilteredBountiesList, setLoading } = bountiesSlice.actions;
 
 /**
  * Find bouties by slug
