@@ -4,24 +4,30 @@ import ArrowDown from "@/icons/down-icon-arrow.svg";
 
 interface AccordionProps {
   title: string;
-  subtitle: React.ReactNode; // Add subtitle prop
+  subtitle: React.ReactNode;
   content: React.ReactNode;
   isExpanded?: boolean;
 }
 
 const Accordion: React.FC<AccordionProps> = ({ title, subtitle, content, isExpanded = false }) => {
   const [isAccordionExpanded, setIsAccordionExpanded] = useState<boolean>(isExpanded);
+  const [isSubtitleExpanded, setIsSubtitleExpanded] = useState<boolean>(isExpanded);
 
   const toggleAccordion = () => {
-    setIsAccordionExpanded(!isAccordionExpanded);
+    if (title) {
+      setIsAccordionExpanded(!isAccordionExpanded);
+      setIsSubtitleExpanded(!isSubtitleExpanded);
+    } else {
+      setIsAccordionExpanded(!isAccordionExpanded);
+    }
   };
 
   return (
     <div className="mt-2">
-      <div className= {`flex justify-between cursor-pointer ${!title && "items-center"}`} onClick={toggleAccordion}>
-        <div>
+      <div className={`flex justify-between cursor-pointer ${!title && "items-center"}`} onClick={toggleAccordion}>
+        <div className="w-4/5 md:w-full">
           {title && <H3>{title}</H3>}
-          {subtitle && subtitle} {/* Render the subtitle */}
+          {subtitle && isSubtitleExpanded && subtitle}
         </div>
         <ArrowDown className={`transform origin-center-top transition-transform ${isAccordionExpanded ? "rotate-180" : ""}`} />
       </div>
