@@ -1,7 +1,6 @@
 import { ReactNode, createContext, useCallback, useEffect, useMemo, useState } from "react";
 import { User, onAuthStateChanged, onIdTokenChanged } from "firebase/auth";
-import { auth } from "@/config/firebase";
-import { getAuth, Auth } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { setAuthData, setIsAuthLoading } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchUser } from "@/store/services/user.service";
