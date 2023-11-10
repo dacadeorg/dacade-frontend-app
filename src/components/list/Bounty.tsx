@@ -5,7 +5,7 @@ import { ReactElement } from "react";
 import { Referral as ReferralType } from "@/types/community";
 import Loader from "../ui/Loader";
 import { IRootState } from "@/store";
-import { useSelector } from "react-redux";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * BountyList component props
