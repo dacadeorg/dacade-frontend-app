@@ -81,7 +81,7 @@ export const getToken = createAsyncThunk("user/getToken", async (_, { dispatch }
   const token = await getUserToken();
 
   try {
-    if (!token) throw new Error("Couldn't fetch the token");
+    if (!token) return;
     dispatch(setUserToken(token));
     return token;
   } catch (e) {

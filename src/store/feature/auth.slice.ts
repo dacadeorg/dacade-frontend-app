@@ -65,9 +65,8 @@ export const login = createAsyncThunk("login", async (payload: { email: string; 
   } catch (error) {
     dispatch(setAuthData(null));
     dispatch(setBusy(false));
-    // #TODO: Find a way to serialize the error then setThe error
-    // dispatch(setError(error));
-    // throw error;
+    dispatch(setError(JSON.parse(JSON.stringify(error))));
+    throw error;
   }
 });
 

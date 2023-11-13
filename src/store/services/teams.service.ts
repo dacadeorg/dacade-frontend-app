@@ -62,7 +62,8 @@ const teamsService = createApi({
           dispatch(setInvitesData(data));
           return data;
         } catch (err) {
-          console.error("Current user has no invites!");
+          // TODO: handle the "Current user has no invites" once it's being sent from the backend
+          console.log("Current user has no invites!");
         }
       },
     }),
