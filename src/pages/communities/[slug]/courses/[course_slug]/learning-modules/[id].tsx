@@ -19,6 +19,7 @@ import useNavigation from "@/hooks/useNavigation";
 import ChallengeCard from "@/components/cards/challenge/Challenge";
 import { useTranslation } from "react-i18next";
 import PageNavigation from "@/components/sections/courses/PageNavigation";
+import { NotFoundError } from "@/utilities/errors/NotFoundError";
 
 /**
  * Learning module page props interfae
@@ -114,7 +115,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
       store.dispatch(findLearningModule(id)),
       serverSideTranslations(locale as string),
     ]);
-
+    if (!community || !course || !learningModule) throw new NotFoundError();
     return {
       props: {
         community,
