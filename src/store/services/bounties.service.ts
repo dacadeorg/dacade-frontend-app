@@ -2,6 +2,7 @@ import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query";
 import { setBountiesList } from "../feature/bouties.slice";
 import { HYDRATE } from "next-redux-wrapper";
+import { setBusy, setError } from "../feature/index.slice";
 
 /**
  * Bounties api api service
@@ -22,8 +23,13 @@ const bountiesService = createApi({
     getBounties: builder.query({
       query: () => "bounties",
       onQueryStarted: async (slug, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled;
-        dispatch(setBountiesList(data));
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setBountiesList(data));
+        } catch (error) {
+          dispatch(setBusy(false));
+          dispatch(setError(error));
+        }
       },
     }),
   }),
