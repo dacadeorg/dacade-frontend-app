@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactElement } from "react";
+import { useState, useEffect, ReactElement, useCallback } from "react";
 import { useTranslation } from "next-i18next";
 import Loader from "@/components/ui/Loader";
 import ArrowButton from "@/components/ui/button/Arrow";
@@ -10,6 +10,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { verifyEmail } from "@/store/services/auth.service";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import { getAuth, getIdToken } from "firebase/auth";
 
 /**
  * Email verification page
@@ -20,24 +21,33 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
  */
 export default function EmailVerification(): ReactElement {
   const { t } = useTranslation();
-  const [verified, setVerified] = useState(true);
+  const [verified, setVerified] = useState(false);
   const router = useRouter();
   const { locale } = useRouter();
   const dispatch = useDispatch();
+  const code = router.query.code as string;
+
+  const verify = useCallback(async () => {
+    if (!code) return;
+    try {
+      await dispatch(verifyEmail({ locale: locale as string, payload: { code } }));
+      const user = getAuth();
+      if (user.currentUser) {
+        await getIdToken(user.currentUser);
+        const theOtherUser = getAuth();
+        console.log("the token is here", { old: user.currentUser, new: theOtherUser.currentUser });
+      } else {
+        console.log("the current user is not present", user);
+      }
+      setVerified(true);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [code, dispatch, locale]);
 
   useEffect(() => {
-    const verify = async () => {
-      const code = router.query.code as string;
-      if (!code) return;
-      try {
-        await dispatch(verifyEmail({ locale: locale as string, payload: { code } }));
-        setVerified(true);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    verify();
-  }, [dispatch, locale, router.query.code]);
+    if (code) verify();
+  }, [code, verify]);
 
   const goHome = () => {
     router.push("/login");
@@ -63,7 +73,7 @@ export default function EmailVerification(): ReactElement {
             </div>
 
             <div className="pt-8 text-center">
-              <ArrowButton onClick={goHome}>{t("email-verification.success.button")}</ArrowButton>
+              <ArrowButton onClick={() => goHome()}>{t("email-verification.success.button")}</ArrowButton>
             </div>
           </>
         )}

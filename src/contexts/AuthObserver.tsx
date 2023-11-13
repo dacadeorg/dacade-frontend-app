@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useCallback, useEffect, useMemo, useState } from "react";
-import { User, onAuthStateChanged, onIdTokenChanged } from "firebase/auth";
+import { User, getIdToken, onAuthStateChanged, onIdTokenChanged } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { setAuthData, setIsAuthLoading } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
@@ -54,6 +54,10 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
       }
 
       if (auth && !auth.emailVerified && !route.startsWith("/email-verification")) {
+        console.log("found ourlseves here", auth);
+        const token = await getIdToken(auth);
+        const user = getAuth();
+        console.log({ user, token });
         await router.replace("/email-verification");
         return;
       }
