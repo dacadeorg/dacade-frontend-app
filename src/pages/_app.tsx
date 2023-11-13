@@ -8,6 +8,8 @@ import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
 import AuthObserver from "@/contexts/AuthObserver";
 import NextNProgress from "nextjs-progressbar";
+import { WagmiConfig } from "wagmi";
+import { config } from "@/config/Web3Modal";
 
 /**
  * Represents a Next.js page with a custom layout.
@@ -45,28 +47,30 @@ const App = ({ Component, ...rest }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout || ((page) => page);
 
   return (
-    <Provider store={store}>
-      <AuthObserver>
-        {getLayout(
-          <>
-            <NextNProgress
-              color="#1B66F8"
-              startPosition={0.2}
-              stopDelayMs={100}
-              height={2.5}
-              showOnShallow={true}
-              options={{
-                showSpinner: false,
-                easing: "ease",
-                speed: 500,
-              }}
-            />
+    <WagmiConfig config={config}>
+      <Provider store={store}>
+        <AuthObserver>
+          {getLayout(
+            <>
+              <NextNProgress
+                color="#1B66F8"
+                startPosition={0.2}
+                stopDelayMs={100}
+                height={2.5}
+                showOnShallow={true}
+                options={{
+                  showSpinner: false,
+                  easing: "ease",
+                  speed: 500,
+                }}
+              />
 
-            <Component {...pageProps} />
-          </>
-        )}
-      </AuthObserver>
-    </Provider>
+              <Component {...pageProps} />
+            </>
+          )}
+        </AuthObserver>
+      </Provider>
+    </WagmiConfig>
   );
 };
 
