@@ -10,7 +10,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { verifyEmail } from "@/store/services/auth.service";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { getAuth, getIdToken } from "firebase/auth";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 /**
  * Email verification page
@@ -22,6 +22,8 @@ import { getAuth, getIdToken } from "firebase/auth";
 export default function EmailVerification(): ReactElement {
   const { t } = useTranslation();
   const [verified, setVerified] = useState(false);
+  const isVerificationInProgress = useSelector((state) => state.auth.isVerificationInProgress);
+
   const router = useRouter();
   const { locale } = useRouter();
   const dispatch = useDispatch();
@@ -31,14 +33,7 @@ export default function EmailVerification(): ReactElement {
     if (!code) return;
     try {
       await dispatch(verifyEmail({ locale: locale as string, payload: { code } }));
-      const user = getAuth();
-      if (user.currentUser) {
-        await getIdToken(user.currentUser);
-        const theOtherUser = getAuth();
-        console.log("the token is here", { old: user.currentUser, new: theOtherUser.currentUser });
-      } else {
-        console.log("the current user is not present", user);
-      }
+      console.log("the verification is on the way", isVerificationInProgress);
       setVerified(true);
     } catch (error) {
       console.error(error);

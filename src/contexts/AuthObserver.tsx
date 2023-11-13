@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useCallback, useEffect, useMemo, useState } from "react";
 import { User, getIdToken, onAuthStateChanged, onIdTokenChanged } from "firebase/auth";
 import { getAuth } from "firebase/auth";
-import { setAuthData, setIsAuthLoading } from "@/store/feature/auth.slice";
+import { setAuthData, setIsAuthLoading, setIsVerificationInProgress } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { fetchUser } from "@/store/services/user.service";
 import { getToken } from "@/store/feature/user.slice";
@@ -20,8 +20,10 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const route = router.asPath;
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.user.data);
+  const isVerificationInProgress = useSelector((state) => state.auth.isVerificationInProgress);
+  const [changed, setChanged] = useState(false);
   function matchesRoutes(path: string, routes: string[]) {
     const matches = routes?.filter((route) => path === route);
     return matches?.length > 0;
@@ -93,14 +95,10 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
     [dispatch, isGuestRoute, isUserRoute, route, router]
   );
 
-  useEffect(() => {
-    onIdTokenChanged(getAuth(), async (user) => {
-      dispatch(setAuthData(user?.toJSON()));
-      localStorage.setItem(AUTH_TOKEN, (await user?.getIdToken()) ?? "");
-      await dispatch(getToken());
-    });
-
-    onAuthStateChanged(getAuth(), async (user) => {
+  const doStuff = useCallback(async () => {
+    console.log("doing the stuff");
+    const user = getAuth()?.currentUser;
+    if (user) {
       setLoading(true);
       dispatch(setIsAuthLoading(true));
       await emailVerificationChecker(user);
@@ -109,12 +107,58 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
       await dispatch(fetchUser());
       setLoading(false);
       dispatch(setIsAuthLoading(false));
+    }
+  }, [dispatch, emailVerificationChecker, guestAndUserRoutesChecker]);
+
+  const checkIfChanged = async (user: User | null) => {
+    //  TODO: because when you log out, we have nothing in the local storage, so this won't be wise.
+    const localToken = localStorage.getItem(AUTH_TOKEN);
+    const newToken = await user?.getIdToken();
+    if (newToken && localToken) setChanged(localToken !== newToken);
+    else {
+      setChanged(true); //so that we don't continue fetching
+    }
+  };
+
+  useEffect(() => {
+    onIdTokenChanged(getAuth(), async (user) => {
+      dispatch(setAuthData(user?.toJSON()));
+      localStorage.setItem(AUTH_TOKEN, (await user?.getIdToken()) ?? "");
+      await dispatch(getToken());
+    });
+
+    onAuthStateChanged(getAuth(), async (user) => {
+      checkIfChanged(user);
+      if (user) {
+        if (user.emailVerified) {
+          checkIfChanged(user);
+          dispatch(setIsVerificationInProgress(false));
+        } else {
+          if (isVerificationInProgress) {
+            emailVerificationChecker(user);
+          }
+        }
+      } else {
+        console.log("we have no user as of now");
+      }
+
+      // chech the verification
+      // if we have the auth and is verified, then go ahead and check if changed ✅
+      // if we have the auth and not verified then check if the verification is on the way\
+      // if the verification is not on the way then set it on the way and then call the emailverificatiochecker, then the verification will be set to false, when the verification is done.
     });
   }, [dispatch, emailVerificationChecker, guestAndUserRoutesChecker]);
 
   useEffect(() => {
     dispatch(clearError());
   }, [router.pathname]);
+
+  useEffect(() => {
+    if (changed) {
+      doStuff();
+    } else {
+    }
+  }, [changed, doStuff]);
 
   if (loading && !user && (isGuestRoute(route) || isUserRoute(route))) {
     return (

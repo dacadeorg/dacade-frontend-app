@@ -1,6 +1,6 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
-import { login, setAuthData } from "../feature/auth.slice";
+import { login, setAuthData, setIsVerificationInProgress } from "../feature/auth.slice";
 import { clearError, setBusy, setError } from "../feature/index.slice";
 import { createAnalyticEvent } from "../feature/events.slice";
 
@@ -72,6 +72,15 @@ export const authService = createApi({
         method: "POST",
         body: payload,
       }),
+
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          const { data } = await queryFulfilled;
+          if (data.success) dispatch(setIsVerificationInProgress(false));
+        } catch (err) {
+          console.warn("found the in verifying", err);
+        }
+      },
     }),
     /**
      * Verify Email Update endpoint
