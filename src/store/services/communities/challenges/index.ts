@@ -4,6 +4,7 @@ import { setChallengesList, setChallengeSubmission, setCurrentChallenge, setSubm
 import queryString from "query-string";
 import { Submission } from "@/types/bounty";
 import { setHasMoreSubmissions, setSubmissionsList } from "@/store/feature/communities/challenges/submissions";
+import { setBusy, setError } from "@/store/feature/index.slice";
 
 /**
  * challenge service, handling all the challenges API call
@@ -22,10 +23,15 @@ export const challengeService = createApi({
         };
       },
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled;
-        dispatch(setCurrentChallenge(data));
-        dispatch(setChallengeSubmission(data.submission));
-        return data;
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setCurrentChallenge(data));
+          dispatch(setChallengeSubmission(data.submission));
+          return data;
+        } catch (error) {
+          dispatch(setBusy(false));
+          dispatch(setError(error));
+        }
       },
     }),
 
@@ -50,11 +56,16 @@ export const challengeService = createApi({
         };
       },
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        dispatch(setSubmissionLoading(true));
-        const { data } = await queryFulfilled;
-        dispatch(setChallengeSubmission(data.submission));
-        dispatch(setSubmissionLoading(false));
-        return data;
+        try {
+          dispatch(setSubmissionLoading(true));
+          const { data } = await queryFulfilled;
+          dispatch(setChallengeSubmission(data.submission));
+          dispatch(setSubmissionLoading(false));
+          return data;
+        } catch (error) {
+          dispatch(setBusy(false));
+          dispatch(setError(error));
+        }
       },
     }),
 
