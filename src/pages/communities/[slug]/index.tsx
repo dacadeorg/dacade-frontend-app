@@ -9,7 +9,7 @@ import { Challenge } from "@/types/course";
 import { wrapper } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchAllChallenges } from "@/store/services/communities/challenges";
-import { NotFoundError } from "@/utilities/customErrors/NotFoundError";
+import { NotFoundError } from "@/utilities/errors/NotFoundError";
 export default function Slug(props: {
   pageProps: {
     community: Community;

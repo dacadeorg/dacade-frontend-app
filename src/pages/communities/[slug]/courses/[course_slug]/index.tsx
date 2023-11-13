@@ -15,7 +15,7 @@ import { wrapper } from "@/store";
 import { fetchCourse } from "@/store/services/course.service";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { NotFoundError } from "@/utilities/customErrors/NotFoundError";
+import { NotFoundError } from "@/utilities/errors/NotFoundError";
 
 export default function CourseViewPage(props: {
   pageProps: {

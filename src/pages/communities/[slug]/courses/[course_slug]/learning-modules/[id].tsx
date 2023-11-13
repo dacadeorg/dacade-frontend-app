@@ -19,7 +19,7 @@ import useNavigation from "@/hooks/useNavigation";
 import ChallengeCard from "@/components/cards/challenge/Challenge";
 import { useTranslation } from "react-i18next";
 import PageNavigation from "@/components/sections/courses/PageNavigation";
-import { NotFoundError } from "@/utilities/customErrors/NotFoundError";
+import { NotFoundError } from "@/utilities/errors/NotFoundError";
 
 /**
  * Learning module page props interfae

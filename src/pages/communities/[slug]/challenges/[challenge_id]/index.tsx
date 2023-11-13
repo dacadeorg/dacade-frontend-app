@@ -31,7 +31,7 @@ import Objectives from "@/components/sections/challenges/Objectives";
 import { getTeamByChallenge } from "@/store/services/teams.service";
 import { fetchChallenge, fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
 import Loader from "@/components/ui/Loader";
-import { NotFoundError } from "@/utilities/customErrors/NotFoundError";
+import { NotFoundError } from "@/utilities/errors/NotFoundError";
 
 /**
  * interface for ChallengePage multiSelector

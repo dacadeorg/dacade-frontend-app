@@ -13,7 +13,7 @@ import { wrapper } from "@/store";
 import { Scoreboard as ScoreboardType } from "@/types/scoreboard";
 import { Community } from "@/types/community";
 import { CommunityLayout } from "@/layouts/Community";
-import { NotFoundError } from "@/utilities/customErrors/NotFoundError";
+import { NotFoundError } from "@/utilities/errors/NotFoundError";
 
 /**
  * Scoreboard list page
