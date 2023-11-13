@@ -16,6 +16,7 @@ import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { Submission as SubmissionType } from "@/types/bounty";
 import { Community } from "@/types/community";
 import { Challenge } from "@/types/course";
+import { NotFoundError } from "@/utilities/errors/NotFoundError";
 import { localePath } from "@/utilities/Routing";
 import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
@@ -53,21 +54,24 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
     dispatch(initChallengeNavigationMenu(navigation.community));
   }, [navigation.community, dispatch]);
 
-  const handleShowSubmission = useCallback((e: any) => {
+  const handleShowSubmission = useCallback(
+    (e: any) => {
       const newUrl = e.detail;
-      const submissionId = newUrl.replace(localePath(router, router.asPath), "").replace(/\//g, '');
+      const submissionId = newUrl.replace(localePath(router, router.asPath), "").replace(/\//g, "");
       const submission = submissions.find((submission) => submission.id === submissionId);
       if(!submission) return;
       dispatch(showSubmission(submissionId));
       dispatch(toggleBodyScrolling(true));
-  }, [dispatch, router, submissions]);
+    },
+    [dispatch, router, submissions]
+  );
 
   useEffect(() => {
-    window.addEventListener('onSoftNavigation', handleShowSubmission);
-    window.addEventListener('popstate', handleCloseSubmission);
+    window.addEventListener("onSoftNavigation", handleShowSubmission);
+    window.addEventListener("popstate", handleCloseSubmission);
     return () => {
-      window.removeEventListener('onSoftNavigation', handleShowSubmission);
-      window.removeEventListener('popstate', handleCloseSubmission);
+      window.removeEventListener("onSoftNavigation", handleShowSubmission);
+      window.removeEventListener("popstate", handleCloseSubmission);
     };
   }, [handleCloseSubmission, handleShowSubmission]);
 
@@ -105,19 +109,26 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   const { slug, challenge_id } = query;
   const { dispatch } = store;
 
-  const [{ data: currentCommunity }, { data: submissions }, { data: challenge }, translations] = await Promise.all([
-    dispatch(fetchCurrentCommunity({ slug: slug as string, locale: locale as string })),
-    dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: locale as string })),
-    dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
-    serverSideTranslations(locale as string),
-  ]);
+  try {
+    const [{ data: currentCommunity }, { data: submissions }, { data: challenge }, translations] = await Promise.all([
+      dispatch(fetchCurrentCommunity({ slug: slug as string, locale: locale as string })),
+      dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: locale as string })),
+      dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
+      serverSideTranslations(locale as string),
+    ]);
 
-  return {
-    props: {
-      currentCommunity,
-      submissions,
-      challenge,
-      ...translations,
-    },
-  };
+    if (!currentCommunity || !challenge || !submissions) throw new NotFoundError();
+    return {
+      props: {
+        currentCommunity,
+        submissions,
+        challenge,
+        ...translations,
+      },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 });

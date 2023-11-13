@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "@/config/baseQuery";
 import { setCurrentCourse } from "../feature/course.slice";
+import { setBusy, setError } from "../feature/index.slice";
 
 /**
  * courses api
@@ -36,8 +37,13 @@ export const coursesService = createApi({
           },
         }),
         onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-          const { data } = await queryFulfilled;
-          dispatch(setCurrentCourse(data));
+          try {
+            const { data } = await queryFulfilled;
+            dispatch(setCurrentCourse(data));
+          } catch (error) {
+            dispatch(setBusy(false));
+            dispatch(setError(error));
+          }
         },
       }),
       fetchAllCourse: builder.query({

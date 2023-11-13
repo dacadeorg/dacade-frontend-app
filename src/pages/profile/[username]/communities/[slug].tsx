@@ -22,20 +22,27 @@ ProfileCommunities.getLayout = function (page: ReactElement) {
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ locale, query }) => {
-  const { slug, username } = query;
-
-  const [{ data }, translations] = await Promise.all([
-    store.dispatch(fetchProfileCommunity({ username: username as string, slug: slug as string })),
-    serverSideTranslations(locale as string),
-  ]);
-
-  return {
-    props: {
-      community: data.community,
-      feedbacks: data.feedbacks,
-      submissions: data.submissions,
-      reputation: data.reputation,
-      ...translations,
-    },
-  };
+  try {
+    const { slug, username } = query;
+  
+    const [{ data }, translations] = await Promise.all([
+      store.dispatch(fetchProfileCommunity({ username: username as string, slug: slug as string })),
+      serverSideTranslations(locale as string),
+    ]);
+  
+    return {
+      props: {
+        community: data.community,
+        feedbacks: data.feedbacks,
+        submissions: data.submissions,
+        reputation: data.reputation,
+        ...translations,
+      },
+    };
+    
+  } catch (error) {
+    return {
+      notFound: true
+    }
+  }
 });
