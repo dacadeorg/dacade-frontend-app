@@ -208,30 +208,29 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                   </div>
                 );
               })}
-              {(team && isCurrentUserOrganiser && !team.locked) ||
-                (!isCurrentUserMember && (
-                  <div>
-                    <AsyncSelect
-                      cacheOptions
-                      styles={{
-                        input: (baseStyles) => ({
-                          ...baseStyles,
-                          input: {
-                            height: "36px",
-                          },
-                        }),
-                      }}
-                      placeholder="Enter dacade username"
-                      defaultOptions={[]}
-                      className="text-lg"
-                      isClearable={true}
-                      loadOptions={loadUserOptions}
-                      onChange={(option) => {
-                        if (!team.locked && option) selectTeamMember(option);
-                      }}
-                    />
-                  </div>
-                ))}
+              {((team && isCurrentUserOrganiser && !team.locked) || !isCurrentUserMember) && (
+                <div>
+                  <AsyncSelect
+                    cacheOptions
+                    styles={{
+                      input: (baseStyles) => ({
+                        ...baseStyles,
+                        input: {
+                          height: "36px",
+                        },
+                      }),
+                    }}
+                    placeholder="Enter dacade username"
+                    defaultOptions={[]}
+                    className="text-lg"
+                    isClearable={true}
+                    loadOptions={loadUserOptions}
+                    onChange={(option) => {
+                      if (!team.locked && option) selectTeamMember(option);
+                    }}
+                  />
+                </div>
+              )}
             </>
           )}
         </div>
