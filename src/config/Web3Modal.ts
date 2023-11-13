@@ -17,7 +17,7 @@ const metadata = {
 
 const { chains, publicClient } = configureChains([polygonMumbai, mainnet], [walletConnectProvider({ projectId }), publicProvider()]);
 export const config = createConfig({
-  autoConnect: true,
+  autoConnect: false,
   connectors: [
     new WalletConnectConnector({ chains, options: { projectId, showQrModal: false, metadata } }),
     new EIP6963Connector({ chains }),
