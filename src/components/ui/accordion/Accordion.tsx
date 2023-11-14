@@ -29,7 +29,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, subtitle, content, isExpan
           {title && <H3>{title}</H3>}
           {subtitle && isSubtitleExpanded && subtitle}
         </div>
-        <div className="w-10">
+        <div>
           <ArrowDown className={`transform origin-center-top transition-transform ${isAccordionExpanded ? "rotate-180" : ""}`} />
         </div>
       </div>
