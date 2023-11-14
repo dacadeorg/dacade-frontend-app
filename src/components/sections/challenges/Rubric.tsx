@@ -54,7 +54,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
     const passingScoreParts = passingScore.split("{{coinPlaceholder}}");
 
     return (
-      <div className=" w-72 md:w-10">
+      <div>
         <div className="text-base font-normal text-slate-700 md:w-99 inline-flex flex-wrap items-center gap-1">
           {passingScoreParts.map((part, index) => {
             if (index === passingScoreParts.length - 1) {
