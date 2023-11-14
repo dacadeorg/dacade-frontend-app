@@ -2,7 +2,7 @@ import UniqBy from "lodash.uniqby";
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import ChevronRightIcon from "@/icons/chevron-right.svg";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useMemo } from "react";
 import { List } from "@/utilities/CommunityNavigation";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
@@ -37,68 +37,41 @@ export default function BountiesNavigation(): ReactElement {
     colors: (state: IRootState) => state.ui.colors,
     bounties: (state: IRootState) => state.bounties.bountiesList,
   });
-  type MenuType = Omit<List, "id">[];
-  const [menus, setMenus] = useState<MenuType>();
+
   /**
    * Array of menu items for the bounties navigation.
    * @type {Omit<List, "id">[]}
    */
-  // const menus: Omit<List, "id">[] = useMemo(
-  //   () => [
-  //     {
-  //       title: t("bounties.navigation"),
-  //       items: [
-  //         {
-  //           label: t("bounties.navigation.all"),
-  //           exact: true,
-  //           link: "/bounties",
-  //         },
-  //         ...UniqBy(
-  //           bounties.map((bounty) => {
-  //             return {
-  //               label: bounty.name,
-  //               exact: true,
-  //               link: `/bounties/${bounty.slug}`,
-  //             };
-  //           }),
-  //           "link"
-  //         ),
-  //       ],
-  //     },
-  //   ],
-  //   [bounties, t]
-  // );
-  useEffect(() => {
-    if (bounties) {
-      const menuList = [
-        {
-          title: t("bounties.navigation"),
-          items: [
-            {
-              label: t("bounties.navigation.all"),
-              exact: true,
-              link: "/bounties",
-            },
-            ...UniqBy(
-              bounties.map((bounty) => {
-                return {
-                  label: bounty.name,
-                  exact: true,
-                  link: `/bounties/${bounty.slug}`,
-                };
-              }),
-              "link"
-            ),
-          ],
-        },
-      ];
-      setMenus(menuList);
-    }
-  }, [bounties, t]);
+  const menus: Omit<List, "id">[] = useMemo(
+    () => [
+      {
+        title: t("bounties.navigation"),
+        items: [
+          {
+            label: t("bounties.navigation.all"),
+            exact: true,
+            link: "/bounties",
+          },
+          ...UniqBy(
+            bounties.map((bounty) => {
+              return {
+                label: bounty.name,
+                exact: true,
+                link: `/bounties/${bounty.slug}`,
+              };
+            }),
+            "link"
+          ),
+        ],
+      },
+    ],
+    [bounties, t]
+  );
+
   return (
     <ThemeWrapper colors={colors}>
       <ul className="sticky top-10">
-        {menus?.map((menu, i) => (
+        {menus.map((menu, i) => (
           <li key={`bounties-menu-${i}`} className="relative mb-8">
             {!menu.hideTitle && <span className="relative text-xs font-semibold uppercase">{menu.title}</span>}
             <ul>
