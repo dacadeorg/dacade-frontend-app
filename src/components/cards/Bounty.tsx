@@ -9,6 +9,7 @@ import Avatar from "@/components/ui/Avatar";
 import Reward from "@/components/badges/RewardBadge";
 import Link from "next/link";
 import useNavigation from "@/hooks/useNavigation";
+import useSafePush from "@/hooks/useSafePush";
 
 export enum RewardType {
   submission = "SUBMISSION",
@@ -38,7 +39,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
   const { t } = useTranslation();
   const { locale } = useRouter();
   const navigation = useNavigation();
-  const router = useRouter();
+  const { safePush } = useSafePush();
 
   const convertDate = (date: Date) => DateManager.fromNow(date, locale);
 
@@ -56,7 +57,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
   }, [bounty.challenge, bounty.course?.slug, bounty.slug, bounty.submissions?.link, bounty.url, isChallenge, navigation.community]);
 
   const Component = link.startsWith("http") ? "a" : Link;
-  const onSubmissionClick = (submission: Submission) => router.push(navigation.community.submissionPath(submission.id, bounty.challenge, bounty?.slug));
+  const onSubmissionClick = (submission: Submission) => safePush(navigation.community.submissionPath(submission.id, bounty.challenge, bounty?.slug));
 
   return (
     <div className="cursor-pointer flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative">

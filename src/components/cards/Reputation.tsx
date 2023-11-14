@@ -3,7 +3,7 @@ import Currency from "@/components/ui/Currency";
 import { Community } from "@/types/community";
 import { ReactElement } from "react";
 import { User } from "@/types/bounty";
-import { useRouter } from "next/router";
+import useSafePush from "@/hooks/useSafePush";
 
 /**
  * Interface for the reputation card props
@@ -31,10 +31,10 @@ interface ReputationCardProps {
  * @returns {ReactElement}
  */
 export default function ReputationCard({ details = {} }: ReputationCardProps): ReactElement {
-  const router = useRouter();
+  const { safePush } = useSafePush();
   const onReputationClick = (details: ReputationCardProps["details"]) => {
     if (!details?.community) return;
-    router.push(`/communities/${details.community.slug}`);
+    safePush(`/communities/${details.community.slug}`);
   };
   return (
     <div onClick={() => onReputationClick(details)} className="flex space-x-3 text-left hover:bg-gray-50 pb-3 -mx-5 px-5 cursor-pointer">
