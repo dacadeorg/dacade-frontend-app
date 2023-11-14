@@ -73,7 +73,10 @@ export default function ProfileHeader() {
             <span className="inline-block">
               <DiscordIcon />
             </span>
-            <span className="inline-block mx-1">Discord</span>
+            {/* <span className="inline-block mx-1">Discord</span> */}
+            <a href={triggerDiscordOauth()} className="inline-block mx-1 hover:bg-primary">
+              Discord
+            </a>
           </div>
         )}
         <div className="flex items-center justify-center px-2">
