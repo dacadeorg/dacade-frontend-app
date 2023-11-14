@@ -24,12 +24,12 @@ const Accordion: React.FC<AccordionProps> = ({ title, subtitle, content, isExpan
 
   return (
     <div className="mt-2">
-      <div className={`flex gap-2 justify-between cursor-pointer ${!title && "items-center"}`} onClick={toggleAccordion}>
+      <div className={`flex gap-2 justify-between cursor-pointer ${!title && "items-start"}`} onClick={toggleAccordion}>
         <div>
           {title && <H3>{title}</H3>}
           {subtitle && isSubtitleExpanded && subtitle}
         </div>
-        <div>
+        <div className="pt-3">
           <ArrowDown className={`transform origin-center-top transition-transform ${isAccordionExpanded ? "rotate-180" : ""}`} />
         </div>
       </div>
