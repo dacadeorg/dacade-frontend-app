@@ -305,6 +305,7 @@
   "profile.achievement.token-id": "Token id",
   "profile.achievement.ipfs-metadata": "Metadata",
   "profile.achievement.mintable": "Mintable",
+  "profile.achievement.mintable-na": "Mintable N/A",
   "profile.connect.wallet.button": "Connect wallet",
   "faq.title": "FAQ",
   "faq.subtitle": "If you have any additional questions or need help visit our ",
