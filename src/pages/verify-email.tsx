@@ -10,6 +10,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { verifyEmail } from "@/store/services/auth.service";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import useSafePush from "@/hooks/useSafePush";
 
 /**
  * Email verification page
@@ -20,10 +21,11 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
  */
 export default function EmailVerification(): ReactElement {
   const { t } = useTranslation();
-  const [verified, setVerified] = useState(true);
+  const [verified, setVerified] = useState(false);
   const router = useRouter();
   const { locale } = useRouter();
   const dispatch = useDispatch();
+  const { safePush } = useSafePush();
 
   useEffect(() => {
     const verify = async () => {
@@ -40,7 +42,7 @@ export default function EmailVerification(): ReactElement {
   }, [dispatch, locale, router.query.code]);
 
   const goHome = () => {
-    router.push("/login");
+    safePush("/login");
   };
 
   return (
@@ -63,7 +65,7 @@ export default function EmailVerification(): ReactElement {
             </div>
 
             <div className="pt-8 text-center">
-              <ArrowButton onClick={goHome}>{t("email-verification.success.button")}</ArrowButton>
+              <ArrowButton onClick={() => goHome()}>{t("email-verification.success.button")}</ArrowButton>
             </div>
           </>
         )}
