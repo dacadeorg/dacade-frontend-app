@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import InvitationButtonProps from "./_partials/InvitationButton";
+import RepplyToInvitation from "./_partials/RepplyToInvitation";
 import { Invite } from "@/types/challenge";
 
 /**
@@ -41,10 +41,7 @@ export default function ConfirmTeamInvitation({ index, title, text, invite }: Co
           <p className="text-sm font-normal text-gray-700 max-w-xxs">
             {invite.team?.organizer?.displayName} added you to their team for the {invite.team?.challenge?.name} challenge. Would you like to accept?
           </p>
-          <div className="flex gap-3">
-            <InvitationButtonProps text="accept" inviteId={invite.id as string} />
-            <InvitationButtonProps text="decline" inviteId={invite.id as string} />
-          </div>
+          <RepplyToInvitation invite_id={invite.id} team_ref={invite.team_ref} />
         </div>
       </div>
     </div>

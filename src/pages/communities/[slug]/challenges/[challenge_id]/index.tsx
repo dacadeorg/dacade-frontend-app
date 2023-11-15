@@ -28,7 +28,7 @@ import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChalle
 import useNavigation from "@/hooks/useNavigation";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import Objectives from "@/components/sections/challenges/Objectives";
-import { getTeamByChallenge } from "@/store/services/teams.service";
+import { getTeamByChallenge, getUserInvitesByChallenge } from "@/store/services/teams.service";
 import { fetchChallenge, fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
 import Loader from "@/components/ui/Loader";
 import { NotFoundError } from "@/utilities/errors/NotFoundError";
@@ -88,6 +88,7 @@ export default function ChallengePage(props: {
     if (challenge && isAuthenticated) {
       dispatch(getTeamByChallenge(challenge.id));
       dispatch(fetchChallengeAuthenticated({ id: challenge.id }));
+      dispatch(getUserInvitesByChallenge(challenge.id));
     }
   }, [challenge, dispatch, isAuthenticated]);
 

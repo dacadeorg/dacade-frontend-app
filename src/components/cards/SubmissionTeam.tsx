@@ -4,7 +4,7 @@ import AsyncSelect from "react-select/async";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { User } from "@/types/bounty";
-import { cancelTeamInvite, createTeam, getTeamByChallenge, removeTeamMember } from "@/store/services/teams.service";
+import { cancelTeamInvite, createTeam, getTeamByChallenge, leaveTeam, removeTeamMember } from "@/store/services/teams.service";
 import { getUserByUsername } from "@/store/services/user.service";
 import Button from "./challenge/_partials/Button";
 import debounce from "lodash.debounce";
@@ -157,8 +157,8 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   };
 
   const leaveMyTeam = () => {
-    // TODO: Add correct implementation to leave the team
-    console.log("Team member is going to leave the team");
+    dispatch(leaveTeam(team.id));
+    refetchTeam();
   };
 
   const refetchTeam = async () => {

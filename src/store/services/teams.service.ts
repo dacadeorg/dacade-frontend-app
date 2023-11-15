@@ -1,6 +1,6 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
-import { setIsTeamDataLoading, setTeamData } from "../feature/teams.slice";
+import { clearTeamData, setIsTeamDataLoading, setTeamData } from "../feature/teams.slice";
 import { setInvitesData } from "../feature/communities/challenges/invites.slice";
 import { Invite } from "@/types/challenge";
 
@@ -44,10 +44,11 @@ const teamsService = createApi({
         url: `/teams/challenge/${challengeId}`,
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        setIsTeamDataLoading(true);
+        dispatch(setIsTeamDataLoading(true));
         const { data } = await queryFulfilled;
         if (data) dispatch(setTeamData(data));
-        setIsTeamDataLoading(false);
+        else dispatch(clearTeamData());
+        dispatch(setIsTeamDataLoading(false));
         return data;
       },
     }),
@@ -62,6 +63,7 @@ const teamsService = createApi({
           dispatch(setInvitesData(data));
           return data;
         } catch (err) {
+          dispatch(setInvitesData(null));
           console.error("Current user has no invites!");
         }
       },
@@ -111,6 +113,22 @@ const teamsService = createApi({
       },
     }),
 
+    leaveTeam: builder.mutation<any, any>({
+      query: (id: string) => ({
+        url: `/teams/leave/${id}`,
+        method: "POST",
+      }),
+      onQueryStarted: async (_, { queryFulfilled }) => {
+        try {
+          const data = await queryFulfilled;
+          console.log("leaving the team successfull", data);
+        } catch (err: any) {
+          console.error("Error", err);
+        }
+        return;
+      },
+    }),
+
     cancelTeamInvite: builder.mutation<any, { invite_id: string }>({
       query: (payload: { invite_id: string }) => ({
         url: "/teams/cancel-invite",
@@ -142,3 +160,5 @@ export const createTeam = (payload: CreateTeamPayload) => teamsService.endpoints
 export const removeTeamMember = (payload: RemoveMemberPayload) => teamsService.endpoints.removeTeamMember.initiate(payload);
 
 export const cancelTeamInvite = (payload: { invite_id: string }) => teamsService.endpoints.cancelTeamInvite.initiate(payload);
+
+export const leaveTeam = (id: string) => teamsService.endpoints.leaveTeam.initiate(id);

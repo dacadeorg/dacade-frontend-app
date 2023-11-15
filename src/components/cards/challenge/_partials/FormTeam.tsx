@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import ArrowButton from "@/components/ui/button/Arrow";
 import Link from "next/link";
 
@@ -6,17 +6,17 @@ import Link from "next/link";
  * Props for the FormTeam component.
  */
 interface FormTeamCardProps {
-    title: string;
-    description: string;
-    index: number;
-  }
-  
-  /**
-   * FormTeam component.
-   *
-   * @param {FormTeamProps} props - The props for the FormTeam component.
-   * @returns {JSX.Element} The FormTeam component JSX element.
-   */
+  title: string;
+  description: string;
+  index: number;
+}
+
+/**
+ * FormTeam component.
+ *
+ * @param {FormTeamProps} props - The props for the FormTeam component.
+ * @returns {JSX.Element} The FormTeam component JSX element.
+ */
 
 export default function FormTeamCard({ index = 1, title, description }: FormTeamCardProps): JSX.Element {
   return (
@@ -28,7 +28,7 @@ export default function FormTeamCard({ index = 1, title, description }: FormTeam
           </div>
           <div className="text-sm font-normal text-gray-700 mt-3 max-w-xxs pb-6">{description}</div>
         </div>
-        <Link href="https://discord.gg/eHYZr9dzan" target="_blank">
+        <Link href="https://discord.gg/HDsN3jgyg2" target="_blank">
           <ArrowButton communityStyles={true} variant="outline-primary">
             Start now
           </ArrowButton>
