@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement, useCallback, useEffect } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import { GetServerSideProps } from "next";
@@ -22,19 +22,23 @@ export default function ProfileOverview(): ReactElement {
   const user = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const fetchProfileData = useCallback(
+    async (username: string) => {
+      await Promise.all([
+        dispatch(fetchUserProfile(username)),
+        dispatch(fetchAllCertificates({ username: username })),
+        dispatch(fetchProfileReputation({ username: username })),
+        dispatch(userFetchReferrals()),
+      ]);
+    },
+    [dispatch]
+  );
+
   useEffect(() => {
-    (async () => {
-      const username = user?.username;
-      if (username) {
-        await Promise.all([
-          dispatch(fetchUserProfile((username as string) || "")),
-          dispatch(fetchAllCertificates({ username: (username as string) || "" })),
-          dispatch(fetchProfileReputation({ username: (username as string) || "" })),
-          dispatch(userFetchReferrals()),
-        ]);
-      }
-    })();
-  }, [dispatch, router.locale, user?.username]);
+    const username = user?.username;
+    if (username) fetchProfileData(username);
+  }, [fetchProfileData, user?.username, router.locale]);
 
   return (
     <>

@@ -21,13 +21,13 @@ export default function VideoPopup(): ReactElement {
 
   const toggle = () => {
     setShow(!show);
-    toggleBodyScrolling(!show)(dispatch);
+    dispatch(toggleBodyScrolling(!show));
   };
 
   const externalClick = () => {
     if (show) {
       setShow(false);
-      toggleBodyScrolling(false)(dispatch);
+      dispatch(toggleBodyScrolling(false));
     }
   };
 

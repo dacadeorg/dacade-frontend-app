@@ -14,7 +14,7 @@ export default function useUnlockPageScroll() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unLockScroll = () => toggleBodyScrolling(false)(dispatch);
+    const unLockScroll = () => dispatch(toggleBodyScrolling(false));
 
     router.events.on("routeChangeComplete", unLockScroll);
     return () => router.events.off("routeChangeComplete", unLockScroll);

@@ -21,13 +21,15 @@ interface WalletHeaderProps {
 export default function WalletHeader({ wallet, children }: WalletHeaderProps): ReactElement {
   const { t } = useTranslation();
   return (
-    <div className="pb-7">
-      <p className="text-.5xl leading-snug font-medium">{wallet.title}</p>
-      <p className="text-.5xl font-medium text-gray-400 leading-snug">
-        {wallet.address ? "Change" : "Set"} {t("Address")}
-      </p>
-      <Tag value={wallet.token} className="mt-2 text-gray-500" />
+    <>
+      <div className="pb-7">
+        <p className="text-.5xl leading-snug font-medium">{wallet.title}</p>
+        <p className="text-.5xl font-medium text-gray-400 leading-snug">
+          {wallet.address ? "Change" : "Set"} {t("Address")}
+        </p>
+        <Tag value={wallet.token} className="mt-2 text-gray-500" />
+      </div>
       {children}
-    </div>
+    </>
   );
 }

@@ -1,15 +1,17 @@
 import { Bounty } from "@/types/bounty";
 import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
-import { store } from "..";
+import { IRootState } from "..";
 
 interface InitialState {
   bountiesList: Bounty[];
   filteredBountyList: Bounty[];
+  isLoading: boolean;
 }
 
 const initialState: InitialState = {
   bountiesList: [],
   filteredBountyList: [],
+  isLoading: false
 };
 
 /**
@@ -28,10 +30,13 @@ const bountiesSlice = createSlice({
     setFilteredBountiesList: (state, action: PayloadAction<Bounty[]>) => {
       state.filteredBountyList = action.payload;
     },
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
+    }
   },
 });
 
-export const { setBountiesList, setFilteredBountiesList } = bountiesSlice.actions;
+export const { setBountiesList, setFilteredBountiesList, setLoading } = bountiesSlice.actions;
 
 /**
  * Find bouties by slug
@@ -40,8 +45,8 @@ export const { setBountiesList, setFilteredBountiesList } = bountiesSlice.action
  * @param {string} slug
  * @returns {(dispatch: Dispatch) => void}
  */
-export const findBountiesBySlug = (slug: string) => async (dispatch: Dispatch) => {
-  const allBounties = store.getState().bounties.bountiesList;
+export const findBountiesBySlug = (slug: string) => async (dispatch: Dispatch, getState: () => IRootState) => {
+  const allBounties = getState().bounties.bountiesList;
   const filteredBounties = allBounties.filter((bounty) => bounty.slug === slug);
   dispatch(setFilteredBountiesList(filteredBounties));
 };

@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
-import { createEvent } from "@/store/feature/events.slice";
+import { createAnalyticEvent } from "@/store/feature/events.slice";
 import { Submission as TSubmission, User } from "@/types/bounty";
 import Hint from "@/components/ui/Hint";
 import { fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
@@ -34,6 +34,7 @@ interface SubmissionMultiSelector {
   community: Community | null;
   team: Team;
   authUser: User | null;
+  currentSubmission: TSubmission;
 }
 
 interface FormValues {
@@ -47,6 +48,11 @@ interface FormValues {
  *
  * @returns {ReactElement}
  */
+
+const isValid = (form: FormValues, challenge: Challenge | null) => {
+  return challenge?.format.githubLink ? form.text.length > 0 && form.githubLink.length > 0 : form.text.length > 0;
+};
+
 export default function Submission(): ReactElement {
   const {
     watch,
@@ -59,12 +65,13 @@ export default function Submission(): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const { colors, challenge, community, team, authUser } = useMultiSelector<unknown, SubmissionMultiSelector>({
+  const { colors, challenge, community, team, authUser, currentSubmission } = useMultiSelector<unknown, SubmissionMultiSelector>({
     colors: (state: IRootState) => state.ui.colors,
     challenge: (state: IRootState) => state.challenges.current,
     community: (state: IRootState) => state.communities.current,
     team: (state: IRootState) => state.teams.current,
     authUser: (state: IRootState) => state.user.data,
+    currentSubmission: (state: IRootState) => state.submissions.submission,
   });
 
   const [submitting, setSubmitting] = useState(false);
@@ -92,45 +99,41 @@ export default function Submission(): ReactElement {
    * @returns {*}
    */
   const onSubmit = async (form: FormValues) => {
-    const isValid = form.text.length > 0 && form.githubLink.length > 0;
+    if (!isValid(form, challenge) || submitting) return;
+    try {
+      setSubmitting(true);
+      await dispatch(
+        challenge?.isTeamChallenge
+          ? createSubmissionTeam({
+              challengeId: challenge?.id,
+              text: form.text,
+              link: form.githubLink,
+            })
+          : createSubmission({
+              challengeId: challenge?.id,
+              text: form.text,
+              link: form.githubLink,
+            })
+      );
 
-    if (isValid) {
-      if (submitting) return;
-      try {
-        setSubmitting(true);
-        const result = await dispatch(
-          challenge?.isTeamChallenge
-            ? createSubmissionTeam({
-                challengeId: challenge?.id,
-                text: form.text,
-                link: form.githubLink,
-              })
-            : createSubmission({
-                challengeId: challenge?.id,
-                text: form.text,
-                link: form.githubLink,
-              })
-        );
+      const submission = currentSubmission;
 
-        const submission = result.payload as TSubmission;
-
-        dispatch(
-          createEvent({
-            name: "submission-created",
-            attributes: {
-              submissionId: submission.id,
-              community: community?.slug,
-            },
-          })
-        );
-        textValue = "";
-        githubLinkValue = "";
-        dispatch(fetchChallengeAuthenticated({ id: challenge?.id as string }));
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setSubmitting(false);
-      }
+      dispatch(
+        createAnalyticEvent({
+          name: "submission-created",
+          attributes: {
+            submissionId: submission.id,
+            community: community?.slug,
+          },
+        })
+      );
+      textValue = "";
+      githubLinkValue = "";
+      dispatch(fetchChallengeAuthenticated({ id: challenge?.id as string }));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSubmitting(false);
     }
   };
 

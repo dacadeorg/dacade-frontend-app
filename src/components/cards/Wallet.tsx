@@ -41,17 +41,19 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
   const cashable = String(wallet.token).toUpperCase() !== "DAC";
   const triggerCashout = () => {
     setShowPayoutModal(true);
-    toggleBodyScrolling(true)(dispatch);
+    dispatch(toggleBodyScrolling(true));
   };
 
   const triggerKYCVerification = () => {
-    openVerificationModal({
-      description: t("kyc.payout.reason"),
-      completedActionText: t("kyc.payout.button.completed"),
-      completedAction: () => {
-        triggerCashout();
-      },
-    })(dispatch);
+    dispatch(
+      openVerificationModal({
+        description: t("kyc.payout.reason"),
+        completedActionText: t("kyc.payout.button.completed"),
+        completedAction: () => {
+          triggerCashout();
+        },
+      })
+    );
   };
 
   const cashout = () => {
@@ -62,13 +64,19 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
   const onClose = () => {
     setShowEditModal(false);
     setShowPayoutModal(false);
-    toggleBodyScrolling(false)(dispatch);
+    dispatch(toggleBodyScrolling(false));
+  };
+
+  const triggerEditAddress = () => {
+    dispatch(setCurrentWallet(wallet));
+    setShowEditModal(true);
+    dispatch(toggleBodyScrolling(true));
   };
 
   return (
     <div className="relative mb-7">
       <div className="relative lg:flex md:flex sm:flex rounded-3.5xl">
-        <EditAddress show={showEditModal} onClose={onClose} wallet={wallet} />
+        {showEditModal && <EditAddress show={showEditModal} onClose={onClose} wallet={wallet} />}
         <Payout wallet={wallet} show={showPayoutModal} onClose={onClose} />
         <div className="bg-gray-50 lg:w-60 md:w-60 sm:w-60 rounded-3.5xl">
           <div className="p-6">
@@ -106,13 +114,7 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
                 <p>{wallet.description}</p>
               )}
               <div className="text-gray-700 text-sm mt-3">
-                <span
-                  className="cursor-pointer hover:underline"
-                  onClick={() => {
-                    dispatch(setCurrentWallet(wallet));
-                    setShowEditModal(true);
-                  }}
-                >
+                <span className="cursor-pointer hover:underline" onClick={triggerEditAddress}>
                   {address ? t("profile.wallets.address-change") : t("profile.wallets.address-set")}
                 </span>
               </div>

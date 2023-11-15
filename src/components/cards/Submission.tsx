@@ -1,14 +1,12 @@
-import Badge from "@/components/ui/Badge";
 import UserCard from "@/components/cards/User";
+import Badge from "@/components/ui/Badge";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { Submission, User } from "@/types/bounty";
+import { localePath } from "@/utilities/Routing";
 import { useTranslation } from "next-i18next";
-import { ReactElement, ReactNode, useCallback, useEffect, useState } from "react";
-import { useDispatch } from "@/hooks/useTypedDispatch";
-import { showSubmission } from "@/store/feature/communities/challenges/submissions";
 import { useRouter } from "next/router";
-import { toggleBodyScrolling } from "@/store/feature/ui.slice";
+import { ReactElement, ReactNode, useCallback, useEffect, useState } from "react";
 
 /**
  * Submission card interface props
@@ -32,7 +30,6 @@ interface SubmissionCardProps {
  * @return {ReactElement}
  */
 export default function SubmissionCard({ submission, link = "", children }: SubmissionCardProps): ReactElement {
-  const dispatch = useDispatch();
   const { t } = useTranslation();
   const router = useRouter();
   const colors = useSelector((state) => state.ui.colors);
@@ -52,14 +49,10 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
   };
 
   const displaySubmission = useCallback(() => {
-    window.history.pushState("", "", `${router.asPath}/${submission?.id}`);
-    toggleBodyScrolling(true)(dispatch);
+    const url = localePath(router, `/${router.asPath}/${submission?.id}`);
+    window.history.pushState("", "", url);
+    window.dispatchEvent(new CustomEvent("onSoftNavigation", { detail: url }));
   }, [router, submission?.id]);
-
-  const submissionFeedback = () => {
-    displaySubmission();
-    dispatch(showSubmission(submission.id));
-  };
 
   useEffect(() => {
     if (submission.team) {
@@ -69,7 +62,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
       setMembers(() => [(organizer as User) || submission.user]);
       members?.forEach(({ user }) => setMembers((prev) => [...prev, user]));
     }
-  }, []);
+  }, [submission]);
 
   return (
     <UserCard
@@ -84,7 +77,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
       bordered={false}
       className="pt-6 hover:bg-gray-50 cursor-pointer"
       boxLayout
-      onClick={submissionFeedback}
+      onClick={displaySubmission}
     >
       <div className="divide-y divide-gray-200 flex flex-col">
         <div className="pb-5">
@@ -127,7 +120,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
               minWidthClass="w-10 h-10"
               customStyle={arrowButtonStyles}
               arrowClasses=""
-              onClick={submissionFeedback}
+              onClick={displaySubmission}
             />
           </div>
         </div>

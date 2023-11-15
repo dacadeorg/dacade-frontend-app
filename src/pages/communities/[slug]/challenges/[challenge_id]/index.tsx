@@ -31,6 +31,7 @@ import Objectives from "@/components/sections/challenges/Objectives";
 import { getTeamByChallenge } from "@/store/services/teams.service";
 import { fetchChallenge, fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
 import Loader from "@/components/ui/Loader";
+import { NotFoundError } from "@/utilities/errors/NotFoundError";
 
 /**
  * interface for ChallengePage multiSelector
@@ -80,7 +81,7 @@ export default function ChallengePage(props: {
   const navigation = useNavigation();
 
   useEffect(() => {
-    initChallengeNavigationMenu(navigation.community)(dispatch);
+    dispatch(initChallengeNavigationMenu(navigation.community));
   }, []);
 
   useEffect(() => {
@@ -155,7 +156,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string, relations: ["rubric", "courses", "learning-modules", "best-submissions"] })),
       serverSideTranslations(locale as string),
     ]);
-
+    if (!community || !challenge) throw new NotFoundError();
     return {
       props: {
         ...translations,

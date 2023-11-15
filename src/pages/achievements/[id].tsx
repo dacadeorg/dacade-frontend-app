@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import NavItem from "@/components/ui/NavItem";
 import Avatar from "@/components/ui/Avatar";
@@ -46,11 +46,13 @@ const Achievement = () => {
   const dispatch = useDispatch();
   const { locale, query } = useRouter();
 
-  useEffect(() => {
-    (() => {
-      Promise.all([dispatch(findCertificate({ id: query.id as string }))]);
-    })();
+  const findCertificateById = useCallback(async () => {
+    await dispatch(findCertificate({ id: query.id as string }));
   }, [dispatch, query.id]);
+
+  useEffect(() => {
+    findCertificateById();
+  }, [findCertificateById]);
 
   const issuedOn = useMemo(() => {
     if (!achievement?.metadata?.issuedOn) return null;

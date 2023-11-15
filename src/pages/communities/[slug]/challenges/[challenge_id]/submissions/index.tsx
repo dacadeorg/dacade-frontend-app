@@ -16,6 +16,8 @@ import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { Submission as SubmissionType } from "@/types/bounty";
 import { Community } from "@/types/community";
 import { Challenge } from "@/types/course";
+import { NotFoundError } from "@/utilities/errors/NotFoundError";
+import { localePath } from "@/utilities/Routing";
 import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -42,14 +44,36 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
   const navigation = useNavigation();
 
   const handleCloseSubmission = useCallback(() => {
+    if(!selectedSubmission) return;
     dispatch(showSubmission(""));
-    window.history.pushState(null, "", router.asPath);
-    toggleBodyScrolling(false)(dispatch);
-  }, [dispatch, router]);
+    window.history.pushState("", "", localePath(router, router.asPath));
+    dispatch(toggleBodyScrolling(false));
+  }, [dispatch, router, selectedSubmission]);
 
   useEffect(() => {
-    initChallengeNavigationMenu(navigation.community)(dispatch);
+    dispatch(initChallengeNavigationMenu(navigation.community));
   }, [navigation.community, dispatch]);
+
+  const handleShowSubmission = useCallback(
+    (e: any) => {
+      const newUrl = e.detail;
+      const submissionId = newUrl.replace(localePath(router, router.asPath), "").replace(/\//g, "");
+      const submission = submissions.find((submission) => submission.id === submissionId);
+      if(!submission) return;
+      dispatch(showSubmission(submissionId));
+      dispatch(toggleBodyScrolling(true));
+    },
+    [dispatch, router, submissions]
+  );
+
+  useEffect(() => {
+    window.addEventListener("onSoftNavigation", handleShowSubmission);
+    window.addEventListener("popstate", handleCloseSubmission);
+    return () => {
+      window.removeEventListener("onSoftNavigation", handleShowSubmission);
+      window.removeEventListener("popstate", handleCloseSubmission);
+    };
+  }, [handleCloseSubmission, handleShowSubmission]);
 
   // Temporary fix for links copied which have submission_id as a query parameter
   useEffect(() => {
@@ -71,7 +95,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
           <Header title={challenge?.name} subtitle={t("communities.submission.title")} isTeamChallenge={challenge?.isTeamChallenge} />
           <SubmissionList />
         </div>
-        <SubmissionPopup show={!!selectedSubmission} onClose={handleCloseSubmission} />
+        <SubmissionPopup show={!!selectedSubmission} onClose={handleCloseSubmission} submissionId={selectedSubmission?.id} />
       </Wrapper>
     </>
   );
@@ -85,19 +109,26 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   const { slug, challenge_id } = query;
   const { dispatch } = store;
 
-  const [{ data: currentCommunity }, { data: submissions }, { data: challenge }, translations] = await Promise.all([
-    dispatch(fetchCurrentCommunity({ slug: slug as string, locale: locale as string })),
-    dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: locale as string })),
-    dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
-    serverSideTranslations(locale as string),
-  ]);
+  try {
+    const [{ data: currentCommunity }, { data: submissions }, { data: challenge }, translations] = await Promise.all([
+      dispatch(fetchCurrentCommunity({ slug: slug as string, locale: locale as string })),
+      dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: locale as string })),
+      dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
+      serverSideTranslations(locale as string),
+    ]);
 
-  return {
-    props: {
-      currentCommunity,
-      submissions,
-      challenge,
-      ...translations,
-    },
-  };
+    if (!currentCommunity || !challenge || !submissions) throw new NotFoundError();
+    return {
+      props: {
+        currentCommunity,
+        submissions,
+        challenge,
+        ...translations,
+      },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 });

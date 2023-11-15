@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, ReactElement } from "react";
+import { useState, useEffect, useMemo, ReactElement, useCallback } from "react";
 import Modal from "@/components/ui/Modal";
 import AchievementCard from "@/components/cards/Achievement";
 import ArrowButton from "@/components/ui/button/Arrow";
@@ -7,10 +7,11 @@ import Input from "@/components/ui/Input";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useTranslation } from "next-i18next";
-import { check, connectWallet, getSignature } from "@/store/feature/wallet.slice";
 import { mintCertificate } from "@/store/services/profile/certificate.service";
-import { Certificate } from "@/types/certificate";
+import { Certificate, Minting } from "@/types/certificate";
 import { IRootState } from "@/store";
+import useWalletConnect from "@/hooks/useWalletConnect";
+import { SIGNATURE_HASH_STRING } from "@/constants/wallet";
 
 /**
  * interface for MintCertificate multiSelector
@@ -22,6 +23,7 @@ import { IRootState } from "@/store";
 interface MintCertificateMultiSelector {
   achievement: Certificate | null;
   walletAddress: string | null;
+  mintingTx: Minting | null;
 }
 
 // Wallet interface
@@ -51,15 +53,19 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>();
   const [txData, setTxData] = useState({ tx: "" });
-  const { achievement, walletAddress } = useMultiSelector<unknown, MintCertificateMultiSelector>({
+  const { achievement, walletAddress, mintingTx } = useMultiSelector<unknown, MintCertificateMultiSelector>({
     achievement: (state: IRootState) => state.profileCertificate.current,
     walletAddress: (state: IRootState) => state.web3Wallet.address,
+    mintingTx: (state: IRootState) => state.certificates?.mintingTx,
   });
 
-  const connected = check();
+  const { isConnected, walletConnectAddress, openWeb3Modal, signature, signatureLoading, signMessage, getSignatureError } = useWalletConnect();
 
   // User wallet address
-  const address = useMemo(() => walletAddress?.toLowerCase(), [walletAddress]);
+  const address = useMemo(() => {
+    const userAddress = walletAddress || walletConnectAddress;
+    return userAddress?.toLowerCase();
+  }, [walletAddress, walletConnectAddress]);
 
   // Mint status
   const minted = useMemo(() => !!txData?.tx, [txData?.tx]);
@@ -80,51 +86,54 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
   }, [address, loading]);
 
   useEffect(() => {
-    setTxData((prev) => ({
-      ...prev,
-      tx: achievement?.minting?.tx || "",
-    }));
-  }, [achievement]);
+    const tx = achievement?.minting?.tx || mintingTx?.tx;
+    if (tx) {
+      setTxData((prev) => ({
+        ...prev,
+        tx,
+      }));
+    }
+  }, [achievement, mintingTx]);
 
   const onClose = () => {
     setLoading(false);
     close?.(true);
   };
 
-  /**
-   * Mint certificate function
-   * @date 5/10/2023 - 7:42:27 PM
-   *
-   * @async
-   * @returns { () => Promise<void>}
-   */
   const onSave = async () => {
     if (loading) return;
-    setLoading(true);
     setError((prev: any) => ({ ...prev, message: "" }));
     try {
-      const signature = await getSignature();
-
-      const data = await (
-        await mintCertificate({
-          id: achievement?.id as string,
-          address: address as string,
-          signature,
-        })
-      )(dispatch);
-
-      setTxData((prev) => ({ ...prev, tx: data.txData }));
+      // Trigger the modal to get the signature
+      signMessage({ message: SIGNATURE_HASH_STRING });
     } catch (error: any) {
       setError(error);
-    } finally {
-      setLoading(false);
     }
   };
+
+  /**
+   * Mint the certificate
+   * @date 11/1/2023 - 5:56:59 PM
+   *
+   * @type {*}
+   */
+  const mint = useCallback(async () => {
+    if (!signature || !achievement?.id) return;
+    setLoading(true);
+    await dispatch(
+      mintCertificate({
+        id: achievement.id as string,
+        address: address as string,
+        signature,
+      })
+    );
+    setLoading(false);
+  }, [achievement?.id, address, dispatch, signature]);
 
   // Connect wallet function
   const connect = async () => {
     try {
-      await dispatch(connectWallet());
+      openWeb3Modal();
     } catch (error) {
       console.log(error);
     }
@@ -135,9 +144,22 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
     onSave();
   };
 
+  useEffect(() => {
+    if (!getSignatureError) return;
+    setError({ name: "Minting failed", message: "Failed connection", details: { one: "User denied message signature" } });
+  }, [getSignatureError]);
+
+  useEffect(() => {
+    setLoading(signatureLoading);
+  }, [signatureLoading]);
+
+  useEffect(() => {
+    mint();
+  }, [mint, signature]);
+
   return (
-    <Modal show={show} size="medium">
-      <div className="px-6 pt-6">
+    <Modal show={show} size="medium" onClose={onClose}>
+      <div className="px-6">
         <div className="pb-7">
           <p className="text-.5xl font-medium leading-snug">{achievement?.metadata?.name}</p>
         </div>
@@ -165,7 +187,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
             ) : (
               <>
                 <p className="pt-3 pb-4">This certificate is awarded for passing the {achievement?.metadata?.name} course.</p>
-                {!connected ? (
+                {isConnected || address ? (
                   <div className="border-t border-gray-100 border-solid">
                     <p className="pt-4">Minting this certificate will not cost you gas fees.</p>
                     <Input value={address} placeholder="Wallet address" inputClass="h-12 mt-6 text-sm text-slate-500" fontSize="sm" required disabled />
@@ -180,7 +202,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
             )}
           </div>
         </div>
-        <div className="flex items-center justify-between my-8">
+        <div className="flex items-center justify-between mt-8">
           <a className="text-sm font-medium cursor-pointer text-primary" onClick={onClose}>
             Close
           </a>

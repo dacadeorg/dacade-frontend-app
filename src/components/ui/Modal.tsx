@@ -34,7 +34,7 @@ export default function Modal({ show, size = "", onClose, children }: ModalProps
     }
   }, [size]);
 
-  const modalClassName = classNames("bg-white my-auto rounded-3.5xl relative mx-auto max-w-5xl", sizeClasses);
+  const modalClassName = classNames("bg-white my-auto rounded-3.5xl relative mx-auto max-w-5xl py-6", sizeClasses);
 
   return (
     <Popup show={show} className="py-8" onClose={onClose} center>

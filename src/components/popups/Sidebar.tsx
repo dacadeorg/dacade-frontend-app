@@ -67,17 +67,17 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
 
   const onLogout = () => {
     dispatch(logout());
-    toggleBodyScrolling(false)(dispatch);
+    dispatch(toggleBodyScrolling(false));
   };
 
   const displayInvitationPopup = () => {
     setshow(!show);
-    toggleShowReferralPopup(true)(dispatch);
+    dispatch(toggleShowReferralPopup(true));
   };
 
   const externalClick = () => {
     setshow(!show);
-    toggleBodyScrolling(false)(dispatch);
+    dispatch(toggleBodyScrolling(false));
   };
 
   const toggle = () => {
@@ -86,7 +86,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
     if (isAuthenticated && unread) {
       dispatch(readNotification());
     }
-    toggleBodyScrolling(!show)(dispatch);
+    dispatch(toggleBodyScrolling(!show));
     window.scrollTo(0, 0);
   };
 
@@ -156,7 +156,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
                 </div>
               )}
             </div>
-            <LanguageList />
+            <LanguageList onSelect={externalClick} />
             {isAuthenticated && (
               <div className="p-4 flex justify-center bg-indigo-50">
                 <div className="z-10">

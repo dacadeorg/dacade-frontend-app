@@ -1,8 +1,10 @@
-import { ReactElement } from "react";
+import { ReactElement, useCallback, useEffect } from "react";
 import Popup from "@/components/ui/Popup";
 import Header from "./_partials/Header";
 import Section from "@/components/ui/Section";
 import SubmissionView from "@/components/sections/submissions/View";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { findSubmssionById } from "@/store/feature/communities/challenges/submissions";
 
 /**
  * Submission interface props
@@ -14,9 +16,18 @@ import SubmissionView from "@/components/sections/submissions/View";
 interface SubmissionPopup {
   show: boolean;
   onClose: () => void;
+  submissionId?: string;
 }
 
-export default function SubmissionPopup({ show, onClose }: SubmissionPopup): ReactElement {
+export default function SubmissionPopup({ show, onClose, submissionId }: SubmissionPopup): ReactElement {
+  const dispatch = useDispatch();
+  const fetchSubmission = useCallback(() => {
+    dispatch(findSubmssionById({ id: submissionId as string }));
+  }, [dispatch, submissionId]);
+
+  useEffect(() => {
+    fetchSubmission();
+  }, [fetchSubmission]);
   return (
     <Popup show={show} onClose={onClose}>
       <div className="py-8 overflow-hidden h-full w-full">

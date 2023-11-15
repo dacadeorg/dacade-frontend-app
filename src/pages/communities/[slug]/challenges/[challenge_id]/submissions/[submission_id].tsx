@@ -15,6 +15,7 @@ import { Challenge } from "@/types/course";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import useNavigation from "@/hooks/useNavigation";
 import { fetchChallenge } from "@/store/services/communities/challenges";
+import { NotFoundError } from "@/utilities/errors/NotFoundError";
 
 export default function SubmissionPage(props: { pageProps: { challenge: Challenge } }) {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export default function SubmissionPage(props: { pageProps: { challenge: Challeng
   const navigation = useNavigation();
 
   useEffect(() => {
-    initChallengeNavigationMenu(navigation.community)(dispatch);
+    dispatch(initChallengeNavigationMenu(navigation.community));
   }, [dispatch, navigation.community]);
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
@@ -50,18 +51,21 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   };
 
   try {
-    const [{ data: community }, { payload: submission }, { data: challenge }] = await Promise.all([
+    const [{ data: community }, { payload: submission }, { data: challenge }, translations] = await Promise.all([
       dispatch(fetchCurrentCommunity(fetchPayload)),
       dispatch(findSubmssionById({ id: submission_id as string })),
       dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
+      serverSideTranslations(locale as string),
     ]);
+
+    if (!community || !challenge || !submission) throw new NotFoundError();
 
     return {
       props: {
         community,
         submission,
         challenge,
-        ...(await serverSideTranslations(locale as string)),
+        ...translations,
       },
     };
   } catch (e) {
