@@ -61,7 +61,7 @@ export default function SubmissionViewCard({ submission }: SubmissionViewCardPro
     if (submission?.team) {
       const { organizer, members } = submission.team;
       if (members) {
-        const updatedMembers = [organizer || (authUser as User) || submission?.user, ...members.map(({ user }) => user)];
+        const updatedMembers = [organizer || submission?.user, ...members.map(({ user }) => user)];
         setMembers(updatedMembers);
       }
     }
