@@ -277,6 +277,8 @@
   "profile.wallet.payout.request": "Solicite su pago",
   "profile.wallet.payout.amount": "Cantidad",
   "profile.wallet.payout.send": "Envíe una solicitud",
+  "profile.achievement.mintable": "Acuñable",
+  "profile.achievement.mintable-na": "Acuñable N/A",
   "faq.title": "FAQ",
   "faq.subtitle": "Si tiene más preguntas o necesita ayuda visite nuestro ",
   "faq.discord": "servidor de Discord.",
