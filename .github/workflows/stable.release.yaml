@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - stage
+      - main
 
 permissions:
   contents: write
@@ -17,4 +17,4 @@ jobs:
         with:
           release-type: node
           package-name: package.json
-          labels: "beta"
+          labels: "stable"
