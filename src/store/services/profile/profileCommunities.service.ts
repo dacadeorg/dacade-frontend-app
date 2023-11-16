@@ -10,7 +10,6 @@ import {
   setProfileCommunitySubmissions,
 } from "@/store/feature/profile/communities.slice";
 import { setColors } from "@/store/feature/ui.slice";
-
 import { Reputation, Submission } from "@/types/bounty";
 import { Community } from "@/types/community";
 import { Feedback } from "@/types/feedback";

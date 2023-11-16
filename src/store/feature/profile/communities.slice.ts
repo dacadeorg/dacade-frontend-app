@@ -2,7 +2,6 @@ import { Submission } from "@/types/bounty";
 import { Community } from "@/types/community";
 import { Feedback } from "@/types/feedback";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
 import { HYDRATE } from "next-redux-wrapper";
 
 interface InitialState {
