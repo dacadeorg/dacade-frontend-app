@@ -43,10 +43,7 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
 
   const emailVerificationChecker: (auth: User | null) => Promise<void> = useCallback(
     async (auth: User | null) => {
-      if (route.startsWith("/verify-email") && auth?.emailVerified) {
-        await router.push("/");
-        return;
-      }
+      if (route.startsWith("/verify-email")) return;
 
       if (route.startsWith("/email-verification") && !auth) {
         await router.push("/");

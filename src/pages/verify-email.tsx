@@ -10,6 +10,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { verifyEmail } from "@/store/services/auth.service";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import { auth } from "@/config/firebase";
 
 /**
  * Email verification page
@@ -20,7 +21,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
  */
 export default function EmailVerification(): ReactElement {
   const { t } = useTranslation();
-  const [verified, setVerified] = useState(true);
+  const [verified, setVerified] = useState(false);
   const router = useRouter();
   const { locale } = useRouter();
   const dispatch = useDispatch();
@@ -28,9 +29,13 @@ export default function EmailVerification(): ReactElement {
   useEffect(() => {
     const verify = async () => {
       const code = router.query.code as string;
-      if (!code) return;
+      if (!code) {
+        router.push("/404");
+        return;
+      }
       try {
         await dispatch(verifyEmail({ locale: locale as string, payload: { code } }));
+        await auth.currentUser?.reload();
         setVerified(true);
       } catch (error) {
         console.error(error);
