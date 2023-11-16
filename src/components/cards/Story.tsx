@@ -50,8 +50,8 @@ export default function Story({ story, position, gridPosition, count, showingBub
   /**
    * Hook from use-onclickoutside.
    * it takes two arguments, the ref of the element, which are:
-   *    - The ref of the element on which the out side click will be detected
-   *    - The callback to be executed when the out side click is detected
+   *    - The ref of the element on which the outside click will be detected
+   *    - The callback to be executed when the outside click is detected
    */
   useOnClickOutside(bubbleRef, () => {
     if (showBubble) {
@@ -104,7 +104,7 @@ export default function Story({ story, position, gridPosition, count, showingBub
     <div
       ref={bubbleRef}
       onClick={() => showStoryBubble()}
-      className="absolute border border-solid border-gray-200 bg-gray-50 rounded-full p-1 top-2/4 left-2/4 -m-7 flex flex-row-reverse"
+      className={`absolute border border-solid border-gray-200 bg-gray-50 rounded-full p-1 top-2/4 left-2/4 -m-7 flex flex-row-reverse ${showBubble && "z-50"}`}
       style={{
         transform: getPosition(),
       }}
