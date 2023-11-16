@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { verifyEmail } from "@/store/services/auth.service";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import useSafePush from "@/hooks/useSafePush";
+import { logout } from "@/store/feature/auth.slice";
 
 /**
  * Email verification page
@@ -42,6 +43,7 @@ export default function EmailVerification(): ReactElement {
   }, [dispatch, locale, router.query.code]);
 
   const goHome = () => {
+    dispatch(logout());
     safePush("/login");
   };
 

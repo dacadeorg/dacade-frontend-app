@@ -4,7 +4,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import Input from "@/components/ui/Input";
 import { getMetadataTitle } from "@/utilities/Metadata";
 import { ReactElement, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import useSafePush from "@/hooks/useSafePush";
 import Head from "next/head";
 import Link from "next/link";
 import { GetStaticProps } from "next";
@@ -56,7 +56,7 @@ export default function Login(): ReactElement {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const router = useRouter();
+  const { safePush } = useSafePush();
   const emailValue = watch("email");
   const passwordValue = watch("password");
   const { authUser, isFetchingUser, isAuthenticated } = useMultiSelector<unknown, LoginMultiSelector>({
@@ -82,7 +82,7 @@ export default function Login(): ReactElement {
   };
 
   useEffect(() => {
-    if (isAuthenticated && authUser) router.push("/bounties");
+    if (isAuthenticated && authUser) safePush("/bounties");
   }, [isAuthenticated, authUser]);
 
   if (isFetchingUser || authUser) {
