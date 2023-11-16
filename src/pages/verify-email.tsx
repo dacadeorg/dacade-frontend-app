@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactElement } from "react";
+import { useState, useEffect, ReactElement, useCallback } from "react";
 import { useTranslation } from "next-i18next";
 import Loader from "@/components/ui/Loader";
 import ArrowButton from "@/components/ui/button/Arrow";
@@ -10,6 +10,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { verifyEmail } from "@/store/services/auth.service";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import { auth } from "@/config/firebase";
 
 /**
  * Email verification page
@@ -20,24 +21,29 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
  */
 export default function EmailVerification(): ReactElement {
   const { t } = useTranslation();
-  const [verified, setVerified] = useState(true);
+  const [verified, setVerified] = useState(false);
   const router = useRouter();
   const { locale } = useRouter();
   const dispatch = useDispatch();
 
+  const verify = useCallback(async () => {
+    const code = router.query.code as string;
+    if (!code) {
+      router.push("/404");
+      return;
+    }
+    try {
+      await dispatch(verifyEmail({ locale: locale as string, payload: { code } }));
+      await auth.currentUser?.reload();
+      setVerified(true);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
   useEffect(() => {
-    const verify = async () => {
-      const code = router.query.code as string;
-      if (!code) return;
-      try {
-        await dispatch(verifyEmail({ locale: locale as string, payload: { code } }));
-        setVerified(true);
-      } catch (error) {
-        console.error(error);
-      }
-    };
     verify();
-  }, [dispatch, locale, router.query.code]);
+  }, [verify]);
 
   const goHome = () => {
     router.push("/login");

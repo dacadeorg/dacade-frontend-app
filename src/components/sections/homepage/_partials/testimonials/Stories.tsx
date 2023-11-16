@@ -64,7 +64,7 @@ export default function TestimonialsSection({ list }: TestimonialsSectionProps):
   };
 
   /**
-   * Clear the icon which is showing the popup/buble
+   * Clear the icon which is showing the popup/bubble
    * @date 4/4/2023 - 11:56:53 AM
    *
    * @param {number} card
@@ -95,30 +95,32 @@ export default function TestimonialsSection({ list }: TestimonialsSectionProps):
 
   return (
     <div className="relative w-full top-0 h-screen left-0 z-0 hidden md:block md:max-h-3xl lg:max-h-4xl xl:max-h-7.1xl">
-      {grids.map((grid, gridIndex) => (
-        <span
-          key={gridIndex}
-          className="border border-solid border-gray-200 m-auto rounded-full absolute inset-0 xl:max-w-6xl xl:max-h-6xl md:max-h-.5xl md:max-w-.5xl lg:max-w-3xl lg:max-h-3xl"
-          style={{
-            width: `${getSize(gridIndex)}vh`,
-            height: `${getSize(gridIndex)}vh`,
-            zIndex: showingBubble.grid === gridIndex ? 99 : grids.length - gridIndex,
-          }}
-        >
-          {grid.map((story, storyIndex) => (
-            <Story
-              key={storyIndex}
-              story={story}
-              position={storyIndex}
-              count={grid.length}
-              gridPosition={gridIndex}
-              showingBubble={showingBubble}
-              onShowBubble={() => onBubbleShow(storyIndex, gridIndex)}
-              onHideBubble={() => onBubbleHide(storyIndex, gridIndex)}
-            />
-          ))}
-        </span>
-      ))}
+      {grids.map((grid, gridIndex) => {
+        return (
+          <span
+            key={gridIndex}
+            className="border border-solid border-gray-200 m-auto rounded-full absolute inset-0 xl:max-w-6xl xl:max-h-6xl md:max-h-.5xl md:max-w-.5xl lg:max-w-3xl lg:max-h-3xl"
+            style={{
+              width: `${getSize(gridIndex)}vh`,
+              height: `${getSize(gridIndex)}vh`,
+              zIndex: showingBubble.grid === gridIndex ? 99 : grids.length - gridIndex,
+            }}
+          >
+            {grid.map((story, storyIndex) => (
+              <Story
+                key={storyIndex}
+                story={story}
+                position={storyIndex}
+                count={grid.length}
+                gridPosition={gridIndex}
+                showingBubble={showingBubble}
+                onShowBubble={() => onBubbleShow(storyIndex, gridIndex)}
+                onHideBubble={() => onBubbleHide(storyIndex, gridIndex)}
+              />
+            ))}
+          </span>
+        );
+      })}
     </div>
   );
 }

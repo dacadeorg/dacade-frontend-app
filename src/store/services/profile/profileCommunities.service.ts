@@ -9,6 +9,7 @@ import {
   setProfileCommunityReputation,
   setProfileCommunitySubmissions,
 } from "@/store/feature/profile/communities.slice";
+import { setColors } from "@/store/feature/ui.slice";
 import { Reputation, Submission } from "@/types/bounty";
 import { Community } from "@/types/community";
 import { Feedback } from "@/types/feedback";
@@ -72,6 +73,7 @@ const profileCommunitiesService: any = createApi({
           dispatch(setProfileCommunityFeedbacks(data.feedbacks));
           dispatch(setProfileCommunitySubmissions(data.submissions));
           dispatch(setProfileCommunityReputation(data.reputation));
+          dispatch(setColors(data.community.colors));
         } catch (error) {
           dispatch(setBusy(false));
           dispatch(setError(error));
