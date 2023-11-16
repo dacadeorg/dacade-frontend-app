@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactElement } from "react";
+import { useState, useEffect, ReactElement, useCallback } from "react";
 import { useTranslation } from "next-i18next";
 import Loader from "@/components/ui/Loader";
 import ArrowButton from "@/components/ui/button/Arrow";
@@ -26,23 +26,24 @@ export default function EmailVerification(): ReactElement {
   const { locale } = useRouter();
   const dispatch = useDispatch();
 
+  const verify = useCallback(async () => {
+    const code = router.query.code as string;
+    if (!code) {
+      router.push("/404");
+      return;
+    }
+    try {
+      await dispatch(verifyEmail({ locale: locale as string, payload: { code } }));
+      await auth.currentUser?.reload();
+      setVerified(true);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
   useEffect(() => {
-    const verify = async () => {
-      const code = router.query.code as string;
-      if (!code) {
-        router.push("/404");
-        return;
-      }
-      try {
-        await dispatch(verifyEmail({ locale: locale as string, payload: { code } }));
-        await auth.currentUser?.reload();
-        setVerified(true);
-      } catch (error) {
-        console.error(error);
-      }
-    };
     verify();
-  }, [dispatch, locale, router.query.code]);
+  }, [verify]);
 
   const goHome = () => {
     router.push("/login");
