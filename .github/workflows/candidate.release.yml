@@ -18,3 +18,4 @@ jobs:
           release-type: node
           package-name: package.json
           labels: "Release candidate"
+          prerelease: true
