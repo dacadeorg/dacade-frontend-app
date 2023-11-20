@@ -15,6 +15,7 @@ import KYCVerification from "@/components/popups/KYCVerification";
 import { useDiscordConnect } from "@/hooks/useDiscordConnect";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
+import Link from "next/link";
 
 /**
  * interface for ProfileHeader multiSelector
@@ -76,10 +77,11 @@ export default function ProfileHeader() {
           <span className={iconStyles}>
             <DiscordIcon />
           </span>
-          <a href={discordLink} className={linkStyles + (canConnectDiscord ? " cursor-pointer hover:underline" : " hover:bg-primary")}>
+          <Link href={discordLink} className={linkStyles + (canConnectDiscord ? " cursor-pointer hover:underline" : " hover:bg-primary")} target="_blank">
             Discord
-          </a>
+          </Link>
         </div>
+        {/* TODO: Will be uncommented when there is proper implementation for adding GitHub */}
         {/* <div className="flex items-center justify-center px-2">
           <span>
             <GithubIcon />
