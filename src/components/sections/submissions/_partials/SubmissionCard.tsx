@@ -72,7 +72,7 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
             </div>
           ) : (
             <div className="flex items-center space-x-1.5 pb-1.5 pt-1">
-              <span className="text-lg leading-loose font-medium text-gray-900 bg-lime-400 pb-1">{submission.user.displayName}</span>
+              <span className="text-lg leading-loose font-medium text-gray-900 pb-1">{submission.user.displayName}</span>
               {submission.user.reputation ? (
                 <span className="text-xs px-2.5 bg-secondary leading-none py-1 rounded-full font-medium">
                   <Currency value={submission.user.reputation} token="REP" />
