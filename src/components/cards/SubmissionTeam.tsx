@@ -95,7 +95,6 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
   const [isCurrentUserMember, setIsCurrentUserMember] = useState(false);
   const [isCurrentUserOrganiser, setIsCurrentUserOrganiser] = useState(false);
-  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const filterUsers = async (username: string, callback: any) => {
@@ -148,12 +147,12 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
 
   const removeTeamMemberFromTeam = async (id: string) => {
     await dispatch(removeTeamMember({ member_id: id, team_id: team.id }));
-    refetchTeam();
+    await refetchTeam();
   };
 
   const cancelInvite = async (id: string) => {
     await dispatch(cancelTeamInvite({ invite_id: id }));
-    refetchTeam();
+    await refetchTeam();
   };
 
   const leaveMyTeam = () => {
@@ -162,9 +161,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   };
 
   const refetchTeam = async () => {
-    setLoading(true);
     if (challenge) await dispatch(getTeamByChallenge(challenge.id));
-    setLoading(false);
   };
 
   return (
@@ -177,7 +174,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
           </div>
           <div className="text-sm font-normal text-gray-700 max-w-xxs pb-2">{text}</div>
 
-          {isTeamLoading || loading ? (
+          {isTeamLoading ? (
             <div className="h-24 sm:h-48 grid place-items-center">
               <Loader />
             </div>
