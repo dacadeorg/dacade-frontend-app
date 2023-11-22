@@ -29,7 +29,7 @@ export function OverviewRewards(): ReactElement {
   };
   const router = useRouter();
   // TODO retrieve the challenge type and hackaton Reward properties once they are added from the backend.
-  const isHackaton = challenge.type === "hackathon";
+  const isHackaton = challenge.type !== "hackathon";
   const hackatonReward = {
     totalReward: "$35K",
     prize: "Prize Pool",
