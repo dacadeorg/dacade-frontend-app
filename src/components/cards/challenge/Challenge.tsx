@@ -57,10 +57,10 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
                 <Coin size="medium" token={reward?.token} />
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
-                    <span className="block font-medium pr-1">{totalReward}</span>
-                    <span className="block font-medium">{reward?.token} Rewards</span>
+                    <span className="block font-medium pr-1">$ {totalReward}</span>
+                    <span className="block font-medium"> Prize Pool Rewards</span>
                   </div>
-                  <div className="text-gray-400 text-xs font-normal">For submission and feedback</div>
+                  <div className="text-gray-400 text-xs font-normal">Top projects win money prizes</div>
                 </div>
               </div>
             </div>
