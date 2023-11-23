@@ -63,24 +63,27 @@ export default function ProfileHeader() {
   };
 
   const { canConnectDiscord, triggerDiscordOauth } = useDiscordConnect();
-  const discordLink = !canConnectDiscord ? triggerDiscordOauth() : "https://discord.gg/U38KQHDtHe";
+  const discordLink = "https://discord.gg/U38KQHDtHe";
 
   const iconStyles = "inline-block";
-  const linkStyles = "inline-block mx-1";
 
   return (
     <div className="relative pb-24 font-sans text-center">
       <Avatar size="extra" user={user} useLink={false} isKycVerified={isKycVerified} />
       <span className="block mt-5 text-5xl leading-none capitalize">{username}</span>
       <div className="flex justify-center mt-2 text-sm leading-snug divide-x divide-solid">
-        <div className="flex items-center px-2">
-          <span className={iconStyles}>
-            <DiscordIcon />
-          </span>
-          <Link href={discordLink} className={linkStyles + (canConnectDiscord ? " cursor-pointer hover:underline" : " hover:bg-primary")} target="_blank">
-            Discord
-          </Link>
-        </div>
+        {!canConnectDiscord ? (
+          <div className="flex items-center px-2">
+            <span className={iconStyles}>
+              <DiscordIcon />
+            </span>
+            <Link href={discordLink} className="inline-block mx-1 cursor-pointer hover:underline" target="_blank">
+              Discord
+            </Link>
+          </div>
+        ) : (
+          <></>
+        )}
         {/* TODO: Will be uncommented when there is proper implementation for adding GitHub */}
         {/* <div className="flex items-center justify-center px-2">
           <span>
