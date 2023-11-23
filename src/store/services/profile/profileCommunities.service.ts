@@ -1,4 +1,5 @@
 import baseQuery from "@/config/baseQuery";
+import { setBusy, setError } from "@/store/feature/index.slice";
 import {
   clearProfileCommunity,
   setCurrentProfileCommunity,
@@ -8,6 +9,7 @@ import {
   setProfileCommunityReputation,
   setProfileCommunitySubmissions,
 } from "@/store/feature/profile/communities.slice";
+import { setColors } from "@/store/feature/ui.slice";
 import { Reputation, Submission } from "@/types/bounty";
 import { Community } from "@/types/community";
 import { Feedback } from "@/types/feedback";
@@ -47,24 +49,35 @@ const profileCommunitiesService: any = createApi({
       },
 
       onQueryStarted: async (username, { dispatch, queryFulfilled, getState }) => {
-        const { data } = await queryFulfilled;
-        const state: any = getState();
-        if (username !== state.profileCommunities.listDataUsername) {
-          clearProfileCommunity();
+        try {
+          const { data } = await queryFulfilled;
+          const state: any = getState();
+          if (username !== state.profileCommunities.listDataUsername) {
+            clearProfileCommunity();
+          }
+          dispatch(setListProfileCommunities(data));
+          dispatch(setListDataUsername(username));
+        } catch (error) {
+          dispatch(setBusy(false));
+          dispatch(setError(error));
         }
-        dispatch(setListProfileCommunities(data));
-        dispatch(setListDataUsername(username));
       },
     }),
 
     findProfileCommunty: builder.query<FindUserProfileCommuniyResult, { username: string; slug: string }>({
       query: ({ username, slug }: { username: string; slug: string }) => `profile/${username}/communities/${slug}`,
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled;
-        dispatch(setCurrentProfileCommunity(data.community));
-        dispatch(setProfileCommunityFeedbacks(data.feedbacks));
-        dispatch(setProfileCommunitySubmissions(data.submissions));
-        dispatch(setProfileCommunityReputation(data.reputation));
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setCurrentProfileCommunity(data.community));
+          dispatch(setProfileCommunityFeedbacks(data.feedbacks));
+          dispatch(setProfileCommunitySubmissions(data.submissions));
+          dispatch(setProfileCommunityReputation(data.reputation));
+          dispatch(setColors(data.community.colors));
+        } catch (error) {
+          dispatch(setBusy(false));
+          dispatch(setError(error));
+        }
       },
     }),
   }),

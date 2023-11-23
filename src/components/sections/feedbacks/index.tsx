@@ -64,7 +64,7 @@ export default function Feedback(): ReactElement {
       {isAuthenticated && challenge?.feedbackInfo && (
         <Section>
           <Criteria />
-          <Form save={fetchList} />
+          <Form onSave={fetchList} />
         </Section>
       )}
     </div>

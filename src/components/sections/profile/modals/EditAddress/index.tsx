@@ -4,7 +4,6 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { IRootState } from "@/store";
 import { clearCurrentWallet } from "@/store/feature/user/wallets.slice";
-import { connectWallet, disconnectWallet } from "@/store/feature/wallet.slice";
 import { fetchAllWallets, updateWallet } from "@/store/services/wallets.service";
 import { CustomError } from "@/types/error";
 import { Wallet } from "@/types/wallet";
@@ -13,7 +12,7 @@ import { ReactElement, useEffect, useMemo, useState } from "react";
 import WalletAddressChangeForm from "./_partials/Form";
 import { WalletInfo } from "./_partials/Info";
 import SelectWalletConnectionMethod from "./_partials/SelectConnectionMethod";
-
+import useWalletConnect from "@/hooks/useWalletConnect";
 
 /**
  * Interface for the edit profile props
@@ -46,7 +45,7 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   const [showWalletConnectionMethod, setShowWalletConnectionMethod] = useState(false);
   const [connectionMethod, setConnectionMethod] = useState("");
 
-
+  const { openWeb3Modal, isConnected, disconnectWallet } = useWalletConnect();
   const dispatch = useDispatch();
 
   const closeModal = () => {
@@ -91,12 +90,12 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
   };
 
   const disconnect = async () => {
-    await dispatch(disconnectWallet());
+    await disconnectWallet();
   };
 
   const connect = async () => {
     try {
-      await dispatch(connectWallet());
+      isConnected ? disconnect() : openWeb3Modal();
       setShowEditAddress(true);
     } catch (e) {
       console.log(e);
@@ -137,7 +136,6 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     return wallets?.require_wallet_connection || false;
   }, [wallets?.require_wallet_connection]);
 
-
   const isWalletConnected = useMemo(() => {
     return requireWalletConnection && !!wallet?.address;
   }, [requireWalletConnection, wallet?.address]);
@@ -146,13 +144,11 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
     return Boolean(showEditAddress && !showWalletConnectionMethod && connectionMethod);
   }, [connectionMethod, showEditAddress, showWalletConnectionMethod]);
 
-
   useEffect(() => {
     if (!currentAddress) {
-     setShowWalletConnectionMethod(true);
+      setShowWalletConnectionMethod(true);
     }
   }, [currentAddress]);
-
 
   return (
     <Modal show={show} onClose={closeModal}>
@@ -160,12 +156,20 @@ export default function EditProfile({ show, wallet, onClose }: EditProfileProps)
         <WalletHeader wallet={wallet} />
         {showWalletConnectionMethod && <SelectWalletConnectionMethod enableWalletConnection={requireWalletConnection} onSelect={setWalletConnectionMethod} />}
 
-        {!showWalletConnectionMethod && (
-          <WalletInfo address={currentAddress} connectionMethod={connectionMethod} onClick={openEditAddress} />
-        )}
-
+        {!showWalletConnectionMethod && <WalletInfo address={currentAddress} connectionMethod={connectionMethod} onClick={openEditAddress} />}
       </div>
-      <WalletAddressChangeForm show={showForm} onSave={onSave} currentAddress={currentAddress} loading={loading} error={error} token={wallet?.token} connectionMethod={connectionMethod} closeModal={closeModal} clearError={() => setError(null)} />
+      <WalletAddressChangeForm
+        show={showForm}
+        onSave={onSave}
+        currentAddress={currentAddress}
+        loading={loading}
+        error={error}
+        token={wallet?.token}
+        connectionMethod={connectionMethod}
+        closeModal={closeModal}
+        clearError={() => setError(null)}
+        openEditAddress={openEditAddress}
+      />
     </Modal>
   );
 }

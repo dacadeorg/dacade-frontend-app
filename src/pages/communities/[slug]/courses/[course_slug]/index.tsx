@@ -15,6 +15,7 @@ import { wrapper } from "@/store";
 import { fetchCourse } from "@/store/services/course.service";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { NotFoundError } from "@/utilities/errors/NotFoundError";
 
 export default function CourseViewPage(props: {
   pageProps: {
@@ -68,7 +69,8 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       store.dispatch(fetchCourse({ slug: course_slug, locale })),
       serverSideTranslations(locale as string),
     ]);
-
+    if (!community || !course) throw new NotFoundError();
+    
     return {
       props: {
         community,
