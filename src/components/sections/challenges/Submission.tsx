@@ -158,10 +158,6 @@ export default function Submission(): ReactElement {
                   error={errors.text?.message as string}
                   {...register("text", {
                     required: "This field is required",
-                    maxLength: {
-                      value: 1000,
-                      message: "The text is too long",
-                    },
                     minLength: {
                       value: 15,
                       message: "This field must be at least 15 characters.",
