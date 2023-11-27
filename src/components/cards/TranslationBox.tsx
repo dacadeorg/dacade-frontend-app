@@ -101,7 +101,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
     }
 
     setLoading(false);
-  }, [getDefaultLocale, text, translated]);
+  }, [getDefaultLocale, text]);
 
   /**
    * Reset the language translation to default
