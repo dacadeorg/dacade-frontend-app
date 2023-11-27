@@ -34,7 +34,7 @@ export function OverviewRewards(): ReactElement {
     totalReward: "$35K",
     prize: "Prize Pool",
     token: "ICP",
-    place: ["$300K", "$200K", "$100K"],
+    place: ["$14K", "$11K", "$10K"],
   };
 
   return (
