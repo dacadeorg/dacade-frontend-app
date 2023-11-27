@@ -2,7 +2,7 @@ import UniqBy from "lodash.uniqby";
 import ThemeWrapper from "@/components/wrappers/ThemeWrapper";
 import ChevronRightIcon from "@/icons/chevron-right.svg";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useMemo } from "react";
 import { List } from "@/utilities/CommunityNavigation";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
@@ -42,9 +42,8 @@ export default function BountiesNavigation(): ReactElement {
    * Array of menu items for the bounties navigation.
    * @type {Omit<List, "id">[]}
    */
-  const [menus, setMenus] = useState<Omit<List, "id">[]>([]);
-  useEffect(() => {
-    setMenus([
+  const menus: Omit<List, "id">[] = useMemo(
+    () => [
       {
         title: t("bounties.navigation"),
         items: [
@@ -65,8 +64,9 @@ export default function BountiesNavigation(): ReactElement {
           ),
         ],
       },
-    ]);
-  }, [bounties, t]);
+    ],
+    [bounties, t]
+  );
 
   return (
     <ThemeWrapper colors={colors}>
