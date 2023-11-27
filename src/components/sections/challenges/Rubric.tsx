@@ -54,30 +54,28 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
     // TODO this is hardcoded, it will be removed once the hackathon type is added to the challenge
     const isHackaton = challenge.type !== "hackaton";
     const passingScoreParts = passingScore.split("{{coinPlaceholder}}");
-    const hackathonPassingScore = () => {
-      const hackaton = t("communities.challenge.hackathon.passing.score");
-      return <div dangerouslySetInnerHTML={{ __html: hackaton }} />;
-    };
+    const hackaton = t("communities.challenge.hackathon.passing.score");
 
     return (
       <>
         <div className="text-base font-normal text-slate-700 pt-8 md:w-99 inline-flex flex-wrap items-center gap-1">
-          {isHackaton
-            ? hackathonPassingScore()
-            : passingScoreParts.map((part, index) => {
-                if (index === passingScoreParts.length - 1) {
-                  return part.split(" ").map((word, index) => <span key={index} dangerouslySetInnerHTML={{ __html: word }} />);
-                } else {
-                  return (
-                    <Fragment key={index}>
-                      {part.split(" ").map((word, index) => (
-                        <span key={index} dangerouslySetInnerHTML={{ __html: word }} />
-                      ))}
-                      {<Coin token={reward?.token} size="small" className="!-mr-1 md:!-mr-1 -ml-1" />}
-                    </Fragment>
-                  );
-                }
-              })}
+          {isHackaton ? (
+            <div dangerouslySetInnerHTML={{ __html: hackaton }} />
+          ) : (
+            passingScoreParts.map((part, index) => {
+              if (index === passingScoreParts.length - 1) {
+                return part.split(" ").map((word, index) => <span key={index} dangerouslySetInnerHTML={{ __html: word }} />);
+              }
+              return (
+                <Fragment key={index}>
+                  {part.split(" ").map((word, index) => (
+                    <span key={index} dangerouslySetInnerHTML={{ __html: word }} />
+                  ))}
+                  {<Coin token={reward?.token} size="small" className="!-mr-1 md:!-mr-1 -ml-1" />}
+                </Fragment>
+              );
+            })
+          )}
         </div>
       </>
     );
