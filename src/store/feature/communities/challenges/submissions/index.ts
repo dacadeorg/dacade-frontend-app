@@ -6,6 +6,7 @@ import { setCurrentChallenge } from "..";
 import { IRootState } from "@/store";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
+import { createAnalyticEvent } from "@/store/feature/events.slice";
 
 /**
  * Submission state interface
@@ -101,15 +102,26 @@ export const createSubmission = createAsyncThunk(
       challengeId?: string;
       locale?: string;
     },
-    { dispatch }
+    { dispatch, getState }
   ) => {
-    const { data } = await api(locale).client.post("submissions/create", {
+    const { data: submission } = await api(locale).client.post("submissions/create", {
       challenge_id: challengeId,
       text,
       link,
     });
-    dispatch(setSubmission(data));
-    return data;
+    const state = getState() as IRootState;
+    const community = state.communities.current;
+    await dispatch(
+      createAnalyticEvent({
+        name: "submission-created",
+        attributes: {
+          submissionId: submission.id,
+          community: community?.slug,
+        },
+      })
+    );
+    dispatch(setSubmission(submission));
+    return submission;
   }
 );
 
@@ -133,15 +145,26 @@ export const createSubmissionTeam = createAsyncThunk(
       challengeId: string;
       locale?: string;
     },
-    { dispatch }
+    { dispatch, getState }
   ) => {
-    const { data } = await api(locale).client.post("submissions/create/team", {
+    const { data: submission } = await api(locale).client.post("submissions/create/team", {
       challenge_id: challengeId,
       text,
       link,
     });
-    dispatch(setSubmission(data));
-    return data;
+    const state = getState() as IRootState;
+    const community = state.communities.current;
+    await dispatch(
+      createAnalyticEvent({
+        name: "submission-created",
+        attributes: {
+          submissionId: submission.id,
+          community: community?.slug,
+        },
+      })
+    );
+    dispatch(setSubmission(submission));
+    return submission;
   }
 );
 

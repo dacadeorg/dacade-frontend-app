@@ -12,7 +12,6 @@ import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
-import { createAnalyticEvent } from "@/store/feature/events.slice";
 import { Submission as TSubmission, User } from "@/types/bounty";
 import Hint from "@/components/ui/Hint";
 import { fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
@@ -65,13 +64,11 @@ export default function Submission(): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const { colors, challenge, community, team, authUser, currentSubmission } = useMultiSelector<unknown, SubmissionMultiSelector>({
+  const { colors, challenge, team, authUser } = useMultiSelector<unknown, SubmissionMultiSelector>({
     colors: (state: IRootState) => state.ui.colors,
     challenge: (state: IRootState) => state.challenges.current,
-    community: (state: IRootState) => state.communities.current,
     team: (state: IRootState) => state.teams.current,
     authUser: (state: IRootState) => state.user.data,
-    currentSubmission: (state: IRootState) => state.submissions.submission,
   });
 
   const [submitting, setSubmitting] = useState(false);
@@ -116,17 +113,6 @@ export default function Submission(): ReactElement {
             })
       );
 
-      const submission = currentSubmission;
-
-      dispatch(
-        createAnalyticEvent({
-          name: "submission-created",
-          attributes: {
-            submissionId: submission.id,
-            community: community?.slug,
-          },
-        })
-      );
       textValue = "";
       githubLinkValue = "";
       dispatch(fetchChallengeAuthenticated({ id: challenge?.id as string }));
