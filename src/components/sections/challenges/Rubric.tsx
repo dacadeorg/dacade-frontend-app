@@ -51,6 +51,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
       minPoints: challenge?.minPoints,
       maxPoints: challenge?.maxPoints,
     });
+    // TODO this is hardcoded, it will be removed once the hackathon type is added to the challenge
     const isHackaton = challenge.type !== "hackaton";
     const passingScoreParts = passingScore.split("{{coinPlaceholder}}");
     const hackathonPassingScore = () => {
