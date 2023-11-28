@@ -11,15 +11,9 @@ interface AccordionProps {
 
 const Accordion: React.FC<AccordionProps> = ({ title, subtitle, content, isExpanded = false }) => {
   const [isAccordionExpanded, setIsAccordionExpanded] = useState<boolean>(isExpanded);
-  const [isSubtitleExpanded, setIsSubtitleExpanded] = useState<boolean>(isExpanded);
 
   const toggleAccordion = () => {
-    if (title) {
-      setIsAccordionExpanded(!isAccordionExpanded);
-      setIsSubtitleExpanded(!isSubtitleExpanded);
-    } else {
-      setIsAccordionExpanded(!isAccordionExpanded);
-    }
+    setIsAccordionExpanded(!isAccordionExpanded);
   };
 
   return (
@@ -27,7 +21,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, subtitle, content, isExpan
       <div className={`flex gap-2 justify-between cursor-pointer ${!title && "items-start"}`} onClick={toggleAccordion}>
         <div>
           {title && <H3>{title}</H3>}
-          {subtitle && isSubtitleExpanded && subtitle}
+          {subtitle && isAccordionExpanded && subtitle}
         </div>
         <div className="pt-3">
           <ArrowDown className={`transform origin-center-top transition-transform ${isAccordionExpanded ? "rotate-180" : ""}`} />

@@ -55,7 +55,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
 
     return (
       <div>
-        <div className="text-base font-normal text-slate-700 md:w-99 inline-flex flex-wrap items-center gap-1">
+        <div className="text-base font-normal text-slate-700 inline-flex flex-wrap items-center gap-1">
           {passingScoreParts.map((part, index) => {
             if (index === passingScoreParts.length - 1) {
               return part.split(" ").map((word, index) => <span key={index} dangerouslySetInnerHTML={{ __html: word }} />);
