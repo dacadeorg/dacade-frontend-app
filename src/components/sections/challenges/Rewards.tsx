@@ -52,7 +52,7 @@ export function OverviewRewards(): ReactElement {
           <Certificate size="medium" name={router.query?.slug as string} />
           <div className="md:pl-2 space-y-2 max-w-max">
             <div className="flex text-sm text-gray-700">
-              <span className="block font-medium pr-s1">
+              <span className="block font-medium pr-1">
                 {community.slug === "celo" && "NFT"} {t("communities.overview.challenge.certificate")}
               </span>
             </div>
