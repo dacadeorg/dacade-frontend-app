@@ -20,6 +20,7 @@ export default function Learning({ courses, learningModules, community }: { cour
     <Section>
       <Accordion
         title="Learn"
+        subtitle=""
         isExpanded
         content={
           <>
