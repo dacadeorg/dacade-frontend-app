@@ -15,6 +15,7 @@ import { Challenge } from "@/types/course";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import useNavigation from "@/hooks/useNavigation";
 import { fetchChallenge } from "@/store/services/communities/challenges";
+import { NotFoundError } from "@/utilities/errors/NotFoundError";
 
 export default function SubmissionPage(props: { pageProps: { challenge: Challenge } }) {
   const dispatch = useDispatch();
@@ -56,6 +57,8 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
       serverSideTranslations(locale as string),
     ]);
+
+    if (!community || !challenge || !submission) throw new NotFoundError();
 
     return {
       props: {

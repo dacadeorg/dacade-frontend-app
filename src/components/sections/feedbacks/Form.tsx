@@ -7,9 +7,7 @@ import TextInput from "@/components/ui/TextInput";
 import Avatar from "@/components/ui/Avatar";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useForm } from "react-hook-form";
-import { createEvent } from "@/store/feature/events.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { Feedback } from "@/types/feedback";
 import { createFeedback } from "@/store/feature/communities/challenges/submissions/feedback.slice";
 import { Colors, Community } from "@/types/community";
 import { Submission, User } from "@/types/bounty";
@@ -29,7 +27,6 @@ interface FormMultiSelector {
   colors: Colors;
   submission: Submission | null;
   challenge: Challenge | null;
-  currentFeedback: Feedback;
 }
 
 /**
@@ -52,7 +49,7 @@ interface FormValues {
  * @typedef {FormProps}
  */
 interface FormProps {
-  save: (data: Feedback) => void;
+  onSave: () => void;
 }
 
 /**
@@ -63,7 +60,7 @@ interface FormProps {
  * @param {FormProps} { save }
  * @returns {ReactElement}
  */
-export default function Form({ save }: FormProps): ReactElement {
+export default function Form({ onSave }: FormProps): ReactElement {
   const {
     register,
     handleSubmit,
@@ -74,13 +71,11 @@ export default function Form({ save }: FormProps): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [saving, setSaving] = useState(false);
-  const { community, user, colors, submission, challenge, currentFeedback } = useMultiSelector<unknown, FormMultiSelector>({
-    community: (state: IRootState) => state.communities.current,
+  const { user, colors, submission, challenge } = useMultiSelector<unknown, FormMultiSelector>({
     user: (state: IRootState) => state.user.data,
     colors: (state: IRootState) => state.ui.colors,
     submission: (state: IRootState) => state.submissions.current,
     challenge: (state: IRootState) => state.challenges.current,
-    currentFeedback: (state: IRootState) => state.feedback.current,
   });
 
   const activeButtonStyle = useMemo(
@@ -107,21 +102,8 @@ export default function Form({ save }: FormProps): ReactElement {
           link: githubLink,
         })
       );
-
-      const response = currentFeedback;
-
-      dispatch(
-        createEvent({
-          name: "Feedback-created",
-          attributes: {
-            submissionId: submission?.id,
-            community: community?.slug,
-            feedbackId: response.id,
-          },
-        })
-      );
       reset();
-      save(response);
+      onSave();
     } catch (error) {
       console.error(error);
     } finally {
