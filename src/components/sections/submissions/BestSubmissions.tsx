@@ -26,10 +26,11 @@ export default function BestSubmissions(): ReactElement {
     <Section>
       <Accordion
         title={t("communities.challenge.best-submissions.title")}
+        subtitle=""
         isExpanded
         content={
           <div>
-            <p className="leading-normal text-sm capitalize w-64 pt-3">{t("communities.challenge.best-submissions.description")}</p>
+            <p className="leading-normal text-sm capitalize md:w-full w-64 pt-3">{t("communities.challenge.best-submissions.description")}</p>
             <div className="text-xl md:text-.5xl px-0">
               <div className="md:grid grid-cols-2 gap-5 pt-7 flex-wrap">
                 {challenge?.bestSubmissions.map((submission, index) => {
