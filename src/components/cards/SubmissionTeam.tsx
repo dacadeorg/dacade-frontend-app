@@ -101,8 +101,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   const dispatch = useDispatch();
 
   const isTeamFull = useMemo(() => {
-    return challenge?.teamLimit ? membersList.length >= challenge?.teamLimit - 1 : membersList.length >= 2;
-  }, [challenge?.teamLimit, membersList.length]);
+    const members = membersList.filter((member) => member.status === MemberStatus.teamMember);
+    return challenge?.teamLimit ? members.length >= challenge?.teamLimit - 1 : membersList.length >= 2;
+  }, [challenge?.teamLimit, membersList]);
 
   const canAddMembers = useMemo(() => {
     return team ? isCurrentUserOrganiser && !team.locked && !isTeamFull : !isCurrentUserMember;
