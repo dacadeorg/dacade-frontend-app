@@ -75,6 +75,7 @@ export type Challenge = {
   feedbacks: Feedback;
   feedbackInfo?: Feedback[];
   bestSubmissions: Submission[];
+  teamLimit?: number;
 };
 
 export type RatingCriteria = {

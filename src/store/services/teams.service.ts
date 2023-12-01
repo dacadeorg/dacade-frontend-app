@@ -3,6 +3,7 @@ import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { clearTeamData, setIsTeamDataLoading, setTeamData } from "../feature/teams.slice";
 import { setInvitesData } from "../feature/communities/challenges/invites.slice";
 import { Invite } from "@/types/challenge";
+import { setError } from "../feature/index.slice";
 
 /**
  * Interface for the parameters that the createTeam function will receive
@@ -86,11 +87,13 @@ const teamsService = createApi({
         method: "POST",
         body: payload,
       }),
-      onQueryStarted: async (payload, { queryFulfilled }) => {
+      onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
         try {
           await queryFulfilled;
+          dispatch(setError(null));
         } catch (err: any) {
-          console.error("Error", err);
+          if (err.error.data) dispatch(setError(err.error.data));
+          return;
         }
 
         return;

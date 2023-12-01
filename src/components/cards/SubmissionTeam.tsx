@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Avatar from "@/components/ui/Avatar";
 import AsyncSelect from "react-select/async";
 import { useDispatch } from "@/hooks/useTypedDispatch";
@@ -12,6 +12,8 @@ import Loader from "../ui/Loader";
 import { IRootState } from "@/store";
 import { Challenge } from "@/types/course";
 import { Invite, Team } from "@/types/challenge";
+import ErrorBox from "../ui/ErrorBox";
+import { clearError } from "@/store/feature/index.slice";
 
 /**
  * interface for submissionTeamCard  multiSelector
@@ -27,6 +29,7 @@ interface SubmissionTeamCardMultiSelector {
   invite: Invite | null;
   isTeamLoading: boolean;
   filteredUsers: User[] | null;
+  error: any;
 }
 
 /**
@@ -84,12 +87,12 @@ enum MemberStatus {
  */
 
 export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  const { challenge, user, team, isTeamLoading, filteredUsers } = useMultiSelector<unknown, SubmissionTeamCardMultiSelector>({
+  const { challenge, user, team, isTeamLoading, error } = useMultiSelector<unknown, SubmissionTeamCardMultiSelector>({
     challenge: (state: IRootState) => state.challenges.current,
     user: (state: IRootState) => state.user.data,
     team: (state: IRootState) => state.teams.current,
     isTeamLoading: (state: IRootState) => state.teams.loading,
-    filteredUsers: (state: IRootState) => state.user.filteredUsers,
+    error: (state: IRootState) => state.store.error,
   });
 
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
@@ -97,11 +100,21 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   const [isCurrentUserOrganiser, setIsCurrentUserOrganiser] = useState(false);
   const dispatch = useDispatch();
 
+  const isTeamFull = useMemo(() => {
+    return challenge?.teamLimit ? membersList.length >= challenge?.teamLimit - 1 : membersList.length >= 2;
+  }, [challenge?.teamLimit, membersList.length]);
+
+  const canAddMembers = useMemo(() => {
+    return team ? isCurrentUserOrganiser && !team.locked && !isTeamFull : !isCurrentUserMember;
+  }, [isCurrentUserMember, isCurrentUserOrganiser, team, isTeamFull]);
+
   const filterUsers = async (username: string, callback: any) => {
-    await dispatch(getUserByUsername(username));
-    const users = filteredUsers?.map((user: User) => {
-      return { value: user.id, label: user.displayName, user };
-    });
+    const filteredUsers: any = await dispatch(getUserByUsername(username));
+    const users = filteredUsers?.data
+      ? filteredUsers.data.map((user: User) => {
+          return { value: user.id, label: user.displayName, user };
+        })
+      : [];
     return callback(users);
   };
 
@@ -131,6 +144,8 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   }, [user, team, membersList]);
 
   const selectTeamMember = async (option: Option) => {
+    if (error) dispatch(clearError());
+
     if (membersList.filter((member) => member.user?.id === option.user?.id).length !== 0) {
       return;
     }
@@ -205,7 +220,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                   </div>
                 );
               })}
-              {((team && isCurrentUserOrganiser && !team.locked) || !isCurrentUserMember) && (
+              {canAddMembers ? (
                 <div>
                   <AsyncSelect
                     cacheOptions
@@ -226,7 +241,14 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                       if (!team.locked && option) selectTeamMember(option);
                     }}
                   />
+                  {error && <ErrorBox error={error} />}
                 </div>
+              ) : (
+                <>
+                  {isTeamFull && isCurrentUserOrganiser && (
+                    <span className="bg-red-50 help text-sm rounded-md border border-red-100 text-red-900 px-5 py-2">Can not add more members</span>
+                  )}
+                </>
               )}
             </>
           )}
