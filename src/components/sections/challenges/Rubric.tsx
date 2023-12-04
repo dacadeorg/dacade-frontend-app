@@ -51,15 +51,19 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
       minPoints: challenge?.minPoints,
       maxPoints: challenge?.maxPoints,
     });
+
     const passingScoreParts = passingScore.split("{{coinPlaceholder}}");
+    const hackatonPassingScore = t("communities.challenge.hackathon.passing.score");
 
     return (
-      <div>
-        <div className="text-base font-normal text-slate-700 inline-flex flex-wrap items-center gap-1">
-          {passingScoreParts.map((part, index) => {
-            if (index === passingScoreParts.length - 1) {
-              return part.split(" ").map((word, index) => <span key={index} dangerouslySetInnerHTML={{ __html: word }} />);
-            } else {
+        <div className="text-base font-normal text-slate-700 pt-8 md:w-99 inline-flex flex-wrap items-center gap-1">
+          {challenge?.isHackathon ? (
+            <div dangerouslySetInnerHTML={{ __html: hackatonPassingScore }} />
+          ) : (
+            passingScoreParts.map((part, index) => {
+              if (index === passingScoreParts.length - 1) {
+                return part.split(" ").map((word, index) => <span key={index} dangerouslySetInnerHTML={{ __html: word }} />);
+              }
               return (
                 <Fragment key={index}>
                   {part.split(" ").map((word, index) => (
@@ -68,10 +72,9 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
                   {<Coin token={reward?.token} size="small" className="!-mr-1 md:!-mr-1 -ml-1" />}
                 </Fragment>
               );
-            }
-          })}
+            })
+          )}
         </div>
-      </div>
     );
   };
 
