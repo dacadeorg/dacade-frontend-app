@@ -5,9 +5,10 @@ import { ReactElement, useMemo } from "react";
 import Coin from "@/components/ui/Coin";
 import Certificate from "@/components/ui/Certificate";
 import { useRouter } from "next/router";
-import { Challenge, Distribution, Reward } from "@/types/course";
+import { Challenge } from "@/types/course";
 import { Community } from "@/types/community";
 import { IRootState } from "@/store";
+import HackathonPrize from "./_partials/HackathonPrize";
 
 /**
  * Overview reward section component
@@ -28,20 +29,6 @@ export function OverviewRewards(): ReactElement {
     return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
   };
   const router = useRouter();
-  const HackatonPrize = ({ reward }: { reward: Reward }) => {
-    const { first, second, third } = reward?.distribution || ({} as Distribution);
-    return (
-      <>
-        <div className="flex gap-1 text-gray-700 font-medium">
-          <span>{`$${reward?.amount}K Prize Pool`}</span>
-          <span>{t("communities.overview.challenge.rewards")}</span>
-        </div>
-        <div className="text-gray-400 text-xs font-medium leading-3 mt-1 flex">
-          <span>{`1st Place $${first}K;  2nd Place $${second}K; 3rd Place $${third}K`}</span>
-        </div>
-      </>
-    );
-  };
 
   return (
     <Section title={`${t("communities.overview.reward.title")}`}>
@@ -63,7 +50,7 @@ export function OverviewRewards(): ReactElement {
             <Coin size="medium" token={reward?.token} />
             <div className="text-sm space-y-2 md:pl-2 max-w-max">
               {challenge?.isHackathon ? (
-                <HackatonPrize reward={reward} />
+                <HackathonPrize reward={reward} />
               ) : (
                 <>
                   <div className="flex gap-1 text-gray-700 font-medium">
