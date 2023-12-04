@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Avatar from "@/components/ui/Avatar";
 import DateManager from "@/utilities/DateManager";
 import { Notification } from "@/types/notification";
-import RepplyToInvitation from "./challenge/_partials/RepplyToInvitation";
+import ReplyToInvitation from "./challenge/_partials/ReplyToInvitation";
 
 /**
  * User interface
@@ -116,7 +116,7 @@ export default function NotificationCard({ user = {}, notification, extended = f
           </span>
         </div>
       </div>
-      {notification?.type === "TEAM_INVITE" && <RepplyToInvitation team_ref={notification.metadata?.team} invite_id={notification.metadata?.invite_id as string} />}
+      {notification?.type === "TEAM_INVITE" && <ReplyToInvitation team_ref={notification.metadata?.team} invite_id={notification.metadata?.invite_id as string} />}
     </>
   );
 }

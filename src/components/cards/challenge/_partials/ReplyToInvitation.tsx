@@ -18,7 +18,7 @@ export interface InvitationProps {
   team_ref: string;
 }
 
-export default function RepplyToInvitation({ invite_id, team_ref }: InvitationProps) {
+export default function ReplyToInvitation({ invite_id, team_ref }: InvitationProps) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [canReply, setCanReply] = useState(false);
@@ -34,7 +34,7 @@ export default function RepplyToInvitation({ invite_id, team_ref }: InvitationPr
     setLoading(false);
   };
 
-  const onClick = async (text: "accept" | "decline") => {
+  const replyToInvitation = async (text: "accept" | "decline") => {
     if (!team_ref) return;
     // TODO: Add a way of letting the user know that this  team is locked.
     if (team.locked) {
@@ -51,7 +51,7 @@ export default function RepplyToInvitation({ invite_id, team_ref }: InvitationPr
       if (challenge) await dispatch(getTeamByChallenge(challenge.id));
       dispatch(setInvitesData(null));
     } catch (error) {
-      console.log("error withing giving confitmation to invite");
+      console.log("error within invitation confirmation");
     } finally {
       setLoading(false);
     }
@@ -77,8 +77,8 @@ export default function RepplyToInvitation({ invite_id, team_ref }: InvitationPr
           {canReply && (
             <>
               <div className="px-5 flex gap-3">
-                <InvitationButton text="accept" onClick={onClick} />
-                <InvitationButton text="decline" onClick={onClick} />
+                <InvitationButton text="accept" confirmInvitation={replyToInvitation} />
+                <InvitationButton text="decline" confirmInvitation={replyToInvitation} />
               </div>
             </>
           )}

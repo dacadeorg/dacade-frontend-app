@@ -12,7 +12,7 @@ import CheckIcon from "@/icons/check.svg";
  */
 interface InvitationButtonProps {
   text: "accept" | "decline";
-  onClick: (text: "accept" | "decline") => void;
+  confirmInvitation: (text: "accept" | "decline") => void;
 }
 
 /**
@@ -23,14 +23,14 @@ interface InvitationButtonProps {
  * @param {InvitationButtonProps} { text }
  * @returns {ReactElement}
  */
-export default function InvitationButton({ text, onClick }: InvitationButtonProps): ReactElement {
+export default function InvitationButton({ text, confirmInvitation }: InvitationButtonProps): ReactElement {
   const buttonClassNames = classNames(`flex  items-center bg-white border text-sm px-3 py-1 gap-2`, {
     "text-green-700 border-green-700": text === "accept",
     "text-red-700 border-red-700": text === "decline",
   });
 
   return (
-    <button className={buttonClassNames} onClick={() => onClick(text)}>
+    <button className={buttonClassNames} onClick={() => confirmInvitation(text)}>
       {text === "accept" ? <CheckIcon className="text-green-700" /> : <CloseIcon className="text-red-700" />}
       <span className="capitalize">{text}</span>
     </button>

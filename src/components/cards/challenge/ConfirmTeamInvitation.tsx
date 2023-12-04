@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
-import RepplyToInvitation from "./_partials/RepplyToInvitation";
 import { Invite } from "@/types/challenge";
+import ReplyToInvitation from "./_partials/ReplyToInvitation";
 
 /**
  * Props for ConfirmTeamInvitation component
@@ -41,7 +41,7 @@ export default function ConfirmTeamInvitation({ index, title, text, invite }: Co
           <p className="text-sm font-normal text-gray-700 max-w-xxs">
             {invite.team?.organizer?.displayName} added you to their team for the {invite.team?.challenge?.name} challenge. Would you like to accept?
           </p>
-          <RepplyToInvitation invite_id={invite.id} team_ref={invite.team_ref} />
+          <ReplyToInvitation invite_id={invite.id} team_ref={invite.team_ref} />
         </div>
       </div>
     </div>

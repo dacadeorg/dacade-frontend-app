@@ -102,11 +102,11 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
 
   const isTeamFull = useMemo(() => {
     const members = membersList.filter((member) => member.status === MemberStatus.teamMember);
-    return challenge?.teamLimit ? members.length >= challenge?.teamLimit - 1 : membersList.length >= 2;
+    return challenge?.teamLimit ? members.length >= challenge?.teamLimit - 1 : members.length >= 2;
   }, [challenge?.teamLimit, membersList]);
 
   const canAddMembers = useMemo(() => {
-    return team ? isCurrentUserOrganiser && !team.locked && !isTeamFull : !isCurrentUserMember;
+    return team ? isCurrentUserOrganiser && !team.locked && !isTeamFull : true;
   }, [isCurrentUserMember, isCurrentUserOrganiser, team, isTeamFull]);
 
   const filterUsers = async (username: string, callback: any) => {
@@ -171,9 +171,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     await refetchTeam();
   };
 
-  const leaveMyTeam = () => {
+  const leaveMyTeam = async () => {
     dispatch(leaveTeam(team.id));
-    refetchTeam();
+    await refetchTeam();
   };
 
   const refetchTeam = async () => {
