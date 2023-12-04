@@ -128,6 +128,7 @@
   "communities.challenge.criteria.subtitle": "Следните учебни материали ще ви дадат необходимата техническа експертиза, за да се справите успешно с предизвикателството.",
   "communities.challenge.criteria.points": "Points",
   "communities.challenge.passing.score.description": "За да спечелите {{coinPlaceholder}} <strong>{{amount}}</strong> <strong>{{token}}</strong>, трябва да получите поне <strong>{{minPoints}}</strong> от <strong>{{maxPoints}}</strong> точки в този предизвикателство.",
+  "communities.challenge.hackathon.passing.score": "Трябва да получите <strong>90%</strong>, за да влезете в наградния фонд и да спечелите награди на стойност <strong>7 000 щатски долара.</strong>",
   "communities.challenge.submission": "заявка",
   "communities.challenge.submit": "Изпращане",
   "communities.challenge.feedback": "обратна връзка",
