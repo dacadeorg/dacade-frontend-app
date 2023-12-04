@@ -146,7 +146,6 @@ export type Distribution = {
   third: string;
 };
 
-
 export type Introduction = {
   text: string;
 };
