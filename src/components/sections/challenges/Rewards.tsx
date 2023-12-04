@@ -28,7 +28,6 @@ export function OverviewRewards(): ReactElement {
     return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
   };
   const router = useRouter();
-  const isHackaton = challenge?.type === "HACKATHON";
   const HackatonPrize = ({ reward }: { reward: Reward }) => {
     const { first, second, third } = reward?.distribution || ({} as Distribution);
     return (
@@ -53,7 +52,7 @@ export function OverviewRewards(): ReactElement {
           <div className="md:pl-2 space-y-2 max-w-max">
             <div className="flex text-sm text-gray-700">
               <span className="block font-medium pr-1">
-                {community.slug === "celo" && "NFT"} {t("communities.overview.challenge.certificate")}
+                {community?.slug === "celo" && "NFT"} {t("communities.overview.challenge.certificate")}
               </span>
             </div>
             <div className="text-gray-400 text-xs font-medium">{t("communities.overview.challenge.subtitle")}</div>
@@ -63,7 +62,7 @@ export function OverviewRewards(): ReactElement {
           <div key={`reward=${index}`} className="flex items-center">
             <Coin size="medium" token={reward?.token} />
             <div className="text-sm space-y-2 md:pl-2 max-w-max">
-              {isHackaton ? (
+              {challenge?.isHackathon ? (
                 <HackatonPrize reward={reward} />
               ) : (
                 <>
