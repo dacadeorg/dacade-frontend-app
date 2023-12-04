@@ -33,7 +33,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
   const totalReward = data?.rewards?.reduce((acc, reward) => (acc += Number(reward.amount)), 0);
 
   useEffect(() => {
-    setDescription(`${community.slug === "celo" && "NFT"} ${t("communities.overview.challenge.certificate")}`);
+    setDescription(`${community?.slug === "celo" ? "NFT" : ""} ${t("communities.overview.challenge.certificate")}`);
   }, [community, t]);
   return (
     <div className="border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">

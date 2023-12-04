@@ -38,7 +38,7 @@ export function OverviewRewards(): ReactElement {
           <div className="md:pl-2 space-y-2 max-w-max">
             <div className="flex text-sm text-gray-700">
               <span className="block font-medium pr-1">
-                {community.slug === "celo" && "NFT"} {t("communities.overview.challenge.certificate")}
+                {community?.slug === "celo" && "NFT"} {t("communities.overview.challenge.certificate")}
               </span>
             </div>
             <div className="text-gray-400 text-xs font-medium">{t("communities.overview.challenge.subtitle")}</div>
