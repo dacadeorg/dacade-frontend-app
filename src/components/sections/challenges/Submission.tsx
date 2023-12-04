@@ -124,7 +124,7 @@ export default function Submission(): ReactElement {
   };
 
   return (
-    <Section title={t("communities.challenge.submission")}>
+    <Section title={t("communities.challenge.submit")}>
       {challenge?.isTeamChallenge && <p className="text-base font-normal text-slate-700 pt-2 pb-7 md:w-99">{t("communities.overview.challenge.submission.description")}</p>}
       {(team?.members && team.members.length !== 2 && challenge?.isTeamChallenge) || (!team && challenge?.isTeamChallenge) ? (
         <Hint className="mb-8">{t("communities.challenge.submission.hint")}</Hint>

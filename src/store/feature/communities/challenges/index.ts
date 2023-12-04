@@ -34,7 +34,8 @@ export const challengeSlice = createSlice({
   initialState,
   reducers: {
     setCurrentChallenge(state, action) {
-      state.current = action.payload;
+      // const isHackathon = action.payload?.type.toUpperCase() === "HACKATHON";
+      state.current = { ...action.payload, isHackathon: action.payload?.type.toUpperCase() === "HACKATHON" };
     },
     setChallengesList(state, action) {
       state.list = action.payload;

@@ -54,6 +54,7 @@ export type Challenge = {
   course: Course;
   type: string;
   isTeamChallenge: boolean = false;
+  isHackathon?: boolean;
   objectives: string[];
   threshold: number;
   community: Community;

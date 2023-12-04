@@ -95,7 +95,9 @@ export default function ChallengePage(props: {
   return (
     <>
       <Head>
-        <title>{title}</title>
+        <title>
+          {challenge?.isHackathon ? "yes" : "no"} {title}
+        </title>
         <MetaData description={challenge?.description} />
       </Head>
       <Wrapper paths={headerPaths}>
@@ -103,7 +105,7 @@ export default function ChallengePage(props: {
           <Header />
           <Rewards />
           <Objectives />
-          {challenge.isTeamChallenge && <TeamChallenge />}
+          {(challenge.isTeamChallenge || challenge?.isHackathon) && <TeamChallenge />}
           <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
           <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
           <BestSubmissions />
@@ -123,7 +125,7 @@ export default function ChallengePage(props: {
                     </div>
                   ) : (
                     <>
-                      {challenge.isTeamChallenge && <SetupTeamChallenge />}
+                      {(challenge.isTeamChallenge || challenge?.isHackathon) && <SetupTeamChallenge />}
                       <SubmissionForm />
                     </>
                   )}
@@ -151,17 +153,18 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   };
 
   try {
-    const [{ data: community }, { data: challenge }, translations] = await Promise.all([
+    const [{ data: community }, { data: challengeData }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity(fetchPayload)),
       store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string, relations: ["rubric", "courses", "learning-modules", "best-submissions"] })),
       serverSideTranslations(locale as string),
     ]);
-    if (!community || !challenge) throw new NotFoundError();
+    if (!community || !challengeData) throw new NotFoundError();
+    // const challenge = { ...challengeData, isHackathon: challengeData?.type.toUpperCase() === "HACKATHON" };
     return {
       props: {
         ...translations,
         community,
-        challenge,
+        challengeData,
       },
     };
   } catch (e) {
