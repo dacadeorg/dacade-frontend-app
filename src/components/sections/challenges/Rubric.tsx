@@ -51,14 +51,14 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
       minPoints: challenge?.minPoints,
       maxPoints: challenge?.maxPoints,
     });
-    const isHackaton = challenge?.type === "HACKATHON";
+
     const passingScoreParts = passingScore.split("{{coinPlaceholder}}");
     const hackatonPassingScore = t("communities.challenge.hackathon.passing.score");
 
     return (
       <>
         <div className="text-base font-normal text-slate-700 pt-8 md:w-99 inline-flex flex-wrap items-center gap-1">
-          {isHackaton ? (
+          {challenge?.isHackathon ? (
             <div dangerouslySetInnerHTML={{ __html: hackatonPassingScore }} />
           ) : (
             passingScoreParts.map((part, index) => {
