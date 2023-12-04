@@ -8,7 +8,7 @@ interface HeaderProps {
   subtitle?: string | null;
   description?: string | null;
   isTeamChallenge?: boolean;
-  challengeType?: string;
+  isHackathon?: string;
 }
 
 export default function Header({
@@ -17,7 +17,7 @@ export default function Header({
   subtitle = null,
   description = null,
   isTeamChallenge = false,
-  challengeType,
+  isHackathon,
 }: HeaderProps): ReactElement {
   const headerClassName = classNames("text-4xl md:text-5xl leading-none", {
     "hidden md:flex": hideTitleOnMobile,
@@ -39,7 +39,7 @@ export default function Header({
             )}
           </h2>
         )}
-        {challengeType === "HACKATHON" && (
+        {isHackathon === "HACKATHON" && (
           <span className="border border-solid border-black rounded-full py-0.5 text-black font-medium px-2 text-xs items-start leading-4">Hackathon</span>
         )}
       </div>
