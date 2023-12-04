@@ -56,7 +56,6 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
     const hackatonPassingScore = t("communities.challenge.hackathon.passing.score");
 
     return (
-      <>
         <div className="text-base font-normal text-slate-700 pt-8 md:w-99 inline-flex flex-wrap items-center gap-1">
           {challenge?.isHackathon ? (
             <div dangerouslySetInnerHTML={{ __html: hackatonPassingScore }} />
@@ -76,7 +75,6 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
             })
           )}
         </div>
-      </>
     );
   };
 
@@ -84,10 +82,10 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
     <Section>
       <Accordion
         title={!hideTitle ? (t("communities.challenge.criteria.title") as string) : ""}
+        subtitle={translatedPassingScore()}
         isExpanded
         content={
           <>
-            {translatedPassingScore()}
             <div>
               {ratingCriteria.map((criteria, i) => (
                 <div key={`rating-criteria-item-${i}`} className="mt-8">
@@ -101,7 +99,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
                         }`}
                       >
                         {selectedRubric(rubric.id) && (
-                          <span className="absolute -left-6 top-1 w-3" style={{ color: colors?.textAccent }}>
+                          <span className="absolute right-2 bottom-3 w-3" style={{ color: colors?.textAccent }}>
                             <Checkmark />
                           </span>
                         )}
