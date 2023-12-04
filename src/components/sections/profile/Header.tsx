@@ -3,7 +3,7 @@ import Avatar from "@/components/ui/Avatar";
 import DateManager from "@/utilities/DateManager";
 import Button from "@/components/ui/button";
 import TimeIcon from "@/icons/time.svg";
-import GithubIcon from "@/icons/github.svg";
+// import GithubIcon from "@/icons/github.svg";
 import DiscordIcon from "@/icons/discordIcon.svg";
 import CompassIcon from "@/icons/compass.svg";
 import { useRouter } from "next/router";
@@ -15,6 +15,7 @@ import KYCVerification from "@/components/popups/KYCVerification";
 import { useDiscordConnect } from "@/hooks/useDiscordConnect";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
+import Link from "next/link";
 
 /**
  * interface for ProfileHeader multiSelector
@@ -62,26 +63,34 @@ export default function ProfileHeader() {
   };
 
   const { canConnectDiscord, triggerDiscordOauth } = useDiscordConnect();
+  const discordLink = "https://discord.gg/U38KQHDtHe";
+
+  const iconStyles = "inline-block";
 
   return (
     <div className="relative pb-24 font-sans text-center">
       <Avatar size="extra" user={user} useLink={false} isKycVerified={isKycVerified} />
       <span className="block mt-5 text-5xl leading-none capitalize">{username}</span>
       <div className="flex justify-center mt-2 text-sm leading-snug divide-x divide-solid">
-        {!canConnectDiscord && (
+        {!canConnectDiscord ? (
           <div className="flex items-center px-2">
-            <span className="inline-block">
+            <span className={iconStyles}>
               <DiscordIcon />
             </span>
-            <span className="inline-block mx-1">Discord</span>
+            <Link href={discordLink} className="inline-block mx-1 cursor-pointer hover:underline" target="_blank">
+              Discord
+            </Link>
           </div>
+        ) : (
+          <></>
         )}
-        <div className="flex items-center justify-center px-2">
+        {/* TODO: Will be uncommented when there is proper implementation for adding GitHub */}
+        {/* <div className="flex items-center justify-center px-2">
           <span>
             <GithubIcon />
           </span>
           <span className="mx-1">Github</span>
-        </div>
+        </div> */}
 
         <div className="flex items-center justify-center px-2">
           <span>
