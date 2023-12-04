@@ -44,6 +44,7 @@ interface ChallengePageMultiSelector {
   submission: Submission | null;
   isAuthenticated: boolean;
   isSubmissionLoading: boolean;
+  challenge: Challenge;
 }
 
 /**
@@ -63,17 +64,17 @@ interface ChallengePageMultiSelector {
 export default function ChallengePage(props: {
   pageProps: {
     submission: Submission;
-    challenge: Challenge;
     community: Community;
   };
 }): ReactElement {
-  const { challenge, community } = props.pageProps;
+  const { community } = props.pageProps;
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { submission, isAuthenticated, isSubmissionLoading } = useMultiSelector<unknown, ChallengePageMultiSelector>({
+  const { submission, isAuthenticated, isSubmissionLoading, challenge } = useMultiSelector<unknown, ChallengePageMultiSelector>({
     submission: (state: IRootState) => state.challenges.submission,
     isAuthenticated: (state: IRootState) => authCheck(state),
     isSubmissionLoading: (state: IRootState) => state.challenges.loading,
+    challenge: (state: IRootState) => state.challenges.current,
   });
 
   const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), challenge?.name || ""), [challenge?.name, t]);
@@ -95,9 +96,7 @@ export default function ChallengePage(props: {
   return (
     <>
       <Head>
-        <title>
-          {challenge?.isHackathon ? "yes" : "no"} {title}
-        </title>
+        <title>{title}</title>
         <MetaData description={challenge?.description} />
       </Head>
       <Wrapper paths={headerPaths}>
@@ -153,18 +152,17 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   };
 
   try {
-    const [{ data: community }, { data: challengeData }, translations] = await Promise.all([
+    const [{ data: community }, { data: challenge }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity(fetchPayload)),
       store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string, relations: ["rubric", "courses", "learning-modules", "best-submissions"] })),
       serverSideTranslations(locale as string),
     ]);
-    if (!community || !challengeData) throw new NotFoundError();
-    // const challenge = { ...challengeData, isHackathon: challengeData?.type.toUpperCase() === "HACKATHON" };
+    if (!community || !challenge) throw new NotFoundError();
     return {
       props: {
         ...translations,
         community,
-        challengeData,
+        challenge,
       },
     };
   } catch (e) {
