@@ -109,17 +109,19 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     return team ? isCurrentUserOrganiser && !team.locked && !isTeamFull : true;
   }, [isCurrentUserMember, isCurrentUserOrganiser, team, isTeamFull]);
 
-  const filterUsers = async (username: string, callback: any) => {
-    const filteredUsers: any = await dispatch(getUserByUsername(username));
-    const users = filteredUsers?.data
-      ? filteredUsers.data.map((user: User) => {
-          return { value: user.id, label: user.displayName, user };
-        })
-      : [];
-    return callback(users);
-  };
-
-  const loadUserOptions = debounce(filterUsers, 1000);
+  const filterUsers = debounce(async (inputValue: string, callback: (options: Option[]) => void) => {
+    try {
+      const filteredUsers: any = await dispatch(getUserByUsername(inputValue));
+      const users = filteredUsers?.data
+        ? filteredUsers.data.map((user: User) => {
+            return { value: user.id, label: user.displayName, user };
+          })
+        : [];
+      callback(users);
+    } catch (error) {
+      callback([]);
+    }
+  }, 1000);
 
   useEffect(() => {
     if (team) {
@@ -237,7 +239,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                     defaultOptions={[]}
                     className="text-lg"
                     isClearable={true}
-                    loadOptions={loadUserOptions}
+                    loadOptions={(inputValue: string, callback: (options: Option[]) => void) => {
+                      filterUsers(inputValue, callback);
+                    }}
                     onChange={(option) => {
                       if (!team.locked && option) selectTeamMember(option);
                     }}
