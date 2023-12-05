@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { Challenge } from "@/types/course";
 import { Community } from "@/types/community";
 import { IRootState } from "@/store";
+import HackathonPrize from "./_partials/HackathonPrize";
 
 /**
  * Overview reward section component
@@ -38,7 +39,7 @@ export function OverviewRewards(): ReactElement {
           <div className="md:pl-2 space-y-2 max-w-max">
             <div className="flex text-sm text-gray-700">
               <span className="block font-medium pr-1">
-                {community.slug === "celo" && "NFT"} {t("communities.overview.challenge.certificate")}
+                {community?.slug === "celo" && "NFT"} {t("communities.overview.challenge.certificate")}
               </span>
             </div>
             <div className="text-gray-400 text-xs font-medium">{t("communities.overview.challenge.subtitle")}</div>
@@ -48,19 +49,25 @@ export function OverviewRewards(): ReactElement {
           <div key={`reward=${index}`} className="flex items-center">
             <Coin size="medium" token={reward?.token} />
             <div className="text-sm space-y-2 md:pl-2 max-w-max">
-              <div className="flex gap-1 text-gray-700 font-medium">
-                <span>{totalReward}</span>
-                <span>{reward?.token}</span>
-                <span>{t("communities.overview.challenge.rewards")}</span>
-              </div>
-              <div className="text-gray-400 text-xs font-medium leading-3 mt-1 flex">
-                {challenge?.rewards.map((reward, index) => (
-                  <span key={`reward-${index}`}>
-                    {index > 0 && "\u003B "}
-                    {reward.amount} {reward.token}/{formatToken(reward.type)}
-                  </span>
-                ))}
-              </div>
+              {challenge?.isHackathon ? (
+                <HackathonPrize reward={reward} />
+              ) : (
+                <>
+                  <div className="flex gap-1 text-gray-700 font-medium">
+                    <span>{totalReward}</span>
+                    <span>{reward?.token}</span>
+                    <span>{t("communities.overview.challenge.rewards")}</span>
+                  </div>
+                  <div className="text-gray-400 text-xs font-medium leading-3 mt-1 flex">
+                    {challenge?.rewards.map((reward, index) => (
+                      <span key={`reward-${index}`}>
+                        {index > 0 && "\u003B "}
+                        {reward.amount} {reward.token}/{formatToken(reward.type)}
+                      </span>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         ))}

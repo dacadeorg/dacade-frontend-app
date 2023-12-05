@@ -139,6 +139,12 @@ export type Reward = {
   stable: boolean;
   amount: number;
   timestamp: number;
+  distribution?: Distribution;
+  };
+export type Distribution = {
+  first: string;
+  second: string;
+  third: string;
 };
 
 export type Introduction = {
