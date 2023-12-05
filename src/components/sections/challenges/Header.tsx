@@ -18,7 +18,7 @@ export default function ChallengeHeader(): ReactElement {
 
   return (
     <div>
-      <Header isTeamChallenge={challenge?.isTeamChallenge} title={challenge?.name} subtitle={t("communities.challenge.title")} isHackathon={challenge?.type}/>
+      <Header isTeamChallenge={challenge?.isTeamChallenge} title={challenge?.name} subtitle={t("communities.challenge.title")} isHackathon={challenge?.type === 'HACKATHON'}/>
       <Section subtitle={challenge?.description}>
         {challenge?.learningModules?.length ? <ObjectiveList objectives={challenge?.learningModules?.map((module) => module.title) || []} /> : <></>}
       </Section>

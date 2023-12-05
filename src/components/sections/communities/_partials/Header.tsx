@@ -8,7 +8,7 @@ interface HeaderProps {
   subtitle?: string | null;
   description?: string | null;
   isTeamChallenge?: boolean;
-  isHackathon?: string;
+  isHackathon?: boolean;
 }
 
 export default function Header({
@@ -39,7 +39,7 @@ export default function Header({
             )}
           </h2>
         )}
-        {isHackathon === "HACKATHON" && (
+        {isHackathon && (
           <span className="border border-solid border-black rounded-full py-0.5 text-black font-medium px-2 text-xs items-start leading-4">Hackathon</span>
         )}
       </div>

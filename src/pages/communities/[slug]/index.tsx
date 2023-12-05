@@ -20,7 +20,7 @@ export default function Slug(props: {
   return (
     <CommunityWrapper>
       {challenges.map((challenge) => (
-        <ChallengeCard key={challenge.id} data={challenge} community={community} isHackathon={challenge?.type}/>
+        <ChallengeCard key={challenge.id} data={challenge} community={community} isHackathon={challenge?.type==='HACKATHON'}/>
       ))}
       <div className="md:hidden">
         <div className="active md:hidden mb-7 scroll-smooth pt-5">

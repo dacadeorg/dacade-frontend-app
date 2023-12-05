@@ -22,7 +22,7 @@ interface ChallengeCardProps {
   data: Challenge;
   community: Community;
   isCourseEnd?: boolean;
-  isHackathon?: string;
+  isHackathon?: boolean;
 }
 export default function ChallengeCard({ data, community, isCourseEnd, isHackathon }: ChallengeCardProps) {
   const { t } = useTranslation();
@@ -58,12 +58,12 @@ export default function ChallengeCard({ data, community, isCourseEnd, isHackatho
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
                     <span className="block font-medium pr-1">
-                      {isHackathon === "HACKATHON" && "$"}
+                      {isHackathon && "$"}
                       {totalReward}
                     </span>
-                    <span className="block font-medium">{isHackathon === "HACKATHON" ? `Prize Pool Rewards` : `${reward?.token} Rewards`}</span>
+                    <span className="block font-medium">{isHackathon ? `Prize Pool Rewards` : `${reward?.token} Rewards`}</span>
                   </div>
-                  <div className="text-gray-400 text-xs font-normal">{isHackathon === "HACKATHON" ? "Top projects win money prizes" : "For submission and feedback"}</div>
+                  <div className="text-gray-400 text-xs font-normal">{isHackathon ? "Top projects win money prizes" : "For submission and feedback"}</div>
                 </div>
               </div>
             </div>
