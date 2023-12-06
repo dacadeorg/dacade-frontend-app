@@ -105,7 +105,6 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
   }, [challenge?.teamLimit, membersList]);
 
   const canAddMembers = useMemo(() => {
-    console.log("can add memember", { isCurrentUserOrganiser, team });
     return team ? isCurrentUserOrganiser && !team?.locked && !isTeamFull : true;
   }, [isCurrentUserOrganiser, team, isTeamFull]);
 
@@ -207,7 +206,7 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
                       <div className=" text-sm text-gray-700 font-medium">{member?.displayName}</div>
                       <div className=" text-gray-400 text-xs">{status}</div>
                     </div>
-                    {!team.locked && (
+                    {!team?.locked && (
                       <>
                         {isCurrentUserOrganiser ? (
                           <>
@@ -242,7 +241,7 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
                       filterUsers(inputValue, callback);
                     }}
                     onChange={(option) => {
-                      if (!team.locked && option) selectTeamMember(option);
+                      if (!team?.locked && option) selectTeamMember(option);
                     }}
                   />
                   {error && <ErrorBox error={error} />}

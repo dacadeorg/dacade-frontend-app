@@ -37,7 +37,7 @@ export default function ReplyToInvitation({ invite_id, team_ref }: InvitationPro
   const replyToInvitation = async (text: "accept" | "decline") => {
     if (!team_ref) return;
     // TODO: Add a way of letting the user know that this  team is locked.
-    if (team.locked) {
+    if (team?.locked) {
       setCanReply(false);
       return;
     }
