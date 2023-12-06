@@ -99,15 +99,6 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
   const [isCurrentUserOrganiser, setIsCurrentUserOrganiser] = useState(false);
   const dispatch = useDispatch();
 
-  const isTeamFull = useMemo(() => {
-    const members = membersList.filter((member) => member.status === MemberStatus.teamMember);
-    return challenge?.teamLimit ? members.length >= challenge?.teamLimit - 1 : members.length >= 2;
-  }, [challenge?.teamLimit, membersList]);
-
-  const canAddMembers = useMemo(() => {
-    return team ? isCurrentUserOrganiser && !team?.locked && !isTeamFull : true;
-  }, [isCurrentUserOrganiser, team, isTeamFull]);
-
   const filterUsers = debounce(async (inputValue: string, callback: (options: Option[]) => void) => {
     try {
       const filteredUsers: any = await dispatch(getUserByUsername(inputValue));
@@ -121,6 +112,15 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
       callback([]);
     }
   }, 1000);
+
+  const isTeamFull = useMemo(() => {
+    const members = membersList.filter((member) => member.status === MemberStatus.teamMember);
+    return challenge?.teamLimit ? members.length >= challenge?.teamLimit - 1 : members.length >= 2;
+  }, [challenge?.teamLimit, membersList]);
+
+  const canAddMembers = useMemo(() => {
+    return team ? isCurrentUserOrganiser && !team?.locked && !isTeamFull : true;
+  }, [isCurrentUserOrganiser, team, isTeamFull]);
 
   useEffect(() => {
     if (team) {
@@ -241,7 +241,7 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
                       filterUsers(inputValue, callback);
                     }}
                     onChange={(option) => {
-                      if (!team?.locked && option) selectTeamMember(option);
+                      if (!team.locked && option) selectTeamMember(option);
                     }}
                   />
                   {error && <ErrorBox error={error} />}

@@ -76,7 +76,6 @@ const teamsService = createApi({
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
-        console.log("this is the team data form the get team by id", data);
         dispatch(setTeamData(data));
         return data;
       },
@@ -126,7 +125,7 @@ const teamsService = createApi({
         try {
           await queryFulfilled;
         } catch (err: any) {
-          console.error("Error", err);
+          console.log("Unable to leave team", err);
         }
         return;
       },

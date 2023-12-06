@@ -33,29 +33,30 @@ interface SubmissionCard {
 export default function SubmissionCard({ submission }: SubmissionCard): ReactElement {
   const router = useRouter();
   const navigation = new CommunityNavigation(router);
-  const [members, setMembers] = useState<User[]>([]);
+  const [membersWithOrganiser, setMembersWithOrganiser] = useState<User[]>([]);
   const colors = useSelector((state) => state.ui.colors);
   const { t } = useTranslation();
   const createAt = useMemo(() => new Date(submission.created_at), [submission.created_at]);
   const date = useMemo(() => DateManager.fromNow(createAt, router.locale), [createAt, router.locale]);
 
   useEffect(() => {
-    if (submission.team) {
-      const {
-        team: { organizer, members },
-      } = submission;
-      setMembers(() => [(organizer as User) || submission.user]);
-      members?.forEach(({ user }) => setMembers((prev) => [...prev, user]));
-    }
+    if (!submission?.team) return;
+
+    const {
+      team: { organizer, members: teamMembers },
+    } = submission;
+
+    if (!teamMembers) return;
+    setMembersWithOrganiser(() => [(organizer as User) || submission.user, ...teamMembers.map(({ user }) => user)]);
   }, []);
 
   return (
     <div className="bg-gray-50 text-sm text-gray-700 border-solid border border-gray-200 rounded-3xl mb-5 md:mb-0">
       <Link href={navigation.submissionPath(submission.id)}>
         <div className="p-7">
-          {members && members?.length ? (
+          {membersWithOrganiser && membersWithOrganiser?.length ? (
             <div className="flex gap-2 overflow-hidden">
-              {members?.map((user, index) => {
+              {membersWithOrganiser?.map((user, index) => {
                 return (
                   <div className="flex items-center space-x-1.5 pb-1.5 pt-1" key={`team-member-${index}`}>
                     <span className="text-lg leading-loose font-medium text-gray-900 pb-1 whitespace-nowrap">{user.displayName}</span>

@@ -64,7 +64,7 @@ export default function ReplyToInvitation({ invite_id, team_ref }: InvitationPro
   }, []);
 
   useEffect(() => {
-    if (!team?.invites) return;
+    if (!team?.invites?.length) return;
     const myInvite = team.invites.filter((invite) => invite.id === invite_id)[0];
     setCanReply(myInvite && myInvite.status === "PENDING");
   }, [invite_id, team]);
