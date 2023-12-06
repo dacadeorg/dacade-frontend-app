@@ -1,17 +1,25 @@
 import Section from "@/components/sections/communities/_partials/Section";
 import FormTeamCard from "@/components/cards/challenge/_partials/FormTeam";
-import SubmissionTeamCard from "@/components/cards/SubmissionTeam";
-import { useSelector } from "@/hooks/useTypedSelector";
+import CreateTeamCard from "@/components/cards/CreateTeam";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import ConfirmTeamInvitation from "@/components/cards/challenge/ConfirmTeamInvitation";
 import { useTranslation } from "next-i18next";
+import { IRootState } from "@/store";
+import { Invite } from "@/types/challenge";
+import { Challenge } from "@/types/course";
 
+interface Props {
+  invite: Invite;
+  challenge: Challenge;
+}
 /**
  * SetupTeamChallenge component.
  *
  * @returns {JSX.Element} The SetupTeamChallenge component JSX element.
  */
 export default function SetupTeamChallenge(): JSX.Element {
-  const invite = useSelector((state) => state.invites.data);
+  const { invite, challenge } = useMultiSelector<unknown, Props>({ invite: (state: IRootState) => state.invites.data, challenge: (state: IRootState) => state.challenges.current });
+
   const { t } = useTranslation();
 
   return (
@@ -20,9 +28,9 @@ export default function SetupTeamChallenge(): JSX.Element {
       <div className="md:flex flex-row gap-5">
         <FormTeamCard index={1} title="Form your team" description="Open discord channel #teams and find your teammates to complete the challenge with you." />
         {invite && !invite.team?.locked ? (
-          <ConfirmTeamInvitation index={2} title="Submit your team" text="The maximum team members for this challenge is 3 people" invite={invite} />
+          <ConfirmTeamInvitation index={2} title="Submit your team" text={`The maximum team members for this challenge is ${challenge?.teamLimit || "3"} people`} invite={invite} />
         ) : (
-          <SubmissionTeamCard
+          <CreateTeamCard
             index={2}
             title={t("communities.overview.challenge.team.setup.submit-title") || ""}
             text={t("communities.overview.challenge.team.setup.description") || ""}

@@ -16,13 +16,13 @@ import ErrorBox from "../ui/ErrorBox";
 import { clearError } from "@/store/feature/index.slice";
 
 /**
- * interface for submissionTeamCard  multiSelector
+ * interface for CreateTeamCard  multiSelector
  * @date 9/13/2023 - 8:57:31 AM
  *
- * @interface SubmissionTeamCardMultiSelector
- * @typedef {SubmissionTeamCardMultiSelector}
+ * @interface CreateTeamCardMultiSelector
+ * @typedef {CreateTeamCardMultiSelector}
  */
-interface SubmissionTeamCardMultiSelector {
+interface CreateTeamCardMultiSelector {
   challenge: Challenge | null;
   user: User | null;
   team: Team;
@@ -33,9 +33,9 @@ interface SubmissionTeamCardMultiSelector {
 }
 
 /**
- * Props for the SubmissionTeam component.
+ * Props for the CreateTeam component.
  */
-interface SubmissionTeamCardProps {
+interface CreateTeamCardProps {
   index?: number | string;
   title?: string;
   text?: string;
@@ -80,14 +80,14 @@ enum MemberStatus {
 }
 
 /**
- * SubmissionTeam component.
+ * CreateTeam component.
  *
- * @param {SubmissionTeamProps} props - The props for the SubmissionTeam component.
- * @returns {JSX.Element} The SubmissionTeam component JSX element.
+ * @param {SubmissionTeamProps} props - The props for the CreateTeam component.
+ * @returns {JSX.Element} The CreateTeam component JSX element.
  */
 
-export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  const { challenge, user, team, isTeamLoading, error } = useMultiSelector<unknown, SubmissionTeamCardMultiSelector>({
+export default function CreateTeamCard({ index = 1, title = "", text = "" }: CreateTeamCardProps): JSX.Element {
+  const { challenge, user, team, isTeamLoading, error } = useMultiSelector<unknown, CreateTeamCardMultiSelector>({
     challenge: (state: IRootState) => state.challenges.current,
     user: (state: IRootState) => state.user.data,
     team: (state: IRootState) => state.teams.current,
@@ -96,7 +96,6 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   });
 
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
-  const [isCurrentUserMember, setIsCurrentUserMember] = useState(false);
   const [isCurrentUserOrganiser, setIsCurrentUserOrganiser] = useState(false);
   const dispatch = useDispatch();
 
@@ -106,8 +105,9 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
   }, [challenge?.teamLimit, membersList]);
 
   const canAddMembers = useMemo(() => {
-    return team ? isCurrentUserOrganiser && !team.locked && !isTeamFull : true;
-  }, [isCurrentUserMember, isCurrentUserOrganiser, team, isTeamFull]);
+    console.log("can add memember", { isCurrentUserOrganiser, team });
+    return team ? isCurrentUserOrganiser && !team?.locked && !isTeamFull : true;
+  }, [isCurrentUserOrganiser, team, isTeamFull]);
 
   const filterUsers = debounce(async (inputValue: string, callback: (options: Option[]) => void) => {
     try {
@@ -143,7 +143,6 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
 
   useEffect(() => {
     setIsCurrentUserOrganiser(user?.id === team?.organizer_id);
-    setIsCurrentUserMember(membersList.some((member) => member?.user?.id === user?.id));
   }, [user, team, membersList]);
 
   const selectTeamMember = async (option: Option) => {
