@@ -1,6 +1,6 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
-import { clearTeamData, setIsTeamDataLoading, setTeamData } from "../feature/teams.slice";
+import { setIsTeamDataLoading, setTeamData } from "../feature/teams.slice";
 import { setInvitesData } from "../feature/communities/challenges/invites.slice";
 import { Invite } from "@/types/challenge";
 import { setError } from "../feature/index.slice";
@@ -48,7 +48,7 @@ const teamsService = createApi({
         dispatch(setIsTeamDataLoading(true));
         const { data } = await queryFulfilled;
         if (data) dispatch(setTeamData(data));
-        else dispatch(clearTeamData());
+        else dispatch(setTeamData(null));
         dispatch(setIsTeamDataLoading(false));
         return data;
       },

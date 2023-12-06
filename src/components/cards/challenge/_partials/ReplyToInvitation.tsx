@@ -44,15 +44,16 @@ export default function ReplyToInvitation({ invite_id, team_ref }: InvitationPro
     try {
       setLoading(true);
       if (text === "accept") {
-        dispatch(acceptInvitation(invite_id));
+        await dispatch(acceptInvitation(invite_id));
       } else {
-        dispatch(declineInvitation(invite_id));
+        await dispatch(declineInvitation(invite_id));
       }
       if (challenge) await dispatch(getTeamByChallenge(challenge.id));
       dispatch(setInvitesData(null));
     } catch (error) {
       console.log("error within invitation confirmation");
     } finally {
+      await fetchTeambyId();
       setLoading(false);
     }
   };
@@ -65,7 +66,7 @@ export default function ReplyToInvitation({ invite_id, team_ref }: InvitationPro
   useEffect(() => {
     if (!team?.invites) return;
     const myInvite = team.invites.filter((invite) => invite.id === invite_id)[0];
-    if (myInvite && myInvite.status === "PENDING") setCanReply(true);
+    setCanReply(myInvite && myInvite.status === "PENDING");
   }, [invite_id, team]);
 
   return (
@@ -76,7 +77,7 @@ export default function ReplyToInvitation({ invite_id, team_ref }: InvitationPro
         <>
           {canReply && (
             <>
-              <div className="px-5 flex gap-3">
+              <div className="px-5 flex gap-3 justify-center">
                 <InvitationButton text="accept" confirmInvitation={replyToInvitation} />
                 <InvitationButton text="decline" confirmInvitation={replyToInvitation} />
               </div>

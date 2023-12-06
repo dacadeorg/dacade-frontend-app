@@ -30,7 +30,13 @@ export default function InvitationButton({ text, confirmInvitation }: Invitation
   });
 
   return (
-    <button className={buttonClassNames} onClick={() => confirmInvitation(text)}>
+    <button
+      className={buttonClassNames}
+      onClick={(e) => {
+        e.stopPropagation();
+        confirmInvitation(text);
+      }}
+    >
       {text === "accept" ? <CheckIcon className="text-green-700" /> : <CloseIcon className="text-red-700" />}
       <span className="capitalize">{text}</span>
     </button>

@@ -2,24 +2,12 @@ import { Team } from "@/types/challenge";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface DefaultState {
-  current: Team;
+  current: Team | null;
   loading: boolean;
 }
 
 const defaultState: DefaultState = {
-  current: {
-    challenge_ref: "",
-    created_at: "",
-    id: "",
-    locked: false,
-    name: "",
-    organizer_id: "",
-    ref: "",
-    timestamp: "",
-    updated_at: "",
-    members: [],
-    invites: [],
-  },
+  current: null,
   loading: false,
 };
 const teamsSlice = createSlice({
@@ -32,12 +20,9 @@ const teamsSlice = createSlice({
     setIsTeamDataLoading: (state, action) => {
       state.loading = action.payload;
     },
-    clearTeamData: (state) => {
-      state.current = defaultState.current;
-    },
   },
 });
 
-export const { setTeamData, setIsTeamDataLoading, clearTeamData } = teamsSlice.actions;
+export const { setTeamData, setIsTeamDataLoading } = teamsSlice.actions;
 
 export default teamsSlice;
