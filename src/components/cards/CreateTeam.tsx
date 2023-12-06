@@ -241,7 +241,8 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
                       filterUsers(inputValue, callback);
                     }}
                     onChange={(option) => {
-                      if (!team.locked && option) selectTeamMember(option);
+                      if (!option) return;
+                      if (!team?.locked) selectTeamMember(option);
                     }}
                   />
                   {error && <ErrorBox error={error} />}

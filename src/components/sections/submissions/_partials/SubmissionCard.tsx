@@ -54,7 +54,7 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
     <div className="bg-gray-50 text-sm text-gray-700 border-solid border border-gray-200 rounded-3xl mb-5 md:mb-0">
       <Link href={navigation.submissionPath(submission.id)}>
         <div className="p-7">
-          {membersWithOrganiser && membersWithOrganiser?.length ? (
+          {membersWithOrganiser?.length ? (
             <div className="flex gap-2 overflow-hidden">
               {membersWithOrganiser?.map((user, index) => {
                 return (

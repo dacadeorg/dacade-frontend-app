@@ -59,8 +59,8 @@ export default function SubmissionViewCard({ submission }: SubmissionViewCardPro
 
   useEffect(() => {
     if (submission?.team) {
-      const { organizer, members: teamMembers } = submission.team;
-      if (teamMembers) setMembers([organizer || submission?.user, ...teamMembers.map(({ user }) => user)]);
+      const { organizer, members } = submission.team;
+      if (members) setMembers([organizer || submission?.user, ...members.map(({ user }) => user)]);
     }
   }, [authUser, submission]);
 
