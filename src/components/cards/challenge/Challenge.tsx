@@ -37,7 +37,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
   }, [community, t]);
   return (
     <div className="border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">
-      <div className="border-solid border-b border-gray-300 bg-white rounded-3xl sm:p-8 sm:pb-6 w-full p-6">
+      <div className="border-solid border-b border-gray-200 bg-white rounded-3xl sm:p-8 sm:pb-6 w-full p-6">
         <div className="w-full">
           <div className="lg:flex mb-1">
             <div className="lg:pr-20 w-full lg:w-3/5">
