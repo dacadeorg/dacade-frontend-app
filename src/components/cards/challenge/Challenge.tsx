@@ -22,9 +22,8 @@ interface ChallengeCardProps {
   data: Challenge;
   community: Community;
   isCourseEnd?: boolean;
-  isHackathon?: boolean;
 }
-export default function ChallengeCard({ data, community, isCourseEnd, isHackathon }: ChallengeCardProps) {
+export default function ChallengeCard({ data, community, isCourseEnd }: ChallengeCardProps) {
   const { t } = useTranslation();
   const link = `/communities/${community.slug}/challenges/${data.id}`;
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
@@ -58,12 +57,12 @@ export default function ChallengeCard({ data, community, isCourseEnd, isHackatho
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
                     <span className="block font-medium pr-1">
-                      {isHackathon && "$"}
+                      {data?.isHackathon && "$"}
                       {totalReward}
                     </span>
-                    <span className="block font-medium">{isHackathon ? `Prize Pool Rewards` : `${reward?.token} Rewards`}</span>
+                    <span className="block font-medium">{data?.isHackathon ? `Prize Pool Rewards` : `${reward?.token} Rewards`}</span>
                   </div>
-                  <div className="text-gray-400 text-xs font-normal">{isHackathon ? "Top projects win money prizes" : "For submission and feedback"}</div>
+                  <div className="text-gray-400 text-xs font-normal">{data?.isHackathon ? "Top projects win money prizes" : "For submission and feedback"}</div>
                 </div>
               </div>
             </div>

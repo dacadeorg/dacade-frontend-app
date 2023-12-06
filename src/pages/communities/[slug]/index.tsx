@@ -20,7 +20,7 @@ export default function Slug(props: {
   return (
     <CommunityWrapper>
       {challenges.map((challenge) => (
-        <ChallengeCard key={challenge.id} data={challenge} community={community} isHackathon={challenge?.type==='HACKATHON'}/>
+        <ChallengeCard key={challenge.id} data={challenge} community={community} />
       ))}
       <div className="md:hidden">
         <div className="active md:hidden mb-7 scroll-smooth pt-5">
@@ -48,7 +48,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
       store.dispatch(fetchAllChallenges({ slug })),
       serverSideTranslations(locale as string),
     ]);
-    if (!community || !challenges) throw new NotFoundError();;
+    if (!community || !challenges) throw new NotFoundError();
     return {
       props: {
         community,
