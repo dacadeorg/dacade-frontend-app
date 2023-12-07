@@ -44,7 +44,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
   const navigation = useNavigation();
 
   const handleCloseSubmission = useCallback(() => {
-    if(!selectedSubmission) return;
+    if (!selectedSubmission) return;
     dispatch(showSubmission(""));
     window.history.pushState("", "", localePath(router, router.asPath));
     dispatch(toggleBodyScrolling(false));
@@ -59,7 +59,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
       const newUrl = e.detail;
       const submissionId = newUrl.replace(localePath(router, router.asPath), "").replace(/\//g, "");
       const submission = submissions.find((submission) => submission.id === submissionId);
-      if(!submission) return;
+      if (!submission) return;
       dispatch(showSubmission(submissionId));
       dispatch(toggleBodyScrolling(true));
     },
@@ -92,7 +92,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
       </Head>
       <Wrapper paths={headerPaths}>
         <div className="flex flex-col py-4 space-y-8 text-gray-700">
-          <Header title={challenge?.name} subtitle={t("communities.submission.title")} isTeamChallenge={challenge?.isTeamChallenge} />
+          <Header title={challenge?.name} subtitle={t("communities.submission.title")} isTeamChallenge={challenge?.isTeamChallenge} isHackathon={challenge?.isHackathon} />
           <SubmissionList />
         </div>
         <SubmissionPopup show={!!selectedSubmission} onClose={handleCloseSubmission} submissionId={selectedSubmission?.id} />

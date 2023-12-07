@@ -13,7 +13,7 @@ export default function ExpiryDate({ expiresAt }: { expiresAt?: string }): React
   const { t } = useTranslation();
   return (
     <div className="bg-gray-50 py-6 px-3 md:py-9 md:px-3 border rounded border-solid border-gray-200 flex items-center justify-start md:justify-center">
-      <p className="text-gray-700 flex md:flex-col items-center gap-1 text-sm">
+      <p className="text-gray-700 flex flex-col md:flex-row mx-auto items-center gap-1 text-sm">
         {t("communities.overview.challenge.expiry")}
         <span className="font-medium text-center">{expiresAt}</span>
       </p>
