@@ -68,3 +68,16 @@ export interface NewTeamOption {
   name: string;
   members?: string[];
 }
+
+/**
+ * Type for the hackathon rewards distribution
+ * @date 12/7/2023 - 7:23:14 PM
+ *
+ * @export
+ * @typedef {Distribution}
+ */
+export type Distribution = {
+  first: number;
+  second: number;
+  third: number;
+};
