@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Header from "@/components/sections/communities/_partials/Header";
 import SubmissionView from "@/components/sections/submissions/View";
 import Wrapper from "@/components/sections/courses/Wrapper";
@@ -15,24 +15,45 @@ import { Challenge } from "@/types/course";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import useNavigation from "@/hooks/useNavigation";
 import { fetchChallenge } from "@/store/services/communities/challenges";
-import { NotFoundError } from "@/utilities/errors/NotFoundError";
+import { useRouter } from "next/router";
+import Loader from "@/components/ui/Loader";
 
-export default function SubmissionPage(props: { pageProps: { challenge: Challenge } }) {
+export default function SubmissionPage() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { challenge } = props.pageProps;
   const navigation = useNavigation();
+  const router = useRouter();
+  const { slug, locale, submission_id, challenge_id } = router.query;
+  const [loading, setLoading] = useState(true);
+  const [challenge, setChallenge] = useState<Challenge | null>(null);
+
+  const initPage = useCallback(async () => {
+    const fetchCurrentCommunityPayload = {
+      slug: slug as string,
+      locale: locale as string,
+    };
+    setLoading(true);
+    const [, , { data }] = await Promise.all([
+      dispatch(fetchCurrentCommunity(fetchCurrentCommunityPayload)),
+      dispatch(findSubmssionById({ id: submission_id as string })),
+      dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })) as unknown as any,
+    ]);
+    setChallenge(data);
+    dispatch(initChallengeNavigationMenu(navigation.community));
+    setLoading(false);
+  }, [challenge_id, slug, submission_id]);
 
   useEffect(() => {
-    dispatch(initChallengeNavigationMenu(navigation.community));
-  }, [dispatch, navigation.community]);
+    initPage();
+  }, [initPage]);
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
 
+  if (loading) return <Loader />;
   return (
     <Wrapper paths={headerPaths}>
       <div className="flex flex-col py-4 space-y-8">
-        <Header title={challenge.name} subtitle={t("communities.submission.title")} />
+        <Header title={challenge?.name} subtitle={t("communities.submission.title")} />
         <SubmissionView />
       </div>
     </Wrapper>
@@ -42,35 +63,10 @@ SubmissionPage.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ query, locale }) => {
-  const { dispatch } = store;
-  const { slug, submission_id, challenge_id } = query;
-  const fetchPayload = {
-    slug: slug as string,
-    locale: locale as string,
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(() => async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string)),
+    },
   };
-
-  try {
-    const [{ data: community }, { payload: submission }, { data: challenge }, translations] = await Promise.all([
-      dispatch(fetchCurrentCommunity(fetchPayload)),
-      dispatch(findSubmssionById({ id: submission_id as string })),
-      dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
-      serverSideTranslations(locale as string),
-    ]);
-
-    if (!community || !challenge || !submission) throw new NotFoundError();
-
-    return {
-      props: {
-        community,
-        submission,
-        challenge,
-        ...translations,
-      },
-    };
-  } catch (e) {
-    return {
-      notFound: true,
-    };
-  }
 });
