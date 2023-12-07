@@ -1,18 +1,20 @@
 import { Distribution, Reward } from "@/types/course";
-import { useTranslation } from "react-i18next";
+import { convertToK } from "@/utilities";
 
-export default function HackathonPrize({ reward }: { reward: Reward }) {
-  const { t } = useTranslation();
+export default function HackathonPrize({ reward, description }: { reward: Reward; description: string }) {
   const { first, second, third } = reward?.distribution || ({} as Distribution);
-  return (
+
+  return first && second && third ? (
     <>
       <div className="flex gap-1 text-gray-700 font-medium">
-        <span>{`$${reward?.amount}K Prize Pool`}</span>
-        <span>{t("communities.overview.challenge.rewards")}</span>
+        <span>{`${convertToK(reward?.amount)} Prize Pool`}</span>
+        <span>{description}</span>
       </div>
       <div className="text-gray-400 text-xs font-medium leading-3 mt-1 flex">
-        <span>{`1st Place $${first}K;  2nd Place $${second}K; 3rd Place $${third}K`}</span>
+        <span>{`1st Place ${convertToK(first)};  2nd Place ${convertToK(second)}; 3rd Place ${convertToK(third)}`}</span>
       </div>
     </>
+  ) : (
+    <></>
   );
 }
