@@ -5,18 +5,13 @@ import Loader from "@/components/ui/Loader";
 interface ButtonProps {
   text: string;
   onClick: () => void;
+  loading: boolean;
 }
 
-export default function Button({ text, onClick }: ButtonProps) {
+export default function Button({ text, onClick, loading }: ButtonProps) {
   const [isTextVisible, setistextVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const handleClick = async () => {
-    setLoading(true);
-    await onClick();
-    setLoading(false);
-  };
   return (
-    <div className="ml-auto cursor-pointer relative" onMouseEnter={() => setistextVisible(true)} onMouseLeave={() => setistextVisible(false)} onClick={handleClick}>
+    <div className="ml-auto cursor-pointer relative" onMouseEnter={() => setistextVisible(true)} onMouseLeave={() => setistextVisible(false)} onClick={onClick}>
       <>
         {loading ? (
           <Loader isSmallSpinner />

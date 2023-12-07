@@ -14,6 +14,7 @@ import { Challenge } from "@/types/course";
 import { Invite, Team } from "@/types/challenge";
 import ErrorBox from "../ui/ErrorBox";
 import { clearError } from "@/store/feature/index.slice";
+import { CustomError } from "@/types/error";
 
 /**
  * interface for CreateTeamCard  multiSelector
@@ -28,8 +29,7 @@ interface CreateTeamCardMultiSelector {
   team: Team;
   invite: Invite | null;
   isTeamLoading: boolean;
-  filteredUsers: User[] | null;
-  error: any;
+  error: CustomError;
 }
 
 /**
@@ -97,13 +97,15 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
 
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
   const [isCurrentUserOrganiser, setIsCurrentUserOrganiser] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [currentAction, setCurrentAction] = useState("");
   const dispatch = useDispatch();
 
-  const filterUsers = debounce(async (inputValue: string, callback: (options: Option[]) => void) => {
+  const searchUserByUsername = debounce(async (inputValue: string, callback: (options: Option[]) => void) => {
     try {
-      const filteredUsers: any = await dispatch(getUserByUsername(inputValue));
-      const users = filteredUsers?.data
-        ? filteredUsers.data.map((user: User) => {
+      const foundUsers: any = await dispatch(getUserByUsername(inputValue));
+      const users = foundUsers?.data
+        ? foundUsers.data.map((user: User) => {
             return { value: user.id, label: user.displayName, user };
           })
         : [];
@@ -161,21 +163,16 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
     refetchTeam();
   };
 
-  const removeTeamMemberFromTeam = async (id: string) => {
-    await dispatch(removeTeamMember({ member_id: id, team_id: team.id }));
+  const handleClick = async (text: string, userId?: string) => {
+    setLoading(true);
+    setCurrentAction(text);
+    if (!userId) await dispatch(leaveTeam(team.id));
+    else if (text === "remove") await dispatch(removeTeamMember({ member_id: userId, team_id: team.id }));
+    else if (text === "cancel") await dispatch(cancelTeamInvite({ invite_id: userId }));
     await refetchTeam();
+    setLoading(false);
+    setCurrentAction("");
   };
-
-  const cancelInvite = async (id: string) => {
-    await dispatch(cancelTeamInvite({ invite_id: id }));
-    await refetchTeam();
-  };
-
-  const leaveMyTeam = async () => {
-    dispatch(leaveTeam(team.id));
-    await refetchTeam();
-  };
-
   const refetchTeam = async () => {
     if (challenge) await dispatch(getTeamByChallenge(challenge.id));
   };
@@ -210,11 +207,13 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
                       <>
                         {isCurrentUserOrganiser ? (
                           <>
-                            {status === MemberStatus.teamMember && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
-                            {status === MemberStatus.invite && <Button onClick={() => cancelInvite(id)} text="Cancel" />}
+                            {status === MemberStatus.teamMember && (
+                              <Button onClick={() => handleClick("remove", id)} text="Remove" loading={loading && currentAction === "remove"} />
+                            )}
+                            {status === MemberStatus.invite && <Button onClick={() => handleClick("cancel", id)} text="Cancel" loading={loading && currentAction === "cancel"} />}
                           </>
                         ) : (
-                          <> {user?.id === member?.id && <Button onClick={leaveMyTeam} text="Leave" />}</>
+                          <> {user?.id === member?.id && <Button onClick={() => handleClick("leave")} text="Leave" loading={loading && currentAction === "leave"} />}</>
                         )}
                       </>
                     )}
@@ -238,7 +237,7 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
                     className="text-lg"
                     isClearable={true}
                     loadOptions={(inputValue: string, callback: (options: Option[]) => void) => {
-                      filterUsers(inputValue, callback);
+                      searchUserByUsername(inputValue, callback);
                     }}
                     onChange={(option) => {
                       if (!option) return;
