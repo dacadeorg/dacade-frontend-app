@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Avatar from "@/components/ui/Avatar";
 import AsyncSelect from "react-select/async";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { User } from "@/types/bounty";
-import { cancelTeamInvite, createTeam, getTeamByChallenge, removeTeamMember } from "@/store/services/teams.service";
+import { cancelTeamInvite, createTeam, getTeamByChallenge, leaveTeam, removeTeamMember } from "@/store/services/teams.service";
 import { getUserByUsername } from "@/store/services/user.service";
 import Button from "./challenge/_partials/Button";
 import debounce from "lodash.debounce";
@@ -12,27 +12,30 @@ import Loader from "../ui/Loader";
 import { IRootState } from "@/store";
 import { Challenge } from "@/types/course";
 import { Invite, Team } from "@/types/challenge";
+import ErrorBox from "../ui/ErrorBox";
+import { clearError } from "@/store/feature/index.slice";
+import { CustomError } from "@/types/error";
 
 /**
- * interface for submissionTeamCard  multiSelector
+ * interface for CreateTeamCard  multiSelector
  * @date 9/13/2023 - 8:57:31 AM
  *
- * @interface SubmissionTeamCardMultiSelector
- * @typedef {SubmissionTeamCardMultiSelector}
+ * @interface CreateTeamCardMultiSelector
+ * @typedef {CreateTeamCardMultiSelector}
  */
-interface SubmissionTeamCardMultiSelector {
+interface CreateTeamCardMultiSelector {
   challenge: Challenge | null;
   user: User | null;
   team: Team;
   invite: Invite | null;
   isTeamLoading: boolean;
-  filteredUsers: User[] | null;
+  error: CustomError;
 }
 
 /**
- * Props for the SubmissionTeam component.
+ * Props for the CreateTeam component.
  */
-interface SubmissionTeamCardProps {
+interface CreateTeamCardProps {
   index?: number | string;
   title?: string;
   text?: string;
@@ -77,36 +80,49 @@ enum MemberStatus {
 }
 
 /**
- * SubmissionTeam component.
+ * CreateTeam component.
  *
- * @param {SubmissionTeamProps} props - The props for the SubmissionTeam component.
- * @returns {JSX.Element} The SubmissionTeam component JSX element.
+ * @param {SubmissionTeamProps} props - The props for the CreateTeam component.
+ * @returns {JSX.Element} The CreateTeam component JSX element.
  */
 
-export default function SubmissionTeamCard({ index = 1, title = "", text = "" }: SubmissionTeamCardProps): JSX.Element {
-  const { challenge, user, team, isTeamLoading, filteredUsers } = useMultiSelector<unknown, SubmissionTeamCardMultiSelector>({
+export default function CreateTeamCard({ index = 1, title = "", text = "" }: CreateTeamCardProps): JSX.Element {
+  const { challenge, user, team, isTeamLoading, error } = useMultiSelector<unknown, CreateTeamCardMultiSelector>({
     challenge: (state: IRootState) => state.challenges.current,
     user: (state: IRootState) => state.user.data,
     team: (state: IRootState) => state.teams.current,
     isTeamLoading: (state: IRootState) => state.teams.loading,
-    filteredUsers: (state: IRootState) => state.user.filteredUsers,
+    error: (state: IRootState) => state.store.error,
   });
 
   const [membersList, setMembersList] = useState<TeamCandidate[]>([]);
-  const [isCurrentUserMember, setIsCurrentUserMember] = useState(false);
   const [isCurrentUserOrganiser, setIsCurrentUserOrganiser] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [currentAction, setCurrentAction] = useState("");
   const dispatch = useDispatch();
 
-  const filterUsers = async (username: string, callback: any) => {
-    await dispatch(getUserByUsername(username));
-    const users = filteredUsers?.map((user: User) => {
-      return { value: user.id, label: user.displayName, user };
-    });
-    return callback(users);
-  };
+  const searchUserByUsername = debounce(async (inputValue: string, callback: (options: Option[]) => void) => {
+    try {
+      const foundUsers: any = await dispatch(getUserByUsername(inputValue));
+      const users = foundUsers?.data
+        ? foundUsers.data.map((user: User) => {
+            return { value: user.id, label: user.displayName, user };
+          })
+        : [];
+      callback(users);
+    } catch (error) {
+      callback([]);
+    }
+  }, 1000);
 
-  const loadUserOptions = debounce(filterUsers, 1000);
+  const isTeamFull = useMemo(() => {
+    const members = membersList.filter((member) => member.status === MemberStatus.teamMember);
+    return challenge?.teamLimit ? members.length >= challenge?.teamLimit - 1 : members.length >= 2;
+  }, [challenge?.teamLimit, membersList]);
+
+  const canAddMembers = useMemo(() => {
+    return team ? isCurrentUserOrganiser && !team?.locked && !isTeamFull : true;
+  }, [isCurrentUserOrganiser, team, isTeamFull]);
 
   useEffect(() => {
     if (team) {
@@ -128,10 +144,11 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
 
   useEffect(() => {
     setIsCurrentUserOrganiser(user?.id === team?.organizer_id);
-    setIsCurrentUserMember(membersList.some((member) => member?.user?.id === user?.id));
   }, [user, team, membersList]);
 
   const selectTeamMember = async (option: Option) => {
+    if (error) dispatch(clearError());
+
     if (membersList.filter((member) => member.user?.id === option.user?.id).length !== 0) {
       return;
     }
@@ -146,25 +163,18 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
     refetchTeam();
   };
 
-  const removeTeamMemberFromTeam = async (id: string) => {
-    await dispatch(removeTeamMember({ member_id: id, team_id: team.id }));
-    refetchTeam();
-  };
-
-  const cancelInvite = async (id: string) => {
-    await dispatch(cancelTeamInvite({ invite_id: id }));
-    refetchTeam();
-  };
-
-  const leaveMyTeam = () => {
-    // TODO: Add correct implementation to leave the team
-    console.log("Team member is going to leave the team");
-  };
-
-  const refetchTeam = async () => {
+  const handleClick = async (text: string, userId?: string) => {
     setLoading(true);
-    if (challenge) await dispatch(getTeamByChallenge(challenge.id));
+    setCurrentAction(text);
+    if (!userId) await dispatch(leaveTeam(team.id));
+    else if (text === "remove") await dispatch(removeTeamMember({ member_id: userId, team_id: team.id }));
+    else if (text === "cancel") await dispatch(cancelTeamInvite({ invite_id: userId }));
+    await refetchTeam();
     setLoading(false);
+    setCurrentAction("");
+  };
+  const refetchTeam = async () => {
+    if (challenge) await dispatch(getTeamByChallenge(challenge.id));
   };
 
   return (
@@ -177,7 +187,7 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
           </div>
           <div className="text-sm font-normal text-gray-700 max-w-xxs pb-2">{text}</div>
 
-          {isTeamLoading || loading ? (
+          {isTeamLoading ? (
             <div className="h-24 sm:h-48 grid place-items-center">
               <Loader />
             </div>
@@ -193,45 +203,56 @@ export default function SubmissionTeamCard({ index = 1, title = "", text = "" }:
                       <div className=" text-sm text-gray-700 font-medium">{member?.displayName}</div>
                       <div className=" text-gray-400 text-xs">{status}</div>
                     </div>
-                    {!team.locked && (
+                    {!team?.locked && (
                       <>
                         {isCurrentUserOrganiser ? (
                           <>
-                            {status === MemberStatus.teamMember && <Button onClick={() => removeTeamMemberFromTeam(id)} text="Remove" />}
-                            {status === MemberStatus.invite && <Button onClick={() => cancelInvite(id)} text="Cancel" />}
+                            {status === MemberStatus.teamMember && (
+                              <Button onClick={() => handleClick("remove", id)} text="Remove" loading={loading && currentAction === "remove"} />
+                            )}
+                            {status === MemberStatus.invite && <Button onClick={() => handleClick("cancel", id)} text="Cancel" loading={loading && currentAction === "cancel"} />}
                           </>
                         ) : (
-                          <> {user?.id === member?.id && <Button onClick={leaveMyTeam} text="Leave" />}</>
+                          <> {user?.id === member?.id && <Button onClick={() => handleClick("leave")} text="Leave" loading={loading && currentAction === "leave"} />}</>
                         )}
                       </>
                     )}
                   </div>
                 );
               })}
-              {(team && isCurrentUserOrganiser && !team.locked) ||
-                (!isCurrentUserMember && (
-                  <div>
-                    <AsyncSelect
-                      cacheOptions
-                      styles={{
-                        input: (baseStyles) => ({
-                          ...baseStyles,
-                          input: {
-                            height: "36px",
-                          },
-                        }),
-                      }}
-                      placeholder="Enter dacade username"
-                      defaultOptions={[]}
-                      className="text-lg"
-                      isClearable={true}
-                      loadOptions={loadUserOptions}
-                      onChange={(option) => {
-                        if (!team.locked && option) selectTeamMember(option);
-                      }}
-                    />
-                  </div>
-                ))}
+              {canAddMembers ? (
+                <div>
+                  <AsyncSelect
+                    cacheOptions
+                    styles={{
+                      input: (baseStyles) => ({
+                        ...baseStyles,
+                        input: {
+                          height: "36px",
+                        },
+                      }),
+                    }}
+                    placeholder="Enter dacade username"
+                    defaultOptions={[]}
+                    className="text-lg"
+                    isClearable={true}
+                    loadOptions={(inputValue: string, callback: (options: Option[]) => void) => {
+                      searchUserByUsername(inputValue, callback);
+                    }}
+                    onChange={(option) => {
+                      if (!option) return;
+                      if (!team?.locked) selectTeamMember(option);
+                    }}
+                  />
+                  {error && <ErrorBox error={error} />}
+                </div>
+              ) : (
+                <>
+                  {isTeamFull && isCurrentUserOrganiser && (
+                    <span className="bg-red-50 help text-sm rounded-md border border-red-100 text-red-900 px-5 py-2">Can not add more members</span>
+                  )}
+                </>
+              )}
             </>
           )}
         </div>
