@@ -20,7 +20,7 @@ import { IRootState } from "@/store";
  * @interface InteractiveModuleMultiSelector
  * @typedef {InteractiveModuleMultiSelector}
  */
-interface InteractiveModuleMultiSelector {
+export interface InteractiveModuleMultiSelector {
   isLoggedIn: boolean;
   course: Course | null;
 }
