@@ -118,7 +118,7 @@
   "communities.overview.challenge.learning.title": "The following learning materials will equip you with the technical expertise required to successfully address the challenge.",
   "communities.overview.challenge.learning.start": "start now",
   "communities.overview.challenge.team.setup.title": "Form your team",
-  "communities.overview.challenge.team.setup.description": "Open discord channel #teams and find your teammates to complete the challenge with you.",
+  "communities.overview.challenge.team.setup.description": "Select from 1 to 3 members to join you in the challenge.",
   "communities.overview.challenge.team.setup.info": "To complete the team challenge, you need to follow these steps:",
   "communities.overview.challenge.team.setup.submit-title": "Submit your team",
   "communities.overview.challenge.submission.description": "Paste the code of your team below and it will automatically link to all the profiles",
