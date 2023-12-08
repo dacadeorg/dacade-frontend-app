@@ -32,6 +32,7 @@ import { getTeamByChallenge, getUserInvitesByChallenge } from "@/store/services/
 import { fetchChallenge, fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
 import Loader from "@/components/ui/Loader";
 import { useRouter } from "next/router";
+import Section from "@/components/ui/Section";
 
 /**
  * interface for ChallengePage multiSelector
@@ -101,7 +102,12 @@ export default function ChallengePage(): ReactElement {
   }, [challenge, dispatch, isAuthenticated]);
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
-  if (loading || !challenge || !community) return <Loader />;
+  if (loading || !challenge || !community)
+    return (
+      <Section className="h-[50vh] flex items-center justify-center">
+        <Loader />
+      </Section>
+    );
   return (
     <>
       <Head>

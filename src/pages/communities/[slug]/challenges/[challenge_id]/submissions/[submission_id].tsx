@@ -17,6 +17,7 @@ import useNavigation from "@/hooks/useNavigation";
 import { fetchChallenge } from "@/store/services/communities/challenges";
 import { useRouter } from "next/router";
 import Loader from "@/components/ui/Loader";
+import Section from "@/components/ui/Section";
 
 export default function SubmissionPage() {
   const dispatch = useDispatch();
@@ -49,7 +50,12 @@ export default function SubmissionPage() {
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
 
-  if (loading) return <Loader />;
+  if (loading)
+    return (
+      <Section className="h-[50vh] flex items-center justify-center">
+        <Loader />
+      </Section>
+    );
   return (
     <Wrapper paths={headerPaths}>
       <div className="flex flex-col py-4 space-y-8">
