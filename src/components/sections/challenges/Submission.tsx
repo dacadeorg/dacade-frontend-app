@@ -76,10 +76,8 @@ export default function Submission(): ReactElement {
 
   const canSubmit = useMemo(() => {
     if (!challenge?.isTeamChallenge) return true;
-
-    const limit = challenge?.teamLimit || 3;
-    return team?.members?.length === limit - 1;
-  }, [challenge?.isTeamChallenge, challenge?.teamLimit, team?.members?.length]);
+    return Boolean(!!team?.organizer);
+  }, [challenge?.isTeamChallenge, team?.organizer]);
 
   /**
    * Button style when it active
