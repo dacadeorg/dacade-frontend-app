@@ -1,6 +1,5 @@
 import Section from "@/components/sections/communities/_partials/Section";
 import Header from "@/components/sections/communities/_partials/Header";
-import ObjectiveList from "@/components/list/Objectives";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
@@ -19,9 +18,7 @@ export default function ChallengeHeader(): ReactElement {
   return (
     <div>
       <Header isTeamChallenge={challenge?.isTeamChallenge} title={challenge?.name} subtitle={t("communities.challenge.title")} isHackathon={challenge?.isHackathon} />
-      <Section subtitle={challenge?.description}>
-        {challenge?.learningModules?.length ? <ObjectiveList objectives={challenge?.learningModules?.map((module) => module.title) || []} /> : <></>}
-      </Section>
+      <Section subtitle={challenge?.description} />
     </div>
   );
 }
