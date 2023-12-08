@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.1.0...v1.2.0) (2023-12-08)
+
+
+### Features
+
+* display the submission form when the team has minimum one member ([7e66aca](https://github.com/dacadeorg/dacade-frontend-app/commit/7e66aca9aeaac39bca68b11b2e7810d5149f6a67))
+
 ## [1.1.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.0.0...v1.1.0) (2023-12-08)
 
 
