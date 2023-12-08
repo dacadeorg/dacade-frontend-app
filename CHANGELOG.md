@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.2.0...v1.2.1) (2023-12-08)
+
+
+### Bug Fixes
+
+* remove learning modules list in the challenge header ([bbefe48](https://github.com/dacadeorg/dacade-frontend-app/commit/bbefe48f19b5c71dace8aa2a337aa63432b70cd1))
+
 ## [1.2.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.1.0...v1.2.0) (2023-12-08)
 
 
