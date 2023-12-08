@@ -48,7 +48,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
       store.dispatch(fetchAllChallenges({ slug })),
       serverSideTranslations(locale as string),
     ]);
-    if (!community || !challenges) throw new NotFoundError();;
+    if (!community || !challenges) throw new NotFoundError();
     return {
       props: {
         community,
