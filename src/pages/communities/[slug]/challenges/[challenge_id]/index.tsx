@@ -133,12 +133,14 @@ export default function ChallengePage(props: {
               )}
             </div>
           ) : (
-            <Hint className="mt-6 flex flex-col md:flex-row">
-              <p>To be able to submit</p>&nbsp;
-              <Link className="underline" href="/login">
-                Login
-              </Link>
-            </Hint>
+            <div>
+              <Hint className="mt-6 flex flex-col md:flex-row">
+                <p>To be able to submit</p>&nbsp;
+                <Link className="underline" href="/login">
+                  Login.
+                </Link>
+              </Hint>
+            </div>
           )}
         </div>
       </Wrapper>
