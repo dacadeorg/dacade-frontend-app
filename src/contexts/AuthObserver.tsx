@@ -15,6 +15,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { AUTH_TOKEN } from "@/constants/localStorage";
 
 const UserAuthContext = createContext(null);
+
 export default function AuthObserver({ children }: { children: ReactNode }) {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -28,7 +29,17 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
 
   const isUserRoute = useMemo(
     () => (path: string) => {
-      return matchesRoutes(path, ["/bounties", "/profile", "/profile/wallets", "/profile/referrals", "/profile/settings", "/profile/notifications"]);
+      const bountySlug = path.startsWith("/bounties/") && router.query.slug;
+
+      return matchesRoutes(path, [
+        "/bounties",
+        bountySlug ? `/bounties/${bountySlug}` : "",
+        "/profile",
+        "/profile/wallets",
+        "/profile/referrals",
+        "/profile/settings",
+        "/profile/notifications",
+      ]);
     },
     []
   );
