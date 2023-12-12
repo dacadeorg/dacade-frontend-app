@@ -33,7 +33,7 @@ export default function Overview({ challenge, community }: Props) {
   const expirationDate = challenge?.expiresAt && DateManager.format(challenge.expiresAt, "MMMM d, yyyy", "en");
 
   useEffect(() => {
-    setCertificate(`${community.slug === "celo" && "NFT"} ${t("communities.overview.challenge.certificate")}`);
+    setCertificate(`${community.slug === "celo" ? "NFT" : ""} ${t("communities.overview.challenge.certificate")}`);
   }, [community, t]);
 
   return (
