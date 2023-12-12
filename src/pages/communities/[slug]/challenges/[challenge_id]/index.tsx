@@ -28,10 +28,12 @@ import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChalle
 import useNavigation from "@/hooks/useNavigation";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import Objectives from "@/components/sections/challenges/Objectives";
-import { getTeamByChallenge } from "@/store/services/teams.service";
+import { getTeamByChallenge, getUserInvitesByChallenge } from "@/store/services/teams.service";
 import { fetchChallenge, fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
 import Loader from "@/components/ui/Loader";
 import { NotFoundError } from "@/utilities/errors/NotFoundError";
+import Hint from "@/components/ui/Hint";
+import Link from "next/link";
 
 /**
  * interface for ChallengePage multiSelector
@@ -75,7 +77,6 @@ export default function ChallengePage(props: {
     isAuthenticated: (state: IRootState) => authCheck(state),
     isSubmissionLoading: (state: IRootState) => state.challenges.loading,
   });
-
   const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), challenge?.name || ""), [challenge?.name, t]);
 
   const navigation = useNavigation();
@@ -88,6 +89,7 @@ export default function ChallengePage(props: {
     if (challenge && isAuthenticated) {
       dispatch(getTeamByChallenge(challenge.id));
       dispatch(fetchChallengeAuthenticated({ id: challenge.id }));
+      dispatch(getUserInvitesByChallenge(challenge.id));
     }
   }, [challenge, dispatch, isAuthenticated]);
 
@@ -108,7 +110,7 @@ export default function ChallengePage(props: {
           <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
           <BestSubmissions />
 
-          {isAuthenticated && (
+          {isAuthenticated ? (
             <div>
               {isSubmissionLoading ? (
                 <div className="h-24 sm:h-48 grid place-items-center">
@@ -129,6 +131,15 @@ export default function ChallengePage(props: {
                   )}
                 </>
               )}
+            </div>
+          ) : (
+            <div>
+              <Hint className="mt-6 flex flex-col md:flex-row">
+                <p>To be able to submit</p>&nbsp;
+                <Link className="underline" href="/login">
+                  Login.
+                </Link>
+              </Hint>
             </div>
           )}
         </div>

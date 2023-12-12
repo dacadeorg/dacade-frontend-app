@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useState, useMemo } from "react";
 import Section from "@/components/sections/communities/_partials/Section";
 import Avatar from "@/components/ui/Avatar";
 import TextInput from "@/components/ui/TextInput";
@@ -74,6 +74,11 @@ export default function Submission(): ReactElement {
   const [submitting, setSubmitting] = useState(false);
   const [checkedTerms, setCheckedTerms] = useState(false);
 
+  const canSubmit = useMemo(() => {
+    if (!challenge?.isTeamChallenge) return true;
+    return Boolean(!!team?.organizer);
+  }, [challenge?.isTeamChallenge, team?.organizer]);
+
   /**
    * Button style when it active
    * @date 4/18/2023 - 8:21:41 PM
@@ -126,7 +131,7 @@ export default function Submission(): ReactElement {
   return (
     <Section title={t("communities.challenge.submission")}>
       {challenge?.isTeamChallenge && <p className="text-base font-normal text-slate-700 pt-2 pb-7 md:w-99">{t("communities.overview.challenge.submission.description")}</p>}
-      {(team?.members && team.members.length !== 2 && challenge?.isTeamChallenge) || (!team && challenge?.isTeamChallenge) ? (
+      {!canSubmit ? (
         <Hint className="mb-8">{t("communities.challenge.submission.hint")}</Hint>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>

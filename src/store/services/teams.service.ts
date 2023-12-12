@@ -3,6 +3,7 @@ import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { setIsTeamDataLoading, setTeamData } from "../feature/teams.slice";
 import { setInvitesData } from "../feature/communities/challenges/invites.slice";
 import { Invite } from "@/types/challenge";
+import { setError } from "../feature/index.slice";
 
 /**
  * Interface for the parameters that the createTeam function will receive
@@ -44,10 +45,11 @@ const teamsService = createApi({
         url: `/teams/challenge/${challengeId}`,
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        setIsTeamDataLoading(true);
+        dispatch(setIsTeamDataLoading(true));
         const { data } = await queryFulfilled;
         if (data) dispatch(setTeamData(data));
-        setIsTeamDataLoading(false);
+        else dispatch(setTeamData(null));
+        dispatch(setIsTeamDataLoading(false));
         return data;
       },
     }),
@@ -62,8 +64,8 @@ const teamsService = createApi({
           dispatch(setInvitesData(data));
           return data;
         } catch (err) {
-          // TODO: handle the "Current user has no invites" once it's being sent from the backend
-          console.log("Current user has no invites!");
+          dispatch(setInvitesData(null));
+          console.error("Current user has no invites!");
         }
       },
     }),
@@ -85,11 +87,13 @@ const teamsService = createApi({
         method: "POST",
         body: payload,
       }),
-      onQueryStarted: async (payload, { queryFulfilled }) => {
+      onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
         try {
           await queryFulfilled;
+          dispatch(setError(null));
         } catch (err: any) {
-          console.error("Error", err);
+          if (err.error.data) dispatch(setError(err.error.data));
+          return;
         }
 
         return;
@@ -107,6 +111,21 @@ const teamsService = createApi({
           await queryFulfilled;
         } catch (err: any) {
           console.error("Error", err);
+        }
+        return;
+      },
+    }),
+
+    leaveTeam: builder.mutation<any, any>({
+      query: (id: string) => ({
+        url: `/teams/leave/${id}`,
+        method: "POST",
+      }),
+      onQueryStarted: async (_, { queryFulfilled }) => {
+        try {
+          await queryFulfilled;
+        } catch (err: any) {
+          console.log("Unable to leave team", err);
         }
         return;
       },
@@ -143,3 +162,5 @@ export const createTeam = (payload: CreateTeamPayload) => teamsService.endpoints
 export const removeTeamMember = (payload: RemoveMemberPayload) => teamsService.endpoints.removeTeamMember.initiate(payload);
 
 export const cancelTeamInvite = (payload: { invite_id: string }) => teamsService.endpoints.cancelTeamInvite.initiate(payload);
+
+export const leaveTeam = (id: string) => teamsService.endpoints.leaveTeam.initiate(id);

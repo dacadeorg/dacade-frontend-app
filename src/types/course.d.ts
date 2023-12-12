@@ -75,7 +75,8 @@ export type Challenge = {
   feedbacks: Feedback;
   feedbackInfo?: Feedback[];
   bestSubmissions: Submission[];
-  isHackathon: boolean;
+  teamLimit?: number;
+  isHackathon?: boolean;
 };
 
 export type RatingCriteria = {
@@ -195,7 +196,7 @@ enum MaterialType {
   MARKDOWN = "MARKDOWN",
   TEXT = "TEXT",
   ARTICLE = "ARTICLE",
-  "EMBEDDED-VIDEO" = "EMBEDDED-VIDEO"
+  "EMBEDDED-VIDEO" = "EMBEDDED-VIDEO",
 }
 
 export type Material = {
