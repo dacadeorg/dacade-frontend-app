@@ -11,22 +11,21 @@ import { GetServerSideProps } from "next";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { wrapper } from "@/store";
-import { Challenge } from "@/types/course";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import useNavigation from "@/hooks/useNavigation";
-import { fetchChallenge } from "@/store/services/communities/challenges";
 import { useRouter } from "next/router";
 import Loader from "@/components/ui/Loader";
 import Section from "@/components/ui/Section";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 export default function SubmissionPage() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const navigation = useNavigation();
   const router = useRouter();
-  const { slug, locale, submission_id, challenge_id } = router.query;
+  const { slug, locale, submission_id } = router.query;
   const [loading, setLoading] = useState(true);
-  const [challenge, setChallenge] = useState<Challenge | null>(null);
+  const { current } = useSelector((state) => state.submissions);
 
   const initPage = useCallback(async () => {
     const fetchCurrentCommunityPayload = {
@@ -34,15 +33,10 @@ export default function SubmissionPage() {
       locale: locale as string,
     };
     setLoading(true);
-    const [, , { data }] = await Promise.all([
-      dispatch(fetchCurrentCommunity(fetchCurrentCommunityPayload)),
-      dispatch(findSubmssionById({ id: submission_id as string })),
-      dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })) as unknown as any,
-    ]);
-    setChallenge(data);
+    await Promise.all([dispatch(fetchCurrentCommunity(fetchCurrentCommunityPayload)), dispatch(findSubmssionById({ id: submission_id as string }))]);
     dispatch(initChallengeNavigationMenu(navigation.community));
     setLoading(false);
-  }, [challenge_id, slug, submission_id]);
+  }, [slug, submission_id]);
 
   useEffect(() => {
     initPage();
@@ -59,7 +53,7 @@ export default function SubmissionPage() {
   return (
     <Wrapper paths={headerPaths}>
       <div className="flex flex-col py-4 space-y-8">
-        <Header title={challenge?.name} subtitle={t("communities.submission.title")} />
+        <Header title={current?.challenge?.name} subtitle={t("communities.submission.title")} />
         <SubmissionView />
       </div>
     </Wrapper>
