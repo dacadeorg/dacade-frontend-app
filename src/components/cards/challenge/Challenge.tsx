@@ -29,7 +29,6 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
   const reward = isCourseEnd ? data?.rewards?.find((reward) => reward.type === "SUBMISSION") : data?.reward;
   const totalReward = data?.rewards?.reduce((acc, reward) => (acc += Number(reward.amount)), 0);
-
   return (
     <div className="border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">
       <div className="border-solid border-b border-gray-300 bg-white rounded-3xl sm:p-8 sm:pb-6 w-full p-6">
@@ -57,10 +56,13 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
                 <Coin size="medium" token={reward?.token} />
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
-                    <span className="block font-medium pr-1">{totalReward}</span>
-                    <span className="block font-medium">{reward?.token} Rewards</span>
+                    <span className="block font-medium pr-1">
+                      {data?.isHackathon && "$"}
+                      {totalReward}
+                    </span>
+                    <span className="block font-medium">{data?.isHackathon ? `Prize Pool Rewards` : `${reward?.token} Rewards`}</span>
                   </div>
-                  <div className="text-gray-400 text-xs font-normal">For submission and feedback</div>
+                  <div className="text-gray-400 text-xs font-normal">{data?.isHackathon ? "Top projects win money prizes" : "For submission and feedback"}</div>
                 </div>
               </div>
             </div>

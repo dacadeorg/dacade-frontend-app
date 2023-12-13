@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useState, useMemo } from "react";
 import Section from "@/components/sections/communities/_partials/Section";
 import Avatar from "@/components/ui/Avatar";
 import TextInput from "@/components/ui/TextInput";
@@ -12,7 +12,6 @@ import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
-import { createAnalyticEvent } from "@/store/feature/events.slice";
 import { Submission as TSubmission, User } from "@/types/bounty";
 import Hint from "@/components/ui/Hint";
 import { fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
@@ -65,17 +64,20 @@ export default function Submission(): ReactElement {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const { colors, challenge, community, team, authUser, currentSubmission } = useMultiSelector<unknown, SubmissionMultiSelector>({
+  const { colors, challenge, team, authUser } = useMultiSelector<unknown, SubmissionMultiSelector>({
     colors: (state: IRootState) => state.ui.colors,
     challenge: (state: IRootState) => state.challenges.current,
-    community: (state: IRootState) => state.communities.current,
     team: (state: IRootState) => state.teams.current,
     authUser: (state: IRootState) => state.user.data,
-    currentSubmission: (state: IRootState) => state.submissions.submission,
   });
 
   const [submitting, setSubmitting] = useState(false);
   const [checkedTerms, setCheckedTerms] = useState(false);
+
+  const canSubmit = useMemo(() => {
+    if (!challenge?.isTeamChallenge) return true;
+    return Boolean(!!team?.organizer);
+  }, [challenge?.isTeamChallenge, team?.organizer]);
 
   /**
    * Button style when it active
@@ -116,17 +118,6 @@ export default function Submission(): ReactElement {
             })
       );
 
-      const submission = currentSubmission;
-
-      dispatch(
-        createAnalyticEvent({
-          name: "submission-created",
-          attributes: {
-            submissionId: submission.id,
-            community: community?.slug,
-          },
-        })
-      );
       textValue = "";
       githubLinkValue = "";
       dispatch(fetchChallengeAuthenticated({ id: challenge?.id as string }));
@@ -140,7 +131,7 @@ export default function Submission(): ReactElement {
   return (
     <Section title={t("communities.challenge.submission")}>
       {challenge?.isTeamChallenge && <p className="text-base font-normal text-slate-700 pt-2 pb-7 md:w-99">{t("communities.overview.challenge.submission.description")}</p>}
-      {(team?.members && team.members.length !== 2 && challenge?.isTeamChallenge) || (!team && challenge?.isTeamChallenge) ? (
+      {!canSubmit ? (
         <Hint className="mb-8">{t("communities.challenge.submission.hint")}</Hint>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -158,10 +149,6 @@ export default function Submission(): ReactElement {
                   error={errors.text?.message as string}
                   {...register("text", {
                     required: "This field is required",
-                    maxLength: {
-                      value: 1000,
-                      message: "The text is too long",
-                    },
                     minLength: {
                       value: 15,
                       message: "This field must be at least 15 characters.",

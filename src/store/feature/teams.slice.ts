@@ -2,24 +2,12 @@ import { Team } from "@/types/challenge";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface DefaultState {
-  current: Team;
+  current: Team | null;
   loading: boolean;
 }
 
 const defaultState: DefaultState = {
-  current: {
-    challenge_ref: "",
-    created_at: "",
-    id: "",
-    locked: false,
-    name: "",
-    organizer_id: "",
-    ref: "",
-    timestamp: "",
-    updated_at: "",
-    members: [],
-    invites: [],
-  },
+  current: null,
   loading: false,
 };
 const teamsSlice = createSlice({
@@ -27,9 +15,7 @@ const teamsSlice = createSlice({
   initialState: defaultState,
   reducers: {
     setTeamData: (state, action) => {
-      const { locked, members } = action.payload;
-      const teamData = { ...action.payload, locked: members.length >= 2 || locked };
-      state.current = teamData;
+      state.current = action.payload;
     },
     setIsTeamDataLoading: (state, action) => {
       state.loading = action.payload;

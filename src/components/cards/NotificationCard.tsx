@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Avatar from "@/components/ui/Avatar";
 import DateManager from "@/utilities/DateManager";
 import { Notification } from "@/types/notification";
-import InvitationButton from "./challenge/_partials/InvitationButton";
+import ReplyToInvitation from "./challenge/_partials/ReplyToInvitation";
 
 /**
  * User interface
@@ -116,12 +116,7 @@ export default function NotificationCard({ user = {}, notification, extended = f
           </span>
         </div>
       </div>
-      {notification?.type === "TEAM_INVITE" && !notification.read && (
-        <div className="px-5 flex gap-3">
-          <InvitationButton text="accept" inviteId={notification.metadata?.invite_id as string} teamRef={notification.metadata?.team} />
-          <InvitationButton text="decline" inviteId={notification.metadata?.invite_id as string} teamRef={notification.metadata?.team} />
-        </div>
-      )}
+      {notification?.type === "TEAM_INVITE" && <ReplyToInvitation team_ref={notification.metadata?.team} invite_id={notification.metadata?.invite_id as string} />}
     </>
   );
 }
