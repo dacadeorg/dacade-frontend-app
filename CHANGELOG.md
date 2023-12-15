@@ -1,5 +1,39 @@
 # Changelog
 
+## [1.2.1](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.2.0...v1.2.1) (2023-12-08)
+
+
+### Bug Fixes
+
+* remove learning modules list in the challenge header ([bbefe48](https://github.com/dacadeorg/dacade-frontend-app/commit/bbefe48f19b5c71dace8aa2a337aa63432b70cd1))
+
+## [1.2.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.1.0...v1.2.0) (2023-12-08)
+
+
+### Features
+
+* display the submission form when the team has minimum one member ([7e66aca](https://github.com/dacadeorg/dacade-frontend-app/commit/7e66aca9aeaac39bca68b11b2e7810d5149f6a67))
+
+## [1.1.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.0.0...v1.1.0) (2023-12-08)
+
+
+### Features
+
+* adapt to the new isHachathin property from the backend ([318ce30](https://github.com/dacadeorg/dacade-frontend-app/commit/318ce3063af3ed50e3f7b0ba3559f27ddfc86add))
+* add isHackathon property on the challenge object after fetching ([6686ada](https://github.com/dacadeorg/dacade-frontend-app/commit/6686ada8d3cb2dac6ef7b9eacedfff313cc2b9dc))
+* add tag of hackathon on hackaton challenge ([eaf735d](https://github.com/dacadeorg/dacade-frontend-app/commit/eaf735de918c5a478bd2bd28525f0839e62bca5c))
+* add the hachathon tag on the challenge card on the community slug ([3eed0f2](https://github.com/dacadeorg/dacade-frontend-app/commit/3eed0f203d3a801cd6b91f3ea4ed43a8e98aa6ec))
+* stop propagation for when the user is accepting invites from the notification area ([e6f8694](https://github.com/dacadeorg/dacade-frontend-app/commit/e6f8694f9b107163ca881ae5e5a442d5d59a8eb0))
+
+
+### Bug Fixes
+
+* add the challengeType where the header is called ([8e3f6a9](https://github.com/dacadeorg/dacade-frontend-app/commit/8e3f6a9b14674c4e0903d7a1e61f9bd1c55aba07))
+* change the way things was implement on the hackathon ([1264a5a](https://github.com/dacadeorg/dacade-frontend-app/commit/1264a5a836ae95e2501f16a36efae476f6851a65))
+* checking if the type is not null ([2318959](https://github.com/dacadeorg/dacade-frontend-app/commit/2318959d623b7badb32c4339544b8efd60047e10))
+* rename the prop to isHackathon ([61b98bc](https://github.com/dacadeorg/dacade-frontend-app/commit/61b98bc7deeee2a795985b6c9d32971e20a7cbef))
+* use isHackathon property from the challenge object ([62faebb](https://github.com/dacadeorg/dacade-frontend-app/commit/62faebb7412e617f6ccb1bf4b5bdc2aa6cbec7a7))
+
 ## 1.0.0 (2023-12-01)
 
 

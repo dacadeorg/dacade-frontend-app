@@ -33,6 +33,8 @@ import { fetchChallenge, fetchChallengeAuthenticated } from "@/store/services/co
 import Loader from "@/components/ui/Loader";
 import { useRouter } from "next/router";
 import Section from "@/components/ui/Section";
+import Hint from "@/components/ui/Hint";
+import Link from "next/link";
 
 /**
  * interface for ChallengePage multiSelector
@@ -65,7 +67,6 @@ export default function ChallengePage() {
     isAuthenticated: (state: IRootState) => authCheck(state),
     isSubmissionLoading: (state: IRootState) => state.challenges.loading,
   });
-
   const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), challenge?.name || ""), [challenge?.name, t]);
 
   const navigation = useNavigation();
@@ -127,7 +128,7 @@ export default function ChallengePage() {
             <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
             <BestSubmissions />
 
-            {isAuthenticated && (
+            {isAuthenticated ? (
               <div>
                 {isSubmissionLoading ? (
                   <div className="h-24 sm:h-48 grid place-items-center">
@@ -148,6 +149,15 @@ export default function ChallengePage() {
                     )}
                   </>
                 )}
+              </div>
+            ) : (
+              <div>
+                <Hint className="mt-6 flex flex-col md:flex-row">
+                  <p>To be able to submit</p>&nbsp;
+                  <Link className="underline" href="/login">
+                    Login.
+                  </Link>
+                </Hint>
               </div>
             )}
           </div>
