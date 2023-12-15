@@ -29,17 +29,9 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
 
   const isUserRoute = useMemo(
     () => (path: string) => {
-      const bountySlug = path.startsWith("/bounties/") && router.query.slug;
-
-      return matchesRoutes(path, [
-        "/bounties",
-        bountySlug ? `/bounties/${bountySlug}` : "",
-        "/profile",
-        "/profile/wallets",
-        "/profile/referrals",
-        "/profile/settings",
-        "/profile/notifications",
-      ]);
+      const bountySlug = path.startsWith("/bounties/");
+      if (bountySlug) return true;
+      return matchesRoutes(path, ["/bounties", "/profile", "/profile/wallets", "/profile/referrals", "/profile/settings", "/profile/notifications"]);
     },
     []
   );

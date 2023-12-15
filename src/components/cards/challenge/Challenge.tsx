@@ -25,7 +25,7 @@ interface ChallengeCardProps {
 }
 export default function ChallengeCard({ data, community, isCourseEnd }: ChallengeCardProps) {
   const { t } = useTranslation();
-  const [certificate, setCertificate] = useState("");
+  const [prize, setPrize] = useState("");
 
   const link = `/communities/${community.slug}/challenges/${data.id}`;
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
@@ -33,7 +33,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
   const totalReward = data?.rewards?.reduce((acc, reward) => (acc += Number(reward.amount)), 0);
 
   useEffect(() => {
-    setCertificate(`${community?.slug === "celo" ? "NFT" : ""} ${t("communities.overview.challenge.certificate")}`);
+    setPrize(`${community?.slug === "celo" ? "NFT" : ""} ${t("communities.overview.challenge.certificate")}`);
   }, [community, t]);
   return (
     <div className="border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">
@@ -51,7 +51,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
                 <Certificate size="medium" name={community.slug} />
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
-                    <span className="block font-medium pr-1">{certificate}</span>
+                    <span className="block font-medium pr-1">{prize}</span>
                   </div>
                   <div className="text-gray-400 text-xs font-normal">Upon successful completion</div>
                 </div>
