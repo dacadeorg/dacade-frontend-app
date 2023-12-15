@@ -54,7 +54,7 @@ interface ChallengePageMultiSelector {
  * @export
  * @returns {ReactElement}
  */
-export default function ChallengePage(): ReactElement {
+export default function ChallengePage() {
   const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [community, setCommunity] = useState<Community | null>(null);
   const [loading, setLoading] = useState(true);
@@ -102,55 +102,58 @@ export default function ChallengePage(): ReactElement {
   }, [challenge, dispatch, isAuthenticated]);
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
-  if (loading || !challenge || !community)
+
+  if (loading)
     return (
       <Section className="h-[50vh] flex items-center justify-center">
         <Loader />
       </Section>
     );
-  return (
-    <>
-      <Head>
-        <title>{title}</title>
-        <MetaData description={challenge?.description} />
-      </Head>
-      <Wrapper paths={headerPaths}>
-        <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
-          <Header />
-          <Rewards />
-          <Objectives />
-          {challenge.isTeamChallenge && <TeamChallenge />}
-          <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
-          <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
-          <BestSubmissions />
 
-          {isAuthenticated && (
-            <div>
-              {isSubmissionLoading ? (
-                <div className="h-24 sm:h-48 grid place-items-center">
-                  <Loader />
-                </div>
-              ) : (
-                <>
-                  {submission ? (
-                    <div className="mt-8">
-                      <h4 className="my-8 text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
-                      <SubmissionCard submission={submission} />
-                    </div>
-                  ) : (
-                    <>
-                      {challenge.isTeamChallenge && <SetupTeamChallenge />}
-                      <SubmissionForm />
-                    </>
-                  )}
-                </>
-              )}
-            </div>
-          )}
-        </div>
-      </Wrapper>
-    </>
-  );
+  if (challenge && community)
+    return (
+      <>
+        <Head>
+          <title>{title}</title>
+          <MetaData description={challenge?.description} />
+        </Head>
+        <Wrapper paths={headerPaths}>
+          <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
+            <Header />
+            <Rewards />
+            <Objectives />
+            {challenge.isTeamChallenge && <TeamChallenge />}
+            <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
+            <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
+            <BestSubmissions />
+
+            {isAuthenticated && (
+              <div>
+                {isSubmissionLoading ? (
+                  <div className="h-24 sm:h-48 grid place-items-center">
+                    <Loader />
+                  </div>
+                ) : (
+                  <>
+                    {submission ? (
+                      <div className="mt-8">
+                        <h4 className="my-8 text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
+                        <SubmissionCard submission={submission} />
+                      </div>
+                    ) : (
+                      <>
+                        {challenge.isTeamChallenge && <SetupTeamChallenge />}
+                        <SubmissionForm />
+                      </>
+                    )}
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        </Wrapper>
+      </>
+    );
 }
 
 ChallengePage.getLayout = function (page: ReactElement) {
