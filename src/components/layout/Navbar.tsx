@@ -15,6 +15,7 @@ import { Colors } from "@/types/community";
 import classNames from "classnames";
 import Loader from "../ui/Loader";
 import { IRootState } from "@/store";
+import { User } from "@/types/bounty";
 
 interface NavbarProps {
   settings?: {
@@ -38,13 +39,14 @@ interface NavbarProps {
 export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarProps): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
-  const { isAuthenticated, isAuthenticatedAndVerified, isAuthLoading } = useMultiSelector<
+  const { isAuthenticated, isAuthenticatedAndVerified, isAuthLoading, authData } = useMultiSelector<
     unknown,
-    { isAuthenticated: boolean; isAuthenticatedAndVerified: boolean; isAuthLoading: boolean }
+    { isAuthenticated: boolean; isAuthenticatedAndVerified: boolean; isAuthLoading: boolean; authData: User }
   >({
     isAuthenticatedAndVerified: (state: IRootState) => authVerify(state),
     isAuthenticated: (state: IRootState) => authCheck(state),
     isAuthLoading: (state: IRootState) => state.auth.isAuthLoading,
+    authData: (state: IRootState) => state.auth.data,
   });
 
   const colors = useMemo(() => {
@@ -94,7 +96,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
           </ul>
         )}
 
-        {isAuthLoading ? (
+        {isAuthLoading && !authData ? (
           <ul className="ml-auto relative">
             <Loader isSmallSpinner />
           </ul>
