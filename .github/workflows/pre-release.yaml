@@ -1,8 +1,7 @@
 on:
   push:
     branches:
-      - stage
-      - main
+      - dev
 
 permissions:
   contents: write
@@ -17,7 +16,6 @@ jobs:
       - uses: google-github-actions/release-please-action@v4
         with:
           release-type: node
-          target-branch: main
-          prerelease: true
+          target-branch: stage
           package-name: package.json
           labels: "stable"
