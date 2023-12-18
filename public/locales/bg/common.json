@@ -118,6 +118,7 @@
   "communities.overview.challenge.submission.description": "Поставете кода на вашия екип по-долу и той автоматично ще създаде връзки към всички профили.",
   "communities.challenge.submission.hint": "Подаването ще бъде активирано, когато всички членове на екипа приемат поканата и екипът бъде напълно сформиран.",
   "communities.overview.challenge.deadline": "Краен срок",
+  "communities.overview.challenge.submissions-closed": "Предложенията за това предизвикателство вече са затворени.",
   "communities.reward": "Награди",
   "communities.overview.subtitle": "Какво може да получите в тази общност:",
   "communities.submissions": "Submissions",

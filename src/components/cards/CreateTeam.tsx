@@ -120,6 +120,8 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
     return challenge?.teamLimit ? members.length >= challenge?.teamLimit - 1 : members.length >= 2;
   }, [challenge?.teamLimit, membersList]);
 
+  const submissionsClosed = challenge?.expiresAt ? Date.parse(challenge?.expiresAt) < Date.now() : false;
+
   const canAddMembers = useMemo(() => {
     return team ? isCurrentUserOrganiser && !team?.locked && !isTeamFull : true;
   }, [isCurrentUserOrganiser, team, isTeamFull]);
@@ -236,6 +238,7 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
                     defaultOptions={[]}
                     className="text-lg"
                     isClearable={true}
+                    isDisabled={submissionsClosed}
                     loadOptions={(inputValue: string, callback: (options: Option[]) => void) => {
                       searchUserByUsername(inputValue, callback);
                     }}
