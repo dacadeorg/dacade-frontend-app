@@ -123,6 +123,7 @@
   "communities.overview.challenge.submission.description": "Pega el código de tu equipo a continuación y se enlazará automáticamente a todos los perfiles.",
   "communities.challenge.submission.hint": "Las presentaciones estarán habilitadas cuando todos los miembros del equipo acepten la invitación y el equipo esté completamente formado.",
   "communities.overview.challenge.deadline": "Fecha límite",
+  "communities.overview.challenge.submissions-closed": "Las inscripciones para este desafío ya están cerradas.",
   "communities.challenge.hint": "Pista",
   "communities.challenge.criteria.title": "Rúbrica de evaluación",
   "communities.overview.challenge.title": "¿Ya estás lista para completar el desafío?",
