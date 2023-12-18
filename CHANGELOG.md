@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.2.1...v1.2.2) (2023-12-18)
+
+
+### Bug Fixes
+
+* hide the submission form when its past deadline ([4ac4dac](https://github.com/dacadeorg/dacade-frontend-app/commit/4ac4dac4c1e4415fa8e59d19bbab9e9295b7c79a))
+
 ## [1.2.1](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.2.0...v1.2.1) (2023-12-08)
 
 
