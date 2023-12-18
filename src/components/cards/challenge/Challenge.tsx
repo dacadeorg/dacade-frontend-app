@@ -40,7 +40,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
               <Badges challenge={data} className="md:hidden" />
             </div>
 
-            <div className="flex flex-col mb-6 lg:mb-0 mt-6 md:mt-0 rounded-full max-w-max text-sm">
+            <div className="flex flex-col mb-6 lg:mb-0 mt-6 md:mt-0 max-w-max text-sm">
               <div className="flex items-center mb-8 gap-2 md:gap-0">
                 <Certificate size="medium" name={community.slug} />
                 <div className="md:pl-2 max-w-max">
@@ -56,11 +56,9 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
                 <Coin size="medium" token={reward?.token} />
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
-                    <span className="block font-medium pr-1">
-                      {data?.isHackathon && "$"}
-                      {totalReward}
+                    <span className="block font-medium">
+                      {`${data?.isHackathon ? "$" : ""} ${totalReward} ${data?.isHackathon ? `Prize Pool Rewards` : `${reward?.token} Rewards`}`}
                     </span>
-                    <span className="block font-medium">{data?.isHackathon ? `Prize Pool Rewards` : `${reward?.token} Rewards`}</span>
                   </div>
                   <div className="text-gray-400 text-xs font-normal">{data?.isHackathon ? "Top projects win money prizes" : "For submission and feedback"}</div>
                 </div>

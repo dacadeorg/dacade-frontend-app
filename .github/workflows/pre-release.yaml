@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main
+      - stage
 
 permissions:
   contents: write
@@ -16,4 +16,5 @@ jobs:
       - uses: google-github-actions/release-please-action@v4
         with:
           release-type: node
-          target-branch: main
+          target-branch: stage
+          prerelease: true
