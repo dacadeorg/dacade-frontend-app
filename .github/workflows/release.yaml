@@ -19,5 +19,4 @@ jobs:
           release-type: node
           target-branch: main
           prerelease: true
-          package-name: package.json
           labels: "stable"
