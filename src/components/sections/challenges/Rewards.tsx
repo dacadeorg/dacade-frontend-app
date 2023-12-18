@@ -50,7 +50,7 @@ export function OverviewRewards(): ReactElement {
             <Coin size="medium" token={reward?.token} />
             <div className="text-sm space-y-2 md:pl-2 max-w-max">
               {challenge?.isHackathon ? (
-                <HackathonPrize reward={reward} />
+                <HackathonPrize reward={reward} description={t("communities.overview.challenge.rewards")} />
               ) : (
                 <>
                   <div className="flex gap-1 text-gray-700 font-medium">

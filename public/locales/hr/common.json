@@ -169,6 +169,7 @@
   "communities.overview.challenge.submission.description": "Zalijepite kod svog tima u nastavku i automatski će se povezati sa svim profilima.",
   "communities.challenge.submission.hint": "Podnošenje će biti omogućeno kada svi članovi tima prihvate pozivnicu i tim bude potpuno formiran.",
   "communities.overview.challenge.deadline": "Rok",
+  "communities.overview.challenge.submissions-closed": "Prijave za ovaj izazov sada su zatvorene.",
   "communities.card.submissions": "{{count}} Podnesci",
   "communities.card.submission": "{{count}} Podnošenje",
   "communities.card.courses": "in {{count}} Courses",
