@@ -13,10 +13,9 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: google-github-actions/release-please-action@v3
+      - uses: google-github-actions/release-please-action@v4
         with:
           release-type: node
-          package-name: package.json
-          labels: "Release candidate"
-          prerelease: true
           target-branch: stage
+          package-name: package.json
+          labels: "stable"
