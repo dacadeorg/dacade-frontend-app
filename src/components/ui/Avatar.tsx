@@ -3,7 +3,10 @@ import Link from "next/link";
 import { CSSProperties, ReactElement, useMemo, useState } from "react";
 import VerifiedIcon from "@/icons/verified.svg";
 import classNames from "classnames";
-
+import { Submission } from "@/types/bounty";
+import { Community } from "@/types/community";
+import { Metadata } from "@/types/course";
+import { useSelector } from "@/hooks/useTypedSelector";
 /**
  * Interface for User
  * @date 3/22/2023 - 5:42:26 PM
@@ -16,6 +19,32 @@ interface User {
   username?: string;
   avatar?: string;
 }
+
+/**
+ * Interface for User
+ * @date 3/22/2023 - 5:42:26 PM
+ *
+ * @typedef {User}
+ */
+
+interface Certificate {
+  id: string;
+  ref: string;
+  created_at: string;
+  updated_at: string;
+  metadata: Metadata;
+  answer: string;
+  user_id: string;
+  course: string;
+  type: string;
+  community: Community;
+  entity: string;
+  timestamp: number;
+  description: string;
+  submission: Submission;
+  minting: any;
+}
+
 
 /**
  * Interface for Avatar component props
@@ -38,6 +67,7 @@ interface AvatarProps {
   isKycVerified?: boolean;
   style?: CSSProperties;
   className?: string;
+  achievement?: Certificate | null;
 }
 
 /**
@@ -60,6 +90,7 @@ export default function Avatar({
   icon,
   image,
   color,
+  // achievement = null,
   user = null,
   size = "small",
   shape = "circular",
@@ -70,6 +101,9 @@ export default function Avatar({
 }: AvatarProps): ReactElement {
   const [userAvatarLoaded, setUserAvatarLoaded] = useState(true);
   const initials = user?.displayName ? user?.displayName[0] : null;
+  const achievement = useSelector((state) => state.profileCertificate.current);
+  // const achievementInitials = achievement.metadata?.recipientName ? achievement?.metadata?.recipientName[0] : null;
+
 
   const link = user?.username && useLink ? `/profile/${user.username}` : "#";
 
@@ -130,6 +164,25 @@ export default function Avatar({
         ) : (
           <span>{initials}</span>
         )}
+
+        {/* { achievement && achievement.metadata.comment ? (
+          <Image
+            src={achievement.metadata.image}
+            alt="user-avatar"
+            fill={true}
+            className="object-cover w-full h-full"
+            onError={() => {
+              setUserAvatarLoaded(false);
+            }}
+          />
+        ) : (
+          <span>{achievement?.metadata?.recipientName[0]}</span>
+        )} */}
+
+        { achievement && achievement.metadata ? (
+    
+          <span>{achievement?.metadata?.recipientName[0]}</span>
+        ): null }
 
         {icon && <Image fill={true} src={icon} alt="icon image" className="p-2" />}
         {image && <Image src={image} fill={true} alt="icon image" className="p-0 object-cover w-full h-full" />}
