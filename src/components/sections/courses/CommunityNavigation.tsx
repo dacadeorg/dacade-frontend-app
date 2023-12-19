@@ -21,7 +21,7 @@ export default function CommunityNavigation({ paths }: { paths?: string[] }): Re
           <Link href={path}>{community.name}</Link>
         </div>
         {paths?.map((path, index) => (
-          <Fragment key={index}>
+          <Fragment key={`path-${index}`}>
             <div className="px-0.5">
               <ChevronRightIcon viewBox="0 0 20 20" className="w-3 h-3" />
             </div>
