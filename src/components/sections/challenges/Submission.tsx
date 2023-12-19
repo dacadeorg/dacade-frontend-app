@@ -92,6 +92,8 @@ export default function Submission(): ReactElement {
 
   const disabled = submitting || (challenge?.format.disclaimer ? !checkedTerms : false);
 
+  const submissionsClosed = challenge?.expiresAt ? Date.parse(challenge?.expiresAt) < Date.now() : false;
+
   /**
    * Submit form function
    * @date 4/18/2023 - 8:22:10 PM
@@ -130,81 +132,87 @@ export default function Submission(): ReactElement {
 
   return (
     <Section title={t("communities.challenge.submission")}>
-      {challenge?.isTeamChallenge && <p className="text-base font-normal text-slate-700 pt-2 pb-7 md:w-99">{t("communities.overview.challenge.submission.description")}</p>}
-      {!canSubmit ? (
-        <Hint className="mb-8">{t("communities.challenge.submission.hint")}</Hint>
+      {submissionsClosed ? (
+        <Hint className="mb-8">{t("communities.overview.challenge.submissions-closed")}</Hint>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {challenge?.format && (
-            <div className="relative w-full md:pl-7.5 my-6">
-              <div className="absolute z-50 left-3 md:left-0 top-3">
-                <Avatar user={team?.organizer || authUser} size="medium" />
-              </div>
+        <>
+          {challenge?.isTeamChallenge && <p className="text-base font-normal text-slate-700 pt-2 pb-7 md:w-99"> {t("communities.overview.challenge.submission.description")}</p>}
+          {!canSubmit ? (
+            <Hint className="mb-8">{t("communities.challenge.submission.hint")}</Hint>
+          ) : (
+            <form onSubmit={handleSubmit(onSubmit)}>
+              {challenge?.format && (
+                <div className="relative w-full md:pl-7.5 my-6">
+                  <div className="absolute z-50 left-3 md:left-0 top-3">
+                    <Avatar user={team?.organizer || authUser} size="medium" />
+                  </div>
 
-              <div label-for="input-text">
-                <TextInput
-                  id="input-text"
-                  value={textValue}
-                  placeholder={`${t("communities.challenge.submission.placeholder.text")}`}
-                  error={errors.text?.message as string}
-                  {...register("text", {
-                    required: "This field is required",
-                    minLength: {
-                      value: 15,
-                      message: "This field must be at least 15 characters.",
-                    },
-                  })}
-                />
-              </div>
-              {challenge.format.githubLink && (
-                <div
-                  className={classNames("w-full border border-solid border-gray-200 m-0 rounded-b text-lg py-0 leading-none items-center space-x-2", {
-                    "border-t-0": challenge.format.text,
-                  })}
-                >
-                  <div>
-                    <GithubLinkInput
-                      id="input-github"
-                      error={errors.githubLink?.message as string}
-                      className="p-0 border-none border-transparent focus:outline-none outline-none active:border-none focus:border-none block m-0 flex-grow w-full placeholder-gray-400 placeholder-opacity-100"
-                      placeholder={`${t("communities.challenge.submission.placeholder.github")}`}
-                      {...register("githubLink", {
-                        value: githubLinkValue,
+                  <div label-for="input-text">
+                    <TextInput
+                      id="input-text"
+                      value={textValue}
+                      placeholder={`${t("communities.challenge.submission.placeholder.text")}`}
+                      error={errors.text?.message as string}
+                      {...register("text", {
                         required: "This field is required",
-                        pattern: {
-                          /*
-                          This pattern validates a valid GitHub link URL.
-                          The URL should follow the format: https://github.com/username/repository.
-                        */
-                          value: /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/,
-                          message: "This value must be a valid Github repository URL",
+                        minLength: {
+                          value: 15,
+                          message: "This field must be at least 15 characters.",
                         },
                       })}
                     />
                   </div>
+                  {challenge.format.githubLink && (
+                    <div
+                      className={classNames("w-full border border-solid border-gray-200 m-0 rounded-b text-lg py-0 leading-none items-center space-x-2", {
+                        "border-t-0": challenge.format.text,
+                      })}
+                    >
+                      <div>
+                        <GithubLinkInput
+                          id="input-github"
+                          error={errors.githubLink?.message as string}
+                          className="p-0 border-none border-transparent focus:outline-none outline-none active:border-none focus:border-none block m-0 flex-grow w-full placeholder-gray-400 placeholder-opacity-100"
+                          placeholder={`${t("communities.challenge.submission.placeholder.github")}`}
+                          {...register("githubLink", {
+                            value: githubLinkValue,
+                            required: "This field is required",
+                            pattern: {
+                              /*
+                          This pattern validates a valid GitHub link URL.
+                          The URL should follow the format: https://github.com/username/repository.
+                        */
+                              value: /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/,
+                              message: "This value must be a valid Github repository URL",
+                            },
+                          })}
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
-            </div>
+              <div className="pl-7.5">
+                <MarkdownIcon />
+              </div>
+              <div className="flex justify-between">
+                <div className="flex xl:pl-10.75 flex-col self-center">
+                  {challenge?.format.disclaimer && (
+                    <div className="flex flex-row max-w-xm space-x-3 items-center">
+                      <input type="checkbox" className="xl:w-5 w-10 h-5" name="agree" required onChange={() => setCheckedTerms(!checkedTerms)} checked={checkedTerms} />
+                      <span className="max-w-none text-sm leading-none">{challenge.format.disclaimer}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="flex text-right self-start">
+                  <ArrowButton variant="primary" disabled={disabled} customStyle={activeButtonStyle} loading={submitting}>
+                    submit
+                  </ArrowButton>
+                </div>
+              </div>
+            </form>
           )}
-          <div className="pl-7.5">
-            <MarkdownIcon />
-          </div>
-          <div className="flex justify-between">
-            <div className="flex xl:pl-10.75 flex-col self-center">
-              {challenge?.format.disclaimer && (
-                <div className="flex flex-row max-w-xm space-x-3 items-center">
-                  <input type="checkbox" className="xl:w-5 w-10 h-5" name="agree" required onChange={() => setCheckedTerms(!checkedTerms)} checked={checkedTerms} />
-                  <span className="max-w-none text-sm leading-none">{challenge.format.disclaimer}</span>
-                </div>
-              )}
-            </div>
-            <div className="flex text-right self-start">
-              <ArrowButton variant="primary" disabled={disabled} customStyle={activeButtonStyle} loading={submitting}>
-                submit
-              </ArrowButton>
-            </div>
-          </div>
-        </form>
+        </>
       )}
     </Section>
   );

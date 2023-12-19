@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import Header from "@/components/sections/challenges/Header";
 import { OverviewRewards as Rewards } from "@/components/sections/challenges/Rewards";
@@ -31,7 +31,8 @@ import Objectives from "@/components/sections/challenges/Objectives";
 import { getTeamByChallenge, getUserInvitesByChallenge } from "@/store/services/teams.service";
 import { fetchChallenge, fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
 import Loader from "@/components/ui/Loader";
-import { NotFoundError } from "@/utilities/errors/NotFoundError";
+import { useRouter } from "next/router";
+import Section from "@/components/ui/Section";
 import Hint from "@/components/ui/Hint";
 import Link from "next/link";
 
@@ -53,23 +54,12 @@ interface ChallengePageMultiSelector {
  * @date 4/25/2023 - 8:12:39 PM
  *
  * @export
- * @param {{
-  pageProps: {
-    submission: Submission;
-    challenge: Challenge;
-    community: Community;
-  };
-}} props
  * @returns {ReactElement}
  */
-export default function ChallengePage(props: {
-  pageProps: {
-    submission: Submission;
-    challenge: Challenge;
-    community: Community;
-  };
-}): ReactElement {
-  const { challenge, community } = props.pageProps;
+export default function ChallengePage() {
+  const [challenge, setChallenge] = useState<Challenge | null>(null);
+  const [community, setCommunity] = useState<Community | null>(null);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { submission, isAuthenticated, isSubmissionLoading } = useMultiSelector<unknown, ChallengePageMultiSelector>({
@@ -80,10 +70,29 @@ export default function ChallengePage(props: {
   const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), challenge?.name || ""), [challenge?.name, t]);
 
   const navigation = useNavigation();
+  const router = useRouter();
+  const { challenge_id, slug, locale } = router.query;
+
+  const initPage = useCallback(async () => {
+    const fetchPayload = {
+      slug: slug as string,
+      locale: locale as string,
+    };
+
+    setLoading(true);
+    const [{ data: community }, { data: challenge }] = await Promise.all([
+      dispatch(fetchCurrentCommunity(fetchPayload)) as any,
+      dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string, relations: ["rubric", "courses", "learning-modules", "best-submissions"] })) as any,
+    ]);
+    setCommunity(community);
+    setChallenge(challenge);
+    dispatch(initChallengeNavigationMenu(navigation.community));
+    setLoading(false);
+  }, [challenge_id, slug]);
 
   useEffect(() => {
-    dispatch(initChallengeNavigationMenu(navigation.community));
-  }, []);
+    initPage();
+  }, [initPage]);
 
   useEffect(() => {
     if (challenge && isAuthenticated) {
@@ -96,90 +105,78 @@ export default function ChallengePage(props: {
   }, [challenge, dispatch, isAuthenticated]);
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
-  return (
-    <>
-      <Head>
-        <title>{title}</title>
-        <MetaData description={challenge?.description} />
-      </Head>
-      <Wrapper paths={headerPaths}>
-        <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
-          <Header />
-          <Rewards />
-          <Objectives />
-          {challenge.isTeamChallenge && <TeamChallenge />}
-          <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
-          <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
-          <BestSubmissions />
 
-          {isAuthenticated ? (
-            <div>
-              {isSubmissionLoading ? (
-                <div className="h-24 sm:h-48 grid place-items-center">
-                  <Loader />
-                </div>
-              ) : (
-                <>
-                  {submission ? (
-                    <div className="mt-8">
-                      <h4 className="my-8 text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
-                      <SubmissionCard submission={submission} />
-                    </div>
-                  ) : (
-                    <>
-                      {challenge.isTeamChallenge && <SetupTeamChallenge />}
-                      <SubmissionForm />
-                    </>
-                  )}
-                </>
-              )}
-            </div>
-          ) : (
-            <div>
-              <Hint className="mt-6 flex flex-col md:flex-row">
-                <p>To be able to submit</p>&nbsp;
-                <Link className="underline" href="/login">
-                  Login.
-                </Link>
-              </Hint>
-            </div>
-          )}
-        </div>
-      </Wrapper>
-    </>
-  );
+  if (loading)
+    return (
+      <Section className="h-[50vh] flex items-center justify-center">
+        <Loader />
+      </Section>
+    );
+
+  if (challenge && community)
+    return (
+      <>
+        <Head>
+          <title>{title}</title>
+          <MetaData description={challenge?.description} />
+        </Head>
+        <Wrapper paths={headerPaths}>
+          <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
+            <Header />
+            <Rewards />
+            <Objectives />
+            {challenge.isTeamChallenge && <TeamChallenge />}
+            <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
+            <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
+            <BestSubmissions />
+
+            {isAuthenticated ? (
+              <div>
+                {isSubmissionLoading ? (
+                  <div className="h-24 sm:h-48 grid place-items-center">
+                    <Loader />
+                  </div>
+                ) : (
+                  <>
+                    {submission ? (
+                      <div className="mt-8">
+                        <h4 className="my-8 text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
+                        <SubmissionCard submission={submission} />
+                      </div>
+                    ) : (
+                      <>
+                        {challenge.isTeamChallenge && <SetupTeamChallenge />}
+                        <SubmissionForm />
+                      </>
+                    )}
+                  </>
+                )}
+              </div>
+            ) : (
+              <div>
+                <Hint className="mt-6 flex flex-col md:flex-row">
+                  <p>To be able to submit</p>&nbsp;
+                  <Link className="underline" href="/login">
+                    Login.
+                  </Link>
+                </Hint>
+              </div>
+            )}
+          </div>
+        </Wrapper>
+      </>
+    );
 }
 
 ChallengePage.getLayout = function (page: ReactElement) {
   return <DefaultLayout footerBackgroundColor={false}>{page}</DefaultLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async (data) => {
-  const { query, locale } = data;
-  const { slug, challenge_id } = query;
-
-  const fetchPayload = {
-    slug: slug as string,
-    locale: locale as string,
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(() => async (data) => {
+  const { locale } = data;
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string)),
+    },
   };
-
-  try {
-    const [{ data: community }, { data: challenge }, translations] = await Promise.all([
-      store.dispatch(fetchCurrentCommunity(fetchPayload)),
-      store.dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string, relations: ["rubric", "courses", "learning-modules", "best-submissions"] })),
-      serverSideTranslations(locale as string),
-    ]);
-    if (!community || !challenge) throw new NotFoundError();
-    return {
-      props: {
-        ...translations,
-        community,
-        challenge,
-      },
-    };
-  } catch (e) {
-    return {
-      notFound: true,
-    };
-  }
 });
