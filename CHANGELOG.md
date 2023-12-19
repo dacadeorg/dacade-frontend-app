@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.2.2...v1.3.0) (2023-12-19)
+
+
+### Features
+
+* add showModal state ([b9b507f](https://github.com/dacadeorg/dacade-frontend-app/commit/b9b507f8b6833e33b84c4d9b8d6b8237e20e5b93))
+
 ## [1.2.2](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.2.1...v1.2.2) (2023-12-18)
 
 
