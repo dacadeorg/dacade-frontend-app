@@ -41,12 +41,13 @@ export default function LanguageSelector(): ReactElement {
       course.translations
         .filter((locale) => locale)
         .forEach((translation) => {
+          const code = translation.locale || "en";
           setLocales((prev) => [
             ...prev,
             {
               id: translation.id,
-              code: translation.locale,
-              name: languages[translation.locale],
+              code,
+              name: languages[code],
             },
           ]);
         });
