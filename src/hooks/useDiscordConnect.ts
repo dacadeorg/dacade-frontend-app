@@ -37,16 +37,11 @@ export const useDiscordConnect = () => {
   const isCurrentUser = useMemo(() => username?.toLowerCase() === authUser?.displayName?.toLowerCase(), [authUser, username]);
   const canConnectDiscord = useMemo(() => isCurrentUser && !user?.discord?.connected, [isCurrentUser, user]);
 
-  const showKycVerificationButton = useMemo(() => {
-    return isCurrentUser && !user?.isKycVerified;
-  }, [isCurrentUser, user?.isKycVerified]);
-
   const triggerDiscordOauth = () =>
     (window.location.href = `${NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL}?response_type=code&client_id=${NEXT_PUBLIC_DISCORD_CLIENT_ID}&scope=${NEXT_PUBLIC_DISCORD_SCOPE}&state=15773059ghq9183habn&redirect_uri=${NEXT_PUBLIC_DISCORD_CALLBACK_URL}&prompt=consent`);
 
   return {
     canConnectDiscord,
     triggerDiscordOauth,
-    showKycVerificationButton,
   };
 };

@@ -57,12 +57,18 @@ export default function ProfileHeader() {
 
   const username = useMemo(() => user?.displayName, [user?.displayName]);
 
+  const isCurrentUser = useMemo(() => username?.toLowerCase() === authUser?.displayName?.toLowerCase(), [authUser, username]);
+
+  const showKycVerificationButton = useMemo(() => {
+    return isCurrentUser && !user?.isKycVerified;
+  }, [isCurrentUser, user?.isKycVerified]);
+
   const dispatch = useDispatch();
   const triggerKYCVerification = () => {
     dispatch(openVerificationModal({}));
   };
 
-  const { canConnectDiscord, triggerDiscordOauth, showKycVerificationButton } = useDiscordConnect();
+  const { canConnectDiscord, triggerDiscordOauth } = useDiscordConnect();
   const discordLink = "https://discord.gg/U38KQHDtHe";
 
   const iconStyles = "inline-block";
