@@ -60,8 +60,8 @@ export default function ProfileHeader() {
   const isCurrentUser = useMemo(() => username?.toLowerCase() === authUser?.displayName?.toLowerCase(), [authUser, username]);
 
   const showKycVerificationButton = useMemo(() => {
-    return isCurrentUser && !user?.isKycVerified;
-  }, [isCurrentUser, user?.isKycVerified]);
+    return isCurrentUser && !isKycVerified;
+  }, [isCurrentUser, isKycVerified]);
 
   const dispatch = useDispatch();
   const triggerKYCVerification = () => {
