@@ -165,25 +165,6 @@ export default function Avatar({
           <span>{initials}</span>
         )}
 
-        {/* { achievement && achievement.metadata.comment ? (
-          <Image
-            src={achievement.metadata.image}
-            alt="user-avatar"
-            fill={true}
-            className="object-cover w-full h-full"
-            onError={() => {
-              setUserAvatarLoaded(false);
-            }}
-          />
-        ) : (
-          <span>{achievement?.metadata?.recipientName[0]}</span>
-        )} */}
-
-        {/* { achievement && achievement.metadata ? (
-    
-          <span>{achievement?.metadata?.recipientName[0]}</span>
-        ): null } */}
-
         {icon && <Image fill={true} src={icon} alt="icon image" className="p-2" />}
         {image && <Image src={image} fill={true} alt="icon image" className="p-0 object-cover w-full h-full" />}
       </div>
