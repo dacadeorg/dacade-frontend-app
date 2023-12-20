@@ -179,10 +179,10 @@ export default function Avatar({
           <span>{achievement?.metadata?.recipientName[0]}</span>
         )} */}
 
-        { achievement && achievement.metadata ? (
+        {/* { achievement && achievement.metadata ? (
     
           <span>{achievement?.metadata?.recipientName[0]}</span>
-        ): null }
+        ): null } */}
 
         {icon && <Image fill={true} src={icon} alt="icon image" className="p-2" />}
         {image && <Image src={image} fill={true} alt="icon image" className="p-0 object-cover w-full h-full" />}
