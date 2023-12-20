@@ -62,7 +62,7 @@ export default function ProfileHeader() {
     dispatch(openVerificationModal({}));
   };
 
-  const { canConnectDiscord, triggerDiscordOauth } = useDiscordConnect();
+  const { canConnectDiscord, triggerDiscordOauth, showKycVerificationButton } = useDiscordConnect();
   const discordLink = "https://discord.gg/U38KQHDtHe";
 
   const iconStyles = "inline-block";
@@ -117,7 +117,7 @@ export default function ProfileHeader() {
             {t("profile.header.connect-discord")}
           </Button>
         )}
-        {!isKycVerified && (
+        {!isKycVerified && showKycVerificationButton && (
           <Button variant="outline-primary" className="flex mx-auto text-base" onClick={triggerKYCVerification}>
             {t("profile.header.sumsub.verify")}
           </Button>
