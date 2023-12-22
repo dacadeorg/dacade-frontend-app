@@ -41,7 +41,6 @@ interface AvatarProps {
   isKycVerified?: boolean;
   style?: CSSProperties;
   className?: string;
-  achievement?: Certificate | null;
 }
 
 /**
