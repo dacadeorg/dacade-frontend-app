@@ -3,10 +3,7 @@ import Link from "next/link";
 import { CSSProperties, ReactElement, useMemo, useState } from "react";
 import VerifiedIcon from "@/icons/verified.svg";
 import classNames from "classnames";
-import { Submission } from "@/types/bounty";
-import { Community } from "@/types/community";
-import { Metadata } from "@/types/course";
-import { useSelector } from "@/hooks/useTypedSelector";
+
 /**
  * Interface for User
  * @date 3/22/2023 - 5:42:26 PM
