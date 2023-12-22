@@ -21,32 +21,6 @@ interface User {
 }
 
 /**
- * Interface for User
- * @date 3/22/2023 - 5:42:26 PM
- *
- * @typedef {User}
- */
-
-interface Certificate {
-  id: string;
-  ref: string;
-  created_at: string;
-  updated_at: string;
-  metadata: Metadata;
-  answer: string;
-  user_id: string;
-  course: string;
-  type: string;
-  community: Community;
-  entity: string;
-  timestamp: number;
-  description: string;
-  submission: Submission;
-  minting: any;
-}
-
-
-/**
  * Interface for Avatar component props
  * @date 3/22/2023 - 5:42:18 PM
  *
@@ -101,9 +75,6 @@ export default function Avatar({
 }: AvatarProps): ReactElement {
   const [userAvatarLoaded, setUserAvatarLoaded] = useState(true);
   const initials = user?.displayName ? user?.displayName[0] : null;
-  const achievement = useSelector((state) => state.profileCertificate.current);
-  // const achievementInitials = achievement.metadata?.recipientName ? achievement?.metadata?.recipientName[0] : null;
-
 
   const link = user?.username && useLink ? `/profile/${user.username}` : "#";
 
