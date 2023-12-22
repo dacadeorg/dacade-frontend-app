@@ -107,7 +107,7 @@ export default function ProfileNagivation(): ReactElement {
                 <li key={`profile-menu-subItem-${k}`} className="text-sm relative text-primary">
                   <Link href={item.link} className={`relative text-gray-500 ${isCurrentMenuItem(item) && "text-primary"}`}>
                     {isCurrentMenuItem(item) && (
-                      <span className="inline-block absolute -left-6 nav-icon">
+                      <span className="!inline-block absolute -left-6 nav-icon">
                         <ChevronRightIcon />
                       </span>
                     )}
