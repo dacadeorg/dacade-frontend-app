@@ -60,7 +60,6 @@ export default function Avatar({
   icon,
   image,
   color,
-  // achievement = null,
   user = null,
   size = "small",
   shape = "circular",
