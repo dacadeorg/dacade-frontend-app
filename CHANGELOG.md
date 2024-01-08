@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.3.0...v1.3.1) (2023-12-20)
+
+
+### Bug Fixes
+
+* add default language in case there is none ([c64bbcd](https://github.com/dacadeorg/dacade-frontend-app/commit/c64bbcd7acb681be9d9573459eef2f4268cba911))
+
 ## [1.3.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.2.2...v1.3.0) (2023-12-19)
 
 
