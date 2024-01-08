@@ -57,6 +57,12 @@ export default function ProfileHeader() {
 
   const username = useMemo(() => user?.displayName, [user?.displayName]);
 
+  const isCurrentUser = useMemo(() => username?.toLowerCase() === authUser?.displayName?.toLowerCase(), [authUser, username]);
+
+  const showKycVerificationButton = useMemo(() => {
+    return isCurrentUser && !isKycVerified;
+  }, [isCurrentUser, isKycVerified]);
+
   const dispatch = useDispatch();
   const triggerKYCVerification = () => {
     dispatch(openVerificationModal({}));
@@ -117,7 +123,7 @@ export default function ProfileHeader() {
             {t("profile.header.connect-discord")}
           </Button>
         )}
-        {!isKycVerified && (
+        {!isKycVerified && showKycVerificationButton && (
           <Button variant="outline-primary" className="flex mx-auto text-base" onClick={triggerKYCVerification}>
             {t("profile.header.sumsub.verify")}
           </Button>
