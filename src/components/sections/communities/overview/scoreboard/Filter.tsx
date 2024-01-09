@@ -1,9 +1,8 @@
 import { ChangeEvent, ReactElement, useCallback, useEffect, useState } from "react";
 import FilterOption from "./_partials/FilterOption";
-import { selectList, setLoading, setFilterBy as setScoreboardFilterBy, setScoreboardList, sortScoreboards } from "@/store/feature/communities/scoreboard.slice";
+import { setLoading } from "@/store/feature/communities/scoreboard.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useRouter } from "next/router";
-import { useSelector } from "@/hooks/useTypedSelector";
 import { filterScoreboards } from "@/store/services/communities/scoreboard.service";
 
 /**
@@ -76,12 +75,11 @@ export default function Filters(): ReactElement {
   const [sortBy, setSortBy] = useState("score");
 
   const dispatch = useDispatch();
-  const list = useSelector((state) => selectList(state));
-  const filteredScoreboards = useSelector((state) => selectList(state));
   const router = useRouter();
   const { slug } = router.query;
 
   const onFilterScoreboards = useCallback(async () => {
+    dispatch(setLoading(true));
     await dispatch(
       filterScoreboards({
         slug: slug as string,
@@ -90,27 +88,12 @@ export default function Filters(): ReactElement {
         locale: router.locale as string,
       })
     );
-    const data = filteredScoreboards;
-    if (data) {
-      const filteredData = [...data];
-      dispatch(setScoreboardFilterBy(filterBy));
-      if (sortBy) {
-        filteredData?.sort((firstItem, secondItem) => secondItem[sortBy] - firstItem[sortBy]);
-      }
-      dispatch(setScoreboardList(filteredData));
-    }
-    setLoading(true);
+    dispatch(setLoading(false));
   }, [dispatch, filterBy, router.locale, slug, sortBy]);
 
   useEffect(() => {
     onFilterScoreboards();
   }, [onFilterScoreboards]);
-
-  useEffect(() => {
-    dispatch(setScoreboardList(sortScoreboards({ sortBy, list })));
-    // Eslint disable because the list is running the effect infinitely
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, sortBy]);
 
   const handleFilterByChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;

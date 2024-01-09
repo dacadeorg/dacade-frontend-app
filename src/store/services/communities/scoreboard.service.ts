@@ -49,11 +49,16 @@ const scoreboardService = createApi({
           "Accept-Language": locale || "en",
         },
       }),
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async ({ sortBy }, { dispatch, queryFulfilled }) => {
         try {
           dispatch(setLoading(true));
           const { data } = await queryFulfilled;
-          dispatch(setScoreboardFilteredList(data));
+          console.log("data after filter--", data);
+          const sortedList = [...data];
+          if (sortBy) {
+            sortedList?.sort((firstItem, secondItem) => secondItem[sortBy] - firstItem[sortBy]);
+          }
+          dispatch(setScoreboardFilteredList(sortedList));
         } catch (err) {
           console.error(err);
         } finally {
