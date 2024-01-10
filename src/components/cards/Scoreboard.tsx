@@ -15,7 +15,6 @@ interface ScoreboardCardProps {
     score: number;
     submissions: number;
     submissionPoints: number;
-    totalPoints?: number;
   };
   index: number;
 }

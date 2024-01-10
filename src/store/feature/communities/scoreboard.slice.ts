@@ -40,15 +40,10 @@ const scoreboardSlice = createSlice({
   initialState,
   reducers: {
     setScoreboardList: (state, action) => {
-      const modifiedList = action.payload?.map((scoreboard: Scoreboard) => ({ ...scoreboard, totalPoints: scoreboard?.submissionPoints + scoreboard?.feedbackPoints }));
-      // console.log("modifiedList", modifiedList);
-      state.list = modifiedList;
+      state.list = action.payload;
     },
     setScoreboardFilteredList: (state, action) => {
-      console.log("--- set the scoreboard", action.payload);
-      const modifiedList = action.payload?.map((scoreboard: Scoreboard) => ({ ...scoreboard, totalPoints: scoreboard?.submissionPoints + scoreboard?.feedbackPoints }));
-      console.log("modifiedList", modifiedList);
-      state.list = modifiedList;
+      state.list = action.payload;
     },
     setLoading: (state, action) => {
       state.loading = action.payload;

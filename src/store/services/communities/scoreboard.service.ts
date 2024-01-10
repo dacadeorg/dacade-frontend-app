@@ -53,7 +53,6 @@ const scoreboardService = createApi({
         try {
           dispatch(setLoading(true));
           const { data } = await queryFulfilled;
-          console.log("data after filter--", data);
           const sortedList = [...data];
           if (sortBy) {
             sortedList?.sort((firstItem, secondItem) => secondItem[sortBy] - firstItem[sortBy]);
