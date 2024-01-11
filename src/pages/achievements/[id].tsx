@@ -129,7 +129,7 @@ const Achievement = () => {
                 <div className="mt-5 flex flex-col md:gap-6 gap-5">
                   <AchievementViewItem name={t("profile.achievement.award") as string}>
                     <div className="inline-flex items-center space-x-2 pr-3 bg-gray-200 p-1 rounded-full">
-                      <Avatar user={user} size="small-fixed" hideVerificationBadge />
+                      <Avatar user={achievement.user} size="small-fixed" hideVerificationBadge />
                       <p className="text-sm md:text-base">{achievement?.metadata?.recipientName}</p>
                     </div>
                   </AchievementViewItem>

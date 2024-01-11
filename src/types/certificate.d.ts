@@ -1,4 +1,4 @@
-import { Submission } from "./bounty";
+import { Submission, User } from "./bounty";
 import { Community } from "./community";
 import { Metadata } from "./course";
 
@@ -18,6 +18,7 @@ export interface Certificate {
   description: string;
   submission: Submission;
   minting: Minting;
+  user: User;
 }
 
 /**
