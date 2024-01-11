@@ -39,10 +39,11 @@ export default function Feedback(): ReactElement {
   const dispatch = useDispatch();
   const route = useRouter();
 
-  const { feedbacks, isAuthenticated, submission } = useMultiSelector<unknown, FeedbackMultiSelector>({
+  const { feedbacks, isAuthenticated, submission, challenge } = useMultiSelector<unknown, FeedbackMultiSelector>({
     feedbacks: (state: IRootState) => state.feedback.list,
     isAuthenticated: (state: IRootState) => authCheck(state),
     submission: (state: IRootState) => state.submissions.current,
+    challenge: (state: IRootState) => state.challenges.current,
   });
 
   const [isFetching, setIsFetching] = useState(false);
@@ -60,7 +61,7 @@ export default function Feedback(): ReactElement {
   return (
     <div className="relative">
       {isFetching ? <Loader loading={isFetching} /> : feedbacks.map((feedback, index) => <FeedbackCard key={feedback.id} value={feedback} last={index === feedbacks.length - 1} />)}
-      {isAuthenticated && (
+      {isAuthenticated && challenge?.feedbackInfo && (
         <Section>
           <Criteria />
           <Form onSave={fetchList} />
