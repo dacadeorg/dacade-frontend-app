@@ -31,7 +31,6 @@ import walletsSlice from "./feature/user/wallets.slice";
 import walletsService from "./services/wallets.service";
 import userProfileService from "./services/profile/users.service";
 import bountiesService from "./services/bounties.service";
-// import profileReducer from "./feature/profile";
 import userReferralsSlice from "./feature/user/referrals.slice";
 import web3WalletSlice from "./feature/wallet.slice";
 import certificateSlice from "./feature/profile/certificate.slice";
@@ -86,13 +85,10 @@ export interface IRootState {
   courses: ReturnType<typeof courseSlice.reducer>;
   feedback: ReturnType<typeof feedbackSlice.reducer>;
   learningModules: ReturnType<typeof learningModulesSlice.reducer>;
-  // profile: ReturnType<typeof profileReducer>;
-  //testing
   profileCommunities: ReturnType<typeof communitiesProfile.reducer>;
   profileReputation: ReturnType<typeof reputationSlice.reducer>;
   profileUser: ReturnType<typeof userProfileSlice.reducer>;
   profileCertificate: ReturnType<typeof certificateSlice.reducer>;
-
   certificates: ReturnType<typeof certificateSlice.reducer>;
   sumsubVerification: ReturnType<typeof sumsubVerificationSlice.reducer>;
   payouts: ReturnType<typeof payoutsSlice.reducer>;
@@ -118,11 +114,6 @@ export const makeStore = () =>
       [submissionsSlice.name]: submissionsSlice.reducer,
       [eventsSlice.name]: eventsSlice.reducer,
       [bountiesSlice.name]: bountiesSlice.reducer,
-      [navigationSlice.name]: navigationSlice.reducer,
-      [communitySlice.name]: communitySlice.reducer,
-      [eventsSlice.name]: eventsSlice.reducer,
-      [submissionsSlice.name]: submissionsSlice.reducer,
-      [eventsSlice.name]: eventsSlice.reducer,
       [communitySlice.name]: communitySlice.reducer,
       [learningModulesSlice.name]: learningModulesSlice.reducer,
       [userProfileSlice.name]: userProfileSlice.reducer,
@@ -130,14 +121,11 @@ export const makeStore = () =>
       [feedbackSlice.name]: feedbackSlice.reducer,
       [challengeSlice.name]: challengeSlice.reducer,
       [web3WalletSlice.name]: web3WalletSlice.reducer,
-      [learningModulesSlice.name]: learningModulesSlice.reducer,
       [communityService.reducerPath]: communityService.reducer,
       [bountiesService.reducerPath]: bountiesService.reducer,
-      [authService.reducerPath]: authService.reducer,
       [coursesService.reducerPath]: coursesService.reducer,
       [certificateService.reducerPath]: certificateService.reducer,
       [walletsService.reducerPath]: walletsService.reducer,
-      [bountiesService.reducerPath]: bountiesService.reducer,
       [reputationProfileService.reducerPath]: reputationProfileService.reducer,
       [profileCommunitiesService.reducerPath]: profileCommunitiesService.reducer,
       [userService.reducerPath]: userService.reducer,
@@ -155,12 +143,8 @@ export const makeStore = () =>
       [challengeService.reducerPath]: challengeService.reducer,
       [scoreboardService.reducerPath]: scoreboardService.reducer,
       [invitesSlice.name]: invitesSlice.reducer,
-      // profile: profileReducer,
-      //testing
       [communitiesProfile.name]: communitiesProfile.reducer,
       [reputationSlice.name]: reputationSlice.reducer,
-      [userProfileSlice.name]: userProfileSlice.reducer,
-      // [certificateSlice.name]: certificateSlice.reducer,
     },
 
     middleware: (getDefaultMiddleware) => {

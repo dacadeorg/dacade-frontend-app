@@ -170,6 +170,7 @@
   "communities.overview.courses.description": "En los cursos de esta comunidad, podrá aprender sobre nuevas tecnologías, resolver retos, recibir feedbacks y ganar premios.",
   "communities.overview.scoreboard.title": "Tabla de Resultados",
   "communities.overview.scoreboard.description": "En la tabla de resultados, puede ver qué usuarios han acumulado la mejor reputación dando su valioso feedback a sus compañeras.",
+  "communities.scoreboard.empty-state.title": "No hay puntuaciones para esta categoría.",
   "communities.card.estimated": "Tiempo estimado",
   "communities.card.earn": "Gane recompensas",
   "communities.card.submissions": "{{count}} Envíos",
