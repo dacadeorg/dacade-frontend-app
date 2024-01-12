@@ -154,6 +154,7 @@
   "communities.overview.courses.description": "In the courses of this community, you will be able to learn about new technologies, solve challenges, get feedback and earn bounties.",
   "communities.overview.scoreboard.title": "Scoreboard",
   "communities.overview.scoreboard.description": "On the scoreboard, you can see which users have accumulated the most reputation by giving valuable feedback to their peers.",
+  "communities.scoreboard.empty-state.title": "Nema bodova za ovu kategoriju.",
   "communities.card.estimated": "Estimated Time",
   "communities.card.earn": "Earn rewards",
   "communities.overview.challenge.rewards": "Nagrade",
