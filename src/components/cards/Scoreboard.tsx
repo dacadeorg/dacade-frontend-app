@@ -14,6 +14,7 @@ interface ScoreboardCardProps {
     feedbacks: number;
     score: number;
     submissions: number;
+    submissionPoints: number;
   };
   index: number;
 }
@@ -42,8 +43,8 @@ export default function ScoreboardCard({ value, index }: ScoreboardCardProps): J
             <span>{value.submissions === 1 ? "Submission" : "Submissions"}</span>
           </p>
           <p className="whitespace-nowrap sm:px-4 px-3 text-xs space-x-1">
-            <span>{value.score}</span>
-            <span>{value.score === 1 ? "Total Point" : "Total Points"}</span>
+            <span>{value.submissionPoints}</span>
+            <span>{value.submissionPoints === 1 ? "Submission Point" : "Submission Points"}</span>
           </p>
           <p className="whitespace-nowrap text-xs sm:px-4 px-3 space-x-1">
             <span>{value.feedbacks}</span>

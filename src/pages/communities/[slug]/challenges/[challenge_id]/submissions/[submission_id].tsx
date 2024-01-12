@@ -17,13 +17,14 @@ import { useRouter } from "next/router";
 import Loader from "@/components/ui/Loader";
 import Section from "@/components/ui/Section";
 import { useSelector } from "@/hooks/useTypedSelector";
+import { fetchChallenge } from "@/store/services/communities/challenges";
 
 export default function SubmissionPage() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const navigation = useNavigation();
   const router = useRouter();
-  const { slug, locale, submission_id } = router.query;
+  const { slug, locale, submission_id, challenge_id } = router.query;
   const [loading, setLoading] = useState(true);
   const { current } = useSelector((state) => state.submissions);
 
@@ -33,7 +34,11 @@ export default function SubmissionPage() {
       locale: locale as string,
     };
     setLoading(true);
-    await Promise.all([dispatch(fetchCurrentCommunity(fetchCurrentCommunityPayload)), dispatch(findSubmssionById({ id: submission_id as string }))]);
+    await Promise.all([
+      dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric"] })),
+      dispatch(fetchCurrentCommunity(fetchCurrentCommunityPayload)),
+      dispatch(findSubmssionById({ id: submission_id as string })),
+    ]);
     dispatch(initChallengeNavigationMenu(navigation.community));
     setLoading(false);
   }, [slug, submission_id]);

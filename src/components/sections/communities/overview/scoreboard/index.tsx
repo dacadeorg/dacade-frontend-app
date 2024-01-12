@@ -3,6 +3,8 @@ import ScoreboardCard from "@/components/cards/Scoreboard";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useTranslation } from "next-i18next";
 import { ReactElement, useState } from "react";
+import Loader from "@/components/ui/Loader";
+import EmptyState from "@/components/ui/EmptyState";
 
 /**
  * Scoreboard Overview index component
@@ -14,7 +16,7 @@ import { ReactElement, useState } from "react";
 
 export default function ScoreboardOverview(): ReactElement {
   const { t } = useTranslation();
-  const { list, filterBy } = useSelector((state) => state.scoreboard);
+  const { list, loading } = useSelector((state) => state.scoreboard);
 
   const [items, setItems] = useState(3);
 
@@ -24,7 +26,11 @@ export default function ScoreboardOverview(): ReactElement {
 
   return (
     <>
-      {(list && list.length !== 0) || filterBy !== "all" ? (
+      {loading ? (
+        <div className="h-full w-full grid">
+          <Loader className="place-self-center" />
+        </div>
+      ) : list && list.length !== 0 ? (
         <div className="flex flex-col w-full overflow-hidden border border-gray-200 border-solid divide-y divide-gray-200 divide-solid rounded-3xl">
           {list.slice(0, items).map((item, i) => (
             <ScoreboardCard key={`list-element-${i}`} index={i + 1} value={item} />
@@ -38,7 +44,9 @@ export default function ScoreboardOverview(): ReactElement {
           )}
         </div>
       ) : (
-        <></>
+        <div className=" w-full overflow-hidden border-t border-gray-200 ">
+          <EmptyState title={t("communities.scoreboard.empty-state.title")} />
+        </div>
       )}
     </>
   );
