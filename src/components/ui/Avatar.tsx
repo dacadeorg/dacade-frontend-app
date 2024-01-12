@@ -118,15 +118,20 @@ export default function Avatar({
         className={`bg-primary h-full w-full flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle relative z-0 ${shapeClassName}`}
       >
         {user && user.avatar && userAvatarLoaded ? (
-          <Image
-            src={user.avatar}
-            alt="user-avatar"
-            fill={true}
-            className="object-cover w-full h-full"
-            onError={() => {
-              setUserAvatarLoaded(false);
-            }}
-          />
+          <div>
+            <Image
+              src={user.avatar}
+              alt="user-avatar"
+              fill={true}
+              className="object-cover w-full h-full relative z-10"
+              onError={() => {
+                setUserAvatarLoaded(false);
+              }}
+            />
+            <div className="absolute inset-0 z-0 h-full flex items-center justify-center">
+              <span >{initials}</span>
+            </div>
+          </div>
         ) : (
           <span>{initials}</span>
         )}
