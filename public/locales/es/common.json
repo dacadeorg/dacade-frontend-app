@@ -153,6 +153,7 @@
   "communities.challenge.evaluation.total": "Total",
   "communities.challenge.evaluation.points": "Puntos",
   "communities.challenge.evaluation.message": "¡Felicidades, ha ganado al menos el 70% de los puntos disponibles!",
+  "communities.challenge.evaluation.message.nominated": "Felicitaciones, ganar el 90% te nominó para el fondo de premios de:",
   "communities.submission.title": "Propuestas",
   "communities.feedbacks": "Feedbacks",
   "communities.navigation.overview": "Vista general",
