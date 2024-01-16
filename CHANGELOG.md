@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.4.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.3.1...v1.4.0) (2024-01-12)
+
+
+### Features
+
+* display submissionPoints ([34c1672](https://github.com/dacadeorg/dacade-frontend-app/commit/34c16723a06b93a89c5d71687f079f9f554dffe3))
+* move scoreboard scort to the filter action ([722e559](https://github.com/dacadeorg/dacade-frontend-app/commit/722e559c6f6b51a6fada6974625c3b3ea76a1466))
+
+
+### Bug Fixes
+
+* display of the card ([debe85e](https://github.com/dacadeorg/dacade-frontend-app/commit/debe85ede84bd8b67f280895a59ad97f5e83f539))
+* feedback form visisibility ([39492c9](https://github.com/dacadeorg/dacade-frontend-app/commit/39492c99a0bb8ee21a9e608d6c344193bbdce282))
+* objective list responsiveness ([31a4ff0](https://github.com/dacadeorg/dacade-frontend-app/commit/31a4ff0540904b968a6f67d91b126c514d24f73a))
+
 ## [1.3.1](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.3.0...v1.3.1) (2023-12-20)
 
 
