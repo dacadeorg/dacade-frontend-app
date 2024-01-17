@@ -11,54 +11,53 @@
 
 ### Branching model
 
-A Git branching model defines your [branching strategy](https://www.perforce.com/blog/vcs/best-branching-strategies-high-velocity-development) in Git. It determines when and how developers make changes and commit them back to your codebase.
+We follow a specific branching model to organize our development process. Please adhere to the following guidelines when creating branches:
 
-Using a Git branching model can expedite the process of delivering feedback to developers. [Git hosting](https://www.perforce.com/git-hosting) solutions don’t come with a branching model out of the box. These Git branching models are branching patterns designed to help overcome challenges. But with Git, you have to build it!
+### **Main Branches**
 
-### **Development branch**
+- **main**: The main branch is the production branch and represents the latest stable version of the project.
+- **dev**: The development branch where active development takes place.
 
-Usually the integration branch for feature work and is often the default branch or a named branch. For pull request workflows, the branch where new feature branches are targeted.
+### **Feature branches**
 
-- `dev`
+Feature branches should have one of the following prefixes: fix (bug fix), ft (feature), ht (hotfix), chore, or doc (documentation), followed by a forward slash and a descriptive name.
 
-### **Production branch**
+**Examples:**
 
-Used for deploying a release. Branches from, and merges back into, the development branch. In a Gitflow-based workflow it is used to prepare for a new production release.
+- ft/new-section-layout
+- fix/bug-fix
+- ht/emergency-fix
+- chore/update-dependencies
+- doc/update-readme
 
-- `main`
+### Commit
 
-### **Feature branch**
+- Adhere to the conventions outlined in [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) when crafting your commit messages.
+- Aim to produce mid-sized commits every couple of minutes or hours. However, prioritize logical consistency in your contributions. This entails breaking down extensive changes into multiple commits, ensuring each commit conveys an independent and meaningful purpose described in its commit message.
 
-Used for specific feature work or improvements. Generally branches from, and merges back into, the development branch, using pull requests.
-They should have the following prefix `ft/`
+#### Examples
 
-- `ft/{FEATURE_NAME}`
+1. **Following Conventional Commits:**
 
-### **Hotfix branch**
+   ```bash
+   git commit -m "feat: add new feature"
+   git commit -m "fix: resolve issue with..."
+   ```
 
-Used to quickly fix a Production branch without interrupting changes in the development branch. In a Gitflow-based workflow, changes are usually merged into the production and development branches.
-They should have the following prefix `ht/`
+2. **Logical Consistency:**
 
-- `ht/{BUG_NAME}`
+   - Break down changes logically.
 
-### **Bugfix**
+   ```bash
+   # Good practice
+   git commit -m "chore: update dependencies"
+   git commit -m "doc: improve documentation"
 
-This branch is used to fix bugs which might be more intensive when it comes to the amount of changes to be done.
-They should start with the prefix `bg/`
+   # Avoid combining unrelated changes
+   git commit -m "chore: update dependencies and fix bug"
+   ```
 
-- `bg/{BUG_NAME}`
-
-### **Release**
-
-Branch used for release tasks and long-term maintenance versions. They are branched from the development branch and then merged into the production branch.
-They should start with this prefix `rl/`
-
-- `rl/{VERSION}`
-
-### Commits
-
-- Follow this guideline [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for your commit messages
-- Try to create a mid-sized every couple of minutes/hours. But more importantly, try to let commits be logically consistent contributions. That means if you have many changes in lines of code you can split them up into multiple commits but each of those commits should have an independent meaning that is described by the commit message.
+By adhering to these guidelines, we maintain a clean and informative commit history. Please refer to the provided examples for a better understanding of the recommended practices.
 
 ### PRs, Code Review
 
