@@ -111,7 +111,7 @@ export default function Filters(): ReactElement {
     <div className="lg:flex flex-col w-2/4 mr-8 divide-y divide-solid divide-gray-200 hidden">
       <div className="divide-y divide-gray-200">
         <div className="block mt-6 mb-6">
-          <span className="text-gray-700 mb-4">Filter by</span>
+          <span className="text-gray-700- mb-4">Filter by</span>
           <div className="mt-6 mb-6">
             {filterOptions.map((option, i) => (
               <FilterOption
