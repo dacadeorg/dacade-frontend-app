@@ -12,8 +12,7 @@ green='\033[0;32m'
 red='\033[0;31m'
 clear='\033[0m'
 
-contributing_link="\e]8;;/CONTRIBUTING.md\aCONTRIBUTING\e]8;;\a"
-message="❌❌❌❌ Error: The branch name $local_branch_name does not adhere to the project guidelines.\nPlease refer to the $contributing_link guide for the correct format.\nYour commit will be rejected. Rename your branch to a valid name and try again."
+message="❌❌❌❌ Error: The branch name $local_branch_name does not adhere to the project guidelines.\nPlease refer to the CONTRIBUTING guide for the correct format.\nYour commit will be rejected. Rename your branch to a valid name and try again."
 
 if [[ ! $local_branch_name =~ $valid_branch_regex ]]; then
     echo -e "${red}$message${clear}"
