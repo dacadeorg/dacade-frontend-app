@@ -25,7 +25,7 @@ export default function Request(): ReactElement {
     <div className="md:flex items-center justify-between text-sm ">
       <div className={`relative md:flex text-gray-500 items-center md:divide-x divide-solid ${referrals && referrals.length ? "" : "hidden"}`}>
         <div className="flex pr-3 items-center">
-          <div className="cursor-pointer" onClick={onClick}>
+          <div className="cursor-pointer flex" onClick={onClick}>
             {previewList?.map((referral, index) => (
               <Avatar key={referral.id} className={`border-2 border-solid border-white ${index > 0 && "-ml-3"}`} hideVerificationBadge useLink={false} user={referral.user} />
             ))}
