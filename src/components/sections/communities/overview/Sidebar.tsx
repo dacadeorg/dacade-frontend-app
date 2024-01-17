@@ -1,6 +1,6 @@
 import { useSelector } from "@/hooks/useTypedSelector";
 import Link from "next/link";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 /**
  * @interface SidebarProps
@@ -26,9 +26,7 @@ export default function Sidebar(): JSX.Element {
     return router.asPath === link;
   };
 
-  const scoreboardLink = hasCurrentCommunity
-    ? `/communities/${currentCommunity.slug}/scoreboard`
-    : "";
+  const scoreboardLink = hasCurrentCommunity ? `/communities/${currentCommunity.slug}/scoreboard` : "";
   const mainLink = hasCurrentCommunity ? `/communities/${currentCommunity.slug}` : "";
 
   return (
@@ -37,8 +35,7 @@ export default function Sidebar(): JSX.Element {
         <div className={isActive(mainLink) ? "" : "opacity-80"}>
           <div className="font-medium text-.5xl leading-snug">Challenges</div>
           <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0">
-            In the courses of this community, you will be able to learn about new
-            technologies, solve challenges, get feedback, and earn bounties.
+            In the courses of this community, you will be able to learn about new technologies, solve challenges, get feedback, and earn bounties.
           </div>
         </div>
       </Link>
@@ -46,9 +43,8 @@ export default function Sidebar(): JSX.Element {
         <Link href={scoreboardLink}>
           <div className={isActive(scoreboardLink) ? "pt-5" : "opacity-80 md:block hidden scroll-smooth pt-5"}>
             <div className="font-medium text-.5xl leading-snug">Scoreboard</div>
-            <div className="text-sm font-light lg:w-full lg:pr-7 pt-2">
-              On the scoreboard, you can see which users have accumulated the most
-              reputation by giving valuable feedback to their peers.
+            <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0">
+              On the scoreboard, you can see which users have accumulated the most reputation by giving valuable feedback to their peers.
             </div>
           </div>
         </Link>

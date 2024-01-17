@@ -10,6 +10,7 @@ import { wrapper } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchAllChallenges } from "@/store/services/communities/challenges";
 import { NotFoundError } from "@/utilities/errors/NotFoundError";
+import { fetchAllScoreboards } from "@/store/services/communities/scoreboard.service";
 export default function Slug(props: {
   pageProps: {
     community: Community;
@@ -43,16 +44,18 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
   try {
     const slug = params?.slug as string;
 
-    const [{ data: community }, { data: challenges }, translations] = await Promise.all([
+    const [{ data: community }, { data: challenges }, { data: scoreboards }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug, locale })),
       store.dispatch(fetchAllChallenges({ slug })),
+      store.dispatch(fetchAllScoreboards({ slug, locale: locale || "en" })),
       serverSideTranslations(locale as string),
     ]);
-    if (!community || !challenges) throw new NotFoundError();
+    if (!community || !challenges || !scoreboards) throw new NotFoundError();
     return {
       props: {
         community,
         challenges,
+        scoreboards,
         ...translations,
       },
     };
