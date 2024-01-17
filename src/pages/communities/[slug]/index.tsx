@@ -11,7 +11,7 @@ import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchAllChallenges } from "@/store/services/communities/challenges";
 import { NotFoundError } from "@/utilities/errors/NotFoundError";
 import { fetchAllScoreboards } from "@/store/services/communities/scoreboard.service";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 
 export default function Slug(props: {
   pageProps: {
