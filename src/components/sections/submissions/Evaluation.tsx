@@ -55,15 +55,25 @@ export default function Evaluations(): ReactElement {
           </div>
           {evaluation.reward && (
             <div className="relative text-sm">
-              <span className="block font-medium">{t("communities.challenge.evaluation.total")}</span>
-              <div className="absolute -left-5 top-7">
-                <Coin token={evaluation.reward.token} size="small" />
-              </div>
-              <div className="inline-block font-medium" style={{ color: colors?.textAccent }}>
-                <span className="text-xl">{evaluation.reward.amount}</span>
-                <span>{evaluation.reward.token}</span>
-              </div>
-              <div>{t("communities.challenge.evaluation.message")}</div>
+              {challenge?.isHackathon ? (
+                <>
+                  <div>{t("communities.challenge.evaluation.message.nominated")}</div>
+                  <div className="inline-block font-medium" style={{ color: colors?.textAccent }}>
+                    <span className="text-xl">{evaluation.reward.amount}</span> USD
+                  </div>
+                </>
+              ) : (
+                <>
+                  <span className="block font-medium">{t("communities.challenge.evaluation.total")}</span>
+                  <div className="absolute -left-5 top-7">
+                    <Coin token={evaluation.reward.token} size="small" />
+                  </div>
+                  <div className="inline-block font-medium" style={{ color: colors?.textAccent }}>
+                    <span className="text-xl">{evaluation.reward.amount}</span> <span>{evaluation.reward.token}</span>
+                  </div>
+                  <div>{t("communities.challenge.evaluation.message")}</div>
+                </>
+              )}
             </div>
           )}
         </div>
