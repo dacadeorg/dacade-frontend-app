@@ -62,6 +62,7 @@ yarn start
 
 ```bash
 git clone https://github.com/dacadeorg/dacade-frontend-app.git
+cd dacade-frontend-app
 ```
 
 ### 2. Install Dependencies
