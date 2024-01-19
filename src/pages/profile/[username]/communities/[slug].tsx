@@ -28,8 +28,8 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
 
     const [{ data }, translations] = await Promise.all([
       store.dispatch(fetchProfileCommunity({ username: username as string, slug: slug as string })),
-      store.dispatch(fetchUserProfile((username as string) || "")),
       serverSideTranslations(locale as string),
+      store.dispatch(fetchUserProfile((username as string) || "")),
     ]);
 
     return {
