@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint --ignore-path .eslintignore \"./**/*.{ts,tsx,js}\"",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,tsx,js,jsx}' --write",
-    "postinstall": "chmod +x .husky/*"
+    "check-branch-name": "./check_branch_name.sh",
+    "prepare": "npx husky install && chmod +x .husky/* && chmod +x ./check_branch_name.sh"
   },
   "dependencies": {
     "@coingecko/cryptoformat": "^0.5.4",
