@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.5.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.4.0...v1.5.0) (2024-01-18)
+
+
+### Features
+
+* add branch name check ([9701469](https://github.com/dacadeorg/dacade-frontend-app/commit/9701469b5e339a361b8ca41a8673bc079c948393))
+
+
+### Bug Fixes
+
+* improve the error message ([6f1702c](https://github.com/dacadeorg/dacade-frontend-app/commit/6f1702c1626c428fc676eaf6126f5ab2540c7c97))
+* install husky in the prepare command ([1cbeaa7](https://github.com/dacadeorg/dacade-frontend-app/commit/1cbeaa73a265d061bf973d06a18fb5b1e317e91e))
+* load profile in profile/community_slug page ([e3c02ac](https://github.com/dacadeorg/dacade-frontend-app/commit/e3c02ac7abdbf07c8645760edbe5c3934ec9f7a9))
+* referral alignment on small screen ([f709026](https://github.com/dacadeorg/dacade-frontend-app/commit/f709026b46f64d723387d2bae4d2c8937c5826a0))
+* remove the link to the CONTRIBUTING ([9cf404b](https://github.com/dacadeorg/dacade-frontend-app/commit/9cf404b9c498d6bd3d486c0ad7c511673a66222e))
+* update the readme ([6e8e95d](https://github.com/dacadeorg/dacade-frontend-app/commit/6e8e95d183c1fb1301c722463ddfc285f98ed3d7))
+* update the reward message for hackathon ([627cb1d](https://github.com/dacadeorg/dacade-frontend-app/commit/627cb1d09d113a85f2e9863986658040d133f3c2))
+
 ## [1.4.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.3.1...v1.4.0) (2024-01-12)
 
 
