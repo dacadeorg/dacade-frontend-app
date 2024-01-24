@@ -27,8 +27,8 @@ export default function CommunitySection(): ReactElement {
             <p className="mt-2 text-xl tracking-tight md:text-.5xl leading-tight max-w-text-sm lg:hidden">{community?.summary}</p>
             <p className="hidden mt-4 tracking-tight text-lg xl:text-.5xl max-w-text-md font-extralight lg:block">{community?.summary}</p>
           </div>
-          <div className="self-end w-36 md:w-1/2 max-w-lg">
-            {community?.icon && <Image src={`${community?.icon}`} alt={community?.name || ""} className="relative w-full" width={300} height={300} />}
+          <div className="self-end w-36 h-128 md:w-1/2 max-w-lg">
+            {community?.icon && <Image src={`${community?.icon}`} alt={community?.name || ""} className="relative w-full h-full" width={300} height={300} />}
           </div>
         </div>
         <div className="flex flex-col max-w-xs mt-0 sm:-mt-15 lg:-mt-8 md:max-w-xl lg:flex-row lg:items-center">
