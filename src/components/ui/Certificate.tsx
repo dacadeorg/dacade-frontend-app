@@ -39,6 +39,10 @@ const certificates = [
     icon: <IcpIcon />,
   },
   {
+    name: "sui",
+    icon: <SuiIcon />,
+  },
+  {
     name: "algorand",
     icon: <AlgolandIcon />,
   },
@@ -61,10 +65,6 @@ const certificates = [
   {
     name: "ai",
     icon: <AiIcon />,
-  },
-  {
-    name: "sui",
-    icon: <SuiIcon />,
   },
 ];
 
