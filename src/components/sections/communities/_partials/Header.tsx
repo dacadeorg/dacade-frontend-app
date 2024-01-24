@@ -40,7 +40,7 @@ export default function Header({
           </h2>
         )}
       </div>
-      {description && <p className="lg:w-99 my-2 md:my-5 text-base md:text-.5xl w-full md:w-10/12 leading-loose md:leading-snug text-gray-700">{description}</p>}
+      {description && <p className="lg:w-182.5 my-2 md:my-5 text-base md:text-.5xl w-full md:w-10/12 leading-loose md:leading-snug text-gray-700">{description}</p>}
     </div>
   );
 }
