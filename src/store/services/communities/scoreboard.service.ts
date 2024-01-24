@@ -37,7 +37,7 @@ const scoreboardService = createApi({
         } catch (err) {
           console.error(err);
         } finally {
-          setLoading(false);
+          dispatch(setLoading(false));
         }
       },
     }),
