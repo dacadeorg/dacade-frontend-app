@@ -56,7 +56,6 @@ export default function Bounties() {
     bounties: (state: IRootState) => state.bounties.bountiesList,
   });
 
-  // const bountiesList = useMemo(() => [defaulBounty, ...(bounties || [])], [bounties]);
   const bountiesList = useMemo(() => [...(bounties || [])], [bounties]);
 
 
@@ -66,7 +65,7 @@ export default function Bounties() {
         <Navigation />
       </div>
       <div className="flex-col w-full">
-        {/* <h1 className="text-4xl sm:text-5xl pt-10 md:pt-20 pb-10">{t("nav.bounties")}</h1> */}
+        <h1 className="text-4xl sm:text-5xl pt-10 md:pt-20 pb-10">{t("nav.bounties")}</h1>
         <BountyList bounties={bountiesList as Bounty[]} referrals={referrals} />
       </div>
     </div>
