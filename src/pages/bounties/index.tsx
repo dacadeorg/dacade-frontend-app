@@ -31,24 +31,6 @@ interface bountiesMultiSelector {
  *
  * @type {Bounty}
  */
-const defaulBounty = {
-  name: "Tezos Starter Course",
-  image: "/img/communities/tacode.svg",
-  type: "Challenge",
-  link: "https://tacode.dev/courses/dev-starter/challenges/f9c23fc7-3022-4347-b19c-66cc2424ac2f",
-  colors: {
-    text: "#0D61FF",
-    accent: "#0D61FF",
-    textAccent: "#fff",
-    primary: "#0D61FF",
-  },
-  reward: {
-    amount: 12,
-    token: "tez",
-    type: "SUBMISSION",
-  },
-  url: "https://tacode.dev/courses/dev-starter",
-};
 
 /**
  * Bounties page component
@@ -74,7 +56,9 @@ export default function Bounties() {
     bounties: (state: IRootState) => state.bounties.bountiesList,
   });
 
-  const bountiesList = useMemo(() => [defaulBounty, ...(bounties || [])], [bounties]);
+  // const bountiesList = useMemo(() => [defaulBounty, ...(bounties || [])], [bounties]);
+  const bountiesList = useMemo(() => [...(bounties || [])], [bounties]);
+
 
   return (
     <div className="flex justify-center content-wrapper">
@@ -82,7 +66,7 @@ export default function Bounties() {
         <Navigation />
       </div>
       <div className="flex-col w-full">
-        <h1 className="text-4xl sm:text-5xl pt-10 md:pt-20 pb-10">{t("nav.bounties")}</h1>
+        {/* <h1 className="text-4xl sm:text-5xl pt-10 md:pt-20 pb-10">{t("nav.bounties")}</h1> */}
         <BountyList bounties={bountiesList as Bounty[]} referrals={referrals} />
       </div>
     </div>
