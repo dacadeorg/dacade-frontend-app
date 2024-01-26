@@ -3,7 +3,7 @@ import Currency from "@/components/ui/Currency";
 import { Community } from "@/types/community";
 import { ReactElement } from "react";
 import { User } from "@/types/bounty";
-import useSafePush from "@/hooks/useSafePush";
+import Link from "next/link";
 
 /**
  * Interface for the reputation card props
@@ -31,21 +31,16 @@ interface ReputationCardProps {
  * @returns {ReactElement}
  */
 export default function ReputationCard({ details = {} }: ReputationCardProps): ReactElement {
-  const { safePush } = useSafePush();
-  const handleClick = (details: ReputationCardProps["details"]) => {
-    if (!details?.community) return;
-    safePush(`/communities/${details.community.slug}`);
-  };
   return (
-    <div onClick={() => handleClick(details)} className="flex space-x-3 text-left hover:bg-gray-50 pb-3 -mx-5 px-5 cursor-pointer">
+    <div className="flex space-x-3 text-left hover:bg-gray-50 pb-3 -mx-5 px-5">
       <Avatar icon={details.community?.icon} color={details.community?.colors?.cover?.background || details.community?.colors.primary} size="medium" shape="rounded" />
       {details?.score && (
-        <div className="pt-1">
+        <Link href={details?.community ? `/communities/${details.community.slug}` : ""} className="pt-1">
           <span className="block text-base font-medium leading-normal">
             <Currency value={details.score} token="REP" />
           </span>
           <span className="block font-normal text-sm">{details.community?.name}</span>
-        </div>
+        </Link>
       )}
     </div>
   );

@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import { ReactElement, useMemo } from "react";
 import { useRouter } from "next/router";
-import { Bounty, Submission } from "@/types/bounty";
+import { Bounty } from "@/types/bounty";
 
 import DateManager from "@/utilities/DateManager";
 import Badge from "@/components/ui/Badge";
@@ -9,7 +9,6 @@ import Avatar from "@/components/ui/Avatar";
 import Reward from "@/components/badges/RewardBadge";
 import Link from "next/link";
 import useNavigation from "@/hooks/useNavigation";
-import useSafePush from "@/hooks/useSafePush";
 
 export enum RewardType {
   submission = "SUBMISSION",
@@ -39,7 +38,6 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
   const { t } = useTranslation();
   const { locale } = useRouter();
   const navigation = useNavigation();
-  const { safePush } = useSafePush();
 
   const convertDate = (date: Date) => DateManager.fromNow(date, locale);
 
@@ -57,10 +55,9 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
   }, [bounty.challenge, bounty.course?.slug, bounty.slug, bounty.submissions?.link, bounty.url, isChallenge, navigation.community]);
 
   const Component = link.startsWith("http") ? "a" : Link;
-  const onSubmissionClick = (submission: Submission) => safePush(navigation.community.submissionPath(submission.id, bounty.challenge, bounty?.slug));
 
   return (
-    <div className="cursor-pointer flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative">
+    <div className="p-5 flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative">
       <div className="bg-theme-accent flex-col w-full h-full justify-between md:-space-y-1 pl-3 pr-5 mt-7 mb-5">
         <Component className="relative w-full block" href={link}>
           <div className="font-medium text-md md:pt-1.5">{bounty.course ? bounty.course.name : bounty.name}</div>
@@ -74,11 +71,16 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
         {bounty.submissions?.length ? (
           <div className="mt-4 space-y-0 divide-y divide-gray-200 border-t border-t-solid border-gray-200">
             {bounty.submissions.map((submission) => (
-              <div className="flex space-x-1 relative text-sm font-medium py-3 cursor-pointer" key={submission.id} onClick={() => onSubmissionClick(submission)}>
+              <div className="flex space-x-1 relative text-sm font-medium py-3" key={submission.id}>
                 <div className="flex justify-between w-full pr-0 gap-1 sm:gap-0">
                   <div className="flex space-x-1">
                     <Avatar user={submission.user} size="mini" />
-                    <div className="text-ellipsis overflow-hidden w-17 sm:w-auto whitespace-nowrap">{submission.user.displayName}</div>
+                    <Link
+                      className="text-ellipsis overflow-hidden w-17 sm:w-auto whitespace-nowrap"
+                      href={navigation.community.submissionPath(submission.id, bounty.challenge, bounty?.slug)}
+                    >
+                      {submission.user.displayName}
+                    </Link>
                     <div className="flex align-middle text-gray-500 text-middle bg-gray-200 px-2 text-xxs rounded-xl m-0 h-5">
                       {submission.metadata && submission.metadata.feedbacks ? submission.metadata.feedbacks : 0}
                     </div>
