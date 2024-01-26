@@ -9,6 +9,7 @@ import NEARIcon from "@/icons/tokens/NEAR.svg";
 import USDCIcon from "@/icons/tokens/USDC.svg";
 import NFTIcon from "@/icons/tokens/NFT.svg";
 import ICPcon from "@/icons/tokens/ICP.svg";
+import SUIIcon from "@/icons/tokens/SUI.svg";
 
 /**
  * Interface for the coin props
@@ -107,6 +108,12 @@ const coins = [
     token: "USDC",
     icon: <USDCIcon />,
     bgColor: "#2775ca",
+    textColor: "#FFFFFF",
+  },
+  {
+    token: "SUI",
+    icon: <SUIIcon />,
+    bgColor: "#4DA2FF",
     textColor: "#FFFFFF",
   },
 ];

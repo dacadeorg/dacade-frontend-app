@@ -7,6 +7,7 @@ import NearIcon from "@/icons/certificates/Near.svg";
 import IcpIcon from "@/icons/certificates/Icp.svg";
 import AiIcon from "@/icons/certificates/Ai.svg";
 import Solidity from "@/icons/certificates/Solidity.svg";
+import SuiIcon from "@/icons/certificates/Sui.svg";
 
 /**
  * Interface for the coin props
@@ -36,6 +37,10 @@ const certificates = [
   {
     name: "icp",
     icon: <IcpIcon />,
+  },
+  {
+    name: "sui",
+    icon: <SuiIcon />,
   },
   {
     name: "algorand",

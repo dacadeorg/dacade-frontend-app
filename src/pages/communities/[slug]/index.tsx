@@ -10,6 +10,9 @@ import { wrapper } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchAllChallenges } from "@/store/services/communities/challenges";
 import { NotFoundError } from "@/utilities/errors/NotFoundError";
+import { fetchAllScoreboards } from "@/store/services/communities/scoreboard.service";
+import { useTranslation } from "next-i18next";
+
 export default function Slug(props: {
   pageProps: {
     community: Community;
@@ -17,6 +20,7 @@ export default function Slug(props: {
   };
 }): ReactElement {
   const { community, challenges } = props.pageProps;
+  const { t } = useTranslation();
   return (
     <CommunityWrapper>
       {challenges.map((challenge) => (
@@ -24,10 +28,8 @@ export default function Slug(props: {
       ))}
       <div className="md:hidden">
         <div className="active md:hidden mb-7 scroll-smooth pt-5">
-          <div className="font-medium text-.5xl leading-snug">Scoreboard</div>
-          <div className="text-sm font-light lg:w-full lg:pr-7 pt-2">
-            On the scoreboard, you can see which users have accumulated the most reputation by giving valuable feedback to their peers.
-          </div>
+          <div className="font-medium text-.5xl leading-snug">{t("communities.overview.scoreboard.title")}</div>
+          <div className="text-sm font-light lg:w-full lg:pr-7 pt-2">{t("communities.overview.scoreboard.description")} </div>
         </div>
         <Scoreboard />
       </div>
@@ -43,9 +45,10 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
   try {
     const slug = params?.slug as string;
 
-    const [{ data: community }, { data: challenges }, translations] = await Promise.all([
+    const [{ data: community }, { data: challenges }, { data: scoreboard }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug, locale })),
       store.dispatch(fetchAllChallenges({ slug })),
+      store.dispatch(fetchAllScoreboards({ slug, locale: locale || "en" })),
       serverSideTranslations(locale as string),
     ]);
     if (!community || !challenges) throw new NotFoundError();
@@ -53,6 +56,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
       props: {
         community,
         challenges,
+        scoreboard,
         ...translations,
       },
     };
