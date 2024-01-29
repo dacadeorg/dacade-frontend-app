@@ -1,15 +1,12 @@
 # Submit a pull request
 
-Thank you for submitting a pull request! To speed up the review process, please ensure that everything below
-is true:
-
-1. This is not a duplicate of an existing pull request.
-2. No existing features have been broken without good reason.
-3. Your commit messages are detailed
-4. The code style guideline have been followed.
-5. Documentation has been updated to reflect your changes.
-6. Tests have been added or updated to reflect your changes.
-7. All tests pass.
+- [ ] This is not a duplicate of an existing pull request.
+- [ ] No existing features have been broken without good reason.
+- [ ] Your commit messages are detailed
+- [ ] The code style guideline have been followed.
+- [ ] Documentation has been updated to reflect your changes.
+- [ ] Tests have been added or updated to reflect your changes.
+- [ ] All tests pass.
 
 ---
 
