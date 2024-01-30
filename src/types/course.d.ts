@@ -77,6 +77,7 @@ export type Challenge = {
   bestSubmissions: Submission[];
   teamLimit?: number;
   isHackathon?: boolean;
+  supportMultipleSubmissions?: boolean;
 };
 
 export type RatingCriteria = {
@@ -140,7 +141,7 @@ export type Reward = {
   amount: number;
   timestamp: number;
   distribution?: Distribution;
-  };
+};
 export type Distribution = {
   first: string;
   second: string;

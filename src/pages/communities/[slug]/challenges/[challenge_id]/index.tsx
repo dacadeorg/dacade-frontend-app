@@ -69,6 +69,10 @@ export default function ChallengePage() {
   });
   const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), challenge?.name || ""), [challenge?.name, t]);
 
+  const canSubmit = useMemo(() => {
+    return !submission || (submission && challenge?.supportMultipleSubmissions);
+  }, [challenge?.supportMultipleSubmissions, submission]);
+
   const navigation = useNavigation();
   const router = useRouter();
   const { challenge_id, slug, locale } = router.query;
@@ -136,12 +140,14 @@ export default function ChallengePage() {
                   </div>
                 ) : (
                   <>
-                    {submission ? (
+                    {submission && (
                       <div className="mt-8">
                         <h4 className="my-8 text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
                         <SubmissionCard submission={submission} />
                       </div>
-                    ) : (
+                    )}
+                    <Hint className="mt-8">{challenge?.supportMultipleSubmissions ? <>You can submit multiple times to this challenge.</> : <>You can only submit once</>}</Hint>
+                    {canSubmit && (
                       <>
                         {challenge.isTeamChallenge && <SetupTeamChallenge />}
                         <SubmissionForm />
