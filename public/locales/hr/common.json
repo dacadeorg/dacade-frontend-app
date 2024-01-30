@@ -172,6 +172,8 @@
   "communities.overview.challenge.team.setup.submit-title": "Pošaljite svoj tim",
   "communities.overview.challenge.submission.description": "Zalijepite kod svog tima u nastavku i automatski će se povezati sa svim profilima.",
   "communities.challenge.submission.hint": "Podnošenje će biti omogućeno kada svi članovi tima prihvate pozivnicu i tim bude potpuno formiran.",
+  "communities.challenge.submission.multiple-submissions": "Možete se više puta prijaviti na ovaj izazov.",
+  "communities.challenge.submission.no-multiple-submissions": "Na ovaj izazov možete se prijaviti samo <strong>jednom</strong>",
   "communities.overview.challenge.deadline": "Rok",
   "communities.overview.challenge.submissions-closed": "Prijave za ovaj izazov sada su zatvorene.",
   "communities.card.submissions": "{{count}} Podnesci",

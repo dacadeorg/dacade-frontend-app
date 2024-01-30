@@ -139,21 +139,33 @@ export default function ChallengePage() {
                     <Loader />
                   </div>
                 ) : (
-                  <>
+                  <div className="grid mt-8 space-y-8">
+                    <Hint>
+                      <p
+                        className="text-lg py-4"
+                        dangerouslySetInnerHTML={{
+                          __html: t(
+                            challenge?.supportMultipleSubmissions
+                              ? "communities.challenge.submission.multiple-submissions"
+                              : "communities.challenge.submission.no-multiple-submissions"
+                          ),
+                        }}
+                      ></p>
+                    </Hint>
                     {submission && (
-                      <div className="mt-8">
-                        <h4 className="my-8 text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
+                      <>
+                        <h4 className="text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
                         <SubmissionCard submission={submission} />
-                      </div>
+                      </>
                     )}
-                    <Hint className="mt-8">{challenge?.supportMultipleSubmissions ? <>You can submit multiple times to this challenge.</> : <>You can only submit once</>}</Hint>
+
                     {canSubmit && (
                       <>
                         {challenge.isTeamChallenge && <SetupTeamChallenge />}
                         <SubmissionForm />
                       </>
                     )}
-                  </>
+                  </div>
                 )}
               </div>
             ) : (
