@@ -51,6 +51,7 @@ export type Challenge = {
   name: string;
   format: Format;
   description: string;
+  s;
   course: Course;
   type: string;
   isTeamChallenge: boolean = false;
@@ -140,7 +141,7 @@ export type Reward = {
   amount: number;
   timestamp: number;
   distribution?: Distribution;
-  };
+};
 export type Distribution = {
   first: string;
   second: string;
