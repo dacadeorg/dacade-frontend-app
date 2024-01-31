@@ -70,8 +70,8 @@ export default function ChallengePage() {
   const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), challenge?.name || ""), [challenge?.name, t]);
 
   const navigation = useNavigation();
-  const router = useRouter();
-  const { challenge_id, slug, locale } = router.query;
+  const { locale, query } = useRouter();
+  const { challenge_id, slug } = query;
 
   const initPage = useCallback(async () => {
     const fetchPayload = {
@@ -88,7 +88,7 @@ export default function ChallengePage() {
     setChallenge(challenge);
     dispatch(initChallengeNavigationMenu(navigation.community));
     setLoading(false);
-  }, [challenge_id, slug]);
+  }, [challenge_id, slug, locale]);
 
   useEffect(() => {
     initPage();
