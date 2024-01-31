@@ -1,0 +1,1 @@
+export const video = "course trailer video";
