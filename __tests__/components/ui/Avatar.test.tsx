@@ -83,12 +83,6 @@ describe("Avatar size class", () => {
     expect(avatar.className).toContain("w-15 h-15");
   });
 
-  it("Should have a large size class", () => {
-    render(<Avatar size="large" />);
-    const avatar = screen.getByTestId("avatar");
-    expect(avatar.className).toContain("w-15 h-15");
-  });
-
   it("Should have a medium size class", () => {
     render(<Avatar size="medium" />);
     const avatar = screen.getByTestId("avatar");
