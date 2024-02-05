@@ -36,7 +36,7 @@ export default function Section({ type, padding = "py-4", children, className = 
   });
 
   return (
-    <div className={sectionClassName}>
+    <div className={sectionClassName} data-testid="section">
       <div className={`content-wrapper ${padding}`}>{children}</div>
     </div>
   );
