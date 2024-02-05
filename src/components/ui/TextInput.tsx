@@ -47,7 +47,7 @@ export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInpu
   );
 
   return (
-    <div>
+    <div data-testid="textarea">
       <div className="floating-input relative">
         {label && <label className={labelClassName}>{label}</label>}
 
