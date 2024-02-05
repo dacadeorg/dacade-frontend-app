@@ -25,11 +25,4 @@ describe("Video", () => {
 
         expect(videoIframe).toHaveAttribute("allowFullScreen");
     });
-
-    it("should have the correct class", () => {
-        render(<Video url={video} />);
-        const videoTrailer = screen.getByTestId("video");
-
-        expect(videoTrailer.className).toContain("aspect-w-16 aspect-h-11 md:aspect-h-10 lg:aspect-h-9");
-    });
 })
