@@ -4,7 +4,7 @@ import { render, screen } from "@testing-library/react";
 import { colors } from "../../../__mocks__/colors";
 
 describe("ThemeWrapper", () => {
-  it("should render the theme", () => {
+  it("should render the theme  wrapper", () => {
     render(<ThemeWrapper>Theme wrapper</ThemeWrapper>);
     const themeWrapper = screen.getByTestId("themeWrapper");
 
