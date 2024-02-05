@@ -1,4 +1,3 @@
-import React from "react";
 import Coin from "@/components/ui/Coin";
 import { Challenge, Reward } from "@/types/course";
 import { useTranslation } from "next-i18next";
@@ -43,7 +42,7 @@ export default function Overview({ challenge, community }: Props) {
           <div className="md:pl-2 max-w-max">
             <div className="flex text-sm text-gray-700">
               <span className="block font-medium pr-1">
-                {community.slug === "celo" && "NFT"} {t("communities.overview.challenge.certificate")}
+                {community?.slug === "celo" && "NFT"} {t("communities.overview.challenge.certificate")}
               </span>
             </div>
             <div className="text-gray-400 text-xs font-medium">{t("communities.overview.challenge.subtitle")}</div>

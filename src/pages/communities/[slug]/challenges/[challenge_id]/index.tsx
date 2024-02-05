@@ -96,9 +96,11 @@ export default function ChallengePage() {
 
   useEffect(() => {
     if (challenge && isAuthenticated) {
-      dispatch(getTeamByChallenge(challenge.id));
       dispatch(fetchChallengeAuthenticated({ id: challenge.id }));
-      dispatch(getUserInvitesByChallenge(challenge.id));
+      if (challenge.isTeamChallenge) {
+        dispatch(getTeamByChallenge(challenge.id));
+        dispatch(getUserInvitesByChallenge(challenge.id));
+      }
     }
   }, [challenge, dispatch, isAuthenticated]);
 
