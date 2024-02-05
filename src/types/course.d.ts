@@ -51,7 +51,6 @@ export type Challenge = {
   name: string;
   format: Format;
   description: string;
-  s;
   course: Course;
   type: string;
   isTeamChallenge: boolean = false;

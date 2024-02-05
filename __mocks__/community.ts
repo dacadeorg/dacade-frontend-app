@@ -84,16 +84,10 @@ const mockInteractiveModule = {
     {
       text: "Item Text",
       title: "Item Title",
-      options: [
-        {
-          text: "Option A",
-          isCorrect: true,
-        },
-        {
-          text: "Option B",
-          isCorrect: false,
-        },
-      ],
+      options: {
+        text: "Option A",
+        isCorrect: true,
+      },
       question: {
         title: "Question Title",
         answers: ["Answer A", "Answer B", "Answer C"],
@@ -103,13 +97,13 @@ const mockInteractiveModule = {
   ],
 };
 
-const MaterialType = {
-  ADDITIONAL: "ADDITIONAL",
-  MARKDOWN: "MARKDOWN",
-  TEXT: "TEXT",
-  ARTICLE: "ARTICLE",
-  "EMBEDDED-VIDEO": "EMBEDDED-VIDEO",
-};
+enum MaterialType {
+  ADDITIONAL = "ADDITIONAL",
+  MARKDOWN = "MARKDOWN",
+  TEXT = "TEXT",
+  ARTICLE = "ARTICLE",
+  "EMBEDDED-VIDEO" = "EMBEDDED-VIDEO",
+}
 
 // Mock Material object
 const mockMaterial = {
@@ -184,6 +178,30 @@ const mockCourse = {
   // challenges: Challenge[]
 };
 
+export const community = {
+  id: "ew-43",
+  ref: "community/ref",
+  created_at: new Date("2022-05-01T12:00:00Z"),
+  updated_at: new Date("2022-05-01T12:00:00Z"),
+  summary: "this is tehe summary",
+  icon: "public/img/communities/aeternity.svg",
+  name: "aeternity",
+  image: "public/img/communities/aeternity.svg",
+  colors: colors,
+  slug: "ae",
+  active: true,
+  description: "this is a aeternity community",
+  metadata,
+  timestamp: 182044800000,
+  rewards: [reward],
+  reward,
+  courses: 3,
+  duration: 4,
+  // challenge: mockChallenge,
+  // submission: { id: "32" },
+  can_mint_certificates: true,
+};
+
 const mockChallenge = {
   id: "123",
   ref: "challenge123",
@@ -198,11 +216,7 @@ const mockChallenge = {
   isTeamChallenge: false,
   objectives: ["Objective 1", "Objective 2"],
   threshold: 80,
-  community: {
-    id: "community123",
-    name: "Community Name",
-    description: "Community Description",
-  },
+  community: community,
   reviewTime: 7,
   metadata: {
     invite_id: "abc123",
@@ -273,26 +287,4 @@ const mockChallenge = {
   isHackathon: false,
 };
 
-export const community = {
-  id: "ew-43",
-  ref: "community/ref",
-  created_at: new Date("2022-05-01T12:00:00Z"),
-  updated_at: new Date("2022-05-01T12:00:00Z"),
-  summary: "this is tehe summary",
-  icon: "public/img/communities/aeternity.svg",
-  name: "aeternity",
-  image: "public/img/communities/aeternity.svg",
-  colors: colors,
-  slug: "ae",
-  active: true,
-  description: "this is a aeternity community",
-  metadata,
-  timestamp: 182044800000,
-  rewards: [reward],
-  reward,
-  courses: 3,
-  duration: 4,
-  challenge: mockChallenge,
-  submission: { id: "32" },
-  can_mint_certificates: true,
-};
+console.log("The moch challenge", mockChallenge);
