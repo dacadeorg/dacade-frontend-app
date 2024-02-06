@@ -3,9 +3,13 @@ import CommunityCard from "@/components/cards/community";
 import { render, screen } from "@testing-library/react";
 import { community } from "../../../__mocks__/community";
 import mockRouter from "next-router-mock";
+import { makeStore } from "@/store";
 
 jest.mock("next/router", () => jest.requireActual("next-router-mock"));
 describe("CommunityCard", () => {
+  beforeEach(() => {
+    makeStore();
+  });
   it("should render the communit card", () => {
     mockRouter.push("/communities");
     render(<CommunityCard showRewards={true} community={community} />);
