@@ -17,8 +17,8 @@ const Accordion: React.FC<AccordionProps> = ({ title, subtitle, content, isExpan
   };
 
   return (
-    <div className="mt-2">
-      <div className={`flex gap-2 justify-between cursor-pointer ${!title && "items-start"}`} onClick={toggleAccordion}>
+    <div data-testid="accordion" className="mt-2">
+      <div data-testid="accordion-trigger" className={`flex gap-2 justify-between cursor-pointer ${!title && "items-start"}`} onClick={toggleAccordion}>
         <div>
           {title && <H3>{title}</H3>}
           {subtitle && isAccordionExpanded && subtitle}
@@ -27,7 +27,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, subtitle, content, isExpan
           <ArrowDown className={`transform origin-center-top transition-transform ${isAccordionExpanded ? "rotate-180" : ""}`} />
         </div>
       </div>
-      {isAccordionExpanded && <div>{content}</div>}
+      {isAccordionExpanded && <div data-testid="accordion-content">{content}</div>}
     </div>
   );
 };
