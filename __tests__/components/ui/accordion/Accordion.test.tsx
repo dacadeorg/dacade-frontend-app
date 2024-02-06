@@ -10,7 +10,7 @@ describe("Accordion", () => {
     expect(accordion).toBeInTheDocument();
   });
 
-  it("Should show accordion content when expendeded", () => {
+  it("Should show accordion content when expanded", () => {
     render(<Accordion title="accordion" subtitle="accodion subtitle" isExpanded={true} content="Accordion content" />);
     const accordionContent = screen.getByTestId("accordion-content");
     expect(accordionContent).toBeInTheDocument();
