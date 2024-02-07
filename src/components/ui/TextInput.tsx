@@ -49,7 +49,7 @@ export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInpu
   return (
     <div data-testid="textarea">
       <div className="floating-input relative">
-        {label && <label className={labelClassName}>{label}</label>}
+        {label && <label data-testid="inputlabel" className={labelClassName}>{label}</label>}
 
         <textarea
           {...props}
@@ -63,7 +63,7 @@ export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInpu
         />
       </div>
       {error && (
-        <div className="bg-red-50 help text-sm text-red-900 px-5 py-1.5">
+        <div data-testid="inputerror" className="bg-red-50 help text-sm text-red-900 px-5 py-1.5">
           <p>{error}</p>
         </div>
       )}

@@ -12,13 +12,15 @@ describe("TextInput", () => {
 
   it("should display the label", () => {
     render(<TextInput label="Test Label" />);
-    const textInput = screen.getByText("Test Label")
-    expect(textInput).toBeInTheDocument();
+    const inputLabel = screen.getByTestId("inputlabel")
+    expect(inputLabel).toBeInTheDocument();
+    expect(inputLabel).toHaveTextContent("Test Label");
   });
 
   it("should display error message", () => {
     render(<TextInput error="Test error message" />);
-    const textError = screen.getByText("Test error message")
-    expect(textError).toBeInTheDocument();
+    const inputError = screen.getByTestId("inputerror")
+    expect(inputError).toBeInTheDocument();
+    expect(inputError).toHaveTextContent("Test error message");
   });
 });
