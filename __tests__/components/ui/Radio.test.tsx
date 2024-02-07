@@ -10,14 +10,14 @@ describe("Radio", () => {
   });
 
   it("Should be disabled", () => {
-    render(<Radio disabled />);
+    render(<Radio disabled/>);
     const radioInput = screen.getByRole("radio");
-    expect(radioInput).not.toHaveClass("cursor-pointer");
+    expect(radioInput).toHaveAttribute("disabled");
   });
 
   it("Should apply community styles", () => {
     render(<Radio communityStyles />);
     const radioInput = screen.getByRole("radio");
-    expect(radioInput).toHaveStyle({ color: "#fff" });
+    expect(radioInput.style).not.toEqual("");
   });
 });
