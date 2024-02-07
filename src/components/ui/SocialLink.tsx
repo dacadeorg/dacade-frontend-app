@@ -30,9 +30,9 @@ interface SocialLinkProps {
  */
 export default function SocialLink({ link }: SocialLinkProps): ReactElement {
   const icons = {
-    discord: <DiscordIcon />,
-    twitter: <TwitterIcon />,
-    youtube: <YoutubeIcon />,
+    discord: <DiscordIcon data-testid="discordIcon"/>,
+    twitter: <TwitterIcon data-testid="twitterIcon"/>,
+    youtube: <YoutubeIcon data-testid="youtubeIcon"/>,
   };
 
   const icon = icons[link?.icon as keyof typeof icons];
@@ -46,7 +46,7 @@ export default function SocialLink({ link }: SocialLinkProps): ReactElement {
       className="h-14 w-14 border border-solid bg-gray-50 border-gray-200 box-border inline-flex items-center justify-center text-lg rounded-full"
     >
       {icon && (
-        <div title={link.title} className="w-4.5 inline-block" data-testid="discordIcon">
+        <div title={link.title} className="w-4.5 inline-block" data-testid="socialLink-icon">
           {icon}
         </div>
       )}
