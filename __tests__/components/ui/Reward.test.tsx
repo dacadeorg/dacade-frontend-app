@@ -10,10 +10,12 @@ describe("OverviewRewards", () => {
     expect(rewards).toBeInTheDocument();
   });
 
-  it("should render reward details with medium size", () => {
+  it("Should render reward details", () => {
     render(<OverviewRewards reward={reward} size="medium" />);
-    expect(screen.getByText(reward.amount.toString())).toBeInTheDocument();
-    expect(screen.getByText(reward.token)).toBeInTheDocument();
+    const rewardAmount = screen.getByText(reward.amount.toString());
+    const rewardToken = screen.getByText(reward.token.toString())
+    expect(rewardAmount).toHaveTextContent(reward.amount.toString());
+    expect(rewardToken).toHaveTextContent(reward.token);
   });
 
 });
