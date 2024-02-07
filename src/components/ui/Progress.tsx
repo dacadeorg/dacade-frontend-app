@@ -31,7 +31,7 @@ export default function Progress({ communityStyles, percentage }: ProgressProps)
   const styles = communityStyles ? { backgroundColor: colors.textAccent } : {};
 
   return (
-    <div className="h-3 w-full block rounded-lg overflow-hidden relative">
+    <div data-testid="progress" className="h-3 w-full block rounded-lg overflow-hidden relative">
       <div style={styles} className={`h-full w-full absolute top-0 left-0 bg-gray-100  z-0 ${communityStyles ? "opacity-20" : ""}`} />
       <div style={{ width: `${percentage}%`, ...styles }} className="h-full relative z-10 bg-primary transition-all" />
     </div>
