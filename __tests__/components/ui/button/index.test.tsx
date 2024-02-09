@@ -1,8 +1,7 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import ReduxProvider from "../../../../__mocks__/provider/ReduxProvider";
-import Button from "@/components/ui/button";
-// import classNames from "classnames";
+import Button, { ButtonProps } from "@/components/ui/button";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -16,26 +15,38 @@ jest.mock("next/router", () => ({
   }),
 }));
 
-function RenderButton(
-  props = {
-    link: "/",
-    text: "",
-    disabled: false,
-    rounded: true,
-    variant: "primary",
-    type: "submit",
-    padding: true,
-    customStyle: null,
-    target: "_self",
-    communityStyles: false,
-    onClick: () => null,
-    className: "",
-  }
-) {
+const buttonProps: ButtonProps = {
+  link: "",
+  text: "",
+  disabled: false,
+  rounded: true,
+  variant: "primary",
+  type: "submit",
+  padding: true,
+  customStyle: null,
+  target: "_self",
+  communityStyles: false,
+  onClick: () => null,
+  className: "",
+  children: "button",
+};
+
+function RenderButton(props = buttonProps) {
   render(
     <ReduxProvider>
-      <Button className={props.className} communityStyles={props.communityStyles} text={props.text} rounded={props.rounded}>
-        button
+      <Button
+        className={props.className}
+        onClick={props.onClick}
+        type={props.type}
+        link={props.link}
+        disabled={props.disabled}
+        padding={props.padding}
+        target={props.target}
+        communityStyles={props.communityStyles}
+        text={props.text}
+        rounded={props.rounded}
+      >
+        {props.children}
       </Button>
     </ReduxProvider>
   );
@@ -43,9 +54,10 @@ function RenderButton(
 }
 
 describe("Button", () => {
-  it("should render the button", () => {
+  it("should render the button and its children", () => {
     const button = RenderButton();
     expect(button).toBeInTheDocument();
+    expect(button.textContent).toBe(buttonProps.children);
   });
 
   it("Should render button with button tag", () => {
@@ -54,20 +66,34 @@ describe("Button", () => {
   });
 
   it("Should render a button as an internal link", () => {
-    const button = RenderButton({
-      link: "/",
-      text: "",
-      disabled: false,
-      rounded: true,
-      variant: "primary",
-      type: "submit",
-      padding: true,
-      customStyle: null,
-      target: "_self",
-      communityStyles: false,
-      onClick: () => null,
-      className: "",
-    });
+    const button = RenderButton({ ...buttonProps, link: "/internal" });
     expect(button.tagName).toBe("A");
+  });
+
+  it("Should be disabled when the button is disabled", () => {
+    const button = RenderButton({ ...buttonProps, disabled: true, type: "button" });
+    expect((button as HTMLButtonElement).disabled).toBe(true);
+  });
+
+  it("Should be enabled when the button is enabled", () => {
+    const button = RenderButton({ ...buttonProps, type: "button" });
+    expect((button as HTMLButtonElement).disabled).toBe(false);
+  });
+
+  it("Should be a submit button", () => {
+    const button = RenderButton({ ...buttonProps, type: "submit" });
+    expect((button as HTMLButtonElement).type).toBe("submit");
+  });
+
+  it("Should be a reset button", () => {
+    const button = RenderButton({ ...buttonProps, type: "reset" });
+    expect((button as HTMLButtonElement).type).toBe("reset");
+  });
+
+  it("Should fire click event", () => {
+    const handleClick = jest.fn();
+    const button = RenderButton({ ...buttonProps, onClick: handleClick });
+    fireEvent.click(button);
+    expect(handleClick).toHaveBeenCalled();
   });
 });
