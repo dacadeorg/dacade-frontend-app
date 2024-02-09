@@ -35,7 +35,7 @@ export default function FilterOption({ label = "", value = "", data = "", name =
   return (
     <div className="mt-2 mb-2">
       <label className="inline-flex items-center">
-        <Radio {...props} name={name} data={data} value={value} className="w-8" />
+        <Radio disabled={isChecked} {...props} name={name} data={data} value={value} className="w-8" />
         <span
           className={classNames("ml-4", {
             "font-bold": isChecked,
