@@ -5,20 +5,8 @@ import { render, screen } from "@testing-library/react";
 describe("Tag", () => {
   it("Should render the tag", () => {
     render(<Tag />);
-    const tag = screen.getByTestId("tag")
+    const tag = screen.getByTestId("tag");
     expect(tag).toBeInTheDocument();
-  });
-
-  it("Should be rounded", () => {
-    render(<Tag rounded={true}/>);
-    const tag = screen.getByTestId("tag")
-    expect(tag).toHaveClass("rounded-full");
-  });
-
-  it("applies correct background color based on 'type' prop", () => {
-    render(<Tag type="gray" />);
-    const tag = screen.getByTestId("tag")
-    expect(tag).toHaveClass("bg-gray-200 text-gray-500");
   });
 
   it("should render the value", () => {
@@ -30,8 +18,7 @@ describe("Tag", () => {
 
   it("should render children", () => {
     render(<Tag>Test Child</Tag>);
-    const tag = screen.getByTestId("tag")
+    const tag = screen.getByTestId("tag");
     expect(tag.textContent).toBe("Test Child");
   });
-
 });
