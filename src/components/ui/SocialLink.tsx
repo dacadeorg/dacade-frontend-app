@@ -30,16 +30,16 @@ interface SocialLinkProps {
  */
 export default function SocialLink({ link }: SocialLinkProps): ReactElement {
   const icons = {
-    discord: <DiscordIcon data-testid="discordIcon"/>,
-    twitter: <TwitterIcon data-testid="twitterIcon"/>,
-    youtube: <YoutubeIcon data-testid="youtubeIcon"/>,
+    discord: <DiscordIcon data-testid="discordIcon" />,
+    twitter: <TwitterIcon data-testid="twitterIcon" />,
+    youtube: <YoutubeIcon data-testid="youtubeIcon" />,
   };
 
   const icon = icons[link?.icon as keyof typeof icons];
 
   return (
     <a
-    data-testid="socialLink"
+      data-testid="socialLink"
       href={link.url}
       target="__blank"
       title={link.title}
