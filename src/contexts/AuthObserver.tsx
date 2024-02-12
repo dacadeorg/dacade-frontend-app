@@ -29,7 +29,9 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
 
   const isUserRoute = useMemo(
     () => (path: string) => {
-      return matchesRoutes(path, ["/bounties", "/profile", "/profile/wallets", "/profile/referrals", "/profile/settings", "/profile/notifications"]);
+      return (
+        path.startsWith("/bounties/") || matchesRoutes(path, ["/bounties", "/profile", "/profile/wallets", "/profile/referrals", "/profile/settings", "/profile/notifications"])
+      );
     },
     []
   );

@@ -34,7 +34,6 @@ export interface FormValues {
   password: string;
   referralCode: string;
   checkTerms: boolean;
-  
 }
 
 /**
@@ -51,10 +50,10 @@ export default function SignupWithInvite(): ReactElement {
     watch,
     formState: { errors },
   } = useForm<FormValues>();
-  const emailValue = watch("email");
-  const passwordValue = watch("password");
-  const usernameValue = watch("username");
-  const referralCodeValue = watch("referralCode");
+  const emailValue = watch("email") || "";
+  const passwordValue = watch("password") || "";
+  const usernameValue = watch("username") || "";
+  const referralCodeValue = watch("referralCode") || "";
   const { query, locale } = useRouter();
   const referrer = query.invite;
   const referrals = useSelector((state) => state.referrals.list);
@@ -102,7 +101,9 @@ export default function SignupWithInvite(): ReactElement {
                   <div className="my-8">
                     <ReferralsList bounty />
                   </div>
-                ): <></>}
+                ) : (
+                  <></>
+                )}
               </div>
             )}
 
@@ -180,4 +181,4 @@ SignupWithInvite.getLayout = function (page: ReactElement) {
   return <LayoutWithoutFooter>{page}</LayoutWithoutFooter>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) =>  ({ props: { ...(await i18Translate(locale as string)) } });
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({ props: { ...(await i18Translate(locale as string)) } });

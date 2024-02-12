@@ -17,7 +17,7 @@ import ChallengeOverviewCard from "@/components/cards/challenge/Overview";
 import LearningModuleSection from "@/components/sections/learning-modules";
 import useNavigation from "@/hooks/useNavigation";
 import ChallengeCard from "@/components/cards/challenge/Challenge";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import PageNavigation from "@/components/sections/courses/PageNavigation";
 import { NotFoundError } from "@/utilities/errors/NotFoundError";
 

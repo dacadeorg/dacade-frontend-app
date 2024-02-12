@@ -41,7 +41,7 @@ export default function BountiesPage(): ReactElement {
   const dispatch = useDispatch();
 
   const fetchBounties = useCallback(async () => {
-    dispatch(fetchAllBounties());
+    await dispatch(fetchAllBounties());
     dispatch(findBountiesBySlug(router.query.slug as string));
   }, [dispatch, router.query.slug]);
 
