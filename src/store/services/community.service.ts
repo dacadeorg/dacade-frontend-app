@@ -25,7 +25,6 @@ export const communityService = createApi({
           dispatch(setAllCommunities(data));
           return data;
         } catch (error) {
-          console.log({ error });
           dispatch(setBusy(false));
           dispatch(setError(error));
         }

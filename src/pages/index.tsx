@@ -31,7 +31,6 @@ Home.getLayout = function (page: ReactElement) {
 
 export const getStaticProps: GetStaticProps = wrapper.getStaticProps((store: any) => async ({ locale }: any) => {
   const result = await store.dispatch(fetchAllCommunities(locale));
-
   if (result.status !== "fulfilled")
     return {
       props: {
