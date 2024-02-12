@@ -13,7 +13,7 @@ describe('Popup Component', () => {
     expect(screen.getByText('Test Content')).toBeInTheDocument();
   });
 
-  it('should call onClose when the overlay is clicked', () => {
+  it('should not render popup onClose', () => {
     const handleClose = jest.fn();
     render(<Popup show={true} onClose={handleClose}><div>Test Content</div></Popup>);
 
@@ -21,5 +21,9 @@ describe('Popup Component', () => {
     fireEvent.click(overlay);
 
     expect(handleClose).toHaveBeenCalledTimes(1);
-  });
+
+    const popup = screen.queryByTestId('popup');
+    expect(popup).not.toBeInTheDocument();
+});
+
 });
