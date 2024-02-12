@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.8.1](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.8.0...v1.8.1) (2024-02-12)
+
+
+### Bug Fixes
+
+* fix the height only for tablet and big screens ([d0b024b](https://github.com/dacadeorg/dacade-frontend-app/commit/d0b024b17ec206703c18b83cbaa68e7f00d4230d))
+* refresh challenge and submission page after locale change ([af6b6fe](https://github.com/dacadeorg/dacade-frontend-app/commit/af6b6fe35c6d5883839161637f6c20f9b08f48fa))
+* use md breakpoint instead of the sm for tablet to cover the gap ([31f222c](https://github.com/dacadeorg/dacade-frontend-app/commit/31f222c7fbe64b83c3bd841cf36464149a818bc2))
+
 ## [1.8.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.7.0...v1.8.0) (2024-01-23)
 
 
