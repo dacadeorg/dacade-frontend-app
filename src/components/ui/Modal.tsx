@@ -38,7 +38,7 @@ export default function Modal({ show, size = "", onClose, children }: ModalProps
 
   return (
     <Popup show={show} className="py-8" onClose={onClose} center>
-      <div className={modalClassName}>{children}</div>
+      <div data-testid="modalId" className={modalClassName}>{children}</div>
     </Popup>
   );
 }
