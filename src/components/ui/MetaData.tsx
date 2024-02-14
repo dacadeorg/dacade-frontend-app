@@ -13,7 +13,7 @@ export default function MetaData({ description }: { description: string }): Reac
   return (
     <div data-testid="meta-id">
       {metas.map((meta, index) => (
-        <meta data-testid={`meta-${index}`} key={`meta-${index}`} content={meta.content} name={meta.name} />
+        <meta key={`meta-${index}`} content={meta.content} name={meta.name} />
       ))}
     </div>
   );

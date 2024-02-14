@@ -5,14 +5,12 @@ import { render, screen } from "@testing-library/react";
 
 
 describe("MetaData", () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+
   const description = "Test description";
 
   it("should render metaData", () => {
     render(<MetaData description={description} />);
-    const metadata = screen.getByTestId("meta-id");
+    const metadata = screen.queryByTestId("meta-id");
     expect(metadata).toBeInTheDocument();
   });
 
