@@ -11,7 +11,7 @@ describe("Modal component", () => {
         <div>Test Content</div>
       </Modal>
     );
-    const modal = screen.getByTestId("overlay");
+    const modal = screen.getByTestId("modal-overlay");
 
     expect(modal).toBeInTheDocument();
   });
@@ -24,8 +24,9 @@ describe("Modal component", () => {
         <div>Test Content</div>
       </Modal>
     );
-    const modal = screen.queryByTestId("overlay");
 
+    const modal = screen.queryByTestId("modal-overlay");
     expect(modal).not.toBeInTheDocument();
-  });
+});
+
 });
