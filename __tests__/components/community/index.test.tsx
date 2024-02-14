@@ -2,19 +2,37 @@ import "@testing-library/jest-dom";
 import CommunityCard from "@/components/cards/community";
 import { render, screen } from "@testing-library/react";
 import { community } from "../../../__mocks__/community";
-import mockRouter from "next-router-mock";
-import { makeStore } from "@/store";
+import ReduxProvider from "../../../__mocks__/provider/ReduxProvider";
+jest.mock("next/router", () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+    isFallback: false,
+  }),
+}));
 
-jest.mock("next/router", () => jest.requireActual("next-router-mock"));
-describe("CommunityCard", () => {
-  beforeEach(() => {
-    makeStore();
+const communityCardProps: any = {
+  showRewards: false,
+  community: community,
+};
+
+function RenderCommunityCard(props = communityCardProps) {
+  render(
+    <ReduxProvider>
+      <CommunityCard showRewards={props.showRewards} community={props.community} />
+    </ReduxProvider>
+  );
+  return screen.getByTestId("community-card");
+}
+
+describe("Community", () => {
+  it("should render the community card", () => {
+    const card = RenderCommunityCard();
+    expect(card).toBeInTheDocument();
   });
-  it("should render the communit card", () => {
-    mockRouter.push("/communities");
-    render(<CommunityCard showRewards={true} community={community} />);
-    console.log("the community data", community);
-    const communitycardContent = screen.getByTestId("community-card");
-    expect(communitycardContent.textContent).toBe("Hello H3");
+
+  it("should show rewards when we have rewards and showrewards is enabled", () => {
+    RenderCommunityCard({ ...communityCardProps, showRewards: true });
+    const communityCardButtonrewards = screen.getByTestId("community-rewards");
+    expect(communityCardButtonrewards).toBeInTheDocument();
   });
 });

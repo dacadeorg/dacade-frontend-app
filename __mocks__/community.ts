@@ -1,18 +1,5 @@
-export const colors = {
-  textAccent: "--tm-text",
-  text: "--tm-text",
-  accent: "--tm-accent",
-  primary: "--tm-primary",
-  secondary: "--tm-secondary",
-  highlight: "--tm-highlight",
-  muted: "--tm-muted",
-  cover: {
-    text: "--tm-text",
-    accent: "--tm-accent",
-    primary: "--tm-primary",
-    background: "--tm-background",
-  },
-};
+import { colors } from "./colors";
+
 const metadata = {
   invite_id: "abc123",
   submissions: 5,
@@ -37,7 +24,7 @@ const reward = {
   created_at: new Date("2024-01-29T08:00:00Z"),
   updated_at: new Date("2024-01-29T08:30:00Z"),
   challenge: "Challenge Name",
-  type: "Type of Reward",
+  type: "SUBMISSION",
   community: "Community Name",
   token: "Token ID",
   stable: true,
