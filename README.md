@@ -82,13 +82,13 @@ NEXT_PUBLIC_FIREBASE_PROJECT_ID = "dacade-d02d2";
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID = "${config.measurementId}";
 NEXT_PUBLIC_FIREBASE_APP_ID = "1:194074425069:web:e519dce8d78a458d8b3ee4";
 
-NEXT_PUBLIC_API_BASE_URL = "https://europe-west1-dacade-d02d2.cloudfunctions.net/api";
+NEXT_PUBLIC_API_BASE_URL = "https://us-central1-dacade-d02d2.cloudfunctions.net/api";
 
 NEXT_PUBLIC_BUGSNAG_API_KEY = "";
 NEXT_PUBLIC_SHOW_LANGUAGE_SELECTOR = true;
 
 NEXT_PUBLIC_DISCORD_CLIENT_ID = "";
-NEXT_PUBLIC_DISCORD_CALLBACK_URL = "https://europe-west1-dacade-d02d2.cloudfunctions.net/api/discord-bot/oauth/callback";
+NEXT_PUBLIC_DISCORD_CALLBACK_URL = "https://us-central1-dacade-d02d2.cloudfunctions.net/api/discord-bot/oauth/callback";
 NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL = "https://discord.com/api/oauth2/authorize";
 NEXT_PUBLIC_DISCORD_SCOPE = "identify email";
 
