@@ -5,8 +5,7 @@ import { render, screen } from "@testing-library/react";
 describe("MarkdownIcon", () => {
     it("should render the Markdown icon with the correct link", () => {
       render(<MarkdownIcon />);
-  
-      // Check if the Markdown icon is rendered
+      
       const markdownIcon = screen.getByTestId("markdown-icon");
       expect(markdownIcon).toBeInTheDocument();
     });
