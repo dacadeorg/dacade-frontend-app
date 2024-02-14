@@ -58,13 +58,6 @@ export default function CommunityCard({ showRewards = true, community }: Communi
     };
   }, [colors]);
 
-  const renderCommunityMetrics = () => {
-    if (community.challenges) {
-      return t(community.challenges !== 1 ? "communities.card.challenges" : "communities.card.challenge", { count: community.challenges });
-    }
-    return t(community.courses !== 1 ? "communities.card.courses" : "communities.card.course", { count: community.courses });
-  };
-
   return (
     <ThemeWrapper colors={community.colors}>
       <div onClick={() => router.push(path)} className="block h-full hover:cursor-pointer">
@@ -90,7 +83,9 @@ export default function CommunityCard({ showRewards = true, community }: Communi
           <div className="flex justify-between flex-none mt-4">
             <div className="flex flex-col space-y-0">
               <div className="mt-4 font-medium text-theme-accent">{t("communities.card.earn")}</div>
-              <div className="mt-4 font-light text-theme-accent">{renderCommunityMetrics()}</div>
+              <div className="mt-4 font-light text-theme-accent">
+                {t(community.challenges !== 1 ? "communities.card.challenges" : "communities.card.challenge", { count: community.challenges })}
+              </div>
             </div>
             <div className="mt-4 align-middle">
               <Link href={path}>
