@@ -12,7 +12,7 @@ export default function OverviewRewards({ reward, category, size }: OverviewRewa
   const { t } = useTranslation();
 
   return (
-    <div>
+    <div data-testid="reward">
       {reward && reward.token && reward.amount && size === "medium" && (
         <div className="flex items-center rounded-full max-w-max mr-4">
           <Coin token={reward.token} className="flex-none" />
