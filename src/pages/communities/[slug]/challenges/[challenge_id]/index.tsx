@@ -74,8 +74,8 @@ export default function ChallengePage() {
   }, [challenge?.supportMultipleSubmissions, submission]);
 
   const navigation = useNavigation();
-  const router = useRouter();
-  const { challenge_id, slug, locale } = router.query;
+  const { query, locale } = useRouter();
+  const { challenge_id, slug } = query;
 
   const initPage = useCallback(async () => {
     const fetchPayload = {
@@ -92,7 +92,7 @@ export default function ChallengePage() {
     setChallenge(challenge);
     dispatch(initChallengeNavigationMenu(navigation.community));
     setLoading(false);
-  }, [challenge_id, slug]);
+  }, [challenge_id, slug, locale]);
 
   useEffect(() => {
     initPage();
@@ -100,9 +100,11 @@ export default function ChallengePage() {
 
   useEffect(() => {
     if (challenge && isAuthenticated) {
-      dispatch(getTeamByChallenge(challenge.id));
       dispatch(fetchChallengeAuthenticated({ id: challenge.id }));
-      dispatch(getUserInvitesByChallenge(challenge.id));
+      if (challenge.isTeamChallenge) {
+        dispatch(getTeamByChallenge(challenge.id));
+        dispatch(getUserInvitesByChallenge(challenge.id));
+      }
     }
   }, [challenge, dispatch, isAuthenticated]);
 

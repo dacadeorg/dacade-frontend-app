@@ -23,15 +23,15 @@ const bountiesService = createApi({
     getBounties: builder.query({
       query: () => "bounties",
       onQueryStarted: async (slug, { dispatch, queryFulfilled }) => {
-        dispatch(setLoading(true))
+        dispatch(setLoading(true));
         try {
           const { data } = await queryFulfilled;
           if (data) dispatch(setBountiesList(data));
-          dispatch(setLoading(false))
-          return data
+          dispatch(setLoading(false));
+          return data;
         } catch (error) {
           dispatch(setBusy(false));
-          dispatch(setError(error));
+          dispatch(setError(JSON.parse(JSON.stringify(error))));
         }
       },
     }),
