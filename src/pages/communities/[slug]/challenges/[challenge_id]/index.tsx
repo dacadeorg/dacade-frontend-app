@@ -70,8 +70,8 @@ export default function ChallengePage() {
   const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), challenge?.name || ""), [challenge?.name, t]);
 
   const canSubmit = useMemo(() => {
-    return !submission || (submission && challenge?.supportMultipleSubmissions);
-  }, [challenge?.supportMultipleSubmissions, submission]);
+    return !submission || (submission && challenge?.multipleSubmissions);
+  }, [challenge?.multipleSubmissions, submission]);
 
   const navigation = useNavigation();
   const { query, locale } = useRouter();
@@ -147,9 +147,7 @@ export default function ChallengePage() {
                         className="text-lg py-4"
                         dangerouslySetInnerHTML={{
                           __html: t(
-                            challenge?.supportMultipleSubmissions
-                              ? "communities.challenge.submission.multiple-submissions"
-                              : "communities.challenge.submission.no-multiple-submissions"
+                            challenge?.multipleSubmissions ? "communities.challenge.submission.multiple-submissions" : "communities.challenge.submission.no-multiple-submissions"
                           ),
                         }}
                       ></p>
