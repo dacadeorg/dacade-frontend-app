@@ -1,8 +1,8 @@
 import Loader from "@/components/ui/Loader";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import ReduxProvider from "../../../__mocks__/provider/ReduxProvider";
 import { colors } from "../../../__mocks__/colors";
+import ReduxProvider from "../../../__mocks__/provider/ReduxProvider";
 
 describe("Loader Component", () => {
   it("renders Loader component", () => {
@@ -32,8 +32,8 @@ describe("Loader Component", () => {
       </ReduxProvider>
     );
     const container = screen.getByTestId("loader");
-    expect(container.querySelector(".h-6")).toBeInTheDocument();
-    expect(container.querySelector(".w-6")).toBeInTheDocument();
+    expect(container.className).toContain("h-6");
+    expect(container.className).toContain("w-6");
   });
 
   it("renders Loader component with default spinner size", () => {
@@ -43,7 +43,7 @@ describe("Loader Component", () => {
       </ReduxProvider>
     );
     const container = screen.getByTestId("loader");
-    expect(container.querySelector(".h-12")).toBeInTheDocument();
-    expect(container.querySelector(".w-12")).toBeInTheDocument();
+    expect(container.className).toContain("h-12");
+    expect(container.className).toContain("w-12");
   });
 });

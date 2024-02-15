@@ -10,7 +10,7 @@
     "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,tsx,js,jsx}' --write",
     "check-branch-name": "./check_branch_name.sh",
     "prepare": "npx husky install && chmod +x .husky/* && chmod +x ./check_branch_name.sh",
-    "test": "jest"
+    "test": "jest --silent"
   },
   "dependencies": {
     "@coingecko/cryptoformat": "^0.5.4",
