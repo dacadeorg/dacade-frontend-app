@@ -19,6 +19,9 @@ const config = {
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   moduleNameMapper: {
     "^.+\\.(svg)$": require.resolve("./__mocks__/svg.ts"),
+    "react-markdown": "<rootDir>/__mocks__/react-markdown.tsx",
+    "^(remark|github|query)-.*": "<rootDir>/__mocks__/plugin.ts",
+    unified: "<rootDir>/__mocks__/unified.ts",
   },
 };
 
