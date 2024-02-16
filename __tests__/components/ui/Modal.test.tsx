@@ -5,7 +5,6 @@ import { render, screen } from "@testing-library/react";
 describe("Modal component", () => {
   it("should render the modal", () => {
     const handleClose = jest.fn();
-
     render(
       <Modal show={true} onClose={handleClose}>
         <div>Test Content</div>
@@ -16,9 +15,8 @@ describe("Modal component", () => {
     expect(modal).toBeInTheDocument();
   });
 
-  it("should not render the modal", () => {
+  it("should not render the modal when hidden", () => {
     const handleClose = jest.fn();
-
     render(
       <Modal show={false} onClose={handleClose}>
         <div>Test Content</div>
