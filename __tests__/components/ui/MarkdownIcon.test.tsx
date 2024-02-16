@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 
 describe("MarkdownIcon", () => {
-    it("should render the Markdown icon with the correct link", () => {
+    it("should render the Markdown icon", () => {
       render(<MarkdownIcon />);
       
       const markdownIcon = screen.getByTestId("markdown-icon");
