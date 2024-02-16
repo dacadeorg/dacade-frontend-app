@@ -1,7 +1,6 @@
 import Input from "@/components/ui/Input";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 
 
 describe("Input component", () => {
@@ -26,8 +25,9 @@ describe("Input component", () => {
   it("Should update value", async () => {
     const { getByPlaceholderText } = render(<Input placeholder="Enter your name" />);
     const inputElement = getByPlaceholderText("Enter your name");
-    await userEvent.type(inputElement, "John");
-    console.log(inputElement, "Elements updated")
+    await act(() => {
+      fireEvent.change(inputElement, { target: { value: "John" } });
+    });
     expect(inputElement).toHaveDisplayValue("John");
   });
 
