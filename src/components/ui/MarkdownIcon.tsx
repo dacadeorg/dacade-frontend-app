@@ -11,7 +11,7 @@ import Markdown from "@/icons/markdown-fill.svg";
 
 export default function MarkdownIcon(): ReactElement {
   return (
-    <div className="mt-4 flex items-center">
+    <div data-testid="markdown-icon" className="mt-4 flex items-center">
       <span className="w-6 h-4">
         <Markdown />
       </span>
