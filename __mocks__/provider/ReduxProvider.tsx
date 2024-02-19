@@ -1,5 +1,5 @@
 import { wrapper } from "@/store";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { Provider } from "react-redux";
 
 const ReduxProvider = ({ children }: { children: ReactNode }) => {
