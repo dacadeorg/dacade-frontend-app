@@ -57,7 +57,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
   const Component = link.startsWith("http") ? "a" : Link;
 
   return (
-    <div className="cursor-pointer flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative">
+    <div className="p-5 flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative">
       <div className="bg-theme-accent flex-col w-full h-full justify-between md:-space-y-1 pl-3 pr-5 mt-7 mb-5">
         <Component className="relative w-full block" href={link}>
           <div className="font-medium text-md md:pt-1.5">{bounty.course ? bounty.course.name : bounty.name}</div>
@@ -71,15 +71,16 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
         {bounty.submissions?.length ? (
           <div className="mt-4 space-y-0 divide-y divide-gray-200 border-t border-t-solid border-gray-200">
             {bounty.submissions.map((submission) => (
-              <Link
-                href={navigation.community.submissionPath(submission.id, bounty.challenge, bounty?.slug)}
-                className="flex space-x-1 relative text-sm font-medium py-3"
-                key={submission.id}
-              >
+              <div className="flex space-x-1 relative text-sm font-medium py-3" key={submission.id}>
                 <div className="flex justify-between w-full pr-0 gap-1 sm:gap-0">
                   <div className="flex space-x-1">
                     <Avatar user={submission.user} size="mini" />
-                    <div className="text-ellipsis overflow-hidden w-17 sm:w-auto whitespace-nowrap">{submission.user.displayName}</div>
+                    <Link
+                      className="text-ellipsis overflow-hidden w-17 sm:w-auto whitespace-nowrap"
+                      href={navigation.community.submissionPath(submission.id, bounty.challenge, bounty?.slug)}
+                    >
+                      {submission.user.displayName}
+                    </Link>
                     <div className="flex align-middle text-gray-500 text-middle bg-gray-200 px-2 text-xxs rounded-xl m-0 h-5">
                       {submission.metadata && submission.metadata.feedbacks ? submission.metadata.feedbacks : 0}
                     </div>
@@ -94,7 +95,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
                     )}
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         ) : (
