@@ -17,16 +17,15 @@ jest.mock("next/router", () => ({
 }));
 
 describe("UsernameInput", () => {
-    it("should render the username input", ()=> {
-      const register = jest.fn();
+  it("should render the username input", () => {
+    const register = jest.fn();
     render(
       <ReduxProvider>
-    <UsernameInput register={register} errors={{}} usernameValue=""/>
-    </ReduxProvider>
-    )
-    const usernameValue = screen.getByTestId("usernameInput")
+        <UsernameInput register={register} errors={{}} usernameValue="" />
+      </ReduxProvider>
+    );
+    const usernameValue = screen.getByTestId("usernameInput");
 
-    expect(usernameValue).toBeInTheDocument()
-    })
-})
-
+    expect(usernameValue).toBeInTheDocument();
+  });
+});
