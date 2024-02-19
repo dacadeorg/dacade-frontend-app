@@ -82,7 +82,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (
   );
 
   return (
-    <div className="relative">
+    <div data-testid="input" className="relative">
       <div className={inputComponentClassName}>
         {label && <label className={labelClasssName}>{label}</label>}
         <input
