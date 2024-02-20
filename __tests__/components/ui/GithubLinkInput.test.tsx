@@ -21,7 +21,7 @@ describe("GithubLinkInput component", () => {
         expect(githubLinkInput).toBeInTheDocument()
     })
 
-    it("should render with attribute", () => {
+    it("Should have the text attribute", () => {
         render(<GithubLinkInput type="text"/>)
         const githubInput = screen.getByTestId("githubInput")
         expect(githubInput).toHaveAttribute("type", "text")
