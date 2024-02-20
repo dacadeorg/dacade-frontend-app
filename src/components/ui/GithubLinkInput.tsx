@@ -91,6 +91,7 @@ export default forwardRef<HTMLInputElement, GithubLinkInputProps>(function Githu
         <label className={labelClassName}>{label}</label>
         <input
           ref={ref}
+          data-testid="githubLinkInput-textbox"
           className={inputClassName}
           type={type}
           placeholder={placeholder}
