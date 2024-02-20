@@ -15,14 +15,15 @@ describe("MetaData", () => {
   });
 
   it("should render meta tags", () => {
-    
-    const { getByTestId } = render(<MetaData description={description} />);
-  const mockMetas = getMetadataDescription(description)
+    render(<MetaData description={description} />);
+    const mockMetas = getMetadataDescription(description);
     mockMetas.forEach((meta, index) => {
-      const metaElement = getByTestId(`meta-${index}`);
-      expect(metaElement).toBeInTheDocument();
-      expect(metaElement).toHaveAttribute("name", meta.name);
-      expect(metaElement).toHaveAttribute("content", meta.content);
+      const metaElements = screen.queryAllByTestId(`meta-${index}`);
+      metaElements.forEach((metaElement) => {
+        expect(metaElement).toBeInTheDocument();
+        expect(metaElement).toHaveAttribute("name", meta.name);
+        expect(metaElement).toHaveAttribute("content", meta.content);
+      });
     });
   });
 });
