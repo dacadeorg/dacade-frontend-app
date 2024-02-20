@@ -30,7 +30,7 @@ describe("Community", () => {
     expect(card).toBeInTheDocument();
   });
 
-  it("should show rewards when we have rewards and showrewards is enabled", () => {
+  it("should show rewards when we have rewards and show rewards when enabled", () => {
     RenderCommunityCard({ ...communityCardProps, showRewards: true });
     const communityCardButtonrewards = screen.getByTestId("community-rewards");
     expect(communityCardButtonrewards).toBeInTheDocument();
