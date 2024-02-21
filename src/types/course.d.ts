@@ -140,7 +140,7 @@ export type Reward = {
   amount: number;
   timestamp: number;
   distribution?: Distribution;
-  };
+};
 export type Distribution = {
   first: string;
   second: string;
