@@ -1,4 +1,5 @@
 import { Trailer } from "./bounty";
+import { Distribution } from "./challenge";
 import { Community } from "./community";
 
 export type Course = {
@@ -140,11 +141,6 @@ export type Reward = {
   amount: number;
   timestamp: number;
   distribution?: Distribution;
-  };
-export type Distribution = {
-  first: string;
-  second: string;
-  third: string;
 };
 
 export type Introduction = {

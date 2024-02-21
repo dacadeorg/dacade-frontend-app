@@ -7,7 +7,8 @@ import Link from "next/link";
 import RelatedContent from "./RelatedContent";
 import Badges from "./Badges";
 import { useMemo } from "react";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "react-i18next";
+import { formatToK } from "@/utilities";
 
 /**
  * `ChallengeCard` is a function component that renders a card
@@ -58,9 +59,8 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
                 <Coin size="medium" token={reward?.token} />
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
-                    <span className="block font-medium">
-                      {`${data?.isHackathon ? "$" : ""} ${totalReward} ${data?.isHackathon ? `Prize Pool Rewards` : `${reward?.token} Rewards`}`}
-                    </span>
+                    <span className="block font-medium pr-1">{data?.isHackathon ? formatToK(totalReward) : totalReward}</span>
+                    <span className="block font-medium">{data?.isHackathon ? `Prize Pool Rewards` : `${reward?.token} Rewards`}</span>
                   </div>
                   <div className="text-gray-400 text-xs font-normal">{data?.isHackathon ? "Top projects win money prizes" : "For submission and feedback"}</div>
                 </div>
