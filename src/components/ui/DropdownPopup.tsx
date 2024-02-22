@@ -32,7 +32,7 @@ export default function DropdownPopup({ onClose, children }: DropdownPopupProps)
         maxHeight: "calc(100vh - 100px)",
         overflow: "hidden scroll",
       }}
-      className="absolute top-14 right-0 z-50 bg-white- rounded-3.5xl no-scrollbar text-gray-900 bg-lime-400"
+      className="absolute top-14 right-0 z-50 bg-white rounded-3.5xl no-scrollbar text-gray-900"
     >
       {children}
     </div>
