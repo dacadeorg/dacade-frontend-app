@@ -15,6 +15,6 @@ export function sleep(ms: number): Promise<unknown> {
  */
 export const formatToK = (amount: number) => {
   const numberInK = amount / 1000;
-  const isFloat = numberInK % 1 === 0;
+  const isFloat = numberInK % 1 !== 0;
   return `$${isFloat ? numberInK.toFixed(1) : numberInK}K`;
 };
