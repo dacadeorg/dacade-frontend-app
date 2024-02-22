@@ -5,25 +5,24 @@ import fs from "fs";
 import path from "path";
 import DACIcon from "@/icons/tokens/DAC.svg";
 
-
 describe("Coin", () => {
   it("should render a small size coin", () => {
-    render(<Coin size="small" />)
-    const coin = screen.getByTestId('coin')
-    expect(coin.className).toContain('w-4 h-4')
-  })
+    render(<Coin size="small" />);
+    const coin = screen.getByTestId("coin");
+    expect(coin.className).toContain("w-4 h-4");
+  });
 
   it("should render a coin with a specified shape", () => {
-    render(<Coin shape="rounded" />)
-    const coin = screen.getByTestId('coin')
-    expect(coin.className).toContain('rounded-xl')
-  })
+    render(<Coin shape="rounded" />);
+    const coin = screen.getByTestId("coin");
+    expect(coin.className).toContain("rounded-xl");
+  });
 
   it("should render a child inside of it", () => {
-    render(<Coin shape="rounded" />)
-    const coin = screen.getByTestId('coin')
-    expect(coin.childElementCount).toBeGreaterThanOrEqual(1)
-  })
+    render(<Coin shape="rounded" />);
+    const coin = screen.getByTestId("coin");
+    expect(coin.childElementCount).toBeGreaterThanOrEqual(1);
+  });
 
   it("should not render the DAC coin when a different token was passed", () => {
     const coinTokensDir = path.resolve(__dirname, "..", "..", "../src/icons/tokens/");
@@ -34,11 +33,11 @@ describe("Coin", () => {
       if (tokenName.trim() !== "") {
         render(<Coin token={tokenName} />);
         const coin = screen.getByTestId("coin");
-        const icon = <DACIcon />
-        expect(coin).toBe(icon)
+        const icon = <DACIcon />;
+        expect(coin).toBe(icon);
         console.log("coins", coin);
         //    expect(coins).toBe(coinTokenFiles.length);
       }
-    })
-  })
+    });
+  });
 });
