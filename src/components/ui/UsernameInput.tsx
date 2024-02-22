@@ -30,6 +30,7 @@ export default function UsernameInput({ register, errors, usernameValue }: Usern
 
   return (
     <Input
+    data-testid="usernameInput"
       id="username"
       placeholder={`${t("login-page.username.placeholde")}`}
       label={`${t("login-page.username.label")}`}
