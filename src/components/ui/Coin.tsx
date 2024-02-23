@@ -163,6 +163,7 @@ export default function Coin({ bgColor, textColor, size = "medium", shape = "cir
 
   return (
     <div
+      data-testid="coin"
       className={`relative inline-flex items-center justify-items-center text-white uppercase leading-none md:mr-0 mr-2 ${sizeClasses} ${shapeClasses} ${className}`}
       style={{
         backgroundColor: bgColor || coin?.bgColor,
