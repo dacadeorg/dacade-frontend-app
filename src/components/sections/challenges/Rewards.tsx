@@ -25,7 +25,7 @@ export function OverviewRewards(): ReactElement {
   });
   const rewards = useMemo(() => challenge?.rewards?.filter((reward) => reward.type === "SUBMISSION"), [challenge?.rewards]);
   const totalReward = challenge?.rewards?.reduce((acc, reward) => (acc += Number(reward.amount)), 0);
-  const formatToken = (token: string) => {
+  const shorternNumberen = (token: string) => {
     return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
   };
   const router = useRouter();
@@ -62,7 +62,7 @@ export function OverviewRewards(): ReactElement {
                     {challenge?.rewards.map((reward, index) => (
                       <span key={`reward-${index}`}>
                         {index > 0 && "\u003B "}
-                        {reward.amount} {reward.token}/{formatToken(reward.type)}
+                        {reward.amount} {reward.token}/{shorternNumberen(reward.type)}
                       </span>
                     ))}
                   </div>
