@@ -19,6 +19,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ChallengeOverviewCard from "@/components/cards/challenge/Overview";
 import LearningModuleSection from "@/components/sections/learning-modules";
 import { fetchChallenge } from "@/store/services/communities/challenges";
+import PageNavigation from "@/components/sections/courses/PageNavigation";
+import ChallengeCard from "@/components/cards/challenge/Challenge";
+import { useTranslation } from "next-i18next";
 
 /**
  * Learning module page props interfae
@@ -46,7 +49,7 @@ interface LearningModulePageProps {
 export default function LearningModulePage(props: LearningModulePageProps) {
   const { community, learningModule, challenge } = props.pageProps;
   const dispatch = useDispatch();
-
+  const { t } = useTranslation();
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -60,6 +63,11 @@ export default function LearningModulePage(props: LearningModulePageProps) {
   const descriptions = getMetadataDescription(learningModule?.description);
 
   const paths = useMemo(() => [challenge.name, learningModule?.title], [challenge.name, learningModule?.title]);
+
+  const isLastLearningModule = useMemo(() => {
+    if (!challenge.learningModules || !challenge.learningModules.length) return false;
+    return learningModule.id === challenge.learningModules[challenge.learningModules.length - 1].id;
+  }, [learningModule.id, challenge.learningModules]);
   return (
     <>
       <Head>
@@ -74,6 +82,17 @@ export default function LearningModulePage(props: LearningModulePageProps) {
           <div className="w-full">
             {challenge.rewards && <ChallengeOverviewCard challenge={challenge} community={community} />}
             <LearningModuleSection learningModule={learningModule} />
+            {isLastLearningModule ? (
+              <div>
+                <div className="mt-6 mb-5">
+                  <h2 className="font-medium text-.5xl text-gray-700 pb-3">{t("communities.challenge.title")}</h2>
+                  <p className="text-lg">{t("communities.overview.learning-modules-challenge-introduction")}</p>
+                </div>
+                <ChallengeCard data={challenge} key={challenge.id} community={community} isCourseEnd />
+              </div>
+            ) : (
+              <PageNavigation />
+            )}
           </div>
         </div>
       </Wrapper>
@@ -93,7 +112,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
 
     const [{ data: community }, { data: challenge }, { payload: learningModule }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug: communitySlug, locale })),
-      store.dispatch(fetchChallenge({ id: challenge_id })),
+      store.dispatch(fetchChallenge({ id: challenge_id, relations: ["learning-modules", "rubric"] })),
       store.dispatch(findLearningModule(learningModule_id)),
       serverSideTranslations(locale as string),
     ]);

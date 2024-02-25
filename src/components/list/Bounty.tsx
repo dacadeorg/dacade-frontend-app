@@ -31,7 +31,7 @@ interface BountyListProps {
  * @returns {ReactElement}
  */
 export default function BountyList({ bounties = [], referrals = [] }: BountyListProps): ReactElement {
-  const loading = useSelector((state: IRootState) => state.bounties.isLoading)
+  const loading = useSelector((state: IRootState) => state.bounties.isLoading);
   return (
     <div>
       {bounties && !loading ? (
@@ -39,13 +39,15 @@ export default function BountyList({ bounties = [], referrals = [] }: BountyList
           {referrals.map((referral) => (
             <Referral referral={referral} key={referral.name} />
           ))}
-          {bounties.map((bounty) => (
-            <Bounty bounty={bounty} key={bounty.id} />
+          {bounties.map((bounty, index) => (
+            <Bounty bounty={bounty} key={`bounty-${index}-${bounty.id}`} />
           ))}
         </div>
-      ) : <div className="h-24 sm:h-48 grid place-items-center">
-        <Loader />
-      </div>}
+      ) : (
+        <div className="h-24 sm:h-48 grid place-items-center">
+          <Loader />
+        </div>
+      )}
     </div>
   );
 }

@@ -86,7 +86,6 @@ export const getToken = createAsyncThunk("user/getToken", async (_, { dispatch }
     return token;
   } catch (e) {
     dispatch(fetchingUserLoading(false));
-    console.log(e);
     dispatch(clearUserState());
   }
 });

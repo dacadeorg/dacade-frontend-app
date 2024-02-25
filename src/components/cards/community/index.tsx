@@ -74,7 +74,7 @@ export default function CommunityCard({ showRewards = true, community }: Communi
             </div>
             <div className="flex flex-col items-start justify-start max-w-xs -mt-4 md:flex-row lg:flex-col md:-mt-7 md:max-w-lg">
               {showRewards && reward && (
-                <div className="text-sm">
+                <div className="text-sm flex">
                   <RewardBadge reward={{ token: reward.token }} styles={rewardBadgeStyle} />
                 </div>
               )}
@@ -84,7 +84,7 @@ export default function CommunityCard({ showRewards = true, community }: Communi
             <div className="flex flex-col space-y-0">
               <div className="mt-4 font-medium text-theme-accent">{t("communities.card.earn")}</div>
               <div className="mt-4 font-light text-theme-accent">
-                {t(community.courses !== 1 ? "communities.card.courses" : "communities.card.course", { count: community.courses })}
+                {t(community.challenges > 1 ? "communities.card.challenges" : "communities.card.challenge", { count: community.challenges })}
               </div>
             </div>
             <div className="mt-4 align-middle">

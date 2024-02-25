@@ -32,7 +32,7 @@ export default function MaterialSection({ material }: MaterialProps) {
   return (
     <Section id={materialId} title={isAdditional ? "Additional Material" : material?.title}>
       {!isAdditional && <Duration text={material?.subtitle || ""} value={material?.duration as number} />}
-      {!isAdditional && <span className="block text-lg mb-6 mt-2 md:w-99">{material?.description}</span>}
+      {!isAdditional && <span className="block text-lg mb-6 mt-2 md:w-182.5">{material?.description}</span>}
       {material?.type === "EMBEDDED-VIDEO" && <Video url={material.link} />}
       {material?.type === "MARKDOWN" && <Markdown url={material?.link} />}
       {isAdditional && (

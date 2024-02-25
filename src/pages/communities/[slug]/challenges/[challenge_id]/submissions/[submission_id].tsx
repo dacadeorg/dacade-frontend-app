@@ -23,8 +23,8 @@ export default function SubmissionPage() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const navigation = useNavigation();
-  const router = useRouter();
-  const { slug, locale, submission_id, challenge_id } = router.query;
+  const { query, locale } = useRouter();
+  const { slug, submission_id, challenge_id } = query;
   const [loading, setLoading] = useState(true);
   const { current } = useSelector((state) => state.submissions);
 
@@ -41,7 +41,7 @@ export default function SubmissionPage() {
     ]);
     dispatch(initChallengeNavigationMenu(navigation.community));
     setLoading(false);
-  }, [slug, submission_id]);
+  }, [slug, submission_id, locale]);
 
   useEffect(() => {
     initPage();

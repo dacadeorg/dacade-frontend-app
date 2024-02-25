@@ -136,7 +136,7 @@ export default function Submission(): ReactElement {
         <Hint className="mb-8">{t("communities.overview.challenge.submissions-closed")}</Hint>
       ) : (
         <>
-          {challenge?.isTeamChallenge && <p className="text-base font-normal text-slate-700 pt-2 pb-7 md:w-99"> {t("communities.overview.challenge.submission.description")}</p>}
+          {challenge?.isTeamChallenge && <p className="text-base font-normal text-slate-700 pt-2 pb-7 md:w-182.5"> {t("communities.overview.challenge.submission.description")}</p>}
           {!canSubmit ? (
             <Hint className="mb-8">{t("communities.challenge.submission.hint")}</Hint>
           ) : (
