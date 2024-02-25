@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useMemo } from "react";
+import { ReactElement, useCallback, useEffect } from "react";
 import Navigation from "@/components/sections/bounties/Navigation";
 import BountyList from "@/components/list/Bounty";
 import { useTranslation } from "react-i18next";
