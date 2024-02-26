@@ -22,10 +22,10 @@ describe("Input component", () => {
     expect(errorMessage).toBeInTheDocument();
   });
 
-  it("Should update value", async () => {
+  it("Should update value", () => {
     const { getByPlaceholderText } = render(<Input placeholder="Enter your name" />);
     const inputElement = getByPlaceholderText("Enter your name");
-    await act(() => {
+    act(() => {
       fireEvent.change(inputElement, { target: { value: "John" } });
     });
     expect(inputElement).toHaveDisplayValue("John");
