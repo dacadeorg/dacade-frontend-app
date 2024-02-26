@@ -180,6 +180,8 @@
   "communities.card.submission": "{{count}} Podnošenje",
   "communities.card.courses": "in {{count}} Courses",
   "communities.card.course": "in {{count}} Course",
+  "communities.card.challenges": "u {{count}} Izazovi",
+  "communities.card.challenge": "u {{count}} Izazov",
   "communities.list-card.earn": "Earn",
   "course.challenge.button": "Start now",
   "course.challenge.level-0": "Beginner",

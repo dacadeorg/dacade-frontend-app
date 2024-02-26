@@ -182,6 +182,8 @@
   "communities.card.submission": "{{count}} Envío",
   "communities.card.courses": "en {{count}} Cursos",
   "communities.card.course": "en {{count}} Cursos",
+  "communities.card.challenges": "en {{count}} Desafíos",
+  "communities.card.challenge": "en {{count}} Desafío",
   "communities.list-card.earn": "Gane",
   "course.challenge.button": "Comience ahora",
   "course.challenge.level-0": "Principiante",

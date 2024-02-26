@@ -178,6 +178,8 @@
   "communities.card.submissions": "{{count}} Изявления",
   "communities.card.submission": "{{count}} Подчинение",
   "communities.card.courses": "in {{count}}  Courses",
+  "communities.card.challenges": "в {{count}} Предизвикателства",
+  "communities.card.challenge": "в {{count}} Предизвикателство",
   "communities.card.course": "in {{count}}  Course",
 
   "communities.list-card.earn": "Earn",
