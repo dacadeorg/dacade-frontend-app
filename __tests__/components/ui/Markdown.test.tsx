@@ -19,10 +19,23 @@ describe("Markdown", () => {
   it("should render Markdown", () => {
     render(
       <ReduxProvider>
-        <Markdown value={"Markdown test"} />
+        <Markdown value="Markdown test" />
       </ReduxProvider>
     );
+
     const markdown = screen.queryByText("Markdown test");
     expect(markdown).toBeInTheDocument();
+  });
+
+  it("Should have the markdown styles passed as props", () => {
+    const markdownStyle = "mark down style";
+    render(
+      <ReduxProvider>
+        <Markdown value="Markdown test" markDownStyles={markdownStyle} />
+      </ReduxProvider>
+    );
+
+    const markdown = screen.queryByText("Markdown test");
+    expect(markdown?.className).toContain(markdownStyle);
   });
 });
