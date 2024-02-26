@@ -3,6 +3,8 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ReduxProvider from "../../../__mocks__/provider/ReduxProvider";
 import EmailInput from "@/components/ui/EmailInput";
+import { FormValues } from "@/pages/signup";
+import { FieldErrors } from "react-hook-form";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -16,16 +18,20 @@ jest.mock("next/router", () => ({
   }),
 }));
 
-describe("UsernameInput", () => {
-  it("should render the username input", () => {
-    const register = jest.fn();
-    render(
-      <ReduxProvider>
-        <EmailInput register={register} errors={{}} />
-      </ReduxProvider>
-    );
-    const usernameValue = screen.getByTestId("emailInput");
+const renderUsernameInput = (props?: { errors: FieldErrors<FormValues>; emailValue: string }) => {
+  const register = jest.fn();
+  render(
+    <ReduxProvider>
+      <EmailInput register={register} errors={{ ...props?.errors }} emailValue={props?.emailValue} />
+    </ReduxProvider>
+  );
 
-    expect(usernameValue).toBeInTheDocument();
+  return screen.getByTestId("emailInput");
+};
+
+describe("username Input", () => {
+  it("should render the username input", () => {
+    const usernameInput = renderUsernameInput();
+    expect(usernameInput).toBeInTheDocument();
   });
 });
