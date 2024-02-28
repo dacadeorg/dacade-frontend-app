@@ -24,6 +24,7 @@ export default function DropdownPopup({ onClose, children }: DropdownPopupProps)
   useOnClickOutside(popupRef, () => onClose && onClose());
   return (
     <div
+      data-testid="dropdownpopup"
       ref={popupRef}
       style={{
         width: "calc(100vw - 40px)",

@@ -3,6 +3,8 @@
  * https://jestjs.io/docs/configuration
  */
 
+const esModules = ["remark", "rehype", "unist", "github", "query"].join("|");
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const nextJest = require("next/jest");
 
@@ -20,7 +22,7 @@ const config = {
   moduleNameMapper: {
     "^.+\\.(svg)$": require.resolve("./__mocks__/svg.ts"),
     "react-markdown": "<rootDir>/__mocks__/react-markdown.tsx",
-    "^(remark|github|query)-.*": "<rootDir>/__mocks__/plugin.ts",
+    [`^(${esModules})-.*`]: "<rootDir>/__mocks__/plugin.ts",
     unified: "<rootDir>/__mocks__/unified.ts",
   },
 };
