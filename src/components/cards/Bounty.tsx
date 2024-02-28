@@ -97,7 +97,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
         </Component>
       </div>
       {bounty.submissions?.length ? (
-        <div className="mt-4 space-y-0 divide-y divide-gray-200 border-t border-t-solid border-gray-200 md:w-10/12 md:self-center">
+        <div className="mt-4 space-y-0 divide-y divide-gray-200 border-t border-t-solid border-gray-200 md:w-10/12 md:self-center mx-2">
           {bounty.submissions.map((submission) => (
             <div className="flex space-x-1 relative text-sm font-medium py-3" key={submission.id}>
               <div className="flex justify-between w-full pr-0 gap-1 sm:gap-0">
@@ -129,31 +129,6 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
       ) : (
         <></>
       )}
-      {/* <Component className="self-start relative mt-15 md:mt-7" href={link}>
-        <Avatar
-          icon={bounty.icon}
-          image={bounty.image}
-          color={bounty.colors?.cover?.background || bounty.colors?.primary}
-          size="medium-fixed"
-          shape="rounded"
-          className="w-15 h-15 rounded-xl overflow-hidden"
-          user={null}
-          useLink={false}
-        />
-        {bounty?.submissions && (
-          <Badge
-            customStyle={{
-              bottom: "-4px",
-              right: "-4px",
-              fontSize: 14,
-              backgroundColor: bounty.colors.accent,
-            }}
-            size="medium"
-            value={bounty?.unreviewedSubmissionsCount}
-            className="bottom-0 -right-1 absolute p-4"
-          />
-        )}
-      </Component> */}
     </div>
   );
 }
