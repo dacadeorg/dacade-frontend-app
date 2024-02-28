@@ -61,7 +61,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
       <div className="flex md:flex-row-reverse">
         <div className="bg-theme-accent flex-col w-full h-full justify-between md:-space-y-1 pl-3 pr-5 mt-7 mb-5">
           <Component className="relative w-full block" href={link}>
-            <div className="font-medium text-md md:pt-1.5">{bounty.course ? bounty.course.name : bounty.name}</div>
+            <div className="font-medium text-md md:pt-1.5 md:w-3/4">{bounty.course ? bounty.course.name : bounty.name}</div>
           </Component>
           <Component className="inline-flex md:flex h-2/3 md:flex-row flex-col-reverse justify-between" href={link}>
             <div className="text-sm pt-8- md:pt-2 md:pb-4 text-gray-600">{type()}</div>
