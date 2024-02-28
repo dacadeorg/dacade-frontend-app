@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { openVerificationModal } from "@/store/feature/kyc.slice";
+import { KYCSTATUS, openVerificationModal } from "@/store/feature/kyc.slice";
 import KYCVerification from "@/components/popups/KYCVerification";
 import { useDiscordConnect } from "@/hooks/useDiscordConnect";
 import { User } from "@/types/bounty";
@@ -41,7 +41,7 @@ export default function ProfileHeader() {
   const { authUser, profileUser, isKycVerified } = useMultiSelector<unknown, ProfileHeaderMultiSelector>({
     authUser: (state: IRootState) => state.user.data,
     profileUser: (state: IRootState) => state.profileUser.current,
-    isKycVerified: (state: IRootState) => state.user.data?.kycStatus === "VERIFIED",
+    isKycVerified: (state: IRootState) => state.user.data?.kycStatus === KYCSTATUS.VERIFIED,
   });
 
   const user = useMemo(() => {

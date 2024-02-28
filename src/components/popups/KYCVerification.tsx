@@ -2,8 +2,9 @@ import Modal from "@/components/ui/Modal";
 import { useTranslation } from "next-i18next";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
-import { closeVerificationModal, launchWebSdk, triggerCompleteAction } from "@/store/feature/kyc.slice";
+import { KYCSTATUS, closeVerificationModal, launchWebSdk, triggerCompleteAction } from "@/store/feature/kyc.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
+import { useMemo } from "react";
 
 /**
  * KYCVerification Props Interface
@@ -32,8 +33,9 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
 
   const verificationData = useSelector((state) => state.sumsubVerification);
 
-  const { showModal, completed, completedText, description, verifying, completedActionText, actionText, loading, title } = verificationData;
-
+  const { showModal, completed, verifying, completedActionText, actionText, loading, title } = verificationData;
+    const user = useSelector((state) => state.user.data);
+    
   const closeModal = () => {
     dispatch(closeVerificationModal());
   };
@@ -48,13 +50,20 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
     triggerCompleteAction();
   };
 
+  const statuMessage = useMemo(() => {
+    if (user?.kycStatus === KYCSTATUS.VERIFIED) return t("kyc.default.completed");
+    if (user?.kycStatus === KYCSTATUS.PENDING) return "Your verification is currently being processed. Thank you for your patience";
+    if (user?.kycStatus === KYCSTATUS.REJECTED) return "We regret to inform you that your verification process has been rejected. Please review your submitted information and try again.";
+    return t("kyc.default.reason");
+  }, [user?.kycStatus]);
+
   return (
     <Modal show={showModal} onClose={closeModal}>
       <div className="px-6 py-6">
         {!verifying ? (
           <div className="flex flex-col text-left">
             <h1 className="text-.5xl leading-snug font-medium">{title || t("kyc.default.title")}</h1>
-            <p className="pt-8">{completed ? completedText || t("kyc.default.completed") : description || t("kyc.default.reason")}</p>
+            <p className="pt-8">{statuMessage}</p>
           </div>
         ) : (
           <></>

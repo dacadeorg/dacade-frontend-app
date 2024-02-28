@@ -3,6 +3,7 @@ import { Colors, Community, Referral } from "./community";
 import { ReactNode } from "react";
 import { Feedback } from "./feedback";
 import { Team } from "./challenge";
+import { KYCSTATUS } from "@/store/feature/kyc.slice";
 
 export interface Bounty {
   url: string;
@@ -151,7 +152,7 @@ export interface User {
   discord?: {
     connected?: boolean;
   };
-  kycStatus: string;
+  kycStatus: KYCSTATUS;
   referrals: Referral;
 }
 
