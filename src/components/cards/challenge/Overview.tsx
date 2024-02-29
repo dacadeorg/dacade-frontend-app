@@ -18,7 +18,7 @@ interface Props {
  */
 export default function Overview({ challenge, community }: Props) {
   const { t } = useTranslation();
-  const shorternNumberen = (token: string) => {
+  const formatToken = (token: string) => {
     return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
   };
   // Combine rewards by token
@@ -61,7 +61,7 @@ export default function Overview({ challenge, community }: Props) {
                 {challenge.rewards.map((reward, index) => (
                   <span key={`reward-${index}`}>
                     {index > 0 && "\u003B "}
-                    {reward.amount} {reward.token}/{shorternNumberen(reward.type)}
+                    {reward.amount} {reward.token}/{formatToken(reward.type)}
                   </span>
                 ))}
               </div>
