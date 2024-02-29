@@ -125,6 +125,8 @@
   "communities.overview.challenge.team.setup.submit-title": "Submit your team",
   "communities.overview.challenge.submission.description": "Paste the code of your team below and it will automatically link to all the profiles",
   "communities.challenge.submission.hint": "Submissions will be enabled when when all the team members accept the invitation and the team is fully formed.",
+  "communities.challenge.submission.multiple-submissions": "You can submit multiple times to this challenge.",
+  "communities.challenge.submission.no-multiple-submissions": "You can only submit  <strong>once</strong> to this challenge",
   "communities.overview.challenge.deadline": "Deadline",
   "communities.overview.challenge.submissions-closed": "Submissions for this challenge are now closed.",
   "communities.challenge.hint": "Hint",
