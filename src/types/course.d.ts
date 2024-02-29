@@ -78,6 +78,7 @@ export type Challenge = {
   bestSubmissions: Submission[];
   teamLimit?: number;
   isHackathon?: boolean;
+  multipleSubmissions?: boolean;
 };
 
 export type RatingCriteria = {
