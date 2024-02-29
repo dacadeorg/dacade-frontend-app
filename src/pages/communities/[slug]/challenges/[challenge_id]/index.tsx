@@ -69,6 +69,10 @@ export default function ChallengePage() {
   });
   const title = useMemo(() => getMetadataTitle(t("communities.challenge.title"), challenge?.name || ""), [challenge?.name, t]);
 
+  const canSubmit = useMemo(() => {
+    return !submission || (submission && challenge?.multipleSubmissions);
+  }, [challenge?.multipleSubmissions, submission]);
+
   const navigation = useNavigation();
   const { query, locale } = useRouter();
   const { challenge_id, slug } = query;
@@ -137,19 +141,31 @@ export default function ChallengePage() {
                     <Loader />
                   </div>
                 ) : (
-                  <>
-                    {submission ? (
-                      <div className="mt-8">
-                        <h4 className="my-8 text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
+                  <div className="grid mt-8 space-y-8">
+                    <Hint>
+                      <p
+                        className="text-lg py-4"
+                        dangerouslySetInnerHTML={{
+                          __html: t(
+                            challenge?.multipleSubmissions ? "communities.challenge.submission.multiple-submissions" : "communities.challenge.submission.no-multiple-submissions"
+                          ),
+                        }}
+                      ></p>
+                    </Hint>
+                    {submission && (
+                      <>
+                        <h4 className="text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
                         <SubmissionCard submission={submission} />
-                      </div>
-                    ) : (
+                      </>
+                    )}
+
+                    {canSubmit && (
                       <>
                         {challenge.isTeamChallenge && <SetupTeamChallenge />}
                         <SubmissionForm />
                       </>
                     )}
-                  </>
+                  </div>
                 )}
               </div>
             ) : (
