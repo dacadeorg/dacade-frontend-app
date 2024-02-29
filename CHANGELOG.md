@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.2](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.8.1...v1.8.2) (2024-02-29)
+
+
+### Bug Fixes
+
+* add the righ description for the community reward ([f3b8420](https://github.com/dacadeorg/dacade-frontend-app/commit/f3b84200f846e818b7ebd8cbd3b166c78e6d15c0))
+* display challenges when the challenges are greater than 1 ([b7b180a](https://github.com/dacadeorg/dacade-frontend-app/commit/b7b180a9c1a522a024420a65ea92764d46d6e761))
+
 ## [1.8.1](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.8.0...v1.8.1) (2024-02-12)
 
 
