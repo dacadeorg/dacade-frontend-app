@@ -34,8 +34,10 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
   const verificationData = useSelector((state) => state.sumsubVerification);
 
   const { showModal, completed, verifying, completedActionText, actionText, loading, title } = verificationData;
-    const user = useSelector((state) => state.user.data);
-    
+  const user = useSelector((state) => state.user.data);
+
+  const kycStatus = useMemo(() => user?.kycStatus, [user?.kycStatus]);
+
   const closeModal = () => {
     dispatch(closeVerificationModal());
   };
@@ -51,11 +53,11 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
   };
 
   const statuMessage = useMemo(() => {
-    if (user?.kycStatus === KYCSTATUS.VERIFIED) return t("kyc.default.completed");
-    if (user?.kycStatus === KYCSTATUS.PENDING) return "Your verification is currently being processed. Thank you for your patience";
-    if (user?.kycStatus === KYCSTATUS.REJECTED) return "We regret to inform you that your verification process has been rejected. Please review your submitted information and try again.";
+    if (kycStatus === KYCSTATUS.VERIFIED) return t("kyc.default.completed");
+    if (kycStatus === KYCSTATUS.PENDING) return t("kyc.verification.pending");
+    if (kycStatus === KYCSTATUS.REJECTED) return t("kyc.verification.rejected");
     return t("kyc.default.reason");
-  }, [user?.kycStatus]);
+  }, [kycStatus, t]);
 
   return (
     <Modal show={showModal} onClose={closeModal}>

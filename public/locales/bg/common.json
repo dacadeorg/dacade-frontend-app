@@ -357,6 +357,8 @@
   "kyc.default.title": "Identity verification",
   "kyc.default.completed": "Your identity has been verified successfully.",
   "kyc.default.reason": "To ensure the safety and security of our platform, we require all users to verify their identity. This verification process helps us maintain a trusted community of members who are committed to upholding our standards. Please take a moment to complete your KYC verification to help us in our efforts to create a safe and secure environment for everyone.",
+  "kyc.verification.pending": "Вашата верификация в момента се обработва. Благодарим ви за търпението.",
+  "kyc.verification.rejected": "Съжаляваме да ви информираме, че процесът на вашата верификация е отхвърлен. Моля, свържете се с екипа за поддръжка за повече информация.",
   "kyc.default.button": "Start verification",
   "kyc.default.button.completed": "Go to profile",
   "kyc.payout.reason": "To cashout, you need to verify your identity first.",
