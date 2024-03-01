@@ -76,7 +76,7 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
         <span className="text-sm font-medium cursor-pointer text-primary" onClick={closeModal}>
           {t("profile.edit.close")}
         </span>
-        {!verifying && (
+        {!verifying && kycStatus !== KYCSTATUS.REJECTED && (
           <ArrowButton loading={loading} disabled={loading} onClick={verify}>
             {completed ? completedActionText || t("kyc.default.button.completed") : actionText || t("kyc.default.button")}
           </ArrowButton>
