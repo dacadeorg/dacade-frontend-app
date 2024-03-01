@@ -23,7 +23,7 @@ export const shorternNumber = (amount: number) => {
     if (amount >= value) {
       const product = amount / value;
       const isFloat = product % 1 !== 0;
-      return `$${isFloat ? product.toFixed(1) : product}${abbreviation}`;
+      return `${isFloat ? product.toFixed(1) : product}${abbreviation}`;
     }
   }
   return amount;

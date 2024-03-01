@@ -8,11 +8,11 @@ export default function HackathonPrize({ reward, description }: { reward: Reward
   return first && second && third ? (
     <>
       <div className="flex gap-1 text-gray-700 font-medium">
-        <span>{`${shorternNumber(reward?.amount)} Prize Pool`}</span>
+        <span>{`$${shorternNumber(reward?.amount)} Prize Pool`}</span>
         <span>{description}</span>
       </div>
       <div className="text-gray-400 text-xs font-medium leading-3 mt-1 flex">
-        <span>{`1st Place ${shorternNumber(first)};  2nd Place ${shorternNumber(second)}; 3rd Place ${shorternNumber(third)}`}</span>
+        <span>{`1st Place $${shorternNumber(first)};  2nd Place $${shorternNumber(second)}; 3rd Place $${shorternNumber(third)}`}</span>
       </div>
     </>
   ) : (
