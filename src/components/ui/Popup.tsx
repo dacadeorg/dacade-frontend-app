@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 
 /**
  * Popups interface props
@@ -31,6 +31,15 @@ interface PopupProps {
  * @returns {ReactElement}
  */
 export default function Popup({ center, onClose, show, children, className = "" }: PopupProps): ReactElement {
+
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [show]);
+
   return show ? (
     <div className={classNames(`fixed z-999 w-screen h-screen overflow-y-scroll top-0 left-0 ${className}`, { "flex items-center": center })}>
       <div className="opacity-25 fixed inset-0 z-0 bg-black w-full h-screen top-0 left-0" onClick={onClose} />
