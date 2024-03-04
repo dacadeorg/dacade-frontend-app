@@ -27,7 +27,7 @@ export default function TeamChallenge(): JSX.Element {
         {
           index: 1,
           title: "Form your team",
-          text: "Open Telegram channel https://t.me/+0oJye8IwAuxkMDY0 and find your teammates to complete the challenge with you",
+          text: "Open Telegram group and find your teammates to complete the challenge with you",
         },
         {
           index: 2,
