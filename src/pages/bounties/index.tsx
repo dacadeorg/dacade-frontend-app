@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useMemo } from "react";
+import { ReactElement, useCallback, useEffect } from "react";
 import Navigation from "@/components/sections/bounties/Navigation";
 import BountyList from "@/components/list/Bounty";
 import { useTranslation } from "react-i18next";
@@ -32,25 +32,6 @@ interface bountiesMultiSelector {
  * @type {Bounty}
  */
 
-const defaulBounty = {
-  name: "Tezos Starter Course",
-  image: "/img/communities/tacode.svg",
-  type: "Challenge",
-  link: "https://tacode.dev/courses/dev-starter/challenges/f9c23fc7-3022-4347-b19c-66cc2424ac2f",
-  colors: {
-    text: "#0D61FF",
-    accent: "#0D61FF",
-    textAccent: "#fff",
-    primary: "#0D61FF",
-  },
-  reward: {
-    amount: 12,
-    token: "tez",
-    type: "SUBMISSION",
-  },
-  url: "https://tacode.dev/courses/dev-starter",
-};
-
 /**
  * Bounties page component
  * @date 5/16/2023 - 11:39:56 AM
@@ -75,8 +56,6 @@ export default function Bounties() {
     bounties: (state: IRootState) => state.bounties.bountiesList,
   });
 
-  const bountiesList = useMemo(() => [defaulBounty, ...(bounties || [])], [bounties]);
-
   return (
     <div className="flex justify-center content-wrapper">
       <div className="hidden lg:block w-1/4 mt-28 py-3 pr-10 lg:py-14">
@@ -84,7 +63,7 @@ export default function Bounties() {
       </div>
       <div className="flex-col w-full">
         <h1 className="text-4xl sm:text-5xl pt-10 md:pt-20 pb-10">{t("nav.bounties")}</h1>
-        <BountyList bounties={bountiesList as Bounty[]} referrals={referrals} />
+        <BountyList bounties={bounties as Bounty[]} referrals={referrals} />
       </div>
     </div>
   );
