@@ -36,7 +36,7 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
   const { showModal, completed, verifying, completedActionText, actionText, loading, title } = verificationData;
   const user = useSelector((state) => state.user.data);
 
-  const kycStatus = useMemo(() => user?.kycStatus, [user?.kycStatus]);
+  const kycStatus = user?.kycStatus;
 
   const closeModal = () => {
     dispatch(closeVerificationModal());
@@ -52,7 +52,7 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
     triggerCompleteAction();
   };
 
-  const statuMessage = useMemo(() => {
+  const statusMessage = useMemo(() => {
     if (kycStatus === KYCSTATUS.VERIFIED) return t("kyc.default.completed");
     if (kycStatus === KYCSTATUS.PENDING) return t("kyc.verification.pending");
     if (kycStatus === KYCSTATUS.REJECTED) return t("kyc.verification.rejected");
@@ -65,7 +65,7 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
         {!verifying ? (
           <div className="flex flex-col text-left">
             <h1 className="text-.5xl leading-snug font-medium">{title || t("kyc.default.title")}</h1>
-            <p className="pt-8">{statuMessage}</p>
+            <p className="pt-8">{statusMessage}</p>
           </div>
         ) : (
           <></>
