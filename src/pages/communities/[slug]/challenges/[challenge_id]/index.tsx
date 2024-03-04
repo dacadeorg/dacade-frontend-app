@@ -130,7 +130,6 @@ export default function ChallengePage() {
             <Rewards />
             <Objectives />
             {challenge.isTeamChallenge && <TeamChallenge />}
-
             <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
             <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
             <BestSubmissions />
