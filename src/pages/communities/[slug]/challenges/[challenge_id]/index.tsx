@@ -129,7 +129,6 @@ export default function ChallengePage() {
             <Header />
             <Rewards />
             <Objectives />
-            {/* {challenge.isTeamChallenge && <TeamChallenge />} */}
             <TeamChallenge />
 
             <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
