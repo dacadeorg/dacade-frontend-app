@@ -134,7 +134,7 @@
   "communities.challenge.criteria.subtitle": "Los siguientes materiales de aprendizaje lo equiparán con la experiencia técnica necesaria para abordar con éxito el desafío.",
   "communities.challenge.criteria.points": "Puntos",
   "communities.challenge.passing.score.description": "Para ganar {{coinPlaceholder}} <strong>{{amount}}</strong> <strong>{{token}}</strong>, debes obtener al menos <strong>{{minPoints}}</strong> de <strong>{{maxPoints}}</strong> puntos en este desafío.",
-  "communities.challenge.hackathon.passing.score": "Necesitas obtener el <strong>90%</strong> para entrar en el fondo de premios y ganar premios por un valor de <strong>USD 7,000.</strong>",
+  "communities.challenge.hackathon.passing.score": "Necesitas obtener el <strong>{{threshold}}%</strong> para entrar en el fondo de premios y ganar premios por un valor de <strong>{{prizePool}}.</strong>",
   "communities.challenge.submission": "Propuesta",
   "communities.challenge.submit": "Entregar",
   "communities.challenge.feedback": "Feedback",

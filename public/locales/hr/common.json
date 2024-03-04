@@ -118,7 +118,7 @@
   "communities.challenge.criteria.subtitle": "Sljedeći materijali za učenje opremit će vas tehničkom stručnošću potrebnom za uspješno rješavanje izazova.",
   "communities.challenge.criteria.points": "bodova",
   "communities.challenge.passing.score.description": "U svrhu zarade {{coinPlaceholder}} <strong>{{amount}}</strong> <strong>{{token}}</strong>-ova morate osvojiti barem <strong>{{minPoints}}</strong> od <strong>{{maxPoints}}</strong> bodova u ovom izazovu.",
-  "communities.challenge.hackathon.passing.score": "Trebate dobiti <strong>90%</strong> kako biste ušli u nagradni fond i osvojili nagrade u vrijednosti od <strong>7.000 američkih dolara.</strong>",
+  "communities.challenge.hackathon.passing.score": "Trebate dobiti <strong>{{threshold}}%</strong> kako biste ušli u nagradni fond i osvojili nagrade u vrijednosti od <strong>{{prizePool}}</strong>",
   "communities.challenge.submission": "predaji zadatka",
   "communities.challenge.submit": "podnijeti",
   "communities.challenge.feedback": "povratnoj informaciji",
