@@ -5,6 +5,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { KYCSTATUS, closeVerificationModal, launchWebSdk, triggerCompleteAction } from "@/store/feature/kyc.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useMemo } from "react";
+import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 
 /**
  * KYCVerification Props Interface
@@ -39,6 +40,7 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
   const kycStatus = user?.kycStatus;
 
   const closeModal = () => {
+    dispatch(toggleBodyScrolling(false));
     dispatch(closeVerificationModal());
   };
   const verify = () => {

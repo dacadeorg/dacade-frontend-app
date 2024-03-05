@@ -16,6 +16,7 @@ import { useDiscordConnect } from "@/hooks/useDiscordConnect";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
 import Link from "next/link";
+import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 
 /**
  * interface for ProfileHeader multiSelector
@@ -64,8 +65,10 @@ export default function ProfileHeader() {
   }, [isCurrentUser, isKycVerified]);
 
   const dispatch = useDispatch();
+
   const triggerKYCVerification = () => {
     dispatch(openVerificationModal({}));
+    dispatch(toggleBodyScrolling(true))
   };
 
   const { canConnectDiscord, triggerDiscordOauth } = useDiscordConnect();
