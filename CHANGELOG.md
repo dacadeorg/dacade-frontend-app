@@ -1,5 +1,227 @@
 # Changelog
 
+## [1.8.2](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.8.1...v1.8.2) (2024-02-29)
+
+
+### Bug Fixes
+
+* add the righ description for the community reward ([f3b8420](https://github.com/dacadeorg/dacade-frontend-app/commit/f3b84200f846e818b7ebd8cbd3b166c78e6d15c0))
+* display challenges when the challenges are greater than 1 ([b7b180a](https://github.com/dacadeorg/dacade-frontend-app/commit/b7b180a9c1a522a024420a65ea92764d46d6e761))
+
+## [1.8.1](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.8.0...v1.8.1) (2024-02-12)
+
+
+### Bug Fixes
+
+* fix the height only for tablet and big screens ([d0b024b](https://github.com/dacadeorg/dacade-frontend-app/commit/d0b024b17ec206703c18b83cbaa68e7f00d4230d))
+* refresh challenge and submission page after locale change ([af6b6fe](https://github.com/dacadeorg/dacade-frontend-app/commit/af6b6fe35c6d5883839161637f6c20f9b08f48fa))
+* use md breakpoint instead of the sm for tablet to cover the gap ([31f222c](https://github.com/dacadeorg/dacade-frontend-app/commit/31f222c7fbe64b83c3bd841cf36464149a818bc2))
+
+## [1.8.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.7.0...v1.8.0) (2024-01-23)
+
+
+### Features
+
+* adapt to the new isHachathin property from the backend ([318ce30](https://github.com/dacadeorg/dacade-frontend-app/commit/318ce3063af3ed50e3f7b0ba3559f27ddfc86add))
+* add banner for logging in ([5558c26](https://github.com/dacadeorg/dacade-frontend-app/commit/5558c26b568e0c8146c6b570f69b96377b475a63))
+* add branch name check ([9701469](https://github.com/dacadeorg/dacade-frontend-app/commit/9701469b5e339a361b8ca41a8673bc079c948393))
+* add certificate icon ([5dd50a2](https://github.com/dacadeorg/dacade-frontend-app/commit/5dd50a28d6a1c4f7b63e304aad48b331689344c4))
+* add challenge reward hackaton ([1fece5d](https://github.com/dacadeorg/dacade-frontend-app/commit/1fece5dd03054481ea85df4de254ca6dc668cf6e))
+* add error handling when the user reject the message ([51b96d0](https://github.com/dacadeorg/dacade-frontend-app/commit/51b96d0a61f8ea58651dc9524853f2e699fca349))
+* add hackathon passing score ([3a313d5](https://github.com/dacadeorg/dacade-frontend-app/commit/3a313d57ce8e3deae22bea8dc27947e20e558f3f))
+* add isHackathon property on the challenge object after fetching ([6686ada](https://github.com/dacadeorg/dacade-frontend-app/commit/6686ada8d3cb2dac6ef7b9eacedfff313cc2b9dc))
+* add limit for the team from the backend ([0c3c7f0](https://github.com/dacadeorg/dacade-frontend-app/commit/0c3c7f0b60570db73500bcbe67d9275d7773eba0))
+* add link for discord ([751e73a](https://github.com/dacadeorg/dacade-frontend-app/commit/751e73a89459783f326701be8e94b1c2f863380c))
+* add link for discord ([d46feba](https://github.com/dacadeorg/dacade-frontend-app/commit/d46feba71cd97aec8f9628da6abc62dcb2a34d8f))
+* add loader for bounties fetching ([774c351](https://github.com/dacadeorg/dacade-frontend-app/commit/774c3516fab15f55cdc43de2ff1a8b7de8edf3aa))
+* add necessary libraries for wallet connect ([2a43ce2](https://github.com/dacadeorg/dacade-frontend-app/commit/2a43ce2145ff149651a3f03cde28877c631b9e5f))
+* add rust ceritificate image and change the name for the typescript smart contract ([e123edd](https://github.com/dacadeorg/dacade-frontend-app/commit/e123edd6766edb98c6d251f4e93f26307c4ee0e1))
+* add showModal state ([b9b507f](https://github.com/dacadeorg/dacade-frontend-app/commit/b9b507f8b6833e33b84c4d9b8d6b8237e20e5b93))
+* add sui community icon ([cb0ab13](https://github.com/dacadeorg/dacade-frontend-app/commit/cb0ab13b8b5d64209f13f0f633a1b458a5d2f4a5))
+* add SUI token icon ([38faf0c](https://github.com/dacadeorg/dacade-frontend-app/commit/38faf0cd12f9af1ee97759338ce4bf71931f565e))
+* add tag of hackathon on hackaton challenge ([eaf735d](https://github.com/dacadeorg/dacade-frontend-app/commit/eaf735de918c5a478bd2bd28525f0839e62bca5c))
+* add the disconnect when setting the address ([fe372ba](https://github.com/dacadeorg/dacade-frontend-app/commit/fe372ba3a2594a0d5219b0eed14521b60547c90c))
+* add the hachathon tag on the challenge card on the community slug ([3eed0f2](https://github.com/dacadeorg/dacade-frontend-app/commit/3eed0f203d3a801cd6b91f3ea4ed43a8e98aa6ec))
+* add TODO comment and fix redirect ([1757b12](https://github.com/dacadeorg/dacade-frontend-app/commit/1757b12247279bb12c64f4397e0eeaf369ec5eb8))
+* add translations to the newly added section ([1fb50f5](https://github.com/dacadeorg/dacade-frontend-app/commit/1fb50f5cb0ae757be37a54d3eb609241669d7826))
+* add unreviwed submissions ([9ff2d52](https://github.com/dacadeorg/dacade-frontend-app/commit/9ff2d522529c9850b7b3ecc76752e6a09a45fbff))
+* add vertical alignment to nav-items in the Navbar ([9845bd8](https://github.com/dacadeorg/dacade-frontend-app/commit/9845bd8834d00932a5763b034e5a0a6d5be245cf))
+* Apply dacade's signature string and project id for finalization ([bb1a449](https://github.com/dacadeorg/dacade-frontend-app/commit/bb1a44943c48a8f3eb54f8aa60100caf43d92182))
+* change address using wallet connect ([af982ac](https://github.com/dacadeorg/dacade-frontend-app/commit/af982ac53b7482a5943ce50719f05a4e6aa459b7))
+* change the testimonials text ([c14caac](https://github.com/dacadeorg/dacade-frontend-app/commit/c14caac57d1d15a005ee63d43fcf13c552268b7a))
+* check hackaton type ([bce9371](https://github.com/dacadeorg/dacade-frontend-app/commit/bce9371cf1ba24fd95dd82c901e672087cf9e827))
+* convert store variable to function ([140665e](https://github.com/dacadeorg/dacade-frontend-app/commit/140665ed4d02d443ecbbb0f08ead7ba4fe595dbe))
+* display challenge card on last learning module ([b76c513](https://github.com/dacadeorg/dacade-frontend-app/commit/b76c513f12d27f26557cff68810caadff6d43927))
+* display challenge passing score ([01c5351](https://github.com/dacadeorg/dacade-frontend-app/commit/01c53510bf9595c585aa77686dfb84f3e3cc4a73))
+* display challenge reward in a string ([a0737c4](https://github.com/dacadeorg/dacade-frontend-app/commit/a0737c40d5de4dc088a586d4eb3af61665909b89))
+* display learning module title  on communityNavigation ([7a376ec](https://github.com/dacadeorg/dacade-frontend-app/commit/7a376ec947485c670c3d8ed892055746db718b15))
+* display right reward wording for  none hackathon challenge ([9794b1d](https://github.com/dacadeorg/dacade-frontend-app/commit/9794b1ddf2a3e187900859cb6a1a3e8442a297de))
+* display submissionPoints ([34c1672](https://github.com/dacadeorg/dacade-frontend-app/commit/34c16723a06b93a89c5d71687f079f9f554dffe3))
+* display the submission form when the team has minimum one member ([7e66aca](https://github.com/dacadeorg/dacade-frontend-app/commit/7e66aca9aeaac39bca68b11b2e7810d5149f6a67))
+* enable google translations on users request ([4d641f8](https://github.com/dacadeorg/dacade-frontend-app/commit/4d641f872ff72979d47f079c3b4e8d3f027c722b))
+* fix mobile design for passing score ([6732a3e](https://github.com/dacadeorg/dacade-frontend-app/commit/6732a3eda9b307c107369e0093559341cee88cdd))
+* implement the loader when rejecting invites ([8c8a6d2](https://github.com/dacadeorg/dacade-frontend-app/commit/8c8a6d2ab90a3ad468168f480af69dfd1a749aaf))
+* include icp wallet address valiadations ([f881dfa](https://github.com/dacadeorg/dacade-frontend-app/commit/f881dfabc69f6fca07a5d61ab948c71c653fb252))
+* itengrate the walletConnect package when minting ([56eafa3](https://github.com/dacadeorg/dacade-frontend-app/commit/56eafa3564f49c060f958d0b9e49e5c1be9ed7f7))
+* move scoreboard scort to the filter action ([722e559](https://github.com/dacadeorg/dacade-frontend-app/commit/722e559c6f6b51a6fada6974625c3b3ea76a1466))
+* re-add the line on end to remove changes in yarn lock ([68bbc8d](https://github.com/dacadeorg/dacade-frontend-app/commit/68bbc8dd8f587887d9c820749fae4a98c4b3c49e))
+* redirect in server side props ([e3cd92c](https://github.com/dacadeorg/dacade-frontend-app/commit/e3cd92c45baba6b300ca2f3187a73aff8072b311))
+* remove spaces  on end to remove changes in yarn lock ([c998da7](https://github.com/dacadeorg/dacade-frontend-app/commit/c998da7104a0b04bfc7037d5b4c96f92e01f759d))
+* remove the unnecesary green background on bestsumbission card ([41d177a](https://github.com/dacadeorg/dacade-frontend-app/commit/41d177a0f3666fa3ba967aed63b731379abdcd96))
+* reshowedi editaddress when user cancels modal, add metamask extension and adjust styles ([5e61c4c](https://github.com/dacadeorg/dacade-frontend-app/commit/5e61c4c92892e6d26ff732a742a0de2bca753ec3))
+* stop propagation for when the user is accepting invites from the notification area ([e6f8694](https://github.com/dacadeorg/dacade-frontend-app/commit/e6f8694f9b107163ca881ae5e5a442d5d59a8eb0))
+* turn total reward value to a number ([255b981](https://github.com/dacadeorg/dacade-frontend-app/commit/255b981ba3e2f87bdc50d1af792f18b3ea1d1566))
+* turn total reward value to a number ([bd27e49](https://github.com/dacadeorg/dacade-frontend-app/commit/bd27e49b75810ef8f37989fa864b4db94a938edc))
+* update the correct icp regex ([cc19f35](https://github.com/dacadeorg/dacade-frontend-app/commit/cc19f35c8457957a166df26b58c73efa6c46c7ec))
+* use existing yarn to reduce changed files ([4a38fb5](https://github.com/dacadeorg/dacade-frontend-app/commit/4a38fb530f3464177b74368ea092c2475bda019d))
+* wrap the AE token too ([9990a3c](https://github.com/dacadeorg/dacade-frontend-app/commit/9990a3c80ee033014cfea8d7245c546bc2468661))
+
+
+### Bug Fixes
+
+* add default language in case there is none ([c64bbcd](https://github.com/dacadeorg/dacade-frontend-app/commit/c64bbcd7acb681be9d9573459eef2f4268cba911))
+* add github icon ([a53b026](https://github.com/dacadeorg/dacade-frontend-app/commit/a53b0260383918963c377774d5194969b16325bf))
+* add LanguageList component on mobile ([5643d5d](https://github.com/dacadeorg/dacade-frontend-app/commit/5643d5df92540e68bd484061d7a6b03a81992553))
+* add the challengeType where the header is called ([8e3f6a9](https://github.com/dacadeorg/dacade-frontend-app/commit/8e3f6a9b14674c4e0903d7a1e61f9bd1c55aba07))
+* add the locale in the redirect URL ([79a8763](https://github.com/dacadeorg/dacade-frontend-app/commit/79a8763ea1dcd16bb8d2c3e2e69b3076e5d3e7c8))
+* add the right ethereun icon ([f36a2c2](https://github.com/dacadeorg/dacade-frontend-app/commit/f36a2c208e8c03958e64516549ee2b988497fd30))
+* adjust the stages of the lifecycle ([387b1e8](https://github.com/dacadeorg/dacade-frontend-app/commit/387b1e8f6411963d45367c0d18551c233262de5f))
+* align logo and navigation links on the same line ([f16dd6d](https://github.com/dacadeorg/dacade-frontend-app/commit/f16dd6dc14ef6a511d7d41b91aee7cfe10f92eee))
+* avatar endpoint not ready - implemented name initials instead ([d1a747c](https://github.com/dacadeorg/dacade-frontend-app/commit/d1a747c193d0d2e8fef51588ab37472333414bf0))
+* back button not working on the submission page ([1765f8e](https://github.com/dacadeorg/dacade-frontend-app/commit/1765f8edfc354415309501d4bb5809f393809530))
+* build error of Property 'children' is missing in type 'ReactElement&lt;any, string | JSXElementConstructor<any&gt;>' but required in type 'ReactPortal' ([830803d](https://github.com/dacadeorg/dacade-frontend-app/commit/830803d6eba1ded3fa47517962a561fe3ee79bf8))
+* build issue on unused variables ([4896ab8](https://github.com/dacadeorg/dacade-frontend-app/commit/4896ab8afe97ee77c8ec41af335b8354161ead56))
+* change blockchain name ([64e932b](https://github.com/dacadeorg/dacade-frontend-app/commit/64e932b84fdf5a6ede74c282172e65f6542cc3e1))
+* change package-lock.json and yarn.lock ([87e0d78](https://github.com/dacadeorg/dacade-frontend-app/commit/87e0d7838317864e66c5f20f2f7d5a8a4441f8f6))
+* change the number to fetch more referrals to be 10 instead of 30 ([a504cd3](https://github.com/dacadeorg/dacade-frontend-app/commit/a504cd3659d562fe5af63e5ba11b0f0a461953ab))
+* change the way things was implement on the hackathon ([1264a5a](https://github.com/dacadeorg/dacade-frontend-app/commit/1264a5a836ae95e2501f16a36efae476f6851a65))
+* checking if the type is not null ([2318959](https://github.com/dacadeorg/dacade-frontend-app/commit/2318959d623b7badb32c4339544b8efd60047e10))
+* clean up git cache ([13e618a](https://github.com/dacadeorg/dacade-frontend-app/commit/13e618a9d4aaafc25bcf2d5ca833983ecb377735))
+* create alpha beta and candidate release ([cf992fc](https://github.com/dacadeorg/dacade-frontend-app/commit/cf992fced1a075e69e2cc5b196c269c65fcd75dc))
+* disable double verification workflow ([fe41983](https://github.com/dacadeorg/dacade-frontend-app/commit/fe41983855fd26db9a7ad48244e7637c39c92570))
+* disconnect the modal and open the modal when there is an arleady connection ([a76fb1f](https://github.com/dacadeorg/dacade-frontend-app/commit/a76fb1faad2b90ea2814dae6a2ab4030beb025c0))
+* display evaluations on pop-up submission ([5a070c8](https://github.com/dacadeorg/dacade-frontend-app/commit/5a070c802beece2907417464fbb44a862ec1c62c))
+* display of the card ([debe85e](https://github.com/dacadeorg/dacade-frontend-app/commit/debe85ede84bd8b67f280895a59ad97f5e83f539))
+* display reward total for challenge reward card ([82535c9](https://github.com/dacadeorg/dacade-frontend-app/commit/82535c93d005ff18f2d87d59a5c6190997205fd9))
+* display the submissions length ([8430dac](https://github.com/dacadeorg/dacade-frontend-app/commit/8430dac4bbd4f3f8a3333bfdb2b11fec58d9053d))
+* feedback form visisibility ([39492c9](https://github.com/dacadeorg/dacade-frontend-app/commit/39492c99a0bb8ee21a9e608d6c344193bbdce282))
+* fetch submission in the server side ([b626e8b](https://github.com/dacadeorg/dacade-frontend-app/commit/b626e8b572ed6b9f0f558bf70a9c2f49f9975b97))
+* fix alignmentof the chevron right also on the navigations ([0220239](https://github.com/dacadeorg/dacade-frontend-app/commit/0220239cf4dbf5d8af3790e6d802e44ed5a63b16))
+* fix the placement of the icon ([20df7eb](https://github.com/dacadeorg/dacade-frontend-app/commit/20df7eb005ac4028bb14c2e875b9676dd8145d0e))
+* fixing different UI issues ([09586fb](https://github.com/dacadeorg/dacade-frontend-app/commit/09586fbd2ee7b8c377b700d494ee0a28b3d34cf8))
+* handle bad urls for community request ([c364e4e](https://github.com/dacadeorg/dacade-frontend-app/commit/c364e4e4352e98a1ca0ab8603e9b365e30f285d2))
+* handle bounties error ([d1eef0e](https://github.com/dacadeorg/dacade-frontend-app/commit/d1eef0e4f1bb65774089b43c3c306d21eddf54c1))
+* handle the challangs request error ([b6a6a79](https://github.com/dacadeorg/dacade-frontend-app/commit/b6a6a79124dc8725c7de5ec5e8140f4973c3ff78))
+* hide an address for DAC coins in the profile dropdown ([265f44f](https://github.com/dacadeorg/dacade-frontend-app/commit/265f44f1f770ffbfd03fa7c13c65c88d519c4110))
+* hide the submission form when its past deadline ([4ac4dac](https://github.com/dacadeorg/dacade-frontend-app/commit/4ac4dac4c1e4415fa8e59d19bbab9e9295b7c79a))
+* icon issue on mobile ([30204e1](https://github.com/dacadeorg/dacade-frontend-app/commit/30204e17d5dff7f26dd583ef7437ffb3464a0dde))
+* implement how achievement cards will expand ([d80cde6](https://github.com/dacadeorg/dacade-frontend-app/commit/d80cde61a818fdd60c7b840cafdb5c75a59efde5))
+* improve the error message ([6f1702c](https://github.com/dacadeorg/dacade-frontend-app/commit/6f1702c1626c428fc676eaf6126f5ab2540c7c97))
+* install husky in the prepare command ([1cbeaa7](https://github.com/dacadeorg/dacade-frontend-app/commit/1cbeaa73a265d061bf973d06a18fb5b1e317e91e))
+* issues with the edit address modal ([514153b](https://github.com/dacadeorg/dacade-frontend-app/commit/514153b7a68bb4ba677deba4dc0c43ea4ce7b1ed))
+* load profile in profile/community_slug page ([e3c02ac](https://github.com/dacadeorg/dacade-frontend-app/commit/e3c02ac7abdbf07c8645760edbe5c3934ec9f7a9))
+* localePath parsing ([d2fd80b](https://github.com/dacadeorg/dacade-frontend-app/commit/d2fd80b75feaf12ead5a6404b6cbb190591f803b))
+* merge conflict ([a533625](https://github.com/dacadeorg/dacade-frontend-app/commit/a53362538fe31a490eecc3d84a42eca1a3286e95))
+* merge conflict ([2859777](https://github.com/dacadeorg/dacade-frontend-app/commit/2859777012f484fa6cce621495a1bce11efedcb9))
+* move fetching submissions implementation in the submission popup ([049741c](https://github.com/dacadeorg/dacade-frontend-app/commit/049741cae9d6492fecf51c1b3d15eb7687511a77))
+* objective list responsiveness ([31a4ff0](https://github.com/dacadeorg/dacade-frontend-app/commit/31a4ff0540904b968a6f67d91b126c514d24f73a))
+* PARSE_ERROR when fetching the user profile ([0563447](https://github.com/dacadeorg/dacade-frontend-app/commit/0563447d8a0e77b388ddd926ee4a809c7a6d23cb))
+* place well the arrow icon on feedbacks ([6f78ceb](https://github.com/dacadeorg/dacade-frontend-app/commit/6f78ceb3a57bad14934d2b5d49dd86fbbc9bc524))
+* prevent multiple submission of feedback when user clicks more than once ([3b03e66](https://github.com/dacadeorg/dacade-frontend-app/commit/3b03e66a961eb170a4b99e384f9633e18e9f14a5))
+* Prevent need for sumbitting twice ([8c3e7c2](https://github.com/dacadeorg/dacade-frontend-app/commit/8c3e7c243c2eaeb6f2dfc491b2c4fbcd1ca04d94))
+* redirect bad urls to not found ([578c7ac](https://github.com/dacadeorg/dacade-frontend-app/commit/578c7ac26e0202b9ab48d435ed916d3a1127af3d))
+* redirect to the submission when slug is fetched ([6d7dff3](https://github.com/dacadeorg/dacade-frontend-app/commit/6d7dff3f305dd30bcad0eed054c5eb6790db8766))
+* referral alignment on small screen ([f709026](https://github.com/dacadeorg/dacade-frontend-app/commit/f709026b46f64d723387d2bae4d2c8937c5826a0))
+* refining the responsiveness ([5568fad](https://github.com/dacadeorg/dacade-frontend-app/commit/5568fad4b0c745f5fd85f1b4ebf8b140cf4e82ca))
+* Remove {{count}} on the reward card in Bulgarian translations ([6149efd](https://github.com/dacadeorg/dacade-frontend-app/commit/6149efdd04e27064a3fb643859da301d6a7b12eb))
+* remove beta add prelease for stage release ([4e6175f](https://github.com/dacadeorg/dacade-frontend-app/commit/4e6175f498ed6f21d84a7e5ad4efc958d05bbb3a))
+* remove double challenge request ([94ab04e](https://github.com/dacadeorg/dacade-frontend-app/commit/94ab04e448db84283e37402b88ebd3754260be29))
+* remove fetchSubmission in useEffect ([09728fb](https://github.com/dacadeorg/dacade-frontend-app/commit/09728fb09080eeb4e781a6313539e1e76818948d))
+* remove github link condition on blockchain submission ([7f730b0](https://github.com/dacadeorg/dacade-frontend-app/commit/7f730b07d7b0896e6fb31f821b072fba4fac179d))
+* remove invalid css value ([b03c341](https://github.com/dacadeorg/dacade-frontend-app/commit/b03c341009dd42bcf887a58a089592a40a57fe23))
+* remove learning modules list in the challenge header ([bbefe48](https://github.com/dacadeorg/dacade-frontend-app/commit/bbefe48f19b5c71dace8aa2a337aa63432b70cd1))
+* remove redundant tailwindcss classes ([66cbe49](https://github.com/dacadeorg/dacade-frontend-app/commit/66cbe49fb33a88fb41ec878be9179b645eab412e))
+* remove the link to the CONTRIBUTING ([9cf404b](https://github.com/dacadeorg/dacade-frontend-app/commit/9cf404b9c498d6bd3d486c0ad7c511673a66222e))
+* remove the maximum length ([5efee40](https://github.com/dacadeorg/dacade-frontend-app/commit/5efee40825f0e248bb6368ff29aa2814b52f4d6f))
+* remove the maxlength on the submission input ([4aaa124](https://github.com/dacadeorg/dacade-frontend-app/commit/4aaa12421996087bc3c371759f937853fb8e6d2a))
+* remove the width on large screen ([31aeaba](https://github.com/dacadeorg/dacade-frontend-app/commit/31aeaba97cea769c13ce3420e37af2705fce4162))
+* remove unnecessary borders ([c499568](https://github.com/dacadeorg/dacade-frontend-app/commit/c499568b6ea728e1d38018d41ff382affe9bbaa9))
+* remove ws package ([e9061aa](https://github.com/dacadeorg/dacade-frontend-app/commit/e9061aa6ba8cfe3bda010dd685cd89b70f0b3358))
+* rename candidate release to pre release ([2f7ce7f](https://github.com/dacadeorg/dacade-frontend-app/commit/2f7ce7fe487d285173b9ea71708c5fd63a164333))
+* rename the prop to isHackathon ([61b98bc](https://github.com/dacadeorg/dacade-frontend-app/commit/61b98bc7deeee2a795985b6c9d32971e20a7cbef))
+* resolve merge conflicts ([19007cc](https://github.com/dacadeorg/dacade-frontend-app/commit/19007cce85fa337d9d943ca5494c5841f80e15e7))
+* show coin tokens on macbook safari ([eb19adc](https://github.com/dacadeorg/dacade-frontend-app/commit/eb19adc71272c0473be7cff013f68e17b37d02a2))
+* show the KYC vertify button only when viewing own profile ([309f1b8](https://github.com/dacadeorg/dacade-frontend-app/commit/309f1b88785b41c81c9d046c620afd412320f6ca))
+* show verify button when discord is connected ([9f7b6f6](https://github.com/dacadeorg/dacade-frontend-app/commit/9f7b6f64840c5e5fef0c0c5959b564d764c85575))
+* simply selecting a text on a submission triggers the popup ([0484036](https://github.com/dacadeorg/dacade-frontend-app/commit/0484036792c1d489dcd516fb575f15fc4fa9dc6d))
+* the accordion display ([e4ba3af](https://github.com/dacadeorg/dacade-frontend-app/commit/e4ba3afdd17b4f61de71d8029e1ec6dd400bbcaa))
+* the alignment of the chevron right on the bounties navigation ([2e5386a](https://github.com/dacadeorg/dacade-frontend-app/commit/2e5386a5ca3375e64ae5e81df9bea0e2c20de5bc))
+* the arrow issue on mobile ([7bfaf9f](https://github.com/dacadeorg/dacade-frontend-app/commit/7bfaf9fc8b7ce307c620126ae743231b0324b71a))
+* the build issues ([9766035](https://github.com/dacadeorg/dacade-frontend-app/commit/9766035486c46f6726695c2cd019a906553cd59c))
+* the certificate icon missing ([ea479cb](https://github.com/dacadeorg/dacade-frontend-app/commit/ea479cb4237dceed1b26ac738a39823a5bc88928))
+* the closing icon on the cooking bar notification ([244c1f0](https://github.com/dacadeorg/dacade-frontend-app/commit/244c1f008dfe78185239910ae486a8c83f35fb40))
+* the expand of the achievement cards ([39400bc](https://github.com/dacadeorg/dacade-frontend-app/commit/39400bce2f48a1bb43c0209946cb125a3daef312))
+* the icon display ([16bbf72](https://github.com/dacadeorg/dacade-frontend-app/commit/16bbf72bf3ff54c7584bf79464fe8c2f45352697))
+* the inconsistencies ([c2e8193](https://github.com/dacadeorg/dacade-frontend-app/commit/c2e8193e18434e8a4defa3045888f0980333aa9a))
+* the placement of arrow down ([f27e76f](https://github.com/dacadeorg/dacade-frontend-app/commit/f27e76ffb701f2882732fa4f5f71de9c187edf0b))
+* the profile design ([debc639](https://github.com/dacadeorg/dacade-frontend-app/commit/debc63961447cb553a9c1abe4f8011e6d561ed73))
+* trancate the icp address ([492932e](https://github.com/dacadeorg/dacade-frontend-app/commit/492932efd16821f941bf3a58933601bd96ff09b9))
+* Uncollapse per default learning info in challenge ([749f0cf](https://github.com/dacadeorg/dacade-frontend-app/commit/749f0cfa29017b7aa357a7133c7f77bdbf216832))
+* unlock scroll after switching language on mobile ([8623491](https://github.com/dacadeorg/dacade-frontend-app/commit/86234913c14de39727efcf55638cfa51cf770bd3))
+* update channel name and team creation description ([39fb85a](https://github.com/dacadeorg/dacade-frontend-app/commit/39fb85a6e080848a959cbd36f020122556331003))
+* update the community color state ([822286b](https://github.com/dacadeorg/dacade-frontend-app/commit/822286bf65654ee70afa0f75c33b4331975b886f))
+* update the readme ([6e8e95d](https://github.com/dacadeorg/dacade-frontend-app/commit/6e8e95d183c1fb1301c722463ddfc285f98ed3d7))
+* update the reward message for hackathon ([627cb1d](https://github.com/dacadeorg/dacade-frontend-app/commit/627cb1d09d113a85f2e9863986658040d133f3c2))
+* use isHackathon property from the challenge object ([62faebb](https://github.com/dacadeorg/dacade-frontend-app/commit/62faebb7412e617f6ccb1bf4b5bdc2aa6cbec7a7))
+* user loader on profile when there is no data ([8f801b9](https://github.com/dacadeorg/dacade-frontend-app/commit/8f801b976feee1f29d7859e8ca2ddc61d7c1e428))
+
+## [1.5.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.4.0...v1.5.0) (2024-01-18)
+
+
+### Features
+
+* add branch name check ([9701469](https://github.com/dacadeorg/dacade-frontend-app/commit/9701469b5e339a361b8ca41a8673bc079c948393))
+
+
+### Bug Fixes
+
+* improve the error message ([6f1702c](https://github.com/dacadeorg/dacade-frontend-app/commit/6f1702c1626c428fc676eaf6126f5ab2540c7c97))
+* install husky in the prepare command ([1cbeaa7](https://github.com/dacadeorg/dacade-frontend-app/commit/1cbeaa73a265d061bf973d06a18fb5b1e317e91e))
+* load profile in profile/community_slug page ([e3c02ac](https://github.com/dacadeorg/dacade-frontend-app/commit/e3c02ac7abdbf07c8645760edbe5c3934ec9f7a9))
+* referral alignment on small screen ([f709026](https://github.com/dacadeorg/dacade-frontend-app/commit/f709026b46f64d723387d2bae4d2c8937c5826a0))
+* remove the link to the CONTRIBUTING ([9cf404b](https://github.com/dacadeorg/dacade-frontend-app/commit/9cf404b9c498d6bd3d486c0ad7c511673a66222e))
+* update the readme ([6e8e95d](https://github.com/dacadeorg/dacade-frontend-app/commit/6e8e95d183c1fb1301c722463ddfc285f98ed3d7))
+* update the reward message for hackathon ([627cb1d](https://github.com/dacadeorg/dacade-frontend-app/commit/627cb1d09d113a85f2e9863986658040d133f3c2))
+
+## [1.4.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.3.1...v1.4.0) (2024-01-12)
+
+
+### Features
+
+* display submissionPoints ([34c1672](https://github.com/dacadeorg/dacade-frontend-app/commit/34c16723a06b93a89c5d71687f079f9f554dffe3))
+* move scoreboard scort to the filter action ([722e559](https://github.com/dacadeorg/dacade-frontend-app/commit/722e559c6f6b51a6fada6974625c3b3ea76a1466))
+
+
+### Bug Fixes
+
+* display of the card ([debe85e](https://github.com/dacadeorg/dacade-frontend-app/commit/debe85ede84bd8b67f280895a59ad97f5e83f539))
+* feedback form visisibility ([39492c9](https://github.com/dacadeorg/dacade-frontend-app/commit/39492c99a0bb8ee21a9e608d6c344193bbdce282))
+* objective list responsiveness ([31a4ff0](https://github.com/dacadeorg/dacade-frontend-app/commit/31a4ff0540904b968a6f67d91b126c514d24f73a))
+
+## [1.3.1](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.3.0...v1.3.1) (2023-12-20)
+
+
+### Bug Fixes
+
+* add default language in case there is none ([c64bbcd](https://github.com/dacadeorg/dacade-frontend-app/commit/c64bbcd7acb681be9d9573459eef2f4268cba911))
+
+## [1.3.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.2.2...v1.3.0) (2023-12-19)
+
+
+### Features
+
+* add showModal state ([b9b507f](https://github.com/dacadeorg/dacade-frontend-app/commit/b9b507f8b6833e33b84c4d9b8d6b8237e20e5b93))
+
 ## [1.2.2](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.2.1...v1.2.2) (2023-12-18)
 
 

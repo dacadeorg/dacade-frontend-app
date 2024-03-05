@@ -56,7 +56,6 @@ export default function Bounties() {
     bounties: (state: IRootState) => state.bounties.bountiesList,
   });
 
-
   return (
     <div className="flex justify-center content-wrapper">
       <div className="hidden lg:block w-1/4 mt-28 py-3 pr-10 lg:py-14">
