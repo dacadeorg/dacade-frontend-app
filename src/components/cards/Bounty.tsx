@@ -58,12 +58,12 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
 
   return (
     <div className="p-5 flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative">
-      <div className="bg-theme-accent flex-col w-full h-full justify-between md:-space-y-1 pl-3 pr-5 mt-7 mb-5 ">
+      <div className="bg-theme-accent flex-col w-full h-full justify-between md:-space-y-1 pl-3 pr-5 mt-7 mb-5">
         <Component className="relative w-full block" href={link}>
           <div className="font-medium text-md md:pt-1.5">{bounty.course ? bounty.course.name : bounty.name}</div>
         </Component>
         <div className="flex justify-between w-full md:block">
-          <Component className="inline-flex md:flex h-2/3 md:flex-row flex-col-reverse justify-between" href={link}>
+          <Component className="inline-flex md:flex md:flex-row flex-col-reverse justify-between" href={link}>
             <div className="text-sm pt-8 md:pt-2 md:pb-4 text-gray-600">{type()}</div>
             <div>
               <Reward type="gray" reward={bounty.reward}></Reward>
