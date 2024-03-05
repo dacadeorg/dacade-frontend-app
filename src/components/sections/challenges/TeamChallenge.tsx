@@ -58,7 +58,7 @@ export default function TeamChallenge(): JSX.Element {
   ];
 
   const steps: CardData[] = useMemo(() => {
-    return challenge?.isTeamChallenge ? hackathonChallengeSteps : teamChallengeSteps;
+    return challenge?.isHackathon ? hackathonChallengeSteps : teamChallengeSteps;
   }, [challenge?.isTeamChallenge]);
 
   return (
