@@ -46,6 +46,7 @@ export default function Badge({ customStyle, value, size = "small", className, .
   }
   return (
     <span
+      data-testid="badgeId"
       {...props}
       className={classNames(
         "font-semibold leading-3 text-center inline-flex items-center justify-center rounded-full text-xxs",
