@@ -37,7 +37,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function ({ disable
     "cursor-pointer": !disabled,
   });
 
-  return <input data-testid="checboxId" ref={ref} {...props} type="checkbox" disabled={disabled} className={checkboxClassName} style={styles} />;
+  return <input data-testid="checkboxId" ref={ref} {...props} type="checkbox" disabled={disabled} className={checkboxClassName} style={styles} />;
 });
 
 Checkbox.displayName = "Checkbox";
