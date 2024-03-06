@@ -4,7 +4,7 @@ import { useTranslation } from "next-i18next";
 import DateManager from "@/utilities/DateManager";
 import Certificate from "@/components/ui/Certificate";
 import { Community } from "@/types/community";
-import { shorternNumber } from "@/utilities";
+import { shortenNumber } from "@/utilities";
 
 interface Props {
   challenge: Challenge;
@@ -54,7 +54,7 @@ export default function Overview({ challenge, community }: Props) {
             <Coin size="medium" token={reward?.token} />
             <div className="text-sm md:pl-2 max-w-max">
               <div className="flex gap-1 text-gray-700 font-medium">
-                <span>{shorternNumber(reward.amount)}</span>
+                <span>{shortenNumber(reward.amount)}</span>
                 <span>{reward?.token}</span>
                 <span>{t("communities.overview.challenge.rewards")}</span>
               </div>
@@ -62,7 +62,7 @@ export default function Overview({ challenge, community }: Props) {
                 {challenge.rewards.map((reward, index) => (
                   <span key={`reward-${index}`}>
                     {index > 0 && "\u003B "}
-                    {shorternNumber(reward.amount)} {reward.token}/{formatToken(reward.type)}
+                    {shortenNumber(reward.amount)} {reward.token}/{formatToken(reward.type)}
                   </span>
                 ))}
               </div>

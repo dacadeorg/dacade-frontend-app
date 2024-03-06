@@ -1,7 +1,7 @@
 import Coin from "../ui/Coin";
 import { useTranslation } from "next-i18next";
 import { Reward } from "@/types/course";
-import { shorternNumber } from "@/utilities";
+import { shortenNumber } from "@/utilities";
 
 interface OverviewRewardsProps {
   reward: Reward;
@@ -19,7 +19,7 @@ export default function OverviewRewards({ reward, category, size }: OverviewRewa
           <Coin token={reward.token} className="flex-none" />
           <div className="text-base lg:pl-2 lg:pr-3 md:px-2 max-w-max">
             <div className="flex">
-              <span className="block font-medium text-base pr-1">{shorternNumber(reward.amount)}</span>
+              <span className="block font-medium text-base pr-1">{shortenNumber(reward.amount)}</span>
               <span className="block font-medium text-base">{reward.token}</span>
             </div>
             <div className="flex">

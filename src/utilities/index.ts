@@ -13,7 +13,7 @@ export function sleep(ms: number): Promise<unknown> {
  * Convert a number to K ex : 7000 -> 7K, 2510 -> 2.5K
  * @date 12/7/2023 - 6:50:18 PM
  */
-export const shorternNumber = (amount: number) => {
+export const shortenNumber = (amount: number) => {
   const abbrevObject = [
     { value: 1000000000, abbreviation: "B" },
     { value: 1000000, abbreviation: "M" },
