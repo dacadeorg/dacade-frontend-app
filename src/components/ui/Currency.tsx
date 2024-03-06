@@ -32,7 +32,7 @@ export default function Currency({ value = 0, token = "" }: CurrencyProps): Reac
     });
   }, [token, value]);
   return (
-    <span className="whitespace-nowrap">
+    <span data-testid="currencyId" className="whitespace-nowrap">
       {currency} {token}
     </span>
   );
