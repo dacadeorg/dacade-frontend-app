@@ -40,8 +40,7 @@ export default function RewardBadge({ reward = {}, type = "transparent", styles 
       {reward.token && <Coin token={reward.token} size="small" />}
 
       <div className="pl-0 pr-2 font-medium">
-        {reward.amount}
-        {reward.token}
+        {reward.amount} {reward.token}
       </div>
     </span>
   );
