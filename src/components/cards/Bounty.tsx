@@ -65,11 +65,11 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
         <div className="flex justify-between w-full md:block">
           <Component className="inline-flex md:flex md:flex-row flex-col-reverse justify-between" href={link}>
             <div className="text-sm pt-8 md:pt-2 md:pb-4 text-gray-600">{type()}</div>
-            <div>
+            <div className="flex">
               <Reward type="gray" reward={bounty.reward}></Reward>
             </div>
           </Component>
-          <Component className="self-end relative mt-15 md:mt-7 md:hidden" href={link}>
+          <Component className="self-end relative md:hidden" href={link}>
             <Avatar
               icon={bounty.icon}
               image={bounty.image}
@@ -129,7 +129,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
           <></>
         )}
       </div>
-      <Component className="self-start relative mt-15 md:mt-7 hidden md:block" href={link}>
+      <Component className="self-start relative mt-7 hidden md:block" href={link}>
         <Avatar
           icon={bounty.icon}
           image={bounty.image}
