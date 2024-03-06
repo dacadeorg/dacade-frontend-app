@@ -10,7 +10,7 @@ export default function HackathonPrize({ reward, description }: { reward: Reward
         <span>{description}</span>
       </div>
       <div className="text-gray-400 text-xs font-medium leading-3 mt-1 flex">
-        <span>{`1st Place ${shortenNumber(first)}; 2nd Place $${shortenNumber(second)}; 3rd Place $${shortenNumber(third)}`}</span>
+        <span>{`1st Place ${shortenNumber(first)}; 2nd Place ${shortenNumber(second)}; 3rd Place ${shortenNumber(third)}`}</span>
       </div>
     </>
   );
