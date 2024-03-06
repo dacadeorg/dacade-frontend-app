@@ -1,15 +1,16 @@
 import { Distribution, Reward } from "@/types/course";
+import { shorternNumber } from "@/utilities";
 
 export default function HackathonPrize({ reward, description }: { reward: Reward; description: string }) {
   const { first, second, third } = reward?.distribution || ({} as Distribution);
   return (
     <>
       <div className="flex gap-1 text-gray-700 font-medium">
-        <span>{`$${reward?.amount} Prize Pool`}</span>
+        <span>{`${shorternNumber(reward?.amount)} ${reward.token} Prize Pool`}</span>
         <span>{description}</span>
       </div>
       <div className="text-gray-400 text-xs font-medium leading-3 mt-1 flex">
-        <span>{`1st Place $${first};  2nd Place $${second}; 3rd Place $${third}`}</span>
+        <span>{`1st Place ${shorternNumber(first)}; 2nd Place $${shorternNumber(second)}; 3rd Place $${shorternNumber(third)}`}</span>
       </div>
     </>
   );

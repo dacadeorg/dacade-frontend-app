@@ -143,9 +143,9 @@ export type Reward = {
   distribution?: Distribution;
 };
 export type Distribution = {
-  first: string;
-  second: string;
-  third: string;
+  first: number;
+  second: number;
+  third: number;
 };
 
 export type Introduction = {
