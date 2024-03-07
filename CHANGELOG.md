@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.9.0](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.8.2...v1.9.0) (2024-03-05)
+
+
+### Features
+
+* add spiced hackathon certificate ([ad64631](https://github.com/dacadeorg/dacade-frontend-app/commit/ad646318a0c67a400c60867a7ba6e046033a01cf))
+
+
+### Bug Fixes
+
+* change the steps deciding condition from isteamchallenge to is hackathon ([a200208](https://github.com/dacadeorg/dacade-frontend-app/commit/a2002085856c6235bf23a3a5c31660d838e99432))
+* change the team team creation steps but only for hachathon ([bf4f6c1](https://github.com/dacadeorg/dacade-frontend-app/commit/bf4f6c1854455b279df1751bc1790a9addaa7e12))
+* display the hint even when it does not contain the link ([581bfdc](https://github.com/dacadeorg/dacade-frontend-app/commit/581bfdca75931440550b6e531941abe7f2f94150))
+* remove hardoced rubric ([f6f2e92](https://github.com/dacadeorg/dacade-frontend-app/commit/f6f2e927de692a7f47755fca542642587e91a138))
+* remove the re-added default bounty ([0dec1e0](https://github.com/dacadeorg/dacade-frontend-app/commit/0dec1e09a8d21356dbcc7d79835e12f688b2ef98))
+* update the telegram link in the setup team card ([4ffeb39](https://github.com/dacadeorg/dacade-frontend-app/commit/4ffeb391f82c7c554e4f6d447d3356f1cb095ecd))
+* update the text to include 25 as number of limited rewards ([bd44a04](https://github.com/dacadeorg/dacade-frontend-app/commit/bd44a04f87e15be8a532e1001f5d65958eb94849))
+
 ## [1.8.2](https://github.com/dacadeorg/dacade-frontend-app/compare/v1.8.1...v1.8.2) (2024-02-29)
 
 
