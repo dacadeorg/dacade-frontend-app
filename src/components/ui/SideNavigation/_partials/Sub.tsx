@@ -34,7 +34,7 @@ interface subLinkProps {
  */
 export default function SubLink({ item, activeLinkStyle, subitem }: subLinkProps): ReactElement {
   return (
-    <li data-testid="sublinkId" className="relative mt-4 text-sm text-gray-500" style={activeLinkStyle}>
+    <li data-testid="subId" className="relative mt-4 text-sm text-gray-500" style={activeLinkStyle}>
       <Link data-testid="linkId" href={{ pathname: item.link, hash: subitem.link }} className={`relative text-gray-500 opacity-50 hover:opacity-100 ${!subitem.exact ? "activable-link" : ""}`}>
         <span className="nav-label">{subitem.label}</span>
       </Link>
