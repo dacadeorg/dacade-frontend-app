@@ -52,22 +52,49 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
     if (bounty.submissions?.link) return `/${bounty.submissions?.link}`;
     if (isChallenge) return navigation.community.challengePath(bounty.challenge, bounty?.slug);
     return navigation.community.submissionsPath(bounty.challenge, bounty?.slug);
-  }, [bounty.challenge, bounty.course?.slug, bounty.slug, bounty.submissions?.link, bounty.url, isChallenge, navigation.community]);
+  }, [bounty.challenge, bounty.slug, bounty.submissions?.link, bounty.url, isChallenge, navigation.community]);
 
   const Component = link.startsWith("http") ? "a" : Link;
 
   return (
     <div className="p-5 flex md:flex-row-reverse md:space-x-5 px-5 min-h-32 md:h-auto md:w-full justify-between hover:bg-secondary relative">
-      <div className="bg-theme-accent flex-col w-full h-full justify-between md:-space-y-1 pl-3 pr-5 mt-7 mb-5">
+      <div className="bg-theme-accent flex-col w-full h-full justify-between md:-space-y-1 pl-3 pr-5 my-5">
         <Component className="relative w-full block" href={link}>
           <div className="font-medium text-md md:pt-1.5">{bounty.course ? bounty.course.name : bounty.name}</div>
         </Component>
-        <Component className="inline-flex md:flex h-2/3 md:flex-row flex-col-reverse justify-between" href={link}>
-          <div className="text-sm pt-8 md:pt-2 md:pb-4 text-gray-600">{type()}</div>
-          <div>
-            <Reward type="gray" reward={bounty.reward}></Reward>
-          </div>
-        </Component>
+        <div className="flex justify-between w-full md:block">
+          <Component className="inline-flex md:flex md:flex-row flex-col-reverse justify-between" href={link}>
+            <div className="text-sm pt-8 md:pt-2 md:pb-4 text-gray-600">{type()}</div>
+            <div className="flex">
+              <Reward type="gray" reward={bounty.reward}></Reward>
+            </div>
+          </Component>
+          <Component className="self-end relative md:hidden" href={link}>
+            <Avatar
+              icon={bounty.icon}
+              image={bounty.image}
+              color={bounty.colors?.cover?.background || bounty.colors?.primary}
+              size="medium-fixed"
+              shape="rounded"
+              className="w-15 h-15 rounded-xl overflow-hidden"
+              user={null}
+              useLink={false}
+            />
+            {bounty?.submissions && (
+              <Badge
+                customStyle={{
+                  bottom: "-4px",
+                  right: "-4px",
+                  fontSize: 14,
+                  backgroundColor: bounty.colors.accent,
+                }}
+                size="medium"
+                value={bounty?.unreviewedSubmissionsCount}
+                className="bottom-0 -right-1 absolute p-4"
+              />
+            )}
+          </Component>
+        </div>
         {bounty.submissions?.length ? (
           <div className="mt-4 space-y-0 divide-y divide-gray-200 border-t border-t-solid border-gray-200">
             {bounty.submissions.map((submission) => (
@@ -102,7 +129,7 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
           <></>
         )}
       </div>
-      <Component className="self-start relative mt-15 md:mt-7" href={link}>
+      <Component className="self-start relative mt-7 hidden md:block" href={link}>
         <Avatar
           icon={bounty.icon}
           image={bounty.image}
