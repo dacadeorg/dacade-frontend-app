@@ -16,7 +16,7 @@ export default function SideNavigation({ items, colors, children }: { items: Ite
   const { t } = useTranslation();
   return (
     <ThemeWrapper colors={colors}>
-      <ul className="relative">
+      <ul data-testid="sideNavId" className="relative">
         {items.length ? (
           items.map((menu, index) => {
             return (
