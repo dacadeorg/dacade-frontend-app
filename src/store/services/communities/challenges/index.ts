@@ -16,10 +16,13 @@ export const challengeService = createApi({
   refetchOnMountOrArgChange: true,
   endpoints: (builder) => ({
     findChallengeById: builder.query({
-      query: ({ id, relations }) => {
+      query: ({ id, relations, locale }) => {
         const params = queryString.stringify({ relations: relations || [] }, { arrayFormat: "bracket" });
         return {
           url: `challenges/${id}?${params}`,
+          headers: {
+            "accept-language": locale,
+          },
         };
       },
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
@@ -36,7 +39,14 @@ export const challengeService = createApi({
     }),
 
     getAllChallenges: builder.query({
-      query: (slug) => `communities/${slug}/challenges`,
+      query: ({ slug, locale }) => {
+        return {
+          url: `communities/${slug}/challenges`,
+          headers: {
+            "accept-language": locale,
+          },
+        };
+      },
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
@@ -49,10 +59,13 @@ export const challengeService = createApi({
     }),
 
     fetchChallengeByIdAuthenticated: builder.query({
-      query: ({ id, relations }) => {
+      query: ({ id, relations, locale }) => {
         const params = queryString.stringify({ relations: relations || [] }, { arrayFormat: "bracket" });
         return {
           url: `challenges/${id}?${params}`,
+          headers: {
+            "accept-language": locale,
+          },
         };
       },
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
@@ -95,14 +108,15 @@ export const challengeService = createApi({
   }),
 });
 
-export const fetchChallenge = ({ id, relations }: { id: string; relations?: string[] }) =>
+export const fetchChallenge = ({ id, relations, locale }: { id: string; relations?: string[]; locale?: string }) =>
   challengeService.endpoints.findChallengeById.initiate({
     id,
     relations: relations || [],
+    locale,
   });
 
-export const fetchAllChallenges = ({ slug }: { slug: string }) => {
-  return challengeService.endpoints.getAllChallenges.initiate(slug);
+export const fetchAllChallenges = ({ slug, locale }: { slug: string; locale?: string }) => {
+  return challengeService.endpoints.getAllChallenges.initiate({ slug, locale });
 };
 
 /**

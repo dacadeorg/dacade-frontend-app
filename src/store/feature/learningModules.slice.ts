@@ -33,12 +33,12 @@ export const learningModulesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(findLearningModule.fulfilled, (state, action) => {
-        state.current = action.payload;
-      })
-      .addCase(getAllLearningModules.fulfilled, (state, action) => {
-        state.list = action.payload;
-      })
+      // .addCase(findLearningModule.fulfilled, (state, action) => {
+      //   state.current = action.payload;
+      // })
+      // .addCase(getAllLearningModules.fulfilled, (state, action) => {
+      //   state.list = action.payload;
+      // })
       .addCase(HYDRATE, (state, action) => {
         return {
           ...state,
@@ -50,15 +50,15 @@ export const learningModulesSlice = createSlice({
   },
 });
 
-export const findLearningModule = createAsyncThunk("learningModules/find", async (id: string) => {
-  const { data } = await api().server.get(`learning-modules/${id}`);
-  return data;
-});
+// export const findLearningModule = createAsyncThunk("learningModules/find", async (id: string) => {
+//   const { data } = await api().server.get(`learning-modules/${id}`);
+//   return data;
+// });
 
-export const getAllLearningModules = createAsyncThunk("learningModules/all", async (slug: string) => {
-  const { data } = await api().server.get<LearningModule[]>(`courses/${slug}/learning-modules`);
-  return data;
-});
+// export const getAllLearningModules = createAsyncThunk("learningModules/all", async (slug: string) => {
+//   const { data } = await api().server.get<LearningModule[]>(`courses/${slug}/learning-modules`);
+//   return data;
+// });
 
 export const submitModuleAnswer = createAsyncThunk("learningModules/submitAnswer", async ({ ref, course }: { ref: string; course: string }) => {
   await api().client.put("interactive-modules/answer", {

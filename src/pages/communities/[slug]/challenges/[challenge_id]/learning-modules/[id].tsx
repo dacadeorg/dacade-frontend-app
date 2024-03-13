@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { Community } from "@/types/community";
 import { Challenge, LearningModule } from "@/types/course";
-import { findLearningModule, setCurrentLearningModule } from "@/store/feature/learningModules.slice";
+import { setCurrentLearningModule } from "@/store/feature/learningModules.slice";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import DefaultLayout from "@/components/layout/Default";
@@ -22,6 +22,8 @@ import { fetchChallenge } from "@/store/services/communities/challenges";
 import PageNavigation from "@/components/sections/courses/PageNavigation";
 import ChallengeCard from "@/components/cards/challenge/Challenge";
 import { useTranslation } from "next-i18next";
+import { findLearningModule } from "@/store/services/learningModules.service";
+
 
 /**
  * Learning module page props interfae
@@ -110,10 +112,10 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     const challenge_id = params?.challenge_id as string;
     const learningModule_id = params?.id as string;
 
-    const [{ data: community }, { data: challenge }, { payload: learningModule }, translations] = await Promise.all([
+    const [{ data: community }, { data: challenge }, { data: learningModule }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug: communitySlug, locale })),
-      store.dispatch(fetchChallenge({ id: challenge_id, relations: ["learning-modules", "rubric"] })),
-      store.dispatch(findLearningModule(learningModule_id)),
+      store.dispatch(fetchChallenge({ id: challenge_id, relations: ["learning-modules", "rubric"], locale })),
+      store.dispatch(findLearningModule({ id: learningModule_id, locale })),
       serverSideTranslations(locale as string),
     ]);
 

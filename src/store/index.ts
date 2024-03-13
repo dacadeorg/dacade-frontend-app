@@ -47,6 +47,7 @@ import challengeService from "@/store/services/communities/challenges";
 import scoreboardService from "./services/communities/scoreboard.service";
 import communitiesProfile from "./feature/profile/communities.slice";
 import reputationSlice from "./feature/profile/reputation.slice";
+import { learningModulesService } from "./services/learningModules.service";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -95,6 +96,7 @@ export interface IRootState {
   teams: ReturnType<typeof teamsSlice.reducer>;
   teamsService: ReturnType<typeof teamsService.reducer>;
   invites: ReturnType<typeof invitesSlice.reducer>;
+  learningModuleService: ReturnType<typeof learningModulesService.reducer>;
 }
 
 export const makeStore = () =>
@@ -145,6 +147,7 @@ export const makeStore = () =>
       [invitesSlice.name]: invitesSlice.reducer,
       [communitiesProfile.name]: communitiesProfile.reducer,
       [reputationSlice.name]: reputationSlice.reducer,
+      [learningModulesService.reducerPath]: learningModulesService.reducer,
     },
 
     middleware: (getDefaultMiddleware) => {
@@ -164,7 +167,8 @@ export const makeStore = () =>
         authService.middleware,
         teamsService.middleware,
         challengeService.middleware,
-        scoreboardService.middleware
+        scoreboardService.middleware,
+        learningModulesService.middleware
       );
     },
   });

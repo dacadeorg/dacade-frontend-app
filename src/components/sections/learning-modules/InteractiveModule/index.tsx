@@ -10,8 +10,10 @@ import InteractiveModuleItem from "@/components/sections/learning-modules/Intera
 import { authCheck } from "@/store/feature/auth.slice";
 import { Course, InteractiveModule as InteractiveModuleType } from "@/types/course";
 import { hidePageNavigation, showPageNavigation } from "@/store/feature/communities/navigation.slice";
-import { checkAnswer, submitModuleAnswer } from "@/store/feature/learningModules.slice";
+// import { checkAnswer } from "@/store/feature/learningModules.slice";
 import { IRootState } from "@/store";
+import { checkAnswer, submitModuleAnswer } from "@/store/services/learningModules.service";
+import { useRouter } from "next/router";
 
 /**
  * interface for InteractiveModule multiSelector
@@ -51,6 +53,7 @@ export default function InteractiveModule({ data }: interactiveModuleProps): Rea
   const [ended, setEnded] = useState(false);
   const [loading, setLoading] = useState(true);
   const [answering, setAnswering] = useState(false);
+  const router = useRouter()
   const dispatch = useDispatch();
 
   const { isLoggedIn, course } = useMultiSelector<unknown, InteractiveModuleMultiSelector>({
@@ -62,7 +65,7 @@ export default function InteractiveModule({ data }: interactiveModuleProps): Rea
   const checkIfAnswered = useCallback(async () => {
     try {
       if (!isLoggedIn) return;
-      const answers = await checkAnswer(data.ref);
+      const answers = await checkAnswer({ ref: data.ref, locale: router.locale });
       if (!answers.length) return;
       setCurrent(items.length);
       setEnded(true);
