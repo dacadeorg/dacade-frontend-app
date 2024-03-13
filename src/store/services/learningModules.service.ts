@@ -1,6 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "@/config/baseQuery";
 
+/**
+ * Learning module api service
+ * @date 3/13/2024 - 4:55:54 PM
+ *
+ * @type {*}
+ */
 export const learningModulesService = createApi({
   reducerPath: "learningModulesService",
   baseQuery: baseQuery(),
@@ -41,6 +47,15 @@ export const learningModulesService = createApi({
   }),
 });
 
+/**
+ * Find learning module by Id
+ * @date 3/13/2024 - 4:56:49 PM
+ *
+ * @param {{ id: string; locale?: string }} param0
+ * @param {string} param0.id
+ * @param {string} param0.locale
+ * @returns {*}
+ */
 export const findLearningModule = ({ id, locale }: { id: string; locale?: string }) => learningModulesService.endpoints.findLearningModule.initiate({ locale, id });
 
 export const getAllLearningModules = ({ slug, locale }: { slug: string; locale?: string }) => learningModulesService.endpoints.getAllLearningModules.initiate({ slug, locale });

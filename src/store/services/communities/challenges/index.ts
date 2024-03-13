@@ -39,14 +39,12 @@ export const challengeService = createApi({
     }),
 
     getAllChallenges: builder.query({
-      query: ({ slug, locale }) => {
-        return {
-          url: `communities/${slug}/challenges`,
-          headers: {
-            "accept-language": locale,
-          },
-        };
-      },
+      query: ({ slug, locale }) => ({
+        url: `communities/${slug}/challenges`,
+        headers: {
+          "accept-language": locale,
+        },
+      }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;

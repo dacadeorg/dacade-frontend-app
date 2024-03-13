@@ -5,6 +5,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { Community } from "@/types/community";
 import { Challenge, LearningModule } from "@/types/course";
 import { setCurrentLearningModule } from "@/store/feature/learningModules.slice";
+import { findLearningModule } from "@/store/services/learningModules.service";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import DefaultLayout from "@/components/layout/Default";
@@ -22,7 +23,6 @@ import { fetchChallenge } from "@/store/services/communities/challenges";
 import PageNavigation from "@/components/sections/courses/PageNavigation";
 import ChallengeCard from "@/components/cards/challenge/Challenge";
 import { useTranslation } from "next-i18next";
-import { findLearningModule } from "@/store/services/learningModules.service";
 
 
 /**

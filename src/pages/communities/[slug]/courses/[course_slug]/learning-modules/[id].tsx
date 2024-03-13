@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { Community } from "@/types/community";
 import { Challenge, Course, LearningModule } from "@/types/course";
+import { findLearningModule } from "@/store/services/learningModules.service";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import DefaultLayout from "@/components/layout/Default";
 import Header from "@/components/sections/learning-modules/Header";
@@ -19,7 +20,6 @@ import ChallengeCard from "@/components/cards/challenge/Challenge";
 import { useTranslation } from "next-i18next";
 import PageNavigation from "@/components/sections/courses/PageNavigation";
 import { NotFoundError } from "@/utilities/errors/NotFoundError";
-import { findLearningModule } from "@/store/services/learningModules.service";
 
 /**
  * Learning module page props interfae
@@ -108,6 +108,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
     const communitySlug = params?.slug as string;
     const courseSlug = params?.course_slug as string;
     const id = params?.id as string;
+
     const [{ data: community }, { data: course }, { data: learningModule }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug: communitySlug, locale })),
       store.dispatch(fetchCourse({ slug: courseSlug, locale })),

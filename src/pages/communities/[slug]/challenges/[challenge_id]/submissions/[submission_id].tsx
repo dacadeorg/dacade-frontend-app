@@ -35,7 +35,7 @@ export default function SubmissionPage() {
     };
     setLoading(true);
     await Promise.all([
-      dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric"] })),
+      dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric"], locale })),
       dispatch(fetchCurrentCommunity(fetchCurrentCommunityPayload)),
       dispatch(findSubmssionById({ id: submission_id as string })),
     ]);
