@@ -24,7 +24,6 @@ import PageNavigation from "@/components/sections/courses/PageNavigation";
 import ChallengeCard from "@/components/cards/challenge/Challenge";
 import { useTranslation } from "next-i18next";
 
-
 /**
  * Learning module page props interfae
  * @date 4/24/2023 - 8:36:15 PM

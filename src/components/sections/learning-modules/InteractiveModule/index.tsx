@@ -11,8 +11,8 @@ import { authCheck } from "@/store/feature/auth.slice";
 import { Course, InteractiveModule as InteractiveModuleType } from "@/types/course";
 import { hidePageNavigation, showPageNavigation } from "@/store/feature/communities/navigation.slice";
 import { checkAnswer } from "@/store/feature/learningModules.slice";
-import { IRootState } from "@/store";
 import { submitModuleAnswer } from "@/store/services/learningModules.service";
+import { IRootState } from "@/store";
 
 /**
  * interface for InteractiveModule multiSelector

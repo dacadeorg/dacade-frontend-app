@@ -1,5 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "@/config/baseQuery";
+import { setCurrentLearningModule, setLearningModuleList } from "../feature/learningModules.slice";
 
 /**
  * Learning module api service
@@ -19,6 +20,10 @@ export const learningModulesService = createApi({
           "accept-language": locale,
         },
       }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        const { data } = await queryFulfilled;
+        dispatch(setCurrentLearningModule(data));
+      },
     }),
 
     getAllLearningModules: builder.query({
@@ -28,6 +33,10 @@ export const learningModulesService = createApi({
           "accept-language": locale,
         },
       }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        const { data } = await queryFulfilled;
+        dispatch(setLearningModuleList(data));
+      },
     }),
 
     submitModuleAnswer: builder.query({
