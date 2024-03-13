@@ -32,33 +32,16 @@ export const learningModulesSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      // .addCase(findLearningModule.fulfilled, (state, action) => {
-      //   state.current = action.payload;
-      // })
-      // .addCase(getAllLearningModules.fulfilled, (state, action) => {
-      //   state.list = action.payload;
-      // })
-      .addCase(HYDRATE, (state, action) => {
-        return {
-          ...state,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          //@ts-ignore
-          ...action.payload["learningModules"],
-        };
-      });
+    builder.addCase(HYDRATE, (state, action) => {
+      return {
+        ...state,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        ...action.payload["learningModules"],
+      };
+    });
   },
 });
-
-// export const findLearningModule = createAsyncThunk("learningModules/find", async (id: string) => {
-//   const { data } = await api().server.get(`learning-modules/${id}`);
-//   return data;
-// });
-
-// export const getAllLearningModules = createAsyncThunk("learningModules/all", async (slug: string) => {
-//   const { data } = await api().server.get<LearningModule[]>(`courses/${slug}/learning-modules`);
-//   return data;
-// });
 
 export const submitModuleAnswer = createAsyncThunk("learningModules/submitAnswer", async ({ ref, course }: { ref: string; course: string }) => {
   await api().client.put("interactive-modules/answer", {

@@ -108,7 +108,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
     const communitySlug = params?.slug as string;
     const courseSlug = params?.course_slug as string;
     const id = params?.id as string;
-    console.log("me sending data")
     const [{ data: community }, { data: course }, { data: learningModule }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug: communitySlug, locale })),
       store.dispatch(fetchCourse({ slug: courseSlug, locale })),

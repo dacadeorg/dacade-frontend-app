@@ -38,18 +38,6 @@ export const learningModulesService = createApi({
         method: "PUT",
       }),
     }),
-
-    checkAnswer: builder.query({
-      query: ({ ref, locale }: { ref: string; locale?: string }) => ({
-        url: "interactive-modules/check-answer",
-        body: {
-          module: ref,
-        },
-        headers: {
-          "accept-language": locale,
-        },
-      }),
-    }),
   }),
 });
 
@@ -59,8 +47,3 @@ export const getAllLearningModules = ({ slug, locale }: { slug: string; locale?:
 
 export const submitModuleAnswer = ({ ref, course, locale }: { ref: string; course: string; locale?: string }) =>
   learningModulesService.endpoints.submitModuleAnswer.initiate({ ref, course, locale });
-
-export const checkAnswer = ({ ref, locale }: { ref: string; locale?: string }) => {
-  console.log("the locale from check answer in the learning modules");
-  return learningModulesService.endpoints.checkAnswer.initiate({ ref, locale });
-};
