@@ -3,4 +3,6 @@ export const languages: { [key: string]: string } = {
   es: "Español",
   bg: "Bulgarian",
   hr: "Croatian",
+  ko: "Korean",
+  zh: "Chinese",
 };
