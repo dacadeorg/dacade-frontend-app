@@ -19,7 +19,7 @@ interface LearningModulesState {
 const initialState: LearningModulesState = {
   list: [],
   current: null,
-  loading: false,
+  loading: true,
 };
 
 export const learningModulesSlice = createSlice({
