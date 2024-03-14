@@ -13,11 +13,13 @@ import { HYDRATE } from "next-redux-wrapper";
 interface LearningModulesState {
   list: LearningModule[];
   current?: LearningModule | null;
+  loading: boolean;
 }
 
 const initialState: LearningModulesState = {
   list: [],
   current: null,
+  loading: false,
 };
 
 export const learningModulesSlice = createSlice({
@@ -29,6 +31,9 @@ export const learningModulesSlice = createSlice({
     },
     setLearningModuleList(state, action) {
       state.list = action.payload;
+    },
+    setLoading(state, action) {
+      state.loading = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -58,5 +63,5 @@ export const checkAnswer = async (ref: string) => {
   return data;
 };
 
-export const { setCurrentLearningModule, setLearningModuleList } = learningModulesSlice.actions;
+export const { setCurrentLearningModule, setLearningModuleList, setLoading } = learningModulesSlice.actions;
 export default learningModulesSlice;

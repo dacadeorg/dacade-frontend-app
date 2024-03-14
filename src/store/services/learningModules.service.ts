@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "@/config/baseQuery";
-import { setCurrentLearningModule, setLearningModuleList } from "../feature/learningModules.slice";
+import { setCurrentLearningModule, setLearningModuleList, setLoading } from "../feature/learningModules.slice";
 
 /**
  * Learning module api service
@@ -21,8 +21,10 @@ export const learningModulesService = createApi({
         },
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        dispatch(setLoading(true));
         const { data } = await queryFulfilled;
         dispatch(setCurrentLearningModule(data));
+        dispatch(setLoading(false));
       },
     }),
 

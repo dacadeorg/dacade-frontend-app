@@ -9,7 +9,7 @@ import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import DefaultLayout from "@/components/layout/Default";
 import Header from "@/components/sections/learning-modules/Header";
 import { initCourseNavigationMenu } from "@/store/feature/communities/navigation.slice";
-import { wrapper } from "@/store";
+import { IRootState, wrapper } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { fetchCourse } from "@/store/services/course.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -20,6 +20,10 @@ import ChallengeCard from "@/components/cards/challenge/Challenge";
 import { useTranslation } from "next-i18next";
 import PageNavigation from "@/components/sections/courses/PageNavigation";
 import { NotFoundError } from "@/utilities/errors/NotFoundError";
+import { useRouter } from "next/router";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
+import Section from "@/components/ui/Section";
+import Loader from "@/components/ui/Loader";
 
 /**
  * Learning module page props interfae
@@ -32,9 +36,13 @@ interface LearningModulePageProps {
   pageProps: {
     community: Community;
     course: Course;
-    learningModule: LearningModule;
     challenges: Challenge[];
   };
+}
+
+interface LearningModuleMultiselector {
+  learningModule: LearningModule,
+  loading: boolean
 }
 
 /**
@@ -46,23 +54,37 @@ interface LearningModulePageProps {
  * @returns
  */
 export default function LearningModulePage(props: LearningModulePageProps): ReactElement {
-  const { course, learningModule, community } = props.pageProps;
+  const { course, community } = props.pageProps;
+  const { learningModule, loading } = useMultiSelector<unknown, LearningModuleMultiselector>({
+    learningModule: (state: IRootState) => state.learningModules.current,
+    loading: (state: IRootState) => state.learningModules.loading
+  })
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { t } = useTranslation();
+  const router = useRouter()
+  const { query, locale } = router
 
   useEffect(() => {
     dispatch(initCourseNavigationMenu(navigation.community));
-  }, [dispatch]);
+    dispatch(findLearningModule({ id: query?.id as string, locale }))
+  }, [dispatch, locale]);
 
-  const title = getMetadataTitle(learningModule.title!, course.name!);
-  const descriptions = getMetadataDescription(learningModule.description!);
+  const title = useMemo(() => getMetadataTitle(learningModule?.title, course.name!), [course.name, learningModule]);
+  const descriptions = useMemo(() => getMetadataDescription(learningModule?.description), [learningModule]);
   const paths = useMemo(() => [learningModule?.title], [learningModule?.title]);
   const isLastLearningModule = useMemo(() => {
+    if (!learningModule) return false
     if (!course.learningModules || !course.learningModules.length) return false;
     return learningModule.id === course.learningModules[course.learningModules.length - 1].id;
-  }, [learningModule.id, course.learningModules]);
+  }, [learningModule, course.learningModules]);
 
+  if (loading)
+    return (
+      <Section className="h-[50vh] flex items-center justify-center">
+        <Loader />
+      </Section>
+    );
   return (
     <>
       <Head>
@@ -107,20 +129,17 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
   try {
     const communitySlug = params?.slug as string;
     const courseSlug = params?.course_slug as string;
-    const id = params?.id as string;
 
-    const [{ data: community }, { data: course }, { data: learningModule }, translations] = await Promise.all([
+    const [{ data: community }, { data: course }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug: communitySlug, locale })),
       store.dispatch(fetchCourse({ slug: courseSlug, locale })),
-      store.dispatch(findLearningModule({ id, locale })),
       serverSideTranslations(locale as string),
     ]);
-    if (!community || !course || !learningModule) throw new NotFoundError();
+    if (!community || !course) throw new NotFoundError();
     return {
       props: {
         community,
         course,
-        learningModule,
         ...translations,
       },
     };
