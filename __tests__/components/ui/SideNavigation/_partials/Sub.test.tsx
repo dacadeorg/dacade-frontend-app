@@ -22,7 +22,7 @@ describe("Sub link", () => {
 
     it("should render sub link label", () => {
         render(<SubLink item={item} activeLinkStyle={{}} subitem={subitem}/>)
-        const link = screen.getByTestId("linkId")
+        const link = screen.getByText(subitem.label)
         expect(link).toBeInTheDocument()
         expect(link.firstChild?.textContent).toBe(subitem.label)
     })

@@ -3,17 +3,19 @@ import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 describe("Activable link", () => {
-  const item = {
+  const Emptyitem = {
     subitems: [],
     link: "/example",
   };
+
+  const items = {
+    subitems: [{ label: "subitem", link: "subitem link" }],
+    link: "/dummy",
+  }
   it("should render the link with subitems", () => {
     render(
       <ActivableLink
-        item={{
-          subitems: [{ label: "subitem", link: "subitem link" }],
-          link: "/dummy",
-        }}
+        item={items}
       >
         Link test
       </ActivableLink>
@@ -24,19 +26,16 @@ describe("Activable link", () => {
   });
 
   it("should render the link with no subitems", () => {
-    render(<ActivableLink item={item}>Link test</ActivableLink>);
+    render(<ActivableLink item={Emptyitem}>Link test</ActivableLink>);
     const link = screen.getByText("Link test");
     expect(link.tagName).toBe("A");
-    expect(link).toHaveAttribute("href", item.link);
+    expect(link).toHaveAttribute("href", Emptyitem.link);
   });
 
   it("should render the link with activable link style", () => {
     render(
       <ActivableLink
-        item={{
-          subitems: [{ label: "subitem", link: "subitem link" }],
-          link: "/dummy",
-        }}
+        item={items}
         isActive
       >
         Link test
@@ -51,10 +50,7 @@ describe("Activable link", () => {
     const goToLinkMock = jest.fn();
     render(
       <ActivableLink
-        item={{
-          subitems: [{ label: "subitem", link: "subitem link" }],
-          link: "/dummy",
-        }}
+        item={items}
         goToLink={goToLinkMock}
       >
         Link Text
