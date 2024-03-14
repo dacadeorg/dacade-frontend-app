@@ -116,6 +116,8 @@
   "communities.overview.challenge.certificate": "Certificate",
   "communities.overview.challenge.subtitle": "Al completar con éxito",
   "communities.overview.challenge.expiry": "Fecha de vencimiento del desafío:",
+  "communities.overview.challenge.learning.modules.included": "Módulos de aprendizaje incluidos",
+  "communities.overview.challenge.no.learning.modules": "No se incluyen módulos de aprendizaje",
   "communities.overview.challenge.learning.title": "Los siguientes materiales de aprendizaje le proporcionarán la experiencia técnica necesaria para abordar con éxito el desafío.",
   "communities.overview.challenge.learning.start": "Comenzar ahora",
   "communities.overview.challenge.team.setup.title": "Forma tu equipo",

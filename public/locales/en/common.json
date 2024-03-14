@@ -117,6 +117,8 @@
   "communities.overview.challenge.certificate": "Certificate",
   "communities.overview.challenge.subtitle": "Upon successful completion",
   "communities.overview.challenge.expiry": "Challenge expiry date:",
+  "communities.overview.challenge.learning.modules.included": "Learning modules included",
+  "communities.overview.challenge.no.learning.modules":"No learning modules included",
   "communities.overview.challenge.learning.title": "The following learning materials will equip you with the technical expertise required to successfully address the challenge.",
   "communities.overview.challenge.learning.start": "Start now",
   "communities.overview.challenge.team.setup.title": "Form your team",

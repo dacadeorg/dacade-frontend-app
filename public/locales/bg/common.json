@@ -111,6 +111,8 @@
   "communities.overview.challenge.rewards": "Награди",
   "communities.overview.challenge.subtitle": "При успешно завършване",
   "communities.overview.challenge.expiry": "Срок на изтичане на предизвикателството:",
+  "communities.overview.challenge.learning.modules.included": "Включени образователни модули",
+  "communities.overview.challenge.no.learning.modules": "Без включени образователни модули",
   "communities.overview.challenge.learning.title": "Следните учебни материали ще ви осигурят техническите умения, необходими за успешното справяне с предизвикателството.",
   "communities.overview.challenge.learning.start": "започнете сега",
   "communities.overview.challenge.team.setup.title": "Създайте вашия екип",
