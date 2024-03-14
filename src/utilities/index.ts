@@ -14,17 +14,17 @@ export function sleep(ms: number): Promise<unknown> {
  * @date 12/7/2023 - 6:50:18 PM
  */
 export const shortenNumber = (amount: number) => {
-  const abbrevObject = [
+  const abreviations = [
     { value: 1000000000, abbreviation: "B" },
     { value: 1000000, abbreviation: "M" },
     { value: 1000, abbreviation: "K" },
   ];
-  for (const { value, abbreviation } of abbrevObject) {
-    if (amount >= value) {
-      const product = amount / value;
-      const isFloat = product % 1 !== 0;
-      return `${isFloat ? product.toFixed(1) : product}${abbreviation}`;
-    }
-  }
-  return amount;
+
+  const abbreviation = abreviations.find(({ value }) => amount >= value);
+
+  if (!abbreviation) return amount;
+
+  const product = amount / abbreviation.value;
+  const isFloat = product % 1 !== 0;
+  return `${isFloat ? product.toFixed(1) : product}${abbreviation.abbreviation}`;
 };
