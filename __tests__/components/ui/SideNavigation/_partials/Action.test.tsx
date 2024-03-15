@@ -11,15 +11,9 @@ describe("Activable link", () => {
   const items = {
     subitems: [{ label: "subitem", link: "subitem link" }],
     link: "/dummy",
-  }
+  };
   it("should render the link with subitems", () => {
-    render(
-      <ActivableLink
-        item={items}
-      >
-        Link test
-      </ActivableLink>
-    );
+    render(<ActivableLink item={items}>Link test</ActivableLink>);
     const link = screen.getByTestId("activableLinkId");
     expect(link).toBeInTheDocument();
     expect(link.textContent).toBe("Link test");
@@ -34,10 +28,7 @@ describe("Activable link", () => {
 
   it("should render the link with activable link style", () => {
     render(
-      <ActivableLink
-        item={items}
-        isActive
-      >
+      <ActivableLink item={items} isActive>
         Link test
       </ActivableLink>
     );
@@ -49,10 +40,7 @@ describe("Activable link", () => {
   it("should call goToLink function when clicked", () => {
     const goToLinkMock = jest.fn();
     render(
-      <ActivableLink
-        item={items}
-        goToLink={goToLinkMock}
-      >
+      <ActivableLink item={items} goToLink={goToLinkMock}>
         Link Text
       </ActivableLink>
     );

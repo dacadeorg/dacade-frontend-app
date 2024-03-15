@@ -15,21 +15,20 @@ jest.mock("next/router", () => ({
   }),
 }));
 
-
 describe("SideNavLink", () => {
-    const item = {
-        link: "/example",
-        exact: true,
-        subitems: [],
-        label: "Example label"
-    }
-    it("should render side navigation links", () => {
-        render(
-        <ReduxProvider>
-        <CourseLink item={item}/>
-        </ReduxProvider>
-        )
-        const courseLink = screen.getByTestId("courseLinkId")
-        expect(courseLink).toBeInTheDocument()
-    })
-})
+  const item = {
+    link: "/example",
+    exact: true,
+    subitems: [],
+    label: "Example label",
+  };
+  it("should render side navigation links", () => {
+    render(
+      <ReduxProvider>
+        <CourseLink item={item} />
+      </ReduxProvider>
+    );
+    const courseLink = screen.getByTestId("courseLinkId");
+    expect(courseLink).toBeInTheDocument();
+  });
+});
