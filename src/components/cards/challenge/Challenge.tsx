@@ -49,12 +49,12 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
           </div>
           <div className="divide-y-2 divide-gray-200 divide-dotted flex flex-col mt-3">
             <p className="pb-6">
-              {learningModulesCount ? `${learningModulesCount}  learning ${learningModulesCount===1 ? "module":"modules"} included` : "No learning modules included"}
+              {learningModulesCount ? `${learningModulesCount}  learning ${learningModulesCount === 1 ? "module" : "modules"} included` : "No learning modules included"}
             </p>
             <div className="lg:flex lg:flex-row flex-col justify-between pt-6 items-center">
               <Link href={link}>
                 <ArrowButton communityStyles={true} variant="outline-primary">
-                  {isCourseEnd ? "Take the challenge" : "See the challenge"}
+                  {isCourseEnd ? t("communites.overview.challenge.take.challenge") : t("communities.overview.challenge.see.challenge")}
                 </ArrowButton>
               </Link>
             </div>
@@ -66,20 +66,26 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
           <Image src={data?.certificateData?.icon} alt="achievement" fill />
         </div>
         <div className="">
-          <h1 className="font-bold text-gray-400 text-xs">Unlock with Certificate</h1>
+          <h1 className="font-bold text-gray-400 text-xs">{t("communities.overview.challenge.unlock.certificate").toUpperCase()}</h1>
           {data?.rewards.map((reward, index) => (
-            <div key={index} className="flex items-center gap-1 border-b border-gray-200 py-2">
+            <div key={index} className="flex items-center md:gap-1 border-b border-gray-200 py-2">
               <Coin size="small" token={reward?.token} />
               <div className="text-sm">
                 <span>
                   {reward.amount} {reward.token}
                 </span>
-                <span>{reward.type === "SUBMISSION" ? " for the certificate" : " for every feedback"}</span>
+                <span>
+                  {reward.type === "SUBMISSION" ? (
+                    <span> {t("communities.overview.challenge.for.certificate")}</span>
+                  ) : (
+                    <span> {t("communities.overview.challenge.for.feedback")}</span>
+                  )}
+                </span>
               </div>
             </div>
           ))}
         </div>
-        {data?.isHackathon && <p className="py-2 border-b border-gray-200 text-sm"> Participate in {reward?.token} Hackathons</p>}
+        {data?.isHackathon && <p className="py-2 border-b border-gray-200 text-sm">{t("communities.overview.challenge.participate", { token: reward?.token })}</p>}
       </div>
     </div>
   );

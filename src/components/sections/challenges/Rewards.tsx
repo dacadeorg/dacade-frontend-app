@@ -21,7 +21,7 @@ export function OverviewRewards(): ReactElement {
 
   return (
     <Section title={`${t("communities.overview.reward.title")}`}>
-      <p className="my-5 text-lg">Complete the course to achieve the certificate and unlock new opportunities</p>
+      <p className="my-5 text-lg">{t("course.challenge.reward.certificate.description")}</p>
       <div className="text-sm mt-6 flex gap-8 w-full md:w-2/3">
         <div className="">
           <Certificate size="medium" name={router.query?.slug as string} />
@@ -29,18 +29,31 @@ export function OverviewRewards(): ReactElement {
         <div className="flex flex-col lg:flex-row justify-between gap-2 items-start w-full">
           <div className="flex flex-col w-full lg:w-1/2">
             {challenge?.rewards.map((reward, index, rewardsArray) => (
-              <div key={index} className={`flex items-center gap-1 pb-2 ${index !==  (rewardsArray.length !==1 && rewardsArray.length-1)? "border-b border-gray-200":""} ${index !==0 ? "pt-2":""} `}>
+              <div
+                key={index}
+                className={`flex items-center gap-1 pb-2 ${index !== (rewardsArray.length !== 1 && rewardsArray.length - 1) ? "border-b border-gray-200" : ""} ${
+                  index !== 0 ? "pt-2" : ""
+                } `}
+              >
                 <Coin size="small" token={reward?.token} />
                 <div className="text-sm">
                   <span>
                     {reward?.amount} {reward?.token}
                   </span>
-                  <span>{reward?.type === "SUBMISSION" ? " for the certificate" : " for every feedback"}</span>
+                  <span>
+                    {reward?.type === "SUBMISSION" ? (
+                      <span> {t("communities.overview.challenge.for.certificate")}</span>
+                    ) : (
+                      <span> {t("communities.overview.challenge.for.feedback")}</span>
+                    )}
+                  </span>
                 </div>
               </div>
             ))}
           </div>
-          {challenge?.isHackathon && <div className="pb-2 border-b border-gray-200 w-full lg:w-1/2">{`Participate in ${token} hackathons`}</div>}
+          {challenge?.isHackathon && (
+            <div className="pb-2 border-b border-gray-200 w-full lg:w-1/2">{t("communities.overview.challenge.participate", { token: token })}</div>
+          )}
         </div>
       </div>
     </Section>
