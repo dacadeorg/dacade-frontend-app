@@ -15,9 +15,9 @@ export function sleep(ms: number): Promise<unknown> {
  */
 export const shortenNumber = (amount: number) => {
   const abreviations = [
-    { value: 1000000000, abbreviation: "B" },
-    { value: 1000000, abbreviation: "M" },
-    { value: 1000, abbreviation: "K" },
+    { value: 1000000000, notation: "B" },
+    { value: 1000000, notation: "M" },
+    { value: 1000, notation: "K" },
   ];
 
   const abbreviation = abreviations.find(({ value }) => amount >= value);
@@ -26,5 +26,5 @@ export const shortenNumber = (amount: number) => {
 
   const product = amount / abbreviation.value;
   const isFloat = product % 1 !== 0;
-  return `${isFloat ? product.toFixed(1) : product}${abbreviation.abbreviation}`;
+  return `${isFloat ? product.toFixed(1) : product}${abbreviation.notation}`;
 };
