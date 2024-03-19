@@ -10,7 +10,8 @@ import InteractiveModuleItem from "@/components/sections/learning-modules/Intera
 import { authCheck } from "@/store/feature/auth.slice";
 import { Course, InteractiveModule as InteractiveModuleType } from "@/types/course";
 import { hidePageNavigation, showPageNavigation } from "@/store/feature/communities/navigation.slice";
-import { checkAnswer, submitModuleAnswer } from "@/store/feature/learningModules.slice";
+import { checkAnswer } from "@/store/feature/learningModules.slice";
+import { submitModuleAnswer } from "@/store/services/learningModules.service";
 import { IRootState } from "@/store";
 
 /**
