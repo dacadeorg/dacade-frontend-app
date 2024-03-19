@@ -39,13 +39,13 @@ export function ActivableLink({ item, activeLinkStyle, isActive = false, goToLin
   const classes = classNames("relative block text-gray-500 cursor-pointer", { "activable-link": isActive });
 
   return (
-    <span className="relative block">
+    <span data-testid="activableLinkId" className="relative block">
       {item.subitems && item.subitems.length ? (
         <span className={classes} style={styles} onClick={goToLink}>
           {children}
         </span>
       ) : (
-        <Link className={classes} style={styles} href={item.link}>
+        <Link data-testid="linkId" className={classes} style={styles} href={item.link}>
           {children}
         </Link>
       )}

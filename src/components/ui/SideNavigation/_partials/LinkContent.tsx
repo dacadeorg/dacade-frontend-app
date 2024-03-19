@@ -32,9 +32,9 @@ interface LinkContentProps {
 export default function LinkContent({ isActive, expanded, item }: LinkContentProps): ReactElement {
   const { t } = useTranslation();
   return (
-    <span>
+    <span data-testid="linkContentId">
       {isActive && (
-        <span className="absolute top-0 inline-block -left-6 nav-icon">
+        <span data-testid="chevronId" className="absolute top-0 inline-block -left-6 nav-icon">
           <ChevronRightIcon
             className={classNames(
               {
