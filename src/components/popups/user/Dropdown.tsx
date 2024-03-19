@@ -128,7 +128,7 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
         ) : (
           <></>
         )}
-        {showLanguageSwitcher && <LanguageList />}
+        {showLanguageSwitcher && <LanguageList onSelect={onClose} />}
         <div className="p-4 flex justify-center bg-indigo-50">
           <div className="z-10">
             <Button

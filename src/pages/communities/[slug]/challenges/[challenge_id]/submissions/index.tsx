@@ -118,7 +118,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     const [{ data: currentCommunity }, { data: submissions }, { data: challenge }, translations] = await Promise.all([
       dispatch(fetchCurrentCommunity({ slug: slug as string, locale: locale as string })),
       dispatch(fetchAllSubmission({ challengeId: challenge_id as string, locale: locale as string })),
-      dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"] })),
+      dispatch(fetchChallenge({ id: challenge_id as string, relations: ["rubric", "courses", "learning-modules"], locale })),
       serverSideTranslations(locale as string),
     ]);
 
