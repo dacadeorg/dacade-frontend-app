@@ -59,7 +59,7 @@ export default function Feedback(): ReactElement {
   }, [fetchList]);
 
   return (
-    <div className="relative" data-testif="feedback-section">
+    <div className="relative" data-testid="feedback-section">
       {isFetching ? <Loader loading={isFetching} /> : feedbacks.map((feedback, index) => <FeedbackCard key={feedback.id} value={feedback} last={index === feedbacks.length - 1} />)}
       {isAuthenticated && challenge?.feedbackInfo && (
         <Section>
