@@ -6,7 +6,7 @@ local_branch_name="$(git rev-parse --abbrev-ref HEAD)"
 #    - ^(dev|main)$)
 # 2. checking for branch Name starting with fix,ft,ht,chore or doc follwed by a "/" then the "branch name"
 #    - ^((fix|ft|ht|chore|doc)\/[a-zA-Z0-9\-]+)$
-valid_branch_regex='^(dev|main)$|^((fix|ft|ht|chore|doc)\/[a-zA-Z0-9\-]+)$'
+valid_branch_regex='^(dev|main)$|^((fix|ft|ht|chore|doc|test)\/[a-zA-Z0-9\-]+)$'
 
 green='\033[0;32m'
 red='\033[0;31m'

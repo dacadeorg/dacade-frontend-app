@@ -31,6 +31,7 @@ export default function EmailInput({ errors, register, emailValue }: EmailInputP
 
   return (
     <Input
+      data-testid="emailInput"
       id="email"
       type="email"
       placeholder={`${t("login-page.email.placeholder")}`}

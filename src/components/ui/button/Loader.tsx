@@ -39,6 +39,7 @@ export default function Loader({ loading, onClick, onInput, className }: LoaderP
   });
   return (
     <div
+      data-testid="loader"
       className={`h-15 w-15 rounded-full border border-solid cursor-pointer flex items-center justify-center text-gray-400 bg-white ${loadingClassName} ${className}`}
       onClick={onClick}
       onInput={onInput}

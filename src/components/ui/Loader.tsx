@@ -43,7 +43,7 @@ export default function Loader({ communityStyles = false, className = "", isSmal
   });
 
   return (
-    <div className={loaderClasses} style={{ ...(communityStyles ? styles : {}) }}>
+    <div data-testid="loader" className={loaderClasses} style={{ ...(communityStyles ? styles : {}) }}>
       <Spinner className={spinnerClasses} />
     </div>
   );

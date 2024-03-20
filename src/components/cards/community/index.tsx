@@ -60,7 +60,7 @@ export default function CommunityCard({ showRewards = true, community }: Communi
 
   return (
     <ThemeWrapper colors={community.colors}>
-      <div onClick={() => router.push(path)} className="block h-full hover:cursor-pointer">
+      <div onClick={() => router.push(path)} className="block h-full hover:cursor-pointer" data-testid="community-card">
         <div className="flex flex-col h-full p-6 pb-3 space-y-5 divide-y-2 group bg-theme-primary text-theme-text divide-dotted divide-theme-accent">
           <div className="flex-grow">
             <div className="flex flex-col justify-between space-y-5 sm:flex-row lg:flex-col 2xl:flex-row">
@@ -74,7 +74,7 @@ export default function CommunityCard({ showRewards = true, community }: Communi
             </div>
             <div className="flex flex-col items-start justify-start max-w-xs -mt-4 md:flex-row lg:flex-col md:-mt-7 md:max-w-lg">
               {showRewards && reward && (
-                <div className="text-sm flex">
+                <div className="text-sm flex" data-testid="community-rewards">
                   <RewardBadge reward={{ token: reward.token }} styles={rewardBadgeStyle} />
                 </div>
               )}

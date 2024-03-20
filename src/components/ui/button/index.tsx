@@ -34,6 +34,7 @@ type ComponentProps = Pick<ButtonProps, "link" | "disabled" | "padding" | "targe
   children?: ReactNode;
   className: string;
   style: CSSProperties;
+  testId?: string;
 };
 
 /**
@@ -149,30 +150,30 @@ export default function Button({
    * @returns {ReactElement}
    */
 
-  function Component({ className, style, target, onClick, type, children }: ComponentProps): ReactElement {
+  function Component({ className, style, target, onClick, type, children, testId }: ComponentProps): ReactElement {
     if (!link)
       return (
-        <button onClick={onClick} type={type} style={style} disabled={disabled} className={className}>
+        <button data-testid={testId} onClick={onClick} type={type} style={style} disabled={disabled} className={className}>
           {children}
         </button>
       );
 
     if (isInternalLink)
       return (
-        <Link style={style} href={link} className={className}>
+        <Link data-testid={testId} style={style} href={link} className={className}>
           {children}
         </Link>
       );
 
     return (
-      <a style={style} href={link} target={target} className={className}>
+      <a data-testid={testId} style={style} href={link} target={target} className={className}>
         {children}
       </a>
     );
   }
 
   return (
-    <Component className={componentClassName} disabled={disabled} padding={padding} style={!disabled ? styles : {}} type={type} target={target} onClick={onClick}>
+    <Component testId="button" className={componentClassName} disabled={disabled} padding={padding} style={!disabled ? styles : {}} type={type} target={target} onClick={onClick}>
       {text || children}
     </Component>
   );

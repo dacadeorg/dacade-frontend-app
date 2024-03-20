@@ -112,7 +112,7 @@ export default function Avatar({
   const Component = useLink ? Link : "div";
 
   return (
-    <Component href={link} className={componentClassName}>
+    <Component data-testid="avatar" href={link} className={componentClassName}>
       <div
         style={{ backgroundColor: color }}
         className={`bg-primary h-full w-full flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle relative z-0 ${shapeClassName}`}
@@ -129,20 +129,20 @@ export default function Avatar({
               }}
             />
             <div className="absolute inset-0 z-0 h-full flex items-center justify-center">
-              <span >{initials}</span>
+              <span>{initials}</span>
             </div>
           </div>
         ) : (
-          <span>{initials}</span>
+          <span data-testid="user-avatar-initials">{initials}</span>
         )}
 
         {icon && <Image fill={true} src={icon} alt="icon image" className="p-2" />}
-        {image && <Image src={image} fill={true} alt="icon image" className="p-0 object-cover w-full h-full" />}
+        {image && <Image src={image} fill={true} alt="avatar image" className="p-0 object-cover w-full h-full" />}
       </div>
       {showVerificationBadge && (
-        <span className={`absolute z-20 rounded-full ${verifiedIconClasses}`}>
+        <div data-testid="verification-badge" className={`absolute z-20 rounded-full ${verifiedIconClasses}`}>
           <VerifiedIcon className="w-full h-full" />
-        </span>
+        </div>
       )}
     </Component>
   );

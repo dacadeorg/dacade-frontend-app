@@ -23,5 +23,9 @@ interface H3Props {
  */
 export default function H3({ bold = true, children }: H3Props): ReactElement {
   const h3ClassName = classNames("leading-normal text-default text-xl md:text-.5xl", { "font-medium": bold, "font-normal": !bold });
-  return <h3 className={h3ClassName}>{children}</h3>;
+  return (
+    <h3 data-testid="h3" className={h3ClassName}>
+      {children}
+    </h3>
+  );
 }

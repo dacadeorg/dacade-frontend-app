@@ -8,7 +8,6 @@ import { useTranslation } from "next-i18next";
 import { Community } from "@/types/community";
 import { useRouter } from "next/router";
 
-
 /**
  * Interface for CommunityListCard component props
  * @date 3/30/2023 - 3:47:38 PM

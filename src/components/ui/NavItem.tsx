@@ -24,8 +24,8 @@ interface NavItemProps {
  */
 export default function NavItem({ type = "item", to = "/", children, className }: NavItemProps): ReactElement {
   return (
-    <li className={`nav-${type} ${className}`}>
-      <Link href={to}>{children}</Link>
+    <li data-testid="nav-item" className={`nav-${type} ${className}`}>
+      <Link data-testid="nav-item-link" href={to}>{children}</Link>
     </li>
   );
 }

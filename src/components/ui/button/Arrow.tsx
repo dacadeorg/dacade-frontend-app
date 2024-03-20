@@ -111,7 +111,11 @@ export default function ArrowButton({
       <span className={`flex items-center h-full text-left ${children ? "justify-between" : "justify-center"}`}>
         {isLeft && (
           <span className={classNames("block", { "pr-2.5": children })}>
-            {!loading ? <ArrowRightIcon className={`${directionClass} ${arrowClassNames} transform`} /> : <Spinner className={`${arrowClassNames} animate-spin`} />}
+            {!loading ? (
+              <ArrowRightIcon data-testid="left-icon" className={`${directionClass} ${arrowClassNames} transform`} />
+            ) : (
+              <Spinner data-testid="spinner-icon" className={`${arrowClassNames} animate-spin`} />
+            )}
           </span>
         )}
 
@@ -125,7 +129,11 @@ export default function ArrowButton({
 
         {!isLeft && (
           <span className="relative block">
-            {loading ? <Spinner className={`${arrowClassNames} animate-spin`} /> : <ArrowRightIcon className={`${directionClass} ${arrowClassNames} transform`} />}
+            {loading ? (
+              <Spinner data-testid="spinner-icon" className={`${arrowClassNames} animate-spin`} />
+            ) : (
+              <ArrowRightIcon data-testid="right-icon" className={`${directionClass} ${arrowClassNames} transform`} />
+            )}
           </span>
         )}
       </span>
