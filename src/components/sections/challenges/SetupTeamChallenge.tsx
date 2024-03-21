@@ -20,14 +20,13 @@ interface Props {
 export default function SetupTeamChallenge(): JSX.Element {
   const { invite, challenge } = useMultiSelector<unknown, Props>({ invite: (state: IRootState) => state.invites.data, challenge: (state: IRootState) => state.challenges.current });
 
-  const description = challenge?.additionalInfo?.teamFormation || "Join DeArk - ICP.Hub Germany telegram group and find your teammates to complete the challenge with you."
   const { t } = useTranslation();
 
   return (
     <Section title="Submission">
       <div className="text-base font-normal text-slate-700 pt-8 pb-7 md:w-182.5">{t("communities.overview.challenge.team.setup.info")}</div>
       <div className="md:flex flex-row gap-5">
-        <FormTeamCard index={1} title="Form your team" description={description} />
+        <FormTeamCard index={1} title="Form your team" description={challenge?.additionalInfo?.teamFormation || t("communities.overview.challenge.team.organization")} />
         {invite && !invite.team?.locked ? (
           <ConfirmTeamInvitation index={2} title="Submit your team" text={`The maximum team members for this challenge is ${challenge?.teamLimit || "3"} people`} invite={invite} />
         ) : (
