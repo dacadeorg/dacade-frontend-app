@@ -1,6 +1,7 @@
 import { CSSProperties, ReactElement } from "react";
 import Coin from "@/components/ui/Coin";
 import classNames from "classnames";
+import { shortenNumber } from "@/utilities";
 
 /**
  * Interface for Badge props
@@ -40,8 +41,7 @@ export default function RewardBadge({ reward = {}, type = "transparent", styles 
       {reward.token && <Coin token={reward.token} size="small" />}
 
       <div className="pl-0 pr-2 font-medium">
-        {reward.amount}
-        {reward.token}
+        {shortenNumber(reward.amount as number)} {reward.token}
       </div>
     </span>
   );

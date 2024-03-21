@@ -5,6 +5,7 @@ import { ReactElement } from "react";
 import Coin from "@/components/ui/Coin";
 import Certificate from "@/components/ui/Certificate";
 import { useRouter } from "next/router";
+import { shortenNumber } from "@/utilities";
 
 /**
  * Overview reward section component
@@ -38,7 +39,7 @@ export function OverviewRewards(): ReactElement {
                 <Coin size="small" token={reward?.token} />
                 <div className="text-sm">
                   <span>
-                    {reward?.amount} {reward?.token}
+                    {shortenNumber(reward?.amount)} {reward?.token}
                   </span>
                   <span>
                     {reward?.type === "SUBMISSION" ? (

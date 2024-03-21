@@ -7,6 +7,7 @@ import Badges from "./Badges";
 import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
+import { shortenNumber } from "@/utilities";
 
 /**
  * `ChallengeCard` is a function component that renders a card
@@ -27,8 +28,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
   const link = `/communities/${community.slug}/challenges/${data.id}`;
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
   const reward = isCourseEnd ? data?.rewards?.find((reward) => reward.type === "SUBMISSION") : data?.reward;
-  const learningModulesCount = useMemo(() => (data?.learningModules?.length ? data?.learningModules.length : 0), [data?.learningModules?.length]);
-
+  const learningModulesCount = data?.learningModules.length || 0;
 
   return (
     <div className="w-full justify-between- flex flex-col sm:flex-row  md:flex-col lg:flex-row  border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">
@@ -72,7 +72,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
               <Coin size="small" token={reward?.token} />
               <div className="text-sm">
                 <span>
-                  {reward.amount} {reward.token}
+                  {shortenNumber(reward.amount)} {reward.token}
                 </span>
                 <span>
                   {reward.type === "SUBMISSION" ? (
