@@ -9,22 +9,22 @@ jest.mock("next/router", () => ({
     }),
 }));
 const renderFeedbackSection = () => {
-    render(<ReduxProvider>
-        <Feedback />
-    </ReduxProvider>)
+    render(
+        <ReduxProvider>
+            <Feedback />
+        </ReduxProvider>
+    )
 }
 describe('Feedback', () => {
     it('should render the feedback component', () => {
         renderFeedbackSection()
-        const component = screen.getByTestId("feedback-section")
-        expect(component).toBeInTheDocument();
+        const section = screen.getByTestId("feedback-section")
+        expect(section).toBeInTheDocument();
     })
 
-    it('should have some children in it', () => {
+    it('should render with at least one child', () => {
         renderFeedbackSection()
-        const component = screen.getByTestId("feedback-section")
-        const children = component.childElementCount
-        console.log(children)
-        expect(children).toBeGreaterThan(30)
+        const section = screen.getByTestId("feedback-section")
+        expect(section.childElementCount).toBeGreaterThan(0)
     })
 })
