@@ -9,6 +9,7 @@ import Accordion from "@/components/ui/accordion/Accordion";
 import { IRootState } from "@/store";
 import { Colors } from "@/types/community";
 import Coin from "@/components/ui/Coin";
+import { GRADING_CRITERIA } from "@/constants/challengeInfo";
 
 /**
  * Rubic header component props interface
@@ -58,7 +59,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
     return (
       <div className="text-base font-normal text-slate-700 pt-8 md:w-182.5 inline-flex flex-wrap items-center gap-1">
         {challenge?.isHackathon ? (
-          <div dangerouslySetInnerHTML={{ __html: challenge?.additionalInfo?.gradingCriteria || hackatonPassingScore }} />
+          <div dangerouslySetInnerHTML={{ __html: challenge?.additionalInfo?.[GRADING_CRITERIA].text || hackatonPassingScore }} />
         ) : (
           passingScoreParts.map((part, index) => {
             if (index === passingScoreParts.length - 1) {
