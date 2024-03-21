@@ -113,7 +113,7 @@ export default function Form({ onSave }: FormProps): ReactElement {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} data-testid='feedback-form'>
         <div className="relative w-full">
           <div className="relative">
             <div className="absolute z-50 left-3 md:-left-7 top-3">
@@ -122,6 +122,7 @@ export default function Form({ onSave }: FormProps): ReactElement {
           </div>
           <div label-for="input-text">
             <TextInput
+              data-testid="input-text"
               id="input-text"
               placeholder={t("communities.challenge.submission.feedback.placeholder.text") || ""}
               inputClass="border-t-0"
