@@ -30,7 +30,7 @@ export function OverviewRewards(): ReactElement {
           <div className="flex flex-col w-full lg:w-1/2">
             {challenge?.rewards.map((reward, index, rewardsArray) => (
               <div
-                key={index}
+                key={reward.id}
                 className={`flex items-center gap-1 pb-2 ${index !== (rewardsArray.length !== 1 && rewardsArray.length - 1) ? "border-b border-gray-200" : ""} ${
                   index !== 0 ? "pt-2" : ""
                 } `}

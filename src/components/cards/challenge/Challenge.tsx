@@ -66,9 +66,9 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
           <Image src={data?.certificateData?.icon} alt="achievement" fill />
         </div>
         <div className="">
-          <h1 className="font-bold text-gray-400 text-xs">{t("communities.overview.challenge.unlock.certificate").toUpperCase()}</h1>
-          {data?.rewards.map((reward, index) => (
-            <div key={index} className="flex items-center md:gap-1 border-b border-gray-200 py-2">
+          <h1 className="font-bold text-gray-400 text-xs uppercase">{t("communities.overview.challenge.unlock.certificate")}</h1>
+          {data?.rewards.map((reward) => (
+            <div key={reward.id} className="flex items-center md:gap-1 border-b border-gray-200 py-2">
               <Coin size="small" token={reward?.token} />
               <div className="text-sm">
                 <span>
