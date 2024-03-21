@@ -1,4 +1,5 @@
 import Coin from "@/components/ui/Coin";
+import { shortenNumber } from "@/utilities";
 import classNames from "classnames";
 import { ReactElement } from "react";
 
@@ -46,8 +47,7 @@ export default function RewardBadge({ reward = {}, type = "transparent", display
       {token && <Coin token={token} size="small" />}
       {amount && (
         <div className="font-medium pl-0 pr-2">
-          {displayAmount && amount}
-          {token}
+          {displayAmount && shortenNumber(amount)} {token}
         </div>
       )}
     </span>
