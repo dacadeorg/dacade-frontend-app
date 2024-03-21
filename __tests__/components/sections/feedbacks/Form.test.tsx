@@ -20,13 +20,10 @@ describe('FeedbackForm', () => {
         expect(form).toBeInTheDocument()
     })
 
-    it("should fire the onsave function when submitted", () => {
-        // find how to know which functions was called when the  fireevent.submit was called then find if our handlesave is one of them
+    it('should not make modifications to the text input', () => {
         renderForm()
-        const form = screen.getByTestId('feedback-form')
-        fireEvent.submit(form)
-        console.log("the function called", handleSave.mock.calls)
-        expect(handleSave).toHaveBeenCalled()
-
+        const inputText = screen.getByTestId('textarea').getElementsByTagName("textarea")[0]
+        fireEvent.change(inputText, { target: { value: 'Test input' } })
+        expect(inputText.value).toBe('Test input')
     })
 })

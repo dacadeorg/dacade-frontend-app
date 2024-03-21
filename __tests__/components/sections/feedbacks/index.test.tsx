@@ -1,6 +1,6 @@
 import Feedback from "@/components/sections/feedbacks"
 import "@testing-library/jest-dom"
-import { render, screen } from "@testing-library/react"
+import { act, render, screen, waitFor } from "@testing-library/react"
 import ReduxProvider from "../../../../__mocks__/provider/ReduxProvider"
 jest.mock("next/router", () => ({
     useRouter: () => ({
@@ -8,23 +8,31 @@ jest.mock("next/router", () => ({
         isFallback: false,
     }),
 }));
-const renderFeedbackSection = () => {
-    render(
-        <ReduxProvider>
-            <Feedback />
-        </ReduxProvider>
-    )
+const renderFeedbackSection = async () => {
+    await act(async () => {
+        render(
+            <ReduxProvider>
+                <Feedback />
+            </ReduxProvider>
+        );
+    });
 }
 describe('Feedback', () => {
-    it('should render the feedback component', () => {
+    it('should render the feedback component', async () => {
         renderFeedbackSection()
-        const section = screen.getByTestId("feedback-section")
+        const section = await waitFor(() => screen.getByTestId("feedback-section"))
         expect(section).toBeInTheDocument();
     })
 
-    it('should render with at least one child', () => {
+    it('should initally render with a loader', async () => {
         renderFeedbackSection()
-        const section = screen.getByTestId("feedback-section")
+        await waitFor(() => screen.getByTestId("feedback-section"))
+        expect(screen.getByTestId("loader")).toBeInTheDocument();
+    })
+
+    it('should render with at least one child', async () => {
+        renderFeedbackSection()
+        const section = await waitFor(() => screen.getByTestId("feedback-section"))
         expect(section.childElementCount).toBeGreaterThan(0)
     })
 })
