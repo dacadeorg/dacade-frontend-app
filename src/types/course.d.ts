@@ -78,6 +78,12 @@ export type Challenge = {
   teamLimit?: number;
   isHackathon?: boolean;
   multipleSubmissions?: boolean;
+  additionalInfo?: { [type: string]: AdditionalInfo };
+};
+
+type AdditionalInfo = {
+  type: string;
+  text: string;
 };
 
 export type RatingCriteria = {
