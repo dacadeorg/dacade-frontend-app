@@ -31,7 +31,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
   const reward = isCourseEnd ? data?.rewards?.find((reward) => reward.type === "SUBMISSION") : data?.reward;
   const totalReward = data?.rewards?.reduce((acc, reward) => (acc += Number(reward.amount)), 0);
-  const prize = `${shortenNumber(totalReward)} ${reward?.fiatCurrency ? `${reward?.fiatCurrency} in` : ''} ${reward?.token} ${data?.isHackathon ? `Prize pool` : ""} rewards`
+  const prize = `${shortenNumber(totalReward)} ${reward?.fiatCurrency ? `${reward?.fiatCurrency} in` : ''} ${reward?.token} ${data?.isHackathon ? t("communities.overview.reward.prize.pool") : ""} ${t("communities.overview.reward.title")}`
 
   return (
     <div className="border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">

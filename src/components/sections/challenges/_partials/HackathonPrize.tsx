@@ -1,9 +1,11 @@
 import { Distribution, Reward } from "@/types/course";
 import { shortenNumber } from "@/utilities";
+import { useTranslation } from "react-i18next";
 
 export default function HackathonPrize({ reward, description }: { reward: Reward; description: string }) {
+  const { t } = useTranslation()
   const { first, second, third } = reward?.distribution || ({} as Distribution);
-  const totalPrize = `${shortenNumber(reward?.amount)} ${reward?.fiatCurrency ? `${reward?.fiatCurrency} in` : ''} ${reward.token} Prize Pool`;
+  const totalPrize = `${shortenNumber(reward?.amount)} ${reward?.fiatCurrency ? `${reward?.fiatCurrency} in` : ''} ${reward.token} ${t("communities.overview.reward.prize.pool")}`;
   return (
     <>
       <div className="flex gap-1 text-gray-700 font-medium">
