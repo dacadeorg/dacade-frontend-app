@@ -6,7 +6,7 @@ export default function HackathonPrize({ reward, description }: { reward: Reward
   return (
     <>
       <div className="flex gap-1 text-gray-700 font-medium">
-        <span>{`${shortenNumber(reward?.amount)} ${reward.token} Prize Pool`}</span>
+        <span>{`${shortenNumber(reward?.amount)} ${reward?.fiatCurrency ? `${reward?.fiatCurrency} in` : ''} ${reward.token} Prize Pool`}</span>
         <span>{description}</span>
       </div>
       <div className="text-gray-400 text-xs font-medium leading-3 mt-1 flex">
