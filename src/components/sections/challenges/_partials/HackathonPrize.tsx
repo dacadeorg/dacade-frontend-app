@@ -3,10 +3,11 @@ import { shortenNumber } from "@/utilities";
 
 export default function HackathonPrize({ reward, description }: { reward: Reward; description: string }) {
   const { first, second, third } = reward?.distribution || ({} as Distribution);
+  const totalPrize = `${shortenNumber(reward?.amount)} ${reward?.fiatCurrency ? `${reward?.fiatCurrency} in` : ''} ${reward.token} Prize Pool`;
   return (
     <>
       <div className="flex gap-1 text-gray-700 font-medium">
-        <span>{`${shortenNumber(reward?.amount)} ${reward?.fiatCurrency ? `${reward?.fiatCurrency} in` : ''} ${reward.token} Prize Pool`}</span>
+        <span>{totalPrize}</span>
         <span>{description}</span>
       </div>
       <div className="text-gray-400 text-xs font-medium leading-3 mt-1 flex">
