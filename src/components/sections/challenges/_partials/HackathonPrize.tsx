@@ -5,11 +5,15 @@ import { useTranslation } from "react-i18next";
 export default function HackathonPrize({ reward, description }: { reward: Reward; description: string }) {
   const { t } = useTranslation()
   const { first, second, third } = reward?.distribution || ({} as Distribution);
-  const totalPrize = `${shortenNumber(reward?.amount)} ${reward?.fiatCurrency ? `${reward?.fiatCurrency} in` : ''} ${reward.token} ${t("communities.overview.reward.prize.pool")}`;
+
   return (
     <>
       <div className="flex gap-1 text-gray-700 font-medium">
-        <span>{totalPrize}</span>
+        <span>
+          {reward?.fiatCurrency ?
+            t('communities.overview.reward.fiat.prize.pool', { amount: shortenNumber(reward?.amount), currency: reward.fiatCurrency, token: reward?.token }) :
+            t('communities.overview.reward.crypto.prize.pool', { amount: shortenNumber(reward?.amount), token: reward?.token })}
+        </span>
         <span>{description}</span>
       </div>
       <div className="text-gray-400 text-xs font-medium leading-3 mt-1 flex">

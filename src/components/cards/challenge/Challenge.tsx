@@ -31,7 +31,6 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
   const reward = isCourseEnd ? data?.rewards?.find((reward) => reward.type === "SUBMISSION") : data?.reward;
   const totalReward = data?.rewards?.reduce((acc, reward) => (acc += Number(reward.amount)), 0);
-  const prize = `${shortenNumber(totalReward)} ${reward?.fiatCurrency ? `${reward?.fiatCurrency} in` : ''} ${reward?.token} ${data?.isHackathon ? t("communities.overview.reward.prize.pool") : ""} ${t("communities.overview.reward.title")}`
 
   return (
     <div className="border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">
@@ -61,7 +60,12 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
                     <span className="block font-medium">
-                      {prize}
+                      {data?.isHackathon ? <>{reward?.fiatCurrency ?
+                        t('communities.overview.reward.fiat.prize.pool', { amount: shortenNumber(totalReward), currency: reward.fiatCurrency, token: reward?.token }) :
+                        t('communities.overview.reward.crypto.prize.pool', { amount: shortenNumber(totalReward), token: reward?.token })
+                      } </> : <>{shortenNumber(totalReward)} {reward?.token} </>}
+
+                      {t("communities.overview.reward.title")}
                     </span>
                   </div>
                   <div className="text-gray-400 text-xs font-normal">{data?.isHackathon ? "Top projects win money prizes" : "For submission and feedback"}</div>
