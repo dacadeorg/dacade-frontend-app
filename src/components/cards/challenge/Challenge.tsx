@@ -60,7 +60,12 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
                 <div className="md:pl-2 max-w-max">
                   <div className="flex text-sm text-gray-700">
                     <span className="block font-medium">
-                      {shortenNumber(totalReward)} {reward?.token} {` ${data?.isHackathon ? `Prize pool` : ""} rewards`}
+                      {data?.isHackathon ? <>{reward?.fiatCurrency ?
+                        t('communities.overview.reward.fiat.prize.pool', { amount: shortenNumber(totalReward), currency: reward.fiatCurrency, token: reward?.token }) :
+                        t('communities.overview.reward.crypto.prize.pool', { amount: shortenNumber(totalReward), token: reward?.token })
+                      } </> : <>{shortenNumber(totalReward)} {reward?.token} </>}
+
+                      {t("communities.overview.reward.title")}
                     </span>
                   </div>
                   <div className="text-gray-400 text-xs font-normal">{data?.isHackathon ? "Top projects win money prizes" : "For submission and feedback"}</div>

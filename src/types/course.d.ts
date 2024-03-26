@@ -144,6 +144,7 @@ export type Reward = {
   community: string;
   token: string;
   stable: boolean;
+  fiatCurrency?: string;
   amount: number;
   timestamp: number;
   distribution?: Distribution;
