@@ -122,7 +122,6 @@ export default function Form({ onSave }: FormProps): ReactElement {
           </div>
           <div label-for="input-text">
             <TextInput
-              data-testid="input-text"
               id="input-text"
               placeholder={t("communities.challenge.submission.feedback.placeholder.text") || ""}
               inputClass="border-t-0"
