@@ -8,13 +8,14 @@ import ProfileLayout from "@/layouts/ProfileLayout";
 import { userFetchReferrals } from "@/store/services/referrals.service";
 
 import Referral from "@/components/cards/profile/Referral";
-import EmptyState from "@/components/ui/EmptyState";
 import InfiniteScroll from "react-infinite-scroll-component";
 import AuthObserver from "@/contexts/AuthObserver";
 import { User } from "@/types/bounty";
 import { Referral as ReferralType } from "@/types/community";
 import { IRootState } from "@/store";
 import Loader from "@/components/ui/button/Loader";
+import ProfileOverviewSection from "@/components/sections/profile/overview/Section";
+import ReferralsList from "@/components/list/ReferralsList";
 
 /**
  * interface for UserReferrals multiSelector
@@ -63,26 +64,31 @@ export default function UserReferrals(): ReactElement {
   };
 
   return (
-    <div className="w-full">
-      {referrals.length ? (
-        <div className="relative w-full">
-          <InfiniteScroll
-            className="flex flex-col w-full overflow-hidden border border-gray-200 border-solid divide-y divide-gray-200 rounded-3xl divide-solid"
-            dataLength={referrals.length}
-            next={nextPage}
-            hasMore={showLoadMore}
-            // loader is required for InfiniteScroll to work
-            loader={<></>}
-          >
-            {referrals.map((referral, i) => (
-              <Referral key={`user-referral-${i}`} referral={referral} />
-            ))}
-          </InfiniteScroll>
-          {loading && <Loader loading={loading} className="sm:absolute sm:left-6 sm:-bottom-7.5" onClick={() => nextPage()} />}
+    <div className="grid gap-7.5">
+      <ReferralsList text="Invite your friends to Dacade" />
+      <ProfileOverviewSection title="people that have used your invite code">
+        <div className="w-full">
+          {referrals.length ? (
+            <div className="relative w-full">
+              <InfiniteScroll
+                className="flex flex-col w-full overflow-hidden border border-gray-200 border-solid divide-y divide-gray-200 rounded-3xl divide-solid"
+                dataLength={referrals.length}
+                next={nextPage}
+                hasMore={showLoadMore}
+                // loader is required for InfiniteScroll to work
+                loader={<></>}
+              >
+                {referrals.map((referral, i) => (
+                  <Referral key={`user-referral-${i}`} referral={referral} />
+                ))}
+              </InfiniteScroll>
+              {loading && <Loader loading={loading} className="sm:absolute sm:left-6 sm:-bottom-7.5" onClick={() => nextPage()} />}
+            </div>
+          ) : (
+            <div className="w-full border bg-gray-50 border-gray-200 border-solid rounded-3xl text-gray-500 p-6.5 font-semibold">{t('referrals.empty-state.subtitle')}</div>
+          )}
         </div>
-      ) : (
-        <EmptyState title={t("referrals.empty-state.title")} subtitle={t("referrals.empty-state.subtitle")} />
-      )}
+      </ProfileOverviewSection>
     </div>
   );
 }

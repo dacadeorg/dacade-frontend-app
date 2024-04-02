@@ -43,9 +43,9 @@ const referralsService = createApi({
             dispatch(clear());
           }
 
-          list.push(...(data || []));
+          list.push(...(data.list || []));
           dispatch(setUserReferralsList(list));
-          dispatch(setHasMoreReferrals(data?.length > 0 ? true : false));
+          dispatch(setHasMoreReferrals(data.list?.length > 0 ? true : false));
         } catch (error) {
           console.log("error in fetching the userFetchReferrals ", error);
         }

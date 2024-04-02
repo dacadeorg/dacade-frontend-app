@@ -56,7 +56,7 @@ export interface Referral {
   user: User;
   challenge: Challenge;
   community: Community;
-  submission: Submission;
+  submissions: Submission[];
   rewarded: boolean;
   metadata?: {
     reward: Reward;

@@ -1,6 +1,5 @@
 import Avatar from "@/components/ui/Avatar";
-import { Reward as IReward } from "@/types/course";
-import { Community } from "@/types/community";
+import { Referral } from "@/types/community";
 import RewardBadge from "../badges/RewardBadge";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
@@ -16,11 +15,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
  */
 
 interface ReferralProps {
-  referral: {
-    title?: string;
-    community: Community;
-    reward: IReward;
-  };
+  referral: Referral;
 }
 
 /**
