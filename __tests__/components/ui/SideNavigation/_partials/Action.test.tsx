@@ -25,7 +25,7 @@ describe("Activable link", () => {
     expect(link.children[0].tagName).toBe("SPAN");
   });
 
-  it("should call goToLink function when clicked", () => {
+  it("should invoke goToLink function when clicked", () => {
     const goToLinkMock = jest.fn();
     render(
       <ActivableLink item={items} goToLink={goToLinkMock}>
