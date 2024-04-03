@@ -2,12 +2,11 @@ import { ActivableLink } from "@/components/ui/SideNavigation/_partials/Action";
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 
+const items = {
+  subitems: [{ label: "subitem", link: "subitem link" }],
+  link: "/dummy",
+};
 describe("Activable link", () => {
-  const items = {
-    subitems: [{ label: "subitem", link: "subitem link" }],
-    link: "/dummy",
-  };
-
   it("should render the link with subitems", () => {
     render(<ActivableLink item={items}>Link test</ActivableLink>);
     const link = screen.getByTestId("activableLinkId");
