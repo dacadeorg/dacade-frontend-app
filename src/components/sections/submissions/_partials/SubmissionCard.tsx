@@ -51,7 +51,7 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
   }, []);
 
   return (
-    <div className="bg-gray-50 text-sm text-gray-700 border-solid border border-gray-200 rounded-3xl mb-5 md:mb-0">
+    <div data-testid="submissionCardId" className="bg-gray-50 text-sm text-gray-700 border-solid border border-gray-200 rounded-3xl mb-5 md:mb-0">
       <Link href={navigation.submissionPath(submission.id)}>
         <div className="p-7">
           {membersWithOrganiser?.length ? (

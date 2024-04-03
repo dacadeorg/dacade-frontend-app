@@ -1,4 +1,8 @@
+
+import {  mockSubmissionMetadata} from "./bounty";
 import { colors } from "./colors";
+import { reward } from "./reward";
+import { userProfile } from "./userProfile";
 
 const metadata = {
   invite_id: "abc123",
@@ -18,21 +22,7 @@ const metadata = {
   submission: "submission_details",
 };
 
-const reward = {
-  id: "123456789",
-  ref: "ref123",
-  created_at: new Date("2024-01-29T08:00:00Z"),
-  updated_at: new Date("2024-01-29T08:30:00Z"),
-  challenge: "Challenge Name",
-  type: "SUBMISSION",
-  community: "Community Name",
-  token: "Token ID",
-  stable: true,
-  amount: 100,
-  timestamp: 1643424000,
-};
-
-export const community = {
+ const mockCommunity = {
   id: "ew-43",
   ref: "community/ref",
   created_at: new Date("2022-05-01T12:00:00Z"),
@@ -48,10 +38,36 @@ export const community = {
   metadata,
   timestamp: 182044800000,
   rewards: [reward],
-  reward,
+  reward: reward,
   courses: 3,
   duration: 4,
-  // challenge: mockChallenge,
-  // submission: { id: "32" },
+  items: [],
+  challenge: { id: "1", name: "Challenge Name" },
+  submission: mockSubmissionMetadata,
   can_mint_certificates: true,
 };
+
+
+ const mockReferral = {
+  id: "1",
+  name: "name",
+  ref: "ref",
+  created_at: new Date("2022-05-01T12:00:00Z"),
+  updated_at: new Date("2022-05-01T12:00:00Z"),
+  title: "title",
+  community: mockCommunity,
+  timestamp: 56789,
+  reward: reward,
+  user: userProfile,
+  challenge: {},
+  submission: mockSubmissionMetadata,
+  rewarded: true,
+  metadata: {
+    reward: reward,
+  },
+}
+
+export {
+  mockCommunity,
+  mockReferral,
+}
