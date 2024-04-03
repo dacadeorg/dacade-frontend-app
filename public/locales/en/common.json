@@ -211,7 +211,7 @@
   "testimonials.text": "Dacade is really encouraging, I didn't realize the little that I know would matter. Thank you for making us learn more and to make research too.",
   "footer.text": "Dacade is an open-sourced platform and is created in collaboration with multiple contributors. Go to the <a href=\"https://github.com/dacadeorg/dacade-frontend-app\"> repository  </a>  to start contributing.",
   "footer.privacy-policy": "Impressum & Privacy Policy",
-  "footer.open.source" : "Dacade is an open-sourced platform",
+  "footer.open.source" : "Dacade is an open-sourced platform.",
   "footer.open.source.contribute":"Become one of our contributors",
   "feedback.bounty": "Feedback bounty",
   "feedback.issued": "Issued",

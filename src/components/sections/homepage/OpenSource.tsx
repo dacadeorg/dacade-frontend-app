@@ -13,12 +13,15 @@ import { useTranslation } from "next-i18next";
 export default function OpenSource() {
       const { t } = useTranslation();
   return (
-    <div className=" text-3xl lg:text-5xl pt-24 flex flex-col text-wrap space-y-2">
-      <span>{t("footer.open.source")}</span>
-      <Link href="https://github.com/dacadeorg/dacade-frontend-app" target="_blank" className="text-primary items-center space-x-2">
-        <span>{t("footer.open.source.contribute")}</span>
-        <ArrowRightIcon className="w-6.5 h-5.5 inline-flex" />
-      </Link>
+    <div className="text-4xl lg:text-5xl pt-24 flex flex-col text-wrap space-y-2">
+      <p >
+        {t("footer.open.source")}
+        <br className="block md:hidden lg:block"/>
+        <Link href="https://github.com/dacadeorg/dacade-frontend-app" target="_blank" className="text-primary items-center space-x-2">
+          <span> {t("footer.open.source.contribute")}</span>
+          <ArrowRightIcon className="w-6.5 h-5.5 inline-flex" />
+        </Link>
+      </p>
     </div>
   );
 }
