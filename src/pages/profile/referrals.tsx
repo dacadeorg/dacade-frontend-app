@@ -67,9 +67,9 @@ export default function UserReferrals(): ReactElement {
     <div className="grid gap-7.5">
       <ReferralsList text="Invite your friends to Dacade" />
       <ProfileOverviewSection title="people that have used your invite code">
-        <div className="w-full">
+        <div className="relative w-full">
           {referrals.length ? (
-            <div className="relative w-full">
+            <div className="w-full">
               <InfiniteScroll
                 className="flex flex-col w-full overflow-hidden border border-gray-200 border-solid divide-y divide-gray-200 rounded-3xl divide-solid"
                 dataLength={referrals.length}
@@ -82,7 +82,7 @@ export default function UserReferrals(): ReactElement {
                   <Referral key={`user-referral-${i}`} referral={referral} />
                 ))}
               </InfiniteScroll>
-              {loading && <Loader loading={loading} className="sm:absolute sm:left-6 sm:-bottom-7.5" onClick={() => nextPage()} />}
+              {loading && <Loader loading={loading} className="absolute left-6 -bottom-7.5" onClick={() => nextPage()} />}
             </div>
           ) : (
             <div className="w-full border bg-gray-50 border-gray-200 border-solid rounded-3xl text-gray-500 p-6.5 font-semibold">{t('referrals.empty-state.subtitle')}</div>
