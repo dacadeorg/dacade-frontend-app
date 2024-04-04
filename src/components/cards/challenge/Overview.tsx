@@ -55,6 +55,7 @@ export default function Overview({ challenge, community }: Props) {
             <div className="text-sm md:pl-2 max-w-max">
               <div className="flex gap-1 text-gray-700 font-medium">
                 <span>{shortenNumber(reward.amount)}</span>
+                <span>{reward?.fiatCurrency ? `${reward?.fiatCurrency} in` : ''}</span>
                 <span>{reward?.token}</span>
                 <span>{t("communities.overview.challenge.rewards")}</span>
               </div>

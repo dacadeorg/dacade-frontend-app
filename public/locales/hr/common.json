@@ -104,6 +104,8 @@
   "communities.overview.info.prerequisite.subtitle": "In order to complete this course you should:",
   "communities.overview.trailer.video": "Video",
   "communities.overview.reward.title": "Nagrade",
+  "communities.overview.reward.fiat.prize.pool": "{{amount}} {{currency}} u {{token}} fondu nagrada",
+  "communities.overview.reward.crypto.prize.pool": "{{amount}} {{token}} fondu nagrada",
   "communities.overview.challenge.objective.title": "Ciljevi izazova",
   "communities.overview.reward.subtitle": "Što možete zaraditi u ovoj zajednici:",
   "communities.chapter.objective.subtitle": "After completing this chapter, you will:",
