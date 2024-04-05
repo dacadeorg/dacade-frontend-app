@@ -37,7 +37,7 @@ export const community = {
   ref: "community/ref",
   created_at: new Date("2022-05-01T12:00:00Z"),
   updated_at: new Date("2022-05-01T12:00:00Z"),
-  summary: "this is tehe summary",
+  summary: "this is the summary",
   icon: "public/img/communities/aeternity.svg",
   name: "aeternity",
   image: "public/img/communities/aeternity.svg",
