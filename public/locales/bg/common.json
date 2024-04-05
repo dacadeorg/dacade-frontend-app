@@ -104,6 +104,8 @@
   "communities.overview.info.prerequisite.subtitle": "In order to complete this course you should:",
   "communities.overview.trailer.video": "Video",
   "communities.overview.reward.title": "Награди",
+  "communities.overview.reward.fiat.prize.pool": "{{amount}} {{currency}} в {{token}} награден фонд",
+  "communities.overview.reward.crypto.prize.pool": "{{amount}} {{token}} награден фонд",
   "communities.overview.challenge.title": "Вече сте готови да изпълните предизвикателството?",
   "communities.overview.challenge.objective.title": "Цели на предизвикателството",
   "communities.overview.reward.subtitle": "Какво може да получите в тази общност:",

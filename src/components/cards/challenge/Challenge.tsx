@@ -67,8 +67,8 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
         </div>
         <div className="">
           <h1 className="font-bold text-gray-400 text-xs uppercase">{t("communities.overview.challenge.unlock.certificate")}</h1>
-          {data?.rewards.map((reward) => (
-            <div key={reward.id} className="flex items-center md:gap-1 border-b border-gray-200 py-2">
+          {data?.rewards.map((reward, index) => (
+            <div key={reward.id} className={`flex items-center md:gap-1 border-gray-200 py-2 ${index !== data?.rewards.length - 1 ? "border-b" : ""}`}>
               <Coin size="small" token={reward?.token} />
               <div className="text-sm">
                 <span>
@@ -85,7 +85,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
             </div>
           ))}
         </div>
-        {data?.isHackathon && <p className="py-2 border-b border-gray-200 text-sm">{t("communities.overview.challenge.participate", { token: reward?.token })}</p>}
+        {data?.isHackathon && <p className="py-2 border-t border-gray-200 text-sm">{t("communities.overview.challenge.participate", { token: reward?.token })}</p>}
       </div>
     </div>
   );
