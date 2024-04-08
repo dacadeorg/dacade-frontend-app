@@ -14,7 +14,7 @@ describe("Activable link", () => {
     expect(link.textContent).toBe("Link test");
   });
 
-  it("should render the link with activable link style", () => {
+  it("should render the link with active status", () => {
     render(
       <ActivableLink item={items} isActive>
         Link test
@@ -24,7 +24,7 @@ describe("Activable link", () => {
     expect(link.children[0].tagName).toBe("SPAN");
   });
 
-  it("should invoke goToLink function when clicked", () => {
+  it("should redirect to link when clicked", () => {
     const goToLinkMock = jest.fn();
     render(
       <ActivableLink item={items} goToLink={goToLinkMock}>
