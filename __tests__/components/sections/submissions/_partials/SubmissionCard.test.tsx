@@ -17,7 +17,7 @@ jest.mock("next/router", () => ({
 }));
 
 describe("SubmissionCard", () => {
-  it("should render submission card", () => {
+  it("should render the submission card", () => {
     render(
       <ReduxProvider>
         <SubmissionCard submission={mockSubmission} />
