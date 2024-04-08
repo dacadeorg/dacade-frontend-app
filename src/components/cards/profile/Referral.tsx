@@ -50,20 +50,20 @@ export default function Referral({ referral }: ReferralProps): ReactElement {
         <div className="flex-grow md:ml-19">
           <div className="pt-1">
             <ul className="pb-1 font-light leading-loose text-gray-700 grid divide-y-2 space-y-4 divide-gray-200">
-              {referral?.submissions.length ? referral.submissions.map((_submission) => (
-                <li key={_submission.id} className="grid md:flex justify-between pt-4 gap-2 md:gap-0">
+              {referral?.submissions?.length ? referral.submissions.map((submission) => (
+                <li key={submission.id} className="grid md:flex justify-between pt-4 gap-2 md:gap-0">
                   <span className="grid gap-2">
                     <span>
-                      {status(_submission.metadata.evaluation)} <Link href={`${_submission.challenge.name}`} className="font-bold underline text-base- underline-offset-2">{_submission.challenge.name} {t("referrals.submission.challenge")}</Link>
+                      {status(submission.metadata.evaluation)} <Link href={`/communities/${submission.community.slug}/challenges/${submission.challenge.id}/submissions/${submission.id}`} className="font-bold underline text-base- underline-offset-2">{submission.challenge.name} {t("referrals.submission.challenge")}</Link>
                     </span>
-                    {!_submission.metadata.evaluation && <span className="mr-0 flex items-center gap-2.5 leading-none "> <TimeIcon />{t("referrals.challenge.evaluation.pending")}</span>}
+                    {!submission?.metadata?.evaluation && <span className="mr-0 flex items-center gap-2.5 leading-none "> <TimeIcon />{t("referrals.challenge.evaluation.pending")}</span>}
                   </span>
-                  <span className="text-gray-500">{formatDate(_submission.updated_at)}</span>
+                  <span className="text-gray-500">{formatDate(submission.updated_at)}</span>
                 </li>
               )
               ) : <></>}
 
-              {referral.rewarded && referral.metadata && referral.metadata.reward && (
+              {referral?.rewarded && referral.metadata && referral.metadata.reward && (
                 <li className="pt-4 grid gap-2 md:flex md: justify-between">
                   <span className="grid gap-2 md:flex items-center">
                     <span>{t("referrals.reward.text")}</span>
