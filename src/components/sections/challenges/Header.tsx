@@ -16,7 +16,7 @@ export default function ChallengeHeader(): ReactElement {
   const challenge = useSelector((state) => state.challenges.current);
 
   return (
-    <div>
+    <div data-testid="challengeHeaderId">
       <Header isTeamChallenge={challenge?.isTeamChallenge} title={challenge?.name} subtitle={t("communities.challenge.title")} isHackathon={challenge?.isHackathon} />
       <Section subtitle={challenge?.description} />
     </div>
