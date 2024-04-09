@@ -1,5 +1,5 @@
 import Avatar from "@/components/ui/Avatar";
-import { Referral } from "@/types/community";
+import { Referral as TReferral } from "@/types/community";
 import RewardBadge from "../badges/RewardBadge";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
@@ -15,7 +15,7 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
  */
 
 interface ReferralProps {
-  referral: Referral;
+  referral: TReferral;
 }
 
 /**
