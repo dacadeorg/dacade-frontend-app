@@ -70,7 +70,7 @@ export default function BountiesNavigation(): ReactElement {
 
   return (
     <ThemeWrapper colors={colors}>
-      <ul className="sticky top-10">
+      <ul data-testid="bountiesNavigationId" className="sticky top-10">
         {menus.map((menu, i) => (
           <li key={`bounties-menu-${i}`} className="relative mb-8">
             {!menu.hideTitle && <span className="relative text-xs font-semibold uppercase">{menu.title}</span>}
