@@ -10,4 +10,9 @@ export const reward = {
     stable: false,
     amount: 10,
     timestamp: 10,
+    distribution: {
+        first: "first distribution",
+        second: "second distribution",
+        third: "third distribution"
+    }
 }
