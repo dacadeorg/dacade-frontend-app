@@ -9,11 +9,11 @@ jest.mock("next/router", () => ({
     }),
 }));
 const renderFeedbackSection = () => {
-        render(
-            <ReduxProvider>
-                <Feedback />
-            </ReduxProvider>
-        );
+    render(
+        <ReduxProvider>
+            <Feedback />
+        </ReduxProvider>
+    );
 }
 describe('Feedback', () => {
     it('should render the feedback component', () => {
