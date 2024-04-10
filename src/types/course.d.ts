@@ -78,6 +78,12 @@ export type Challenge = {
   teamLimit?: number;
   isHackathon?: boolean;
   multipleSubmissions?: boolean;
+  additionalInfo?: { [type: string]: AdditionalInfo };
+};
+
+type AdditionalInfo = {
+  type: string;
+  text: string;
 };
 
 export type RatingCriteria = {
@@ -138,6 +144,7 @@ export type Reward = {
   community: string;
   token: string;
   stable: boolean;
+  fiatCurrency?: string;
   amount: number;
   timestamp: number;
   distribution?: Distribution;
