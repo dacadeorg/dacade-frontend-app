@@ -1,7 +1,7 @@
 import baseQuery from "@/config/baseQuery";
 import { createApi } from "@reduxjs/toolkit/dist/query";
 import { setReferralsList } from "../feature/referrals.slice";
-import { clear, setUserReferralsList, setHasMoreReferrals } from "../feature/user/referrals.slice";
+import { clear, setUserReferralsList, setHasMoreReferrals, setCount } from "../feature/user/referrals.slice";
 import { Referral } from "@/types/community";
 
 /**
@@ -43,9 +43,10 @@ const referralsService = createApi({
             dispatch(clear());
           }
 
-          list.push(...(data || []));
+          list.push(...(data?.list || []));
           dispatch(setUserReferralsList(list));
-          dispatch(setHasMoreReferrals(data?.length > 0 ? true : false));
+          dispatch(setCount(data?.count));
+          dispatch(setHasMoreReferrals(data?.list?.length > 0 ? true : false));
         } catch (error) {
           console.log("error in fetching the userFetchReferrals ", error);
         }
