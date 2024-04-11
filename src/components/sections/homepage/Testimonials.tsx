@@ -4,6 +4,7 @@ import { ReactElement } from "react";
 import CommunityStats from "./_partials/testimonials/CommunityStats";
 import { useTranslation } from "next-i18next";
 import { TFunction } from "i18next";
+import OpenSource from "./OpenSource";
 
 /**
  * Interface for the testimonial
@@ -80,6 +81,7 @@ export default function TestimonialsSection(): ReactElement {
     <Section type="secondary-light" padding="py-6 xl:py-10 md:py-8 mt-5">
       <CommunityStats />
       <Stories list={stories(t)} />
+      <OpenSource/>
     </Section>
   );
 }
