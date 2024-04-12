@@ -21,8 +21,8 @@ export interface Community {
   courses: number;
   duration: number;
   items?: any[];
-  challenge: Challenge;
-  submission: Submission;
+  challenge?: Challenge;
+  submission?: Submission;
   can_mint_certificates: boolean;
 }
 

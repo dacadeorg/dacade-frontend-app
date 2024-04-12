@@ -24,7 +24,7 @@ export default function Learning({ courses, learningModules, community }: { cour
         isExpanded
         content={
           <>
-            <div className="text-base font-normal text-slate-700 pt-8 pb-7 md:w-182.5">{t("communities.overview.challenge.learning.title")}</div>
+            <div data-testid="learningId" className="text-base font-normal text-slate-700 pt-8 pb-7 md:w-182.5">{t("communities.overview.challenge.learning.title")}</div>
             <div className="md:grid grid-cols-2 gap-3">
               {courses?.map((course) => (
                 <LearningCard

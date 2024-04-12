@@ -51,7 +51,5 @@ export const community = {
   reward,
   courses: 3,
   duration: 4,
-  // challenge: mockChallenge,
-  // submission: { id: "32" },
   can_mint_certificates: true,
 };
