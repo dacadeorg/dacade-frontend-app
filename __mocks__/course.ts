@@ -52,7 +52,7 @@ export const challenge = {
   course: {},
   type: "course",
   isTeamChallenge: false,
-  objectives: ["challenge objectives"],
+  objectives: ["objectives 1", "Objectives 2", "Objectives 3", "Objectives 4"],
   threshold: 8,
   community: {},
   reviewTime: 9,

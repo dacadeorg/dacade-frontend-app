@@ -23,7 +23,7 @@ export default function Objectives(): ReactElement {
   const expirationDate = challenge?.expiresAt && DateManager.format(challenge.expiresAt, "MMMM d, yyyy", "en");
   return (
     <Section title={`${t("communities.overview.challenge.objective.title")}`}>
-      <div className="space-y-5">
+      <div data-testid="objectiveId" className="space-y-5">
         <ObjectiveList objectives={challenge?.objectives} />
         {expirationDate && <ExpiryDate expiresAt={expirationDate} />}
         <Hint>
