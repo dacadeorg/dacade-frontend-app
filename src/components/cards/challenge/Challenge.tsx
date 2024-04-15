@@ -1,4 +1,3 @@
-import Coin from "@/components/ui/Coin";
 import ArrowButton from "@/components/ui/button/Arrow";
 import { Community } from "@/types/community";
 import { Challenge } from "@/types/course";
@@ -7,7 +6,7 @@ import Badges from "./Badges";
 import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
-import { shortenNumber } from "@/utilities";
+import RewardCertificates from "./RewardCertificates";
 
 /**
  * `ChallengeCard` is a function component that renders a card
@@ -66,24 +65,8 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
           <Image src={data?.certificateData?.icon} alt="achievement" fill />
         </div>
         <div className="">
-          <h1 className="font-bold text-gray-400 text-xs uppercase">{t("communities.overview.challenge.unlock.certificate")}</h1>
-          {data?.rewards.map((reward, index) => (
-            <div key={reward.id} className={`flex items-center md:gap-1 border-gray-200 py-2 ${index !== data?.rewards.length - 1 ? "border-b" : ""}`}>
-              <Coin size="small" token={reward?.token} />
-              <div className="text-sm">
-                <span>
-                  {shortenNumber(reward.amount)} {reward.token}
-                </span>
-                <span>
-                  {reward.type === "SUBMISSION" ? (
-                    <span> {t("communities.overview.challenge.for.certificate")}</span>
-                  ) : (
-                    <span> {t("communities.overview.challenge.for.feedback")}</span>
-                  )}
-                </span>
-              </div>
-            </div>
-          ))}
+          <h1 className="font-bold text-gray-400 text-xs uppercase pb-2">{t("communities.overview.challenge.unlock.certificate")}</h1>
+          <RewardCertificates rewards={data?.rewards}/>
         </div>
         {data?.isHackathon && <p className="py-2 border-t border-gray-200 text-sm">{t("communities.overview.challenge.participate", { token: reward?.token })}</p>}
       </div>
