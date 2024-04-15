@@ -1,12 +1,13 @@
 import { ReactElement, useMemo } from "react";
 import Avatar from "@/components/ui/Avatar";
-import RewardBadge from "@/components/badges/RewardBadge";
 import DateManager from "@/utilities/DateManager";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { Referral as ReferralType } from "@/types/community";
 import Link from "next/link";
 import TimeIcon from "@/icons/time.svg";
+import RewardBadge from "@/components/badges/RewardBadge";
+import { Evaluation } from "@/types/bounty";
 
 interface ReferralProps {
   referral: ReferralType;
@@ -29,13 +30,13 @@ export default function Referral({ referral }: ReferralProps): ReactElement {
   const joinedAt = useMemo(() => DateManager.fromNow(referral.created_at, locale), [locale, referral.created_at]);
   const rewardAt = useMemo(() => (referral.rewarded ? DateManager.fromNow(referral.updated_at, locale) : null), [locale, referral.rewarded, referral.updated_at]);
 
-  const status = (evaluation: any) => {
+  const status = (evaluation: Evaluation) => {
     if (!evaluation) return t("referrals.challenge.evaluation.status.pending")
     return t(evaluation?.reward ? "referrals.challenge.evaluation.status.passed" : "referrals.challenge.evaluation.status.failed")
   }
 
-  const formatDate = (date: any) => {
-    return date ? DateManager.fromNow(date, 'en') : null
+  const formatDate = (date: Date) => {
+    return date ? DateManager.fromNow(date, locale) : null
   }
   return (
     <div className="text-sm text-gray-700 bg-gray-50 md:mb-0 p-7">
@@ -64,15 +65,15 @@ export default function Referral({ referral }: ReferralProps): ReactElement {
               ) : <></>}
 
               {referral?.rewarded && referral.metadata && referral.metadata.reward && (
-                <li className="pt-4 grid gap-2 md:flex md: justify-between">
-                  <span className="grid gap-2 md:flex items-center">
+                <li className="pt-4 grid gap-2 md:gap-0 md:flex md:justify-between">
+                  <span className="grid gap-2 md:flex">
                     <span>{t("referrals.reward.text")}</span>
-                    <span className="font-bold flex">
+                    <span className="font-bold flex justify-start">
                       <RewardBadge type="gray" reward={referral.metadata.reward} />
                     </span>
                   </span>
 
-                  <span className="hidden md:inline-block text-gray-500">{rewardAt}</span>
+                  <span className="text-gray-500">{rewardAt}</span>
                 </li>
               )}
             </ul>

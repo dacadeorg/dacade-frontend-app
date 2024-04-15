@@ -16,6 +16,8 @@ import { IRootState } from "@/store";
 import Loader from "@/components/ui/button/Loader";
 import ProfileOverviewSection from "@/components/sections/profile/overview/Section";
 import ReferralsList from "@/components/list/ReferralsList";
+import Spinner from "@/components/ui/Loader";
+
 
 /**
  * interface for UserReferrals multiSelector
@@ -28,6 +30,7 @@ interface UserReferralsMultiSelector {
   user: User | null;
   referrals: ReferralType[];
   hasMore: boolean;
+  loading: boolean
 }
 
 /**
@@ -39,11 +42,12 @@ interface UserReferralsMultiSelector {
 export default function UserReferrals(): ReactElement {
   const { t } = useTranslation();
   const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const { user, referrals, hasMore } = useMultiSelector<unknown, UserReferralsMultiSelector>({
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const { user, referrals, hasMore, loading } = useMultiSelector<unknown, UserReferralsMultiSelector>({
     user: (state: IRootState) => state.user.data,
     referrals: (state: IRootState) => state.userReferrals.userReferralList,
     hasMore: (state: IRootState) => state.userReferrals.hasMore,
+    loading: (state: IRootState) => state.userReferrals.loading
   });
   const dispatch = useDispatch();
   const showLoadMore = useMemo(() => hasMore && referrals?.length >= 10, [referrals?.length, hasMore]);
@@ -55,13 +59,14 @@ export default function UserReferrals(): ReactElement {
   }, [dispatch, user?.referrals]);
 
   const nextPage = async () => {
-    if (loading || !hasMore) return;
-    setLoading(true);
+    if (isLoadingMore || !hasMore) return;
+    setIsLoadingMore(true);
     const referralId = referrals[referrals.length - 1]?.id || null;
     await dispatch(userFetchReferrals({ startAfter: referralId || null }));
     setPage(page + 1);
-    setLoading(false);
+    setIsLoadingMore(false);
   };
+  if (loading && !referrals.length) return <Spinner className="py-32" />;
 
   return (
     <div className="grid gap-7.5">
@@ -82,7 +87,7 @@ export default function UserReferrals(): ReactElement {
                   <Referral key={`user-referral-${i}`} referral={referral} />
                 ))}
               </InfiniteScroll>
-              {loading && <Loader loading={loading} className="absolute left-6 -bottom-7.5" onClick={() => nextPage()} />}
+              {isLoadingMore && <Loader loading={isLoadingMore} className="absolute left-6 -bottom-7.5" onClick={() => nextPage()} />}
             </div>
           ) : (
             <div className="w-full border bg-gray-50 border-gray-200 border-solid rounded-3xl text-gray-500 p-6.5 font-semibold">{t('referrals.empty-state.subtitle')}</div>
