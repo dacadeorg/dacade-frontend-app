@@ -27,7 +27,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
   const link = `/communities/${community.slug}/challenges/${data.id}`;
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
   const reward = isCourseEnd ? data?.rewards?.find((reward) => reward.type === "SUBMISSION") : data?.reward;
-  const learningModulesCount = data?.learningModules.length || 0;
+  const learningModulesCount = data?.learningModules?.length || 0;
 
   return (
     <div className="w-full justify-between- flex flex-col sm:flex-row  md:flex-col lg:flex-row  border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">
@@ -53,7 +53,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
             <div className="lg:flex lg:flex-row flex-col justify-between pt-6 items-center">
               <Link href={link}>
                 <ArrowButton communityStyles={true} variant="outline-primary">
-                  {isCourseEnd ? t("communites.overview.challenge.take.challenge") : t("communities.overview.challenge.see.challenge")}
+                  {isCourseEnd ? t("communities.overview.challenge.take.challenge") : t("communities.overview.challenge.see.challenge")}
                 </ArrowButton>
               </Link>
             </div>
