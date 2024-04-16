@@ -6,7 +6,7 @@ import Badges from "./Badges";
 import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
-import RewardCertificates from "./RewardCertificates";
+import RewardCertificate from "./RewardCertificate";
 
 /**
  * `ChallengeCard` is a function component that renders a card
@@ -66,7 +66,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
         </div>
         <div className="">
           <h1 className="font-bold text-gray-400 text-xs uppercase pb-2">{t("communities.overview.challenge.unlock.certificate")}</h1>
-          <RewardCertificates rewards={data?.rewards}/>
+          <RewardCertificate rewards={data?.rewards}/>
         </div>
         {data?.isHackathon && <p className="py-2 border-t border-gray-200 text-sm">{t("communities.overview.challenge.participate", { token: reward?.token })}</p>}
       </div>

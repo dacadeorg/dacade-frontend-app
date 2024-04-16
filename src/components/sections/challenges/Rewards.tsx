@@ -4,7 +4,7 @@ import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import Certificate from "@/components/ui/Certificate";
 import { useRouter } from "next/router";
-import RewardCertificates from "@/components/cards/challenge/RewardCertificates";
+import RewardCertificate from "@/components/cards/challenge/RewardCertificate";
 
 /**
  * Overview reward section component
@@ -28,7 +28,7 @@ export function OverviewRewards(): ReactElement {
         </div>
         <div className="flex flex-col lg:flex-row justify-between gap-2 items-start w-full">
           <div className="flex flex-col w-full lg:w-1/2">
-            {challenge?.rewards && <RewardCertificates rewards={challenge?.rewards} isReward />}
+            {challenge?.rewards && <RewardCertificate rewards={challenge?.rewards} isReward />}
           </div>
           {challenge?.isHackathon && <div className="pb-2 border-b border-gray-200 w-full lg:w-1/2">{t("communities.overview.challenge.participate", { token: token })}</div>}
         </div>

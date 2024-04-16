@@ -5,20 +5,20 @@ import { Reward } from "@/types/course";
 import classNames from "classnames";
 import { ReactElement } from "react";
 
-interface RewardCertificatesProps {
+interface RewardCertificateProps {
   rewards: Reward[];
   isReward?: boolean;
 }
 
 /**
- * RewardCertificates component is a function component that renders a list of rewards
+ * RewardCertificate component is a function component that renders a list of rewards
  * for a challenge.
  *
- * @param {RewardCertificatesProps} { rewards, isReward }
- * @returns {JSX.Element} The rendered RewardCertificates component.
+ * @param {RewardCertificateProps} { rewards, isReward }
+ * @returns {JSX.Element} The rendered RewardCertificate component.
  */
 
-export default function RewardCertificates({ rewards, isReward }: RewardCertificatesProps): ReactElement {
+export default function RewardCertificate({ rewards, isReward }: RewardCertificateProps): ReactElement {
   const { t } = useTranslation();
   return (
     <>
