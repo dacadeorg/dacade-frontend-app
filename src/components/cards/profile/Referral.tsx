@@ -7,7 +7,7 @@ import { Referral as ReferralType } from "@/types/community";
 import Link from "next/link";
 import TimeIcon from "@/icons/time.svg";
 import RewardBadge from "@/components/badges/RewardBadge";
-import { Evaluation } from "@/types/bounty";
+import { Evaluation, Submission } from "@/types/bounty";
 
 interface ReferralProps {
   referral: ReferralType;
@@ -29,7 +29,7 @@ export default function Referral({ referral }: ReferralProps): ReactElement {
   const { locale } = useRouter();
   const joinedAt = useMemo(() => DateManager.fromNow(referral.created_at, locale), [locale, referral.created_at]);
   const rewardAt = useMemo(() => (referral.rewarded ? DateManager.fromNow(referral.updated_at, locale) : null), [locale, referral.rewarded, referral.updated_at]);
-
+  const challengeLink = (submission: Submission) => `/communities/${submission.community.slug}/challenges/${submission.challenge.id}/submissions/${submission.id}`
   const status = (evaluation: Evaluation) => {
     if (!evaluation) return t("referrals.challenge.evaluation.status.pending")
     return t(evaluation?.reward ? "referrals.challenge.evaluation.status.passed" : "referrals.challenge.evaluation.status.failed")
@@ -55,7 +55,7 @@ export default function Referral({ referral }: ReferralProps): ReactElement {
                 <li key={submission.id} className="grid md:flex justify-between pt-4 gap-2 md:gap-0">
                   <span className="grid gap-2">
                     <span>
-                      {status(submission.metadata.evaluation)} <Link href={`/communities/${submission.community.slug}/challenges/${submission.challenge.id}/submissions/${submission.id}`} className="font-bold underline text-base- underline-offset-2">{submission.challenge.name} {t("referrals.submission.challenge")}</Link>
+                      {status(submission.metadata.evaluation)} <Link href={challengeLink(submission)} className="font-bold underline text-base- underline-offset-2">{submission.challenge.name} {t("referrals.submission.challenge")}</Link>
                     </span>
                     {!submission?.metadata?.evaluation && <span className="mr-0 flex items-center gap-2.5 leading-none "> <TimeIcon />{t("referrals.challenge.evaluation.pending")}</span>}
                   </span>
