@@ -166,7 +166,7 @@
   "communities.overview.challenge.subtitle": "Nakon uspješnog završetka",
   "communities.overview.challenge.certificate": "Certificate",
   "communities.overview.challenge.expiry": "Datum isteka izazova:",
-  "communites.overview.challenge.take.challenge": "Prihvati izazov",
+  "communities.overview.challenge.take.challenges": "Prihvati izazov",
   "communities.overview.challenge.see.challenge": "Pogledaj izazov",
   "communities.overview.challenge.unlock.certificate": "Otključajte s certifikatom",
   "communities.overview.challenge.participate": "Sudjelujte na ${token} hakatonima",
