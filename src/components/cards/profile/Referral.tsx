@@ -66,7 +66,7 @@ export default function Referral({ referral }: ReferralProps): ReactElement {
 
               {referral?.rewarded && referral.metadata && referral.metadata.reward && (
                 <li className="pt-4 grid gap-2 md:gap-0 md:flex md:justify-between">
-                  <span className="grid gap-2 md:flex">
+                  <span className="grid md:gap-2 md:flex items-center">
                     <span>{t("referrals.reward.text")}</span>
                     <span className="font-bold flex justify-start">
                       <RewardBadge type="gray" reward={referral.metadata.reward} />
