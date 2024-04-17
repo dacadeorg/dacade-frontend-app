@@ -9,7 +9,8 @@
     "lint": "eslint --ignore-path .eslintignore \"./**/*.{ts,tsx,js}\"",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,tsx,js,jsx}' --write",
     "check-branch-name": "./check_branch_name.sh",
-    "prepare": "npx husky install && chmod +x .husky/* && chmod +x ./check_branch_name.sh"
+    "prepare": "npx husky install && chmod +x .husky/* && chmod +x ./check_branch_name.sh",
+    "test": "jest --silent"
   },
   "dependencies": {
     "@coingecko/cryptoformat": "^0.5.4",
@@ -87,7 +88,10 @@
     "@svgr/webpack": "^6.5.1",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.9",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^15.0.2",
     "@types/dompurify": "^3.0.0",
+    "@types/jest": "^29.5.12",
     "@types/lodash": "^4.14.192",
     "@types/lodash.debounce": "^4.0.7",
     "@types/lodash.uniqby": "^4.7.7",
@@ -97,6 +101,8 @@
     "autoprefixer": "^10.4.14",
     "eslint-config-prettier": "^8.7.0",
     "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^13.2.0",
     "postcss": "^8.4.24",
     "prettier": "^2.8.8",
