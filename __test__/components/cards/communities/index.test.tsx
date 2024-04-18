@@ -15,7 +15,7 @@ const communityCardProps = {
     community: community
 }
 
-function RenderCommunityCard(props = communityCardProps) {
+const RenderCommunityCard = (props = communityCardProps) => {
   render(
     <ReduxProvider>
       <CommunityCard showRewards={props.showRewards} community={props.community} />
