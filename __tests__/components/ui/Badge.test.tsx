@@ -17,7 +17,7 @@ jest.mock("next/router", () => ({
 }));
 
 describe("Badge", () => {
-  it("shoulld render the badge", () => {
+  it("should render the badge", () => {
     renderWithRedux(<Badge />);
     const badge = screen.getByTestId("badgeId");
     expect(badge).toBeInTheDocument();
