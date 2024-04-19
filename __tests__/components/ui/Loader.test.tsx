@@ -1,8 +1,8 @@
 import Loader from "@/components/ui/Loader";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { colors } from "../../../__mocks__/colors";
-import ReduxProvider from "../../../__mocks__/provider/ReduxProvider";
+import { renderWithRedux } from "../../../__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -18,20 +18,16 @@ jest.mock("next/router", () => ({
 
 describe("Loader Component", () => {
   it("renders Loader component", () => {
-    render(
-      <ReduxProvider>
+    renderWithRedux(
         <Loader />
-      </ReduxProvider>
     );
     const loader = screen.getByTestId("loader");
     expect(loader).toBeInTheDocument();
   });
 
   it("renders Loader component with community styles", () => {
-    render(
-      <ReduxProvider>
+    renderWithRedux(
         <Loader communityStyles />
-      </ReduxProvider>
     );
     const container = screen.queryByTestId("loader");
     expect(container?.firstChild).toHaveStyle(`color: ${colors.textAccent}`); 

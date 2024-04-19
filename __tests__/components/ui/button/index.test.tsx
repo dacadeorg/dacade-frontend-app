@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
-import { fireEvent, render, screen } from "@testing-library/react";
-import ReduxProvider from "../../../../__mocks__/provider/ReduxProvider";
+import { fireEvent, screen } from "@testing-library/react";;
 import Button, { ButtonProps } from "@/components/ui/button";
+import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -32,9 +32,8 @@ const buttonProps: ButtonProps = {
 };
 
 function RenderButton(props = buttonProps) {
-  render(
-    <ReduxProvider>
-      <Button
+  renderWithRedux(
+        <Button
         className={props.className}
         onClick={props.onClick}
         type={props.type}
@@ -48,8 +47,8 @@ function RenderButton(props = buttonProps) {
       >
         {props.children}
       </Button>
-    </ReduxProvider>
-  );
+  )
+
   return screen.getByTestId("button");
 }
 

@@ -1,7 +1,7 @@
 import Badge from "@/components/ui/Badge";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import ReduxProvider from "../../../__mocks__/provider/ReduxProvider";
+import {  screen } from "@testing-library/react";
+import { renderWithRedux } from "../../../__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
     useRouter: () => ({
@@ -19,20 +19,16 @@ jest.mock("next/router", () => ({
 
 describe("Badge", () => {
     it("shoulld render the badge", () => {
-        render(
-        <ReduxProvider>
+        renderWithRedux(
         <Badge />
-        </ReduxProvider>
         )
         const badge = screen.getByTestId("badgeId")
         expect(badge).toBeInTheDocument()
     })
 
     it("shoulld render the badge", () => {
-        render(
-        <ReduxProvider>
+        renderWithRedux(
         <Badge value={"Badge test"}/>
-        </ReduxProvider>
         )
         const badge = screen.getByTestId("badgeId")
         expect(badge.textContent).toBe("Badge test")

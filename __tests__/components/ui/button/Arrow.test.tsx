@@ -1,7 +1,7 @@
 import ArrowButton from "@/components/ui/button/Arrow";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import ReduxProvider from "../../../../__mocks__/provider/ReduxProvider";
+import { screen } from "@testing-library/react";
+import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -38,8 +38,7 @@ const RenderArrowButton = (props = arrowButtonProps) => {
   const { loading, disabled, rounded, type, variant, padding, children, customStyle, link, target, direction, minWidthClass, communityStyles, arrowClasses, onClick, className } =
     props;
 
-  render(
-    <ReduxProvider>
+  renderWithRedux(
       <ArrowButton
         loading={loading}
         disabled={disabled}
@@ -59,7 +58,6 @@ const RenderArrowButton = (props = arrowButtonProps) => {
       >
         {children}
       </ArrowButton>
-    </ReduxProvider>
   );
 
   return screen.getByText(arrowButtonProps.children);
