@@ -18,18 +18,14 @@ jest.mock("next/router", () => ({
 
 describe("Loader Component", () => {
   it("renders Loader component", () => {
-    renderWithRedux(
-        <Loader />
-    );
+    renderWithRedux(<Loader />);
     const loader = screen.getByTestId("loader");
     expect(loader).toBeInTheDocument();
   });
 
   it("renders Loader component with community styles", () => {
-    renderWithRedux(
-        <Loader communityStyles />
-    );
+    renderWithRedux(<Loader communityStyles />);
     const container = screen.queryByTestId("loader");
-    expect(container?.firstChild).toHaveStyle(`color: ${colors.textAccent}`); 
+    expect(container?.firstChild).toHaveStyle(`color: ${colors.textAccent}`);
   });
 });

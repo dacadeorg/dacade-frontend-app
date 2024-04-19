@@ -39,25 +39,25 @@ const RenderArrowButton = (props = arrowButtonProps) => {
     props;
 
   renderWithRedux(
-      <ArrowButton
-        loading={loading}
-        disabled={disabled}
-        rounded={rounded}
-        type={type}
-        variant={variant}
-        padding={padding}
-        customStyle={customStyle}
-        link={link}
-        target={target}
-        direction={direction}
-        minWidthClass={minWidthClass}
-        communityStyles={communityStyles}
-        arrowClasses={arrowClasses}
-        onClick={onClick}
-        className={className}
-      >
-        {children}
-      </ArrowButton>
+    <ArrowButton
+      loading={loading}
+      disabled={disabled}
+      rounded={rounded}
+      type={type}
+      variant={variant}
+      padding={padding}
+      customStyle={customStyle}
+      link={link}
+      target={target}
+      direction={direction}
+      minWidthClass={minWidthClass}
+      communityStyles={communityStyles}
+      arrowClasses={arrowClasses}
+      onClick={onClick}
+      className={className}
+    >
+      {children}
+    </ArrowButton>
   );
 
   return screen.getByText(arrowButtonProps.children);

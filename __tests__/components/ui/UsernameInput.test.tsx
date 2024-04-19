@@ -19,9 +19,7 @@ jest.mock("next/router", () => ({
 describe("UsernameInput", () => {
   it("should render the username input", () => {
     const register = jest.fn();
-    renderWithRedux(
-        <UsernameInput register={register} errors={{}} usernameValue="" />
-    );
+    renderWithRedux(<UsernameInput register={register} errors={{}} usernameValue="" />);
     const usernameValue = screen.getByTestId("usernameInput");
 
     expect(usernameValue).toBeInTheDocument();

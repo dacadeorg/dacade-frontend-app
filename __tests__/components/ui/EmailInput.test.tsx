@@ -20,9 +20,7 @@ jest.mock("next/router", () => ({
 
 const renderUsernameInput = (props?: { errors: FieldErrors<FormValues>; emailValue: string }) => {
   const register = jest.fn();
-  renderWithRedux(
-      <EmailInput register={register} errors={{ ...props?.errors }} emailValue={props?.emailValue} />
-  );
+  renderWithRedux(<EmailInput register={register} errors={{ ...props?.errors }} emailValue={props?.emailValue} />);
 
   return screen.getByTestId("emailInput");
 };

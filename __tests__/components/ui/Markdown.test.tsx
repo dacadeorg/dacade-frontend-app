@@ -17,9 +17,7 @@ jest.mock("next/router", () => ({
 
 describe("Markdown", () => {
   it("should render Markdown", () => {
-    renderWithRedux(
-        <Markdown value="Markdown test" />
-    );
+    renderWithRedux(<Markdown value="Markdown test" />);
 
     const markdown = screen.queryByText("Markdown test");
     expect(markdown).toBeInTheDocument();
@@ -27,9 +25,7 @@ describe("Markdown", () => {
 
   it("Should have the markdown styles passed as props", () => {
     const markdownStyle = "mark down style";
-    renderWithRedux(
-        <Markdown value="Markdown test" markDownStyles={markdownStyle} />
-    );
+    renderWithRedux(<Markdown value="Markdown test" markDownStyles={markdownStyle} />);
 
     const markdown = screen.queryByText("Markdown test");
     expect(markdown?.className).toContain(markdownStyle);

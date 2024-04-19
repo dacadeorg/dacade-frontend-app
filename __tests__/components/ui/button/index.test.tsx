@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { fireEvent, screen } from "@testing-library/react";;
+import { fireEvent, screen } from "@testing-library/react";
 import Button, { ButtonProps } from "@/components/ui/button";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 
@@ -33,21 +33,21 @@ const buttonProps: ButtonProps = {
 
 function RenderButton(props = buttonProps) {
   renderWithRedux(
-        <Button
-        className={props.className}
-        onClick={props.onClick}
-        type={props.type}
-        link={props.link}
-        disabled={props.disabled}
-        padding={props.padding}
-        target={props.target}
-        communityStyles={props.communityStyles}
-        text={props.text}
-        rounded={props.rounded}
-      >
-        {props.children}
-      </Button>
-  )
+    <Button
+      className={props.className}
+      onClick={props.onClick}
+      type={props.type}
+      link={props.link}
+      disabled={props.disabled}
+      padding={props.padding}
+      target={props.target}
+      communityStyles={props.communityStyles}
+      text={props.text}
+      rounded={props.rounded}
+    >
+      {props.children}
+    </Button>
+  );
 
   return screen.getByTestId("button");
 }
