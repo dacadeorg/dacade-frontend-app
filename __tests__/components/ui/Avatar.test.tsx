@@ -17,7 +17,7 @@ describe("Avatar", () => {
     expect(avatar.tagName).toBe("A");
   });
 
-  it("Should render an avatar div box", () => {
+  it("Should render an avatar with no link", () => {
     render(<Avatar useLink={false} />);
     const avatar = screen.getByTestId("avatar");
     expect(avatar.tagName).toBe("DIV");
