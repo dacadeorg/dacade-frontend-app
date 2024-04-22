@@ -1,8 +1,8 @@
 export const reward = {
     id: "id",
     ref: "ref",
-    created_at: "1/1/2000 " as unknown as Date,
-    updated_at: "1/1/2000 " as unknown as Date,
+    created_at: new Date("2024-01-29T08:00:00Z"),
+    updated_at: new Date("2024-01-29T08:00:00Z"),
     challenge: "challenge",
     type: "challenge type",
     community: "community",
