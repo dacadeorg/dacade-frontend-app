@@ -25,8 +25,10 @@ export default function Badges({ challenge, className }: BadgeProps) {
     return setChallengeLevel("course.challenge.level-2");
   }, [challenge.level]);
 
+  if (!challenge?.level && !challenge?.isTeamChallenge) return <></>;
+
   return (
-    <div className={`uppercase flex flex-wrap gap-2 mb-6 ${className}`}>
+    <div className={`uppercase flex flex-wrap gap-2 mb-4 ${className}`}>
       {challenge?.level && <Tag>{t(challengeLevel)}</Tag>}
       {challenge?.isTeamChallenge && <Tag type="light">{challenge?.isHackathon ? "Hackathon" : "Team"} challenge</Tag>}
     </div>
