@@ -144,7 +144,6 @@ export default function ChallengePage() {
                   <div className="grid mt-8 space-y-8">
                     <Hint>
                       <p
-                        className="text-lg py-4"
                         dangerouslySetInnerHTML={{
                           __html: t(
                             challenge?.multipleSubmissions ? "communities.challenge.submission.multiple-submissions" : "communities.challenge.submission.no-multiple-submissions"
