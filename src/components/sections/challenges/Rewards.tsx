@@ -32,7 +32,7 @@ export function OverviewRewards(): ReactElement {
 
   return (
     <Section title={`${t("communities.overview.reward.title")}`}>
-      <p className="my-5 text-lg">{t("communities.overview.reward.subtitle")}</p>
+      <p data-testid="overviewRewardId" className="my-5 text-lg">{t("communities.overview.reward.subtitle")}</p>
       <div className="md:flex md:flex-row items-center flex-col rounded-full max-w-max text-sm mt-6 space-y-8 md:space-x-8 md:space-y-0">
         <div className="flex items-center gap-1 md:gap-0">
           <Certificate size="medium" name={router.query?.slug as string} />
