@@ -98,22 +98,10 @@ body {
 }
 
 .message-bubble {
-  @apply w-72 p-8 rounded-3.5xl relative text-base;
+  @apply w-72 p-6 rounded-3.5xl rounded-bl-none relative text-base border border-black border-opacity-5;
 
   background: #fefce8;
   color: #713f12;
-}
-
-.message-bubble::before {
-  width: 0;
-  height: 0;
-  left: -28px;
-  content: "";
-  position: absolute;
-  border-left: 28px solid transparent;
-  bottom: 0;
-  border-right: 28px solid transparent;
-  border-bottom: 28px solid #fefce8;
 }
 
 @media only screen and (min-width: 992px) {
