@@ -75,3 +75,25 @@ export const challenge = {
   teamLimit: 5,
   isHackathon: false
 }
+
+
+export const Rubric = {
+  id: "id",
+  ref: "rubric references",
+  created_at: "Wednesday",
+  updated_at: "Thursday",
+  challenge: "Challenge",
+  text: "Challenge text",
+  type: "challenge type",
+  order: 89,
+  points: 90,
+  timestamp: 73,
+  typeSlug: "slug"
+};
+
+export const RatingCriteria = {
+  name: "rating criteria",
+  order: 4,
+  rubric: [Rubric],
+  maxPoints: 78,
+};

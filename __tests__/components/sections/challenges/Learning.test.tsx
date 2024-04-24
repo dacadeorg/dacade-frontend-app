@@ -1,8 +1,8 @@
 import Learning from "@/components/sections/challenges/Learning";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { community } from "../../../../__mocks__/community";
-import ReduxProvider from "../../../../__mocks__/provider/ReduxProvider";
+import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
     useRouter: () => ({
@@ -17,10 +17,8 @@ jest.mock("next/router", () => ({
 
 describe("Learning", () => {
     it("should render what is being learned", () => {
-        render(
-            <ReduxProvider>
+        renderWithRedux(
         <Learning courses={[]} learningModules={[]} community={community}/>
-        </ReduxProvider>
         )
         const learning = screen.getByTestId("learningId")
         expect(learning).toBeInTheDocument()

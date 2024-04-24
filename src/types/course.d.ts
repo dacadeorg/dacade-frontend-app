@@ -99,7 +99,7 @@ export type Rubric = {
   points: number;
   timestamp: number;
   typeSlug: string;
-  [key: string]: any;
+  [key?: string]: any;
 };
 
 export type Format = {

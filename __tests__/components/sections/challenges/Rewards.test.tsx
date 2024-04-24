@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import ReduxProvider from "../../../../__mocks__/provider/ReduxProvider";
+import { screen } from "@testing-library/react";
 import { OverviewRewards } from "@/components/sections/challenges/Rewards";
+import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -16,10 +16,8 @@ jest.mock("next/router", () => ({
 
 describe("Reward", () => {
   it("should render a reward", () => {
-    render(
-      <ReduxProvider>
+    renderWithRedux(
         <OverviewRewards />
-      </ReduxProvider>
     );
     const OverviewReward = screen.getByTestId("overviewRewardId");
     expect(OverviewReward).toBeInTheDocument();

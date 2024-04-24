@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import ReduxProvider from "../../../../__mocks__/provider/ReduxProvider";
+import { screen } from "@testing-library/react";
 import BountiesNavigation from "@/components/sections/bounties/Navigation";
+import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -18,20 +18,16 @@ jest.mock("next/router", () => ({
 
 describe("Navigation", () => {
   it("should render the navigation", () => {
-    render(
-      <ReduxProvider>
+    renderWithRedux(
         <BountiesNavigation />
-      </ReduxProvider>
     );
     const bountiesNavigation = screen.getByTestId("bountiesNavigationId");
     expect(bountiesNavigation).toBeInTheDocument();
   });
 
   it("should render menu items", () => {
-    render(
-      <ReduxProvider>
+    renderWithRedux(
         <BountiesNavigation />
-      </ReduxProvider>
     );
     const menuItems = screen.getAllByRole("listitem");
     expect(menuItems.length).toBeGreaterThan(0);

@@ -86,7 +86,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
         isExpanded
         content={
           <>
-            <div>
+            <div data-testid="rubricId">
               {ratingCriteria.map((criteria, i) => (
                 <div key={`rating-criteria-item-${i}`} className="mt-8">
                   <span className="block text-sm capitalize font-medium">{criteria.name}</span>

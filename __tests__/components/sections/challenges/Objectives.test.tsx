@@ -1,7 +1,7 @@
 import Objectives from "@/components/sections/challenges/Objectives";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import ReduxProvider from "../../../../__mocks__/provider/ReduxProvider";
+import { screen } from "@testing-library/react";
+import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -16,10 +16,8 @@ jest.mock("next/router", () => ({
 
 describe("Objectives", () => {
   it("should render objectivies", () => {
-    render(
-      <ReduxProvider>
+    renderWithRedux(
         <Objectives />
-      </ReduxProvider>
     );
     const objectives = screen.getByTestId("objectiveId");
     expect(objectives).toBeInTheDocument();
