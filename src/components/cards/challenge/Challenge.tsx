@@ -35,7 +35,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
         <div className="flex flex-col mb-1">
           <div className="lg:pr-20">
             {expiresAt && (
-              <div className="text-gray-400 lg:w-2/3 text-sm font-normal mb-4">
+              <div className="text-gray-400 text-sm font-normal mb-4">
                 <span>{t("communities.overview.challenge.deadline")}</span>
                 <span className="font-medium pl-1">{expiresAt}</span>
               </div>
