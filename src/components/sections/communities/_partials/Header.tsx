@@ -28,11 +28,11 @@ export default function Header({
       <h1 className={headerClassName}>{title}</h1>
       <div className="flex items-start gap-1">
         {subtitle && (
-          <h2 className="text-4xl flex items-center font-normal leading-none md:text-5xl text-gray-400">
+          <h2 className={`text-4xl flex items-center font-normal leading-none md:text-5xl ${title? "text-gray-400": "text-gray-900"}`}>
             {subtitle}
             {isTeamChallenge && (
               <div className="h-full flex -mt-2 items-start ml-2">
-                <Tag type="light">{isHackathon ? "Hackathon" : "TEAM"}</Tag>
+                <Tag type="gray">{isHackathon ? "Hackathon" : "TEAM"}</Tag>
               </div>
             )}
           </h2>
