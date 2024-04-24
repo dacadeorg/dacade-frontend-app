@@ -1,7 +1,7 @@
 import ChallengeHeader from "@/components/sections/challenges/Header";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import ReduxProvider from "../../../../__mocks__/provider/ReduxProvider";
+import { screen } from "@testing-library/react";
+import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
     useRouter: () => ({
@@ -16,10 +16,8 @@ jest.mock("next/router", () => ({
 
 describe("Header", ()=> {
     it("should render the header", () => {
-        render(
-        <ReduxProvider>
+        renderWithRedux(
         <ChallengeHeader/>
-        </ReduxProvider>
         )
         const challengeheader = screen.getByTestId("challengeHeaderId")
         expect(challengeheader).toBeInTheDocument()
