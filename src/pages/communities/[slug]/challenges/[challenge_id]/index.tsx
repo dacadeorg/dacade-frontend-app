@@ -169,11 +169,13 @@ export default function ChallengePage() {
               </div>
             ) : (
               <div>
-                <Hint className="mt-6 flex flex-col md:flex-row">
-                  <p>To be able to submit</p>&nbsp;
-                  <Link className="underline" href="/login">
-                    Login.
-                  </Link>
+                <Hint className="mt-6">
+                  <p>
+                    To be able to submit
+                    <Link className="underline pl-1" href="/login">
+                      Login.
+                    </Link>
+                  </p>
                 </Hint>
               </div>
             )}
