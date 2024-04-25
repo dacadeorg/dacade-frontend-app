@@ -144,7 +144,6 @@ export default function ChallengePage() {
                   <div className="grid mt-8 space-y-8">
                     <Hint>
                       <p
-                        className="text-lg py-4"
                         dangerouslySetInnerHTML={{
                           __html: t(
                             challenge?.multipleSubmissions ? "communities.challenge.submission.multiple-submissions" : "communities.challenge.submission.no-multiple-submissions"
@@ -170,11 +169,13 @@ export default function ChallengePage() {
               </div>
             ) : (
               <div>
-                <Hint className="mt-6 flex flex-col md:flex-row">
-                  <p>To be able to submit</p>&nbsp;
-                  <Link className="underline" href="/login">
-                    Login.
-                  </Link>
+                <Hint className="mt-6">
+                  <p>
+                    To be able to submit
+                    <Link className="underline pl-1" href="/login">
+                      Login.
+                    </Link>
+                  </p>
                 </Hint>
               </div>
             )}
