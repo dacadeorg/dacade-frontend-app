@@ -31,7 +31,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
 
   return (
     <div className="w-full flex flex-col sm:flex-row  md:flex-col lg:flex-row  border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">
-      <div className="border-solid border -m-px border-gray-200 bg-white rounded-3xl sm:p-8 sm:pb-6 p-6 lg:w-2/3">
+      <div className="border-solid border -m-px border-gray-200 bg-white rounded-3xl sm:p-8 sm:pb-6 p-6 sm:max-w-[60%] sm:min-w-[60%] md:max-w-none md:min-w-none lg:max-w-[60%] lg:min-w-[60%]">
         <div className="flex flex-col mb-1">
           <div className="lg:pr-20">
             {expiresAt && (
@@ -58,7 +58,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
           </div>
         </div>
       </div>
-      <div className="p-6">
+      <div className="p-6 lg:mx-auto">
         <div className="mx-auto relative rounded-full mb-5 w-[147px] h-[184px]">
           <Image src={data?.certificateData?.icon} alt="achievement" fill priority />
         </div>
