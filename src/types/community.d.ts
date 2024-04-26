@@ -60,7 +60,6 @@ export interface Referral {
   timestamp: number;
   reward: Reward;
   challenge: Challenge;
-  community: Community;
   submissions: Submission[];
   rewarded: boolean;
   metadata?: {
