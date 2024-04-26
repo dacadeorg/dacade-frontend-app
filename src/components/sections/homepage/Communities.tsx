@@ -31,7 +31,7 @@ export default function CommunitiesSection({ communities }: { communities: Commu
           <div className="message-bubble">{t("page.index.communities.subtitle")}</div>
         </div>
       </div>
-      <div className="mt-7 grid grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-0.5 lg:gap-y-5 md:gap-y-5 justify-stretch-items">
+      <div className="mt-5 md:mt-7 grid grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-0.5 lg:gap-y-5 md:gap-y-5 justify-stretch-items">
         {communities?.map((community) => (
           <CommunityCard key={community.id} community={community} />
         ))}
