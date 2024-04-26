@@ -41,7 +41,7 @@ export default function MainSection(): ReactElement {
     <Section type="default" padding="p-0">
       <div className="w-full lg:py-24 pt-24 pb-8">
         <h1 className="lg:text-8xl md:text-6xl text-5xl leading-none tracking-tighter">{t("page.index.main.title")}</h1>
-        <p className="lg:text-8xl md:text-6xl text-2xl py-2 lg:py-0 md:py-0 sm:py-0 text-black lg:text-gray-400 md:text-gray-400 sm:text-gray-400 tracking-tighter leading-none">
+        <p className="lg:text-8xl md:text-6xl text-[40px] py-2 lg:py-0 md:py-0 sm:py-0 text-gray-400 tracking-tighter leading-none">
           {t("page.index.main.subtitle")}
         </p>
       </div>
