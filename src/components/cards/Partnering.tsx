@@ -12,7 +12,7 @@ export default function PartneringCard() {
   const { t } = useTranslation();
   return (
     <div className="relative lg:mt-0 xl:pt-0 rounded-3.5xl overflow-hidden mt-5 md:mt-0 border border-solid border-gray-light md:border-none">
-      <div className="relative z-10 p-6 lg:pb-3 w-full text-primary h-full min-h-xs flex flex-col justify-between divide-y-2 divide-y divide-dotted divide-theme-accent">
+      <div className="relative z-10 p-6 lg:pb-3 w-full text-primary h-full min-h-xs flex flex-col justify-between">
         <div className="max-w-sm">
           <p className="text-2xl font-medium mb-2.5 leading-none">{t("page.index.communities.partnering.title")}</p>
           <p className="text-base mt-0 mb-20 lg:mb-0 leading-normal">{t("page.index.communities.partnering.subtitle")}</p>
