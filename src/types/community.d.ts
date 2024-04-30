@@ -42,8 +42,14 @@ export interface Colors {
     background: string;
   };
 }
+interface ReferralSubmission extends Submission {
+  challengeData: Challenge,
+  link: string
+}
+interface UserReferral extends User {
+  submissions: ReferralSubmission[]
+}
 export interface Referral {
-  user: User;
   id: string;
   name: string;
   ref: string;
@@ -53,13 +59,11 @@ export interface Referral {
   community: Community;
   timestamp: number;
   reward: Reward;
-  user: User;
   challenge: Challenge;
-  community: Community;
   submissions: Submission[];
   rewarded: boolean;
   metadata?: {
     reward: Reward;
   };
-  user: User;
+  user: UserReferral;
 }
