@@ -459,6 +459,16 @@ div {
   .markdown-content h2 {
     font-size: 1.25rem !important;
   }
+  .divide-dotted-custom:not(:first-child):before {
+  content: "";
+  display: block;
+  height: 0.25rem; 
+  margin-bottom: 1.25rem; 
+  background-image: linear-gradient(to right, #E5E7EB 25%, transparent 20%);
+  background-size: 0.625rem 0.313rem;
+  background-repeat: repeat-x;
+}
+
 }
 
 .web3modal-modal-lightbox {
