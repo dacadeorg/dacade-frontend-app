@@ -33,11 +33,10 @@ describe('Learning', () => {
     expect(learning).toBeInTheDocument();
   });
 
-      //   example from another test
-    //   it("should show rewards when we have rewards and show rewards when enabled", () => {
-    //     RenderCommunityCard({ ...communityCardProps, showRewards: true });
-    //     const communityCardButtonrewards = screen.getByTestId("community-rewards");
-    //     expect(communityCardButtonrewards).toBeInTheDocument();
-    //   });
+      it("should show learning module", () => {
+        RenderLearning({ ...learningProps });
+        const learningAccordeon = screen.getByTestId("learning accordeon");
+        expect(learningAccordeon).toBeInTheDocument();
+      });
   })
 

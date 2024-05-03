@@ -21,6 +21,7 @@ export default function Learning({ courses, learningModules, community }: { cour
       <Accordion
         title="Learn"
         subtitle=""
+        testid="learning-accordeon"
         isExpanded
         content={
           <>
