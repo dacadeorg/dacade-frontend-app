@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom";
-import Reward from "@/components/sections/challenges/Reward";
+import  { OverviewRewards } from "@/components/sections/challenges/Rewards";
 import { render, screen } from "@testing-library/react";
 // import { community } from "../../../../__mocks__/community";
-import ReduxProvider from "../../../../__mocks__/provider/ReduxProvider";
+import ReduxProvider from "../../__mocks__/provider/ReduxProvider";
 jest.mock("next/router", () => ({
   useRouter: () => ({
     push: jest.fn(),
@@ -15,10 +15,10 @@ jest.mock("next/router", () => ({
     // }
     
     
-    const RenderReward = () => {
+    const RenderRewards = () => {
         render(
           <ReduxProvider>
-            <Reward />
+            <OverviewRewards />
           </ReduxProvider>
         );
         return screen.getByTestId("");
@@ -27,7 +27,7 @@ jest.mock("next/router", () => ({
 
 describe('Reward', () => {
     it("should render the Reward", () => {
-        const reward  = RenderReward();
+        const reward  = RenderRewards();
         expect(reward).toBeInTheDocument();
       });
 

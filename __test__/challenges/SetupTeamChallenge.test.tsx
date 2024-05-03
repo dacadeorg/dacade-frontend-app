@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChallenge";
 import { render, screen } from "@testing-library/react";
 // import { community } from "../../../../__mocks__/community";
-import ReduxProvider from "../../../../__mocks__/provider/ReduxProvider";
+import ReduxProvider from "../../__mocks__/provider/ReduxProvider";
 jest.mock("next/router", () => ({
   useRouter: () => ({
     push: jest.fn(),

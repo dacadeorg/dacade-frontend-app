@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import Header from "@/components/sections/challenges/Header";
 import { render, screen } from "@testing-library/react";
 // import { community } from "../../../../__mocks__/community";
-import ReduxProvider from "../../../../__mocks__/provider/ReduxProvider";
+import ReduxProvider from "../../__mocks__/provider/ReduxProvider";
 jest.mock("next/router", () => ({
   useRouter: () => ({
     push: jest.fn(),
