@@ -52,7 +52,7 @@ export default function ThemeWrapper({ colors, className = "", children }: Theme
   }, [colors]);
 
   return (
-    <div className={className} style={{ ...cssVars }} data-testid="themeWrapper">
+    <div className={className} style={{ ...cssVars }}>
       {children}
     </div>
   );

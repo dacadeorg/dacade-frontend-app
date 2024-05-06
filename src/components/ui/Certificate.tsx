@@ -110,5 +110,5 @@ export default function Certificate({ size = "medium", shape = "circle", name, c
     }
   }
 
-  return <div className={`relative grid place-content-center md:mr-0 ${sizeClasses} ${shapeClasses} ${className}`}>{certificate?.icon && certificate.icon}</div>;
+  return <div data-testid="certificateId" className={`relative grid place-content-center md:mr-0 ${sizeClasses} ${shapeClasses} ${className}`}>{certificate?.icon && certificate.icon}</div>;
 }

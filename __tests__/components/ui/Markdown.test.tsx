@@ -1,7 +1,7 @@
 import Markdown from "@/components/ui/Markdown";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import ReduxProvider from "../../../__mocks__/provider/ReduxProvider";
+import { screen } from "@testing-library/react";
+import { renderWithRedux } from "../../../__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -17,11 +17,7 @@ jest.mock("next/router", () => ({
 
 describe("Markdown", () => {
   it("should render Markdown", () => {
-    render(
-      <ReduxProvider>
-        <Markdown value="Markdown test" />
-      </ReduxProvider>
-    );
+    renderWithRedux(<Markdown value="Markdown test" />);
 
     const markdown = screen.queryByText("Markdown test");
     expect(markdown).toBeInTheDocument();
@@ -29,11 +25,7 @@ describe("Markdown", () => {
 
   it("Should have the markdown styles passed as props", () => {
     const markdownStyle = "mark down style";
-    render(
-      <ReduxProvider>
-        <Markdown value="Markdown test" markDownStyles={markdownStyle} />
-      </ReduxProvider>
-    );
+    renderWithRedux(<Markdown value="Markdown test" markDownStyles={markdownStyle} />);
 
     const markdown = screen.queryByText("Markdown test");
     expect(markdown?.className).toContain(markdownStyle);

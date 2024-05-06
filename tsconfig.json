@@ -19,6 +19,6 @@
       "react": ["./node_modules/@types/react"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/sections/learning-modules/_partials/MarkDown.jsx", "jest.config.js", "jest.config.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/sections/learning-modules/_partials/MarkDown.jsx", "jest.config.js"],
   "exclude": ["node_modules"]
 }
