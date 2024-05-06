@@ -139,7 +139,7 @@ export default function Submission(): ReactElement {
           {!canSubmit ? (
             <Hint className="mb-8">{t("communities.challenge.submission.hint")}</Hint>
           ) : (
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form data-testid="submission-form" onSubmit={handleSubmit(onSubmit)}>
               {challenge?.format && (
                 <div className="relative w-full md:pl-7.5 my-6">
                   <div className="absolute z-50 left-3 md:left-0 top-3">
@@ -212,3 +212,4 @@ export default function Submission(): ReactElement {
     </Section>
   );
 }
+
