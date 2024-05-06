@@ -33,7 +33,7 @@ export default function Header({
           <h2 className="text-4xl flex items-center font-normal leading-none md:text-5xl text-default">
             {subtitle}
             {isTeamChallenge && (
-              <div data-testid="header-tag" className="h-full flex -mt-2 items-start ml-2">
+              <div className="h-full flex -mt-2 items-start ml-2">
                 <Tag type="light">{isHackathon ? "Hackathon" : "TEAM"}</Tag>
               </div>
             )}
