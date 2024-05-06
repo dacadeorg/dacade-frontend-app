@@ -19,6 +19,7 @@ import NotificationList from "../list/NotificationList";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
 import LanguageList from "@/components/list/LanguageList";
+import JobOffers from "./JobOffers";
 
 /**
  * interface for Sidebar multiSelector
@@ -128,16 +129,19 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
                 </div>
               </div>
               {isAuthenticated && (
-                <div className="flex">
-                  <div className="w-10 h-10 ml-3 mr-2 my-3 rounded-full bg-red-500">
-                    <WalletIcon className="m-2" />
+                <>
+                  <div className="flex">
+                    <div className="w-10 h-10 ml-3 mr-2 my-3 rounded-full bg-red-500">
+                      <WalletIcon className="m-2" />
+                    </div>
+                    <div className="py-5 font-medium text-gray-900" onClick={toggle}>
+                      <Link className="font-medium text-lg text-gray-900" href="/profile/wallets">
+                        {t("nav.wallet")}
+                      </Link>
+                    </div>
                   </div>
-                  <div className="py-5 font-medium text-gray-900" onClick={toggle}>
-                    <Link className="font-medium text-lg text-gray-900" href="/profile/wallets">
-                      {t("nav.wallet")}
-                    </Link>
-                  </div>
-                </div>
+                  <JobOffers externalClick={externalClick} />
+                </>
               )}
 
               {isAuthenticated && (
