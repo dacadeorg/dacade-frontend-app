@@ -16,6 +16,7 @@ import classNames from "classnames";
 import Loader from "../ui/Loader";
 import { IRootState } from "@/store";
 import { User } from "@/types/bounty";
+import JobOffers from "../popups/JobOffers";
 
 interface NavbarProps {
   settings?: {
@@ -93,6 +94,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
           <ul className="hidden lg:block relative self-center">
             <NavItem to="/bounties">{t("nav.bounties")}</NavItem>
             <NavItem to={"/communities"}>{t("nav.communities")}</NavItem>
+            <JobOffers />
           </ul>
         )}
 
