@@ -44,7 +44,7 @@ export default function ScoreboardOverview(): ReactElement {
           )}
         </div>
       ) : (
-        <div className=" w-full overflow-hidden border-t border-gray-200 ">
+        <div data-testid="scoreboardId" className=" w-full overflow-hidden border-t border-gray-200 ">
           <EmptyState title={t("communities.scoreboard.empty-state.title")} />
         </div>
       )}
