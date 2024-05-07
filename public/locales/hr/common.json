@@ -293,6 +293,7 @@
   "profile.settings.edit.email": "Email",
   "profile.settings.edit.email.update": "Update your Email",
   "profile.settings.edit.email.confirm": "Confirm email",
+  "profile.settings.edit.email.error": "E-pošte se trebaju podudarati",
   "profile.settings.edit.discord": "Discord",
   "profile.settings.edit.discord.connect": "connect",
   "profile.settings.edit.discord.connected": "connected",
