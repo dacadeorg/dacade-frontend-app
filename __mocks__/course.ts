@@ -1,6 +1,6 @@
 import { reward } from "./reward";
 
-export type Course = {
+export const Course = {
     id: "course",
     ref: "course ref",
     created_at: "created_at",
@@ -14,24 +14,24 @@ export type Course = {
     locale: "English",
     community: "community",
     slug: "course description slug",
-    introduction: object,
+    introduction: Object,
     active: true,
     certificateIcon: "certificate",
-    certificateData: object,
+    certificateData: Object,
     timestamp: 0,
-    learningModules: [object],
+    learningModules: [Object],
     translations: [],
-    trailer: object,
+    trailer: Object,
     disclaimer: "Course",
-    items?: ["item 1", "item 2"],
+    items: ["item 1", "item 2"],
     faq: [{
-      description: "faq description"
+      description: "faq description",
       title: "faq title"
     }],
     prerequisite: {
       items: ["item 1", "item 2"],
       hint: "prerequisite hint"
-    };
+    }
   };
 
 export const Format = {
