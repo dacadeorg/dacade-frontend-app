@@ -17,6 +17,9 @@ interface GithubLinkInputProps extends HTMLProps<HTMLInputElement> {
   placeholder?: string;
   error?: string | null;
   handleInput?: (event: ChangeEvent<HTMLInputElement>) => void;
+  testId?: string;
+  githubIconTestId?: string;
+  githubInputTestId?: string;
 }
 
 /**
@@ -41,7 +44,18 @@ interface GithubLinkInputProps extends HTMLProps<HTMLInputElement> {
  */
 
 export default forwardRef<HTMLInputElement, GithubLinkInputProps>(function GithubLinkInput(
-  { type = "text", label, disabled = false, placeholder, error = null, handleInput, ...props },
+  {
+    type = "text",
+    label,
+    disabled = false,
+    placeholder,
+    error = null,
+    handleInput,
+    testId = "githubLinkInput",
+    githubIconTestId = "githubIcon",
+    githubInputTestId = "githubInput",
+    ...props
+  },
   ref
 ): ReactElement {
   const [isFocused, setIsFocused] = useState(false);
@@ -83,18 +97,18 @@ export default forwardRef<HTMLInputElement, GithubLinkInputProps>(function Githu
   );
 
   return (
-    <div data-testid="githubLinkInput" className="flex items-center w-full border border-t-0 border-gray-200">
+    <div data-testid={testId} className="flex items-center w-full border border-t-0 border-gray-200">
       <div className="flex-none pl-3.75">
-        <GithubIcon data-testid="githubIcon" className="relative flex-none text-gray-400 m-0 p-0 block -mt-0.5" />
+        <GithubIcon data-testid={githubIconTestId} className="relative flex-none text-gray-400 m-0 p-0 block -mt-0.5" />
       </div>
       <div className="relative flex-1 pl-3 pr-10.75">
         <label className={labelClassName}>{label}</label>
         <input
-          data-testid="githubInput"
+          data-testid={githubInputTestId}
           ref={ref}
           className={inputClassName}
           type={type}
-          placeholder={placeholder} 
+          placeholder={placeholder}
           disabled={disabled}
           onFocus={() => setIsFocused(true)}
           onChange={(e) => setValue(e.target.value)}

@@ -16,6 +16,8 @@ interface SocialLinkProps {
     title: string;
     icon: string;
   };
+  testId?: string;
+  socialLinkIconTestId?: string;
 }
 
 /**
@@ -28,7 +30,7 @@ interface SocialLinkProps {
  *    icon: string; }; }} { link }
  * @returns {ReactElement}
  */
-export default function SocialLink({ link }: SocialLinkProps): ReactElement {
+export default function SocialLink({ link, testId = "socialLink", socialLinkIconTestId = "socialLink-icon" }: SocialLinkProps): ReactElement {
   const icons = {
     discord: <DiscordIcon data-testid="discordIcon" />,
     twitter: <TwitterIcon data-testid="twitterIcon" />,
@@ -39,14 +41,14 @@ export default function SocialLink({ link }: SocialLinkProps): ReactElement {
 
   return (
     <a
-      data-testid="socialLink"
+      data-testid={testId}
       href={link.url}
       target="__blank"
       title={link.title}
       className="h-14 w-14 border border-solid bg-gray-50 border-gray-200 box-border inline-flex items-center justify-center text-lg rounded-full"
     >
       {icon && (
-        <div title={link.title} className="w-4.5 inline-block" data-testid="socialLink-icon">
+        <div title={link.title} className="w-4.5 inline-block" data-testid={socialLinkIconTestId}>
           {icon}
         </div>
       )}

@@ -14,6 +14,7 @@ interface LoaderProps {
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  testId?: string;
 }
 
 /**
@@ -29,7 +30,7 @@ interface LoaderProps {
  * @returns {ReactElement}
  */
 
-export default function Loader({ loading, onClick, onInput, className }: LoaderProps): ReactElement {
+export default function Loader({ loading, onClick, onInput, className, testId = "loader" }: LoaderProps): ReactElement {
   const loadingClassName = classNames({
     "bg-gray-50": loading,
     "hover:bg-gray-200": !loading,
@@ -39,7 +40,7 @@ export default function Loader({ loading, onClick, onInput, className }: LoaderP
   });
   return (
     <div
-      data-testid="loader"
+      data-testid={testId}
       className={`h-15 w-15 rounded-full border border-solid cursor-pointer flex items-center justify-center text-gray-400 bg-white ${loadingClassName} ${className}`}
       onClick={onClick}
       onInput={onInput}

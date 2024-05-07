@@ -13,6 +13,6 @@ describe("NavItem", () => {
     render(<NavItem to="/">Nav item</NavItem>);
     const navItemLink = screen.getByTestId("nav-item-link");
     expect(navItemLink).toBeInTheDocument();
-    expect(navItemLink).toHaveAttribute("href","/")
-  })
+    expect(navItemLink).toHaveAttribute("href", "/");
+  });
 });

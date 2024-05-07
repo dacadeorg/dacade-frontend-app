@@ -11,6 +11,7 @@ import useOnClickOutside from "use-onclickoutside";
 interface DropdownPopupProps {
   onClose?: () => void;
   children?: React.ReactNode;
+  testId?: string;
 }
 
 /**
@@ -18,13 +19,13 @@ interface DropdownPopupProps {
  * @date 2023-03-23
  * @returns {ReactElement}
  */
-export default function DropdownPopup({ onClose, children }: DropdownPopupProps): ReactElement {
+export default function DropdownPopup({ onClose, children, testId = "dropdownpopup" }: DropdownPopupProps): ReactElement {
   const popupRef = useRef<HTMLDivElement>(null);
 
   useOnClickOutside(popupRef, () => onClose && onClose());
   return (
     <div
-      data-testid="dropdownpopup"
+      data-testid={testId}
       ref={popupRef}
       style={{
         width: "calc(100vw - 40px)",

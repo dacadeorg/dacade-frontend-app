@@ -7,9 +7,20 @@ interface AccordionProps {
   subtitle: React.ReactNode;
   content: React.ReactNode;
   isExpanded?: boolean;
+  testId?: string;
+  triggerTestId?: string;
+  contentTestId?: string;
 }
 
-const Accordion: React.FC<AccordionProps> = ({ title, subtitle, content, isExpanded = false }) => {
+const Accordion: React.FC<AccordionProps> = ({
+  title,
+  subtitle,
+  content,
+  isExpanded = false,
+  testId = "accordion",
+  triggerTestId = "accordion-trigger",
+  contentTestId = "accordion-content",
+}) => {
   const [isAccordionExpanded, setIsAccordionExpanded] = useState<boolean>(isExpanded);
 
   const toggleAccordion = () => {
@@ -17,8 +28,8 @@ const Accordion: React.FC<AccordionProps> = ({ title, subtitle, content, isExpan
   };
 
   return (
-    <div data-testid="accordion" className="mt-2">
-      <div data-testid="accordion-trigger" className={`flex gap-2 justify-between cursor-pointer ${!title && "items-start"}`} onClick={toggleAccordion}>
+    <div data-testid={testId} className="mt-2">
+      <div data-testid={triggerTestId} className={`flex gap-2 justify-between cursor-pointer ${!title && "items-start"}`} onClick={toggleAccordion}>
         <div>
           {title && <H3>{title}</H3>}
           {subtitle && isAccordionExpanded && subtitle}
@@ -27,7 +38,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, subtitle, content, isExpan
           <ArrowDown className={`transform origin-center-top transition-transform ${isAccordionExpanded ? "rotate-180" : ""}`} />
         </div>
       </div>
-      {isAccordionExpanded && <div data-testid="accordion-content">{content}</div>}
+      {isAccordionExpanded && <div data-testid={contentTestId}>{content}</div>}
     </div>
   );
 };

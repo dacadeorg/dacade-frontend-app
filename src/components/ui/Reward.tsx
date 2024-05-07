@@ -6,13 +6,14 @@ interface OverviewRewardsProps {
   reward: Reward;
   category?: string;
   size?: string;
+  testId?: string;
 }
 
-export default function OverviewRewards({ reward, category, size }: OverviewRewardsProps) {
+export default function OverviewRewards({ reward, category, size, testId = "reward" }: OverviewRewardsProps) {
   const { t } = useTranslation();
 
   return (
-    <div data-testid="reward">
+    <div data-testid={testId}>
       {reward && reward.token && reward.amount && size === "medium" && (
         <div className="flex items-center rounded-full max-w-max mr-4">
           <Coin token={reward.token} className="flex-none" />
