@@ -21,7 +21,7 @@ interface WrapperProps {
  */
 export default function Wrapper({ children, filter }: WrapperProps): JSX.Element {
   return (
-    <div className="relative">
+    <div data-testid="wrapperId" className="relative">
       <MainHeaderSection />
       <Section>
         <div className="w-full md:flex gap-36 mx-auto mt-14">
