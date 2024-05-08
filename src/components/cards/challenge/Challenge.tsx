@@ -35,20 +35,20 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
         <div className="flex flex-col mb-1">
           <div className="lg:pr-20">
             {expiresAt && (
-              <div className="text-gray-400 text-sm font-normal mb-4">
+              <div className="text-gray-400 text-sm font-normal mb-4.5 md:mb-6">
                 <span>{t("communities.overview.challenge.deadline")}</span>
                 <span className="font-medium pl-1">{expiresAt}</span>
               </div>
             )}
-            <div className="text-lg text-gray-900 font-medium leading-normal mb-4">{data.name}</div>
+            <div className="text-lg text-gray-900 font-medium leading-normal mb-3 md:mb-4">{data.name}</div>
             <Badges challenge={data} />
             <div className="text-sm text-gray-700">{data.description}</div>
           </div>
-          <div className="divide-y-2 divide-gray-200 divide-dotted flex flex-col mt-4">
+          <div className="divide-y-2 divide-gray-200 divide-dotted flex flex-col mt-8">
             {learningMaterialsCount && (
-              <p className="pb-5 text-sm font-medium text-gray-400">{`${learningMaterialsCount}  Learning ${learningMaterialsCount === 1 ? "material" : "materials"} included`}</p>
+              <p className="pb-3 md:pb-4 text-sm font-medium text-gray-400">{`${learningMaterialsCount}  Learning ${learningMaterialsCount === 1 ? "material" : "materials"} included`}</p>
             )}
-            <div className="lg:flex lg:flex-row flex-col justify-between pt-5 items-center">
+            <div className="lg:flex lg:flex-row flex-col justify-between pt-3 md:pt-4 items-center">
               <Link href={link}>
                 <ArrowButton communityStyles={true} variant="outline-primary">
                   {isCourseEnd ? t("communities.overview.challenge.take.challenge") : t("communities.overview.challenge.see.challenge")}
@@ -63,10 +63,10 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
           <Image src={data?.certificateData?.icon} alt="achievement" fill priority />
         </div>
         <div className="">
-          <h1 className="font-bold text-gray-400 text-xs uppercase pb-2">{t("communities.overview.challenge.unlock.certificate")}</h1>
+          <h1 className="font-bold text-gray-400 text-xs uppercase pb-3">{t("communities.overview.challenge.unlock.certificate")}</h1>
           <RewardCertificate rewards={data?.rewards} />
         </div>
-        {data?.isHackathon && <p className="py-2 border-t border-gray-200 text-sm">{t("communities.overview.challenge.participate", { token: reward?.token })}</p>}
+        {data?.isHackathon && <p className="py-1.5 border-t border-gray-200 text-sm">{t("communities.overview.challenge.participate", { token: reward?.token })}</p>}
       </div>
     </div>
   );
