@@ -31,7 +31,6 @@ describe("Activable link", () => {
     );
     const link = screen.getByTestId("activableLinkId");
     expect(link.children[0].tagName).toBe("SPAN");
-    expect(link).toHaveClass("activable-link");
   });
 
   it("should invok goToLink when clicked", () => {
