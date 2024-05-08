@@ -16,21 +16,17 @@ jest.mock("next/router", () => ({
 }));
 
 describe("Rubric", () => {
-    it("should render the Rubric header", () => {
-        renderWithRedux(
-            <RubricHeader ratingCriteria={[]} selected={[]}/>
-        )
-        const rubricHeader = screen.getByTestId("rubricId");
-        expect(rubricHeader).toBeInTheDocument()
-    })
+  it("should render the Rubric header", () => {
+    renderWithRedux(<RubricHeader ratingCriteria={[]} selected={[]} />);
+    const rubricHeader = screen.getByTestId("rubricId");
+    expect(rubricHeader).toBeInTheDocument();
+  });
 
-    it("should render the Rubric with ratings", () => {
-        renderWithRedux(
-            <RubricHeader ratingCriteria={[RatingCriteria]} selected={[Rubric]}/>
-        )
-        const rubricHeaderName = screen.getByText(RatingCriteria.name)
-        expect(rubricHeaderName).toBeInTheDocument()
-        const selectedRubric = screen.getByText(Rubric.text)
-        expect(selectedRubric).toBeInTheDocument()
-    })
-})
+  it("should render the Rubric with ratings", () => {
+    renderWithRedux(<RubricHeader ratingCriteria={[RatingCriteria]} selected={[Rubric]} />);
+    const rubricHeaderName = screen.getByText(RatingCriteria.name);
+    expect(rubricHeaderName).toBeInTheDocument();
+    const selectedRubric = screen.getByText(Rubric.text);
+    expect(selectedRubric).toBeInTheDocument();
+  });
+});

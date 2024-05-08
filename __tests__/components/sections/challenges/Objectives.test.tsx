@@ -14,12 +14,16 @@ jest.mock("next/router", () => ({
   }),
 }));
 
+jest.mock("react-redux", () => ({
+  ...jest.requireActual("react-redux"),
+  useSelector: jest.fn(),
+}));
+
 describe("Objectives", () => {
   it("should render objectivies", () => {
-    renderWithRedux(
-        <Objectives />
-    );
+    renderWithRedux(<Objectives />);
     const objectives = screen.getByTestId("objectiveId");
     expect(objectives).toBeInTheDocument();
+    expect(screen.getByText("communities.overview.challenge.objective.title")).toBeInTheDocument();
   });
 });

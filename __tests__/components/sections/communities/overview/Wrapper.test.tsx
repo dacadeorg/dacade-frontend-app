@@ -15,15 +15,14 @@ jest.mock("next/router", () => ({
 }));
 
 describe("Wrapper", () => {
-    it("displays the wrapper", () => {
-        renderWithRedux(
-        <Wrapper filter={<div>Test Filter</div>}>
-            <div>Wrappper test</div>
-        </Wrapper>
-        )
-        expect(screen.getByTestId("wrapperId")).toBeInTheDocument();
-        expect(screen.getByText("Wrappper test")).toBeInTheDocument();
-        expect(screen.getByText("Test Filter")).toBeInTheDocument();
-    
-  })
-})
+  it("displays the wrapper", () => {
+    renderWithRedux(
+      <Wrapper filter={<div>Test Filter</div>}>
+        <div>Wrappper test</div>
+      </Wrapper>
+    );
+    expect(screen.getByTestId("wrapperId")).toBeInTheDocument();
+    expect(screen.getByText("Wrappper test")).toBeInTheDocument();
+    expect(screen.getByText("Test Filter")).toBeInTheDocument();
+  });
+});

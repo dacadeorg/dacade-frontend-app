@@ -15,10 +15,10 @@ jest.mock("next/router", () => ({
 }));
 
 describe("MainHeader", () => {
-    it("displays the header", () => {
-        renderWithRedux(<CommunitySection/>)
-        expect(screen.getByTestId("mainHeaderId")).toBeInTheDocument()
-        expect(screen.getByText("communities.submissions")).toBeInTheDocument()
-        expect(screen.getByText("communities.feedbacks")).toBeInTheDocument()
-    })
-})
+  it("displays the header", () => {
+    renderWithRedux(<CommunitySection />);
+    expect(screen.getByTestId("mainHeaderId")).toBeInTheDocument();
+    expect(screen.getByText("communities.submissions")).toBeInTheDocument();
+    expect(screen.getByText("communities.feedbacks")).toBeInTheDocument();
+  });
+});

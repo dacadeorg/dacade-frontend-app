@@ -28,5 +28,4 @@ describe("SectionWrapper", () => {
     expect(screen.queryByText("Test Description")).not.toBeInTheDocument();
     expect(screen.getByText("Test Children")).toBeInTheDocument();
   });
-
 });

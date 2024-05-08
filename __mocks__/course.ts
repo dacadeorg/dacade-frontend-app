@@ -1,10 +1,79 @@
+import { Course, LearningModule, Material } from "@/types/course";
+import { mockTrailer } from "./bounty";
 import { reward } from "./reward";
 
-export const Course = {
+
+export const Introduction = {
+  text: "course intro"
+};
+
+export const CertificateData = {
+  narrative: "course certificate",
+  icon: "certificate icon"
+};
+
+enum MaterialType {
+  ADDITIONAL = "ADDITIONAL",
+  MARKDOWN = "MARKDOWN",
+  TEXT = "TEXT",
+  ARTICLE = "ARTICLE",
+  "EMBEDDED-VIDEO" = "EMBEDDED-VIDEO",
+}
+export const mockMaterial: Material = {
+  duration: 3,
+  subtitle: "material subtitle",
+  link: "material link",
+  description: "material description",
+  title: "material title",
+  type: MaterialType.ADDITIONAL,
+  list: [{link: "Link 1"}]
+};
+
+export const InteractiveModule = {
+  ref: "interactive module ref",
+  title: "interactive module title",
+  text: "interative text",
+  closing: {
+    text: "closing",
+    title: "title"
+  },
+  items: [{
+    text: "text",
+    title: "title",
+    options: {
+      text: "text",
+      isCorrect: true
+    },
+    question: {
+      title: "question title",
+      answers: ["answer 1", "answer 2"],
+      correct: 2
+    }
+  }]
+};
+
+export const mockLearningModule: LearningModule = {
+  id: "learningModule id",
+  ref: "learning module reference",
+  created_at: new Date("2022-05-01T12:00:00Z"),
+  updated_at: new Date("2022-05-01T12:00:00Z"),
+  duration: 4,
+  description: "learning module description",
+  objectives: ["objective 1, objective 2"],
+  title: "learning module title",
+  community: "learning module community",
+  materials: [mockMaterial],
+  timestamp: 3,
+  order: 4,
+  course: "Learning module course",
+  interactiveModules: [InteractiveModule]
+};
+
+export const mockCourse: Course = {
     id: "course",
     ref: "course ref",
-    created_at: "created_at",
-    updated_at: "updated_at",
+    created_at: new Date("2022-05-01T12:00:00Z"),
+    updated_at: new Date("2022-05-01T12:00:00Z"),
     duration: 3,
     summary: "Course description",
     level: 3,
@@ -14,14 +83,13 @@ export const Course = {
     locale: "English",
     community: "community",
     slug: "course description slug",
-    introduction: Object,
+    introduction: Introduction,
     active: true,
     certificateIcon: "certificate",
-    certificateData: Object,
+    certificateData: CertificateData,
     timestamp: 0,
-    learningModules: [Object],
-    translations: [],
-    trailer: Object,
+    learningModules: [mockLearningModule],
+    trailer: mockTrailer,
     disclaimer: "Course",
     items: ["item 1", "item 2"],
     faq: [{
@@ -97,3 +165,4 @@ export const RatingCriteria = {
   rubric: [Rubric],
   maxPoints: 78,
 };
+
