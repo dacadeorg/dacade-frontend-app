@@ -15,20 +15,20 @@ jest.mock("next/router", () => ({
 }));
 
 describe("SetupTeamChallenge", () => {
-    it("renders without crashing", () => {
-      renderWithRedux(<SetupTeamChallenge />);
-    });
-  
-    it("renders content correctly", () => {
-      renderWithRedux(<SetupTeamChallenge />);
-      expect(screen.getByText("Submission")).toBeInTheDocument();
-      expect(screen.getByText("Form your team")).toBeInTheDocument();
-      expect(screen.getByText("Open discord channel #icp-ai-web3-hachathon and find your teammates to complete the challenge with you.")).toBeInTheDocument();
-    });
-  
-    it("renders CreateTeamCard when there is no invitation or the team is locked", () => {
-      renderWithRedux(<SetupTeamChallenge />);
-      expect(screen.getByText("Form your team")).toBeInTheDocument();
-      expect(screen.getByText("Open discord channel #icp-ai-web3-hachathon and find your teammates to complete the challenge with you.")).toBeInTheDocument();
-    });
+  it("renders without crashing", () => {
+    renderWithRedux(<SetupTeamChallenge />);
   });
+
+  it("renders content correctly", () => {
+    renderWithRedux(<SetupTeamChallenge />);
+    expect(screen.getByText("Submission")).toBeInTheDocument();
+    expect(screen.getByText("Form your team")).toBeInTheDocument();
+    expect(screen.getByText("Open discord channel #icp-ai-web3-hachathon and find your teammates to complete the challenge with you.")).toBeInTheDocument();
+  });
+
+  it("renders CreateTeamCard when there is no invitation or the team is locked", () => {
+    renderWithRedux(<SetupTeamChallenge />);
+    expect(screen.getByText("Form your team")).toBeInTheDocument();
+    expect(screen.getByText("Open discord channel #icp-ai-web3-hachathon and find your teammates to complete the challenge with you.")).toBeInTheDocument();
+  });
+});

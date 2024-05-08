@@ -15,10 +15,10 @@ jest.mock("next/router", () => ({
 }));
 
 describe("Sidebar", () => {
-    it("displays the sidebar", () => {
-        renderWithRedux(<Sidebar/>)
-        expect(screen.getByTestId("sidebarId")).toBeInTheDocument()
-        expect(screen.getByText("communities.overview.challenges.title")).toBeInTheDocument()
-        expect(screen.getByText("communities.overview.challenges.description")).toBeInTheDocument()
-    })
-})
+  it("displays the sidebar", () => {
+    renderWithRedux(<Sidebar />);
+    expect(screen.getByTestId("sidebarId")).toBeInTheDocument();
+    expect(screen.getByText("communities.overview.challenges.title")).toBeInTheDocument();
+    expect(screen.getByText("communities.overview.challenges.description")).toBeInTheDocument();
+  });
+});

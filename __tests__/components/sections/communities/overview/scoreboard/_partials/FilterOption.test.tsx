@@ -8,14 +8,13 @@ describe("FilterOption", () => {
     render(<FilterOption label={label} value="1" data="2" />);
 
     expect(screen.getByLabelText(label)).toBeInTheDocument();
-    expect(screen.getByRole('radio')).not.toBeChecked();
+    expect(screen.getByRole("radio")).not.toBeChecked();
   });
 
   it("should be disabled when value matches data", () => {
     const label = "Test Label";
     render(<FilterOption label={label} value="1" data="1" />);
-    const radio = screen.getByRole('radio');
+    const radio = screen.getByRole("radio");
     expect(radio).toBeDisabled();
   });
-
 });

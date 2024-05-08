@@ -17,6 +17,6 @@ describe("HackathonPrize", () => {
     expect(descriptionText).toBeInTheDocument();
 
     const distributionText = screen.getByTestId("distributionId");
-    expect(distributionText.textContent).toBe(`1st Place $${reward.distribution.first};  2nd Place $${reward.distribution.second}; 3rd Place $${reward.distribution.third}`)
+    expect(distributionText.textContent).toBe(`1st Place $${reward.distribution.first};  2nd Place $${reward.distribution.second}; 3rd Place $${reward.distribution.third}`);
   });
 });

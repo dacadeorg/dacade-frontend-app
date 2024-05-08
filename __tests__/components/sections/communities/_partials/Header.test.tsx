@@ -22,7 +22,7 @@ describe("Header", () => {
   });
 
   it("renders 'TEAM' tag when isTeamChallenge is true and isHackathon is false", () => {
-    render(<Header subtitle="Test Subtitle" isTeamChallenge={true} isHackathon={false}/>);
+    render(<Header subtitle="Test Subtitle" isTeamChallenge={true} isHackathon={false} />);
     expect(screen.getByText("TEAM")).toBeInTheDocument();
   });
 

@@ -16,16 +16,14 @@ jest.mock("next/router", () => ({
 
 describe("Reward", () => {
   it("should render a reward", () => {
-    renderWithRedux(
-        <OverviewRewards />
-    );
+    renderWithRedux(<OverviewRewards />);
     const OverviewReward = screen.getByTestId("overviewRewardId");
     expect(OverviewReward).toBeInTheDocument();
-    const rewardTitle = screen.getByText("communities.overview.reward.title")
+    const rewardTitle = screen.getByText("communities.overview.reward.title");
     expect(rewardTitle).toBeInTheDocument();
-    const rewardSubtitle = screen.getByText("communities.overview.reward.subtitle")
+    const rewardSubtitle = screen.getByText("communities.overview.reward.subtitle");
     expect(rewardSubtitle).toBeInTheDocument();
-    const challengeCertificate = screen.getByText("communities.overview.challenge.certificate")
-    expect(challengeCertificate).toBeInTheDocument()
+    const challengeCertificate = screen.getByText("communities.overview.challenge.certificate");
+    expect(challengeCertificate).toBeInTheDocument();
   });
 });

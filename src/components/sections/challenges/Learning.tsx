@@ -28,6 +28,7 @@ export default function Learning({ courses, learningModules, community }: { cour
             <div className="md:grid grid-cols-2 gap-3">
               {courses?.map((course) => (
                 <LearningCard
+                  data-testid="cardId"
                   key={`learning-card-data-${course.id}`}
                   title={course.name}
                   description={course.description}
