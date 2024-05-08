@@ -17,7 +17,7 @@ interface JobOffersProps {
 }
 
 /**
- * Description placeholder
+ * JobOffers component
  *
  * @export
  * @param {JobOffersProps} param0
@@ -42,15 +42,15 @@ export default function JobOffers({ externalClick }: JobOffersProps) {
 
   return (
     <>
-      <button className="hidden lg:inline-block underline text-primary bg-transparent pl-2 text-base" onClick={onOpenJobOffers}>
-        job offers
+      <button className="hidden lg:inline-block underline text-primary bg-transparent pl-2 text-base capitalize" onClick={onOpenJobOffers}>
+        Job offers
       </button>
       <div className="flex lg:hidden">
         <div className="w-10 h-10 ml-3 mr-2 my-3 rounded-full bg-blue-500">
           <JobIcon className="m-2 text-white" />
         </div>
         <div className="py-5 font-medium text-gray-900 cursor-pointer" onClick={onOpenJobOffers}>
-          <p className="font-medium text-lg text-gray-900">Job offers</p>
+          <p className="font-medium text-lg text-gray-900 capitalize">Job offers</p>
         </div>
       </div>
       <Popup center show={show} className="px-3 pt-16 pb-2" overlayClassName="bg-white opacity-80" onClose={onClose}>
