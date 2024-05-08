@@ -40,7 +40,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
                 <span className="font-medium pl-1">{expiresAt}</span>
               </div>
             )}
-            <div className="text-lg text-gray-900 font-medium leading-normal mb-3 md:mb-4">{data.name}</div>
+            <div className="text-lg text-gray-900 font-medium leading-normal mb-3">{data.name}</div>
             <Badges challenge={data} />
             <div className="text-sm text-gray-700">{data.description}</div>
           </div>
