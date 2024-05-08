@@ -52,9 +52,9 @@ export default function MainSection(): ReactElement {
           </Link>
           <VideoPopup />
         </div>
-        <div className="flex flex-col md:flex-row space-y-5 md:space-y-0 space-x-0 md:space-x-5 justify-end">
+        <div className="flex flex-col md:flex-row md:divide-y-0 divide-y-2 divide-dotted divide-gray-200 space-y-5 md:space-y-0 space-x-0 md:space-x-5 justify-end">
           {cards.map((card, i) => (
-            <div key={`numbered-card-${i}`} className="w-full lg:max-w-.5xs divide-dotted-custom">
+            <div key={`numbered-card-${i}`} className="w-full lg:max-w-.5xs pt-5 md:pt-0">
               <NumberedCard index={i + 1} title={t(card.title) as string} text={t(card.body) as string} />
             </div>
           ))}
