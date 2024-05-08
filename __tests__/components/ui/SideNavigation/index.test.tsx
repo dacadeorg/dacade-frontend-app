@@ -55,9 +55,9 @@ describe("SideNavigation", () => {
   ];
   it("should render side navigation", () => {
     renderWithRedux(
-        <SideNavigation items={[]} colors={colors}>
-          <>Test</>
-        </SideNavigation>
+      <SideNavigation items={[]} colors={colors}>
+        <>Test</>
+      </SideNavigation>
     );
     const sideNav = screen.getByTestId("sideNavId");
     expect(sideNav).toBeInTheDocument();
@@ -66,9 +66,9 @@ describe("SideNavigation", () => {
 
   it("should render navigation items", () => {
     renderWithRedux(
-        <SideNavigation items={mockItems} colors={colors}>
-          <>Test</>
-        </SideNavigation>
+      <SideNavigation items={mockItems} colors={colors}>
+        <>Test</>
+      </SideNavigation>
     );
     const navItems = screen.getAllByTestId("sideNavId");
     expect(navItems.length).toBe(1);
