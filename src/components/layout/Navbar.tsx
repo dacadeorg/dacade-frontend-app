@@ -91,7 +91,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
           </NavItem>
         </ul>
         {isAuthenticatedAndVerified && (
-          <ul className="hidden lg:flex relative self-center items-center">
+          <ul className="hidden lg:block relative self-center">
             <NavItem to="/bounties">{t("nav.bounties")}</NavItem>
             <NavItem to={"/communities"}>{t("nav.communities")}</NavItem>
             <JobOffers />
