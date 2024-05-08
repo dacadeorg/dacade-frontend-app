@@ -383,5 +383,8 @@
   "kyc.default.button": "Start verification",
   "kyc.default.button.completed": "Go to profile",
   "kyc.payout.reason": "To cashout, you need to verify your identity first.",
-  "kyc.payout.button.completed": "Proceed to  cashout"
+  "kyc.payout.button.completed": "Proceed to  cashout",
+  "job.offers.title": "Работни оферти",
+  "job.offers.description": "Заинтересовани ли сте относно потенциални работни възможности? Попълнете този Google формуляр и ние ще се свържем с вас относно подходящите позиции.",
+  "job.offers.button.next": "следващ"
 }
