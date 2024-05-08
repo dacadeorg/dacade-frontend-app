@@ -1,9 +1,9 @@
 import SideNavigation from "@/components/ui/SideNavigation";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { colors } from "../../../../__mocks__/colors";
 import { Items } from "@/store/feature/communities/navigation.slice";
-import ReduxProvider from "../../../../__mocks__/provider/ReduxProvider";
+import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -54,25 +54,21 @@ describe("SideNavigation", () => {
     },
   ];
   it("should render side navigation", () => {
-    render(
-      <ReduxProvider>
+    renderWithRedux(
         <SideNavigation items={[]} colors={colors}>
           <>Test</>
         </SideNavigation>
-      </ReduxProvider>
     );
-    const sideNav = screen.getByTestId("themeWrapper");
+    const sideNav = screen.getByTestId("sideNavId");
     expect(sideNav).toBeInTheDocument();
     expect(sideNav.innerHTML).toContain("Test");
   });
 
   it("should render navigation items", () => {
-    render(
-      <ReduxProvider>
+    renderWithRedux(
         <SideNavigation items={mockItems} colors={colors}>
           <>Test</>
         </SideNavigation>
-      </ReduxProvider>
     );
     const navItems = screen.getAllByTestId("sideNavId");
     expect(navItems.length).toBe(1);

@@ -7,8 +7,17 @@ const items = {
   link: "/dummy",
 };
 describe("Activable link", () => {
-  it("should render the link with subitems", () => {
-    render(<ActivableLink item={items}>Link test</ActivableLink>);
+
+  it("should render the link with many subitems", () => {
+    const itemsWithManySubitems = {
+      ...items,
+      subitems: [
+        { label: "subitem1", link: "subitem-link-1" },
+        { label: "subitem2", link: "subitem-link-2" },
+      ],
+    };
+  
+    render(<ActivableLink item={itemsWithManySubitems}>Link test</ActivableLink>);
     const link = screen.getByTestId("activableLinkId");
     expect(link).toBeInTheDocument();
     expect(link.textContent).toBe("Link test");
@@ -22,9 +31,10 @@ describe("Activable link", () => {
     );
     const link = screen.getByTestId("activableLinkId");
     expect(link.children[0].tagName).toBe("SPAN");
+    expect(link).toHaveClass("activable-link");
   });
 
-  it("should redirect to link when clicked", () => {
+  it("should invok goToLink when clicked", () => {
     const goToLinkMock = jest.fn();
     render(
       <ActivableLink item={items} goToLink={goToLinkMock}>
