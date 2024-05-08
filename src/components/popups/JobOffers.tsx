@@ -33,27 +33,26 @@ export default function JobOffers({ externalClick }: JobOffersProps) {
 
   const dispatch = useDispatch();
 
-  const onOpenJobOffers = () => {
-    setShow(!show);
-    dispatch(toggleBodyScrolling(true));
+  const toggle = () => {
+    setShow((prev) => !prev);
+    dispatch(toggleBodyScrolling(!show));
   };
 
   const onClose = () => {
     externalClick && externalClick();
-    setShow(!show);
-    dispatch(toggleBodyScrolling(false));
+    toggle();
   };
 
   return (
     <>
-      <button className="hidden lg:inline-block underline text-primary bg-transparent pl-2 py-0 text-base capitalize " onClick={onOpenJobOffers}>
+      <button className="hidden lg:inline-block underline text-primary bg-transparent pl-2 py-0 text-base capitalize " onClick={toggle}>
         {t("job.offers.title")}
       </button>
       <div className="flex lg:hidden">
         <div className="w-10 h-10 ml-3 mr-2 my-3 rounded-full bg-primary">
           <JobIcon className="m-2 text-white" />
         </div>
-        <div className="py-5 font-medium text-gray-900 cursor-pointer" onClick={onOpenJobOffers}>
+        <div className="py-5 font-medium text-gray-900 cursor-pointer" onClick={toggle}>
           <p className="font-medium text-lg text-gray-900 capitalize"> {t("job.offers.title")}</p>
         </div>
       </div>
