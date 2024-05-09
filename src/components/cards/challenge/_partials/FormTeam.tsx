@@ -28,7 +28,7 @@ export default function FormTeamCard({ index = 1, title, description }: FormTeam
           </div>
           <div className="text-sm font-normal text-gray-700 mt-3 max-w-xxs pb-6">{description}</div>
         </div>
-        <Link href="https://discord.gg/gBQghCPeV7" target="_blank">
+        <Link href="https://t.me/+0oJye8IwAuxkMDY0" target="_blank">
           <ArrowButton communityStyles={true} variant="outline-primary">
             Start now
           </ArrowButton>

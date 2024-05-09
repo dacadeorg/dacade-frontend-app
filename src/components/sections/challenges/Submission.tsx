@@ -9,7 +9,6 @@ import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { createSubmission, createSubmissionTeam } from "@/store/feature/communities/challenges/submissions";
 import { useForm } from "react-hook-form";
-import classNames from "classnames";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import { Submission as TSubmission, User } from "@/types/bounty";
@@ -163,11 +162,7 @@ export default function Submission(): ReactElement {
                     />
                   </div>
                   {challenge.format.githubLink && (
-                    <div
-                      className={classNames("w-full border border-solid border-gray-200 m-0 rounded-b text-lg py-0 leading-none items-center space-x-2", {
-                        "border-t-0": challenge.format.text,
-                      })}
-                    >
+                    <div className="w-full m-0 text-lg py-0 leading-none items-center space-x-2">
                       <div>
                         <GithubLinkInput
                           id="input-github"

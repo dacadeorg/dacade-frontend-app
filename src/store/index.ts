@@ -47,6 +47,7 @@ import challengeService from "@/store/services/communities/challenges";
 import scoreboardService from "./services/communities/scoreboard.service";
 import communitiesProfile from "./feature/profile/communities.slice";
 import reputationSlice from "./feature/profile/reputation.slice";
+import { learningModulesService } from "./services/learningModules.service";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -98,6 +99,7 @@ export type IRootService = {
   authService: ReturnType<typeof authService.reducer>;
   bountiesService: ReturnType<typeof bountiesService.reducer>;
   teamsService: ReturnType<typeof teamsService.reducer>;
+  learningModuleService: ReturnType<typeof learningModulesService.reducer>;
 };
 
 export const reducers = {
