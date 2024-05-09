@@ -11,7 +11,7 @@ import WalletIcon from "@/icons/wallet.svg";
 import Popup from "@/components/ui/Popup";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
-import { toggleBodyScrolling, toggleShowReferralPopup } from "@/store/feature/ui.slice";
+import { toggleBodyScrolling, toggleShowJobOffersPopup, toggleShowReferralPopup } from "@/store/feature/ui.slice";
 import { logout } from "@/store/feature/auth.slice";
 import { authVerify } from "@/store/feature/auth.slice";
 import { readNotification } from "@/store/services/notification.service";
@@ -19,7 +19,7 @@ import NotificationList from "../list/NotificationList";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
 import LanguageList from "@/components/list/LanguageList";
-import JobOffers from "./JobOffers";
+import JobIcon from "@/icons/briefcase.svg";
 
 /**
  * interface for Sidebar multiSelector
@@ -91,6 +91,11 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
     window.scrollTo(0, 0);
   };
 
+  const displayJobOffersPopup = () => {
+    if (show) setshow(!show);
+    dispatch(toggleShowJobOffersPopup(true));
+  };
+
   return (
     <div className="relative">
       <li className="inline-block align-middle z-40 relative ease-linear transition-all duration-150" onClick={toggle}>
@@ -140,7 +145,14 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
                       </Link>
                     </div>
                   </div>
-                  <JobOffers externalClick={externalClick} />
+                  <div className="flex">
+                    <div className="w-10 h-10 ml-3 mr-2 my-3 rounded-full bg-primary">
+                      <JobIcon className="m-2 text-white" />
+                    </div>
+                    <div className="py-5 font-medium text-gray-900 cursor-pointer" onClick={displayJobOffersPopup}>
+                      <p className="font-medium text-lg text-gray-900 capitalize"> {t("job.offers.title")}</p>
+                    </div>
+                  </div>
                 </>
               )}
 

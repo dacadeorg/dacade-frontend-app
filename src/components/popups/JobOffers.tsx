@@ -1,22 +1,12 @@
-import { useState } from "react";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { toggleBodyScrolling } from "@/store/feature/ui.slice";
+import { toggleShowJobOffersPopup } from "@/store/feature/ui.slice";
 import Popup from "../ui/Popup";
 import Button from "../ui/button";
 import CloseIcon from "@/icons/close-icon.svg";
-import JobIcon from "@/icons/briefcase.svg";
-import { JOB_OFFERS_FORM_LINK } from "@/constants/jobOffers";
+import { JOB_OFFERS_LINK } from "@/constants/jobOffers";
 import { useTranslation } from "react-i18next";
-
-/**
- * JobOffers interface props
- *
- * @interface JobOffersProps
- * @typedef {JobOffersProps}
- */
-interface JobOffersProps {
-  externalClick?: () => void;
-}
+import { useSelector } from "@/hooks/useTypedSelector";
+import Link from "next/link";
 
 /**
  * JobOffers component
@@ -26,47 +16,32 @@ interface JobOffersProps {
  * @param {() => void} param0.externalClick
  * @returns {*}
  */
-export default function JobOffers({ externalClick }: JobOffersProps) {
+export default function JobOffers() {
   const { t } = useTranslation();
 
-  const [show, setShow] = useState(false);
+  const show = useSelector((state) => state.ui.showJobOffersPopup);
 
   const dispatch = useDispatch();
 
   const toggle = () => {
-    setShow((prev) => !prev);
-    dispatch(toggleBodyScrolling(!show));
+    dispatch(toggleShowJobOffersPopup(!show));
   };
-
-  const onClose = () => {
-    externalClick && externalClick();
-    toggle();
-  };
-
   return (
     <>
-      <button className="hidden lg:inline-block underline text-primary bg-transparent pl-2 py-0 text-base capitalize " onClick={toggle}>
-        {t("job.offers.title")}
-      </button>
-      <div className="flex lg:hidden">
-        <div className="w-10 h-10 ml-3 mr-2 my-3 rounded-full bg-primary">
-          <JobIcon className="m-2 text-white" />
-        </div>
-        <div className="py-5 font-medium text-gray-900 cursor-pointer" onClick={toggle}>
-          <p className="font-medium text-lg text-gray-900 capitalize"> {t("job.offers.title")}</p>
-        </div>
-      </div>
-      <Popup center show={show} className="px-3" overlayClassName="bg-white opacity-80" onClose={onClose}>
+      <Popup center show={show} className="px-3" overlayClassName="bg-white opacity-80" onClose={toggle}>
         <div className="max-h-full sm:max-w-sidebar relative mx-auto mt-0 w-full z-40 bg-white rounded-3xl shadow-3xl text-gray-900 px-8 py-6 sm:min-w-98">
           <div className="space-y-6">
             <h5 className="text-lg font-medium"> {t("job.offers.title")}</h5>
             <p className="text-base"> {t("job.offers.description")}</p>
-            <Button padding link={JOB_OFFERS_FORM_LINK} target="blank" className="py-2 px-6 capitalize">
-              {t("job.offers.button.next")}
-            </Button>
+
+            <Link href={JOB_OFFERS_LINK} target="blank" onClick={toggle} className="block">
+              <Button padding className="py-2 px-6 capitalize">
+                {t("job.offers.button.next")}
+              </Button>
+            </Link>
           </div>
           <div className="absolute top-5 right-5 w-fit h-fit">
-            <Button type="button" padding={false} variant="secondary" className="p-1 bg-gray-100 hover:bg-gray-50 text-gray-900 absolute top-0" onClick={onClose}>
+            <Button type="button" padding={false} variant="secondary" className="p-1 bg-gray-100 hover:bg-gray-50 text-gray-900 absolute top-0" onClick={toggle}>
               <CloseIcon className="block" />
             </Button>
           </div>
