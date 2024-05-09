@@ -62,21 +62,7 @@ export interface IRootState {
   web3Wallet: ReturnType<typeof web3WalletSlice.reducer>;
   store: ReturnType<typeof indexSlice.reducer>;
   auth: ReturnType<typeof authSlice.reducer>;
-  coursesService: ReturnType<typeof coursesService.reducer>;
-  communityService: ReturnType<typeof communityService.reducer>;
-  walletService: ReturnType<typeof walletsService.reducer>;
-  userService: ReturnType<typeof userSlice.reducer>;
   userReputations: ReturnType<typeof userReputationSlice.reducer>;
-  userReputationService: ReturnType<typeof userReputationService.reducer>;
-  userProfileService: ReturnType<typeof userProfileService.reducer>;
-  notificationService: ReturnType<typeof notificationsService.reducer>;
-  certificateService: ReturnType<typeof certificateService.reducer>;
-  reputationProfileService: ReturnType<typeof reputationProfileService.reducer>;
-  profileCommunitiesService: ReturnType<typeof profileCommunitiesService.reducer>;
-  challengeService: ReturnType<typeof challengeService.reducer>;
-  scoreboardService: ReturnType<typeof scoreboardService.reducer>;
-  authService: ReturnType<typeof authService.reducer>;
-  bountiesService: ReturnType<typeof bountiesService.reducer>;
   scoreboard: ReturnType<typeof scoreboardSlice.reducer>;
   bounties: ReturnType<typeof bountiesSlice.reducer>;
   submissions: ReturnType<typeof submissionsSlice.reducer>;
@@ -94,82 +80,103 @@ export interface IRootState {
   sumsubVerification: ReturnType<typeof sumsubVerificationSlice.reducer>;
   payouts: ReturnType<typeof payoutsSlice.reducer>;
   teams: ReturnType<typeof teamsSlice.reducer>;
-  teamsService: ReturnType<typeof teamsService.reducer>;
   invites: ReturnType<typeof invitesSlice.reducer>;
   learningModuleService: ReturnType<typeof learningModulesService.reducer>;
 }
 
+export type IRootService = {
+  coursesService: ReturnType<typeof coursesService.reducer>;
+  communityService: ReturnType<typeof communityService.reducer>;
+  walletService: ReturnType<typeof walletsService.reducer>;
+  userService: ReturnType<typeof userSlice.reducer>;
+  userReputationService: ReturnType<typeof userReputationService.reducer>;
+  userProfileService: ReturnType<typeof userProfileService.reducer>;
+  notificationService: ReturnType<typeof notificationsService.reducer>;
+  certificateService: ReturnType<typeof certificateService.reducer>;
+  reputationProfileService: ReturnType<typeof reputationProfileService.reducer>;
+  profileCommunitiesService: ReturnType<typeof profileCommunitiesService.reducer>;
+  challengeService: ReturnType<typeof challengeService.reducer>;
+  scoreboardService: ReturnType<typeof scoreboardService.reducer>;
+  authService: ReturnType<typeof authService.reducer>;
+  bountiesService: ReturnType<typeof bountiesService.reducer>;
+  teamsService: ReturnType<typeof teamsService.reducer>;
+};
+
+export const reducers = {
+  [ui.name]: ui.reducer,
+  [referralSlice.name]: referralSlice.reducer,
+  [userSlice.name]: userSlice.reducer,
+  [notificationsSlice.name]: notificationsSlice.reducer,
+  [bannerSlice.name]: bannerSlice.reducer,
+  [walletsSlice.name]: walletsSlice.reducer,
+  [indexSlice.name]: indexSlice.reducer,
+  [authSlice.name]: authSlice.reducer,
+  [authService.reducerPath]: authService.reducer,
+  [courseSlice.name]: courseSlice.reducer,
+  [navigationSlice.name]: navigationSlice.reducer,
+  [submissionsSlice.name]: submissionsSlice.reducer,
+  [eventsSlice.name]: eventsSlice.reducer,
+  [bountiesSlice.name]: bountiesSlice.reducer,
+  [communitySlice.name]: communitySlice.reducer,
+  [learningModulesSlice.name]: learningModulesSlice.reducer,
+  [userProfileSlice.name]: userProfileSlice.reducer,
+  [userReputationSlice.name]: userReputationSlice.reducer,
+  [feedbackSlice.name]: feedbackSlice.reducer,
+  [challengeSlice.name]: challengeSlice.reducer,
+  [web3WalletSlice.name]: web3WalletSlice.reducer,
+  [communityService.reducerPath]: communityService.reducer,
+  [bountiesService.reducerPath]: bountiesService.reducer,
+  [coursesService.reducerPath]: coursesService.reducer,
+  [certificateService.reducerPath]: certificateService.reducer,
+  [walletsService.reducerPath]: walletsService.reducer,
+  [reputationProfileService.reducerPath]: reputationProfileService.reducer,
+  [profileCommunitiesService.reducerPath]: profileCommunitiesService.reducer,
+  [userService.reducerPath]: userService.reducer,
+  [userProfileService.reducerPath]: userProfileService.reducer,
+  [userReputationService.reducerPath]: userReputationService.reducer,
+  [referralsService.reducerPath]: referralsService.reducer,
+  [notificationsService.reducerPath]: notificationsService.reducer,
+  [scoreboardSlice.name]: scoreboardSlice.reducer,
+  [certificateSlice.name]: certificateSlice.reducer,
+  [userReferralsSlice.name]: userReferralsSlice.reducer,
+  [sumsubVerificationSlice.name]: sumsubVerificationSlice.reducer,
+  [payoutsSlice.name]: payoutsSlice.reducer,
+  [teamsSlice.name]: teamsSlice.reducer,
+  [teamsService.reducerPath]: teamsService.reducer,
+  [challengeService.reducerPath]: challengeService.reducer,
+  [scoreboardService.reducerPath]: scoreboardService.reducer,
+  [invitesSlice.name]: invitesSlice.reducer,
+  [communitiesProfile.name]: communitiesProfile.reducer,
+  [reputationSlice.name]: reputationSlice.reducer,
+};
+
+export const middlewares = [
+  coursesService.middleware,
+  communityService.middleware,
+  walletsService.middleware,
+  userService.middleware,
+  referralsService.middleware,
+  notificationsService.middleware,
+  userProfileService.middleware,
+  bountiesService.middleware,
+  certificateService.middleware,
+  reputationProfileService.middleware,
+  profileCommunitiesService.middleware,
+  userReputationService.middleware,
+  authService.middleware,
+  teamsService.middleware,
+  challengeService.middleware,
+  scoreboardService.middleware,
+];
+
 export const makeStore = () =>
   configureStore({
     reducer: {
-      [ui.name]: ui.reducer,
-      [referralSlice.name]: referralSlice.reducer,
-      [userSlice.name]: userSlice.reducer,
-      [notificationsSlice.name]: notificationsSlice.reducer,
-      [bannerSlice.name]: bannerSlice.reducer,
-      [walletsSlice.name]: walletsSlice.reducer,
-      [indexSlice.name]: indexSlice.reducer,
-      [authSlice.name]: authSlice.reducer,
-      [authService.reducerPath]: authService.reducer,
-      [courseSlice.name]: courseSlice.reducer,
-      [navigationSlice.name]: navigationSlice.reducer,
-      [submissionsSlice.name]: submissionsSlice.reducer,
-      [eventsSlice.name]: eventsSlice.reducer,
-      [bountiesSlice.name]: bountiesSlice.reducer,
-      [communitySlice.name]: communitySlice.reducer,
-      [learningModulesSlice.name]: learningModulesSlice.reducer,
-      [userProfileSlice.name]: userProfileSlice.reducer,
-      [userReputationSlice.name]: userReputationSlice.reducer,
-      [feedbackSlice.name]: feedbackSlice.reducer,
-      [challengeSlice.name]: challengeSlice.reducer,
-      [web3WalletSlice.name]: web3WalletSlice.reducer,
-      [communityService.reducerPath]: communityService.reducer,
-      [bountiesService.reducerPath]: bountiesService.reducer,
-      [coursesService.reducerPath]: coursesService.reducer,
-      [certificateService.reducerPath]: certificateService.reducer,
-      [walletsService.reducerPath]: walletsService.reducer,
-      [reputationProfileService.reducerPath]: reputationProfileService.reducer,
-      [profileCommunitiesService.reducerPath]: profileCommunitiesService.reducer,
-      [userService.reducerPath]: userService.reducer,
-      [userProfileService.reducerPath]: userProfileService.reducer,
-      [userReputationService.reducerPath]: userReputationService.reducer,
-      [referralsService.reducerPath]: referralsService.reducer,
-      [notificationsService.reducerPath]: notificationsService.reducer,
-      [scoreboardSlice.name]: scoreboardSlice.reducer,
-      [certificateSlice.name]: certificateSlice.reducer,
-      [userReferralsSlice.name]: userReferralsSlice.reducer,
-      [sumsubVerificationSlice.name]: sumsubVerificationSlice.reducer,
-      [payoutsSlice.name]: payoutsSlice.reducer,
-      [teamsSlice.name]: teamsSlice.reducer,
-      [teamsService.reducerPath]: teamsService.reducer,
-      [challengeService.reducerPath]: challengeService.reducer,
-      [scoreboardService.reducerPath]: scoreboardService.reducer,
-      [invitesSlice.name]: invitesSlice.reducer,
-      [communitiesProfile.name]: communitiesProfile.reducer,
-      [reputationSlice.name]: reputationSlice.reducer,
-      [learningModulesService.reducerPath]: learningModulesService.reducer,
+      ...reducers,
     },
 
     middleware: (getDefaultMiddleware) => {
-      return getDefaultMiddleware().concat(
-        coursesService.middleware,
-        communityService.middleware,
-        walletsService.middleware,
-        userService.middleware,
-        referralsService.middleware,
-        notificationsService.middleware,
-        userProfileService.middleware,
-        bountiesService.middleware,
-        certificateService.middleware,
-        reputationProfileService.middleware,
-        profileCommunitiesService.middleware,
-        userReputationService.middleware,
-        authService.middleware,
-        teamsService.middleware,
-        challengeService.middleware,
-        scoreboardService.middleware,
-        learningModulesService.middleware
-      );
+      return getDefaultMiddleware().concat(...middlewares);
     },
   });
 

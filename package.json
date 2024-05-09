@@ -10,7 +10,7 @@
     "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,tsx,js,jsx}' --write",
     "check-branch-name": "./check_branch_name.sh",
     "prepare": "npx husky install && chmod +x .husky/* && chmod +x ./check_branch_name.sh",
-    "test": "jest --silent"
+    "test": "jest --silent --transformIgnorePatterns"
   },
   "dependencies": {
     "@coingecko/cryptoformat": "^0.5.4",
@@ -50,6 +50,7 @@
     "lodash.debounce": "^4.0.8",
     "lodash.uniqby": "^4.7.0",
     "lowlight": "^1.2.0",
+    "msw": "^2.3.0",
     "next": "13.2.4",
     "next-i18next": "^13.2.2",
     "next-mdx-remote": "^4.4.1",
@@ -80,6 +81,7 @@
     "remark-unwrap-all-images": "^1.0.1",
     "sass": "^1.62.0",
     "typescript": "5.0.2",
+    "undici": "^6.16.0",
     "unified": "^10.1.2",
     "unist-util-visit": "^2.0.0",
     "use-onclickoutside": "^0.4.1",
