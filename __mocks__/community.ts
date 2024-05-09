@@ -1,6 +1,6 @@
 import { colors } from "./colors";
 
-const metadata = {
+export const metadata = {
   invite_id: "abc123",
   submissions: 5,
   bestSubmissions: ["submission1", "submission2"],
