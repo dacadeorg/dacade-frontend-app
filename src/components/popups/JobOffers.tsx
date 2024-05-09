@@ -57,11 +57,11 @@ export default function JobOffers({ externalClick }: JobOffersProps) {
         </div>
       </div>
       <Popup center show={show} className="px-3" overlayClassName="bg-white opacity-80" onClose={onClose}>
-        <div className="max-h-full md:max-w-sidebar relative mx-auto mt-0 w-full z-40 bg-white rounded-3xl shadow-3xl text-gray-900 px-8 py-6 lg:min-w-98">
+        <div className="max-h-full sm:max-w-sidebar relative mx-auto mt-0 w-full z-40 bg-white rounded-3xl shadow-3xl text-gray-900 px-8 py-6 sm:min-w-98">
           <div className="space-y-6">
             <h5 className="text-lg font-medium"> {t("job.offers.title")}</h5>
             <p className="text-base"> {t("job.offers.description")}</p>
-            <Button padding link={JOB_OFFERS_FORM_LINK} target="blank" className="py-2 px-6">
+            <Button padding link={JOB_OFFERS_FORM_LINK} target="blank" className="py-2 px-6 capitalize">
               {t("job.offers.button.next")}
             </Button>
           </div>
