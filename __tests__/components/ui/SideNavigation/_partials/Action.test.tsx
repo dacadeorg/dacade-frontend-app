@@ -9,6 +9,7 @@ const items = {
     { label: "Subitem 2", link: "/example/subitem-2", exact: true },
   ],
 };
+
 const goToLinkMock = jest.fn();
 
 describe("Activable link", () => {
@@ -23,5 +24,18 @@ describe("Activable link", () => {
     expect(link.textContent).toBe("Link test");
     fireEvent.click(link.children[0]);
     expect(goToLinkMock).toHaveBeenCalled();
+  });
+
+  it("Should not render a link when the subItems are provided", () => {
+    render(<ActivableLink item={items}>Link test</ActivableLink>);
+    const element = screen.getByTestId("activableLinkId");
+    expect(element.tagName).not.toBe("A");
+    expect(element.querySelector("a")).toBeNull();
+  });
+
+  it("Should have the provided link", () => {
+    render(<ActivableLink item={{ link: "/link" }}> Link </ActivableLink>);
+    const element = screen.getByTestId("activableLinkId");
+    expect(element.querySelector("a")?.getAttribute("href")).toBe("/link");
   });
 });

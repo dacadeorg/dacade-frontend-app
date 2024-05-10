@@ -14,6 +14,7 @@ describe("Sub link", () => {
     label: "example label 2",
     exact: true,
   };
+
   it("should render sub link", () => {
     render(<SubLink item={item} activeLinkStyle={{}} subitem={subitem} />);
     const sublink = screen.getByTestId("subId");
@@ -25,5 +26,11 @@ describe("Sub link", () => {
     const label = screen.getByText(subitem.label);
     expect(label).toBeInTheDocument();
     expect(label.firstChild?.textContent).toBe(subitem.label);
+  });
+
+  it("Should render with the correct link", () => {
+    render(<SubLink item={item} activeLinkStyle={{}} subitem={subitem} />);
+    const el = screen.getByTestId("subId");
+    expect(el.querySelector("a")?.getAttribute("href")).toContain(subitem.link);
   });
 });

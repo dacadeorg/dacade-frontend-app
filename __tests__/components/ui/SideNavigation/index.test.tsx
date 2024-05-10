@@ -17,60 +17,98 @@ jest.mock("next/router", () => ({
   }),
 }));
 
+const renderSideNavigation = (items: Items[] = []) => {
+  return renderWithRedux(
+    <SideNavigation items={items} colors={colors}>
+      Test
+    </SideNavigation>
+  );
+};
+
 describe("SideNavigation", () => {
-  const mockItems: Items[] = [
-    {
-      hideTitle: true,
-      title: "Hello",
-      id: "1",
-      items: [
-        {
-          id: "menu 1",
-          subitems: [
-            {
-              label: "Menu 1",
-              link: "/menu/1",
-              exact: true,
-            },
-          ],
-          label: "Menu 1",
-          link: "/menu/1",
-          exact: true,
-        },
-        {
-          id: "menu 2",
-          subitems: [
-            {
-              label: "Menu 2",
-              link: "/menu/2",
-              exact: true,
-            },
-          ],
-          label: "Menu 2",
-          link: "/menu/2",
-          exact: true,
-        },
-      ],
-    },
-  ];
+  const mockItems: Items = {
+    hideTitle: true,
+    title: "item title",
+    id: "1",
+    items: [
+      {
+        id: "menu 1",
+        subitems: [
+          {
+            label: "Menu 1",
+            link: "/menu/1",
+            exact: true,
+          },
+        ],
+        label: "Menu 1",
+        link: "/menu/1",
+        exact: true,
+      },
+      {
+        id: "menu 2",
+        subitems: [
+          {
+            label: "Menu 2",
+            link: "/menu/2",
+            exact: true,
+          },
+        ],
+        label: "Menu 2",
+        link: "/menu/2",
+        exact: true,
+      },
+    ],
+  };
+
   it("should render side navigation", () => {
-    renderWithRedux(
-      <SideNavigation items={[]} colors={colors}>
-        <>Test</>
-      </SideNavigation>
-    );
+    renderSideNavigation();
     const sideNav = screen.getByTestId("sideNavId");
     expect(sideNav).toBeInTheDocument();
     expect(sideNav.innerHTML).toContain("Test");
   });
 
   it("should render navigation items", () => {
-    renderWithRedux(
-      <SideNavigation items={mockItems} colors={colors}>
-        <>Test</>
-      </SideNavigation>
-    );
-    const navItems = screen.getAllByTestId("sideNavId");
-    expect(navItems.length).toBe(1);
+    const MOCK_ITEMS_LENGTH = 5;
+    const items = Array(MOCK_ITEMS_LENGTH).fill(mockItems);
+    renderSideNavigation(items);
+    const navItems = screen.getAllByTestId("sidebar-menu-list-container");
+    expect(navItems.length).toBe(MOCK_ITEMS_LENGTH);
+  });
+
+  it("Should render the items title when titles are set to be visible", () => {
+    mockItems.hideTitle = false;
+    renderSideNavigation([mockItems]);
+    const navTitles = screen.getAllByTestId("sidebar-menu-list-container");
+    navTitles.forEach((el, index) => {
+      expect(el.firstChild?.textContent).toBe([mockItems][index].title);
+    });
+  });
+
+  it("Should not render any items title when title are set to be hidden", () => {
+    mockItems.hideTitle = true;
+    const items = Array<Items>(5).fill(mockItems);
+    renderSideNavigation(items);
+    const navItems = screen.getAllByTestId("sidebar-menu-list-container");
+    navItems.forEach((el, index) => {
+      expect(el.firstChild?.textContent).not.toBe(items[index].title);
+    });
+  });
+
+  it("Render titles only for items with the 'hideTitle' sets to false", () => {
+    const items = Array<Items>(5)
+      .fill(mockItems)
+      .map((el, index) => {
+        return index % 2 === 0 ? { ...el, hideTitle: false } : el;
+      });
+
+    renderSideNavigation(items);
+    const navItems = screen.getAllByTestId("sidebar-menu-list-container");
+    navItems.forEach((el, index) => {
+      if (items[index].hideTitle) {
+        expect(el.firstChild?.textContent).not.toBe(items[index].title);
+      } else {
+        expect(el.firstChild?.textContent).toBe(items[index].title);
+      }
+    });
   });
 });

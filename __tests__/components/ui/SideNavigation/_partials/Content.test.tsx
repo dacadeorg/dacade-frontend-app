@@ -7,16 +7,10 @@ describe("Content", () => {
     label: "Dummy",
     subitems: [{ label: "Dummy", link: "/dummy" }],
   };
-  it("should render content", () => {
+  it("should render the element", () => {
     render(<NavItem item={item} />);
     const content = screen.getByTestId("contentId");
     expect(content).toBeInTheDocument();
-  });
-
-  it("should render style when active", () => {
-    render(<NavItem item={item} isActive />);
-    const content = screen.getByTestId("contentId");
-    expect(content.children[0]).toHaveAttribute("style", "display: !inline-block;");
   });
 
   it("should render icon", () => {

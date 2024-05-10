@@ -12,7 +12,7 @@ describe("LinkContent", () => {
     items: [],
     link: "/test",
   };
-  it("should render the link content", () => {
+  it("should render the link component", () => {
     render(<LinkContent isActive={true} expanded={true} item={item} />);
     const linkContent = screen.getByTestId("linkContentId");
     expect(linkContent).toBeInTheDocument();
@@ -28,5 +28,11 @@ describe("LinkContent", () => {
     render(<LinkContent isActive={false} expanded={false} item={item} />);
     const chevronIcon = screen.queryByTestId("chevronId");
     expect(chevronIcon).not.toBeInTheDocument();
+  });
+
+  it("Should render the label", () => {
+    render(<LinkContent isActive={true} expanded={true} item={item} />);
+    const label = screen.getByText(item.label);
+    expect(label).toBeInTheDocument();
   });
 });
