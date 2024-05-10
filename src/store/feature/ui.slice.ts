@@ -94,7 +94,7 @@ export const toggleShowReferralPopup = (show: boolean) => (dispatch: any) => {
  * Toggles the visibility of the jobOffers popup and locks/unlocks the body scrolling accordingly.
  * @param {boolean} show Whether or not to show the jobOffers popup.
  */
-export const toggleShowJobOffersPopup = (show: boolean) => (dispatch: any) => {
+export const toggleJobOffersPopup = (show: boolean) => (dispatch: any) => {
   dispatch(toggleBodyScrolling(show));
   dispatch(setShowJobOffersPopup(show));
 };

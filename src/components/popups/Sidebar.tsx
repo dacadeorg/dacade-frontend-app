@@ -11,7 +11,7 @@ import WalletIcon from "@/icons/wallet.svg";
 import Popup from "@/components/ui/Popup";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
-import { toggleBodyScrolling, toggleShowJobOffersPopup, toggleShowReferralPopup } from "@/store/feature/ui.slice";
+import { toggleBodyScrolling, toggleJobOffersPopup, toggleShowReferralPopup } from "@/store/feature/ui.slice";
 import { logout } from "@/store/feature/auth.slice";
 import { authVerify } from "@/store/feature/auth.slice";
 import { readNotification } from "@/store/services/notification.service";
@@ -93,7 +93,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
 
   const displayJobOffersPopup = () => {
     if (show) setshow(!show);
-    dispatch(toggleShowJobOffersPopup(true));
+    dispatch(toggleJobOffersPopup(true));
   };
 
   return (

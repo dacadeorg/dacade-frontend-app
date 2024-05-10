@@ -16,7 +16,7 @@ import classNames from "classnames";
 import Loader from "../ui/Loader";
 import { IRootState } from "@/store";
 import { User } from "@/types/bounty";
-import { toggleShowJobOffersPopup } from "@/store/feature/ui.slice";
+import { toggleJobOffersPopup } from "@/store/feature/ui.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 
 interface NavbarProps {
@@ -83,7 +83,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
   };
 
   const displayJobOffersPopup = () => {
-    dispatch(toggleShowJobOffersPopup(true));
+    dispatch(toggleJobOffersPopup(true));
   };
 
   return (

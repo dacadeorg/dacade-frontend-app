@@ -1,5 +1,5 @@
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { toggleShowJobOffersPopup } from "@/store/feature/ui.slice";
+import { toggleJobOffersPopup } from "@/store/feature/ui.slice";
 import Popup from "../ui/Popup";
 import Button from "../ui/button";
 import CloseIcon from "@/icons/close-icon.svg";
@@ -24,7 +24,7 @@ export default function JobOffers() {
   const dispatch = useDispatch();
 
   const toggle = () => {
-    dispatch(toggleShowJobOffersPopup(!show));
+    dispatch(toggleJobOffersPopup(!show));
   };
   return (
     <>
