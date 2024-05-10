@@ -1,7 +1,8 @@
 import CourseLink from "@/components/ui/SideNavigation/_partials/SideNavLink";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import ReduxProvider from "../../../../../__mocks__/provider/ReduxProvider";
+import { screen } from "@testing-library/react";
+import { renderWithRedux } from "../../../../../__mocks__/renderWithRedux";
+import { colors } from "../../../../../__mocks__/colors";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -23,11 +24,13 @@ describe("SideNavLink", () => {
     label: "Example label",
   };
   it("should render side navigation links", () => {
-    render(
-      <ReduxProvider>
-        <CourseLink item={item} />
-      </ReduxProvider>
-    );
+    renderWithRedux(<CourseLink item={item} />, {
+      ui: {
+        colors: colors,
+        locked: false,
+        showReferralPopup: false,
+      },
+    });
     const courseLink = screen.getByTestId("courseLinkId");
     expect(courseLink).toBeInTheDocument();
   });
