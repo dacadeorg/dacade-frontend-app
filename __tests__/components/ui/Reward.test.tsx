@@ -13,9 +13,8 @@ describe("OverviewRewards", () => {
   it("Should render reward details", () => {
     render(<OverviewRewards reward={reward} size="medium" />);
     const rewardAmount = screen.getByText(reward.amount.toString());
-    const rewardToken = screen.getByText(reward.token.toString())
+    const rewardToken = screen.getByText(reward.token.toString());
     expect(rewardAmount).toHaveTextContent(reward.amount.toString());
     expect(rewardToken).toHaveTextContent(reward.token);
   });
-
 });

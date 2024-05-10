@@ -98,7 +98,7 @@ export default function ProfileNagivation(): ReactElement {
   const isCurrentMenuItem = (item: MenuItem) => item.link === router.asPath || (router.asPath === "/profile" && item.label.toLocaleLowerCase() === "overview");
 
   return (
-    <ul className="relative hidden lg:block xl:block">
+    <ul className="relative block ml-5 md:ml-0">
       {menus.map((menu, i) => (
         <li key={`profile-menu-${i}`} className="mb-2 relative">
           <ProfileOverviewSection title={menu.title}>

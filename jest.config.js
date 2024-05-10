@@ -17,8 +17,12 @@ const createJestConfig = nextJest({
 const config = {
   coverageProvider: "v8",
   testEnvironment: "jsdom",
+  setupFiles: ["./jest.polyfills.js"],
   // Add more setup options before each test is run
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  testEnvironmentOptions: {
+    customExportConditions: [""],
+  },
   moduleNameMapper: {
     "^.+\\.(svg)$": require.resolve("./__mocks__/svg.ts"),
     "react-markdown": "<rootDir>/__mocks__/react-markdown.tsx",

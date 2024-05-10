@@ -38,6 +38,9 @@ interface AvatarProps {
   isKycVerified?: boolean;
   style?: CSSProperties;
   className?: string;
+  testId?: string;
+  avatarInitialsTestId?: string;
+  verificationBadgeTestId?: string;
 }
 
 /**
@@ -67,6 +70,9 @@ export default function Avatar({
   className,
   hideVerificationBadge = false,
   isKycVerified = false,
+  testId = "avatar",
+  avatarInitialsTestId = "user-avatar-initials",
+  verificationBadgeTestId = "verification-badge",
 }: AvatarProps): ReactElement {
   const [userAvatarLoaded, setUserAvatarLoaded] = useState(true);
   const initials = user?.displayName ? user?.displayName[0] : null;
@@ -112,7 +118,7 @@ export default function Avatar({
   const Component = useLink ? Link : "div";
 
   return (
-    <Component data-testid="avatar" href={link} className={componentClassName}>
+    <Component data-testid={testId} href={link} className={componentClassName}>
       <div
         style={{ backgroundColor: color }}
         className={`bg-primary h-full w-full flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle relative z-0 ${shapeClassName}`}
@@ -133,14 +139,14 @@ export default function Avatar({
             </div>
           </div>
         ) : (
-          <span data-testid="user-avatar-initials">{initials}</span>
+          <span data-testid={avatarInitialsTestId}>{initials}</span>
         )}
 
         {icon && <Image fill={true} src={icon} alt="icon image" className="p-2" />}
         {image && <Image src={image} fill={true} alt="avatar image" className="p-0 object-cover w-full h-full" />}
       </div>
       {showVerificationBadge && (
-        <div data-testid="verification-badge" className={`absolute z-20 rounded-full ${verifiedIconClasses}`}>
+        <div data-testid={verificationBadgeTestId} className={`absolute z-20 rounded-full ${verifiedIconClasses}`}>
           <VerifiedIcon className="w-full h-full" />
         </div>
       )}
