@@ -57,7 +57,7 @@ export default function LinkAction({ item, activeLinkStyle, isActive, goToLink, 
   const styles = isActive ? { ...activeLinkStyle } : {};
 
   return (
-    <span className="relative block">
+    <span data-testid="linkActionId" className="relative block">
       {item.subitems && item.subitems.length ? (
         <span className={classes} style={styles} onClick={goToLink}>
           {children}
