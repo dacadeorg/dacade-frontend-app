@@ -26,7 +26,7 @@ describe("Learning", () => {
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
 
-  it("should render Learning", () => {
+  it("should render course being learned", () => {
     renderWithRedux(<Learning courses={[]} learningModules={[]} community={community} />);
     const learning = screen.getByTestId("learningId");
     expect(learning).toBeInTheDocument();

@@ -2,6 +2,7 @@ import { Submission } from "@/types/bounty";
 import { community } from "./community";
 import { challenge } from "./course";
 import { reward } from "./reward";
+import { ReactNode } from "react";
 
 export const mockTrailer = {
   summary: "trailer summary",
@@ -64,4 +65,7 @@ export const mockSubmission: Submission = {
   reviewable: false,
   status: "",
   reward: reward,
+  map: function (): ReactNode {
+    throw new Error("Function not implemented.");
+  }
 };
