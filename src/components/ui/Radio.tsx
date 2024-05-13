@@ -24,12 +24,7 @@ const colors = {
 export default function Radio({ disabled, communityStyles, className = "", ...props }: RadioProps) {
   const styles = useMemo(() => (!communityStyles ? {} : { color: colors?.textAccent }), [communityStyles]);
 
-  const radioClassName = classNames(
-    "w-9 h-9 border-gray-400 text-primary rounded-full",
-    { "cursor-not-allowed border-4": disabled },
-    { "cursor-pointer": !disabled },
-    `${className}`
-  );
+  const radioClassName = classNames("w-9 h-9 border-gray-400 text-primary rounded-full", { "cursor-not-allowed border-4": disabled }, { "cursor-pointer": !disabled }, className);
 
   return <input {...props} className={radioClassName} style={styles} type="radio" />;
 }

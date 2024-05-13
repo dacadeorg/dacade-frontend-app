@@ -111,7 +111,7 @@ export default function Filters(): ReactElement {
     <div className="lg:flex flex-col mr-8 hidden mt-6 space-y-6">
       <div>
         <span className="text-gray-700">Filter by</span>
-        <div className="mt-3 space-y-1-">
+        <div className="mt-3 space-y-1">
           {filterOptions.map((option, i) => (
             <FilterOption
               key={`option-${i}`}
@@ -129,17 +129,6 @@ export default function Filters(): ReactElement {
       <div>
         <span className="text-gray-700">Sort</span>
         <div className="mt-3 space-y-1">
-          {sortingOptions.map((option, i) => (
-            <FilterOption
-              key={`sorting-option-${i}`}
-              defaultChecked={sortBy === option.value}
-              label={option.label}
-              value={option.value}
-              data={sortBy}
-              name="sort-by-option"
-              onChange={handleSortByChange}
-            />
-          ))}
           {sortingOptions.map((option, i) => (
             <FilterOption
               key={`sorting-option-${i}`}
