@@ -3,10 +3,11 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { community } from "../../../../__mocks__/community";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
-import { challenge, mockCourse, mockLearningModule } from "../../../../__mocks__/course";
+import {  mockCourse, mockLearningModule } from "../../../../__mocks__/course";
 import { setupServer } from "msw/node";
 import { handlers } from "../../../../__mocks__/provider/handlers";
-import { mockSubmission } from "../../../../__mocks__/bounty";
+import { submission } from "../../../../__mocks__/submission";
+import { challenge } from "../../../../__mocks__/challenge";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -36,7 +37,7 @@ describe("Learning", () => {
   it("should render with courses", () => {
     const coursesArray = [mockCourse];
     renderWithRedux(<Learning courses={[mockCourse]} learningModules={[mockLearningModule]} community={community} />, {
-      challenges: { current: challenge, list: [challenge], loading: false, submission: mockSubmission },
+      challenges: { current: challenge, list: [challenge], loading: false, submission: submission },
     });
     coursesArray.forEach((course) => {
       expect(screen.getByText(course.name)).toBeInTheDocument();

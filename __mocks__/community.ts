@@ -52,4 +52,7 @@ export const community = {
   courses: 3,
   duration: 4,
   can_mint_certificates: true,
+  challenges: 3
 };
+
+
