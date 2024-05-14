@@ -16,7 +16,6 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import VerifiedIcon from "@/icons/verified.svg";
 import { IRootState } from "@/store";
 import { Wallet } from "@/types/wallet";
-import { KYCSTATUS } from "@/store/feature/kyc.slice";
 
 /**
  * interface for UserProfileDropdown multiSelector
@@ -56,7 +55,7 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
     error: (state: IRootState) => state.store.error,
   });
   const username = user?.displayName;
-  const isKycVerified = useMemo(() => user?.kycStatus === KYCSTATUS.VERIFIED, [user]);
+  const isKycVerified = useMemo(() => user?.kycStatus === "VERIFIED", [user]);
 
   /**
    * Logout handler.
@@ -128,7 +127,7 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
         ) : (
           <></>
         )}
-        {showLanguageSwitcher && <LanguageList onSelect={onClose} />}
+        {showLanguageSwitcher && <LanguageList />}
         <div className="p-4 flex justify-center bg-indigo-50">
           <div className="z-10">
             <Button

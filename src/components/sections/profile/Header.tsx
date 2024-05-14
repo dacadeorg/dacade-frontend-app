@@ -10,13 +10,12 @@ import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { KYCSTATUS, openVerificationModal } from "@/store/feature/kyc.slice";
+import { openVerificationModal } from "@/store/feature/kyc.slice";
 import KYCVerification from "@/components/popups/KYCVerification";
 import { useDiscordConnect } from "@/hooks/useDiscordConnect";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
 import Link from "next/link";
-import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 
 /**
  * interface for ProfileHeader multiSelector
@@ -42,7 +41,7 @@ export default function ProfileHeader() {
   const { authUser, profileUser, isKycVerified } = useMultiSelector<unknown, ProfileHeaderMultiSelector>({
     authUser: (state: IRootState) => state.user.data,
     profileUser: (state: IRootState) => state.profileUser.current,
-    isKycVerified: (state: IRootState) => state.user.data?.kycStatus === KYCSTATUS.VERIFIED,
+    isKycVerified: (state: IRootState) => state.user.data?.kycStatus === "VERIFIED",
   });
 
   const user = useMemo(() => {
@@ -65,10 +64,8 @@ export default function ProfileHeader() {
   }, [isCurrentUser, isKycVerified]);
 
   const dispatch = useDispatch();
-
   const triggerKYCVerification = () => {
     dispatch(openVerificationModal({}));
-    dispatch(toggleBodyScrolling(true))
   };
 
   const { canConnectDiscord, triggerDiscordOauth } = useDiscordConnect();

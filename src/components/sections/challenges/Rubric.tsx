@@ -9,7 +9,6 @@ import Accordion from "@/components/ui/accordion/Accordion";
 import { IRootState } from "@/store";
 import { Colors } from "@/types/community";
 import Coin from "@/components/ui/Coin";
-import { GRADING_CRITERIA } from "@/constants/challengeInfo";
 
 /**
  * Rubic header component props interface
@@ -54,12 +53,12 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
     });
 
     const passingScoreParts = passingScore.split("{{coinPlaceholder}}");
-    const hackatonPassingScore = t("communities.challenge.hackathon.passing.score", { threshold: challenge?.threshold, prizePool: `USD ${reward?.amount}` });
+    const hackatonPassingScore = t("communities.challenge.hackathon.passing.score");
 
     return (
       <div className="text-base font-normal text-slate-700 pt-8 md:w-182.5 inline-flex flex-wrap items-center gap-1">
         {challenge?.isHackathon ? (
-          <div dangerouslySetInnerHTML={{ __html: challenge?.additionalInfo?.[GRADING_CRITERIA].text || hackatonPassingScore }} />
+          <div dangerouslySetInnerHTML={{ __html: hackatonPassingScore }} />
         ) : (
           passingScoreParts.map((part, index) => {
             if (index === passingScoreParts.length - 1) {
@@ -95,8 +94,9 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
                     {criteria.rubric.map((rubric, k) => (
                       <div
                         key={`criteria-rubic-item-${k}`}
-                        className={`text-sm border border-transparent sm:border-gray-200 px-0 py-2 sm:p-3.5 rounded-2xl ${selected?.length && !selectedRubric(rubric.id) ? "opacity-40" : "relative"
-                          }`}
+                        className={`text-sm border border-transparent sm:border-gray-200 px-0 py-2 sm:p-3.5 rounded-2xl ${
+                          selected?.length && !selectedRubric(rubric.id) ? "opacity-40" : "relative"
+                        }`}
                       >
                         {selectedRubric(rubric.id) && (
                           <span className="absolute right-2 bottom-3 w-3" style={{ color: colors?.textAccent }}>

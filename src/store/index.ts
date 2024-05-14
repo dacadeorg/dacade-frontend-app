@@ -47,7 +47,6 @@ import challengeService from "@/store/services/communities/challenges";
 import scoreboardService from "./services/communities/scoreboard.service";
 import communitiesProfile from "./feature/profile/communities.slice";
 import reputationSlice from "./feature/profile/reputation.slice";
-import { learningModulesService } from "./services/learningModules.service";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -81,7 +80,6 @@ export interface IRootState {
   payouts: ReturnType<typeof payoutsSlice.reducer>;
   teams: ReturnType<typeof teamsSlice.reducer>;
   invites: ReturnType<typeof invitesSlice.reducer>;
-  learningModuleService: ReturnType<typeof learningModulesService.reducer>;
 }
 
 export type IRootService = {
@@ -172,74 +170,11 @@ export const middlewares = [
 export const makeStore = () =>
   configureStore({
     reducer: {
-      [ui.name]: ui.reducer,
-      [referralSlice.name]: referralSlice.reducer,
-      [userSlice.name]: userSlice.reducer,
-      [notificationsSlice.name]: notificationsSlice.reducer,
-      [bannerSlice.name]: bannerSlice.reducer,
-      [walletsSlice.name]: walletsSlice.reducer,
-      [indexSlice.name]: indexSlice.reducer,
-      [authSlice.name]: authSlice.reducer,
-      [authService.reducerPath]: authService.reducer,
-      [courseSlice.name]: courseSlice.reducer,
-      [navigationSlice.name]: navigationSlice.reducer,
-      [submissionsSlice.name]: submissionsSlice.reducer,
-      [eventsSlice.name]: eventsSlice.reducer,
-      [bountiesSlice.name]: bountiesSlice.reducer,
-      [communitySlice.name]: communitySlice.reducer,
-      [learningModulesSlice.name]: learningModulesSlice.reducer,
-      [userProfileSlice.name]: userProfileSlice.reducer,
-      [userReputationSlice.name]: userReputationSlice.reducer,
-      [feedbackSlice.name]: feedbackSlice.reducer,
-      [challengeSlice.name]: challengeSlice.reducer,
-      [web3WalletSlice.name]: web3WalletSlice.reducer,
-      [communityService.reducerPath]: communityService.reducer,
-      [bountiesService.reducerPath]: bountiesService.reducer,
-      [coursesService.reducerPath]: coursesService.reducer,
-      [certificateService.reducerPath]: certificateService.reducer,
-      [walletsService.reducerPath]: walletsService.reducer,
-      [reputationProfileService.reducerPath]: reputationProfileService.reducer,
-      [profileCommunitiesService.reducerPath]: profileCommunitiesService.reducer,
-      [userService.reducerPath]: userService.reducer,
-      [userProfileService.reducerPath]: userProfileService.reducer,
-      [userReputationService.reducerPath]: userReputationService.reducer,
-      [referralsService.reducerPath]: referralsService.reducer,
-      [notificationsService.reducerPath]: notificationsService.reducer,
-      [scoreboardSlice.name]: scoreboardSlice.reducer,
-      [certificateSlice.name]: certificateSlice.reducer,
-      [userReferralsSlice.name]: userReferralsSlice.reducer,
-      [sumsubVerificationSlice.name]: sumsubVerificationSlice.reducer,
-      [payoutsSlice.name]: payoutsSlice.reducer,
-      [teamsSlice.name]: teamsSlice.reducer,
-      [teamsService.reducerPath]: teamsService.reducer,
-      [challengeService.reducerPath]: challengeService.reducer,
-      [scoreboardService.reducerPath]: scoreboardService.reducer,
-      [invitesSlice.name]: invitesSlice.reducer,
-      [communitiesProfile.name]: communitiesProfile.reducer,
-      [reputationSlice.name]: reputationSlice.reducer,
-      [learningModulesService.reducerPath]: learningModulesService.reducer,
+      ...reducers,
     },
 
     middleware: (getDefaultMiddleware) => {
-      return getDefaultMiddleware().concat(
-        coursesService.middleware,
-        communityService.middleware,
-        walletsService.middleware,
-        userService.middleware,
-        referralsService.middleware,
-        notificationsService.middleware,
-        userProfileService.middleware,
-        bountiesService.middleware,
-        certificateService.middleware,
-        reputationProfileService.middleware,
-        profileCommunitiesService.middleware,
-        userReputationService.middleware,
-        authService.middleware,
-        teamsService.middleware,
-        challengeService.middleware,
-        scoreboardService.middleware,
-        learningModulesService.middleware
-      );
+      return getDefaultMiddleware().concat(...middlewares);
     },
   });
 

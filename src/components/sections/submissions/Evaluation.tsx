@@ -57,7 +57,7 @@ export default function Evaluations(): ReactElement {
             <div className="relative text-sm">
               {challenge?.isHackathon ? (
                 <>
-                  <div>{t("communities.challenge.evaluation.message.nominated", { threshold: challenge.threshold })}</div>
+                  <div>{t("communities.challenge.evaluation.message.nominated")}</div>
                   <div className="inline-block font-medium" style={{ color: colors?.textAccent }}>
                     <span className="text-xl">{evaluation.reward.amount}</span> USD
                   </div>

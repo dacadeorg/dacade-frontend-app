@@ -6,12 +6,6 @@ import api from "@/config/api";
 import { fetchUser } from "../services/user.service";
 import snsWebSdk from "@sumsub/websdk";
 
-export enum KYCSTATUS {
-  PENDING = "PENDING",
-  VERIFIED = "VERIFIED",
-  REJECTED = "REJECTED",
-}
-
 interface SumsubVerificationState {
   sumsubToken: string | null;
   showModal: boolean;
@@ -65,7 +59,7 @@ export const getSumsubToken = () => async (dispatch: Dispatch) => {
  * @returns {(dispatch: any) => any}
  */
 export const openVerificationModal = (payload: any) => (dispatch: any, getState: () => IRootState) => {
-  const isKycVerified = getState().user.data?.kycStatus === KYCSTATUS.VERIFIED;
+  const isKycVerified = getState().user.data?.kycStatus === "VERIFIED";
   if (isKycVerified) {
     dispatch(closeVerificationModal());
     triggerCompleteAction();

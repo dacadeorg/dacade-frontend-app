@@ -1,5 +1,5 @@
 import { formatDistance, millisecondsToMinutes, formatDuration, format as dateFormatter, intlFormat } from "date-fns";
-import { es, enUS, hr, bg, fr, ko, zhCN } from "date-fns/locale";
+import { es, enUS, hr, bg, fr } from "date-fns/locale";
 
 export type LocaleDateFormat = string;
 
@@ -21,8 +21,18 @@ type FormatOptions = {
  */
 
 function getLocale(locale: LocaleDateFormat = "en"): Locale {
-  const locales = [es, enUS, hr, bg, fr, ko, zhCN];
-  return locales.find(({ code }) => code === locale) || locales.find(({ code }) => code?.includes(locale)) || enUS;
+  switch (locale) {
+    case "es":
+      return es;
+    case "hr":
+      return hr;
+    case "bg":
+      return bg;
+    case "fr":
+      return fr;
+    default:
+      return enUS;
+  }
 }
 
 /**

@@ -19,7 +19,6 @@ export interface Community {
   rewards: Reward[];
   reward: Reward;
   courses: number;
-  challenges: number;
   duration: number;
   items?: any[];
   challenge?: Challenge;

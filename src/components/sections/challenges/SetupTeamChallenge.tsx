@@ -7,7 +7,6 @@ import { useTranslation } from "next-i18next";
 import { IRootState } from "@/store";
 import { Invite } from "@/types/challenge";
 import { Challenge } from "@/types/course";
-import { TEAM_FORMATION } from "@/constants/challengeInfo";
 
 interface Props {
   invite: Invite;
@@ -27,7 +26,7 @@ export default function SetupTeamChallenge(): JSX.Element {
     <Section title="Submission">
       <div className="text-base font-normal text-slate-700 pt-8 pb-7 md:w-182.5">{t("communities.overview.challenge.team.setup.info")}</div>
       <div className="md:flex flex-row gap-5">
-        <FormTeamCard index={1} title="Form your team" description={challenge?.additionalInfo?.[TEAM_FORMATION].text || t("communities.overview.challenge.team.organization")} />
+        <FormTeamCard index={1} title="Form your team" description="Open discord channel #icp-ai-web3-hachathon and find your teammates to complete the challenge with you." />
         {invite && !invite.team?.locked ? (
           <ConfirmTeamInvitation index={2} title="Submit your team" text={`The maximum team members for this challenge is ${challenge?.teamLimit || "3"} people`} invite={invite} />
         ) : (

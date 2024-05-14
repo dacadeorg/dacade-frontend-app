@@ -1,16 +1,9 @@
-import { useMultiSelector } from "@/hooks/useTypedSelector";
+import { useSelector } from "@/hooks/useTypedSelector";
 import Avatar from "@/components/ui/Avatar";
 import { ReactElement } from "react";
 import { useRouter } from "next/router";
 import Right from "@/icons/angle-right.svg";
 import Link from "next/link";
-import { Referral } from "@/types/community";
-import { IRootState } from "@/store";
-
-interface ReferralsMultiSelector {
-  referrals: Referral[];
-  count: number;
-}
 
 /**
  * Request component
@@ -20,10 +13,7 @@ interface ReferralsMultiSelector {
  * @returns {}
  */
 export default function Request(): ReactElement {
-  const { referrals, count } = useMultiSelector<unknown, ReferralsMultiSelector>({
-    referrals: (state: IRootState) => state.userReferrals.userReferralList,
-    count: (state: IRootState) => state.userReferrals.count,
-  });
+  const referrals = useSelector((state) => state.userReferrals.userReferralList);
   const previewList = referrals.slice(0, 3);
   const router = useRouter();
 
@@ -41,13 +31,14 @@ export default function Request(): ReactElement {
             ))}
           </div>
           <div className="relative pl-3  font-normal cursor-pointer md:flex md:font-medium" onClick={onClick}>
-            <span className="md:inline-block">{count} Friends have used your invite code</span>
+            <span className="md:inline-block">{referrals?.length} Friends have used your invite code</span>
           </div>
         </div>
 
         <div className="md:pl-4 py-4 md:py-0">4 Pending invitations</div>
       </div>
       <Link href={`/profile/referrals`} className="text-primary flex items-center justify-between gap-4 cursor-pointer">
+        {" "}
         <span>See all</span>
         <Right />
       </Link>

@@ -177,7 +177,7 @@ export const createSubmissionTeam = createAsyncThunk(
 export const findWithRelations = createAsyncThunk("submissions/findWithRelations", async ({ id, locale }: { id: string; locale?: string }, { dispatch }) => {
   const { data } = await api(locale).server.get(`submissions/${id}`, {
     params: {
-      relations: ["challenge", "evaluation", "community"],
+      relations: ["challenge", "evaluation", "course", "community"],
     },
   });
   dispatch(setCurrent(data));

@@ -47,7 +47,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
 
     const [{ data: community }, { data: challenges }, { data: scoreboard }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug, locale })),
-      store.dispatch(fetchAllChallenges({ slug, locale })),
+      store.dispatch(fetchAllChallenges({ slug })),
       store.dispatch(fetchAllScoreboards({ slug, locale: locale || "en" })),
       serverSideTranslations(locale as string),
     ]);

@@ -1,4 +1,4 @@
-const colors = {
+export const colors = {
   textAccent: "--tm-text",
   text: "--tm-text",
   accent: "--tm-accent",
@@ -13,5 +13,3 @@ const colors = {
     background: "--tm-background",
   },
 };
-
-export {colors}

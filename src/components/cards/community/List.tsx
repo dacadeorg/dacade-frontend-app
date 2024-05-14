@@ -58,7 +58,7 @@ export default function CommunityListCard({ community }: CommunityListCardProps)
                           {t("communities.list-card.earn")} <span className="font-bold">{reward?.token}</span>
                         </div>
                         <div className="font-light leading-tight">
-                          {t(community.challenges > 1 ? "communities.card.challenges" : "communities.card.challenge", { count: community.challenges })}
+                          {t(community.courses !== 1 ? "communities.card.courses" : "communities.card.course", { count: community.courses })}
                         </div>
                       </div>
                     </div>

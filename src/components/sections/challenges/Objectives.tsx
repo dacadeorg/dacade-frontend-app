@@ -31,17 +31,15 @@ export default function Objectives({challenges}: objectiveProp): ReactElement {
       <div data-testid="objectiveId" className="space-y-5">
         <ObjectiveList objectives={challenge?.objectives || challenges?.objectives} />
         {expirationDate && <ExpiryDate expiresAt={expirationDate} />}
-        <Hint>
-          {containsLink.test(challenge?.hint as string) ? (
+        {containsLink.test(challenge?.hint as string) && (
+          <Hint>
             <span
               dangerouslySetInnerHTML={{
                 __html: challenge?.hint as string,
               }}
             />
-          ) : (
-            <>{challenge?.hint}</>
-          )}
-        </Hint>
+          </Hint>
+        )}
       </div>
     </Section>
   );

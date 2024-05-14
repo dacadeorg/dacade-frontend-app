@@ -84,7 +84,7 @@ export default function CommunityCard({ showRewards = true, community }: Communi
             <div className="flex flex-col space-y-0">
               <div className="mt-4 font-medium text-theme-accent">{t("communities.card.earn")}</div>
               <div className="mt-4 font-light text-theme-accent">
-                {t(community.challenges > 1 ? "communities.card.challenges" : "communities.card.challenge", { count: community.challenges })}
+                {t(community.courses !== 1 ? "communities.card.courses" : "communities.card.course", { count: community.courses })}
               </div>
             </div>
             <div className="mt-4 align-middle">

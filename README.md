@@ -142,7 +142,7 @@ Contributions to the project are welcome. To contribute, follow these steps:
 
 ### License
 
-This project is licensed under the GNU AGPLv3 License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 ### Troubleshooting and Problem-Solving Guide
 
