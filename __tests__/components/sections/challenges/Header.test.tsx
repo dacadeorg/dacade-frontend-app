@@ -16,11 +16,9 @@ jest.mock("next/router", () => ({
   }),
 }));
 
-
 describe("ChallengeHeader", () => {
   it("should render the challenge header with section", () => {
-    renderWithRedux(<ChallengeHeader />, {challenges: { current: mockChallenge, list: [mockChallenge], loading: false, submission: mockSubmission },
-  });
+    renderWithRedux(<ChallengeHeader />, { challenges: { current: mockChallenge, list: [mockChallenge], loading: false, submission: mockSubmission } });
     const challengeheader = screen.getByTestId("challengeHeaderId");
     expect(challengeheader).toBeInTheDocument();
     expect(screen.getByText("communities.challenge.title")).toBeInTheDocument();
