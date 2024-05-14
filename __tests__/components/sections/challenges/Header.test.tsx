@@ -2,9 +2,8 @@ import ChallengeHeader from "@/components/sections/challenges/Header";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
-import { challenge } from "../../../../__mocks__/course";
-import { useSelector } from "react-redux";
-// import { Course } from "../../../../__mocks__/course";
+import { mockChallenge } from "../../../../__mocks__/challenge";
+import { mockSubmission } from "../../../../__mocks__/bounty";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -17,21 +16,15 @@ jest.mock("next/router", () => ({
   }),
 }));
 
-jest.mock("react-redux", () => ({
-  ...jest.requireActual("react-redux"),
-  useSelector: jest.fn(),
-}));
 
 describe("ChallengeHeader", () => {
-  beforeEach(() => {
-    (useSelector as jest.Mock).mockImplementation((callback) => callback({ challenges: { current: challenge } }));
-  });
   it("should render the challenge header with section", () => {
-    renderWithRedux(<ChallengeHeader />);
+    renderWithRedux(<ChallengeHeader />, {challenges: { current: mockChallenge, list: [mockChallenge], loading: false, submission: mockSubmission },
+  });
     const challengeheader = screen.getByTestId("challengeHeaderId");
     expect(challengeheader).toBeInTheDocument();
     expect(screen.getByText("communities.challenge.title")).toBeInTheDocument();
-    expect(screen.getByText(challenge.name)).toBeInTheDocument();
-    expect(screen.getByText(challenge.description)).toBeInTheDocument();
+    expect(screen.getByText(mockChallenge.name)).toBeInTheDocument();
+    expect(screen.getByText(mockChallenge.description)).toBeInTheDocument();
   });
 });

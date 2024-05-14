@@ -27,6 +27,7 @@ export interface Bounty {
   submissions?: Submission;
   author?: BountyAuthor;
   unreviewedSubmissionsCount?: number;
+  community: string;
 }
 
 export interface BountyCourse extends Course {

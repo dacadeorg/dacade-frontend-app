@@ -1,38 +1,10 @@
+import { Community } from "@/types/community";
 import { colors } from "./colors";
+import { mockCourse, mockLearningModule, mockRatingCriteria } from "./course";
+import { reward } from "./reward";
+import { mockMetadata } from "./metaData";
 
-export const metadata = {
-  invite_id: "abc123",
-  submissions: 5,
-  bestSubmissions: ["submission1", "submission2"],
-  feedbacks: 10,
-  name: "Project XYZ",
-  issuedOn: "2024-01-29T12:00:00Z",
-  image: "image_url",
-  title: "Title of the project",
-  description: "Description of the project",
-  narrative: "Narrative of the project",
-  recipientName: "John Doe",
-  issuerName: "Jane Smith",
-  comment: "This is a comment",
-  linkToWork: "link_to_work",
-  submission: "submission_details",
-};
-
-const reward = {
-  id: "123456789",
-  ref: "ref123",
-  created_at: new Date("2024-01-29T08:00:00Z"),
-  updated_at: new Date("2024-01-29T08:30:00Z"),
-  challenge: "Challenge Name",
-  type: "SUBMISSION",
-  community: "Community Name",
-  token: "Token ID",
-  stable: true,
-  amount: 100,
-  timestamp: 1643424000,
-};
-
-export const community = {
+const mockCommunity: Community = {
   id: "ew-43",
   ref: "community/ref",
   created_at: new Date("2022-05-01T12:00:00Z"),
@@ -45,11 +17,55 @@ export const community = {
   slug: "ae",
   active: true,
   description: "this is a aeternity community",
-  metadata,
+  metadata: mockMetadata,
   timestamp: 182044800000,
   rewards: [reward],
   reward,
   courses: 3,
   duration: 4,
   can_mint_certificates: true,
+  challenge: {
+    id: "challenge",
+    ref: "challenge ref",
+    created_at: new Date("2022-05-01T12:00:00Z"),
+    updated_at: new Date("2022-05-01T12:00:00Z"),
+    hint: "Hint",
+    name: "challenge name",
+    format: {
+      githubLink: true,
+      text: true,
+      disclaimer: true,
+    },
+    description: "challenge description",
+    course: mockCourse,
+    type: "course",
+    isTeamChallenge: false,
+    objectives: ["objectives 1", "Objectives 2", "Objectives 3", "Objectives 4"],
+    threshold: 8,
+    reviewTime: 9,
+    metadata: mockMetadata,
+    level: 58,
+    courses: [mockCourse],
+    learningModules: [mockLearningModule],
+    expiresAt: "2025",
+    reward: reward,
+    certificateIcon: "certificate",
+    certificateData: {
+      narrative: "course certificate",
+      icon: "certificate icon",
+    },
+    ratingCriteria: [mockRatingCriteria],
+    timestamp: 6,
+    maxPoints: 299,
+    minPoints: 9,
+    rewards: [reward],
+    feedbacks: {},
+    feedbackInfo: [{}],
+    bestSubmissions: [{}],
+    teamLimit: 5,
+    isHackathon: false,
+  },
+  challenges: 4
 };
+
+export {mockCommunity}

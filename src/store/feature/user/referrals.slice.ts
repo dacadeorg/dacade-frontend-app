@@ -9,12 +9,14 @@ interface UserReferralsState {
   userReferralList: Referral[];
   current: Referral | null;
   hasMore: boolean;
+  count: number;
 }
 
 const initialState: UserReferralsState = {
   userReferralList: [],
   current: null,
   hasMore: true,
+  count: 0,
 };
 
 /**
@@ -38,9 +40,12 @@ const userReferralsSlice = createSlice({
     setHasMoreReferrals: (state, action) => {
       state.hasMore = action.payload;
     },
+    setCount: (state, action) => {
+      state.count = action.payload;
+    },
   },
 });
 
-export const { setCurrent, clear, setUserReferralsList, setHasMoreReferrals } = userReferralsSlice.actions;
+export const { setCurrent, clear, setUserReferralsList, setHasMoreReferrals, setCount } = userReferralsSlice.actions;
 
 export default userReferralsSlice;

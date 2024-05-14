@@ -32,10 +32,16 @@ interface ReputationCardProps {
  */
 export default function ReputationCard({ details = {} }: ReputationCardProps): ReactElement {
   return (
-    <div className="flex space-x-3 text-left hover:bg-gray-50 pb-3 -mx-5 px-5">
-      <Avatar icon={details.community?.icon} color={details.community?.colors?.cover?.background || details.community?.colors.primary} size="medium" shape="rounded" />
+    <div className="flex space-x-3 text-left hover:bg-gray-50 py-3 -mx-5 px-5 relative">
+      <Avatar
+        icon={details.community?.icon}
+        color={details.community?.colors?.cover?.background || details.community?.colors.primary}
+        size="medium"
+        shape="rounded"
+        useLink={false}
+      />
       {details?.score && (
-        <Link href={details?.community ? `/communities/${details.community.slug}` : ""} className="pt-1">
+        <Link href={details?.community ? `/communities/${details.community.slug}` : ""} className="pt-1 before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:z-0 before:block">
           <span className="block text-base font-medium leading-normal">
             <Currency value={details.score} token="REP" />
           </span>

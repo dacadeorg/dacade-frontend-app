@@ -1,10 +1,10 @@
 import { Submission } from "@/types/bounty";
-import { community } from "./community";
-import { challenge } from "./course";
+import { mockCommunity } from "./community";
 import { reward } from "./reward";
 import { ReactNode } from "react";
+import { mockChallenge } from "./challenge";
 
-export const mockTrailer = {
+const mockTrailer = {
   summary: "trailer summary",
   description: "trailer descriptio",
   video: "trailer video",
@@ -15,16 +15,17 @@ export const mockTrailer = {
   },
 };
 
-export const mockSubmission: Submission = {
+
+const mockSubmission: Submission = {
   length: 0,
   id: "submission_id",
   ref: "reference",
   created_at: new Date("2022-05-01T12:00:00Z"),
   updated_at: new Date("2022-05-01T12:00:00Z"),
   link: "/submissions/reference",
-  community: community,
+  community: mockCommunity,
   user_id: "user_id",
-  challenge: challenge,
+  challenge: mockChallenge,
   text: "Submission",
   reviewDeadline: new Date(),
   metadata: {
@@ -60,7 +61,7 @@ export const mockSubmission: Submission = {
     lastName: "",
     emailVerified: false,
     email: "",
-    kycStatus: "",
+    kycStatus: "PENDING",
   },
   reviewable: false,
   status: "",
@@ -69,3 +70,5 @@ export const mockSubmission: Submission = {
     throw new Error("Function not implemented.");
   }
 };
+
+export {mockSubmission, mockTrailer}

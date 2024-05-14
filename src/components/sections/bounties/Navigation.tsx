@@ -55,7 +55,7 @@ export default function BountiesNavigation(): ReactElement {
           ...UniqBy(
             bounties.map((bounty) => {
               return {
-                label: bounty.name,
+                label: bounty.community,
                 exact: true,
                 link: `/bounties/${bounty.slug}`,
               };
