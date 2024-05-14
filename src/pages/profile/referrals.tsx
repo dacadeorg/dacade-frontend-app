@@ -8,16 +8,13 @@ import ProfileLayout from "@/layouts/ProfileLayout";
 import { userFetchReferrals } from "@/store/services/referrals.service";
 
 import Referral from "@/components/cards/profile/Referral";
+import EmptyState from "@/components/ui/EmptyState";
 import InfiniteScroll from "react-infinite-scroll-component";
 import AuthObserver from "@/contexts/AuthObserver";
 import { User } from "@/types/bounty";
 import { Referral as ReferralType } from "@/types/community";
 import { IRootState } from "@/store";
 import Loader from "@/components/ui/button/Loader";
-import ProfileOverviewSection from "@/components/sections/profile/overview/Section";
-import ReferralsList from "@/components/list/ReferralsList";
-import Spinner from "@/components/ui/Loader";
-
 
 /**
  * interface for UserReferrals multiSelector
@@ -30,7 +27,6 @@ interface UserReferralsMultiSelector {
   user: User | null;
   referrals: ReferralType[];
   hasMore: boolean;
-  loading: boolean
 }
 
 /**
@@ -42,12 +38,11 @@ interface UserReferralsMultiSelector {
 export default function UserReferrals(): ReactElement {
   const { t } = useTranslation();
   const [page, setPage] = useState(0);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const { user, referrals, hasMore, loading } = useMultiSelector<unknown, UserReferralsMultiSelector>({
+  const [loading, setLoading] = useState(false);
+  const { user, referrals, hasMore } = useMultiSelector<unknown, UserReferralsMultiSelector>({
     user: (state: IRootState) => state.user.data,
     referrals: (state: IRootState) => state.userReferrals.userReferralList,
     hasMore: (state: IRootState) => state.userReferrals.hasMore,
-    loading: (state: IRootState) => state.userReferrals.loading
   });
   const dispatch = useDispatch();
   const showLoadMore = useMemo(() => hasMore && referrals?.length >= 10, [referrals?.length, hasMore]);
@@ -59,41 +54,35 @@ export default function UserReferrals(): ReactElement {
   }, [dispatch, user?.referrals]);
 
   const nextPage = async () => {
-    if (isLoadingMore || !hasMore) return;
-    setIsLoadingMore(true);
+    if (loading || !hasMore) return;
+    setLoading(true);
     const referralId = referrals[referrals.length - 1]?.id || null;
     await dispatch(userFetchReferrals({ startAfter: referralId || null }));
     setPage(page + 1);
-    setIsLoadingMore(false);
+    setLoading(false);
   };
-  if (loading && !referrals.length) return <Spinner className="py-32" />;
 
   return (
-    <div className="grid gap-7.5">
-      <ReferralsList text="Invite your friends to Dacade" />
-      <ProfileOverviewSection title="people that have used your invite code">
+    <div className="w-full">
+      {referrals.length ? (
         <div className="relative w-full">
-          {referrals.length ? (
-            <div className="w-full">
-              <InfiniteScroll
-                className="flex flex-col w-full overflow-hidden border border-gray-200 border-solid divide-y divide-gray-200 rounded-3xl divide-solid"
-                dataLength={referrals.length}
-                next={nextPage}
-                hasMore={showLoadMore}
-                // loader is required for InfiniteScroll to work
-                loader={<></>}
-              >
-                {referrals.map((referral, i) => (
-                  <Referral key={`user-referral-${i}`} referral={referral} />
-                ))}
-              </InfiniteScroll>
-              {isLoadingMore && <Loader loading={isLoadingMore} className="absolute left-6 -bottom-7.5" onClick={() => nextPage()} />}
-            </div>
-          ) : (
-            <div className="w-full border bg-gray-50 border-gray-200 border-solid rounded-3xl text-gray-500 p-6.5 font-semibold">{t('referrals.empty-state.subtitle')}</div>
-          )}
+          <InfiniteScroll
+            className="flex flex-col w-full overflow-hidden border border-gray-200 border-solid divide-y divide-gray-200 rounded-3xl divide-solid"
+            dataLength={referrals.length}
+            next={nextPage}
+            hasMore={showLoadMore}
+            // loader is required for InfiniteScroll to work
+            loader={<></>}
+          >
+            {referrals.map((referral, i) => (
+              <Referral key={`user-referral-${i}`} referral={referral} />
+            ))}
+          </InfiniteScroll>
+          {loading && <Loader loading={loading} className="sm:absolute sm:left-6 sm:-bottom-7.5" onClick={() => nextPage()} />}
         </div>
-      </ProfileOverviewSection>
+      ) : (
+        <EmptyState title={t("referrals.empty-state.title")} subtitle={t("referrals.empty-state.subtitle")} />
+      )}
     </div>
   );
 }
