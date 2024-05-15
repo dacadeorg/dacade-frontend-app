@@ -3,6 +3,7 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 import { challenge } from "../../../../__mocks__/challenge";
+import { submission } from "../../../../__mocks__/submission";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -15,10 +16,9 @@ jest.mock("next/router", () => ({
   }),
 }));
 
-
 describe("ChallengeHeader", () => {
   it("should render the challenge header with section", () => {
-    renderWithRedux(<ChallengeHeader />);
+    renderWithRedux(<ChallengeHeader />, { challenges: { current: challenge, list: [challenge], loading: false, submission: submission } });
     const challengeheader = screen.getByTestId("challengeHeaderId");
     expect(challengeheader).toBeInTheDocument();
     expect(screen.getByText("communities.challenge.title")).toBeInTheDocument();

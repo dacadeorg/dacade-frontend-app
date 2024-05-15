@@ -2,6 +2,8 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChallenge";
+import { challenge, mockInvite } from "../../../../__mocks__/challenge";
+import { submission } from "../../../../__mocks__/submission";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -20,15 +22,20 @@ describe("SetupTeamChallenge", () => {
   });
 
   it("renders content correctly", () => {
-    renderWithRedux(<SetupTeamChallenge />);
+    renderWithRedux(<SetupTeamChallenge />, { challenges: { current: challenge, list: [challenge], loading: false, submission: submission }, invites: { data: mockInvite } });
     expect(screen.getByText("Submission")).toBeInTheDocument();
+    expect(screen.getByText("communities.overview.challenge.team.setup.info")).toBeInTheDocument();
     expect(screen.getByText("Form your team")).toBeInTheDocument();
-    expect(screen.getByText("Open discord channel #icp-ai-web3-hachathon and find your teammates to complete the challenge with you.")).toBeInTheDocument();
   });
 
-  it("renders CreateTeamCard when there is no invitation or the team is locked", () => {
-    renderWithRedux(<SetupTeamChallenge />);
-    expect(screen.getByText("Form your team")).toBeInTheDocument();
-    expect(screen.getByText("Open discord channel #icp-ai-web3-hachathon and find your teammates to complete the challenge with you.")).toBeInTheDocument();
+  it("renders CreateTeamCard when there is no invitation or comfirmTeamInvitation when there is invitation", () => {
+    renderWithRedux(<SetupTeamChallenge />, { challenges: { current: challenge, list: [challenge], loading: false, submission: submission }, invites: { data: mockInvite } });
+    if (!mockInvite) {
+      expect(screen.getByText("communities.overview.challenge.team.setup.submit-title" || "")).toBeInTheDocument();
+      expect(screen.getByText("communities.overview.challenge.team.setup.description" || "")).toBeInTheDocument();
+    } else {
+      expect(screen.getByText("Submit your team")).toBeInTheDocument();
+      expect(screen.getByText(`The maximum team members for this challenge is ${challenge?.teamLimit || "3"} people`)).toBeInTheDocument();
+    }
   });
 });

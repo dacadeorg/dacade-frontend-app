@@ -2,6 +2,7 @@ import { Challenge } from "@/types/course";
 import { Format, mockCertificateData, mockCourse, mockLearningModule, mockRatingCriteria } from "./course";
 import { community, metadata } from "./community";
 import { reward } from "./reward";
+import { mockUser } from "./user";
 
 export const challenge: Challenge = {
   id: "challenge",
@@ -38,3 +39,15 @@ export const challenge: Challenge = {
   teamLimit: 5,
   isHackathon: false,
 };
+
+export const mockInvite = {
+  created_at: "tuesday",
+  id: "invite",
+  ref: "invitation ref",
+  status: "invitation status",
+  team_ref: "team reference",
+  timestamp: 3,
+  updated_at: "wednesday",
+  user: mockUser,
+  user_id: "user id",
+}
