@@ -1,14 +1,12 @@
 import { Referral, UserReferral } from "@/types/community";
-import { submission } from "./submission";
 import { community } from "./community";
-import { mockUser } from "./user";
-import { challenge } from "./challenge";
+import { challenge, mockUser, submission as getMockSubmission } from "./challenge";
 
 
-const referralSubmission = Object.assign(submission, { challengeData: challenge, link: "referral-link" });
-const userReferral: UserReferral = Object.assign(mockUser, { submissions: [referralSubmission] });
+const referralSubmission = () => Object.assign(getMockSubmission(), { challengeData: challenge(), link: "referral-link" });
+const userReferral: UserReferral = Object.assign(mockUser(), { submissions: [referralSubmission()] });
 
-export const mockReferral: Referral = {
+export const mockReferral = (): Referral => ({
   id: "",
   name: "",
   ref: "",
@@ -32,8 +30,8 @@ export const mockReferral: Referral = {
     timestamp: 0,
     distribution: undefined,
   },
-  challenge: challenge,
-  submissions: [],
+  challenge: challenge(),
+  submissions: [getMockSubmission()],
   rewarded: false,
   user: userReferral,
-};
+});

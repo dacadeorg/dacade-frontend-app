@@ -1,7 +1,3 @@
-// import { community, mockUser } from "./community";
-// import { challenge } from "./course";
-// import { Referral, UserReferral } from "@/types/community";
-// import { mockSubmission } from "./submission";
 
 export const mockTrailer = {
   summary: "trailer summary",

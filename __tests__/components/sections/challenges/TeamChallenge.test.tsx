@@ -2,8 +2,7 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import TeamChallenge from "@/components/sections/challenges/TeamChallenge";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
-import { challenge } from "../../../../__mocks__/challenge";
-import { submission } from "../../../../__mocks__/submission";
+import { challenge, submission } from "../../../../__mocks__/challenge";
 
 interface CardData {
   index: number;
@@ -48,18 +47,19 @@ describe("TeamChallenge", () => {
     },
   ];
   it("should render the team challenge section", () => {
-    renderWithRedux(<TeamChallenge />, { challenges: { current: challenge, list: [challenge], loading: false, submission: submission } });
+    renderWithRedux(<TeamChallenge />, { challenges: { current: challenge(), list: [challenge()], loading: false, submission: submission() } });
     expect(screen.getByText("Team Challenge")).toBeInTheDocument();
     expect(screen.getByText("To complete the team challenge, you need to follow these steps:")).toBeInTheDocument();
   });
 
   it("should render all team challenge steps", () => {
-    renderWithRedux(<TeamChallenge />, { challenges: { current: challenge, list: [challenge], loading: false, submission: submission } });
+    renderWithRedux(<TeamChallenge />, { challenges: { current: challenge(), list: [challenge()], loading: false, submission: submission() } });
+    const challenges = challenge();
     it("should render all team challenge steps", () => {
       let teamChallengeArray: CardData[] = []
-      renderWithRedux(<TeamChallenge />, {challenges: { current: challenge, list: [challenge], loading: false, submission: submission },
+      renderWithRedux(<TeamChallenge />, {challenges: { current: challenge(), list: [challenge()], loading: false, submission: submission() },
     });
-      if(challenge.isHackathon) {
+      if(challenges.isHackathon) {
         teamChallengeArray = hackathonChallengeSteps
       }
       teamChallengeArray = teamChallengeSteps

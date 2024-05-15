@@ -2,8 +2,7 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { OverviewRewards } from "@/components/sections/challenges/Rewards";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
-import { challenge } from "../../../../__mocks__/challenge";
-import { submission } from "../../../../__mocks__/submission";
+import { challenge, submission } from "../../../../__mocks__/challenge";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -19,7 +18,7 @@ jest.mock("next/router", () => ({
 
 describe("Reward", () => {
   it("should render a reward", () => {
-    renderWithRedux(<OverviewRewards />, { challenges: { current: challenge, list: [challenge], loading: false, submission: submission } });
+    renderWithRedux(<OverviewRewards />, { challenges: { current: challenge(), list: [challenge()], loading: false, submission: submission() } });
     const OverviewReward = screen.getByTestId("overviewRewardId");
     expect(OverviewReward).toBeInTheDocument();
     const rewardTitle = screen.getByText("communities.overview.reward.title");
