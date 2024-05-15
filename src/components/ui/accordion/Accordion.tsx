@@ -17,7 +17,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, subtitle, content, isExpan
   };
 
   return (
-    <div className="mt-2">
+    <div>
       <div className={`flex gap-2 justify-between cursor-pointer ${!title && "items-start"}`} onClick={toggleAccordion}>
         <div>
           {title && <H3>{title}</H3>}
