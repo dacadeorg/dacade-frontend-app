@@ -32,7 +32,7 @@ export default function Sidebar(): JSX.Element {
   const mainLink = hasCurrentCommunity ? `/communities/${currentCommunity.slug}` : "";
 
   return (
-    <div className="flex flex-col divide-y divide-solid divide-gray-100 w-full text-gray-700 space-y-6">
+    <div className="flex flex-col md:divide-y divide-solid divide-gray-100 w-full text-gray-700 space-y-6">
       <Link href={mainLink}>
         <div className={isActive(mainLink) ? "" : "opacity-80"}>
           <div className="font-medium text-.5xl leading-snug">{t("communities.overview.challenges.title")}</div>

@@ -26,8 +26,8 @@ export default function RewardCertificate({ rewards, isReward }: RewardCertifica
         <div
           key={reward.id}
           className={classNames(
-            "flex items-center gap-1 border-gray-200 pb-2",
-            { "pt-2": index !== 0 },
+            "flex items-center gap-1 border-gray-200 pb-1.5",
+            { "pt-1.5": index !== 0 },
             { "border-b": (index !== rewards.length - 1 && isReward) || (rewards.length === 1 && isReward) || index !== rewards.length - 1 }
           )}
         >
