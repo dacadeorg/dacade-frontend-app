@@ -16,6 +16,8 @@ import classNames from "classnames";
 import Loader from "../ui/Loader";
 import { IRootState } from "@/store";
 import { User } from "@/types/bounty";
+import { toggleJobOffersPopup } from "@/store/feature/ui.slice";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 
 interface NavbarProps {
   settings?: {
@@ -39,6 +41,8 @@ interface NavbarProps {
 export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarProps): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const { isAuthenticated, isAuthenticatedAndVerified, isAuthLoading, authData } = useMultiSelector<
     unknown,
     { isAuthenticated: boolean; isAuthenticatedAndVerified: boolean; isAuthLoading: boolean; authData: User }
@@ -78,6 +82,10 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
     color: colors?.primary,
   };
 
+  const displayJobOffersPopup = () => {
+    dispatch(toggleJobOffersPopup(true));
+  };
+
   return (
     <div className="text-gray-900 " style={containerStyle}>
       <div className="content-wrapper lg:py-12 py-6 flex relative">
@@ -93,6 +101,9 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
           <ul className="hidden lg:block relative self-center">
             <NavItem to="/bounties">{t("nav.bounties")}</NavItem>
             <NavItem to={"/communities"}>{t("nav.communities")}</NavItem>
+            <button className="nav-item underline underline-offset-2 text-primary bg-transparent pl-2 py-0 capitalize" onClick={displayJobOffersPopup}>
+              {t("job.offers.title")}
+            </button>
           </ul>
         )}
 
