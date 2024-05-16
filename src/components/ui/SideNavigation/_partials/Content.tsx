@@ -33,11 +33,11 @@ interface NavItemProps {
 export function NavItem({ item, isActive = false, expanded = false }: NavItemProps): ReactElement {
   const { t } = useTranslation();
   return (
-    <span data-testid="contentId">
+    <span>
       <span style={{ display: isActive ? "!inline-block" : "none" }} className="absolute top-0 inline-block -left-6 nav-icon">
-        <ChevronRightIcon data-testid="contentIcon" className={`transition-transform duration-200 ${item.subitems && item.subitems.length && isActive && expanded ? "transform rotate-90" : ""}`} />
+        <ChevronRightIcon className={`transition-transform duration-200 ${item.subitems && item.subitems.length && isActive && expanded ? "transform rotate-90" : ""}`} />
       </span>
-      <span data-testid="contentLabel" className="nav-label">{t(item.label)}</span>
+      <span className="nav-label">{t(item.label)}</span>
     </span>
   );
 }

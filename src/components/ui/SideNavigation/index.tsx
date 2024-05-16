@@ -16,11 +16,11 @@ export default function SideNavigation({ items, colors, children }: { items: Ite
   const { t } = useTranslation();
   return (
     <ThemeWrapper colors={colors}>
-      <ul data-testid="sideNavId" className="relative">
+      <ul className="relative">
         {items.length ? (
           items.map((menu, index) => {
             return (
-              <li data-testId="sidebar-menu-list-container" key={`menu-${index}`} className="relative mb-8">
+              <li key={`menu-${index}`} className="relative mb-8">
                 {!menu.hideTitle && <span className="relative text-xs font-semibold uppercase">{t(menu.title)}</span>}
                 <ul>
                   {menu.items.length ? (
