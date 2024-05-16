@@ -11,12 +11,14 @@ export interface UIState {
   colors: Colors;
   locked: boolean;
   showReferralPopup: boolean;
+  showJobOffersPopup: boolean;
 }
 
 const initialState: UIState = {
   colors: {} as Colors,
   locked: false,
   showReferralPopup: false,
+  showJobOffersPopup: false,
 };
 
 const uiSlice = createSlice({
@@ -32,6 +34,9 @@ const uiSlice = createSlice({
     setShowReferralPopup: (state: UIState, action: UIAction) => {
       state.showReferralPopup = action.payload as boolean;
     },
+    setShowJobOffersPopup: (state: UIState, action: UIAction) => {
+      state.showJobOffersPopup = action.payload as boolean;
+    },
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
@@ -43,7 +48,7 @@ const uiSlice = createSlice({
   },
 });
 
-export const { setColors, setLocked, setShowReferralPopup } = uiSlice.actions;
+export const { setColors, setLocked, setShowReferralPopup, setShowJobOffersPopup } = uiSlice.actions;
 export default uiSlice;
 
 /**
@@ -83,4 +88,13 @@ export const unlockBodyScrolling = (dispatch: any, state: IRootState) => {
 export const toggleShowReferralPopup = (show: boolean) => (dispatch: any) => {
   dispatch(toggleBodyScrolling(show));
   dispatch(setShowReferralPopup(show));
+};
+
+/**
+ * Toggles the visibility of the jobOffers popup and locks/unlocks the body scrolling accordingly.
+ * @param {boolean} show Whether or not to show the jobOffers popup.
+ */
+export const toggleJobOffersPopup = (show: boolean) => (dispatch: any) => {
+  dispatch(toggleBodyScrolling(show));
+  dispatch(setShowJobOffersPopup(show));
 };
