@@ -2,7 +2,6 @@ import { Format, mockCertificateData, mockCourse, mockLearningModule, mockRating
 import { community, metadata } from "./community";
 import { reward } from "./reward";
 import { KYCSTATUS } from "@/store/feature/kyc.slice";
-import { mockReferral } from "./referrals";
 import { Submission, User } from "@/types/bounty";
 
 export const mockUser = (): User => ({
@@ -20,7 +19,6 @@ export const mockUser = (): User => ({
   emailVerified: false,
   email: "",
   kycStatus: KYCSTATUS.PENDING,
-  referrals: mockReferral()
 });
 
 export const challenge = () => ({
