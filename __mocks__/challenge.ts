@@ -3,6 +3,9 @@ import { community, metadata } from "./community";
 import { reward } from "./reward";
 import { KYCSTATUS } from "@/store/feature/kyc.slice";
 import { Submission, User } from "@/types/bounty";
+import { AdditionalInfo } from "@/types/course";
+import { TEAM_FORMATION } from "@/constants/challengeInfo";
+import { Team, TeamMember } from "@/types/challenge";
 
 export const mockUser = (): User => ({
   id: "user_id",
@@ -20,6 +23,10 @@ export const mockUser = (): User => ({
   email: "",
   kycStatus: KYCSTATUS.PENDING,
 });
+
+export const mockAdditionalInfo: {[type: string]: AdditionalInfo } = {
+  "type": {type: "additional type", text: "additional text"},
+}
 
 export const challenge = () => ({
   id: "challenge",
@@ -55,6 +62,12 @@ export const challenge = () => ({
   bestSubmissions: [{}],
   teamLimit: 5,
   isHackathon: false,
+  additionalInfo: {
+    [TEAM_FORMATION]: {
+      type: 'teamFormation',
+      text: 'Form your team details here'
+    }
+  }
 });
 
 export const submission = (): Submission => ({
@@ -107,4 +120,31 @@ export const mockInvite = {
   updated_at: "wednesday",
   user: mockUser(),
   user_id: "user id",
+}
+
+export const mockTeamMember: TeamMember = {
+  created_at: "created_at",
+  id: "id",
+  joined_on: "joined_on",
+  ref: "ref",
+  team_ref: "team reference",
+  timestamp: 3,
+  updated_at: "wednesday",
+  user: mockUser(),
+}
+
+export const mockTeam: Team = {
+  challenge: challenge(),
+  challenge_ref: "challenge ref",
+  created_at: "created at",
+  id: "id",
+  locked: true,
+  name: "Master",
+  organizer: mockUser(),
+  organizer_id: "organizer id",
+  invites: [mockInvite],
+  members: [mockTeamMember],
+  ref: "",
+  timestamp: "",
+  updated_at: ""
 }

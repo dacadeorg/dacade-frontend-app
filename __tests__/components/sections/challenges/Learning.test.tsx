@@ -3,9 +3,7 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { community } from "../../../../__mocks__/community";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
-import {  mockCourse, mockLearningModule } from "../../../../__mocks__/course";
-import { setupServer } from "msw/node";
-import { handlers } from "../../../../__mocks__/provider/handlers";
+import { mockCourse, mockLearningModule } from "../../../../__mocks__/course";
 import { challenge, submission } from "../../../../__mocks__/challenge";
 
 jest.mock("next/router", () => ({
@@ -20,12 +18,6 @@ jest.mock("next/router", () => ({
 }));
 
 describe("Learning", () => {
-  const server = setupServer(...handlers);
-
-  beforeAll(() => server.listen());
-  afterEach(() => server.resetHandlers());
-  afterAll(() => server.close());
-
   it("should render Learning", () => {
     renderWithRedux(<Learning courses={[]} learningModules={[]} community={community} />);
     const learning = screen.getByTestId("learningId");
