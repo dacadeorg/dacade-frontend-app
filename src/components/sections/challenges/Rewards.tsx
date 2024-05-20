@@ -30,7 +30,7 @@ export function OverviewRewards(): ReactElement {
           <div className="flex flex-col w-full lg:w-1/2">
             {challenge?.rewards && <RewardCertificate rewards={challenge?.rewards} isReward />}
           </div>
-          {challenge?.isHackathon && <div className="pb-2 border-b border-gray-200 w-full lg:w-1/2">{t("communities.overview.challenge.participate", { token: token })}</div>}
+          {challenge?.isHackathon && <div className="pb-1.5 border-b border-gray-200 w-full lg:w-1/2">{t("communities.overview.challenge.participate", { token: token })}</div>}
         </div>
       </div>
     </Section>

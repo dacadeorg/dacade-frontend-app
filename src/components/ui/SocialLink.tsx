@@ -2,6 +2,7 @@ import { ReactElement } from "react";
 import DiscordIcon from "@/icons/discord.svg";
 import TwitterIcon from "@/icons/twitter.svg";
 import YoutubeIcon from "@/icons/youtube.svg";
+import LinkedinIcon from "@/icons/linkedin.svg";
 
 /**
  * Interface for Props component props for SocialLink
@@ -35,6 +36,7 @@ export default function SocialLink({ link, testId = "socialLink", socialLinkIcon
     discord: <DiscordIcon data-testid="discordIcon" />,
     twitter: <TwitterIcon data-testid="twitterIcon" />,
     youtube: <YoutubeIcon data-testid="youtubeIcon" />,
+    linkedin: <LinkedinIcon />,
   };
 
   const icon = icons[link?.icon as keyof typeof icons];
