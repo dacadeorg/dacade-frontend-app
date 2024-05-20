@@ -103,7 +103,7 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
                 required: "This field is required",
                 pattern: {
                   value: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
-                  message: "This must be a valid email address -",
+                  message: "This must be a valid email address",
                 },
                 minLength: {
                   value: 2,

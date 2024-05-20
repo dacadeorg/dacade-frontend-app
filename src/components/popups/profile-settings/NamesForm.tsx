@@ -67,7 +67,7 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
     <Modal show={show} onClose={onClose}>
       <div className="px-6 pt-6 relative">
         <h1 className="text-.5xl leading-none font-medium mb-12">{t("profile.settings.edit.name.update")}</h1>
-        <form onSubmit={handleSubmit(onSave)}>
+        <form onSubmit={handleSubmit(onSave)} data-testid="names-edit-form">
           <div className="mb-2.5">
             <Input
               label={`${t("profile.edit.label.fist-name")}`}
