@@ -1,4 +1,4 @@
-import { Course, LearningModule, Material } from "@/types/course";
+import { Course, Format, LearningModule, Material } from "@/types/course";
 import { mockTrailer } from "./bounty";
 
 
@@ -126,7 +126,7 @@ export const mockCourse: Course = {
   },
 };
 
-export const Format = {
+export const mockFormat: Format = {
   githubLink: true,
   text: true,
   disclaimer: true,

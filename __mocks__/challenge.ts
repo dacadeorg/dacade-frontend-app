@@ -1,4 +1,4 @@
-import { Format, mockCertificateData, mockCourse, mockLearningModule, mockRatingCriteria } from "./course";
+import { mockFormat, mockCertificateData, mockCourse, mockLearningModule, mockRatingCriteria } from "./course";
 import { community, metadata } from "./community";
 import { reward } from "./reward";
 import { KYCSTATUS } from "@/store/feature/kyc.slice";
@@ -35,7 +35,7 @@ export const challenge = () => ({
   updated_at: new Date("2022-05-01T12:00:00Z"),
   hint: "Hint",
   name: "challenge name",
-  format: Format,
+  format: mockFormat,
   description: "challenge description",
   course: mockCourse,
   type: "course",

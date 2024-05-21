@@ -35,7 +35,7 @@ interface SubmissionMultiSelector {
   currentSubmission: TSubmission;
 }
 
-interface FormValues {
+export interface FormValues {
   text: string;
   githubLink: string;
 }
