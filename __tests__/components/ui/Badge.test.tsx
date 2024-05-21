@@ -12,7 +12,7 @@ jest.mock("next/router", () => ({
       emit: jest.fn(),
     },
     isFallback: false,
-    pathname: "mocked-pathname", 
+    pathname: "mocked-pathname",
   }),
 }));
 

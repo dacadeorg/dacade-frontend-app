@@ -70,8 +70,4 @@ describe('FeedbackForm', () => {
         expect(githubLinkInput).not.toBeInTheDocument();
     })
 
-    // it should render only when we have submission too
-
-
-    // should have a githublink when the challenge allows so.
 })
