@@ -16,14 +16,6 @@ jest.mock("next/router", () => ({
     }),
 }));
 const handleClose = jest.fn()
-jest.mock("../../../src/components/ui/button/Arrow", () => {
-    return {
-        __esModule: true,
-        default: () => {
-            return <div />;
-        },
-    };
-});
 beforeEach(() => {
     renderWithRedux(<EditProfile show onClose={handleClose} />)
 })
@@ -40,6 +32,7 @@ describe("NamesForm", () => {
         expect(firstNameInput).toHaveLength(1)
         expect(lastNameInput).toHaveLength(1)
     })
+
     it("it should close the modal when its open", () => {
         expect(screen.getByTestId('names-edit-form')).toBeInTheDocument()
         fireEvent.click(screen.getByTestId('close-button'))

@@ -16,17 +16,6 @@ jest.mock("next/router", () => ({
     }),
 }));
 
-// Mocking the arrow button in order to avoid double work since it was tested in ui tests
-jest.mock("../../../src/components/ui/button/Arrow", () => {
-    return {
-        __esModule: true,
-        default: () => {
-            return <div />;
-        },
-    };
-});
-
-
 const handleClose = jest.fn()
 
 const onSubmit = jest.fn()
