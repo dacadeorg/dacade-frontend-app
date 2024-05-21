@@ -1,1 +1,1 @@
-export default function unified() { }
+export default function unified() {}

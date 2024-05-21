@@ -24,6 +24,8 @@ const config = {
     customExportConditions: [""],
   },
   moduleNameMapper: {
+    "^.+\\.(svg)$": require.resolve("./__mocks__/svg.ts"),
+    "react-markdown": "<rootDir>/__mocks__/react-markdown.tsx",
     [`^(${esModules})-.*`]: "<rootDir>/__mocks__/plugin.ts",
     unified: "<rootDir>/__mocks__/unified.ts",
   },

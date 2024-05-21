@@ -9,6 +9,7 @@ interface UsernameInputProps {
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
   usernameValue: string;
+  testId?: string;
 }
 
 /**
@@ -24,12 +25,13 @@ interface UsernameInputProps {
  * @returns {ReactElement}
  */
 
-export default function UsernameInput({ register, errors, usernameValue }: UsernameInputProps): ReactElement {
+export default function UsernameInput({ register, errors, usernameValue, testId = "usernameInput" }: UsernameInputProps): ReactElement {
   const { t } = useTranslation();
   const error = useSelector((state) => state.store.error);
 
   return (
     <Input
+      data-testid={testId}
       id="username"
       placeholder={`${t("login-page.username.placeholde")}`}
       label={`${t("login-page.username.label")}`}

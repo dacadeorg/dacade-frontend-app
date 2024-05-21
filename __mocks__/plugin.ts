@@ -1,1 +1,1 @@
-export default function remarkPlugin() { }
+export default function remarkPlugin() {}

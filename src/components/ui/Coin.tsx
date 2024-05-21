@@ -25,6 +25,7 @@ interface CoinProps {
   shape?: "rounded" | "squared" | "circle";
   token?: string;
   className?: string;
+  testId?: string;
 }
 
 /**
@@ -125,7 +126,7 @@ const coins = [
  * @param {CoinProps} { bgColor, textColor, size = 'normal', shape = 'circle', token }
  * @returns {ReactElement}
  */
-export default function Coin({ bgColor, textColor, size = "medium", shape = "circle", token, className = "" }: CoinProps): ReactElement {
+export default function Coin({ bgColor, textColor, size = "medium", shape = "circle", token, className = "", testId = "coin" }: CoinProps): ReactElement {
   const coin = getCoin(token) || getCoin("DAC");
   const sizeClasses = getSizeClasses(size);
   const shapeClasses = getShapeClasses(shape);
@@ -163,6 +164,7 @@ export default function Coin({ bgColor, textColor, size = "medium", shape = "cir
 
   return (
     <div
+      data-testid={testId}
       className={`relative inline-flex items-center justify-items-center text-white uppercase leading-none md:mr-0 mr-2 ${sizeClasses} ${shapeClasses} ${className}`}
       style={{
         backgroundColor: bgColor || coin?.bgColor,

@@ -81,7 +81,6 @@ export interface IRootState {
   payouts: ReturnType<typeof payoutsSlice.reducer>;
   teams: ReturnType<typeof teamsSlice.reducer>;
   invites: ReturnType<typeof invitesSlice.reducer>;
-  learningModuleService: ReturnType<typeof learningModulesService.reducer>;
 }
 
 export type IRootService = {
@@ -100,6 +99,7 @@ export type IRootService = {
   authService: ReturnType<typeof authService.reducer>;
   bountiesService: ReturnType<typeof bountiesService.reducer>;
   teamsService: ReturnType<typeof teamsService.reducer>;
+  learningModuleService: ReturnType<typeof learningModulesService.reducer>;
 };
 
 export const reducers = {

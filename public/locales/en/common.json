@@ -442,5 +442,8 @@
   "kyc.default.button": "Start verification",
   "kyc.default.button.completed": "Go to profile",
   "kyc.payout.reason": "To cashout, you need to verify your identity first.",
-  "kyc.payout.button.completed": "Proceed to  cashout"
+  "kyc.payout.button.completed": "Proceed to  cashout",
+  "job.offers.title": "Job offers",
+  "job.offers.description": "Interested in potential job opportunities? Fill in this google form and we’ll contact you for relevant roles.",
+  "job.offers.button.next": "Next"
 }
