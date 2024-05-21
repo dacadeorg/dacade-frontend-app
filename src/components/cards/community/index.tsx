@@ -74,7 +74,7 @@ export default function CommunityCard({ showRewards = true, community }: Communi
             </div>
             <div className="flex flex-col items-start justify-start max-w-xs -mt-4 md:flex-row lg:flex-col md:-mt-7 md:max-w-lg">
               {showRewards && reward && (
-                <div className="text-sm flex">
+                <div className="text-sm flex" data-testid="community-rewards">
                   <RewardBadge reward={{ token: reward.token }} styles={rewardBadgeStyle} />
                 </div>
               )}

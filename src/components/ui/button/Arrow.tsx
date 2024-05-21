@@ -28,6 +28,9 @@ interface ArrowButtonProps extends Pick<HTMLProps<HTMLButtonElement>, "onClick">
   direction?: "left" | "right" | "up" | "down";
   arrowClasses?: string;
   onClick?: () => void;
+  leftIconTestId?: string;
+  spinnerTestId?: string;
+  rightIconTestId?: string;
 }
 
 /**
@@ -70,6 +73,9 @@ export default function ArrowButton({
   arrowClasses = "",
   onClick,
   className = "",
+  leftIconTestId = "left-icon",
+  spinnerTestId = "spinner-icon",
+  rightIconTestId = "right-icon",
 }: ArrowButtonProps): ReactElement {
   const isLeft = direction === "left";
 
@@ -111,7 +117,11 @@ export default function ArrowButton({
       <span className={`flex items-center h-full text-left ${children ? "justify-between" : "justify-center"}`}>
         {isLeft && (
           <span className={classNames("block", { "pr-2.5": children })}>
-            {!loading ? <ArrowRightIcon className={`${directionClass} ${arrowClassNames} transform`} /> : <Spinner className={`${arrowClassNames} animate-spin`} />}
+            {!loading ? (
+              <ArrowRightIcon data-testid={leftIconTestId} className={`${directionClass} ${arrowClassNames} transform`} />
+            ) : (
+              <Spinner data-testid={spinnerTestId} className={`${arrowClassNames} animate-spin`} />
+            )}
           </span>
         )}
 
@@ -125,7 +135,11 @@ export default function ArrowButton({
 
         {!isLeft && (
           <span className="relative block">
-            {loading ? <Spinner className={`${arrowClassNames} animate-spin`} /> : <ArrowRightIcon className={`${directionClass} ${arrowClassNames} transform`} />}
+            {loading ? (
+              <Spinner data-testid={spinnerTestId} className={`${arrowClassNames} animate-spin`} />
+            ) : (
+              <ArrowRightIcon data-testid={rightIconTestId} className={`${directionClass} ${arrowClassNames} transform`} />
+            )}
           </span>
         )}
       </span>

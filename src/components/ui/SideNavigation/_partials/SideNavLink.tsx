@@ -69,7 +69,7 @@ export default function CourseLink({ item }: courseLinkProps): ReactElement {
   };
 
   return (
-    <div className="relative block text-sm">
+    <div data-testid="courseLinkId" className="relative block text-sm">
       <LinkAction item={item} isActive={isActive} activeLinkStyle={activeLinkStyle} goToLink={goToLink}>
         <LinkContent item={item} isActive={isActive} expanded={expanded} />
       </LinkAction>
@@ -78,7 +78,7 @@ export default function CourseLink({ item }: courseLinkProps): ReactElement {
         expanded && (
           <ul>
             {item.subitems.map((subitem, j) => (
-              <SubLink key={`course-item-${j}`} item={item} subitem={subitem} activeLinkStyle={activeLinkStyle} />
+              <SubLink data-testid="subLinkId" key={`course-item-${j}`} item={item} subitem={subitem} activeLinkStyle={activeLinkStyle} />
             ))}
           </ul>
         )
