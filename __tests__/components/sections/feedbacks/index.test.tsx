@@ -1,19 +1,35 @@
 import Feedback from "@/components/sections/feedbacks"
 import "@testing-library/jest-dom"
-import { render, screen } from "@testing-library/react"
-import ReduxProvider from "../../../../__mocks__/provider/ReduxProvider"
+import { screen } from "@testing-library/react"
+import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
+import { challengeSliceData, mockUser, submission } from "../../../../__mocks__/challenge";
+
+
 jest.mock("next/router", () => ({
     useRouter: () => ({
         push: jest.fn(),
+        events: {
+            on: jest.fn(),
+            off: jest.fn(),
+            emit: jest.fn(),
+        },
         isFallback: false,
+        pathname: "communities-slug__"
     }),
 }));
+
+const authData = {
+    data: mockUser(),
+    userBalance: null,
+    balance: null,
+    walletAddresses: null,
+    isAuthLoading: true,
+}
+
 const renderFeedbackSection = () => {
-    render(
-        <ReduxProvider>
-            <Feedback />
-        </ReduxProvider>
-    );
+    renderWithRedux(<Feedback />, {
+        auth: authData
+    })
 }
 describe('Feedback', () => {
     it('should render the feedback component', () => {
@@ -32,5 +48,19 @@ describe('Feedback', () => {
         renderFeedbackSection()
         const section = screen.getByTestId("feedback-section")
         expect(section.childElementCount).toBeGreaterThan(0)
+    })
+
+    it("should not render the feedback section when we don't have a user", () => {
+        renderWithRedux(<Feedback />, {
+            auth: { ...authData, data: null },
+            challenges: challengeSliceData,
+            submissions: {
+                current: submission(),
+                list: [submission()],
+                text: "string"
+            }
+        })
+        const section = screen.queryByTestId("section")
+        expect(section).not.toBeInTheDocument()
     })
 })
