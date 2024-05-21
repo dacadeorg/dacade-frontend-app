@@ -6,6 +6,10 @@ import { ReactElement, useState } from "react";
 import Loader from "@/components/ui/Loader";
 import EmptyState from "@/components/ui/EmptyState";
 
+interface props {
+  testId?: string;
+}
+
 /**
  * Scoreboard Overview index component
  * @date 4/13/2023 - 10:12:04 AM
@@ -13,8 +17,7 @@ import EmptyState from "@/components/ui/EmptyState";
  * @export
  * @returns {ReactElement}
  */
-
-export default function ScoreboardOverview(): ReactElement {
+export default function ScoreboardOverview({ testId } : props): ReactElement {
   const { t } = useTranslation();
   const { list, loading } = useSelector((state) => state.scoreboard);
 
@@ -27,7 +30,7 @@ export default function ScoreboardOverview(): ReactElement {
   return (
     <>
       {loading ? (
-        <div className="h-full w-full grid">
+        <div data-testid={testId} className="h-full w-full grid">
           <Loader className="place-self-center" />
         </div>
       ) : list && list.length !== 0 ? (
@@ -44,7 +47,7 @@ export default function ScoreboardOverview(): ReactElement {
           )}
         </div>
       ) : (
-        <div data-testid="scoreboardId" className=" w-full overflow-hidden border-t border-gray-200 ">
+        <div className="w-full overflow-hidden border-t border-gray-200 ">
           <EmptyState title={t("communities.scoreboard.empty-state.title")} />
         </div>
       )}

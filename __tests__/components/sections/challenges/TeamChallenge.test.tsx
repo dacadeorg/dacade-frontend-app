@@ -11,7 +11,6 @@ interface CardData {
 }
 
 describe("TeamChallenge", () => {
-
   const hackathonChallengeSteps: CardData[] = [
     {
       index: 1,
@@ -55,15 +54,14 @@ describe("TeamChallenge", () => {
   it("should render all team challenge steps", () => {
     renderWithRedux(<TeamChallenge />, { challenges: { current: challenge(), list: [challenge()], loading: false, submission: submission() } });
     const challenges = challenge();
-    let teamChallengeArray: CardData[] = []
-      if(challenges.isHackathon) {
-        teamChallengeArray = hackathonChallengeSteps
-      }
-      else teamChallengeArray = teamChallengeSteps
-  
-      teamChallengeArray.forEach((step) => {
-        expect(screen.getByText(step.text)).toBeInTheDocument()
-        expect(screen.getByText(step.title)).toBeInTheDocument()
-      })
+    let teamChallengeArray: CardData[] = [];
+    if (challenges.isHackathon) {
+      teamChallengeArray = hackathonChallengeSteps;
+    } else teamChallengeArray = teamChallengeSteps;
+
+    teamChallengeArray.forEach((step) => {
+      expect(screen.getByText(step.text)).toBeInTheDocument();
+      expect(screen.getByText(step.title)).toBeInTheDocument();
+    });
   });
 });

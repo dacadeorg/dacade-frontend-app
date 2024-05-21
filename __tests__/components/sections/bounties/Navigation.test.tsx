@@ -17,7 +17,6 @@ jest.mock("next/router", () => ({
   })),
 }));
 
-// const expectedNavItems = ["bounties.navigation.all", "Bounties"];
 const expectedNavItems: Omit<List, "id">[] = [
   {
     title: "bounties.navigation",
