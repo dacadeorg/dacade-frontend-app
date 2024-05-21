@@ -5,17 +5,6 @@ import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 import { challenge as mockChallenge, submission } from "../../../../__mocks__/challenge";
 import DateManager from "@/utilities/DateManager";
 
-jest.mock("next/router", () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-    events: {
-      on: jest.fn(),
-      off: jest.fn(),
-      emit: jest.fn(),
-    },
-  }),
-}));
-
 describe("Objectives", () => {
   const challenge = mockChallenge();
   it("should render objectives", () => {

@@ -5,16 +5,9 @@ import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 import { List } from "@/utilities/CommunityNavigation";
 
 jest.mock("next/router", () => ({
-  useRouter: jest.fn().mockImplementation(() => ({
-    push: jest.fn(),
-    events: {
-      on: jest.fn(),
-      off: jest.fn(),
-      emit: jest.fn(),
-    },
-    isFallback: false,
+  useRouter: () => ({
     query: "/",
-  })),
+  }),
 }));
 
 const expectedNavItems: Omit<List, "id">[] = [

@@ -5,17 +5,6 @@ import RubricHeader from "@/components/sections/challenges/Rubric";
 import { Rubric, mockRatingCriteria } from "../../../../__mocks__/course";
 import { challenge as mockChallenge, submission } from "../../../../__mocks__/challenge";
 
-jest.mock("next/router", () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-    events: {
-      on: jest.fn(),
-      off: jest.fn(),
-      emit: jest.fn(),
-    },
-  }),
-}));
-
 describe("Rubric", () => {
   const challenge = mockChallenge();
   it("should render the Rubric header", () => {

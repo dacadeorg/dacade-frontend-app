@@ -24,18 +24,18 @@ describe("Filter", () => {
     expect(screen.getByText("Filter by")).toBeInTheDocument();
     filterOptions.forEach((option) => {
       expect(screen.getByText(option.label)).toBeInTheDocument();
-      expect(screen.getByDisplayValue(option.value)).toBeInTheDocument()
-    })
+      expect(screen.getByDisplayValue(option.value)).toBeInTheDocument();
+    });
   });
 
   it("updates filter options on change on filter", () => {
     renderWithRedux(<Filters />);
     filterOptions.forEach((option) => {
-      const value = screen.getByDisplayValue(option.value)
-      fireEvent.change(value, {target: {value: "new filter option"}})
+      const value = screen.getByDisplayValue(option.value);
+      fireEvent.change(value, { target: { value: "new filter option" } });
       expect(value.getAttribute("value")).toContain("new filter option");
-    })
-  })
+    });
+  });
 
   it("renders sort options", () => {
     renderWithRedux(<Filters />);
@@ -43,15 +43,15 @@ describe("Filter", () => {
     sortingOptions.forEach((option) => {
       expect(screen.getByText(option.label)).toBeInTheDocument();
       expect(screen.getByDisplayValue(option.value)).toBeInTheDocument();
-    })
+    });
   });
 
   it("updates filter options on change on sort", () => {
     renderWithRedux(<Filters />);
     sortingOptions.forEach((option) => {
-      const value = screen.getByDisplayValue(option.value)
-      fireEvent.change(value, {target: {value: "new filter option"}})
+      const value = screen.getByDisplayValue(option.value);
+      fireEvent.change(value, { target: { value: "new filter option" } });
       expect(value.getAttribute("value")).toContain("new filter option");
-    })
-  })
+    });
+  });
 });

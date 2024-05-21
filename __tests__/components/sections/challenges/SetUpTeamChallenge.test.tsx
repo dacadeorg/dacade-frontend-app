@@ -4,17 +4,6 @@ import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChallenge";
 import { challenge as mockChallenge, submission, mockInvite } from "../../../../__mocks__/challenge";
 
-jest.mock("next/router", () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-    events: {
-      on: jest.fn(),
-      off: jest.fn(),
-      emit: jest.fn(),
-    },
-  }),
-}));
-
 describe("SetupTeamChallenge", () => {
   const challenge = mockChallenge();
   it("renders without crashing", () => {

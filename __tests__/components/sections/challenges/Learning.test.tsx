@@ -1,25 +1,14 @@
 import Learning from "@/components/sections/challenges/Learning";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import { community } from "../../../../__mocks__/community";
+import { mockCommunity } from "../../../../__mocks__/community";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 import { mockCourse, mockLearningModule } from "../../../../__mocks__/course";
 import { challenge, submission } from "../../../../__mocks__/challenge";
 
-jest.mock("next/router", () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-    events: {
-      on: jest.fn(),
-      off: jest.fn(),
-      emit: jest.fn(),
-    },
-  }),
-}));
-
 describe("Learning", () => {
   it("should render Learning", () => {
-    renderWithRedux(<Learning courses={[]} learningModules={[]} community={community} />);
+    renderWithRedux(<Learning courses={[]} learningModules={[]} community={mockCommunity} />);
     const learning = screen.getByTestId("learningId");
     expect(learning).toBeInTheDocument();
     expect(screen.getByText("communities.overview.challenge.learning.title")).toBeInTheDocument();
@@ -27,7 +16,7 @@ describe("Learning", () => {
 
   it("should render with courses", () => {
     const coursesArray = [mockCourse];
-    renderWithRedux(<Learning courses={[mockCourse]} learningModules={[mockLearningModule]} community={community} />, {
+    renderWithRedux(<Learning courses={[mockCourse]} learningModules={[mockLearningModule]} community={mockCommunity} />, {
       challenges: { current: challenge(), list: [challenge()], loading: false, submission: submission() },
     });
     coursesArray.forEach((course) => {
@@ -38,7 +27,7 @@ describe("Learning", () => {
 
   it("should render with learning", () => {
     const learningArray = [mockLearningModule];
-    renderWithRedux(<Learning courses={[mockCourse]} learningModules={[mockLearningModule]} community={community} />);
+    renderWithRedux(<Learning courses={[mockCourse]} learningModules={[mockLearningModule]} community={mockCommunity} />);
     learningArray.forEach((learningModule) => {
       expect(screen.getByText(learningModule.title)).toBeInTheDocument();
       expect(screen.getByText(learningModule.description)).toBeInTheDocument();

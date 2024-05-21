@@ -1,3 +1,4 @@
+import { Community } from "@/types/community";
 import { colors } from "./colors";
 
 export const metadata = {
@@ -32,7 +33,7 @@ const reward = {
   timestamp: 1643424000,
 };
 
-export const community = {
+export const mockCommunity: Community = {
   id: "ew-43",
   ref: "community/ref",
   created_at: new Date("2022-05-01T12:00:00Z"),
@@ -54,5 +55,3 @@ export const community = {
   can_mint_certificates: true,
   challenges: 3
 };
-
-

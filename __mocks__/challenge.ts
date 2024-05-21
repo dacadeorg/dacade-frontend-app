@@ -1,5 +1,5 @@
 import { mockFormat, mockCertificateData, mockCourse, mockLearningModule, mockRatingCriteria } from "./course";
-import { community, metadata } from "./community";
+import { mockCommunity, metadata } from "./community";
 import { reward } from "./reward";
 import { KYCSTATUS } from "@/store/feature/kyc.slice";
 import { Submission, User } from "@/types/bounty";
@@ -42,7 +42,7 @@ export const challenge = () => ({
   isTeamChallenge: false,
   objectives: ["objectives 1", "Objectives 2", "Objectives 3", "Objectives 4"],
   threshold: 8,
-  community: community,
+  community: mockCommunity,
   reviewTime: 9,
   metadata: metadata,
   level: 58,
@@ -77,7 +77,7 @@ export const submission = (): Submission => ({
   created_at: new Date("2022-05-01T12:00:00Z"),
   updated_at: new Date("2022-05-01T12:00:00Z"),
   link: "/submissions/reference",
-  community: community,
+  community: mockCommunity,
   user_id: "user_id",
   challenge: challenge(),
   text: "Submission",

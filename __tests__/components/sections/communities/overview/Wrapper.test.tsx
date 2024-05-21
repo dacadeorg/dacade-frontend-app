@@ -5,19 +5,14 @@ import Wrapper from "@/components/sections/communities/overview/Wrapper";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
-    push: jest.fn(),
-    events: {
-      on: jest.fn(),
-      off: jest.fn(),
-      emit: jest.fn(),
-    },
+    asPath: "next",
   }),
 }));
 
 describe("Wrapper", () => {
   it("displays the wrapper", () => {
     renderWithRedux(
-      <Wrapper filter={<div>Test Filter</div>}>
+      <Wrapper testId="wrapperId" filter={<div>Test Filter</div>}>
         <div>Wrappper test</div>
       </Wrapper>
     );

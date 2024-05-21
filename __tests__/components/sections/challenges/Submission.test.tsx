@@ -6,17 +6,6 @@ import { challenge as mockChallenge, mockTeam, mockUser, submission } from "../.
 import { mockReferral } from "../../../../__mocks__/referrals";
 import { FieldErrors } from "react-hook-form";
 
-jest.mock("next/router", () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-    events: {
-      on: jest.fn(),
-      off: jest.fn(),
-      emit: jest.fn(),
-    },
-  }),
-}));
-
 describe("Submission", () => {
   let errors: FieldErrors<FormValues>;
   const challenge = mockChallenge();

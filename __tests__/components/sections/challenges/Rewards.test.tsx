@@ -6,19 +6,13 @@ import { challenge as mockChallenge, submission } from "../../../../__mocks__/ch
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
-    push: jest.fn(),
-    events: {
-      on: jest.fn(),
-      off: jest.fn(),
-      emit: jest.fn(),
-    },
     query: "",
   }),
 }));
 
 describe("Reward", () => {
   it("should render a reward", () => {
-    const challenge = mockChallenge()
+    const challenge = mockChallenge();
     renderWithRedux(<OverviewRewards />, { challenges: { current: challenge, list: [challenge], loading: false, submission: submission() } });
     const OverviewReward = screen.getByTestId("overviewRewardId");
     expect(OverviewReward).toBeInTheDocument();

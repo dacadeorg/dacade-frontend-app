@@ -4,17 +4,6 @@ import { screen } from "@testing-library/react";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 import { challenge, submission } from "../../../../__mocks__/challenge";
 
-jest.mock("next/router", () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-    events: {
-      on: jest.fn(),
-      off: jest.fn(),
-      emit: jest.fn(),
-    },
-  }),
-}));
-
 describe("ChallengeHeader", () => {
   it("should render the ChallengeHeader", () => {
     renderWithRedux(<ChallengeHeader />);
