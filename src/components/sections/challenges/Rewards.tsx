@@ -1,14 +1,10 @@
 import Section from "@/components/sections/communities/_partials/Section";
-import { useMultiSelector } from "@/hooks/useTypedSelector";
+import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
-import { ReactElement, useMemo } from "react";
-import Coin from "@/components/ui/Coin";
+import { ReactElement } from "react";
 import Certificate from "@/components/ui/Certificate";
 import { useRouter } from "next/router";
-import { Challenge } from "@/types/course";
-import { Community } from "@/types/community";
-import { IRootState } from "@/store";
-import HackathonPrize from "./_partials/HackathonPrize";
+import RewardCertificate from "@/components/cards/challenge/RewardCertificate";
 
 /**
  * Overview reward section component
@@ -19,58 +15,23 @@ import HackathonPrize from "./_partials/HackathonPrize";
  */
 export function OverviewRewards(): ReactElement {
   const { t } = useTranslation();
-  const { challenge, community } = useMultiSelector<unknown, { challenge: Challenge; community: Community }>({
-    challenge: (state: IRootState) => state.challenges.current,
-    community: (state: IRootState) => state.communities.current,
-  });
-  const rewards = useMemo(() => challenge?.rewards?.filter((reward) => reward.type === "SUBMISSION"), [challenge?.rewards]);
-  const totalReward = challenge?.rewards?.reduce((acc, reward) => (acc += Number(reward.amount)), 0);
-  const formatToken = (token: string) => {
-    return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
-  };
+  const  challenge = useSelector((state)=>state.challenges.current)
   const router = useRouter();
+  const token = challenge?.reward?.token || challenge?.rewards[0]?.token || "";
 
   return (
     <Section title={`${t("communities.overview.reward.title")}`}>
-      <p className="my-5 text-lg">{t("communities.overview.reward.subtitle")}</p>
-      <div className="md:flex md:flex-row items-center flex-col rounded-full max-w-max text-sm mt-6 space-y-8 md:space-x-8 md:space-y-0">
-        <div className="flex items-center gap-1 md:gap-0">
+      <p className="my-5 text-lg">{t("course.challenge.reward.certificate.description")}</p>
+      <div className="text-sm mt-6 flex gap-8 w-full md:w-2/3 items-center">
+        <div>
           <Certificate size="medium" name={router.query?.slug as string} />
-          <div className="md:pl-2 space-y-2 max-w-max">
-            <div className="flex text-sm text-gray-700">
-              <span className="block font-medium pr-1">
-                {community?.slug === "celo" && "NFT"} {t("communities.overview.challenge.certificate")}
-              </span>
-            </div>
-            <div className="text-gray-400 text-xs font-medium">{t("communities.overview.challenge.subtitle")}</div>
-          </div>
         </div>
-        {rewards?.map((reward, index) => (
-          <div key={`reward=${index}`} className="flex items-center">
-            <Coin size="medium" token={reward?.token} />
-            <div className="text-sm space-y-2 md:pl-2 max-w-max">
-              {challenge?.isHackathon ? (
-                <HackathonPrize reward={reward} description={t("communities.overview.challenge.rewards")} />
-              ) : (
-                <>
-                  <div className="flex gap-1 text-gray-700 font-medium">
-                    <span>{totalReward}</span>
-                    <span>{reward?.token}</span>
-                    <span>{t("communities.overview.challenge.rewards")}</span>
-                  </div>
-                  <div className="text-gray-400 text-xs font-medium leading-3 mt-1 flex">
-                    {challenge?.rewards.map((reward, index) => (
-                      <span key={`reward-${index}`}>
-                        {index > 0 && "\u003B "}
-                        {reward.amount} {reward.token}/{formatToken(reward.type)}
-                      </span>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
+        <div className="flex flex-col lg:flex-row justify-between gap-2 items-start w-full">
+          <div className="flex flex-col w-full lg:w-1/2">
+            {challenge?.rewards && <RewardCertificate rewards={challenge?.rewards} isReward />}
           </div>
-        ))}
+          {challenge?.isHackathon && <div className="pb-1.5 border-b border-gray-200 w-full lg:w-1/2">{t("communities.overview.challenge.participate", { token: token })}</div>}
+        </div>
       </div>
     </Section>
   );

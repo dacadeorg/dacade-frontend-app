@@ -4,7 +4,8 @@ import Head from "next/head";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { Community } from "@/types/community";
 import { Challenge, LearningModule } from "@/types/course";
-import { findLearningModule, setCurrentLearningModule } from "@/store/feature/learningModules.slice";
+import { setCurrentLearningModule } from "@/store/feature/learningModules.slice";
+import { findLearningModule } from "@/store/services/learningModules.service";
 import { setCurrentCommunity } from "@/store/feature/community.slice";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import DefaultLayout from "@/components/layout/Default";
@@ -13,7 +14,7 @@ import { initChallengeNavigationMenu } from "@/store/feature/communities/navigat
 import { setColors } from "@/store/feature/ui.slice";
 import useNavigation from "@/hooks/useNavigation";
 import { GetServerSideProps } from "next";
-import { wrapper } from "@/store";
+import { IRootState, wrapper } from "@/store";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ChallengeOverviewCard from "@/components/cards/challenge/Overview";
@@ -22,6 +23,10 @@ import { fetchChallenge } from "@/store/services/communities/challenges";
 import PageNavigation from "@/components/sections/courses/PageNavigation";
 import ChallengeCard from "@/components/cards/challenge/Challenge";
 import { useTranslation } from "next-i18next";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
+import Section from "@/components/ui/Section";
+import Loader from "@/components/ui/Loader";
+import { useRouter } from "next/router";
 
 /**
  * Learning module page props interfae
@@ -38,6 +43,11 @@ interface LearningModulePageProps {
   };
 }
 
+interface LearningModuleMultiselector {
+  learningModule: LearningModule,
+  loading: boolean
+}
+
 /**
  * Learning module module view page
  * @date 4/24/2023 - 8:35:52 PM
@@ -47,27 +57,45 @@ interface LearningModulePageProps {
  * @returns
  */
 export default function LearningModulePage(props: LearningModulePageProps) {
-  const { community, learningModule, challenge } = props.pageProps;
+  const { community, challenge } = props.pageProps;
+  const { learningModule, loading } = useMultiSelector<unknown, LearningModuleMultiselector>({
+    learningModule: (state: IRootState) => state.learningModules.current,
+    loading: (state: IRootState) => state.learningModules.loading
+  })
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const navigation = useNavigation();
+  const router = useRouter()
+  const { query, locale } = router
 
   useEffect(() => {
     dispatch(setCurrentCommunity(community));
     dispatch(setCurrentLearningModule(learningModule));
     dispatch(setColors(community.colors));
     dispatch(initChallengeNavigationMenu(navigation.community));
-  }, [community, learningModule, navigation.community]);
+    dispatch(findLearningModule({ id: query?.id as string, locale }))
+  }, [community?.colors, locale]);
+
 
   const title = getMetadataTitle(learningModule?.title);
   const descriptions = getMetadataDescription(learningModule?.description);
 
-  const paths = useMemo(() => [challenge.name, learningModule?.title], [challenge.name, learningModule?.title]);
+  const paths = useMemo(() => [challenge.name, learningModule?.title], [challenge.name, learningModule]);
 
   const isLastLearningModule = useMemo(() => {
+    if (!learningModule) return false
     if (!challenge.learningModules || !challenge.learningModules.length) return false;
     return learningModule.id === challenge.learningModules[challenge.learningModules.length - 1].id;
-  }, [learningModule.id, challenge.learningModules]);
+  }, [learningModule, challenge.learningModules]);
+
+  if (loading)
+
+    return (
+      <Section className="h-[50vh] flex items-center justify-center">
+        <Loader />
+      </Section>
+    );
+
   return (
     <>
       <Head>
@@ -108,22 +136,19 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   try {
     const communitySlug = params?.slug as string;
     const challenge_id = params?.challenge_id as string;
-    const learningModule_id = params?.id as string;
 
-    const [{ data: community }, { data: challenge }, { payload: learningModule }, translations] = await Promise.all([
+    const [{ data: community }, { data: challenge }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug: communitySlug, locale })),
-      store.dispatch(fetchChallenge({ id: challenge_id, relations: ["learning-modules", "rubric"] })),
-      store.dispatch(findLearningModule(learningModule_id)),
+      store.dispatch(fetchChallenge({ id: challenge_id, relations: ["learning-modules", "rubric"], locale })),
       serverSideTranslations(locale as string),
     ]);
 
-    if (Object.entries(community).length === 0 || Object.entries(challenge).length === 0 || Object.entries(learningModule).length === 0)
+    if (Object.entries(community).length === 0 || Object.entries(challenge).length === 0)
       throw new Error("Failed to fetch learning module");
 
     return {
       props: {
         community,
-        learningModule,
         challenge,
         ...translations,
       },

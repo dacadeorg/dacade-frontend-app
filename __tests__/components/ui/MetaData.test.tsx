@@ -3,9 +3,7 @@ import { getMetadataDescription } from "@/utilities/Metadata";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 
-
 describe("MetaData", () => {
-
   const description = "Test description";
 
   it("should render metaData", () => {

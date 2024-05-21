@@ -1,7 +1,7 @@
 import ArrowButton from "@/components/ui/button/Arrow";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import ReduxProvider from "../../../../__mocks__/provider/ReduxProvider";
+import { screen } from "@testing-library/react";
+import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -38,28 +38,26 @@ const RenderArrowButton = (props = arrowButtonProps) => {
   const { loading, disabled, rounded, type, variant, padding, children, customStyle, link, target, direction, minWidthClass, communityStyles, arrowClasses, onClick, className } =
     props;
 
-  render(
-    <ReduxProvider>
-      <ArrowButton
-        loading={loading}
-        disabled={disabled}
-        rounded={rounded}
-        type={type}
-        variant={variant}
-        padding={padding}
-        customStyle={customStyle}
-        link={link}
-        target={target}
-        direction={direction}
-        minWidthClass={minWidthClass}
-        communityStyles={communityStyles}
-        arrowClasses={arrowClasses}
-        onClick={onClick}
-        className={className}
-      >
-        {children}
-      </ArrowButton>
-    </ReduxProvider>
+  renderWithRedux(
+    <ArrowButton
+      loading={loading}
+      disabled={disabled}
+      rounded={rounded}
+      type={type}
+      variant={variant}
+      padding={padding}
+      customStyle={customStyle}
+      link={link}
+      target={target}
+      direction={direction}
+      minWidthClass={minWidthClass}
+      communityStyles={communityStyles}
+      arrowClasses={arrowClasses}
+      onClick={onClick}
+      className={className}
+    >
+      {children}
+    </ArrowButton>
   );
 
   return screen.getByText(arrowButtonProps.children);

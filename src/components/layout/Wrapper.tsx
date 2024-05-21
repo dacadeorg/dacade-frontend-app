@@ -2,6 +2,7 @@ import { ReactElement, ReactNode } from "react";
 import { useSelector } from "@/hooks/useTypedSelector";
 import ReferralPopup from "@/components/popups/referral";
 import graphik from "@/config/font";
+import JobOffers from "../popups/JobOffers";
 
 /**
  * LayoutWrapper props interface
@@ -27,11 +28,13 @@ interface LayoutWrapperProps {
 
 export default function LayoutWrapper({ children }: LayoutWrapperProps): ReactElement {
   const showReferral = useSelector((state) => state.ui.showReferralPopup);
+  const showJobOffersPopup = useSelector((state) => state.ui.showJobOffersPopup);
 
   return (
     <div className={`relative w-full h-full ${graphik.variable} font-sans`}>
       {children}
       {showReferral && <ReferralPopup />}
+      {showJobOffersPopup && <JobOffers />}
     </div>
   );
 }

@@ -25,6 +25,5 @@ describe("Modal component", () => {
 
     const modal = screen.queryByTestId("modal-overlay");
     expect(modal).not.toBeInTheDocument();
-});
-
+  });
 });

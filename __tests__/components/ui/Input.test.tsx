@@ -2,7 +2,6 @@ import Input from "@/components/ui/Input";
 import "@testing-library/jest-dom";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 
-
 describe("Input component", () => {
   it("Should render input field with placeholder", () => {
     render(<Input placeholder="Enter your name" />);
@@ -11,7 +10,7 @@ describe("Input component", () => {
   });
 
   it("Should render input field with label", () => {
-   render(<Input label="Name" />);
+    render(<Input label="Name" />);
     const labelElement = screen.getByText("Name");
     expect(labelElement).toBeInTheDocument();
   });

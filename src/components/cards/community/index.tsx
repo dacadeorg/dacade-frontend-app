@@ -59,9 +59,9 @@ export default function CommunityCard({ showRewards = true, community }: Communi
   }, [colors]);
 
   return (
-    <ThemeWrapper colors={community.colors}>
-      <div onClick={() => router.push(path)} className="block h-full hover:cursor-pointer" data-testid="community-card">
-        <div className="flex flex-col h-full p-6 pb-3 space-y-5 divide-y-2 group bg-theme-primary text-theme-text divide-dotted divide-theme-accent">
+    <ThemeWrapper colors={community.colors} className="mt-2 md:mt-0">
+      <div onClick={() => router.push(path)} className="block h-full hover:cursor-pointer">
+        <div className="flex flex-col h-full p-6 space-y-5 divide-y-2 group bg-theme-primary text-theme-text divide-dotted divide-theme-accent">
           <div className="flex-grow">
             <div className="flex flex-col justify-between space-y-5 sm:flex-row lg:flex-col 2xl:flex-row">
               <div className="text-.5xl md:text-2xl max-w-sm min-h-2xs md:min-h-3xs lg:min-h-2xs xl:min-h-2xs font-medium pb-5">
@@ -84,7 +84,7 @@ export default function CommunityCard({ showRewards = true, community }: Communi
             <div className="flex flex-col space-y-0">
               <div className="mt-4 font-medium text-theme-accent">{t("communities.card.earn")}</div>
               <div className="mt-4 font-light text-theme-accent">
-                {t(community.courses !== 1 ? "communities.card.courses" : "communities.card.course", { count: community.courses })}
+                {t(community.challenges > 1 ? "communities.card.challenges" : "communities.card.challenge", { count: community.challenges })}
               </div>
             </div>
             <div className="mt-4 align-middle">
