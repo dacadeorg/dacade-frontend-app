@@ -2,21 +2,26 @@ import HackathonPrize from "@/components/sections/challenges/_partials/Hackathon
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { reward } from "../../../../../__mocks__/reward";
+import { Distribution } from "@/types/course";
 
 describe("HackathonPrize", () => {
   it("should render the hackathon prize", () => {
-    render(<HackathonPrize reward={reward} description={"Prize"} />);
+    render(<HackathonPrize reward={reward} description={"Prize"} testId="hackathonPrizeId" />);
+
+    const { first, second, third } = reward?.distribution || ({} as Distribution);
 
     const hackathonPrize = screen.getByTestId("hackathonPrizeId");
     expect(hackathonPrize).toBeInTheDocument();
 
     const prizePoolText = screen.getByText(`$${reward.amount} Prize Pool`);
     expect(prizePoolText).toBeInTheDocument();
+    expect(prizePoolText.textContent).toBe(`$${reward.amount} Prize Pool`);
 
     const descriptionText = screen.getByText("Prize");
     expect(descriptionText).toBeInTheDocument();
+    expect(descriptionText.textContent).toBe("Prize");
 
-    const distributionText = screen.getByTestId("distributionId");
-    expect(distributionText.textContent).toBe(`1st Place $${reward.distribution.first};  2nd Place $${reward.distribution.second}; 3rd Place $${reward.distribution.third}`);
+    const distributionText = screen.getByText(`1st Place $${first}; 2nd Place $${second}; 3rd Place $${third}`);
+    expect(distributionText).toBeInTheDocument();
   });
 });
