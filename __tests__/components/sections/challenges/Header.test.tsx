@@ -6,7 +6,7 @@ import { challenge, submission } from "../../../../__mocks__/challenge";
 
 describe("ChallengeHeader", () => {
   it("should render the ChallengeHeader", () => {
-    renderWithRedux(<ChallengeHeader />);
+    renderWithRedux(<ChallengeHeader testId="challengeHeaderId" />);
     const challengeheader = screen.getByTestId("challengeHeaderId");
     expect(challengeheader).toBeInTheDocument();
   });
@@ -16,6 +16,8 @@ describe("ChallengeHeader", () => {
     const challenges = challenge();
     expect(screen.getByText("communities.challenge.title")).toBeInTheDocument();
     expect(screen.getByText(challenges.name)).toBeInTheDocument();
+    expect(screen.getByText(challenges.name).textContent).toBe("challenge name");
     expect(screen.getByText(challenges.description)).toBeInTheDocument();
+    expect(screen.getByText(challenges.description).textContent).toBe("challenge description");
   });
 });

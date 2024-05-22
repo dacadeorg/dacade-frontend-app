@@ -5,16 +5,12 @@ import { reward } from "../../../../../__mocks__/reward";
 
 describe("RewardsList", () => {
   it("should render the reward list", () => {
-    render(<RewardsList rewards={[reward]} />);
-
+    render(<RewardsList rewards={[reward]} testId="rewardListId" />);
     const rewardList = screen.getByTestId("rewardListId");
     expect(rewardList).toBeInTheDocument();
-
-    const rewardElements = screen.getAllByTestId("rewardElementId");
-    expect(rewardElements).toHaveLength([reward].length);
-
-    [reward].forEach((reward, i) => {
-      expect(rewardElements[i]).toHaveTextContent(reward.token);
+    [reward].forEach((reward) => {
+      expect(screen.getByText(reward.token)).toBeInTheDocument();
+      expect(screen.getByText(reward.token).textContent).toBe("token");
     });
   });
 });

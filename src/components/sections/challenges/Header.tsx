@@ -11,12 +11,12 @@ import { ReactElement } from "react";
  * @export
  * @returns {ReactElement}
  */
-export default function ChallengeHeader(): ReactElement {
+export default function ChallengeHeader({testId} : {testId?: string}): ReactElement {
   const { t } = useTranslation();
   const challenge = useSelector((state) => state.challenges.current);
 
   return (
-    <div data-testid="challengeHeaderId">
+    <div data-testid={testId}>
       <Header isTeamChallenge={challenge?.isTeamChallenge} title={challenge?.name} subtitle={t("communities.challenge.title")} isHackathon={challenge?.isHackathon} />
       <Section subtitle={challenge?.description} />
     </div>
