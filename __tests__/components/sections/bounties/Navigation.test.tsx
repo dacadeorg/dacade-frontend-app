@@ -25,26 +25,26 @@ const expectedNavItems: Omit<List, "id">[] = [
 
 describe("Navigation", () => {
   it("should render the navigation", () => {
-    renderWithRedux(<BountiesNavigation testId="navigationId"/>)
-    const bountiesNavigation = screen.getByTestId("navigationId")
-    expect(bountiesNavigation).toBeInTheDocument()
-  })
+    renderWithRedux(<BountiesNavigation testId="navigationId" />);
+    const bountiesNavigation = screen.getByTestId("navigationId");
+    expect(bountiesNavigation).toBeInTheDocument();
+  });
 
   it("should render the menus", () => {
-    renderWithRedux(<BountiesNavigation/>)
-    expectedNavItems.forEach((menu)=> {
-      if(menu.hideTitle){
+    renderWithRedux(<BountiesNavigation />);
+    expectedNavItems.forEach((menu) => {
+      if (menu.hideTitle) {
         const menuTitle = menu.title;
-        expect(screen.getByText(menuTitle)).toBeInTheDocument()
-        expect(screen.getByText(menuTitle)).toBe("bounties.navigation")
+        expect(screen.getByText(menuTitle)).toBeInTheDocument();
+        expect(screen.getByText(menuTitle)).toBe("bounties.navigation");
       }
-      menu.items.forEach((item)=> {
-        const links = screen.getByRole("link")
-        expect(links.hasAttribute("href")).toBeTruthy()
-        expect(links.getAttribute("href")).toBe(item.link)
-        expect(screen.getByText(item.label)).toBeInTheDocument()
-        expect(screen.getByText(item.label).textContent).toBe("bounties.navigation.all")
-      })
-    })
-  })
+      menu.items.forEach((item) => {
+        const links = screen.getByRole("link");
+        expect(links.hasAttribute("href")).toBeTruthy();
+        expect(links.getAttribute("href")).toBe(item.link);
+        expect(screen.getByText(item.label)).toBeInTheDocument();
+        expect(screen.getByText(item.label).textContent).toBe("bounties.navigation.all");
+      });
+    });
+  });
 });
