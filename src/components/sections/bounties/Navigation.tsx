@@ -12,6 +12,10 @@ import { Colors } from "@/types/community";
 import { Bounty } from "@/types/bounty";
 import { IRootState } from "@/store";
 
+interface navigationProp {
+  testId?: string;
+}
+
 /**
  * interface for BountiesNavigation multiSelector
  * @date 9/13/2023 - 9:04:18 AM
@@ -30,7 +34,7 @@ interface BountiesNavigationMultiSelector {
  * @export
  * @returns {ReactElement}
  */
-export default function BountiesNavigation(): ReactElement {
+export default function BountiesNavigation({testId}: navigationProp): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
   const { colors, bounties } = useMultiSelector<unknown, BountiesNavigationMultiSelector>({
@@ -70,7 +74,7 @@ export default function BountiesNavigation(): ReactElement {
 
   return (
     <ThemeWrapper colors={colors}>
-      <ul data-testid="bountiesNavigationId" className="sticky top-10">
+      <ul data-testid={testId} className="sticky top-10">
         {menus.map((menu, i) => (
           <li key={`bounties-menu-${i}`} className="relative mb-8">
             {!menu.hideTitle && <span className="relative text-xs font-semibold uppercase">{menu.title}</span>}
@@ -84,7 +88,7 @@ export default function BountiesNavigation(): ReactElement {
                       "!text-blue-600": router.query.slug === item.link.split("/")[2],
                     })}
                   >
-                    <span className="absolute !inline-block -left-6 nav-icon">{router.query.slug === item.link.split("/")[2] && <ChevronRightIcon />}</span>
+                    <span data-testid="testSpan" className="absolute !inline-block -left-6 nav-icon">{router.query.slug === item.link.split("/")[2] && <ChevronRightIcon />}</span>
                     <span className="nav-label">{item.label}</span>
                   </Link>
                 </li>

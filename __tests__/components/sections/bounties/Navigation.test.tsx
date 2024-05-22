@@ -25,41 +25,26 @@ const expectedNavItems: Omit<List, "id">[] = [
 
 describe("Navigation", () => {
   it("should render the navigation", () => {
-    renderWithRedux(<BountiesNavigation />);
-    const bountiesNavigation = screen.getByTestId("bountiesNavigationId");
-    expect(bountiesNavigation).toBeInTheDocument();
-  });
+    renderWithRedux(<BountiesNavigation testId="navigationId"/>)
+    const bountiesNavigation = screen.getByTestId("navigationId")
+    expect(bountiesNavigation).toBeInTheDocument()
+  })
 
-  it("should render menu items", () => {
-    renderWithRedux(<BountiesNavigation />);
-    const menuItems = screen.getAllByRole("listitem");
-    menuItems.forEach(() => {
-      expectedNavItems.forEach((menu) => {
-        if (!menu.hideTitle) {
-          const menuTitle = menu.title;
-          expect(screen.getByText(menuTitle)).toBeInTheDocument();
-        }
-      });
-    });
-  });
-
-  it("renders links with href", () => {
-    renderWithRedux(<BountiesNavigation />);
-    const links = screen.getAllByRole("link");
-    links.forEach((link) => {
-      expect(link).toHaveAttribute("href");
-    });
-  });
-
-  it("renders the item label", () => {
-    renderWithRedux(<BountiesNavigation />);
-    const menuItems = screen.getAllByRole("listitem");
-    menuItems.forEach(() => {
-      expectedNavItems.forEach((item) => {
-        const itemLabel = item.items.find((item) => item.label);
-        const label = itemLabel?.label;
-        expect(screen.getByText(label || "")).toBeInTheDocument();
-      });
-    });
-  });
+  it("should render the menus", () => {
+    renderWithRedux(<BountiesNavigation/>)
+    expectedNavItems.forEach((menu)=> {
+      if(menu.hideTitle){
+        const menuTitle = menu.title;
+        expect(screen.getByText(menuTitle)).toBeInTheDocument()
+        expect(screen.getByText(menuTitle)).toBe("bounties.navigation")
+      }
+      menu.items.forEach((item)=> {
+        const links = screen.getByRole("link")
+        expect(links.hasAttribute("href")).toBeTruthy()
+        expect(links.getAttribute("href")).toBe(item.link)
+        expect(screen.getByText(item.label)).toBeInTheDocument()
+        expect(screen.getByText(item.label).textContent).toBe("bounties.navigation.all")
+      })
+    })
+  })
 });
