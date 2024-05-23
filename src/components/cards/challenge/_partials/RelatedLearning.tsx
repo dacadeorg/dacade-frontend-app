@@ -22,7 +22,7 @@ interface RelatedLearningProps {
  */
 const RelatedLearning: React.FC<RelatedLearningProps> = ({ title, description, path }) => {
   return (
-    <div className="flex flex-col relative w-full p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">
+    <div className="flex flex-col relative w-full p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 border-solid border border-gray-200">
       <div className="flex flex-col justify-between w-full sm:pb-0">
         <div className="flex flex-col">
           <div className="text-base font-medium leading-normal text-gray-900">{title}</div>

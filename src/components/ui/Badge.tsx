@@ -14,6 +14,7 @@ interface BadgeProps extends Omit<HTMLProps<HTMLSpanElement>, "size"> {
   value?: string | number;
   size?: "medium" | "small";
   className?: string;
+  testId?: string;
 }
 
 /**
@@ -28,7 +29,7 @@ interface BadgeProps extends Omit<HTMLProps<HTMLSpanElement>, "size"> {
 }
  * @returns {ReactElement}
  */
-export default function Badge({ customStyle, value, size = "small", className, ...props }: BadgeProps): ReactElement {
+export default function Badge({ customStyle, value, size = "small", className, testId = "badgeId", ...props }: BadgeProps): ReactElement {
   const sizeClasses = useMemo(
     () =>
       ({
@@ -46,6 +47,7 @@ export default function Badge({ customStyle, value, size = "small", className, .
   }
   return (
     <span
+      data-testid={testId}
       {...props}
       className={classNames(
         "font-semibold leading-3 text-center inline-flex items-center justify-center rounded-full text-xxs",

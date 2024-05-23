@@ -125,7 +125,7 @@ export default function ChallengePage() {
           <MetaData description={challenge?.description} />
         </Head>
         <Wrapper paths={headerPaths}>
-          <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
+          <div className="flex flex-col py-4 text-gray-700 divide-y divide-gray-200 divide-solid">
             <Header />
             <Rewards />
             <Objectives />
@@ -141,10 +141,9 @@ export default function ChallengePage() {
                     <Loader />
                   </div>
                 ) : (
-                  <div className="grid mt-8 space-y-8">
+                  <div className="grid mt-6">
                     <Hint>
                       <p
-                        className="text-lg py-4"
                         dangerouslySetInnerHTML={{
                           __html: t(
                             challenge?.multipleSubmissions ? "communities.challenge.submission.multiple-submissions" : "communities.challenge.submission.no-multiple-submissions"
@@ -153,10 +152,10 @@ export default function ChallengePage() {
                       ></p>
                     </Hint>
                     {submission && (
-                      <>
+                      <div className="mt-6 space-y-6">
                         <h4 className="text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
                         <SubmissionCard submission={submission} />
-                      </>
+                      </div>
                     )}
 
                     {canSubmit && (
@@ -170,11 +169,13 @@ export default function ChallengePage() {
               </div>
             ) : (
               <div>
-                <Hint className="mt-6 flex flex-col md:flex-row">
-                  <p>To be able to submit</p>&nbsp;
-                  <Link className="underline" href="/login">
-                    Login.
-                  </Link>
+                <Hint className="mt-6">
+                  <p>
+                    To be able to submit
+                    <Link className="underline pl-1" href="/login">
+                      Login.
+                    </Link>
+                  </p>
                 </Hint>
               </div>
             )}

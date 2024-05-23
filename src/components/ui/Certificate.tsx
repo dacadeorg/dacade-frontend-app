@@ -21,6 +21,7 @@ interface CertificateProps {
   shape?: "rounded" | "squared" | "circle";
   name?: string;
   className?: string;
+  testId?: string;
 }
 
 /**
@@ -75,7 +76,7 @@ const certificates = [
  * @param {CertificateProps} { bgColor, textColor, size = 'normal', shape = 'circle', token }
  * @returns {ReactElement}
  */
-export default function Certificate({ size = "medium", shape = "circle", name, className = "" }: CertificateProps): ReactElement {
+export default function Certificate({ size = "medium", shape = "circle", name, className = "", testId = "certificateId" }: CertificateProps): ReactElement {
   const certificate = getCert(name) || getCert("DAC");
   const sizeClasses = getSizeClasses(size);
   const shapeClasses = getShapeClasses(shape);
@@ -110,5 +111,9 @@ export default function Certificate({ size = "medium", shape = "circle", name, c
     }
   }
 
-  return <div className={`relative grid place-content-center md:mr-0 ${sizeClasses} ${shapeClasses} ${className}`}>{certificate?.icon && certificate.icon}</div>;
+  return (
+    <div data-testid={testId} className={`relative grid place-content-center md:mr-0 ${sizeClasses} ${shapeClasses} ${className}`}>
+      {certificate?.icon && certificate.icon}
+    </div>
+  );
 }

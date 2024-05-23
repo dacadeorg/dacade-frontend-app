@@ -10,6 +10,7 @@ import { HTMLProps, forwardRef } from "react";
  */
 interface CheckboxProps extends HTMLProps<HTMLInputElement> {
   communityStyles?: boolean;
+  testId?: string;
 }
 
 /**
@@ -29,15 +30,15 @@ interface CheckboxProps extends HTMLProps<HTMLInputElement> {
 }
  * @returns {ReactElement}
  */
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function ({ disabled, className, communityStyles, ...props }, ref) {
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function ({ disabled, className, communityStyles, testId = "checkboxId", ...props }, ref) {
   const styles = communityStyles ? { color: "#0000FF" } : undefined;
 
-  const checkboxClassName = classNames("w-5 h-5 bg-gray-100 rounded border-gray-200 text-primary",className, {
+  const checkboxClassName = classNames("w-5 h-5 bg-gray-100 rounded border-gray-200 text-primary", className, {
     "cursor-not-allowed": disabled,
     "cursor-pointer": !disabled,
   });
 
-  return <input ref={ref} {...props} type="checkbox" disabled={disabled} className={checkboxClassName} style={styles} />;
+  return <input data-testid={testId} ref={ref} {...props} type="checkbox" disabled={disabled} className={checkboxClassName} style={styles} />;
 });
 
 Checkbox.displayName = "Checkbox";

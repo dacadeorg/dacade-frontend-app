@@ -11,6 +11,7 @@ import { ReactElement, useMemo } from "react";
 interface CurrencyProps {
   value?: number;
   token?: string;
+  testId?: string;
 }
 
 /**
@@ -24,7 +25,7 @@ interface CurrencyProps {
 }
  * @returns {ReactElement}
  */
-export default function Currency({ value = 0, token = "" }: CurrencyProps): ReactElement {
+export default function Currency({ value = 0, token = "", testId = "currencyId" }: CurrencyProps): ReactElement {
   const currency = useMemo(() => {
     return formatCurrency(value, token, "en", true, {
       decimalPlaces: 2,
@@ -32,7 +33,7 @@ export default function Currency({ value = 0, token = "" }: CurrencyProps): Reac
     });
   }, [token, value]);
   return (
-    <span className="whitespace-nowrap">
+    <span data-testid={testId} className="whitespace-nowrap">
       {currency} {token}
     </span>
   );

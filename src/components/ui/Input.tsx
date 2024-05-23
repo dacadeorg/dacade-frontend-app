@@ -16,6 +16,7 @@ interface InputProps extends Omit<HTMLProps<HTMLInputElement>, "onInput"> {
   error?: string;
   inputClass?: string;
   fontSize?: string;
+  testId?: string;
 }
 
 /**
@@ -35,7 +36,7 @@ interface InputProps extends Omit<HTMLProps<HTMLInputElement>, "onInput"> {
  * @returns {ReactElement}
  */
 const Input = forwardRef<HTMLInputElement, InputProps>(function (
-  { type = "text", label, disabled = false, placeholder = null!, error, inputClass, value, fontSize = "lg", ...props },
+  { type = "text", label, disabled = false, placeholder = null!, error, inputClass, value, fontSize = "lg", testId = "input", ...props },
   ref
 ) {
   const [isFocused, setIsFocused] = useState(false);
@@ -82,7 +83,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (
   );
 
   return (
-    <div className="relative">
+    <div data-testid={testId} className="relative">
       <div className={inputComponentClassName}>
         {label && <label className={labelClasssName}>{label}</label>}
         <input
