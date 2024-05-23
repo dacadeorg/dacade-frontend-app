@@ -63,6 +63,23 @@ describe("EmailEditForm", () => {
         })
     });
 
+    it("should not submit the form when emails do not match", async () => {
+        const emailInput = screen.getByPlaceholderText('login-page.email.placeholder');
+        const emailInputConfirm = screen.getByPlaceholderText('profile.settings.edit.email.confirm');
+        const form = screen.getByTestId('edit-email-form');
+
+        fireEvent.change(emailInput, { target: { value: "email1@example.com" } });
+        fireEvent.change(emailInputConfirm, { target: { value: "email2@example.com" } });
+
+        await act(async () => {
+            fireEvent.submit(form);
+        });
+
+        expect(onSubmit).not.toHaveBeenCalled();
+        expect(screen.queryByText("Emails should match.")).toBeInTheDocument();
+
+    })
+
     it("it should close the modal when its open", () => {
         expect(screen.getByTestId('profileModal')).toBeInTheDocument()
         fireEvent.click(screen.getByTestId('close-button'))
