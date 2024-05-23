@@ -14,6 +14,7 @@ interface ModalProps {
   size?: string;
   onClose?: () => void;
   children: ReactNode;
+  testId?: string;
 }
 
 /**
@@ -24,7 +25,7 @@ interface ModalProps {
  * @param {ModalProps} { show, size = '', onClose, children }
  * @returns {ReactElement}
  */
-export default function Modal({ show, size = "", onClose, children }: ModalProps): ReactElement {
+export default function Modal({ show, size = "", onClose, testId = "modal-overlay", children }: ModalProps): ReactElement {
   const sizeClasses = useMemo(() => {
     switch (size) {
       case "medium":
@@ -38,7 +39,9 @@ export default function Modal({ show, size = "", onClose, children }: ModalProps
 
   return (
     <Popup show={show} className="py-8" onClose={onClose} center>
-      <div className={modalClassName}>{children}</div>
+      <div data-testid={testId} className={modalClassName}>
+        {children}
+      </div>
     </Popup>
   );
 }

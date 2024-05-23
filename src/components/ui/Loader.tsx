@@ -13,6 +13,7 @@ interface LoaderProps {
   communityStyles?: boolean;
   className?: string;
   isSmallSpinner?: boolean;
+  testId?: string;
 }
 
 /**
@@ -27,7 +28,7 @@ interface LoaderProps {
  * @returns {*}
  */
 
-export default function Loader({ communityStyles = false, className = "", isSmallSpinner = false }: LoaderProps) {
+export default function Loader({ communityStyles = false, className = "", isSmallSpinner = false, testId = "loader" }: LoaderProps) {
   const colors = useSelector((state) => state.ui.colors);
 
   const styles = {
@@ -43,7 +44,7 @@ export default function Loader({ communityStyles = false, className = "", isSmal
   });
 
   return (
-    <div className={loaderClasses} style={{ ...(communityStyles ? styles : {}) }}>
+    <div data-testid={testId} className={loaderClasses} style={{ ...(communityStyles ? styles : {}) }}>
       <Spinner className={spinnerClasses} />
     </div>
   );
