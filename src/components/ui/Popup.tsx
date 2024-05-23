@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ReactElement} from "react";
+import { ReactElement } from "react";
 
 /**
  * Popups interface props
@@ -14,6 +14,8 @@ interface PopupProps {
   show?: boolean;
   children?: React.ReactNode;
   className?: string;
+  testId?: string;
+  overlayClassName?: string;
 }
 
 /**
@@ -30,11 +32,10 @@ interface PopupProps {
 }
  * @returns {ReactElement}
  */
-export default function Popup({ center, onClose, show, children, className = "" }: PopupProps): ReactElement {
-
+export default function Popup({ center, onClose, show, children, className = "", overlayClassName, testId = "overlay" }: PopupProps): ReactElement {
   return show ? (
     <div className={classNames(`fixed z-999 w-screen h-screen overflow-y-scroll top-0 left-0 ${className}`, { "flex items-center": center })}>
-      <div className="opacity-25 fixed inset-0 z-0 bg-black w-full h-screen top-0 left-0" onClick={onClose} />
+      <div data-testid={testId} className={`opacity-25 fixed inset-0 z-0 bg-black w-full h-screen top-0 left-0 ${overlayClassName}`} onClick={onClose} />
       {children}
     </div>
   ) : (

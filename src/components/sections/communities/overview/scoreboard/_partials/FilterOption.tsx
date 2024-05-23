@@ -34,7 +34,7 @@ export default function FilterOption({ label = "", value = "", data = "", name =
 
   return (
     <div className="flex items-center gap-2">
-      <Radio {...props} name={name} data={data} value={value} className="!w-4.5 !h-4.5 mx-0" />
+      <Radio disabled={isChecked} {...props} name={name} data={data} value={value} className="!w-4.5 !h-4.5 mx-0" />
       <label
         className={classNames("text-sm", {
           "font-bold": isChecked,

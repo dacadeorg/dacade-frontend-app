@@ -26,5 +26,5 @@ export default function Radio({ disabled, communityStyles, className = "", ...pr
 
   const radioClassName = classNames("w-9 h-9 border-gray-400 text-primary rounded-full", { "cursor-not-allowed border-4": disabled }, { "cursor-pointer": !disabled }, className);
 
-  return <input {...props} className={radioClassName} style={styles} type="radio" />;
+  return <input disabled {...props} className={radioClassName} style={styles} type="radio" />;
 }

@@ -31,6 +31,11 @@ const socialLinks = [
     url: "https://www.youtube.com/channel/UC08wXfDvuqBJvuZfNZkv3xQ",
     icon: "youtube",
   },
+  {
+    title: "LinkedIn",
+    url: "https://www.linkedin.com/company/dacade-org/",
+    icon: "linkedin",
+  },
 ];
 
 /**
