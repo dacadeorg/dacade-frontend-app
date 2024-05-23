@@ -69,7 +69,6 @@ export const submission: Submission = {
     text: "Submission",
     reviewDeadline: new Date(),
     metadata: {
-        evaluation: "",
         applicableReward: {
             ref: "",
             amount: 0,
@@ -85,6 +84,12 @@ export const submission: Submission = {
         reviewed: false,
         feedbacks: 0,
         language: "",
+        evaluation: {
+            points: 8,
+            reward: reward,
+            score: 80,
+            totalPoints: 10
+        }
     },
     timestamp: 0,
     user: mockUser,
