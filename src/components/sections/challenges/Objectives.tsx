@@ -14,7 +14,7 @@ import { ReactElement } from "react";
  * @export
  * @returns {ReactElement}
  */
-export default function Objectives(): ReactElement {
+export default function Objectives({testId}: {testId?: string}): ReactElement {
   // check for a link in the hint
   const containsLink = new RegExp(/<a.*?>.*?<\/a>/g);
 
@@ -23,7 +23,7 @@ export default function Objectives(): ReactElement {
   const expirationDate = challenge?.expiresAt && DateManager.format(challenge.expiresAt, "MMMM d, yyyy", "en");
   return (
     <Section title={`${t("communities.overview.challenge.objective.title")}`}>
-      <div className="space-y-5">
+      <div data-testid={testId} className="space-y-5">
         <ObjectiveList objectives={challenge?.objectives} />
         {expirationDate && <ExpiryDate expiresAt={expirationDate} />}
         <Hint>

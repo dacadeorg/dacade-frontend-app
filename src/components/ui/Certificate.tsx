@@ -30,7 +30,7 @@ interface CertificateProps {
  *
  * @type {[]}
  */
-const certificates = [
+export const certificates = [
   {
     name: "Celo",
     icon: <CeloIcon />,

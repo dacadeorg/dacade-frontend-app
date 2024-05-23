@@ -35,7 +35,7 @@ interface SubmissionMultiSelector {
   currentSubmission: TSubmission;
 }
 
-interface FormValues {
+export interface FormValues {
   text: string;
   githubLink: string;
 }
@@ -51,7 +51,7 @@ const isValid = (form: FormValues, challenge: Challenge | null) => {
   return challenge?.format.githubLink ? form.text.length > 0 && form.githubLink.length > 0 : form.text.length > 0;
 };
 
-export default function Submission(): ReactElement {
+export default function Submission({testId}: {testId?: string}): ReactElement {
   const {
     watch,
     register,
@@ -139,7 +139,7 @@ export default function Submission(): ReactElement {
           {!canSubmit ? (
             <Hint className="mb-8">{t("communities.challenge.submission.hint")}</Hint>
           ) : (
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form data-testid={testId} onSubmit={handleSubmit(onSubmit)}>
               {challenge?.format && (
                 <div className="relative w-full md:pl-7.5 my-6">
                   <div className="absolute z-50 left-3 md:left-0 top-3">
