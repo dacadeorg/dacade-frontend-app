@@ -14,7 +14,7 @@ interface Statistic {
   description: string;
   count: number;
 }
-const stats: Statistic[] = [
+export const stats: Statistic[] = [
   {
     title: "testimonials.community.stats.card-1.title",
     description: "testimonials.community.stats.card-1.description",
@@ -31,11 +31,11 @@ const stats: Statistic[] = [
     count: 6527,
   },
 ];
-export default function CommunityStats() {
+export default function CommunityStats({testId}: {testId?: string}) {
   const { t } = useTranslation();
 
   return (
-    <div className="p-7 bg-primary rounded-3.5xl mx-auto text-white relative md:absolute md:top-28 lg:top-32 xl:w-1/3 md:w-4/6 z-10 sm:max-w-sm">
+    <div data-testid={testId} className="p-7 bg-primary rounded-3.5xl mx-auto text-white relative md:absolute md:top-28 lg:top-32 xl:w-1/3 md:w-4/6 z-10 sm:max-w-sm">
       <h3 className="m-0 text-4.5xl w-3/4">{t("testimonials.community.title")}</h3>
       <div className="relative divide-y divide-white divide-dotted">
         {stats.map((stat) => (
