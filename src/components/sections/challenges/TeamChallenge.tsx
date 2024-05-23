@@ -63,7 +63,7 @@ export default function TeamChallenge(): JSX.Element {
 
   return (
     <Section title="Team Challenge">
-      <div className="text-base font-normal text-slate-700 pt-8 pb-7 md:w-182.5">To complete the team challenge, you need to follow these steps:</div>
+      <div className="text-base font-normal text-slate-700 py-6">To complete the team challenge, you need to follow these steps:</div>
       <div className="md:flex flex-row gap-20 md:divide-y-0 divide-y divide-gray-900 divide-dotted space-y-5 md:space-y-0 space-x-0">
         {steps.map((step) => (
           <TeamChallengeCard key={`TeamChallenge-card-data-${step.index}`} index={step.index} title={step.title} text={step.text} />
