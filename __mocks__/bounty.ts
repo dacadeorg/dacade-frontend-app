@@ -2,33 +2,15 @@ import { Bounty, BountyCourse } from "@/types/bounty";
 import { colors } from "./colors";
 import { reward } from "./reward";
 import { metadata } from "./community";
+import { mockCourse } from "./course";
 
 const mockBountyCourse: BountyCourse = {
+    ...mockCourse,
+    prerequisite: [""],
     duration: 0,
-    slug: "",
     active: false,
-    id: "",
-    ref: "",
-    created_at: new Date(),
-    updated_at: new Date(),
-    summary: "",
-    level: 0,
-    name: "",
-    description: "",
-    objectives: [],
-    locale: "",
-    community: "",
-    introduction: {
-        text: ""
-    },
-    certificateIcon: "",
-    certificateData: {
-        narrative: "",
-        icon: ""
-    },
-    timestamp: 0,
-    learningModules: [],
-    translations: []
+    slug: "ICP",
+
 }
 export const mockBounty: Bounty = {
     url: "",
