@@ -15,6 +15,9 @@ interface TextInputProps extends HTMLProps<HTMLTextAreaElement> {
   placeholder?: string;
   inputClass?: string;
   error?: string | null;
+  testId?: string;
+  errorTestId?: string;
+  labelTestId?: string;
 }
 
 /**
@@ -25,7 +28,7 @@ interface TextInputProps extends HTMLProps<HTMLTextAreaElement> {
  * @returns {ReactElement}
  */
 export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInput(
-  { label, disabled = false, placeholder, inputClass = "", error = null, value = "", ...props },
+  { label, disabled = false, placeholder, inputClass = "", error = null, value = "", testId = "textarea", labelTestId = "inputlabel", errorTestId = "inputerror", ...props },
   ref
 ): ReactElement {
   const [isFocused, setIsFocused] = useState(false);
@@ -47,9 +50,13 @@ export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInpu
   );
 
   return (
-    <div>
+    <div data-testid={testId}>
       <div className="floating-input relative">
-        {label && <label className={labelClassName}>{label}</label>}
+        {label && (
+          <label data-testid={labelTestId} className={labelClassName}>
+            {label}
+          </label>
+        )}
 
         <textarea
           {...props}
@@ -63,7 +70,7 @@ export default forwardRef<HTMLTextAreaElement, TextInputProps>(function TextInpu
         />
       </div>
       {error && (
-        <div className="bg-red-50 help text-sm text-red-900 px-5 py-1.5">
+        <div data-testid={errorTestId} className="bg-red-50 help text-sm text-red-900 px-5 py-1.5">
           <p>{error}</p>
         </div>
       )}
