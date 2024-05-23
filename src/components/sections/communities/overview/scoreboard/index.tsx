@@ -6,6 +6,10 @@ import { ReactElement, useState } from "react";
 import Loader from "@/components/ui/Loader";
 import EmptyState from "@/components/ui/EmptyState";
 
+interface ScoreboardOverviewProps {
+  testId?: string;
+}
+
 /**
  * Scoreboard Overview index component
  * @date 4/13/2023 - 10:12:04 AM
@@ -14,7 +18,7 @@ import EmptyState from "@/components/ui/EmptyState";
  * @returns {ReactElement}
  */
 
-export default function ScoreboardOverview(): ReactElement {
+export default function ScoreboardOverview({ testId }: ScoreboardOverviewProps): ReactElement {
   const { t } = useTranslation();
   const { list, loading } = useSelector((state) => state.scoreboard);
 
@@ -27,7 +31,7 @@ export default function ScoreboardOverview(): ReactElement {
   return (
     <>
       {loading ? (
-        <div className="h-full w-full grid">
+        <div data-testid={testId} className="h-full w-full grid">
           <Loader className="place-self-center" />
         </div>
       ) : list && list.length !== 0 ? (

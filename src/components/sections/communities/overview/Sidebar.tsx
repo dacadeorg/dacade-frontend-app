@@ -3,6 +3,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 
+interface SidebarProps {
+  testId?: string;
+}
+
 /**
  * @interface SidebarProps
  * @description The props for the Sidebar component.
@@ -13,7 +17,7 @@ import { useTranslation } from "next-i18next";
  * @param {} SidebarProps - The props for the Sidebar component.
  * @returns JSX.Element - The rendered Sidebar component.
  */
-export default function Sidebar(): JSX.Element {
+export default function Sidebar({ testId }: SidebarProps): JSX.Element {
   const currentCommunity = useSelector((state) => state.communities.current);
   const hasCurrentCommunity = !!currentCommunity; // Check if currentCommunity exists
   const router = useRouter();
@@ -32,7 +36,7 @@ export default function Sidebar(): JSX.Element {
   const mainLink = hasCurrentCommunity ? `/communities/${currentCommunity.slug}` : "";
 
   return (
-    <div className="flex flex-col md:divide-y divide-solid divide-gray-100 w-full text-gray-700 space-y-6">
+    <div data-testid={testId} className="flex flex-col md:divide-y divide-solid divide-gray-100 w-full text-gray-700 space-y-6">
       <Link href={mainLink}>
         <div className={isActive(mainLink) ? "" : "opacity-80"}>
           <div className="font-medium text-.5xl leading-snug">{t("communities.overview.challenges.title")}</div>
