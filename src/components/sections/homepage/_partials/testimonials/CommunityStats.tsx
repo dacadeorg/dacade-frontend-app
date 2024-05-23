@@ -18,7 +18,7 @@ interface Statistic {
   description: string;
   count: number;
 }
-const stats: Statistic[] = [
+export const stats: Statistic[] = [
   {
     title: "testimonials.community.stats.card-1.title",
     description: "testimonials.community.stats.card-1.description",
