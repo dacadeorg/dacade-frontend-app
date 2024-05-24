@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import _ from "lodash";
 
-const fixtureTestimonials = {
+export const fixtureTestimonials = {
   content: "testimonials content",
   icon: "/testimonials-icon",
 };
