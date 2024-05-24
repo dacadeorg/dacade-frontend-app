@@ -1,4 +1,4 @@
-import { Trailer } from "./bounty";
+import { Submission, Trailer } from "./bounty";
 import { Community } from "./community";
 
 export type Course = {
@@ -74,7 +74,7 @@ export type Challenge = {
   ratingCriteria?: RatingCriteria[];
   feedbacks: Feedback;
   feedbackInfo?: Feedback[];
-  bestSubmissions: Submission[];
+  bestSubmissions: Submission[]
   teamLimit?: number;
   isHackathon?: boolean;
   multipleSubmissions?: boolean;

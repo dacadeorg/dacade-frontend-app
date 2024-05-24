@@ -38,6 +38,7 @@ export default function EvaluationCard({ evaluation, link = "", last, children }
 
   return (
     <UserCard
+    
       user={evaluation.evaluator}
       timestamp={{
         date: evaluation.created_at,

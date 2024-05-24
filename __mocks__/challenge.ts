@@ -2,8 +2,8 @@ import { mockFormat, mockCertificateData, mockCourse, mockLearningModule, mockRa
 import { mockCommunity, metadata } from "./community";
 import { reward } from "./reward";
 import { KYCSTATUS } from "@/store/feature/kyc.slice";
-import { Submission, User } from "@/types/bounty";
-import { AdditionalInfo } from "@/types/course";
+import { Evaluation, Submission, User } from "@/types/bounty";
+import { AdditionalInfo, Challenge } from "@/types/course";
 import { TEAM_FORMATION } from "@/constants/challengeInfo";
 import { Team, TeamMember } from "@/types/challenge";
 
@@ -28,7 +28,7 @@ export const mockAdditionalInfo: {[type: string]: AdditionalInfo } = {
   "type": {type: "additional type", text: "additional text"},
 }
 
-export const challenge = () => ({
+export const challenge = (): Challenge => ({
   id: "challenge",
   ref: "challenge ref",
   created_at: new Date("2022-05-01T12:00:00Z"),
@@ -70,6 +70,22 @@ export const challenge = () => ({
   }
 });
 
+export const evaluation = (): Evaluation =>({
+evaluator: mockUser(),
+  created_at:new Date("2022-05-01T12:00:00Z"),
+  comment: "comment",
+  criteria: [],
+  metadata: {
+    language:"language"
+  },
+  points:10,
+  totalPoints:1,
+  reward: {
+    amount: 10,
+    token: "token"
+  }
+});
+
 export const submission = (): Submission => ({
   length: 0,
   id: "submission_id",
@@ -87,7 +103,7 @@ export const submission = (): Submission => ({
       points:8,
       reward:{},
       score:80,
-      totalPoints:10
+      totalPoints:0,
     },
     applicableReward: {
       ref: "",
@@ -105,6 +121,7 @@ export const submission = (): Submission => ({
     feedbacks: 0,
     language: "",
   },
+  evaluation:evaluation(),
   timestamp: 0,
   user: mockUser(),
   reviewable: false,
