@@ -25,18 +25,20 @@ export default function Objectives({testId}: {testId?: string}): ReactElement {
     <Section title={`${t("communities.overview.challenge.objective.title")}`}>
       <div data-testid={testId} className="space-y-5">
         <ObjectiveList objectives={challenge?.objectives} />
-        {expirationDate && <ExpiryDate expiresAt={expirationDate} />}
-        <Hint>
-          {containsLink.test(challenge?.hint as string) ? (
-            <span
-              dangerouslySetInnerHTML={{
-                __html: challenge?.hint as string,
-              }}
-            />
-          ) : (
-            <>{challenge?.hint}</>
-          )}
-        </Hint>
+        <div className="space-y-3">
+          {expirationDate && <ExpiryDate expiresAt={expirationDate} />}
+          <Hint>
+            {containsLink.test(challenge?.hint as string) ? (
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: challenge?.hint as string,
+                }}
+              />
+            ) : (
+              <>{challenge?.hint}</>
+            )}
+          </Hint>
+        </div>
       </div>
     </Section>
   );

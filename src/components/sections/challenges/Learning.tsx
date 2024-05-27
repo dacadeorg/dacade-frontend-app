@@ -35,7 +35,7 @@ export default function Learning({ courses, learningModules, community, testId }
                 />
               ))}
             </div>
-            <div className="md:grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {learningModules?.map((learning) => (
                 <RelatedLearningCard
                   key={`related-learning-card-${learning.id}`}

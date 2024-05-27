@@ -15,7 +15,7 @@ import RewardCertificate from "@/components/cards/challenge/RewardCertificate";
  */
 export function OverviewRewards({testId}: {testId?: string}): ReactElement {
   const { t } = useTranslation();
-  const  challenge = useSelector((state)=>state.challenges.current)
+  const challenge = useSelector((state) => state.challenges.current);
   const router = useRouter();
   const token = challenge?.reward?.token || challenge?.rewards[0]?.token || "";
 
@@ -27,9 +27,7 @@ export function OverviewRewards({testId}: {testId?: string}): ReactElement {
           <Certificate size="medium" name={router.query?.slug as string} />
         </div>
         <div className="flex flex-col lg:flex-row justify-between gap-2 items-start w-full">
-          <div className="flex flex-col w-full lg:w-1/2">
-            {challenge?.rewards && <RewardCertificate rewards={challenge?.rewards} isReward />}
-          </div>
+          <div className="flex flex-col w-full lg:w-1/2">{challenge?.rewards && <RewardCertificate rewards={challenge?.rewards} isReward />}</div>
           {challenge?.isHackathon && <div className="pb-1.5 border-b border-gray-200 w-full lg:w-1/2">{t("communities.overview.challenge.participate", { token: token })}</div>}
         </div>
       </div>
