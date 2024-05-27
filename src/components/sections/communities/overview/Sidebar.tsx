@@ -2,6 +2,7 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import classNames from "classnames";
 
 /**
  * @interface SidebarProps
@@ -41,7 +42,7 @@ export default function Sidebar(): JSX.Element {
       </Link>
       {hasCurrentCommunity && (
         <Link href={scoreboardLink}>
-          <div className={isActive(scoreboardLink) ? "pt-5" : "opacity-80 md:block hidden scroll-smooth pt-5"}>
+          <div className={classNames("pt-6", { "opacity-80 md:block hidden scroll-smooth": isActive(scoreboardLink) })}>
             <div className="font-medium text-.5xl leading-snug">{t("communities.overview.scoreboard.title")}</div>
             <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0">{t("communities.overview.scoreboard.description")}</div>
           </div>
