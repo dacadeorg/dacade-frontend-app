@@ -28,6 +28,9 @@ interface FeedbackMultiSelector {
   challenge: Challenge | null;
 }
 
+interface FeedbackProps {
+  testId?: string;
+}
 /**
  * Feedback  Component
  * @date 4/25/2023 - 2:23:01 PM
@@ -35,7 +38,7 @@ interface FeedbackMultiSelector {
  * @export
  * @returns {ReactElement}
  */
-export default function Feedback(): ReactElement {
+export default function Feedback({ testId = "feedbackId" }: FeedbackProps): ReactElement {
   const dispatch = useDispatch();
   const route = useRouter();
 
@@ -59,7 +62,7 @@ export default function Feedback(): ReactElement {
   }, [fetchList]);
 
   return (
-    <div className="relative">
+    <div className="relative" data-testid={testId}>
       {isFetching ? <Loader loading={isFetching} /> : feedbacks.map((feedback, index) => <FeedbackCard key={feedback.id} value={feedback} last={index === feedbacks.length - 1} />)}
       {isAuthenticated && challenge?.feedbackInfo && (
         <Section>

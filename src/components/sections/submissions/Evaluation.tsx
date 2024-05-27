@@ -33,7 +33,7 @@ interface EvaluationsProps {
  * @export
  * @returns {ReactElement}
  */
-export default function Evaluations({ testId }: EvaluationsProps): ReactElement {
+export default function Evaluations({ testId = "evaluationsId" }: EvaluationsProps): ReactElement {
   const { t } = useTranslation();
   const { colors, submission, challenge } = useMultiSelector<unknown, EvaluationsMultiSelector>({
     colors: (state: IRootState) => state.ui.colors,

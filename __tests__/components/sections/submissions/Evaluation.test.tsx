@@ -25,13 +25,13 @@ const mockEvaluationState = {
 
 describe("Evaluations", () => {
   it("Should render evaluations", () => {
-    renderWithRedux(<Evaluations testId="evaluationsId" />, mockEvaluationState);
+    renderWithRedux(<Evaluations />, mockEvaluationState);
     const evaluations = screen.getByTestId("evaluationsId");
     expect(evaluations).toBeInTheDocument();
   });
 
   it("Should render RatingRubric when the challenge is present", () => {
-    renderWithRedux(<Evaluations testId="evaluationsId" />, mockEvaluationState);
+    renderWithRedux(<Evaluations />, mockEvaluationState);
     const ratingCriteriaName = challenge().ratingCriteria[0].name;
     const ratingRubric = screen.getByText(ratingCriteriaName);
     expect(ratingRubric).toBeInTheDocument();
@@ -46,7 +46,7 @@ describe("Evaluations", () => {
       },
     };
 
-    renderWithRedux(<Evaluations testId="evaluationsId" />, nonHackathonState);
+    renderWithRedux(<Evaluations />, nonHackathonState);
     const token = submission().evaluation?.reward?.token;
     if (token) {
       expect(screen.getByText(token)).toBeInTheDocument();
@@ -62,7 +62,7 @@ describe("Evaluations", () => {
       },
     };
 
-    renderWithRedux(<Evaluations testId="evaluationsId" />, hackathonState);
+    renderWithRedux(<Evaluations />, hackathonState);
     expect(screen.getByText("USD")).toBeInTheDocument()
     expect(screen.getByText("communities.challenge.evaluation.message.nominated")).toBeInTheDocument();
   });
