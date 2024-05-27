@@ -4,7 +4,7 @@ import { reward } from "./reward";
 import { KYCSTATUS } from "@/store/feature/kyc.slice";
 import { Evaluation, Submission, User } from "@/types/bounty";
 import { AdditionalInfo, Challenge } from "@/types/course";
-import { TEAM_FORMATION } from "@/constants/challengeInfo";
+import { GRADING_CRITERIA, TEAM_FORMATION } from "@/constants/challengeInfo";
 import { Team, TeamMember } from "@/types/challenge";
 
 export const mockUser = (): User => ({
@@ -24,9 +24,9 @@ export const mockUser = (): User => ({
   kycStatus: KYCSTATUS.PENDING,
 });
 
-export const mockAdditionalInfo: {[type: string]: AdditionalInfo } = {
-  "type": {type: "additional type", text: "additional text"},
-}
+export const mockAdditionalInfo: { [type: string]: AdditionalInfo } = {
+  type: { type: "additional type", text: "additional text" },
+};
 
 export const challenge = (): Challenge => ({
   id: "challenge",
@@ -64,26 +64,27 @@ export const challenge = (): Challenge => ({
   isHackathon: false,
   additionalInfo: {
     [TEAM_FORMATION]: {
-      type: 'teamFormation',
-      text: 'Form your team details here'
-    }
-  }
+      type: "teamFormation",
+      text: "Form your team details here",
+    },
+    [GRADING_CRITERIA]: { type: "teamFormation", text: "Sample grading criteria text" },
+  },
 });
 
-export const evaluation = (): Evaluation =>({
-evaluator: mockUser(),
-  created_at:new Date("2022-05-01T12:00:00Z"),
+export const evaluation = (): Evaluation => ({
+  evaluator: mockUser(),
+  created_at: new Date("2022-05-01T12:00:00Z"),
   comment: "comment",
   criteria: [],
   metadata: {
-    language:"language"
+    language: "language",
   },
-  points:10,
-  totalPoints:1,
+  points: 10,
+  totalPoints: 1,
   reward: {
     amount: 10,
-    token: "token"
-  }
+    token: "token",
+  },
 });
 
 export const submission = (): Submission => ({
@@ -100,10 +101,10 @@ export const submission = (): Submission => ({
   reviewDeadline: new Date(),
   metadata: {
     evaluation: {
-      points:8,
-      reward:{},
-      score:80,
-      totalPoints:0,
+      points: 8,
+      reward: {},
+      score: 80,
+      totalPoints: 0,
     },
     applicableReward: {
       ref: "",
@@ -121,7 +122,7 @@ export const submission = (): Submission => ({
     feedbacks: 0,
     language: "",
   },
-  evaluation:evaluation(),
+  evaluation: evaluation(),
   timestamp: 0,
   user: mockUser(),
   reviewable: false,
@@ -142,7 +143,7 @@ export const mockInvite = {
   updated_at: "wednesday",
   user: mockUser(),
   user_id: "user id",
-}
+};
 
 export const mockTeamMember: TeamMember = {
   created_at: "created_at",
@@ -153,7 +154,7 @@ export const mockTeamMember: TeamMember = {
   timestamp: 3,
   updated_at: "wednesday",
   user: mockUser(),
-}
+};
 
 export const mockTeam: Team = {
   challenge: challenge(),
@@ -168,5 +169,5 @@ export const mockTeam: Team = {
   members: [mockTeamMember],
   ref: "",
   timestamp: "",
-  updated_at: ""
-}
+  updated_at: "",
+};

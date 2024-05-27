@@ -53,17 +53,17 @@ describe("Evaluations", () => {
     }
   });
 
-//   it("Should conditionally render reward information when evaluation.reward is present and challenge is a hackathon", () => {
-//     const hackathonState = {
-//       ...mockEvaluationState,
-//       challenges: {
-//         ...mockEvaluationState.challenges,
-//         current: { ...challenge(), isHackathon: true },
-//       },
-//     };
+  it("Should conditionally render reward information when evaluation.reward is present and challenge is a hackathon", () => {
+    const hackathonState = {
+      ...mockEvaluationState,
+      challenges: {
+        ...mockEvaluationState.challenges,
+        current: { ...challenge(), isHackathon: true },
+      },
+    };
 
-//     renderWithRedux(<Evaluations testId="evaluationsId" />, hackathonState);
-//     expect(screen.getByText("USD")).toBeInTheDocument()
-//     expect(screen.getByText("communities.challenge.evaluation.message.nominated")).toBeInTheDocument();
-//   });
+    renderWithRedux(<Evaluations testId="evaluationsId" />, hackathonState);
+    expect(screen.getByText("USD")).toBeInTheDocument()
+    expect(screen.getByText("communities.challenge.evaluation.message.nominated")).toBeInTheDocument();
+  });
 });

@@ -22,8 +22,8 @@ interface EvaluationsMultiSelector {
   challenge: Challenge | null;
 }
 
-interface EvaluationsProps{
-  testId?:string
+interface EvaluationsProps {
+  testId?: string;
 }
 
 /**
