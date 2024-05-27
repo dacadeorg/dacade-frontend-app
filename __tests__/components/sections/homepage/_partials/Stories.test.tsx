@@ -14,10 +14,12 @@ describe("Stories", () => {
     expect(screen.getByTestId("testimonialsId")).toBeInTheDocument();
     const mockGrid = _.chunk([fixtureTestimonials], 5);
     mockGrid.forEach((grid) => {
-      grid.forEach(() => {
+      grid.forEach((story) => {
         const storyImage = screen.getByRole("img");
         expect(storyImage).toBeInTheDocument();
         expect(storyImage.hasAttribute("src")).toBeTruthy();
+        expect(storyImage.getAttribute("src")).toContain(story.icon.replace("/testimonials-icon", "/_next/image?url=%2Ftestimonials-icon&w=96&q=75"));
+        expect(storyImage.hasAttribute("alt")).toBeTruthy();
       });
     });
   });

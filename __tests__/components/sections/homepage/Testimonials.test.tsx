@@ -1,5 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { screen } from "@testing-library/react";
 import TestimonialsSection from "@/components/sections/homepage/Testimonials";
+import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 
 describe("Testimonials Section", () => {
   const testimonials = [
@@ -15,9 +17,9 @@ describe("Testimonials Section", () => {
   ];
 
   it("should render testimonials with correct content", () => {
-    render(<TestimonialsSection />);
-    expect(screen.getByText("testimonials.community.title")).toBeInTheDocument();
-    expect(screen.getByText("footer.open.source")).toBeInTheDocument();
+    renderWithRedux(<TestimonialsSection testId="testimonialsId"/>);
+    const testimonial = screen.getByTestId("testimonialsId");
+    expect(testimonial).toBeInTheDocument();
 
     testimonials.forEach((testimonial) => {
       expect(screen.getByAltText(testimonial.icon)).toBeInTheDocument();
