@@ -8,7 +8,7 @@ import { mockUser } from "./user";
 const referralSubmission = () => Object.assign(getMockSubmission, { challengeData: challenge, link: "referral-link" });
 const userReferral: UserReferral = Object.assign(mockUser, { submissions: [referralSubmission()] });
 
-export const mockReferral = (): Referral => ({
+export const mockReferral: Referral = {
     id: "",
     name: "",
     ref: "",
@@ -22,4 +22,4 @@ export const mockReferral = (): Referral => ({
     submissions: [getMockSubmission],
     rewarded: false,
     user: userReferral,
-});
+};

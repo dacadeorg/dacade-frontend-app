@@ -1,10 +1,10 @@
 import SideNavigation from "@/components/ui/SideNavigation";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import { colors } from "../../../../__mocks__/colors";
+import { colors } from "../../../../__mocks__/fixtures/colors";
 import { Items } from "@/store/feature/communities/navigation.slice";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
-import { mockItems } from "../../../../__mocks__/menu";
+import { mockItems } from "../../../../__mocks__/fixtures/menu";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({

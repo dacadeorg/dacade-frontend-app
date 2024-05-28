@@ -1,7 +1,7 @@
 import SocialLink from "@/components/ui/SocialLink";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { link } from "../../../__mocks__/link";
+import { link } from "../../../__mocks__/fixtures/link";
 
 type link = {
   url: string;
