@@ -1,8 +1,8 @@
 import { HttpResponse, http } from "msw";
-import { certificate, mockMinting, mockReputation } from "../../fixtures/profile";
-import { mockCommunity } from "../../fixtures/community";
-import { submission } from "../../fixtures/challenge";
-import { mockUser } from "../../fixtures/user";
+import { certificate, mockMinting, mockReputation } from "../fixtures/profile";
+import { mockCommunity } from "../fixtures/community";
+import { submission } from "../fixtures/challenge";
+import { mockUser } from "../fixtures/user";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL
 

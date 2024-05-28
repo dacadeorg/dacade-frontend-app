@@ -1,5 +1,5 @@
 import { HttpResponse, http } from "msw";
-import { mockCourse, mockLearningModule } from "../../fixtures/course";
+import { mockCourse, mockLearningModule } from "../fixtures/course";
 
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL

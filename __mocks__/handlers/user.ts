@@ -1,6 +1,6 @@
 import { HttpResponse, http } from "msw";
-import { mockNotification, mockUser } from "../../fixtures/user";
-import { mockReferral } from "../../fixtures/referrals";
+import { mockNotification, mockUser } from "../fixtures/user";
+import { mockReferral } from "../fixtures/referrals";
 
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL

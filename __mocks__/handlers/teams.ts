@@ -1,5 +1,5 @@
 import { HttpResponse, http } from "msw"
-import { mockInvite, mockTeam } from "../../fixtures/challenge"
+import { mockInvite, mockTeam } from "../fixtures/challenge"
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL
 

@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import { challenge, submission } from "../../fixtures/challenge";
+import { challenge, submission } from "../fixtures/challenge";
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL
 
 export const challengesHandlers = [

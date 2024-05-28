@@ -1,5 +1,5 @@
 import { HttpResponse, http } from "msw";
-import { mockWallet } from "../../fixtures/wallet";
+import { mockWallet } from "../fixtures/wallet";
 
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL

@@ -1,7 +1,7 @@
 import { http, HttpResponse } from "msw";
-import { mockCommunity } from "../../fixtures/community";
-import { mockScoreboard } from "../../fixtures/scoreboard";
-import { mockCourse } from "../../fixtures/course";
+import { mockCommunity } from "../fixtures/community";
+import { mockScoreboard } from "../fixtures/scoreboard";
+import { mockCourse } from "../fixtures/course";
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL
 
 export const communityHandlers = [
