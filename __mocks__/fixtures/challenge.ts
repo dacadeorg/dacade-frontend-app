@@ -1,5 +1,5 @@
 import { mockFormat, mockCertificateData, mockCourse, mockLearningModule, mockRatingCriteria } from "./course";
-import { reward } from "./reward";
+import { reward } from "../reward";
 import { KYCSTATUS } from "@/store/feature/kyc.slice";
 import { Submission, User } from "@/types/bounty";
 import { AdditionalInfo, Challenge } from "@/types/course";

@@ -1,5 +1,5 @@
 import { Community } from "@/types/community";
-import { colors } from "./colors";
+import { colors } from "../colors";
 import { Reward } from "@/types/course";
 
 export const metadata = {

@@ -3,7 +3,7 @@ import "@testing-library/jest-dom"
 import { fireEvent, screen } from "@testing-library/react"
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 import { colors } from "../../../../__mocks__/colors";
-import { challenge, challengeSliceData, mockUser } from "../../../../__mocks__/challenge";
+import { challenge, challengeSliceData, mockUser } from "../../../../__mocks__/fixtures/challenge";
 jest.mock("next/router", () => ({
     useRouter: () => ({
         push: jest.fn(),

@@ -2,7 +2,7 @@ import Feedback from "@/components/sections/feedbacks"
 import "@testing-library/jest-dom"
 import { screen } from "@testing-library/react"
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
-import { challengeSliceData, mockUser, submission } from "../../../../__mocks__/challenge";
+import { challengeSliceData, mockUser, submission } from "../../../../__mocks__/fixtures/challenge";
 
 
 jest.mock("next/router", () => ({
