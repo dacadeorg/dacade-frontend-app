@@ -5,13 +5,14 @@ import { reward } from "../../../../../__mocks__/reward";
 import { Distribution } from "@/types/course";
 
 describe("HackathonPrize", () => {
+  const { first, second, third } = reward?.distribution || ({} as Distribution);
   it("should render the hackathon prize", () => {
     render(<HackathonPrize reward={reward} description={"Prize"} testId="hackathonPrizeId" />);
+    expect(screen.getByTestId("hackathonPrizeId")).toBeInTheDocument();
+  });
 
-    const { first, second, third } = reward?.distribution || ({} as Distribution);
-
-    const hackathonPrize = screen.getByTestId("hackathonPrizeId");
-    expect(hackathonPrize).toBeInTheDocument();
+  it("should render hackathon prize with reward and description", () => {
+    render(<HackathonPrize reward={reward} description={"Prize"} testId="hackathonPrizeId" />);
     if (reward.fiatCurrency) {
       const currency = screen.getByText("communities.overview.reward.fiat.prize.pool");
       expect(currency).toBeInTheDocument();
@@ -21,7 +22,7 @@ describe("HackathonPrize", () => {
       expect(currency).toBeInTheDocument();
       expect(currency.textContent).toBe("communities.overview.reward.crypto.prize.pool");
     }
-    
+
     const descriptionText = screen.getByText("Prize");
     expect(descriptionText).toBeInTheDocument();
     expect(descriptionText.textContent).toBe("Prize");

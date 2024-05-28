@@ -8,9 +8,8 @@ import { challenge as mockChallenge, submission } from "../../../../__mocks__/ch
 describe("Rubric", () => {
   const challenge = mockChallenge();
   it("should render the Rubric header", () => {
-    renderWithRedux(<RubricHeader testId="rubricId" ratingCriteria={[]} selected={[]} />, { challenges: { current: challenge, list: [challenge], loading: false, submission: submission() } });
-    const rubricHeader = screen.getByTestId("rubricId");
-    expect(rubricHeader).toBeInTheDocument();
+    renderWithRedux(<RubricHeader testId="rubricId" ratingCriteria={[]} selected={[]} />);
+    expect(screen.getByTestId("rubricId")).toBeInTheDocument();
   });
 
   it("should render the Rubric with ratings", () => {

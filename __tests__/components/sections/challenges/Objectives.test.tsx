@@ -8,9 +8,8 @@ import DateManager from "@/utilities/DateManager";
 describe("Objectives", () => {
   const challenge = mockChallenge();
   it("should render objectives", () => {
-    renderWithRedux(<Objectives testId="objectiveId" />, { challenges: { current: mockChallenge(), list: [mockChallenge()], loading: false, submission: submission() } });
-    const objectives = screen.getByTestId("objectiveId");
-    expect(objectives).toBeInTheDocument();
+    renderWithRedux(<Objectives testId="objectiveId" />);
+    expect(screen.getByTestId("objectiveId")).toBeInTheDocument();
     expect(screen.getByText("communities.overview.challenge.objective.title")).toBeInTheDocument();
   });
 
