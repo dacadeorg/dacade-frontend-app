@@ -20,7 +20,7 @@ interface RubricRatingMultiSelector {
   community: Community | null;
   colors: Colors;
 }
-interface RubricRatingProps {
+export interface RubricRatingProps {
   rubricRating?: {
     relevance: number;
     originality: number;
@@ -32,6 +32,7 @@ interface RubricRatingProps {
     [key: string]: string | number;
   };
   hideTitle?: boolean;
+  testId?: string
 }
 
 /**
@@ -64,6 +65,7 @@ export default function RubricRating({
     rewardCoin: "CGLD",
   },
   hideTitle = false,
+  testId
 }: RubricRatingProps): ReactElement {
   const { t } = useTranslation();
 
@@ -108,7 +110,7 @@ export default function RubricRating({
             </div>
           </div>
         ))}
-        <div className="md:flex space-y-3 md:space-y-0 md:space-x-10 mt-7 font-medium">
+        <div data-testid={testId} className="md:flex space-y-3 md:space-y-0 md:space-x-10 mt-7 font-medium">
           <div>
             <div className="text-sm leading-loose text-gray-900">{t("communities.challenge.rating.total")}</div>
             <div className="text-theme-accent">
