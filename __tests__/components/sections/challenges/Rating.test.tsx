@@ -1,7 +1,8 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
-import RubricRating, { RubricRatingProps } from "@/components/sections/challenges/Rating";
+import RubricRating from "@/components/sections/challenges/Rating";
+import type { RubricRatingProps } from "@/components/sections/challenges/Rating";  
 import { mockCommunity } from "../../../../__mocks__/community";
 import { mockCourse } from "../../../../__mocks__/course";
 
