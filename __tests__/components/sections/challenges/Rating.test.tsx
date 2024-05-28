@@ -20,27 +20,31 @@ const fixtureRubricRating: MockRubricRating = {
 };
 describe("RubricRating", () => {
   const rubricRatings = fixtureRubricRating.rubricRating;
-  it("should render ratings", () => {
-    renderWithRedux(<RubricRating testId="rubricRatingId" hideTitle={false} rubricRating={rubricRatings} />, {
-      community: { current: mockCommunity, list: [mockCommunity], courses: [mockCourse], status: "succeeded", error: "error message" },
-    });
+  it("should render ratings with title", () => {
+    renderWithRedux(<RubricRating testId="rubricRatingId" hideTitle={false} />);
     expect(screen.getByTestId("rubricRatingId")).toBeInTheDocument();
     expect(screen.getByTestId("coin")).toBeInTheDocument();
     expect(screen.getByText("communities.challenge.criteria.title")).toBeInTheDocument();
+  });
+
+  it("should render ratings with rating criterias", () => {
+    renderWithRedux(<RubricRating rubricRating={rubricRatings} />, {
+        community: { current: mockCommunity, list: [mockCommunity], courses: [mockCourse], status: "succeeded", error: "error message" },
+      });
 
     mockCommunity.challenge?.ratingCriteria.forEach((criteria) => {
-      expect(screen.getByText(criteria.name)).toBeInTheDocument();
-      expect(screen.getByText(criteria.name).textContent).toBe("rating criteria");
-      criteria.rubric.forEach((rubric) => {
-        if (rubricRatings) {
-          if (rubricRatings[criteria.name] === rubric.points) {
-            expect(screen.getByText(rubric.points)).toBeInTheDocument();
-            expect(screen.getByText(rubric.points).textContent).toBe("90");
-            expect(screen.getByText(rubric.text)).toBeInTheDocument();
-            expect(screen.getByText(rubric.text).textContent).toBe("Challenge text");
+        expect(screen.getByText(criteria.name)).toBeInTheDocument();
+        expect(screen.getByText(criteria.name).textContent).toBe("rating criteria");
+        criteria.rubric.forEach((rubric) => {
+          if (rubricRatings) {
+            if (rubricRatings[criteria.name] === rubric.points) {
+              expect(screen.getByText(rubric.points)).toBeInTheDocument();
+              expect(screen.getByText(rubric.points).textContent).toBe("90");
+              expect(screen.getByText(rubric.text)).toBeInTheDocument();
+              expect(screen.getByText(rubric.text).textContent).toBe("Challenge text");
+            }
           }
-        }
+        });
       });
-    });
-  });
+  })
 });

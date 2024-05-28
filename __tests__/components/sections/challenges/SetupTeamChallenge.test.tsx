@@ -4,7 +4,7 @@ import { challenge as mockChallenge, mockInvite, submission } from "../../../../
 import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChallenge";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 
-describe('', () => {
+describe('SetUpTeamChallenge', () => {
     const challenge = mockChallenge();
   it("renders without crashing", () => {
     renderWithRedux(<SetupTeamChallenge testid="challengeId" />);
