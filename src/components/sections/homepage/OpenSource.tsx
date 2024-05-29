@@ -10,7 +10,7 @@ import { useTranslation } from "next-i18next";
  * @returns {ReactElement}
  */
 
-export default function OpenSource({testId}: {testId?: string}) {
+export default function OpenSource({ testId = "openSourceId" }: { testId?: string }) {
   const { t } = useTranslation();
   return (
     <div data-testid={testId} className="text-4xl lg:text-5xl pt-24 flex flex-col text-wrap space-y-2">

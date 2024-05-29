@@ -10,7 +10,7 @@ jest.mock("next/router", () => ({
 
 describe("Communities Section", () => {
   it("should render community section", () => {
-    renderWithRedux(<CommunitiesSection communities={[community]} testId="communitiesSectionId" />);
+    renderWithRedux(<CommunitiesSection communities={[community]} />);
     expect(screen.getByTestId("communitiesSectionId")).toBeInTheDocument();
     [community].forEach((community) => {
       expect(screen.getByText(community.name)).toBeInTheDocument();

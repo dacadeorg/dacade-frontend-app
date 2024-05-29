@@ -15,7 +15,7 @@ describe("Main Section", () => {
   });
 
   it("should display cards", () => {
-    renderWithRedux(<MainSection testId="mainSectionId" />);
+    renderWithRedux(<MainSection />);
     cards.forEach((card) => {
       expect(screen.getByText(card.title)).toBeInTheDocument();
       expect(screen.getByText(card.body)).toBeInTheDocument();

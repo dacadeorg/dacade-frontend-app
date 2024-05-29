@@ -10,7 +10,7 @@ export const fixtureTestimonials = {
 
 describe("Stories", () => {
   it("should display the stories", () => {
-    render(<TestimonialsSection testId="testimonialsId" list={[fixtureTestimonials]} />);
+    render(<TestimonialsSection list={[fixtureTestimonials]} />);
     expect(screen.getByTestId("testimonialsId")).toBeInTheDocument();
     const mockGrid = _.chunk([fixtureTestimonials], 5);
     mockGrid.forEach((grid) => {

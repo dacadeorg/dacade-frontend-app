@@ -34,7 +34,7 @@ export const cards: { title: string; body: string }[] = [
  * @export
  * @returns {ReactElement}
  */
-export default function MainSection({testId}: {testId?: string}): ReactElement {
+export default function MainSection({ testId = "mainSectionId" }: { testId?: string }): ReactElement {
   const { t } = useTranslation();
 
   return (

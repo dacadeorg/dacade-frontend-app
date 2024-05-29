@@ -18,7 +18,7 @@ import { Community } from "@/types/community";
  * @returns {ReactElement}
  */
 
-export default function CommunitiesSection({ communities, testId }: { communities: Community[], testId?: string }): ReactElement {
+export default function CommunitiesSection({ communities, testId = "communitiesSectionId" }: { communities: Community[]; testId?: string }): ReactElement {
   const { t } = useTranslation();
 
   return (

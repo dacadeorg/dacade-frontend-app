@@ -31,7 +31,7 @@ export const stats: Statistic[] = [
     count: 6527,
   },
 ];
-export default function CommunityStats({testId}: {testId?: string}) {
+export default function CommunityStats({ testId = "communityStatsId" }: { testId?: string }) {
   const { t } = useTranslation();
 
   return (

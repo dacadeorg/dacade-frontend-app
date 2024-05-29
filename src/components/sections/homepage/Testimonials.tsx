@@ -75,7 +75,7 @@ const stories = (t: TFunction<"translation", undefined, "translation">): Testimo
   ];
 };
 
-export default function TestimonialsSection({testId}: {testId?: string}): ReactElement {
+export default function TestimonialsSection({testId="testimonialsSectionId"}: {testId?: string}): ReactElement {
   const { t } = useTranslation();
   return (
     <div data-testid={testId}>

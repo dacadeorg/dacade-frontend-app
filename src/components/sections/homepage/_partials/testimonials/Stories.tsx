@@ -36,7 +36,7 @@ interface ShowingBubble {
   grid: number | null;
 }
 
-export default function TestimonialsSection({ list, testId }: TestimonialsSectionProps): ReactElement {
+export default function TestimonialsSection({ list, testId = "testimonialsId" }: TestimonialsSectionProps): ReactElement {
   const [showingBubble, setShowingBubble] = useState<ShowingBubble>(() => ({
     card: 4,
     grid: 0,
