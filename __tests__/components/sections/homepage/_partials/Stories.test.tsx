@@ -1,5 +1,5 @@
-import TestimonialsSection from "@/components/sections/homepage/_partials/testimonials/Stories";
 import "@testing-library/jest-dom";
+import TestimonialsSection from "@/components/sections/homepage/_partials/testimonials/Stories";
 import { render, screen } from "@testing-library/react";
 import _ from "lodash";
 
