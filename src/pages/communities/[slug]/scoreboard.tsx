@@ -53,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   const slug = params?.slug as string;
 
   try {
-    const [{ data: community }, { data: scoreboards }] = await Promise.all([
+    const [{ data: community }, { data: scoreboards },] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug, locale })),
       store.dispatch(fetchAllScoreboards({ slug, locale: locale || "en" })),
     ]);

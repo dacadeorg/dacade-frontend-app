@@ -30,19 +30,36 @@ export default function Sidebar(): JSX.Element {
   };
 
   const scoreboardLink = hasCurrentCommunity ? `/communities/${currentCommunity.slug}/scoreboard` : "";
+  const learningMaterialsLink = hasCurrentCommunity ? `/communities/${currentCommunity.slug}/learning-materials` : "";
   const mainLink = hasCurrentCommunity ? `/communities/${currentCommunity.slug}` : "";
 
   return (
     <div className="flex flex-col md:divide-y divide-solid divide-gray-100 w-full text-gray-700 space-y-6">
       <Link href={mainLink}>
-        <div className={isActive(mainLink) ? "" : "opacity-80"}>
+        <div className={isActive(mainLink) ? "" : "text-tertiary"}>
           <div className="font-medium text-.5xl leading-snug">{t("communities.overview.challenges.title")}</div>
           <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0">{t("communities.overview.challenges.description")} </div>
         </div>
       </Link>
+      <Link href={learningMaterialsLink}>
+        <div className={classNames("pt-6",
+          {
+            "text-tertiary": !isActive(learningMaterialsLink),
+          }
+        )}
+        >
+          <div className="font-medium text-.5xl leading-snug">{t("communities.overview.learning-materials.title")}</div>
+          <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0">{t("communities.overview.learning-materials.description")} </div>
+        </div>
+      </Link>
       {hasCurrentCommunity && (
         <Link href={scoreboardLink}>
-          <div className={classNames("pt-6", { "opacity-80 md:block hidden scroll-smooth": isActive(scoreboardLink) })}>
+          <div className={classNames("pt-6",
+            {
+              "md:block hidden scroll-smooth": isActive(scoreboardLink),
+              "text-tertiary": !isActive(scoreboardLink)
+            },
+          )}>
             <div className="font-medium text-.5xl leading-snug">{t("communities.overview.scoreboard.title")}</div>
             <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0">{t("communities.overview.scoreboard.description")}</div>
           </div>
