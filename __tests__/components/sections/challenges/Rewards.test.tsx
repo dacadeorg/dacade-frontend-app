@@ -21,8 +21,8 @@ describe("Reward", () => {
     renderWithRedux(<OverviewRewards testId="overviewRewardId" />, { challenges: { current: challenge, list: [challenge], loading: false, submission: submission() } });
     if (challenge.rewards) {
       challenge.rewards.forEach((reward) => {
-        expect(screen.getByText(reward.amount + " " + reward.token)).toBeInTheDocument();
-        expect(screen.getByText(reward.amount + " " + reward.token).textContent).toBe("10 token");
+        expect(screen.getByText(`${reward.amount} ${reward.token}`)).toBeInTheDocument();
+        expect(screen.getByText(`${reward.amount} ${reward.token}`).textContent).toBe("10 token");
       });
     }
     if (challenge.isHackathon) {
