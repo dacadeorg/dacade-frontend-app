@@ -18,7 +18,7 @@ describe("CommunityStats", () => {
       expect(screen.getByText(stat.title)).toBeInTheDocument();
       expect(screen.getByText(stat.title).textContent).toBe(stat.title.toString());
       expect(screen.getByText(stat.description)).toBeInTheDocument();
-      expect(screen.getByText(stat.description).textContent).toBe((stat.title + " " + stat.description).toString());
+      expect(screen.getByText(stat.description).textContent).toBe(`${stat.title} ${stat.description}`);
     });
   });
 
