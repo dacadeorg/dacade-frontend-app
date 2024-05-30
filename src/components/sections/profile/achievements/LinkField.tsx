@@ -11,6 +11,7 @@ import { ReactElement, useEffect, useState } from "react";
  */
 interface AchievementLinkFieldProps {
   link: string | null;
+  testId?: string
 }
 
 /**
@@ -23,7 +24,7 @@ interface AchievementLinkFieldProps {
 }
  * @returns {*}
  */
-export default function AchievementLinkField({ link }: AchievementLinkFieldProps): ReactElement {
+export default function AchievementLinkField({ link, testId = "achievementLinkId" }: AchievementLinkFieldProps): ReactElement {
   const { t } = useTranslation();
   const [fullLink, setFullink] = useState("");
 
@@ -37,7 +38,7 @@ export default function AchievementLinkField({ link }: AchievementLinkFieldProps
   const copy = () => navigator.clipboard.writeText(link as string);
 
   return (
-    <div className="border relative p-2 rounded">
+    <div data-testid={testId} className="border relative p-2 rounded">
       <p className="text-gray-500 line-clamp-1 break-all flex-1 text-sm md:text-base overflow-hidden" onClick={copy}>
         {link}
       </p>
