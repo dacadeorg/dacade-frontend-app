@@ -9,9 +9,8 @@ import Head from "next/head";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import { Community } from "@/types/community";
 import CommunityWrapper from "@/components/sections/communities/overview/Wrapper";
-import CourseCard from "@/components/cards/course";
 import { Course, LearningModule } from "@/types/course";
-import RelatedLearningCard from "@/components/cards/challenge/_partials/RelatedLearning";
+import LearningMaterialsOverview from "@/components/sections/communities/overview/LearningMaterials";
 
 
 
@@ -22,7 +21,7 @@ export default function LearningMaterials(props: {
     };
 }) {
     const { t } = useTranslation()
-    const { community, learningMaterials: { courses, learningModules } } = props.pageProps
+    const { community } = props.pageProps
     return <div>
         <Head>
             <title>{getMetadataTitle(t("communities.navigation.learning-materials"), community?.name as string)}</title>
@@ -31,20 +30,7 @@ export default function LearningMaterials(props: {
             ))}
         </Head>
         <CommunityWrapper >
-            <div className="grid gap-6">
-                {courses.map((course, index) => {
-                    return <CourseCard key={`learning-material-course-${index}`} course={course} community={community} />
-                })}
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-                {learningModules.map((module, index) => {
-                    return <RelatedLearningCard
-                        key={`learning-material-material-${index}`}
-                        title={module.title}
-                        description={module.description}
-                        path={`/communities/${community.slug}`} />
-                })}
-            </div>
+            <LearningMaterialsOverview />
         </CommunityWrapper>
     </div>
 
@@ -57,12 +43,11 @@ LearningMaterials.getLayout = function (page: ReactElement) {
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ locale, params }) => {
     const slug = params?.slug as string;
     try {
-        const [{ data: learningMaterials }, { data: community }] = await Promise.all([
-            store.dispatch(fetchLearningMaterials({ slug, locale })),
+        const [{ data: community }] = await Promise.all([
             store.dispatch(fetchCurrentCommunity({ slug, locale })),
-
+            store.dispatch(fetchLearningMaterials({ slug, locale })),
         ])
-        return { props: { community, learningMaterials, ...(await i18Translate(locale as string)) } };
+        return { props: { community, ...(await i18Translate(locale as string)) } };
     }
     catch (err) {
         return {

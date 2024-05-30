@@ -3,7 +3,7 @@ import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { setColors } from "../feature/ui.slice";
 import { setAllCommunities, setCurrentCommunity } from "../feature/community.slice";
 import { setBusy, setError } from "../feature/index.slice";
-import { setCourseList, setLoading } from "../feature/learningMaterials.slice";
+import { setCourseList, setLearningModulesList, setLoading } from "../feature/learningMaterials.slice";
 
 /**
  * Community Service
@@ -64,7 +64,8 @@ export const communityService = createApi({
           dispatch(setLoading(true))
           const { data } = await queryFulfilled
           dispatch(setCourseList(data.courses))
-          dispatch(setCourseList(data.learningModules))
+          dispatch(setLearningModulesList(data.learningModules))
+          console.log("these are the data", data.courses?.length)
           return data
         }
         catch (error) {

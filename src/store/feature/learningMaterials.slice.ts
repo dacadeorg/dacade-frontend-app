@@ -1,5 +1,6 @@
 import { Course, LearningModule } from "@/types/course";
 import { createSlice } from "@reduxjs/toolkit";
+import { HYDRATE } from "next-redux-wrapper";
 
 interface InitialState {
     learningModules: LearningModule[] | null;
@@ -24,6 +25,14 @@ const learningMaterialsSlice = createSlice({
         setLoading: (state, action) => {
             state.loading = action.payload
         }
+    },
+    extraReducers: {
+        [HYDRATE]: (state, action) => {
+            return {
+                ...state,
+                ...action.payload["learningMaterials"],
+            };
+        },
     }
 })
 
