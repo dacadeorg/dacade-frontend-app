@@ -66,6 +66,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
   const [locale, setLocale] = useState("");
   const [loading, setLoading] = useState(false);
   const [description, setDescription] = useState<string | null>("");
+  const [reverted, setreverted] =useState(false) 
 
   const { t } = useTranslation();
   const router = useRouter();
@@ -101,6 +102,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
     }
 
     setLoading(false);
+    setreverted(false)
   }, [getDefaultLocale, text]);
 
   /**
@@ -110,6 +112,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
 
   const revert = () => {
     setCurrentText(text);
+    setreverted(true);
     setLocale(defaultLocale);
   };
 
@@ -119,11 +122,12 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
 
   useEffect(() => {
     setDescription(translated ? t("ui.translated") : t("ui.translate"));
-    translate();
+   if(!translated && !reverted){
+    translate()
+   }
   }, [translated]);
 
   const translatable = currentLocale !== defaultLocale && !disabled && getLocaleName(defaultLocale);
-
   return (
     <div className="relative w-full pb-5">
       {currentText ? (
