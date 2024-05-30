@@ -87,7 +87,7 @@ export default function PageNavigation(): ReactElement {
    */
   const nextUrl: string | null = useMemo(() => {
     const index = currentIndex + 1;
-    if (index < list?.length - 1 && list[index]?.link) {
+    if (currentIndex < list?.length - 1 && list[index]?.link) {
       return list[index].link;
     }
     return null;
