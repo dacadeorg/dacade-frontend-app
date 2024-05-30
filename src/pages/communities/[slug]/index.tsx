@@ -12,6 +12,8 @@ import { fetchAllChallenges } from "@/store/services/communities/challenges";
 import { NotFoundError } from "@/utilities/errors/NotFoundError";
 import { fetchAllScoreboards } from "@/store/services/communities/scoreboard.service";
 import { useTranslation } from "next-i18next";
+import Head from "next/head";
+import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 
 export default function Slug(props: {
   pageProps: {
@@ -22,6 +24,13 @@ export default function Slug(props: {
   const { community, challenges } = props.pageProps;
   const { t } = useTranslation();
   return (
+    <>
+      <Head>
+        <title>{getMetadataTitle(t("communities.navigation.courses"), community?.name as string)}</title>
+        {getMetadataDescription(community?.description as string).map((attributes, i) => (
+          <meta key={`scoreboard-meta-${i}`} {...attributes} />
+        ))}
+      </Head>
     <CommunityWrapper>
       {challenges.map((challenge) => (
         <ChallengeCard key={challenge.id} data={challenge} community={community} />
@@ -34,6 +43,7 @@ export default function Slug(props: {
         <Scoreboard />
       </div>
     </CommunityWrapper>
+    </>
   );
 }
 
