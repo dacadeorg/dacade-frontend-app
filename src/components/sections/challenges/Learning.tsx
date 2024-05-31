@@ -1,11 +1,9 @@
 import React from "react";
 import Accordion from "@/components/ui/accordion/Accordion";
 import Section from "@/components/sections/communities/_partials/Section";
-import LearningCard from "@/components/cards/challenge/_partials/Learning";
-import RelatedLearningCard from "@/components/cards/challenge/_partials/RelatedLearning";
+import LearningCard from "@/components/cards/challenge/_partials/Learning"; import { LearningModuleCard } from "@/components/cards/LearningModule";
 import { Course, LearningModule } from "@/types/course";
 import { Community } from "@/types/community";
-import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 
 /**
@@ -14,7 +12,6 @@ import { useTranslation } from "next-i18next";
  * @returns {JSX.Element} The Learning component JSX element.
  */
 export default function Learning({ courses, learningModules, community }: { courses: Course[]; learningModules: LearningModule[]; community: Community }): JSX.Element {
-  const challenge = useSelector((state) => state.challenges.current);
   const { t } = useTranslation();
   return (
     <Section>
@@ -35,13 +32,12 @@ export default function Learning({ courses, learningModules, community }: { cour
                 />
               ))}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {learningModules?.map((learning) => (
-                <RelatedLearningCard
+                <LearningModuleCard
                   key={`related-learning-card-${learning.id}`}
-                  title={learning.title}
-                  description={learning.description}
-                  path={`/communities/${community.slug}/challenges/${challenge?.id}/learning-modules/${learning.id}`}
+                  data={learning}
+                // path={`/communities/${community.slug}/challenges/${challenge?.id}/learning-modules/${learning.id}`}
                 />
               ))}
             </div>

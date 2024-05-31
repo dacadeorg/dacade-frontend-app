@@ -31,9 +31,9 @@ interface TagProps extends HTMLProps<HTMLDivElement> {
 }
  * @returns {ReactElement}
  */
-export default function Tag({ rounded = true, type = "gray", value, children, testId = "tag", tagValueTestId = "tag-value", ...props }: TagProps): ReactElement {
+export default function Tag({ rounded = true, type = "gray", value, children, testId = "tag", tagValueTestId = "tag-value", className, ...props }: TagProps): ReactElement {
   const tagClassNames = classNames(
-    "text-center px-2 p-0.5 h-5 inline-flex items-center",
+    "text-center px-2 p-0.5 h-5 inline-flex items-center", className,
     {
       "bg-transparent bg-opacity-25 text-white": type == "transparent",
     },
