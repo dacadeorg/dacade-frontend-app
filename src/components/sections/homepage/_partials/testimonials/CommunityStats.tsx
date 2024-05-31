@@ -18,17 +18,17 @@ const stats: Statistic[] = [
   {
     title: "testimonials.community.stats.card-1.title",
     description: "testimonials.community.stats.card-1.description",
-    count: 16838,
+    count: 22240,
   },
   {
     title: "testimonials.community.stats.card-2.title",
     description: "testimonials.community.stats.card-2.description",
-    count: 2669,
+    count: 3595,
   },
   {
     title: "testimonials.community.stats.card-3.title",
     description: "testimonials.community.stats.card-3.description",
-    count: 6527,
+    count: 8131,
   },
 ];
 export default function CommunityStats() {
