@@ -33,6 +33,7 @@ const stats: Statistic[] = [
 ];
 export default function CommunityStats() {
   const { t } = useTranslation();
+  const digitFormatter = new Intl.NumberFormat();
 
   return (
     <div className="p-7 bg-primary rounded-3.5xl mx-auto text-white relative md:absolute md:top-28 lg:top-32 xl:w-1/3 md:w-4/6 z-10 sm:max-w-sm">
@@ -40,7 +41,7 @@ export default function CommunityStats() {
       <div className="relative divide-y divide-white divide-dotted">
         {stats.map((stat) => (
           <div key={stat.title} className="py-6">
-            <span className="block text-.5xl mb-2">{stat.count}</span>
+            <span className="block text-.5xl mb-2">{digitFormatter.format(stat.count)}</span>
             <p className="text-base w-3/4 m-0">
               <span className="font-graphik font-medium">{t(stat.title)}</span> {t(stat.description)}
             </p>
