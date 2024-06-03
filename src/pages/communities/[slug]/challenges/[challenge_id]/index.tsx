@@ -64,7 +64,7 @@ export default function ChallengePage() {
     slug: slug as string,
   });
 
-  const { data: challenge } = useFindChallengeByIdQuery({
+  const { data: challenge, isLoading: isLoadingChallenge } = useFindChallengeByIdQuery({
     id: challenge_id as string,
     locale,
     slug,
@@ -101,78 +101,80 @@ export default function ChallengePage() {
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
 
-  if (!community && !challenge)
+  if (isLoadingChallenge || isLoadingCommunity)
     return (
       <Section className="h-[50vh] flex items-center justify-center">
         <Loader />
       </Section>
     );
 
-  return (
-    <>
-      <Head>
-        <title>{title}</title>
-        <MetaData description={challenge?.description} />
-      </Head>
-      <Wrapper paths={headerPaths}>
-        <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
-          <Header />
-          <Rewards challenge={challenge} />
-          <Objectives />
-          {challenge.isTeamChallenge && <TeamChallenge />}
-          <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
-          <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
-          <BestSubmissions />
+  if (challenge && community) {
+    return (
+      <>
+        <Head>
+          <title>{title}</title>
+          <MetaData description={challenge?.description} />
+        </Head>
+        <Wrapper paths={headerPaths}>
+          <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
+            <Header />
+            <Rewards challenge={challenge} />
+            <Objectives />
+            {challenge?.isTeamChallenge && <TeamChallenge />}
+            <Learning courses={challenge?.courses} learningModules={challenge?.learningModules} community={community} />
+            <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
+            <BestSubmissions />
 
-          {isAuthenticated ? (
-            <div>
-              {isSubmissionLoading ? (
-                <div className="h-24 sm:h-48 grid place-items-center">
-                  <Loader />
-                </div>
-              ) : (
-                <div className="grid mt-8 space-y-8">
-                  <Hint>
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: t(
-                          challenge?.multipleSubmissions ? "communities.challenge.submission.multiple-submissions" : "communities.challenge.submission.no-multiple-submissions"
-                        ),
-                      }}
-                    ></p>
-                  </Hint>
-                  {submission && (
-                    <>
-                      <h4 className="text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
-                      <SubmissionCard submission={submission} />
-                    </>
-                  )}
+            {isAuthenticated ? (
+              <div>
+                {isSubmissionLoading ? (
+                  <div className="h-24 sm:h-48 grid place-items-center">
+                    <Loader />
+                  </div>
+                ) : (
+                  <div className="grid mt-8 space-y-8">
+                    <Hint>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: t(
+                            challenge?.multipleSubmissions ? "communities.challenge.submission.multiple-submissions" : "communities.challenge.submission.no-multiple-submissions"
+                          ),
+                        }}
+                      ></p>
+                    </Hint>
+                    {submission && (
+                      <>
+                        <h4 className="text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
+                        <SubmissionCard submission={submission} />
+                      </>
+                    )}
 
-                  {canSubmit && (
-                    <>
-                      {challenge.isTeamChallenge && <SetupTeamChallenge />}
-                      <SubmissionForm />
-                    </>
-                  )}
-                </div>
-              )}
-            </div>
-          ) : (
-            <div>
-              <Hint className="mt-6">
-                <p>
-                  To be able to submit
-                  <Link className="underline pl-1" href="/login">
-                    Login.
-                  </Link>
-                </p>
-              </Hint>
-            </div>
-          )}
-        </div>
-      </Wrapper>
-    </>
-  );
+                    {canSubmit && (
+                      <>
+                        {challenge.isTeamChallenge && <SetupTeamChallenge />}
+                        <SubmissionForm />
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div>
+                <Hint className="mt-6">
+                  <p>
+                    To be able to submit
+                    <Link className="underline pl-1" href="/login">
+                      Login.
+                    </Link>
+                  </p>
+                </Hint>
+              </div>
+            )}
+          </div>
+        </Wrapper>
+      </>
+    );
+  }
 }
 
 ChallengePage.getLayout = function (page: ReactElement) {
