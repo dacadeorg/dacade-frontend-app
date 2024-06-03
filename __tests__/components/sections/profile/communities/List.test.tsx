@@ -22,8 +22,7 @@ describe("SubmissionList", () => {
     const submission = [fixtureSubmission()];
     if(submission && submission.length !== 0) {
         submission.forEach((submissions) => {
-          console.log("Checking Submission: ", screen.getByText(submissions.text));
-            expect(screen.getByText(submissions.text)).toBeInTheDocument()
+            expect(screen.getByText(submissions.reward.amount +  submissions.reward.token)).toBeInTheDocument()
         })
     }
   });
