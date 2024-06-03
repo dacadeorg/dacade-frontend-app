@@ -56,9 +56,13 @@ describe("Navigation", () => {
     const menuItems = screen.getAllByRole("listitem");
     menuItems.forEach(() => {
       expectedNavItems.forEach((item) => {
+        expect(screen.getByRole("link")).toBeInTheDocument();
         const itemLabel = item.items.find((item) => item.label);
         const label = itemLabel?.label;
-        expect(screen.getByText(label || "")).toBeInTheDocument();
+        if (label) {
+          expect(screen.getByText(label)).toBeInTheDocument();
+          expect(screen.getByText(label).textContent).toContain("bounties.navigation.all");
+        }
       });
     });
   });
