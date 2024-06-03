@@ -24,9 +24,9 @@ export function OverviewRewards({
 
   return (
     <Section title={`${t("communities.overview.reward.title")}`}>
-      <p className="my-5 text-lg">{t("course.challenge.reward.certificate.description")}</p>
+      <p className="my-6 text-lg">{t("course.challenge.reward.certificate.description")}</p>
       <div className="text-sm mt-6 flex gap-8 w-full md:w-2/3 items-center">
-        <div className="">
+        <div>
           <Certificate size="medium" name={router.query?.slug as string} />
         </div>
         <div className="flex flex-col lg:flex-row justify-between gap-2 items-start w-full">

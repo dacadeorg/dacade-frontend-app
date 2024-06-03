@@ -33,16 +33,14 @@ export default function FilterOption({ label = "", value = "", data = "", name =
   const isChecked = useMemo(() => value.toString().toLowerCase() === data.toLowerCase(), [data, value]);
 
   return (
-    <div className="mt-2 mb-2">
-      <label className="inline-flex items-center">
-        <Radio {...props} name={name} data={data} value={value} className="w-8" />
-        <span
-          className={classNames("ml-4", {
-            "font-bold": isChecked,
-          })}
-        >
-          {label}
-        </span>
+    <div className="flex items-center gap-2">
+      <Radio disabled={isChecked} {...props} name={name} data={data} value={value} className="!w-4.5 !h-4.5 mx-0" />
+      <label
+        className={classNames("text-sm", {
+          "font-bold": isChecked,
+        })}
+      >
+        {label}
       </label>
     </div>
   );

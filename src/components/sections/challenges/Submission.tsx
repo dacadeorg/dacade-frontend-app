@@ -130,14 +130,14 @@ export default function Submission(): ReactElement {
   };
 
   return (
-    <Section title={t("communities.challenge.submission")}>
+    <Section title={t("communities.challenge.submission")} className={challenge?.isTeamChallenge ? "pt-0" : ""}>
       {submissionsClosed ? (
-        <Hint className="mb-8">{t("communities.overview.challenge.submissions-closed")}</Hint>
+        <Hint className="my-6">{t("communities.overview.challenge.submissions-closed")}</Hint>
       ) : (
         <>
           {challenge?.isTeamChallenge && <p className="text-base font-normal text-slate-700 pt-2 pb-7 md:w-182.5"> {t("communities.overview.challenge.submission.description")}</p>}
           {!canSubmit ? (
-            <Hint className="mb-8">{t("communities.challenge.submission.hint")}</Hint>
+            <Hint className="mb-6">{t("communities.challenge.submission.hint")}</Hint>
           ) : (
             <form onSubmit={handleSubmit(onSubmit)}>
               {challenge?.format && (

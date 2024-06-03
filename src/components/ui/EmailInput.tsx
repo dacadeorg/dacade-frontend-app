@@ -9,6 +9,7 @@ interface EmailInputProps {
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
   emailValue?: string;
+  testId?: string;
 }
 
 /**
@@ -25,12 +26,13 @@ interface EmailInputProps {
  * @returns {ReactElement}
  */
 
-export default function EmailInput({ errors, register, emailValue }: EmailInputProps): ReactElement {
+export default function EmailInput({ errors, register, emailValue, testId = "emailInput" }: EmailInputProps): ReactElement {
   const { t } = useTranslation();
   const error = useSelector((state) => state.store.error);
 
   return (
     <Input
+      data-testid={testId}
       id="email"
       type="email"
       placeholder={`${t("login-page.email.placeholder")}`}

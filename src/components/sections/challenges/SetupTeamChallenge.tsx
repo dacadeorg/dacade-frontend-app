@@ -25,8 +25,8 @@ export default function SetupTeamChallenge(): JSX.Element {
 
   return (
     <Section title="Submission">
-      <div className="text-base font-normal text-slate-700 pt-8 pb-7 md:w-182.5">{t("communities.overview.challenge.team.setup.info")}</div>
-      <div className="md:flex flex-row gap-5">
+      <div className="text-base font-normal text-slate-700 py-6 md:w-182.5">{t("communities.overview.challenge.team.setup.info")}</div>
+      <div className="flex flex-col md:flex-row gap-6">
         <FormTeamCard index={1} title="Form your team" description={challenge?.additionalInfo?.[TEAM_FORMATION].text || t("communities.overview.challenge.team.organization")} />
         {invite && !invite.team?.locked ? (
           <ConfirmTeamInvitation index={2} title="Submit your team" text={`The maximum team members for this challenge is ${challenge?.teamLimit || "3"} people`} invite={invite} />
