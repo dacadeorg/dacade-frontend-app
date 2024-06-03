@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import Header from "@/components/sections/challenges/Header";
 import { OverviewRewards as Rewards } from "@/components/sections/challenges/Rewards";
@@ -10,15 +10,13 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { authCheck } from "@/store/feature/auth.slice";
-import { Challenge } from "@/types/course";
 import { Submission } from "@/types/bounty";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import BestSubmissions from "@/components/sections/submissions/BestSubmissions";
 import DefaultLayout from "@/components/layout/Default";
-import { Community } from "@/types/community";
 import Head from "next/head";
 import MetaData from "@/components/ui/MetaData";
-import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { useGetCurrentCommunityQuery } from "@/store/services/community.service";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import RatingRubric from "@/components/sections/challenges/Rubric";
@@ -29,7 +27,7 @@ import useNavigation from "@/hooks/useNavigation";
 import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
 import Objectives from "@/components/sections/challenges/Objectives";
 import { getTeamByChallenge, getUserInvitesByChallenge } from "@/store/services/teams.service";
-import { fetchChallenge, fetchChallengeAuthenticated } from "@/store/services/communities/challenges";
+import { fetchChallengeAuthenticated, useFindChallengeByIdQuery } from "@/store/services/communities/challenges";
 import Loader from "@/components/ui/Loader";
 import { useRouter } from "next/router";
 import Section from "@/components/ui/Section";
@@ -57,11 +55,21 @@ interface ChallengePageMultiSelector {
  * @returns {ReactElement}
  */
 export default function ChallengePage() {
-  const [challenge, setChallenge] = useState<Challenge | null>(null);
-  const [community, setCommunity] = useState<Community | null>(null);
-  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const { query, locale } = useRouter();
+  const { challenge_id, slug } = query;
+  const { isLoading: isLoadingCommunity, data: community } = useGetCurrentCommunityQuery({
+    locale,
+    slug: slug as string,
+  });
+
+  const { data: challenge } = useFindChallengeByIdQuery({
+    id: challenge_id as string,
+    locale,
+    slug,
+    relations: ["rubric", "courses", "learning-modules", "best-submissions"],
+  });
   const { submission, isAuthenticated, isSubmissionLoading } = useMultiSelector<unknown, ChallengePageMultiSelector>({
     submission: (state: IRootState) => state.challenges.submission,
     isAuthenticated: (state: IRootState) => authCheck(state),
@@ -74,29 +82,12 @@ export default function ChallengePage() {
   }, [challenge?.multipleSubmissions, submission]);
 
   const navigation = useNavigation();
-  const { query, locale } = useRouter();
-  const { challenge_id, slug } = query;
-
-  const initPage = useCallback(async () => {
-    const fetchPayload = {
-      slug: slug as string,
-      locale: locale as string,
-    };
-
-    setLoading(true);
-    const [{ data: community }, { data: challenge }] = await Promise.all([
-      dispatch(fetchCurrentCommunity(fetchPayload)) as any,
-      dispatch(fetchChallenge({ ...fetchPayload, id: challenge_id as string, relations: ["rubric", "courses", "learning-modules", "best-submissions"] })) as any,
-    ]);
-    setCommunity(community);
-    setChallenge(challenge);
-    dispatch(initChallengeNavigationMenu(navigation.community));
-    setLoading(false);
-  }, [challenge_id, slug, locale]);
 
   useEffect(() => {
-    initPage();
-  }, [initPage]);
+    if (!isLoadingCommunity) {
+      dispatch(initChallengeNavigationMenu(navigation.community));
+    }
+  }, [isLoadingCommunity]);
 
   useEffect(() => {
     if (challenge && isAuthenticated) {
@@ -110,79 +101,78 @@ export default function ChallengePage() {
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
 
-  if (loading)
+  if (!community && !challenge)
     return (
       <Section className="h-[50vh] flex items-center justify-center">
         <Loader />
       </Section>
     );
 
-  if (challenge && community)
-    return (
-      <>
-        <Head>
-          <title>{title}</title>
-          <MetaData description={challenge?.description} />
-        </Head>
-        <Wrapper paths={headerPaths}>
-          <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
-            <Header />
-            <Rewards />
-            <Objectives />
-            {challenge.isTeamChallenge && <TeamChallenge />}
-            <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
-            <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
-            <BestSubmissions />
+  return (
+    <>
+      <Head>
+        <title>{title}</title>
+        <MetaData description={challenge?.description} />
+      </Head>
+      <Wrapper paths={headerPaths}>
+        <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
+          <Header />
+          <Rewards challenge={challenge} />
+          <Objectives />
+          {challenge.isTeamChallenge && <TeamChallenge />}
+          <Learning courses={challenge.courses} learningModules={challenge.learningModules} community={community} />
+          <RatingRubric ratingCriteria={challenge?.ratingCriteria} selected={[]} />
+          <BestSubmissions />
 
-            {isAuthenticated ? (
-              <div>
-                {isSubmissionLoading ? (
-                  <div className="h-24 sm:h-48 grid place-items-center">
-                    <Loader />
-                  </div>
-                ) : (
-                  <div className="grid mt-8 space-y-8">
-                    <Hint>
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: t(
-                            challenge?.multipleSubmissions ? "communities.challenge.submission.multiple-submissions" : "communities.challenge.submission.no-multiple-submissions"
-                          ),
-                        }}
-                      ></p>
-                    </Hint>
-                    {submission && (
-                      <>
-                        <h4 className="text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
-                        <SubmissionCard submission={submission} />
-                      </>
-                    )}
+          {isAuthenticated ? (
+            <div>
+              {isSubmissionLoading ? (
+                <div className="h-24 sm:h-48 grid place-items-center">
+                  <Loader />
+                </div>
+              ) : (
+                <div className="grid mt-8 space-y-8">
+                  <Hint>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: t(
+                          challenge?.multipleSubmissions ? "communities.challenge.submission.multiple-submissions" : "communities.challenge.submission.no-multiple-submissions"
+                        ),
+                      }}
+                    ></p>
+                  </Hint>
+                  {submission && (
+                    <>
+                      <h4 className="text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
+                      <SubmissionCard submission={submission} />
+                    </>
+                  )}
 
-                    {canSubmit && (
-                      <>
-                        {challenge.isTeamChallenge && <SetupTeamChallenge />}
-                        <SubmissionForm />
-                      </>
-                    )}
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div>
-                <Hint className="mt-6">
-                  <p>
-                    To be able to submit
-                    <Link className="underline pl-1" href="/login">
-                      Login.
-                    </Link>
-                  </p>
-                </Hint>
-              </div>
-            )}
-          </div>
-        </Wrapper>
-      </>
-    );
+                  {canSubmit && (
+                    <>
+                      {challenge.isTeamChallenge && <SetupTeamChallenge />}
+                      <SubmissionForm />
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div>
+              <Hint className="mt-6">
+                <p>
+                  To be able to submit
+                  <Link className="underline pl-1" href="/login">
+                    Login.
+                  </Link>
+                </p>
+              </Hint>
+            </div>
+          )}
+        </div>
+      </Wrapper>
+    </>
+  );
 }
 
 ChallengePage.getLayout = function (page: ReactElement) {

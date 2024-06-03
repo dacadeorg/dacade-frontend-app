@@ -7,6 +7,9 @@ import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import RewardCertificate from "./RewardCertificate";
+import { usePrefetch as usePrefetchCommunity } from "@/store/services/community.service";
+import { usePrefetch as usePrefetchChallenge } from "@/store/services/communities/challenges";
+import { useRouter } from "next/router";
 
 /**
  * `ChallengeCard` is a function component that renders a card
@@ -22,12 +25,26 @@ interface ChallengeCardProps {
   community: Community;
   isCourseEnd?: boolean;
 }
+
 export default function ChallengeCard({ data, community, isCourseEnd }: ChallengeCardProps) {
   const { t } = useTranslation();
+  const { locale } = useRouter();
+  const prefetchCurrentCommunity = usePrefetchCommunity("getCurrentCommunity");
+  const prefetchCommunityChallenges = usePrefetchChallenge("findChallengeById");
+  
   const link = `/communities/${community.slug}/challenges/${data.id}`;
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
   const reward = isCourseEnd ? data?.rewards?.find((reward) => reward.type === "SUBMISSION") : data?.reward;
   const learningModulesCount = data?.learningModules?.length || 0;
+
+  const prefetchCommunity = () => {
+    prefetchCurrentCommunity({ locale, slug: community.slug }, {
+      force: true
+    });
+    prefetchCommunityChallenges({ id: data.id, relations: ["submission"], locale: "en" }, {
+      force: true
+    });
+  };
 
   return (
     <div className="w-full justify-between- flex flex-col sm:flex-row  md:flex-col lg:flex-row  border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">
@@ -51,7 +68,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
               {learningModulesCount ? `${learningModulesCount}  learning ${learningModulesCount === 1 ? "module" : "modules"} included` : "No learning modules included"}
             </p>
             <div className="lg:flex lg:flex-row flex-col justify-between pt-6 items-center">
-              <Link href={link}>
+              <Link onClick={prefetchCommunity} href={link}>
                 <ArrowButton communityStyles={true} variant="outline-primary">
                   {isCourseEnd ? t("communities.overview.challenge.take.challenge") : t("communities.overview.challenge.see.challenge")}
                 </ArrowButton>
@@ -66,7 +83,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
         </div>
         <div className="">
           <h1 className="font-bold text-gray-400 text-xs uppercase pb-2">{t("communities.overview.challenge.unlock.certificate")}</h1>
-          <RewardCertificate rewards={data?.rewards}/>
+          <RewardCertificate rewards={data?.rewards} />
         </div>
         {data?.isHackathon && <p className="py-2 border-t border-gray-200 text-sm">{t("communities.overview.challenge.participate", { token: reward?.token })}</p>}
       </div>

@@ -1,10 +1,10 @@
 import Section from "@/components/sections/communities/_partials/Section";
-import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import Certificate from "@/components/ui/Certificate";
 import { useRouter } from "next/router";
 import RewardCertificate from "@/components/cards/challenge/RewardCertificate";
+import { Challenge } from "@/types/course";
 
 /**
  * Overview reward section component
@@ -13,9 +13,12 @@ import RewardCertificate from "@/components/cards/challenge/RewardCertificate";
  * @export
  * @returns {ReactElement}
  */
-export function OverviewRewards(): ReactElement {
+export function OverviewRewards({
+  challenge
+}: {
+  challenge: Challenge
+}): ReactElement {
   const { t } = useTranslation();
-  const  challenge = useSelector((state)=>state.challenges.current)
   const router = useRouter();
   const token = challenge?.reward?.token || challenge?.rewards[0]?.token || "";
 
@@ -27,9 +30,7 @@ export function OverviewRewards(): ReactElement {
           <Certificate size="medium" name={router.query?.slug as string} />
         </div>
         <div className="flex flex-col lg:flex-row justify-between gap-2 items-start w-full">
-          <div className="flex flex-col w-full lg:w-1/2">
-            {challenge?.rewards && <RewardCertificate rewards={challenge?.rewards} isReward />}
-          </div>
+          <div className="flex flex-col w-full lg:w-1/2">{challenge?.rewards && <RewardCertificate rewards={challenge?.rewards} isReward />}</div>
           {challenge?.isHackathon && <div className="pb-2 border-b border-gray-200 w-full lg:w-1/2">{t("communities.overview.challenge.participate", { token: token })}</div>}
         </div>
       </div>
