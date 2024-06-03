@@ -58,7 +58,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
     const hackatonPassingScore = t("communities.challenge.hackathon.passing.score", { threshold: challenge?.threshold, prizePool: `USD ${reward?.amount}` });
 
     return (
-      <div data-testid={testId} className="text-base font-normal text-slate-700 pt-8 md:w-182.5 inline-flex flex-wrap items-center gap-1">
+      <div data-testid={testId} className="text-base font-normal text-slate-700 pt-6 inline-flex flex-wrap items-center gap-1">
         {challenge?.isHackathon ? (
           <div dangerouslySetInnerHTML={{ __html: challenge?.additionalInfo?.[GRADING_CRITERIA].text || hackatonPassingScore }} />
         ) : (

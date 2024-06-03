@@ -45,14 +45,19 @@ describe("TeamChallenge", () => {
       text: "Once you have completed the challenge, only one person needs to submit it at the end of this page",
     },
   ];
+  const mockChallenge = challenge();
+  const mockSubmission = submission();
+  const mockTeamChallengeStates = {
+    challenges: { current: mockChallenge, list: [mockChallenge], loading: false, submission: mockSubmission },
+  };
   it("should render the team challenge section", () => {
-    renderWithRedux(<TeamChallenge />, { challenges: { current: challenge(), list: [challenge()], loading: false, submission: submission() } });
+    renderWithRedux(<TeamChallenge />, mockTeamChallengeStates);
     expect(screen.getByText("Team Challenge")).toBeInTheDocument();
     expect(screen.getByText("To complete the team challenge, you need to follow these steps:")).toBeInTheDocument();
   });
 
   it("should render all team challenge steps", () => {
-    renderWithRedux(<TeamChallenge />, { challenges: { current: challenge(), list: [challenge()], loading: false, submission: submission() } });
+    renderWithRedux(<TeamChallenge />, mockTeamChallengeStates);
     const challenges = challenge();
     let teamChallengeArray: CardData[] = [];
     if (challenges.isHackathon) {
