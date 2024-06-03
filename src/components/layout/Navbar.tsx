@@ -101,7 +101,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
           <ul className="hidden lg:block relative self-center">
             <NavItem to="/bounties">{t("nav.bounties")}</NavItem>
             <NavItem to={"/communities"}>{t("nav.communities")}</NavItem>
-            <button className="nav-item underline underline-offset-2 text-primary bg-transparent p-0 capitalize" onClick={displayJobOffersPopup}>
+            <button type="button" className="nav-item underline underline-offset-2 text-primary bg-transparent p-0 capitalize" onClick={displayJobOffersPopup}>
               {t("job.offers.title")}
             </button>
           </ul>
