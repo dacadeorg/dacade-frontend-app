@@ -108,42 +108,38 @@ export default function Filters(): ReactElement {
   };
 
   return (
-    <div className="lg:flex flex-col w-2/4 mr-8 divide-y divide-solid divide-gray-200 hidden">
-      <div className="divide-y divide-gray-200">
-        <div className="block mt-6 mb-6">
-          <span className="text-gray-700 mb-4">Filter by</span>
-          <div className="mt-6 mb-6">
-            {filterOptions.map((option, i) => (
-              <FilterOption
-                key={`option-${i}`}
-                defaultChecked={filterBy === option.value}
-                label={option.label}
-                value={option.value}
-                data={filterBy}
-                name="filter-by-option"
-                onChange={handleFilterByChange}
-              />
-            ))}
-          </div>
+    <div className="lg:flex flex-col mr-8 hidden mt-6 space-y-6">
+      <div>
+        <span className="text-gray-700">Filter by</span>
+        <div className="mt-3 space-y-1">
+          {filterOptions.map((option, i) => (
+            <FilterOption
+              key={`option-${i}`}
+              defaultChecked={filterBy === option.value}
+              label={option.label}
+              value={option.value}
+              data={filterBy}
+              name="filter-by-option"
+              onChange={handleFilterByChange}
+            />
+          ))}
         </div>
       </div>
 
-      <div className="pt-4">
-        <div className="block">
-          <span className="text-gray-700 mb-4">Sort</span>
-          <div className="mt-6 mb-6">
-            {sortingOptions.map((option, i) => (
-              <FilterOption
-                key={`sorting-option-${i}`}
-                defaultChecked={sortBy === option.value}
-                label={option.label}
-                value={option.value}
-                data={sortBy}
-                name="sort-by-option"
-                onChange={handleSortByChange}
-              />
-            ))}
-          </div>
+      <div>
+        <span className="text-gray-700">Sort</span>
+        <div className="mt-3 space-y-1">
+          {sortingOptions.map((option, i) => (
+            <FilterOption
+              key={`sorting-option-${i}`}
+              defaultChecked={sortBy === option.value}
+              label={option.label}
+              value={option.value}
+              data={sortBy}
+              name="sort-by-option"
+              onChange={handleSortByChange}
+            />
+          ))}
         </div>
       </div>
     </div>

@@ -100,6 +100,7 @@ export type IRootService = {
   bountiesService: ReturnType<typeof bountiesService.reducer>;
   teamsService: ReturnType<typeof teamsService.reducer>;
   learningModuleService: ReturnType<typeof learningModulesService.reducer>;
+  referralsService: ReturnType<typeof referralsService.reducer>;
 };
 
 export const reducers = {
@@ -145,6 +146,7 @@ export const reducers = {
   [teamsService.reducerPath]: teamsService.reducer,
   [challengeService.reducerPath]: challengeService.reducer,
   [scoreboardService.reducerPath]: scoreboardService.reducer,
+  [learningModulesService.reducerPath]: learningModulesService.reducer,
   [invitesSlice.name]: invitesSlice.reducer,
   [communitiesProfile.name]: communitiesProfile.reducer,
   [reputationSlice.name]: reputationSlice.reducer,
@@ -167,6 +169,7 @@ export const middlewares = [
   teamsService.middleware,
   challengeService.middleware,
   scoreboardService.middleware,
+  learningModulesService.middleware,
 ];
 
 export const makeStore = () =>
