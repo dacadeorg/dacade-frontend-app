@@ -29,7 +29,9 @@ describe("ScoreboardOverview", () => {
     });
     if ([mockScoreboard] && [mockScoreboard].length !== 0) {
       [mockScoreboard].slice(0, items).forEach((item) => {
-        expect(screen.getByText(item.user.displayName)).toBeInTheDocument();
+        const displayNameElement = screen.getByText(item.user.displayName);
+        expect(displayNameElement).toBeInTheDocument();
+        expect(displayNameElement).toHaveTextContent(item.user.displayName)
       });
     } else {
       expect(screen.getByText("communities.scoreboard.empty-state.title")).toBeInTheDocument();

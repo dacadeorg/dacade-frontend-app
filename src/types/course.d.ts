@@ -23,7 +23,7 @@ export type Course = {
   learningModules: LearningModule[];
   challenge?: Challenge;
   challenges?: Challenge[];
-  translations?: any[];
+  translations: any[];
   trailer: Trailer;
   disclaimer: string;
   items?: string[];
@@ -106,7 +106,7 @@ export type Rubric = {
   points: number;
   timestamp: number;
   typeSlug: string;
-  [key?: string]: any;
+  [key: string]: any;
 };
 
 export type Format = {

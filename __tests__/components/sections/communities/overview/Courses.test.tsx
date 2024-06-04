@@ -13,7 +13,9 @@ describe("CoursesOverview", () => {
     });
     expect(screen.getByText("communities.overview.courses.title")).toBeInTheDocument();
     [mockCourse].forEach((course) => {
-      expect(screen.getByText(course.name)).toBeInTheDocument();
+      const courseElement = screen.getByText(course.name);
+      expect(courseElement).toBeInTheDocument();
+      expect(courseElement.textContent).toBe(course.name);
     });
   });
 });
