@@ -31,11 +31,13 @@ interface FilterOptionProps extends HTMLProps<HTMLInputElement> {
  */
 export default function FilterOption({ label = "", value = "", data = "", name = "", ...props }: FilterOptionProps): ReactElement {
   const isChecked = useMemo(() => value.toString().toLowerCase() === data.toLowerCase(), [data, value]);
+  const id = `filter-option-${value}`;
 
   return (
     <div className="flex items-center gap-2">
-      <Radio disabled={isChecked} {...props} name={name} data={data} value={value} className="!w-4.5 !h-4.5 mx-0" />
+      <Radio id={id} disabled={isChecked} {...props} name={name} data={data} value={value} className="!w-4.5 !h-4.5 mx-0" />
       <label
+      htmlFor={id}
         className={classNames("text-sm", {
           "font-bold": isChecked,
         })}
