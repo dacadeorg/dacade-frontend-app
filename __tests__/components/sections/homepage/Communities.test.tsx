@@ -18,4 +18,13 @@ describe("Communities Section", () => {
     });
     expect(screen.getByText("page.index.communities.partnering.title")).toBeInTheDocument();
   });
+  it("should handle empty communities list", () => {
+    renderWithRedux(<CommunitiesSection communities={[]} />);
+    expect(screen.queryByText(community.name)).not.toBeInTheDocument();
+  });
+
+  it("should render the PartneringCard", () => {
+    renderWithRedux(<CommunitiesSection communities={[community]} />);
+    expect(screen.getByText("page.index.communities.partnering.title")).toBeInTheDocument();
+  });
 });

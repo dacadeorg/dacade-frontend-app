@@ -7,8 +7,8 @@ describe("OpenSource", () => {
   it("should render Open Source", () => {
     renderWithRedux(<OpenSource />);
     expect(screen.getByTestId("openSourceId")).toBeInTheDocument();
-    expect(screen.getByRole("link")).toBeInTheDocument();
-    expect(screen.getByRole("link").hasAttribute("href")).toBeTruthy();
-    expect(screen.getByRole("link").getAttribute("href")).toBe("https://github.com/dacadeorg/dacade-frontend-app");
+    const link = screen.getByRole("link");
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute("href", "https://github.com/dacadeorg/dacade-frontend-app");
   });
 });

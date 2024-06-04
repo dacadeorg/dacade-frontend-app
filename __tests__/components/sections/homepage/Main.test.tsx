@@ -17,8 +17,12 @@ describe("Main Section", () => {
   it("should display cards", () => {
     renderWithRedux(<MainSection />);
     cards.forEach((card) => {
-      expect(screen.getByText(card.title)).toBeInTheDocument();
-      expect(screen.getByText(card.body)).toBeInTheDocument();
+      const cardTitleElement = screen.getByText(card.title);
+      const cardBodyElement = screen.getByText(card.body);
+      expect(cardTitleElement).toBeInTheDocument();
+      expect(cardTitleElement).toHaveTextContent(card.title);
+      expect(cardBodyElement).toBeInTheDocument();
+      expect(cardBodyElement).toHaveTextContent(card.body);
     });
   });
 });
