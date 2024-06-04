@@ -25,7 +25,9 @@ describe("Objectives", () => {
     renderWithRedux(<Objectives />, mockObjectivesStates);
     const expirationDate = challenge.expiresAt && DateManager.format(challenge.expiresAt, "MMMM d, yyyy", "en");
     if (expirationDate) {
-      expect(screen.getByText(expirationDate)).toBeInTheDocument();
+      const expirationDateElement = screen.getByText(expirationDate)
+      expect(expirationDateElement).toBeInTheDocument();
+      expect(expirationDateElement).toHaveTextContent(expirationDate)
     }
   });
 

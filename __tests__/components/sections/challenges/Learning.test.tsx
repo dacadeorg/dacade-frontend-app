@@ -20,8 +20,12 @@ describe("Learning", () => {
       challenges: { current: challenge(), list: [challenge()], loading: false, submission: submission() },
     });
     coursesArray.forEach((course) => {
-      expect(screen.getByText(course.name)).toBeInTheDocument();
-      expect(screen.getByText(course.description)).toBeInTheDocument();
+      const courseNameElement = screen.getByText(course.name);
+	      const courseDescriptionElement  = screen.getByText(course.description)
+	      expect(courseNameElement).toBeInTheDocument();
+	      expect(courseNameElement).toHaveTextContent(course.name);
+	      expect(courseDescriptionElement).toBeInTheDocument();
+	      expect(courseDescriptionElement).toHaveTextContent(course.description);
     });
   });
 
@@ -29,8 +33,12 @@ describe("Learning", () => {
     const learningArray = [mockLearningModule];
     renderWithRedux(<Learning courses={[mockCourse]} learningModules={[mockLearningModule]} community={mockCommunity} />);
     learningArray.forEach((learningModule) => {
-      expect(screen.getByText(learningModule.title)).toBeInTheDocument();
-      expect(screen.getByText(learningModule.description)).toBeInTheDocument();
+      const learningTitleElement = screen.getByText(learningModule.title);
+	      const learningDescriptionElement  = screen.getByText(learningModule.description)
+	      expect(learningTitleElement).toBeInTheDocument();
+	      expect(learningTitleElement).toHaveTextContent(learningModule.title);
+	      expect(learningDescriptionElement).toBeInTheDocument();
+	      expect(learningDescriptionElement).toHaveTextContent(learningModule.description);
     });
   });
 });
