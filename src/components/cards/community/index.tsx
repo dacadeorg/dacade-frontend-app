@@ -65,11 +65,11 @@ export default function CommunityCard({ showRewards = true, community }: Communi
           <div className="flex-grow">
             <div className="flex flex-col justify-between space-y-5 sm:flex-row lg:flex-col 2xl:flex-row">
               <div className="text-.5xl md:text-2xl max-w-sm min-h-2xs md:min-h-3xs lg:min-h-2xs xl:min-h-2xs font-medium pb-5">
-                <h1 className="tracking-tight max-w-text-xs text-theme-text">{community.name}</h1>
-                <p className="pr-2 tracking-tight md:max-w-text-md text-theme-accent">{community.description || ""}</p>
+                <h1 className="text-theme-text text-xl lg:text-.5xl leading-7">{community.name}</h1>
+                <p className="pr-2 text-theme-accent lg:text-.5xl leading-7">{community.description || ""}</p>
               </div>
               <div className="self-end max-w-lg sm:h-full sm:-mb-0 md:mb-2 md:h-auto">
-                <Image src={community.icon} className="relative mb-5 h-44 w-44" alt="" width={56} height={56} />
+                <Image src={community.icon} className="relative mb-5 h-44 w-44" alt="community icon" width={56} height={56} />
               </div>
             </div>
             <div className="flex flex-col items-start justify-start max-w-xs -mt-4 md:flex-row lg:flex-col md:-mt-7 md:max-w-lg">
@@ -82,8 +82,8 @@ export default function CommunityCard({ showRewards = true, community }: Communi
           </div>
           <div className="flex justify-between flex-none mt-4">
             <div className="flex flex-col space-y-0">
-              <div className="mt-4 font-medium text-theme-accent">{t("communities.card.earn")}</div>
-              <div className="mt-4 font-light text-theme-accent">
+              <div className="mt-4 font-medium text-theme-accent text-sm leading-4 lg:leading-5">{t("communities.card.earn")}</div>
+              <div className="mt-4 font-light text-theme-accent text-sm leading-4 lg:leading-5">
                 {t(community.challenges > 1 ? "communities.card.challenges" : "communities.card.challenge", { count: community.challenges })}
               </div>
             </div>

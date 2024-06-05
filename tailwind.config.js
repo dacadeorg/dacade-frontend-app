@@ -70,11 +70,22 @@ module.exports = {
       },
       fontSize: {
         xxs: ["0.6875rem", { lineHeight: "1.2rem" }],
-        ".5xl": ["1.375rem", { lineHeight: "2rem" }],
-        "4.5xl": ["2.5rem", { lineHeight: "1" }],
+        ".5xl": ["1.375rem", { lineHeight: "1.75rem" }],
+        "4.5xl": ["2.5rem", { lineHeight: "2.475rem" }],
         "6.5xl": ["4rem", { lineHeight: "1" }],
         "7.5xl": ["5rem", { lineHeight: "1" }],
-        "7.75xl": ["5.75rem", { lineHeight: "1" }],
+        "7.75xl": ["5.75rem", { lineHeight: "5.75rem" }],
+      },
+      lineHeight: {
+        3.5: "0.825rem",
+        5.5: "1.375rem",
+        7.5: "1.875rem",
+        10.5: "2.75rem",
+        11: "3.3rem",
+        12: "5.75rem",
+      },
+      letterSpacing: {
+        "-4": "-0.04em",
       },
       maxWidth: {
         "3xs": "5rem",
