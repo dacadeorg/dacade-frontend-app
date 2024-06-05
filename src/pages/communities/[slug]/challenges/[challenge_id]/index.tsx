@@ -143,10 +143,10 @@ export default function ChallengePage() {
                       ></p>
                     </Hint>
                     {submission && (
-                      <>
+                      <div className="mt-6 space-y-6">
                         <h4 className="text-.5xl font-medium">{t("communities.challenge.your-submission")}</h4>
                         <SubmissionCard submission={submission} />
-                      </>
+                      </div>
                     )}
 
                     {canSubmit && (

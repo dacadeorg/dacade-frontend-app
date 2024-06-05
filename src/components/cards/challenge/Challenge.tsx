@@ -3,7 +3,7 @@ import { Community } from "@/types/community";
 import { Challenge } from "@/types/course";
 import Link from "next/link";
 import Badges from "./Badges";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import RewardCertificate from "./RewardCertificate";
@@ -40,14 +40,20 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
   const learningMaterialsCount = learningModules.length + courses.length;
 
 
-  const prefetchCommunity = () => {
+  const prefetchCommunity = useCallback(() => {
     prefetchCurrentCommunity({ locale, slug: community.slug }, {
       force: true
     });
-    prefetchCommunityChallenges({ id: data.id, relations: ["submission"], locale: "en" }, {
+    prefetchCommunityChallenges({ id: data.id, relations: ["rubric", "courses", "learning-modules", "best-submissions"], locale, slug: community.slug }, {
       force: true
     });
-  };
+  }, [
+    community.slug,
+    data.id,
+    locale,
+    prefetchCommunityChallenges,
+    prefetchCurrentCommunity
+  ]);
 
   return (
     <div className="w-full flex flex-col sm:flex-row  md:flex-col lg:flex-row  border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">
@@ -64,11 +70,11 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
             <Badges challenge={data} />
             <div className="text-sm text-gray-700">{data.description}</div>
           </div>
-          <div className="divide-y-2 divide-gray-200 divide-dotted flex flex-col mt-3">
-            <p className="pb-6">
-              {learningMaterialsCount ? `${learningMaterialsCount}  learning ${learningMaterialsCount === 1 ? "module" : "modules"} included` : "No learning modules included"}
-            </p>
-            <div className="lg:flex lg:flex-row flex-col justify-between pt-6 items-center">
+          <div className="divide-y-2 divide-gray-200 divide-dotted flex flex-col mt-8">
+            {learningMaterialsCount && (
+              <p className="pb-3 md:pb-4 text-sm font-medium text-gray-400">{`${learningMaterialsCount}  Learning ${learningMaterialsCount === 1 ? "material" : "materials"} included`}</p>
+            )}
+            <div className="lg:flex lg:flex-row flex-col justify-between pt-3 md:pt-4 items-center">
               <Link onClick={prefetchCommunity} href={link}>
                 <ArrowButton communityStyles={true} variant="outline-primary">
                   {isCourseEnd ? t("communities.overview.challenge.take.challenge") : t("communities.overview.challenge.see.challenge")}
