@@ -116,7 +116,7 @@ export default function ChallengePage() {
           <MetaData description={challenge?.description} />
         </Head>
         <Wrapper paths={headerPaths}>
-          <div className="flex flex-col py-4 space-y-8 text-gray-700 divide-y divide-gray-200 divide-solid">
+          <div className="flex flex-col py-4 text-gray-700 divide-y divide-gray-200 divide-solid">
             <Header />
             <Rewards challenge={challenge} />
             <Objectives />
@@ -132,7 +132,7 @@ export default function ChallengePage() {
                     <Loader />
                   </div>
                 ) : (
-                  <div className="grid mt-8 space-y-8">
+                  <div className="grid mt-6">
                     <Hint>
                       <p
                         dangerouslySetInnerHTML={{
