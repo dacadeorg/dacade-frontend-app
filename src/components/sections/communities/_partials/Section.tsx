@@ -37,7 +37,7 @@ export default function Section({ title, titleBold = true, subtitle, id, hideSub
   return (
     <div id={id} className={`text-xl md:text-.5xl px-0 py-6 ${className}`}>
       {title && <H3 bold={titleBold}>{title}</H3>}
-      <p className={`text-base md:text-.5xl font-normal leading-normal ${hideSubtitleOnMobile ? "hidden" : ""}`}>{subtitle}</p>
+      <p className={`text-base md:text-lg font-normal ${hideSubtitleOnMobile ? "hidden" : ""}`}>{subtitle}</p>
       <div>{children}</div>
     </div>
   );

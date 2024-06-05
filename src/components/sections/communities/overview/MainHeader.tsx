@@ -24,8 +24,8 @@ export default function CommunitySection(): ReactElement {
         <div className="flex flex-col justify-between lg:flex-row">
           <div className="max-w-md mb-4 md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl lg:mr-6">
             <h1 className="text-5xl tracking-tight sm:text-6.5xl xl:text-7.75xl max-w-text-xs">{community?.name}</h1>
-            <p className="mt-2 text-xl tracking-tight md:text-.5xl leading-tight max-w-text-sm lg:hidden">{community?.summary}</p>
-            <p className="hidden mt-4 tracking-tight text-lg xl:text-.5xl max-w-text-md font-extralight lg:block">{community?.summary}</p>
+            <p className="mt-2 text-lg tracking-tight leading-tight lg:hidden">{community?.summary}</p>
+            <p className="hidden mt-4 tracking-tight text-lg font-extralight lg:block">{community?.summary}</p>
           </div>
           <div className="self-end w-36 md:h-82 lg:h-128 md:w-1/2 max-w-lg">
             {community?.icon && <Image src={`${community?.icon}`} alt={community?.name || ""} className="relative w-full h-full" width={300} height={300} />}
