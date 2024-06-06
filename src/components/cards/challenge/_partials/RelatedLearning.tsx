@@ -27,7 +27,7 @@ const RelatedLearning: React.FC<RelatedLearningProps> = ({ title, description, p
         <div className="flex flex-col">
           <div className="text-base font-medium leading-normal text-gray-900">{title}</div>
 
-          <div className="text-sm font-normal text-gray-700 mt-3 max-w-xxs pb-6">{description}</div>
+          <div className="text-sm lg:text-base font-normal text-gray-700 mt-3 max-w-xxs pb-6">{description}</div>
         </div>
 
         <div className="">

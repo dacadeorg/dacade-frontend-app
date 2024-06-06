@@ -30,8 +30,8 @@ export default function BestSubmissions(): ReactElement {
         isExpanded
         content={
           <div>
-            <p className="leading-normal text-sm capitalize md:w-full w-64 pt-6">{t("communities.challenge.best-submissions.description")}</p>
-            <div className="text-xl md:text-.5xl px-0">
+            <p className="leading-6 text-base pt-6">{t("communities.challenge.best-submissions.description")}</p>
+            <div className="px-0">
               <div className="md:grid grid-cols-2 gap-5 pt-6 flex-wrap">
                 {challenge?.bestSubmissions.map((submission, index) => {
                   return <SubmissionCard key={`submission-${index}`} submission={submission} />;
