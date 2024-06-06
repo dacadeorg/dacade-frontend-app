@@ -45,7 +45,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
             )}
             <div className="text-lg text-gray-900 font-medium leading-normal mb-3">{data.name}</div>
             <Badges challenge={data} />
-            <div className="text-sm text-gray-700">{data.description}</div>
+            <div className="text-base text-gray-700">{data.description}</div>
           </div>
           <div className="divide-y-2 divide-gray-200 divide-dotted flex flex-col mt-8">
             {learningMaterialsCount && (
@@ -65,9 +65,9 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
         <div className="mx-auto relative rounded-full mb-5 w-[147px] h-[184px]">
           <Image src={data?.certificateData?.icon} alt="achievement" fill priority />
         </div>
-        <div className="">
+        <div>
           <h1 className="font-bold text-gray-400 text-xs uppercase pb-3">{t("communities.overview.challenge.unlock.certificate")}</h1>
-          <RewardCertificate rewards={data?.rewards} />
+          <RewardCertificate rewards={data?.rewards} isChallengeCard/>
         </div>
         {data?.isHackathon && <p className="py-1.5 border-t border-gray-200 text-sm">{t("communities.overview.challenge.participate", { token: reward?.token })}</p>}
       </div>
