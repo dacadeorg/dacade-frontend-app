@@ -29,15 +29,17 @@ interface BadgeProps extends Omit<HTMLProps<HTMLSpanElement>, "size"> {
 }
  * @returns {ReactElement}
  */
-export default function Badge({ customStyle, value, size = "small", className, testId = "badgeId", ...props }: BadgeProps): ReactElement {
-  const sizeClasses = useMemo(
-    () =>
-      ({
-        medium: "w-6 h-6 text-sm",
-        small: "h-4 w-4 text-xxs",
-      }[size]),
-    [size]
-  );
+export default function Badge({ customStyle, value, size = "medium", className, testId = "badgeId", ...props }: BadgeProps): ReactElement {
+  const sizeClasses = useMemo(() => {
+    const expandedClasses = "w-7 h-7";
+    const defaultClasses = "w-6 h-6";
+    
+    if (value && value.toString().length >= 3) {
+      return expandedClasses;
+    }
+    if (size === "small") return "w-4 h-4";
+    return defaultClasses;
+  }, [value, size]);
 
   const router = useRouter();
   const isCommunity: boolean = router.pathname.startsWith("communities-slug__");
@@ -50,7 +52,7 @@ export default function Badge({ customStyle, value, size = "small", className, t
       data-testid={testId}
       {...props}
       className={classNames(
-        "font-semibold leading-3 text-center inline-flex items-center justify-center rounded-full text-xxs",
+        `font-semibold leading-3 text-center inline-flex items-center justify-center rounded-full ${size ==="small"? "text-xxs":"text-sm"}`,
         sizeClasses,
         className,
         { "bg-white text-gray-900": isCommunity },
