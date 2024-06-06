@@ -8,7 +8,7 @@ import { ReactElement } from "react";
 interface RewardCertificateProps {
   rewards: Reward[];
   isReward?: boolean;
-  isChallengeCard:boolean;
+  isChallengeCard?:boolean;
 }
 
 /**
