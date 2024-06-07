@@ -33,9 +33,9 @@ export default function BestSubmissions({ testId }: BestSubmissionsProps): React
         isExpanded
         content={
           <div data-testid={testId}>
-            <p className="leading-normal text-sm capitalize md:w-full w-64 pt-3">{t("communities.challenge.best-submissions.description")}</p>
+            <p className="leading-normal text-sm capitalize md:w-full w-64 pt-6">{t("communities.challenge.best-submissions.description")}</p>
             <div className="text-xl md:text-.5xl px-0">
-              <div className="md:grid grid-cols-2 gap-5 pt-7 flex-wrap">
+              <div className="md:grid grid-cols-2 gap-5 pt-6 flex-wrap">
                 {challenge?.bestSubmissions.map((submission, index) => {
                   return <SubmissionCard key={`submission-${index}`} submission={submission} />;
                 })}
