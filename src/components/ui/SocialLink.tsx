@@ -47,7 +47,7 @@ export default function SocialLink({ link, testId = "socialLink", socialLinkIcon
       href={link.url}
       target="_blank"
       title={link.title}
-      className="h-14 w-14 border border-solid bg-gray-50 border-gray-200 box-border inline-flex items-center justify-center text-lg rounded-full"
+      className="h-14 w-14 border border-solid bg-surface-bg-secondary border-surface-border-primary box-border inline-flex items-center justify-center text-lg rounded-full"
     >
       {icon && (
         <div title={link.title} className="w-4.5 inline-block" data-testid={socialLinkIconTestId}>

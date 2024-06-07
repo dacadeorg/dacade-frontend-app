@@ -29,6 +29,35 @@ module.exports = {
           accent: "var(--tm-accent)",
           muted: "var(--tm-muted)",
         },
+        surface: {
+          text: {
+            primary: "var(--surface-text-primary)",
+            secondary: "var(--surface-text-secondary)",
+            tertiary: "var(--surface-text-tertiary)",
+            label: "var(--surface-text-label)",
+            disabled: "var(--surface-text-disabled)",
+            invert: "var(--surface-text-invert)",
+            brand: "var(--surface-text-brand)",
+          },
+          icon: {
+            primary: "var(--surface-icon-primary)",
+            disabled: "var--surface-icon-disabled)",
+            invert: "var(--surface-icon-invert)",
+          },
+          bg: {
+            primary: "var(--surface-bg-primary)",
+            secondary: "var(--surface-bg-secondary)",
+            tertiary: "var(--surface-bg-tertiary)",
+            disabled: "var(--surface-bg-disabled)",
+            highlight: "var(--surface-bg-highlight)",
+          },
+          border: {
+            primary: "var(--surface-border-primary)",
+            secondary: "var(--surface-border-secondary)",
+            inverted: "var(--surface-border-inverted)",
+            brand: "var(--surface-border-brand)",
+          },
+        },
       },
       spacing: {
         3.75: "0.9375rem",
