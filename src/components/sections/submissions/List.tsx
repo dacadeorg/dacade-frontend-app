@@ -15,6 +15,9 @@ interface SubmissionListMultiSelector {
   submissions: Submission[];
   hasMore: boolean;
 }
+interface ListProps{
+  testId?:string
+}
 /**
  * Submissions list component
  * @date 4/25/2023 - 2:21:17 PM
@@ -22,7 +25,7 @@ interface SubmissionListMultiSelector {
  * @export
  * @returns {ReactElement}
  */
-export default function List(): ReactElement {
+export default function List({testId="listId"}:ListProps): ReactElement {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
@@ -58,7 +61,7 @@ export default function List(): ReactElement {
   return (
     <>
       {submissions && submissions.length ? (
-        <div className="text-xl md:text-.5xl px-0 py-5 md:py-10 md:pb-5 relative">
+        <div data-testid={testId} className="text-xl md:text-.5xl px-0 py-5 md:py-10 md:pb-5 relative">
           <InfiniteScroll
             dataLength={submissions.length}
             next={nextPage}
@@ -66,6 +69,7 @@ export default function List(): ReactElement {
             // loader is required for InfiniteScroll to work
             loader={<></>}
             className="flex flex-col w-full overflow-hidden border border-gray-200 border-solid divide-y divide-gray-200 rounded-3xl divide-solid"
+            
           >
             {submissions.map((submission, i) => (
               <SubmissionCard key={`submission-${i}`} submission={submission} />
