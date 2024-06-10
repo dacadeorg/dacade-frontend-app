@@ -87,7 +87,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
   };
 
   return (
-    <div className="text-gray-900 " style={containerStyle}>
+    <div className="text-gray-900" style={containerStyle}>
       <div className="content-wrapper lg:py-12 py-6 flex relative">
         <ul className="relative">
           <NavItem to="/" type="logo w-8 h-8 md:w-11 md:h-11">
@@ -98,7 +98,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
           </NavItem>
         </ul>
         {isAuthenticatedAndVerified && (
-          <ul className="hidden lg:block relative self-center">
+          <ul className="hidden lg:block relative self-center text-surface-text-primary">
             <NavItem to="/bounties">{t("nav.bounties")}</NavItem>
             <NavItem to={"/communities"}>{t("nav.communities")}</NavItem>
             <button className="nav-item underline underline-offset-2 text-primary bg-transparent pl-2 py-0 capitalize" onClick={displayJobOffersPopup}>
