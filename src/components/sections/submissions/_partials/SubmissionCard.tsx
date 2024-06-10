@@ -51,15 +51,15 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
   }, []);
 
   return (
-    <div className="bg-gray-50 text-sm text-gray-700 border-solid border border-gray-200 rounded-3xl mb-5 md:mb-0">
+    <div className="bg-surface-bg-secondary text-sm border-solid border border-surface-border-primary rounded-3xl mb-5 md:mb-0">
       <Link href={navigation.submissionPath(submission.id)}>
-        <div className="p-7">
+        <div className="p-7 text-surface-text-primary">
           {membersWithOrganiser?.length ? (
             <div className="flex gap-2 overflow-hidden">
               {membersWithOrganiser?.map((user, index) => {
                 return (
                   <div className="flex items-center space-x-1.5 pb-1.5 pt-1" key={`team-member-${index}`}>
-                    <span className="text-lg leading-loose font-medium text-gray-900 pb-1 whitespace-nowrap">{user.displayName}</span>
+                    <span className="text-lg leading-loose font-medium text-surface-text-primary pb-1 whitespace-nowrap">{user.displayName}</span>
                     {user.reputation ? (
                       <span className="text-xs px-2.5 bg-secondary leading-none py-1 rounded-full font-medium">
                         <Currency value={user.reputation} token="REP" />
@@ -73,7 +73,7 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
             </div>
           ) : (
             <div className="flex items-center space-x-1.5 pb-1.5 pt-1">
-              <span className="text-lg leading-loose font-medium text-gray-900 pb-1">{submission.user.displayName}</span>
+              <span className="text-lg leading-loose font-medium pb-1">{submission.user.displayName}</span>
               {submission.user.reputation ? (
                 <span className="text-xs px-2.5 bg-secondary leading-none py-1 rounded-full font-medium">
                   <Currency value={submission.user.reputation} token="REP" />
@@ -83,7 +83,7 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
               )}
             </div>
           )}
-          <span className="block text-sm leading-snug text-gray-700 pb-4">
+          <span className="block text-sm leading-snug  pb-4">
             {t("submissions.submitted")}{" "}
             <span className="font-medium" style={{ color: colors?.textAccent }}>
               {date}

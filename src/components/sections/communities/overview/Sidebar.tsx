@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import classNames from "classnames";
+import { useCallback, useMemo } from "react";
 
 /**
  * @interface SidebarProps
@@ -25,24 +26,51 @@ export default function Sidebar(): JSX.Element {
    * @param link - The link to check.
    * @returns boolean - True if the link is the active route, false otherwise.
    */
-  const isActive = (link: string) => {
-    return router.asPath === link;
-  };
+  const isActive = useCallback(
+    (link: string) => {
+      return router.asPath === link;
+    },
+    [router.asPath]
+  );
 
-  const scoreboardLink = hasCurrentCommunity ? `/communities/${currentCommunity.slug}/scoreboard` : "";
-  const mainLink = hasCurrentCommunity ? `/communities/${currentCommunity.slug}` : "";
+  const links = useMemo(() => {
+    if (!hasCurrentCommunity) {
+      return {
+        scoreboardLink: "",
+        learningMaterialsLink: "",
+        mainLink: "",
+      };
+    }
+    const { slug } = currentCommunity;
+    return {
+      scoreboardLink: `/communities/${slug}/scoreboard`,
+      mainLink: `/communities/${slug}`,
+    };
+  }, [currentCommunity, hasCurrentCommunity]);
+
+  const getClassNames = useCallback(
+    (link: string) => {
+      return {
+        titleColor: isActive(link) ? "text-surface-text-primary" : "text-surface-text-tertiary",
+        descriptionColor: isActive(link) ? "text-surface-text-secondary" : "text-surface-text-tertiary",
+      };
+    },
+    [isActive]
+  );
 
   return (
     <div className="flex flex-col md:divide-y divide-solid divide-gray-100 w-full text-gray-700 space-y-6">
-      <Link href={mainLink}>
-        <div className={isActive(mainLink) ? "" : "opacity-80"}>
-          <div className="font-medium text-.5xl leading-snug">{t("communities.overview.challenges.title")}</div>
-          <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0">{t("communities.overview.challenges.description")} </div>
+      <Link href={links.mainLink}>
+        <div>
+          <div className={`${getClassNames(links.mainLink).titleColor} font-medium text-.5xl leading-snug text`}>{t("communities.overview.challenges.title")}</div>
+          <div className={`${getClassNames(links.mainLink).descriptionColor} text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0`}>
+            {t("communities.overview.challenges.description")}{" "}
+          </div>
         </div>
       </Link>
       {hasCurrentCommunity && (
-        <Link href={scoreboardLink}>
-          <div className={classNames("pt-6", { "opacity-80 md:block hidden scroll-smooth": isActive(scoreboardLink) })}>
+        <Link href={links.scoreboardLink}>
+          <div className={classNames(`pt-6 ${getClassNames(links.scoreboardLink).titleColor}`, { "md:block hidden scroll-smooth": isActive(links.scoreboardLink) })}>
             <div className="font-medium text-.5xl leading-snug">{t("communities.overview.scoreboard.title")}</div>
             <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0">{t("communities.overview.scoreboard.description")}</div>
           </div>

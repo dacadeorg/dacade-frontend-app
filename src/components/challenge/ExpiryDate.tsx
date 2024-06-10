@@ -12,8 +12,8 @@ import { ReactElement } from "react-markdown/lib/react-markdown";
 export default function ExpiryDate({ expiresAt }: { expiresAt?: string }): ReactElement {
   const { t } = useTranslation();
   return (
-    <div className="bg-gray-50 py-8 px-3 border rounded border-solid border-gray-200 flex items-center justify-start md:justify-center">
-      <p className="text-gray-700 flex flex-col md:flex-row mx-auto items-center gap-1 text-sm">
+    <div className="bg-surface-bg-secondary py-8 px-3 border rounded border-solid border-surface-border-primary flex items-center justify-start md:justify-center">
+      <p className="text-surface-text-primary flex flex-col md:flex-row mx-auto items-center gap-1 text-sm">
         {t("communities.overview.challenge.expiry")}
         <span className="font-medium text-center">{expiresAt}</span>
       </p>
