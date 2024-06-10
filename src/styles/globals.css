@@ -22,6 +22,15 @@
   --surface-border-secondary: var(--surface-text-disabled);
   --surface-border-inverted: var(--surface-text-invert);
   --surface-border-brand: #DBEAFE;
+  --status-success-text: #16A34A;
+  --status-success-border: #86EFAC;
+  --status-success-bg: #F0FDF4;
+  --status-warning-text: #7C2D12;
+  --status-warning-border: #FEF3C7;
+  --status-warning-bg: #FEFCE8;
+  --status-danger-text: #DC2626;
+  --status-danger-border: #F87171;
+  --status-danger-bg: #FEF2F2;
 }
 
 
@@ -74,7 +83,7 @@ body {
 }
 
 .nav-item {
-  @apply font-normal ml-2 opacity-70 hover:opacity-100;
+  @apply font-normal ml-2 hover:opacity-70;
 }
 .nav-item a {
   @apply align-text-top;
@@ -121,10 +130,7 @@ body {
 }
 
 .message-bubble {
-  @apply w-72 p-6 rounded-3.5xl rounded-bl-none relative text-base border border-black border-opacity-5;
-
-  background: #fefce8;
-  color: #713f12;
+  @apply w-72 p-6 rounded-3.5xl rounded-bl-none relative text-base border bg-status-warning-bg border-status-warning-border text-status-warning-text;
 }
 
 @media only screen and (min-width: 992px) {

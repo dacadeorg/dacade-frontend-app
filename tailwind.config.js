@@ -58,6 +58,23 @@ module.exports = {
             brand: "var(--surface-border-brand)",
           },
         },
+        status: {
+          success: {
+            text: "var(--status-success-text)",
+            border: "var(--status-success-border)",
+            bg: "var(--status-success-bg)",
+          },
+          warning: {
+            text: "var(--status-warning-text)",
+            border: "var(--status-warning-border)",
+            bg: "var(--status-warning-bg)",
+          },
+          danger: {
+            text: "var(--status-danger-text)",
+            border: "var(--status-danger-border)",
+            bg: "var(--status-danger-bg)",
+          },
+        },
       },
       spacing: {
         3.75: "0.9375rem",
