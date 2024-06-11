@@ -4,7 +4,6 @@ import Navigation from "@/components/sections/courses/Navigation";
 import MobileNav from "@/components/sections/courses/MobileNav";
 import CommunityNavigation from "@/components/sections/courses/CommunityNavigation";
 import { render, screen } from "@testing-library/react";
-// import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 
 
 describe("Wrapper", () => {

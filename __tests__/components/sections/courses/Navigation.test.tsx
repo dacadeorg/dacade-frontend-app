@@ -21,7 +21,7 @@ const RenderNavigation = () => {
 }
 
 describe("LearningModules", () => {
-  it("should render the Learning Modules", () => {
+  it("should render the Navidation component", () => {
     const navigation = RenderNavigation();
     expect(navigation).toBeInTheDocument();
   });

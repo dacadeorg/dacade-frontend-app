@@ -1,40 +1,31 @@
 import "@testing-library/jest-dom";
 import LearningModules from "@/components/sections/courses/overview/LearningModules";
-// import LearningModulesCard from "@/components/cards/Learning";
+import LearningModulesCard from "@/components/cards/Learning";
 import { render, screen } from "@testing-library/react";
-// import { course } from "../../../../../__mocks__/course;";
-// import { learningModule } from "../../__mocks__/learningModule.ts";
-import ReduxProvider from "../../../../../__mocks__/provider/ReduxProvider";
+import { mockCourse } from "../../../../../__mocks__/course";
+import { LearningModule } from "@/types/course";
 
-jest.mock("next/router", () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-    isFallback: false,
-  }),
-}));
-
-// const learningModulesProps = {
-//     course: course,
-    
-// }
-
-const RenderLearningModules = () => {
-  render(
-    <ReduxProvider>
-      <LearningModules/>
-    </ReduxProvider>
-  );
-  return screen.getByTestId("-show");
+interface LearningModuleProps {
+  key: number;
+  learningModule: LearningModule[];
 }
+
+const RenderLearningModule = (props?: LearningModuleProps) => {
+  render(<LearningModulesCard {...props} key={1} learningModule={[mockCourse.learningModules]}/>);
+  return screen.getByTestId("learningModulesCardId");
+};
 
 describe("LearningModules", () => {
   it("should render the Learning Modules", () => {
-    const learningModules = RenderLearningModules();
+    render(<LearningModules />);
+    const learningModules = screen.getByTestId("learningModulesId");
     expect(learningModules).toBeInTheDocument();
+    expect(learningModules).toHaveTextContent("0");
   });
   
   it("should show Learning Modules List", () => {
-    const learningModulesCard = screen.getByTestId("learning-modules-card");
-    expect(learningModulesCard).toBeInTheDocument();
+      const learningModulesCard = RenderLearningModule();
+      expect(learningModulesCard).toBeInTheDocument();
+  
   });
 });

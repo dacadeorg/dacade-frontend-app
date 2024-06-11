@@ -15,8 +15,8 @@ export default function Challenge(): ReactElement {
 
   const { t } = useTranslation();
   return course && course.challenge ? (
-    <Section title={t("communities.overview.challenge")}>
-      <span className="block mt-3 text-base font-normal md:text-lg">{course.challenge.description}</span>
+    <Section data-testid="challengeDescriptionId" title={t("communities.overview.challenge")}>
+      <span data-testid="challengeDescription" className="block mt-3 text-base font-normal md:text-lg">{course.challenge.description}</span>
     </Section>
   ) : (
     <></>

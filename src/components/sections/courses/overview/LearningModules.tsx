@@ -18,7 +18,7 @@ export default function LearningModules(): ReactElement {
   return (
     <>
       {course ? (
-        <Section>
+        <Section data-testid="learningModulesId">
           <div className="grid flex-wrap grid-cols-1 gap-5 sm:grid-cols-2">
             <div className="flex flex-col w-full mt-0 mr-4 md:pt-4">
               <h4 className="font-medium inline-block text-.5xl">{t("communities.overview.learning-modules")}</h4>
@@ -26,7 +26,7 @@ export default function LearningModules(): ReactElement {
             </div>
             {course.learningModules &&
               course.learningModules.map((learningModule, index) => {
-                return <LearningModuleCard key={`module-${index}`} learningModule={learningModule} />;
+                return <LearningModuleCard data-testid="learningModulesCardId" key={`module-${index}`} learningModule={learningModule} />;
               })}
           </div>
         </Section>
