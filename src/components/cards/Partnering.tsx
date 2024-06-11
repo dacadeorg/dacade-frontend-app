@@ -15,7 +15,7 @@ export default function PartneringCard() {
       <div className="relative z-10 p-6 lg:pb-3 w-full text-primary h-full min-h-xs flex flex-col justify-between divide-y-2 divide-dotted divide-theme-accent">
         <div>
           <p className="text-.5xl leading-7 font-medium mb-2.5">{t("page.index.communities.partnering.title")}</p>
-          <p className="text-base mt-0 mb-20 lg:mb-0 leading-6 tracking-[-0.01rem]">{t("page.index.communities.partnering.subtitle")}</p>
+          <p className="text-base mt-0 mb-20 lg:mb-0 leading-6 -tracking-1">{t("page.index.communities.partnering.subtitle")}</p>
         </div>
         <div className="mt-4 flex-none md:flex justify-between">
           <div className="md:flex md:flex-col space-y-0">

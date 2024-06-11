@@ -98,7 +98,7 @@ body {
 }
 
 .message-bubble {
-  @apply w-72 p-6 rounded-3.5xl rounded-bl-none relative text-base border border-black border-opacity-5;
+  @apply w-72 p-6 rounded-3.5xl rounded-bl-none relative text-base border border-black border-opacity-5 leading-6 -tracking-1;
 
   background: #fefce8;
   color: #713f12;

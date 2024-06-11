@@ -85,7 +85,11 @@ module.exports = {
         12: "5.75rem",
       },
       letterSpacing: {
-        "-4": "-0.04em",
+        1: "0.01em",
+        2: "0.02em",
+        3: "0.03em",
+        4: "0.04em",
+        6: "0.06em"
       },
       maxWidth: {
         "3xs": "5rem",

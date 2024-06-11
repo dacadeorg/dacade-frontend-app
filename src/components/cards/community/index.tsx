@@ -65,8 +65,8 @@ export default function CommunityCard({ showRewards = true, community }: Communi
           <div className="flex-grow">
             <div className="flex flex-col justify-between space-y-5 sm:flex-row lg:flex-col 2xl:flex-row">
               <div className="text-.5xl md:text-2xl max-w-sm min-h-2xs md:min-h-3xs lg:min-h-2xs xl:min-h-2xs font-medium pb-5">
-                <h1 className="text-theme-text text-xl lg:text-.5xl leading-7">{community.name}</h1>
-                <p className="pr-2 text-theme-accent lg:text-.5xl leading-7">{community.description || ""}</p>
+                <h1 className="text-theme-text text-xl lg:text-.5xl leading-7 md:-tracking-3">{community.name}</h1>
+                <p className="pr-2 text-theme-accent lg:text-.5xl leading-7 md:-tracking-3">{community.description || ""}</p>
               </div>
               <div className="self-end max-w-lg sm:h-full sm:-mb-0 md:mb-2 md:h-auto">
                 <Image src={community.icon} className="relative mb-5 h-44 w-44" alt="community icon" width={56} height={56} />
