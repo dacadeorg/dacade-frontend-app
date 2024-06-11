@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom";
 import Prerequisite from "@/components/sections/courses/overview/Prerequisite";
 import { render, screen } from "@testing-library/react";
-// import { course } from "../../__mocks__/course.ts";
-import ReduxProvider from "../../../../../__mocks__/provider/ReduxProvider";
+import { mockCourse } from "../../../../../__mocks__/course";
+import ObjectiveList from "@/components/list/Objectives";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -11,19 +11,27 @@ jest.mock("next/router", () => ({
   }),
 }));
 
-
-const RenderPrerequisite = () => {
-  render(
-    <ReduxProvider>
-      <Prerequisite />
-    </ReduxProvider>
-  );
-  return screen.getByTestId("prerequisite-show");
+interface ObjectiveListProps {
+  objectives: [];
 }
+
+
+const RenderObjectiveList = (props?: ObjectiveListProps) => {
+  render(<ObjectiveList {...props} objectives={mockCourse.prerequisite.items}/>);
+  return screen.getByTestId("objectivesListShow");
+};
 
 describe("Prerequisite", () => {
   it("should render the Prerequisite", () => {
-    const prerequisite = RenderPrerequisite();
+    render( <Prerequisite />)
+    const prerequisite =  screen.getByTestId("prerequisiteId");
     expect(prerequisite).toBeInTheDocument();
   });
+
+  it("should render the ObjectiveList", () => {
+    const objectiveList =  RenderObjectiveList();
+    expect(objectiveList).toBeInTheDocument();
+  });
+ 
+
 });

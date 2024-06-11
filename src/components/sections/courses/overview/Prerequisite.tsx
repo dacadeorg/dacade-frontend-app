@@ -18,9 +18,9 @@ export default function Prerequisite(): ReactElement {
 
   if (course && !course.prerequisite) return <></>;
   return (
-    <Section title={t("communities.overview.info.prerequisite.title")} subtitle={t("communities.overview.info.prerequisite.subtitle")}>
+    <Section data-testid="prerequisiteId" title={t("communities.overview.info.prerequisite.title")} subtitle={t("communities.overview.info.prerequisite.subtitle")}>
       <div className="mb-5">
-        <ObjectiveList objectives={course?.prerequisite.items} />
+        <ObjectiveList data-testid="objectivesListShow" objectives={course?.prerequisite.items} />
       </div>
       {course?.prerequisite.hint && (
         <Hint>

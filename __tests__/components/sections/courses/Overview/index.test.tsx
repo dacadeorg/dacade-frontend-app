@@ -38,9 +38,6 @@ describe("All Components", () => {
   it("should render Header with title and description", () => {
     const headerContent = RenderHeader();
     expect(headerContent).toBeInTheDocument();
-    expect(headerContent).toBeInTheDocument();
-
-    
   });
 
   it("should render RewardsSection in the index component", () => {

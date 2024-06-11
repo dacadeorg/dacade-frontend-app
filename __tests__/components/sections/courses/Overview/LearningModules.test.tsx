@@ -26,6 +26,5 @@ describe("LearningModules", () => {
   it("should show Learning Modules List", () => {
       const learningModulesCard = RenderLearningModule();
       expect(learningModulesCard).toBeInTheDocument();
-  
   });
 });
