@@ -24,14 +24,14 @@ export default function Overview(): ReactElement {
   return (
     <div className="flex flex-col divide-y divide-solid divide-gray-200 lg:py-5 text-gray-700">
       <Header title={course.name} description={course.description} />
-      <RewardsSection />
-      <ObjectivesSection />
-      <PrerequisiteSection />
-      <DisclaimerSection />
-      <TrailerSection />
-      <LearningModulesSection />
-      <ChallengeSection />
-      <PageNavigation />
+      <RewardsSection data-testid=""/>
+      <ObjectivesSection data-testid=""/>
+      <PrerequisiteSection data-testid=""/>
+      <DisclaimerSection data-testid="disclaimerSectionId"/>
+      <TrailerSection data-testid="trailerSectionId"/>
+      <LearningModulesSection data-testid="learningModulesSection" />
+      <ChallengeSection data-testid="challengeSectionId"/>
+      <PageNavigation data-testid="pageNavigationId"/>
     </div>
   );
 }
