@@ -102,7 +102,7 @@ export default function Login(): ReactElement {
         <form className="content-wrapper" onSubmit={handleSubmit(onSubmit)}>
           <div className="mx-auto lg:w-98 xl:w-98">
             <div>
-              <h1 className="my-5 text-5xl">{t("login-page.signin.title")}</h1>
+              <h1 className="my-5 text-5xl text-surface-text-primary">{t("login-page.signin.title")}</h1>
             </div>
             <div className="relative mb-5">
               <div>
