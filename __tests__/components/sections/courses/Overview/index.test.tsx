@@ -8,17 +8,40 @@ import TrailerSection from "@/components/sections/courses/overview/index";
 import LearningModulesSection from "@/components/sections/courses/overview/index";
 import ChallengeSection from "@/components/sections/courses/overview/index";
 import PageNavigation from "@/components/sections/courses/overview/index";
+import Header from "@/components/sections/courses/overview/index";
+
+import { mockCourse } from "../../../../../__mocks__/course";
 
 import { render, screen } from "@testing-library/react";
 
 
-it("should render the Disclaimer", () => {
-  render( <AllComponents />);
-  const disclaimerComponent = screen.getByTestId("disclaimerId");
-  expect(disclaimerComponent).toBeInTheDocument();
-});
+interface HeaderProps {
+  title: "string";
+  description: "string";
+}
+
+const RenderHeader = (props?: HeaderProps) => {
+  render(<Header {...props} title={[mockCourse.name]} description={[mockCourse.description]}/>);
+  return screen.getByTestId("headerId");
+};
+
 
 describe("All Components", () => {
+
+  it("should render the Disclaimer", () => {
+    render( <AllComponents />);
+    const disclaimerComponent = screen.getByTestId("disclaimerId");
+    expect(disclaimerComponent).toBeInTheDocument();
+  });
+
+
+  it("should render Header with title and description", () => {
+    const headerContent = RenderHeader();
+    expect(headerContent).toBeInTheDocument();
+    expect(headerContent).toBeInTheDocument();
+
+    
+  });
 
   it("should render RewardsSection in the index component", () => {
     render( <RewardsSection />);
