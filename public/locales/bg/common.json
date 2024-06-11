@@ -165,6 +165,7 @@
   "communities.challenge.evaluation.points": "Points",
   "communities.challenge.evaluation.message": "Congratulations you gained at least 70% of the available learning points.",
   "communities.challenge.evaluation.message.nominated": "Поздравления, печеленето на {{threshold}}% ви номинира за наградния фонд от:",
+  "communities.challenge.submission.no.feedbacks": "Обратната връзка за това подаване вече не е налична",
   "communities.submission.title": "Submissions",
   "communities.feedbacks": "Feedbacks",
   "communities.navigation.overview": "Преглед",

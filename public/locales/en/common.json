@@ -166,6 +166,7 @@
   "communities.challenge.evaluation.points": "Points",
   "communities.challenge.evaluation.message": "Congratulations you gained at least 70% of the available learning points.",
   "communities.challenge.evaluation.message.nominated": "Congratulations, earning {{threshold}}% nominates you for the prize pool of:",
+  "communities.challenge.submission.no.feedbacks": "The feedback for this submission is no longer available",
   "communities.submission.title": "Submissions",
   "communities.feedbacks": "Feedbacks",
   "communities.navigation.overview": "Overview",
