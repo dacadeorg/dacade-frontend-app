@@ -12,46 +12,41 @@ import CommunityWrapper from "@/components/sections/communities/overview/Wrapper
 import { Course, LearningModule } from "@/types/course";
 import LearningMaterialsOverview from "@/components/sections/communities/overview/LearningMaterials";
 
-
-
 export default function LearningMaterials(props: {
-    pageProps: {
-        community: Community;
-        learningMaterials: { courses: Course[], learningModules: LearningModule[] };
-    };
+  pageProps: {
+    community: Community;
+    learningMaterials: { courses: Course[]; learningModules: LearningModule[] };
+  };
 }) {
-    const { t } = useTranslation()
-    const { community } = props.pageProps
-    return <div>
-        <Head>
-            <title>{getMetadataTitle(t("communities.navigation.learning-materials"), community?.name as string)}</title>
-            {getMetadataDescription(community?.description as string).map((attributes, i) => (
-                <meta key={`scoreboard-meta-${i}`} {...attributes} />
-            ))}
-        </Head>
-        <CommunityWrapper >
-            <LearningMaterialsOverview />
-        </CommunityWrapper>
+  const { t } = useTranslation();
+  const { community } = props.pageProps;
+  return (
+    <div>
+      <Head>
+        <title>{getMetadataTitle(t("communities.navigation.learning-materials"), community?.name as string)}</title>
+        {getMetadataDescription(community?.description as string).map((attributes, i) => (
+          <meta key={`scoreboard-meta-${i}`} {...attributes} />
+        ))}
+      </Head>
+      <CommunityWrapper>
+        <LearningMaterialsOverview />
+      </CommunityWrapper>
     </div>
-
+  );
 }
 
 LearningMaterials.getLayout = function (page: ReactElement) {
-    return <CommunityLayout>{page}</CommunityLayout>;
+  return <CommunityLayout>{page}</CommunityLayout>;
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => async ({ locale, params }) => {
-    const slug = params?.slug as string;
-    try {
-        const [{ data: community }] = await Promise.all([
-            store.dispatch(fetchCurrentCommunity({ slug, locale })),
-            store.dispatch(fetchLearningMaterials({ slug, locale })),
-        ])
-        return { props: { community, ...(await i18Translate(locale as string)) } };
-    }
-    catch (err) {
-        return {
-            notFound: true,
-        };
-    }
-})
+  const slug = params?.slug as string;
+  try {
+    const [{ data: community }] = await Promise.all([store.dispatch(fetchCurrentCommunity({ slug, locale })), store.dispatch(fetchLearningMaterials({ slug, locale }))]);
+    return { props: { community, ...(await i18Translate(locale as string)) } };
+  } catch (err) {
+    return {
+      notFound: true,
+    };
+  }
+});

@@ -15,6 +15,7 @@ import { useTranslation } from "next-i18next";
 import Head from "next/head";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import LearningMaterialsOverview from "@/components/sections/communities/overview/LearningMaterials";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Slug(props: {
   pageProps: {
@@ -28,8 +29,8 @@ export default function Slug(props: {
     <>
       <Head>
         <title>{getMetadataTitle(t("communities.navigation.courses"), community?.name as string)}</title>
-        {getMetadataDescription(community?.description as string).map((attributes, i) => (
-          <meta key={`scoreboard-meta-${i}`} {...attributes} />
+        {getMetadataDescription(community?.description as string).map((attributes) => (
+          <meta key={`scoreboard-meta-${uuidv4()}`} {...attributes} />
         ))}
       </Head>
       <CommunityWrapper>
@@ -64,13 +65,15 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
       store.dispatch(fetchLearningMaterials({ slug, locale })),
       serverSideTranslations(locale as string),
     ]);
+
     if (!community || !challenges) throw new NotFoundError();
+
     return {
       props: {
         community,
         challenges,
         scoreboard,
-        learningMaterials,
+        learningMaterials: learningMaterials || { courses: [], learningModule: [] },
         ...translations,
       },
     };

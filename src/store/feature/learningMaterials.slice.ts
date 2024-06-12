@@ -30,7 +30,7 @@ const learningMaterialsSlice = createSlice({
         [HYDRATE]: (state, action) => {
             return {
                 ...state,
-                ...action.payload["learningMaterials"],
+                ...action.payload.learningMaterials,
             };
         },
     }

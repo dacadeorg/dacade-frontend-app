@@ -31,14 +31,14 @@ export default function LearningMaterialsOverview() {
                 <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0">{t("communities.overview.learning-materials.description")} </div>
             </div>
             <div className="grid gap-6">
-                {courses?.map((course, index) => {
-                    return <CourseCard key={`learning-material-course-${index}`} course={course} community={community} />
+                {courses?.map((course) => {
+                    return <CourseCard key={`learning-material-course-${course.id}`} course={course} community={community} />
                 })}
             </div>
-            <div className="grid md:grid-cols-2 gap-3 w-full ">
-                {learningModules?.map((module, index) => {
+            <div className="grid md:grid-cols-2 gap-3 w-full">
+                {learningModules?.map((module) => {
                     return <RelatedLearningCard
-                        key={`learning-material-material-${index}`}
+                        key={`learning-material-material-${module.id}`}
                         title={module.title}
                         description={module.description}
                         path={`/communities/${community.slug}`} />

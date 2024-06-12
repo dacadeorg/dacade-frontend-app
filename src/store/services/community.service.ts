@@ -65,11 +65,9 @@ export const communityService = createApi({
           const { data } = await queryFulfilled
           dispatch(setCourseList(data.courses))
           dispatch(setLearningModulesList(data.learningModules))
-          console.log("these are the data", data.courses?.length)
           return data
         }
         catch (error) {
-          console.log("Encoutered an error while fetching the learning materials", error)
           return null
         }
         finally {
