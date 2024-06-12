@@ -79,6 +79,7 @@
     "unified": "^10.1.2",
     "unist-util-visit": "^2.0.0",
     "use-onclickoutside": "^0.4.1",
+    "uuid": "^10.0.0",
     "viem": "^1.18.1",
     "wagmi": "^1.4.5",
     "web3": "^1.10.0",
