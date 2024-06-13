@@ -83,13 +83,13 @@ body {
 }
 
 .nav-item {
-  @apply font-normal ml-2 hover:opacity-70;
+  @apply font-normal ml-3 hover:opacity-70;
 }
 .nav-item a {
   @apply align-text-top;
 }
 .nav-brand {
-  @apply font-semibold mx-1.5;
+  @apply font-semibold ml-2;
 }
 .content-wrapper {
   @apply relative;

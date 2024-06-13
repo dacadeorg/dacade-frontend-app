@@ -61,7 +61,7 @@ export default function NotificationPopup({ buttonStyles }: NotificationPopupPro
   return (
     <div>
       <span onClick={externalClick}>
-        <li className={`inline-block align-middle mr-2 relative text-gray-500 max-w-80 ${isNotificationVisible ? "z-50" : "z-10"}`} onClick={toggle}>
+        <li className={`inline-block align-middle mr-3 relative text-gray-500 max-w-80 ${isNotificationVisible ? "z-50" : "z-10"}`} onClick={toggle}>
           <Button
             type="button"
             padding={false}
