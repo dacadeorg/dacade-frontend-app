@@ -15,8 +15,7 @@ import { useTranslation } from "next-i18next";
 import Head from "next/head";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import LearningMaterialsOverview from "@/components/sections/communities/overview/LearningMaterials";
-import { v4 as uuidv4 } from "uuid";
-
+import { randomUUID } from "crypto";
 export default function Slug(props: {
   pageProps: {
     community: Community;
@@ -30,7 +29,7 @@ export default function Slug(props: {
       <Head>
         <title>{getMetadataTitle(t("communities.navigation.courses"), community?.name as string)}</title>
         {getMetadataDescription(community?.description as string).map((attributes) => (
-          <meta key={`scoreboard-meta-${uuidv4()}`} {...attributes} />
+          <meta key={`scoreboard-meta-${randomUUID()}`} {...attributes} />
         ))}
       </Head>
       <CommunityWrapper>
