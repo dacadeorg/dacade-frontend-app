@@ -11,7 +11,6 @@ import { Community } from "@/types/community";
 import CommunityWrapper from "@/components/sections/communities/overview/Wrapper";
 import { Course, LearningModule } from "@/types/course";
 import LearningMaterialsOverview from "@/components/sections/communities/overview/LearningMaterials";
-import { randomUUID } from "crypto";
 
 export default function LearningMaterials(props: {
   pageProps: {
@@ -26,7 +25,7 @@ export default function LearningMaterials(props: {
       <Head>
         <title>{getMetadataTitle(t("communities.navigation.learning-materials"), community?.name as string)}</title>
         {getMetadataDescription(community?.description as string).map((attributes) => (
-          <meta key={`scoreboard-meta-${randomUUID()}`} {...attributes} />
+          <meta key={`scoreboard-meta-${attributes.hid}`} {...attributes} />
         ))}
       </Head>
       <CommunityWrapper>
