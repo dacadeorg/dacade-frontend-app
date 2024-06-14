@@ -8,6 +8,12 @@ export const reward = {
   community: "community",
   token: "token",
   stable: false,
+  fiatCurrency: "USD",
   amount: 10,
   timestamp: 10,
-};
+  distribution: {
+      first: 1,
+      second: 2,
+      third: 3
+  }
+}
