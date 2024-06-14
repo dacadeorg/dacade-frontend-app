@@ -2,7 +2,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { Community } from "@/types/community";
 import { Challenge } from "@/types/course";
 import Link from "next/link";
-import Badges from "./Badges";
+import Badges from "../../badges/Badges";
 import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
