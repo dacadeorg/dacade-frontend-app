@@ -70,4 +70,4 @@ export const fetchCurrentCommunity = ({ slug, locale }: { slug: string; locale?:
     slug,
   });
 };
-export const { useGetCommunitiesQuery } = communityService;
+export const { useGetCommunitiesQuery, usePrefetch, useGetCurrentCommunityQuery } = communityService;

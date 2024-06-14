@@ -1,4 +1,4 @@
-import { createApi } from "@reduxjs/toolkit/dist/query";
+import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import baseQuery from "@/config/baseQuery";
 import { setChallengesList, setChallengeSubmission, setCurrentChallenge, setSubmissionLoading } from "@/store/feature/communities/challenges";
 import queryString from "query-string";
@@ -140,3 +140,5 @@ export const fetchChallengeAuthenticated = ({ id, locale, relations }: { id: str
 };
 
 export default challengeService;
+
+export const { usePrefetch, useFindChallengeByIdQuery } = challengeService;

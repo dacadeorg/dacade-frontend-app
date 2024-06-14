@@ -1,10 +1,10 @@
 import Section from "@/components/sections/communities/_partials/Section";
-import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import Certificate from "@/components/ui/Certificate";
 import { useRouter } from "next/router";
 import RewardCertificate from "@/components/cards/challenge/RewardCertificate";
+import { Challenge } from "@/types/course";
 
 /**
  * Overview reward section component
@@ -13,9 +13,12 @@ import RewardCertificate from "@/components/cards/challenge/RewardCertificate";
  * @export
  * @returns {ReactElement}
  */
-export function OverviewRewards(): ReactElement {
+export function OverviewRewards({
+  challenge
+}: {
+  challenge: Challenge
+}): ReactElement {
   const { t } = useTranslation();
-  const challenge = useSelector((state) => state.challenges.current);
   const router = useRouter();
   const token = challenge?.reward?.token || challenge?.rewards[0]?.token || "";
 
