@@ -3,17 +3,23 @@ import "@testing-library/jest-dom";
 import Rewards from "@/components/sections/courses/overview/Rewards";
 import { render, screen } from "@testing-library/react";
 import Reward from "@/components/sections/courses/overview/Rewards";
-
-
+import { mockCourse } from "../../../../../__mocks__/course";
+import { RewardType } from "@/components/cards/Bounty";
 
 
 interface RewardProps {
-  objectives: [];
+  reward: RewardType, 
+  i: number;
 }
 
 
-const RewardComponnent = (props?: RewardProps) => {
-  render(<Reward {...props} key={2} reward={""} size="" category=""/>);
+const rewardList = (props?: RewardProps) => {
+  mockCourse.challenge?.rewards.forEach(reward => <Reward {...props} key={2} reward={reward} size="medium" category="category"/>)
+}
+
+
+const RewardComponnent = () => {
+  render({rewardList});
   return screen.getByTestId("rewardId");
 };
 
