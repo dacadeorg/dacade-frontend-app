@@ -13,9 +13,13 @@ interface ObjectiveListProps {
   objectives: [];
 }
 
+const objectiveList = (props?: ObjectiveListProps) => {
+  return  <ObjectiveList {...props} objectives={mockCourse.trailer?.info?.items}/>
+}
 
-const RenderObjectiveList = (props?: ObjectiveListProps) => {
-  render(<ObjectiveList {...props} objectives={mockCourse.trailer?.info?.items}/>);
+
+const RenderObjectiveList = () => {
+  render({objectiveList});
   return screen.getByTestId("objectivesListShow");
 };
 
