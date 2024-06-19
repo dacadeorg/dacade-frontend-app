@@ -31,7 +31,7 @@ export default function CourseMaterial({ title, description, link, level, learni
       <div className="flex flex-col w-full">
         <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
           <div className="flex gap-2 items-center">
-            <div className="h-5.5 w-5.5 rounded-sm clip-polygon" style={{ backgroundColor: colors?.primary }} />
+            <div className="h-5.5 w-5.5 rounded-sm clip-hexagon" style={{ backgroundColor: colors?.primary }} />
             <span className="capitalize font-semibold text-[#4B5563] text-sm">COURSE</span>
           </div>
           <div className="flex items-center gap-2">
