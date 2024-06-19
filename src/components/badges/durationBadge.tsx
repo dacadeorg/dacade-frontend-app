@@ -3,18 +3,12 @@ import classNames from "classnames";
 import { useRouter } from "next/router";
 import React, { useMemo } from "react";
 
-interface DuratetionBadgeProps{
-  value:number;
-  type?:string;
+interface DurationBadgeProps {
+  value: number;
+  type?: string;
 }
 
-/**
- * DurationBadge component
- *
- * @param {DuratetionBadgeProps} props - The props for the DurationBadge component.
- * @returns {JSX.Element} The Learning component JSX element.
- */
-export default function DurationBadge({ value, type = "gray" }: DuratetionBadgeProps) {
+export default function DurationBadge({ value, type = "gray" }: DurationBadgeProps) {
   const router = useRouter();
   const duration = useMemo(() => {
     return (value: number) => {

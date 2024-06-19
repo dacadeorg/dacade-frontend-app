@@ -17,10 +17,10 @@ interface CourseMaterialProps {
 }
 
 /**
- * CourseMaterialProps component.
+ * CourseMaterial component.
  *
- * @param {CourseMaterialProps} props - The props for the CourseMaterial component.
- * @returns {JSX.Element} The CourseMaterial component JSX element.
+ * @param {CourseMaterial} { title, description, link, level, learningModulesCount, duration }.
+ * @returns {JSX.Element}
  */
 export default function CourseMaterial({ title, description, link, level, learningModulesCount, duration }: CourseMaterialProps): JSX.Element {
   const { t } = useTranslation();
