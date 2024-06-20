@@ -3,7 +3,7 @@ import SubmissionPopup from "@/components/popups/submission";
 import Header from "@/components/sections/communities/_partials/Header";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import SubmissionList from "@/components/sections/submissions/List";
-// import MetaData from "@/components/ui/MetaData";
+import MetaData from "@/components/ui/MetaData";
 import useSubmissionNavigation from "@/hooks/useSubmissionNavigation";
 import { wrapper } from "@/store";
 import { fetchAllSubmission, fetchChallenge } from "@/store/services/communities/challenges";
@@ -28,10 +28,6 @@ import { ReactElement, useMemo } from "react";
  */
 export default function Submission(props: { pageProps: { currentCommunity: Community; submissions: SubmissionType[]; challenge: Challenge } }) {
   const { challenge } = props.pageProps;
-  // const { selectedSubmission, submissions } = useMultiSelector<unknown, { selectedSubmission: SubmissionType; submissions: SubmissionType[] }>({
-  //   selectedSubmission: (state: IRootState) => state.submissions.current,
-  //   submissions: (state: IRootState) => state.submissions.list,
-  // });
 
   const { submissions, selectedSubmission, handleCloseSubmission, showPopup} = useSubmissionNavigation();
 
@@ -45,7 +41,7 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
     <>
       <Head>
         <title>{`${t("communities.submission.title")} ${challenge?.name}`}</title>
-        {/* <MetaData description={challenge?.description as string} /> */}
+        <MetaData description={challenge?.description} />
       </Head>
       <Wrapper paths={headerPaths}>
         <div className="flex flex-col py-4 space-y-8 text-gray-700">

@@ -1,5 +1,5 @@
 import { getMetadataDescription } from "@/utilities/Metadata";
-import { ReactElement } from "react";
+import { ReactElement, useMemo } from "react";
 
 /**
  * Meta tags component
@@ -8,13 +8,13 @@ import { ReactElement } from "react";
  * @export
  * @returns {ReactElement}
  */
-export default function MetaData({ description, testId = "meta-id" }: { description: string; testId?: string }): ReactElement {
-  const metas = getMetadataDescription(description);
+export default function MetaData({ description, testId = "meta-id" }: { description?: string; testId?: string }): ReactElement {
+  const metas = useMemo(() => getMetadataDescription(description), [description]);
   return (
-    <div data-testid={testId}>
+    <>
       {metas.map((meta, index) => (
-        <meta key={`meta-${index}`} content={meta.content} name={meta.name} />
+        <meta data-testid={testId} key={`meta-${index}`} content={meta.content} name={meta.name} />
       ))}
-    </div>
+    </>
   );
 }
