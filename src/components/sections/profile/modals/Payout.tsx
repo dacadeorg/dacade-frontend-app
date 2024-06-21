@@ -52,7 +52,7 @@ export default function Payout({ show, wallet, onClose }: PayoutProps): ReactEle
       <div id="sumsub-websdk-container" className="relative px-6 pt-6">
         <div className="mb-6">
           <p className="text-.5xl leading-snug font-medium">{wallet.title}</p>
-          <p className="text-.5xl font-medium text-gray-400 leading-snug">{t("profile.wallet.payout.request")}</p>
+          <p className="text-.5xl font-medium text-tertiary leading-snug">{t("profile.wallet.payout.request")}</p>
           <Tag className="text-gray-500" value={wallet.token} />
         </div>
         <div className="border-b border-dotted">

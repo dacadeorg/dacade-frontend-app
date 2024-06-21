@@ -51,8 +51,8 @@ export default function Sidebar(): JSX.Element {
   const getClassNames = useCallback(
     (link: string) => {
       return {
-        titleColor: isActive(link) ? "text-surface-text-primary" : "text-surface-text-tertiary",
-        descriptionColor: isActive(link) ? "text-surface-text-secondary" : "text-surface-text-tertiary",
+        titleColor: isActive(link) ? "text-primary" : "text-tertiary",
+        descriptionColor: isActive(link) ? "text-secondary" : "text-tertiary",
       };
     },
     [isActive]

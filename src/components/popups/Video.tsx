@@ -37,7 +37,7 @@ export default function VideoPopup(): ReactElement {
     <div className="flex flex-col items-center justify-center w-fit">
       <span onClick={externalClick} ref={videoPopupRef}>
         <li className="inline-block align-middle max-w-2xl relative text-gray-500 cursor-pointer w-full" onClick={toggle}>
-          <span className="flex space-x-1 text-surface-text-brand relative hover:text-primary-dark mt-3 text-base leading-normal">
+          <span className="flex space-x-1 text-brand relative hover:text-brand-dark mt-3 text-base leading-normal">
             <PlayIcon className="-mt-1" fill="white" />
             <div className="leading-normal font-light">
               <span className="font-medium">{t("app.name")}</span> {t("page.index.main.button.description")}

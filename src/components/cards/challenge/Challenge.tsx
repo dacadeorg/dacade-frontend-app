@@ -33,23 +33,23 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
 
 
   return (
-    <div className="w-full flex flex-col sm:flex-row  md:flex-col lg:flex-row  border-solid border border-surface-border-primary bg-surface-bg-secondary rounded-3xl mb-5 group text-surface-text-secondary">
-      <div className="border-solid border -m-px border-surface-border-primary bg-surface-bg-primary rounded-3xl sm:p-8 sm:pb-6 p-6 sm:w-2/3 md:w-auto lg:w-2/3">
+    <div className="w-full flex flex-col sm:flex-row  md:flex-col lg:flex-row  border-solid border border-primary bg-secondary rounded-3xl mb-5 group text-secondary">
+      <div className="border-solid border -m-px border-primary bg-primary rounded-3xl sm:p-8 sm:pb-6 p-6 sm:w-2/3 md:w-auto lg:w-2/3">
         <div className="flex flex-col mb-1">
           <div className="lg:pr-20">
             {expiresAt && (
-              <div className="text-surface-text-tertiary text-sm font-normal mb-4.5 md:mb-6">
+              <div className="text-tertiary text-sm font-normal mb-4.5 md:mb-6">
                 <span>{t("communities.overview.challenge.deadline")}</span>
                 <span className="font-medium pl-1">{expiresAt}</span>
               </div>
             )}
-            <div className="text-lg text-surface-text-primary font-medium leading-normal mb-3">{data.name}</div>
+            <div className="text-lg text-primary font-medium leading-normal mb-3">{data.name}</div>
             <Badges challenge={data} />
-            <div className="text-sm text-surface-text-secondary">{data.description}</div>
+            <div className="text-sm text-secondary">{data.description}</div>
           </div>
           <div className="divide-y-2 divide-gray-200 divide-dotted flex flex-col mt-8">
             {learningMaterialsCount && (
-              <p className="pb-3 md:pb-4 text-sm font-medium text-surface-text-tertiary">{`${learningMaterialsCount}  Learning ${learningMaterialsCount === 1 ? "material" : "materials"} included`}</p>
+              <p className="pb-3 md:pb-4 text-sm font-medium text-tertiary">{`${learningMaterialsCount}  Learning ${learningMaterialsCount === 1 ? "material" : "materials"} included`}</p>
             )}
             <div className="lg:flex lg:flex-row flex-col justify-between pt-3 md:pt-4 items-center">
               <Link href={link}>
@@ -66,10 +66,10 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
           <Image src={data?.certificateData?.icon} alt="achievement" fill priority />
         </div>
         <div className="">
-          <h1 className="font-bold text-surface-text-tertiary text-xs uppercase pb-3">{t("communities.overview.challenge.unlock.certificate")}</h1>
+          <h1 className="font-bold text-tertiary text-xs uppercase pb-3">{t("communities.overview.challenge.unlock.certificate")}</h1>
           <RewardCertificate rewards={data?.rewards} />
         </div>
-        {data?.isHackathon && <p className="py-1.5 border-t border-surface-border-primary text-sm">{t("communities.overview.challenge.participate", { token: reward?.token })}</p>}
+        {data?.isHackathon && <p className="py-1.5 border-t border-primary text-sm">{t("communities.overview.challenge.participate", { token: reward?.token })}</p>}
       </div>
     </div>
   );

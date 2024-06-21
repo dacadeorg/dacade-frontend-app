@@ -11,7 +11,7 @@ import { useTranslation } from "next-i18next";
 export default function PartneringCard() {
   const { t } = useTranslation();
       return (
-        <div className="relative z-10 mt-6 md:mt-0 p-6 rounded-3.5xl border border-solid bg-surface-bg-highlight lg:pb-3 w-full text-surface-text-brand h-full min-h-xs flex flex-col justify-between divide-y-2 divide-dotted divide-theme-accent">
+        <div className="relative z-10 mt-6 md:mt-0 p-6 rounded-3.5xl border border-solid border-light-brand bg-highlight lg:pb-3 w-full text-brand h-full min-h-xs flex flex-col justify-between divide-y-2 divide-dotted divide-theme-accent">
           <div className="max-w-sm">
             <p className="text-2xl font-medium mb-2.5 leading-none">{t("page.index.communities.partnering.title")}</p>
             <p className="text-base mt-0 mb-20 lg:mb-0 leading-normal">{t("page.index.communities.partnering.subtitle")}</p>

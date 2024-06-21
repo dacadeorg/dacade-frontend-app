@@ -57,7 +57,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
     const hackatonPassingScore = t("communities.challenge.hackathon.passing.score", { threshold: challenge?.threshold, prizePool: `USD ${reward?.amount}` });
 
     return (
-      <div className="text-base font-normal text-surface-text-primary pt-6 inline-flex flex-wrap items-center gap-1">
+      <div className="text-base font-normal text-primary pt-6 inline-flex flex-wrap items-center gap-1">
         {challenge?.isHackathon ? (
           <div dangerouslySetInnerHTML={{ __html: challenge?.additionalInfo?.[GRADING_CRITERIA].text || hackatonPassingScore }} />
         ) : (
@@ -96,7 +96,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
                     {criteria.rubric.map((rubric, k) => (
                       <div
                         key={`criteria-rubic-item-${k}`}
-                        className={`text-sm border border-transparent sm:border-surface-border-primary bg-surface-bg-primary px-0 py-2 sm:p-3.5 rounded-2xl ${
+                        className={`text-sm border border-transparent sm:border-primary bg-primary px-0 py-2 sm:p-3.5 rounded-2xl ${
                           selected?.length && !selectedRubric(rubric.id) ? "opacity-40" : "relative"
                         }`}
                       >
@@ -109,7 +109,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
                           <span className="mr-1">{selectedRubric(rubric.id) ? selectedRubric(rubric.id)?.points : rubric.points}</span>
                           {t("communities.challenge.criteria.points")}
                         </span>
-                        <span className="block leading-normal text-surface-text-secondary">{rubric.text}</span>
+                        <span className="block leading-normal text-secondary">{rubric.text}</span>
                       </div>
                     ))}
                   </div>

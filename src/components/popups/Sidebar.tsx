@@ -110,7 +110,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
         )}
       </li>
       <Popup center={false} show={show} className="px-3 pt-16 pb-2" onClose={externalClick}>
-        <div className="max-h-full overflow-scroll md:max-w-sidebar relative ml-auto mt-0 md:mr-12 w-full z-40 bg-secondary rounded-3.5xl text-gray-900">
+        <div className="max-h-full overflow-scroll md:max-w-sidebar relative ml-auto mt-0 md:mr-12 w-full z-40 bg-tertiary rounded-3.5xl text-gray-900">
           <div className="divide-y divide-gray-200">
             <div className="flex flex-col text-left justify-between">
               <div className="flex">
@@ -136,7 +136,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
               {isAuthenticated && (
                 <>
                   <div className="flex">
-                    <div className="w-10 h-10 ml-3 mr-2 my-3 rounded-full">
+                    <div className="w-10 h-10 ml-3 mr-2 my-3 rounded-full bg-red-500">
                       <WalletIcon className="m-2" />
                     </div>
                     <div className="py-5 font-medium text-gray-900" onClick={toggle}>

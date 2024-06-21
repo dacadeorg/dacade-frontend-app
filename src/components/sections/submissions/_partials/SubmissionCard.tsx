@@ -51,17 +51,17 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
   }, []);
 
   return (
-    <div className="bg-surface-bg-secondary text-sm border-solid border border-surface-border-primary rounded-3xl mb-5 md:mb-0">
+    <div className="bg-secondary text-sm border-solid border border-primary rounded-3xl mb-5 md:mb-0">
       <Link href={navigation.submissionPath(submission.id)}>
-        <div className="p-7 text-surface-text-primary">
+        <div className="p-7 text-primary">
           {membersWithOrganiser?.length ? (
             <div className="flex gap-2 overflow-hidden">
               {membersWithOrganiser?.map((user, index) => {
                 return (
                   <div className="flex items-center space-x-1.5 pb-1.5 pt-1" key={`team-member-${index}`}>
-                    <span className="text-lg leading-loose font-medium text-surface-text-primary pb-1 whitespace-nowrap">{user.displayName}</span>
+                    <span className="text-lg leading-loose font-medium text-primary pb-1 whitespace-nowrap">{user.displayName}</span>
                     {user.reputation ? (
-                      <span className="text-xs px-2.5 bg-secondary leading-none py-1 rounded-full font-medium">
+                      <span className="text-xs px-2.5 bg-tertiary leading-none py-1 rounded-full font-medium">
                         <Currency value={user.reputation} token="REP" />
                       </span>
                     ) : (
@@ -75,7 +75,7 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
             <div className="flex items-center space-x-1.5 pb-1.5 pt-1">
               <span className="text-lg leading-loose font-medium pb-1">{submission.user.displayName}</span>
               {submission.user.reputation ? (
-                <span className="text-xs px-2.5 bg-secondary leading-none py-1 rounded-full font-medium">
+                <span className="text-xs px-2.5 bg-tertiary leading-none py-1 rounded-full font-medium">
                   <Currency value={submission.user.reputation} token="REP" />
                 </span>
               ) : (

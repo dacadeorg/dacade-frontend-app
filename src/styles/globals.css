@@ -2,37 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --surface-text-primary: #271f11;
-  --surface-text-secondary: #4B5563;
-  --surface-text-tertiary: #9CA3AF;
-  --surface-text-label: var(--surface-text-tertiary);
-  --surface-text-disabled: #D1D5D8;
-  --surface-text-invert: #FFFFFF;
-  --surface-text-brand: #1B66F8;
-  --surface-icon-primary: var(--surface-text-primary);
-  --surface-icon-disabled: var(--surface-text-disabled);
-  --surface-icon-invert: var(--surface-text-invert);
-  --surface-bg-primary: var(--surface-text-invert);
-  --surface-bg-secondary:#F9FAFB;
-  --surface-bg-tertiary: #F3F4F6;
-  --surface-bg-disabled: var(--surface-bg-secondary);
-  --surface-bg-highlight: #F5F9FF;
-  --surface-border-primary: #E5E7E8;
-  --surface-border-secondary: var(--surface-text-disabled);
-  --surface-border-inverted: var(--surface-text-invert);
-  --surface-border-brand: #DBEAFE;
-  --status-success-text: #16A34A;
-  --status-success-border: #86EFAC;
-  --status-success-bg: #F0FDF4;
-  --status-warning-text: #7C2D12;
-  --status-warning-border: #FEF3C7;
-  --status-warning-bg: #FEFCE8;
-  --status-danger-text: #DC2626;
-  --status-danger-border: #F87171;
-  --status-danger-bg: #FEF2F2;
-}
-
 
 @font-face {
   font-family: "Graphik";
@@ -130,7 +99,7 @@ body {
 }
 
 .message-bubble {
-  @apply w-72 p-6 rounded-3.5xl rounded-bl-none relative text-base border bg-status-warning-bg border-status-warning-border text-status-warning-text;
+  @apply w-72 p-6 rounded-3.5xl rounded-bl-none relative text-base border bg-warning border-warning text-warning;
 }
 
 @media only screen and (min-width: 992px) {

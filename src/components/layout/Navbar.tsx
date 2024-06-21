@@ -98,7 +98,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
           </NavItem>
         </ul>
         {isAuthenticatedAndVerified && (
-          <ul className="hidden lg:block relative self-center text-surface-text-primary">
+          <ul className="hidden lg:block relative self-center">
             <NavItem to="/bounties">{t("nav.bounties")}</NavItem>
             <NavItem to={"/communities"}>{t("nav.communities")}</NavItem>
             <button type="button" className="nav-item underline underline-offset-2 text-brand bg-transparent p-0 capitalize" onClick={displayJobOffersPopup}>

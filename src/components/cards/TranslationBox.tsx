@@ -135,7 +135,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
       )}
 
       {translatable && (
-        <div className="pt-5 text-gray-400">
+        <div className="pt-5 text-tertiary">
           {loading ? (
             <span>Translating...</span>
           ) : (

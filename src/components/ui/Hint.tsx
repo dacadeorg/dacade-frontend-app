@@ -6,7 +6,7 @@ type HintProps = {
 };
 
 function Hint({ children, className }: HintProps): ReactElement {
-  return <div className={`bg-surface-bg-highlight text-surface-text-brand p-3 border border-surface-border-brand rounded text-base hint-container ${className}`}>{children}</div>;
+  return <div className={`bg-highlight text-brand p-3 border border-light-brand rounded text-base hint-container ${className}`}>{children}</div>;
 }
 
 export default Hint;

@@ -75,7 +75,7 @@ export default function Footer({ backgroundColor = false }: FooterProps): ReactE
 
   return (
     <Section padding="pt-20" type={backgroundColor ? "secondary-light" : "default"}>
-      <div className="py-8 text-surface-text-tertiary text-base text-center border-t border-gray-200 border-surface-border-primary border-t-solid lg:flex md:flex lg:text-left">
+      <div className="py-8 text-tertiary text-base text-center border-t border-primary border-t-solid lg:flex md:flex lg:text-left">
         <div className="w-full border-b border-gray-200 lg:w-1/2 lg:border-none md:border-none border-b-solid">
           <p className="block text-with-links" dangerouslySetInnerHTML={{ __html: t("footer.text") }} />
           <div className="flex items-center justify-center mt-8 mb-12 lg:mb-0 lg:justify-start space-x-9">

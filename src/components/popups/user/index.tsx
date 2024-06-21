@@ -67,10 +67,10 @@ export default function UserPopup({ buttonStyles }: { buttonStyles: CSSPropertie
     <div>
       <div>
         <div className={`inline-block align-middle relative ${show === true ? "z-50" : "z-10"}`} onClick={toggle}>
-          <Button customStyle={buttonStyles} padding={false} variant="secondary" className={`p-0.5 bg-surface-bg-tertiary hover:bg-surface-bg-secondary ${mainWallet ? "pr-5" : ""}`}>
+          <Button customStyle={buttonStyles} padding={false} variant="secondary" className={`p-0.5 bg-tertiary hover:bg-secondary ${mainWallet ? "pr-5" : ""}`}>
             <Avatar user={user as User} useLink={false} hideVerificationBadge />
             {mainWallet ? (
-              <span style={{ color: buttonStyles.color ? buttonStyles.color : undefined }} className="align-middle ml-2.5 font-medium text-surface-text-secondary">
+              <span style={{ color: buttonStyles.color ? buttonStyles.color : undefined }} className="align-middle ml-2.5 font-medium text-secondary">
                 <Currency value={mainWallet.balance} token={mainWallet.token} />
               </span>
             ) : (

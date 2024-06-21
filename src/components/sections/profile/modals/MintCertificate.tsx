@@ -177,7 +177,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
                 </div>
                 <div className="px-3.5 py-2.5 border border-solid rounded">
                   <p>Transaction ID</p>
-                  <p className="text-gray-400">
+                  <p className="text-tertiary">
                     <a href={txURL} target="_blank" className="underline cursor-pointer">
                       {txData?.tx}
                     </a>

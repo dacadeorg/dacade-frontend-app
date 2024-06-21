@@ -32,8 +32,8 @@ export default function Section({ type, padding = "py-4", children, className = 
   const sectionClassName = classNames("relative", className, {
     "bg-white text-gray-900": type === "default",
     "bg-brand text-white": type === "primary",
-    "bg-secondary text-gray-900": type === "secondary",
-    "bg-gray-50 text-gray-900": type === "secondary-light",
+    "bg-tertiary text-gray-900": type === "secondary",
+    "bg-secondary text-gray-900": type === "secondary-light",
   });
 
   return (

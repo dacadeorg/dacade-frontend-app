@@ -66,7 +66,7 @@ export default function NotificationPopup({ buttonStyles }: NotificationPopupPro
             type="button"
             padding={false}
             variant="secondary"
-            className="p-2 bg-surface-bg-tertiary hover:bg-surface-bg-secondary text-surface-text-brand"
+            className="p-2 bg-tertiary hover:bg-secondary text-brand"
             customStyle={buttonStyles}
           >
             <BellIcon />
@@ -80,7 +80,7 @@ export default function NotificationPopup({ buttonStyles }: NotificationPopupPro
               maxHeight: "calc(100vh - 140px)",
               overflow: "hidden scroll",
             }}
-            className="z-50 w-80 absolute top-14 right-0 bg-surface-bg-primary border border-surface-border-primary py-4 px-4.5 rounded-3.5xl text-surface-text-primary no-scrollbar"
+            className="z-50 w-80 absolute top-14 right-0 bg-primary border border-primary py-4 px-4.5 rounded-3.5xl text-primary no-scrollbar"
           >
             <NotificationList extended={false} />
           </div>

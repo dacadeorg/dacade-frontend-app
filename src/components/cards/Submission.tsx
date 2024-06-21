@@ -75,7 +75,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
       teamMembers={members}
       link={link}
       bordered={false}
-      className="pt-6 hover:bg-gray-50 cursor-pointer"
+      className="pt-6 hover:bg-secondary cursor-pointer"
       boxLayout
       onClick={displaySubmission}
     >
