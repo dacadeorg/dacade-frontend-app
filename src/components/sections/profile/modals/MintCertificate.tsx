@@ -203,7 +203,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
           </div>
         </div>
         <div className="flex items-center justify-between mt-8">
-          <a className="text-sm font-medium cursor-pointer text-primary" onClick={onClose}>
+          <a className="text-sm font-medium cursor-pointer text-brand" onClick={onClose}>
             Close
           </a>
           {!minted ? (

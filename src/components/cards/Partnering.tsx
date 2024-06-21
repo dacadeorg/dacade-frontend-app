@@ -22,7 +22,7 @@ export default function PartneringCard() {
             </div>
             <div className="mt-4 align-middle">
               <a href="mailto:moritz@dacade.org">
-                <Button className="hover:bg-primary group-hover:text-white leading-relaxed lg:px-7 px-5 font-medium" variant="outline-primary" type="button" padding={false}>
+                <Button className="hover:bg-brand group-hover:text-white leading-relaxed lg:px-7 px-5 font-medium" variant="outline-primary" type="button" padding={false}>
                   {t("page.index.communities.partnering.button-text")}
                 </Button>
               </a>

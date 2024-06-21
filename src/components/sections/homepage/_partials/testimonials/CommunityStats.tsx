@@ -46,7 +46,7 @@ export default function CommunityStats() {
   );
 
   return (
-    <div className="p-7 bg-primary rounded-3.5xl mx-auto text-surface-text-invert relative md:absolute md:top-28 lg:top-32 xl:w-1/3 md:w-4/6 z-10 sm:max-w-sm">
+    <div className="p-7 bg-brand rounded-3.5xl mx-auto text-surface-text-invert relative md:absolute md:top-28 lg:top-32 xl:w-1/3 md:w-4/6 z-10 sm:max-w-sm">
       <h3 className="m-0 text-4.5xl w-3/4">{t("testimonials.community.title")}</h3>
       <div className="relative divide-y divide-white divide-dotted">
         {formattedStat.map((stat) => (

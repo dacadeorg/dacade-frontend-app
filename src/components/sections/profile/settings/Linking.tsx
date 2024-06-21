@@ -17,7 +17,7 @@ export default function ProfileLinking(): ReactElement {
           </div>
           <div className="text-sm self-center">{t("profile.settings.edit.discord")}</div>
         </div>
-        <div className="flex justify-end text-primary text-sm">
+        <div className="flex justify-end text-brand text-sm">
           {!canConnectDiscord ? (
             <button className="bg-transparent hover:bg-transparent flex justify-end text-gray-400 text-xs">{t("profile.settings.edit.discord.connected")}</button>
           ) : (

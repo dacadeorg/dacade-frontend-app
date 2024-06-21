@@ -72,7 +72,7 @@ export default function Payout({ show, wallet, onClose }: PayoutProps): ReactEle
         </div>
       </div>
       <div className="flex items-center justify-between pb-2 pl-6 pr-2">
-        <span className="text-sm font-medium cursor-pointer text-primary" onClick={onClose}>
+        <span className="text-sm font-medium cursor-pointer text-brand" onClick={onClose}>
           {t("profile.edit.close")}
         </span>
         <ArrowButton loading={loading} disabled={loading} variant="outline-primary" onClick={save}>

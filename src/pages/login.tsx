@@ -132,7 +132,7 @@ export default function Login(): ReactElement {
             </div>
             <div className="flex flex-col justify-between mt-4">
               <div>
-                <span className="text-sm text-primary">
+                <span className="text-sm text-brand">
                   <Link href="/password-reset" className="fs-1 dark-white">
                     {t("login-page.forget-password")}
                   </Link>

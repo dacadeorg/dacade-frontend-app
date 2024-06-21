@@ -149,7 +149,7 @@ input {
   @apply px-5 border border-solid block xl:mx-auto lg:mx-auto lg:w-98 xl:w-98 w-full h-17;
 }
 button {
-  @apply bg-primary px-4 py-2 text-white rounded-full;
+  @apply bg-brand px-4 py-2 text-white rounded-full;
 }
 button,
 .btn {

@@ -14,13 +14,14 @@ module.exports = {
       colors: {
         current: "currentColor",
         "primary-dark": "#205ED7",
-        primary: "#1B66F8",
+        // primary: "#1B66F8",
+        brand: "#1B66F8",
         secondary: "#F3F4F6",
         orange: "rgba(255, 187, 1, 0.17)",
         "orange-light": "rgba(173, 87, 0, 1)",
         "blue-lighter": "#F8FAFF",
         "blue-light": "#DDE9FF",
-        "gray-light": "#1b66f8",
+        // "gray-light": "#1b66f8", // duplicate of primary brand/
         theme: {
           primary: "var(--tm-primary)",
           secondary: "var(--tm-secondary)",
