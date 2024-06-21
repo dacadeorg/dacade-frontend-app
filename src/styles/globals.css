@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
   font-family: "Graphik";
   src: url("/fonts/Graphik-Medium-Web.woff2") format("woff2"), url("/fonts/Graphik-Medium-Web.woff") format("woff");

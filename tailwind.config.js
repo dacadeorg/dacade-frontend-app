@@ -29,9 +29,8 @@ module.exports = {
           muted: "var(--tm-muted)",
         },
         icon: {
-          primary: "var(--surface-icon-primary)",
-          disabled: "var--surface-icon-disabled)",
-          invert: "var(--surface-icon-invert)",
+          primary: "#111827",
+          disabled: "#D1D5D8",
         },
       },
       textColor: {
