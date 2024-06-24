@@ -100,25 +100,25 @@ export const submission: Submission = {
 };
 
 export const mockInvite = {
-  created_at: "tuesday",
+  created_at: new Date().toISOString(),
   id: "invite",
   ref: "invitation ref",
   status: "invitation status",
   team_ref: "team reference",
   timestamp: 3,
-  updated_at: "wednesday",
+  updated_at: new Date().toISOString(),
   user: mockUser,
   user_id: "user id",
 };
 
 export const mockTeamMember: TeamMember = {
-  created_at: "created_at",
+  created_at: new Date().toISOString(),
   id: "id",
   joined_on: "joined_on",
   ref: "ref",
   team_ref: "team reference",
   timestamp: 3,
-  updated_at: "wednesday",
+  updated_at: new Date().toISOString(),
   user: mockUser,
 };
 
