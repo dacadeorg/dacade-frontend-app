@@ -19,7 +19,7 @@ export default function Header({
   isTeamChallenge = false,
   isHackathon = false,
 }: HeaderProps): ReactElement {
-  const headerClassName = classNames("text-4xl leading-8 md:text-5xl lg:leading-11 text-gray-900 -tracking-2", {
+  const headerClassName = classNames("text-4xl leading-8 md:text-5xl lg:leading-13.4 text-gray-900 -tracking-2", {
     "hidden md:flex": hideTitleOnMobile,
   });
 
@@ -28,7 +28,7 @@ export default function Header({
       <h1 className={headerClassName}>{title}</h1>
       <div className="flex items-start gap-1">
         {subtitle && (
-          <h2 className={`text-4xl leading-8 flex items-center font-normal lg:text-5xl lg:leading-11 -tracking-2 ${title ? "text-gray-400" : "text-gray-900"}`}>
+          <h2 className={`text-4xl leading-8 flex items-center font-normal lg:text-5xl lg:leading-13.4 -tracking-2 ${title ? "text-gray-400" : "text-gray-900"}`}>
             {subtitle}
             {isTeamChallenge && (
               <div className="h-full flex -mt-2 items-start ml-2">

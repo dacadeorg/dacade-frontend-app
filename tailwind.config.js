@@ -77,19 +77,19 @@ module.exports = {
         "7.75xl": ["5.75rem", { lineHeight: "5.75rem" }],
       },
       lineHeight: {
-        3.5: "0.825rem",
+        3.3: "0.825rem",
+        4.95:"1.2375rem",
         5.5: "1.375rem",
         7.5: "1.875rem",
-        10.5: "2.75rem",
-        11: "3.3rem",
-        12: "5.75rem",
+        11: "2.75rem",
+        13.4: "3.3rem",
       },
       letterSpacing: {
         1: "0.01em",
         2: "0.02em",
         3: "0.03em",
         4: "0.04em",
-        6: "0.06em"
+        6: "0.06em",
       },
       maxWidth: {
         "3xs": "5rem",

@@ -23,7 +23,7 @@ export default function CommunitySection(): ReactElement {
       <div className="py-2 md:py-8 mx-auto">
         <div className="flex flex-col justify-between lg:flex-row">
           <div className="max-w-md mb-4 md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl lg:mr-6">
-            <h1 className="text-5xl leading-10 sm:text-6.5xl xl:text-7.75xl lg:leading-12 max-w-text-xs -tracking-4">{community?.name}</h1>
+            <h1 className="text-5xl leading-10 sm:text-6.5xl xl:text-7.75xl max-w-text-xs -tracking-4">{community?.name}</h1>
             <p className="mt-8 text-lg leading-5.5 lg:hidden">{community?.summary}</p>
             <p className="hidden mt-4 text-lg leading-6 font-extralight lg:block">{community?.summary}</p>
           </div>
