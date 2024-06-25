@@ -125,7 +125,7 @@ export const mockTeamMember: TeamMember = {
 export const mockTeam: Team = {
   challenge: challenge,
   challenge_ref: "challenge ref",
-  created_at: "created at",
+  created_at: new Date().toISOString(),
   id: "id",
   locked: true,
   name: "Master",
@@ -135,7 +135,7 @@ export const mockTeam: Team = {
   members: [mockTeamMember],
   ref: "",
   timestamp: "",
-  updated_at: "",
+  updated_at: new Date().toISOString(),
 };
 
 export const mockFeedback: Feedback = {

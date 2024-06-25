@@ -14,8 +14,8 @@ export const mockCertificateData = {
 export const Rubric = {
     id: "id",
     ref: "rubric references",
-    created_at: "Wednesday",
-    updated_at: "Thursday",
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
     challenge: "Challenge",
     text: "Challenge text",
     type: "challenge type",

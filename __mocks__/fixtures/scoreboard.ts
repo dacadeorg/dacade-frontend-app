@@ -5,7 +5,7 @@ import { mockUser } from "./user";
 export const mockScoreboard: Scoreboard = {
     id: "id",
     ref: "ref",
-    created_at: "Monday",
+    created_at: new Date().toISOString(),
     updated_at: "February",
     score: 3,
     user_id: "user_id",
