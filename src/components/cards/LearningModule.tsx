@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import ArrowButton from "@/components/ui/button/Arrow";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
@@ -28,9 +28,9 @@ export function LearningModuleCard({ data }: { data: LearningModule }): JSX.Elem
     if (!challenge?.level) return
     if (challenge.level === 0 || challenge.level === 1) return setLevel("course.challenge.level-0");
     return setLevel("course.challenge.level-2");
-  }, [challenge.level]);
+  }, [challenge?.level]);
 
-  const courses = data?.courses.map(course => course.name)
+  const courses = data?.courses.map(course => ({ name: course.name, slug: course.slug }))
 
   return (
     <div className="flex flex-col content-start w-full p-8 rounded-3xl group text-gray-700 border-solid border border-gray-200 gap-8">
@@ -50,10 +50,25 @@ export function LearningModuleCard({ data }: { data: LearningModule }): JSX.Elem
         <div className="text-sm font-normal text-gray-700 max-w-xxs">{data.description}</div>
       </div>
 
-      {courses.length ? <p className="font-medium text-gray text-tertiary text-sm">{t('learning-module.course.other.appearances')}: {courses.map((course, index) => <Link href={`/communities/${community.slug}/challenges/${challenge?.id}/learning-modules/${data.id}`} key={`other-appearance-counse-${index}`} className="underline ml-1">{course}{index !== courses.length - 1 && ","} </Link>)} </p> : <></>}
+      {courses.length ?
+        <p className="font-medium text-gray text-tertiary text-sm">
+          {t('learning-module.course.other.appearances')}
+          {courses.map((course, index) =>
+            <Fragment key={`related-course-${index}`}>
+              <Link
+                key={`other-appearance-course-${index}`}
+                href={`/communities/${community.slug}/courses/${course?.slug}`}
+                className="hover:underline ml-1">{course.name}
+              </Link>
+              {index !== courses.length - 1 && ","}
+            </Fragment>
+          )}
+        </p>
+        :
+        <></>}
 
       <div className="w-full mb-0 justify-self-end">
-        <Link href={"#"}>
+        <Link href={`/communities/${community.slug}/challenges/${challenge?.id}/learning-modules/${data.id}`}>
           <ArrowButton communityStyles={true} variant="outline-primary">
             Start now
           </ArrowButton>

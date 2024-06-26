@@ -10,6 +10,7 @@ export const DurationCard = ({ value, type = "gray" }: { value: number, type?: s
             if (!value) {
                 return 0;
             }
+            if (Number(value) !== value) return value
             return DateManager.humanize(value, router.locale as string);
         };
     }, [router.locale]);

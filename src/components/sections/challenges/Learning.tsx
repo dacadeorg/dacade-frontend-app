@@ -1,7 +1,7 @@
-import React from "react";
 import Accordion from "@/components/ui/accordion/Accordion";
 import Section from "@/components/sections/communities/_partials/Section";
-import LearningCard from "@/components/cards/challenge/_partials/Learning"; import { LearningModuleCard } from "@/components/cards/LearningModule";
+import LearningCard from "@/components/cards/challenge/_partials/Learning";
+import { LearningModuleCard } from "@/components/cards/LearningModule";
 import { Course, LearningModule } from "@/types/course";
 import { Community } from "@/types/community";
 import { useTranslation } from "next-i18next";
@@ -37,7 +37,6 @@ export default function Learning({ courses, learningModules, community }: { cour
                 <LearningModuleCard
                   key={`related-learning-card-${learning.id}`}
                   data={learning}
-                // path={`/communities/${community.slug}/challenges/${challenge?.id}/learning-modules/${learning.id}`}
                 />
               ))}
             </div>
