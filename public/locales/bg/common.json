@@ -90,9 +90,10 @@
   "page.protocols.contact.title.2": "Business Development",
   "page.protocols.contact.email.2": "Paul@dacade.org",
   "communities.overview.challenges.title": "Предизвикателства",
-  "communities.overview.challenges.description": "В курсовете на тази общност ще имате възможност да научите за нови технологии, да решавате предизвикателства, да получавате обратна връзка и да печелите награди.",
+  "communities.overview.challenges.description": "В предизвикателствата можете да се справите с практически задачи, да получите конструктивна обратна връзка и да спечелите награди за постиженията си.",
   "communities.overview.learning-materials.title": "учебни материали",
-  "communities.overview.learning-materials.description": "В курсовете на тази общност ще имате възможност да научите за нови технологии, да решавате предизвикателства, да получавате обратна връзка и да печелите награди.",
+
+  "communities.overview.learning-materials.description": "В учебните материали можете да изследвате разнообразие от курсове и кратки модули, за да научите за нови технологии и да подобрите уменията си.",
   "communities.overview.challenge": "Creative Challenge",
   "communities.overview.chapter": "Chapter Overview",
   "communities.overview.learning-modules": "Learning Modules",
