@@ -12,6 +12,8 @@ import { fetchAllChallenges } from "@/store/services/communities/challenges";
 import { NotFoundError } from "@/utilities/errors/NotFoundError";
 import { fetchAllScoreboards } from "@/store/services/communities/scoreboard.service";
 import { useTranslation } from "next-i18next";
+import { fetchCommunities } from "@/services/community";
+import { GetStaticPathsContext } from "next";
 
 export default function Slug(props: {
   pageProps: {
@@ -41,7 +43,7 @@ Slug.getLayout = function (page: ReactElement) {
   return <CommunityLayout>{page}</CommunityLayout>;
 };
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ params, locale }) => {
+export const getStaticProps = wrapper.getStaticProps((store: any) => async ({ locale, params }) => {
   try {
     const slug = params?.slug as string;
 
@@ -59,6 +61,8 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
         scoreboard,
         ...translations,
       },
+      // TODO: Need to discuss how long we want to set the revalidation timeout
+      revalidate: 60,
     };
   } catch (error) {
     return {
@@ -66,3 +70,18 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
     };
   }
 });
+
+export const getStaticPaths = async (context: GetStaticPathsContext) => {
+  const locale = context.defaultLocale;
+  const communities = await fetchCommunities({ locale: locale ?? "en" });
+  const paths = communities.map((community) => ({
+    params: {
+      slug: community.slug,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: "blocking",
+  };
+};
