@@ -1,7 +1,7 @@
 import DateManager from "@/utilities/DateManager";
 import classNames from "classnames";
 import { useRouter } from "next/router";
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback } from "react";
 
 interface DurationBadgeProps {
   value: number;
@@ -14,9 +14,6 @@ export default function DurationBadge({ value, type = "gray" }: DurationBadgePro
     if (!value) return 0;
     return DateManager.humanize(value, locale);
   }, []);
-  const duration = useMemo(() => {
-    return getDuration(value, router.locale as string);
-  }, [router.locale, value, getDuration]);
   return (
     <div
       className={classNames("text-xxs uppercase font-semibold px-2 rounded-3xl inline-block text-gray-500 text-nowrap", {
@@ -24,7 +21,7 @@ export default function DurationBadge({ value, type = "gray" }: DurationBadgePro
         "border border-gray-200": type === "bordered",
       })}
     >
-      {duration}
+      {getDuration(value, router.locale as string)}
     </div>
   );
 }
