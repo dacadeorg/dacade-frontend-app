@@ -2,33 +2,44 @@ import Header from "@/components/sections/communities/_partials/Header";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
+const headerProps = {
+  description: "Test Description",
+  title: "Test Title",
+  subtitle: "Test Subtitle",
+  isTeamChallenge: true,
+  isHackathon: true,
+};
+
 describe("Header", () => {
   it("renders the Header with Props", () => {
-    render(<Header description="Test Description" title="Test Title" subtitle="Test Subtitle" isTeamChallenge={true} isHackathon={true} />);
-    expect(screen.getByText("Test Description")).toBeInTheDocument();
-    expect(screen.getByText("Test Title")).toBeInTheDocument();
-    expect(screen.getByText("Test Subtitle")).toBeInTheDocument();
-    expect(screen.getByText("Hackathon")).toBeInTheDocument();
+    render(
+      <Header
+        description={headerProps.description}
+        title={headerProps.title}
+        subtitle={headerProps.subtitle}
+        isTeamChallenge={headerProps.isTeamChallenge}
+        isHackathon={headerProps.isHackathon}
+      />
+    );
+    expect(screen.getByRole("heading", { name: headerProps.title })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: new RegExp(headerProps.subtitle) })).toBeInTheDocument();
+    expect(screen.getByTestId("tag")).toBeInTheDocument();
+    expect(screen.getByText(headerProps.description)).toBeInTheDocument();
   });
 
   it("does not render subtitle when not provided", () => {
     render(<Header />);
-    expect(screen.queryByText("Test Subtitle")).not.toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: new RegExp(headerProps.subtitle) })).toBe(null);
+    expect(screen.queryByRole("tag")).toBe(null);
   });
 
-  it("conditionally renders the description", () => {
-    render(<Header description="Test Description" />);
-    expect(screen.getByText("Test Description")).toBeInTheDocument();
-  });
-
-  it("renders 'TEAM' tag when isTeamChallenge is true and isHackathon is false", () => {
-    render(<Header subtitle="Test Subtitle" isTeamChallenge={true} isHackathon={false} />);
+  it("renders 'TEAM' if isHackathon is false", () => {
+    render(<Header subtitle={headerProps.subtitle} isTeamChallenge={headerProps.isTeamChallenge} />);
     expect(screen.getByText("TEAM")).toBeInTheDocument();
   });
 
-  it("does not render 'TEAM' or 'Hackathon' tag when isTeamChallenge is false", () => {
-    render(<Header />);
-    expect(screen.queryByText("TEAM")).not.toBeInTheDocument();
-    expect(screen.queryByText("Hackathon")).not.toBeInTheDocument();
+  it("renders 'Hackathon' if isHackathon is true", () => {
+    render(<Header subtitle={headerProps.subtitle} isTeamChallenge={headerProps.isTeamChallenge} isHackathon={headerProps.isHackathon} />);
+    expect(screen.getByText("Hackathon")).toBeInTheDocument();
   });
 });
