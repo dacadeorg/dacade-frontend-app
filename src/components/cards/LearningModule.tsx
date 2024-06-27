@@ -34,7 +34,7 @@ export function LearningModuleCard({ data }: { data: LearningModule }): JSX.Elem
 
   return (
     <div className="flex flex-col content-start w-full p-8 rounded-3xl group text-gray-700 border-solid border border-gray-200 gap-8">
-      <div className="flex text-xs items-center justify-between">
+      <div className="flex flex-wrap gap-2 text-xs items-center justify-between">
         <div className="gap-2 flex items-center">
           <div className="h-4.5 w-4.5 rounded-sm" style={{ backgroundColor: colors?.primary }} />
           <span className="uppercase font-semibold">{t("communities.card.module")}</span>
