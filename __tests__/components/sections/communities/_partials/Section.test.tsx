@@ -23,7 +23,6 @@ describe("section", () => {
         <div>community section child</div>
       </Section>
     );
-    const communitySectionChildren = screen.getByText("community section child");
-    expect(communitySectionChildren).toBeInTheDocument();
+    expect(screen.getByText("community section child")).toBeInTheDocument();
   });
 });

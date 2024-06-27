@@ -17,10 +17,10 @@ describe("ScoreboardOverview", () => {
   };
 
   it("displays the scoreboard overview", () => {
-    renderWithRedux(<ScoreboardOverview testId="scoreboardId" />, {
+    renderWithRedux(<ScoreboardOverview />, {
       scoreboard: { list: [mockScoreboard], loading: true, filterBy: "" },
     });
-    expect(screen.getByTestId("scoreboardId")).toBeInTheDocument();
+    expect(screen.getByTestId("loader")).toBeInTheDocument();
   });
 
   it("renders scoreboard cards when not loading and list is not empty", () => {

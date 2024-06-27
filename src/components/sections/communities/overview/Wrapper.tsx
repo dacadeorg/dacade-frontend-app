@@ -20,7 +20,7 @@ interface WrapperProps {
  * @returns {JSX.Element} A styled Wrapper component containing a MainHeaderSection, CommunitySidebar, 
  * optional filter component, and children content.
  */
-export default function Wrapper({ children, filter, testId }: WrapperProps): JSX.Element {
+export default function Wrapper({ children, filter, testId = "wrapperId" }: WrapperProps): JSX.Element {
   return (
     <div data-testid={testId} className="relative">
       <MainHeaderSection />

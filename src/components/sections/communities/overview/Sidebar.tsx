@@ -4,10 +4,6 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import classNames from "classnames";
 
-interface SidebarProps {
-  testId?: string;
-}
-
 /**
  * @interface SidebarProps
  * @description The props for the Sidebar component.
@@ -18,7 +14,7 @@ interface SidebarProps {
  * @param {} SidebarProps - The props for the Sidebar component.
  * @returns JSX.Element - The rendered Sidebar component.
  */
-export default function Sidebar({ testId }: SidebarProps): JSX.Element {
+export default function Sidebar(): JSX.Element {
   const currentCommunity = useSelector((state) => state.communities.current);
   const hasCurrentCommunity = !!currentCommunity; // Check if currentCommunity exists
   const router = useRouter();
@@ -32,20 +28,19 @@ export default function Sidebar({ testId }: SidebarProps): JSX.Element {
   const isActive = (link: string) => {
     return router.asPath === link;
   };
-
   const scoreboardLink = hasCurrentCommunity ? `/communities/${currentCommunity.slug}/scoreboard` : "";
   const mainLink = hasCurrentCommunity ? `/communities/${currentCommunity.slug}` : "";
 
   return (
-    <div data-testid={testId} className="flex flex-col md:divide-y divide-solid divide-gray-100 w-full text-gray-700 space-y-6">
-      <Link href={mainLink}>
+    <div className="flex flex-col md:divide-y divide-solid divide-gray-100 w-full text-gray-700 space-y-6">
+      <Link href={mainLink} aria-label="main link">
         <div className={isActive(mainLink) ? "" : "opacity-80"}>
           <div className="font-medium text-.5xl leading-snug">{t("communities.overview.challenges.title")}</div>
           <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0">{t("communities.overview.challenges.description")} </div>
         </div>
       </Link>
       {hasCurrentCommunity && (
-        <Link href={scoreboardLink}>
+        <Link href={scoreboardLink} aria-label="scoreboard link">
           <div className={classNames("pt-6", { "opacity-80 md:block hidden scroll-smooth": isActive(scoreboardLink) })}>
             <div className="font-medium text-.5xl leading-snug">{t("communities.overview.scoreboard.title")}</div>
             <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0">{t("communities.overview.scoreboard.description")}</div>

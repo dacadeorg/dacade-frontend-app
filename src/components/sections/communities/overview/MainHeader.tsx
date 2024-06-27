@@ -3,11 +3,6 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import { ReactElement } from "react";
-
-interface CommunitySectionProps {
-  testId?: string;
-}
-
 /**
  * Represents the Community Section
  * @date 4/13/2023 - 5:56:41 AM
@@ -15,16 +10,15 @@ interface CommunitySectionProps {
  * @export
  * @returns {ReactElement}
  */
-export default function CommunitySection({ testId }: CommunitySectionProps): ReactElement {
+export default function CommunitySection(): ReactElement {
   const { t } = useTranslation();
   const community = useSelector((state) => state.communities.current);
-
   const submissions = community?.metadata?.submissions || 0;
   const feedbacks = community?.metadata?.feedbacks || 0;
 
   return (
     <Section className="bg-theme-primary text-theme-text">
-      <div data-testid={testId} className="py-2 md:py-8 mx-auto">
+      <div className="py-2 md:py-8 mx-auto">
         <div className="flex flex-col justify-between lg:flex-row">
           <div className="max-w-md mb-4 md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl lg:mr-6">
             <h1 className="text-5xl tracking-tight sm:text-6.5xl xl:text-7.75xl max-w-text-xs">{community?.name}</h1>

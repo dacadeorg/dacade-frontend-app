@@ -11,7 +11,6 @@ describe("SectionWrapper", () => {
         <div>Test Children</div>
       </SectionWrapper>
     );
-
     expect(screen.getByText(title)).toBeInTheDocument();
     expect(screen.getByText(description)).toBeInTheDocument();
     expect(screen.getByText("Test Children")).toBeInTheDocument();
@@ -23,9 +22,8 @@ describe("SectionWrapper", () => {
         <div>Test Children</div>
       </SectionWrapper>
     );
-
-    expect(screen.queryByText("Test Title")).not.toBeInTheDocument();
-    expect(screen.queryByText("Test Description")).not.toBeInTheDocument();
+    expect(screen.queryByText("Test Title")).toBe(null);
+    expect(screen.queryByText("Test Description")).toBe(null);
     expect(screen.getByText("Test Children")).toBeInTheDocument();
   });
 });
