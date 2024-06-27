@@ -26,7 +26,7 @@ interface SubmissionListMultiSelector {
  * Submission list component
  * @returns {ReactElement}
  */
-export default function SubmissionList(): ReactElement {
+export default function SubmissionList({ testId = "SubmissionListId" }: { testId?: string }): ReactElement {
   const { t } = useTranslation();
   const { community, submissions, feedbacks } = useMultiSelector<unknown, SubmissionListMultiSelector>({
     community: (state: IRootState) => state.profileCommunities.current,
@@ -37,7 +37,7 @@ export default function SubmissionList(): ReactElement {
   const navigation = useNavigation();
 
   return (
-    <div>
+    <div data-testid={testId}>
       {submissions && submissions.length !== 0 ? (
         <div className="py-10">
           <p className="font-medium text-xs text-gray-600 uppercase">{t("communities.submissions")}</p>
