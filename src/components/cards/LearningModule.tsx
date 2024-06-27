@@ -3,7 +3,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import Tag from "../ui/Tag";
-import { DurationCard } from "../ui/Duration";
+import { DurationCard } from "@/components/badges/Duration";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { IRootState } from "@/store";
 import { LearningModule } from "@/types/course";
@@ -37,7 +37,7 @@ export function LearningModuleCard({ data }: { data: LearningModule }): JSX.Elem
       <div className="flex text-xs items-center justify-between">
         <div className="gap-2 flex items-center">
           <div className="h-4.5 w-4.5 rounded-sm" style={{ backgroundColor: colors?.primary }} />
-          <span className="uppercase">{t("communities.card.module")}</span>
+          <span className="uppercase font-semibold">{t("communities.card.module")}</span>
         </div>
         <div className="gap-2 flex items-center">
           <Tag className="uppercase">{t(level)}</Tag>
@@ -70,7 +70,7 @@ export function LearningModuleCard({ data }: { data: LearningModule }): JSX.Elem
       <div className="w-full mb-0 justify-self-end">
         <Link href={`/communities/${community.slug}/challenges/${challenge?.id}/learning-modules/${data.id}`}>
           <ArrowButton communityStyles={true} variant="outline-primary">
-            Start now
+            {t("communities.overview.challenge.learning.start")}
           </ArrowButton>
         </Link>
       </div>

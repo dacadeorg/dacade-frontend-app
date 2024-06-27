@@ -1,7 +1,7 @@
 import useNavigation from "@/hooks/useNavigation";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
-import { DurationCard } from "../ui/Duration";
+import { DurationCard } from "../badges/Duration";
 
 /**
  * LearningModule interface
