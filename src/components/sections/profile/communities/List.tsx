@@ -26,7 +26,7 @@ interface SubmissionListMultiSelector {
  * Submission list component
  * @returns {ReactElement}
  */
-export default function SubmissionList({testId = "SubmissionListId"}: {testId?: string}): ReactElement {
+export default function SubmissionList({ testId = "SubmissionListId" }: { testId?: string }): ReactElement {
   const { t } = useTranslation();
   const { community, submissions, feedbacks } = useMultiSelector<unknown, SubmissionListMultiSelector>({
     community: (state: IRootState) => state.profileCommunities.current,

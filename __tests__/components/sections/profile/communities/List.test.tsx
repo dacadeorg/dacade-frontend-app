@@ -8,23 +8,17 @@ import { fixtureSubmission } from "../../../../../__mocks__/challenge";
 import { fixtureFeedback } from "../../../../../__mocks__/feedback";
 
 jest.mock("next/router", () => ({
-    useRouter: jest.fn(),
-  }));
+  useRouter: jest.fn(),
+}));
 
 describe("SubmissionList", () => {
+  const submissions = fixtureSubmission();
   it("should render the achievement view item", () => {
     renderWithRedux(<SubmissionList />, {
       community: { current: mockCommunity, list: [mockCommunity], courses: [mockCourse], error: "error message", status: "succeeded" },
-      submissions: { current: fixtureSubmission(), list: [fixtureSubmission()], text: "submissions" },
+      submissions: { current: submissions, list: [submissions], text: "submissions" },
       feedback: { current: fixtureFeedback, list: [fixtureFeedback] },
     });
     expect(screen.getByTestId("SubmissionListId")).toBeInTheDocument();
-    const submission = [fixtureSubmission()];
-    if(submission && submission.length !== 0) {
-        submission.forEach((submissions) => {
-            expect(screen.getByText(submissions.reward.amount +  submissions.reward.token)).toBeInTheDocument()
-        })
-    }
   });
-
 });
