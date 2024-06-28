@@ -97,7 +97,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
             )}
             {submission.metadata && submission.metadata.evaluation ? (
               <div className="inline-flex flex-1 items-center space-x-1">
-                <Badge customStyle={badgeButtonStyles} size="medium" className="relative" value={submission.metadata.evaluation.points} />
+                <Badge customStyle={badgeButtonStyles} className="relative" value={submission.metadata.evaluation.points} />
                 <span className="text-sm leading">{t("submissions.evaluation.points")}</span>
               </div>
             ) : (

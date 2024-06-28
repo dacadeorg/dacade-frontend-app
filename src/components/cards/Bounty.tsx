@@ -85,12 +85,10 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
                 customStyle={{
                   bottom: "-4px",
                   right: "-4px",
-                  fontSize: 14,
                   backgroundColor: bounty.colors.accent,
                 }}
-                size="medium"
                 value={bounty?.unreviewedSubmissionsCount}
-                className="bottom-0 -right-1 absolute p-4"
+                className="bottom-0 -right-1 absolute"
               />
             )}
           </Component>
@@ -145,12 +143,10 @@ export default function BountyCard({ bounty }: BountyProps): ReactElement {
             customStyle={{
               bottom: "-4px",
               right: "-4px",
-              fontSize: 14,
               backgroundColor: bounty.colors.accent,
             }}
-            size="medium"
             value={bounty?.unreviewedSubmissionsCount}
-            className="bottom-0 -right-1 absolute p-4"
+            className="bottom-0 -right-1 absolute"
           />
         )}
       </Component>

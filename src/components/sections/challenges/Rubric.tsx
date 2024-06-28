@@ -90,12 +90,12 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
             <div>
               {ratingCriteria.map((criteria, i) => (
                 <div key={`rating-criteria-item-${i}`} className="mt-6">
-                  <span className="block text-sm capitalize font-medium">{criteria.name}</span>
+                  <span className="block text-base capitalize font-medium">{criteria.name}</span>
                   <div className="grid grid-cols-1 sm:space-y-4 space-y-0 md:space-y-0 md:grid-cols-2 lg:grid-cols-4 mt-3 sm:gap-y-5 gap-y-2 gap-x-3">
                     {criteria.rubric.map((rubric, k) => (
                       <div
                         key={`criteria-rubic-item-${k}`}
-                        className={`text-sm border border-transparent sm:border-gray-200 px-0 py-2 sm:p-3.5 rounded-2xl ${
+                        className={`text-sm lg:text-base leading-6 border border-transparent sm:border-gray-200 px-0 py-2 sm:p-3.5 rounded-2xl ${
                           selected?.length && !selectedRubric(rubric.id) ? "opacity-40" : "relative"
                         }`}
                       >

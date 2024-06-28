@@ -21,7 +21,7 @@ export function OverviewRewards(): ReactElement {
 
   return (
     <Section title={`${t("communities.overview.reward.title")}`}>
-      <p className="my-6 text-lg">{t("course.challenge.reward.certificate.description")}</p>
+      <p className="my-6 text-base">{t("course.challenge.reward.certificate.description")}</p>
       <div className="text-sm mt-6 flex gap-8 w-full md:w-2/3 items-center">
         <div>
           <Certificate size="medium" name={router.query?.slug as string} />

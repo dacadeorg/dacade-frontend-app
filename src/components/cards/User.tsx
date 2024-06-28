@@ -92,7 +92,6 @@ export default function UserCard({ boxLayout, link, bordered, expanded, user, ba
               <Badge
                 value={badge}
                 className="absolute"
-                size="medium"
                 customStyle={{
                   bottom: "-1px",
                   right: "-3px",
