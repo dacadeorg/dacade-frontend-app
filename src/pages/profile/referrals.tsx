@@ -90,7 +90,7 @@ export default function UserReferrals(): ReactElement {
               {isLoadingMore && <Loader loading={isLoadingMore} className="absolute left-6 -bottom-7.5" onClick={() => nextPage()} />}
             </div>
           ) : (
-            <div className="w-full border bg-gray-50 border-gray-200 border-solid rounded-3xl text-gray-500 p-6.5 font-semibold">{t('referrals.empty-state.subtitle')}</div>
+            <div className="w-full border bg-secondary border-gray-200 border-solid rounded-3xl text-gray-500 p-6.5 font-semibold">{t('referrals.empty-state.subtitle')}</div>
           )}
         </div>
       </ProfileOverviewSection>

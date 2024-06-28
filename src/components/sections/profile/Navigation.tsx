@@ -104,8 +104,8 @@ export default function ProfileNagivation(): ReactElement {
           <ProfileOverviewSection title={menu.title}>
             <ul className="space-y-4 flex flex-col">
               {menu.items.map((item, k) => (
-                <li key={`profile-menu-subItem-${k}`} className="text-sm relative text-primary">
-                  <Link href={item.link} className={`relative text-gray-500 ${isCurrentMenuItem(item) && "text-primary"}`}>
+                <li key={`profile-menu-subItem-${k}`} className="text-sm relative text-brand">
+                  <Link href={item.link} className={`relative text-gray-500 ${isCurrentMenuItem(item) && "text-brand"}`}>
                     {isCurrentMenuItem(item) && (
                       <span className="!inline-block absolute -left-6 nav-icon">
                         <ChevronRightIcon />

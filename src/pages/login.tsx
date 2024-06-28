@@ -87,7 +87,7 @@ export default function Login(): ReactElement {
 
   if (isFetchingUser || authUser) {
     return (
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 h-full w-full -translate-y-1/2 z-999 flex items-center justify-center bg-white">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 h-full w-full -translate-y-1/2 z-999 flex items-center justify-center bg-primary">
         <Loader />
       </div>
     );
@@ -102,7 +102,7 @@ export default function Login(): ReactElement {
         <form className="content-wrapper" onSubmit={handleSubmit(onSubmit)}>
           <div className="mx-auto lg:w-98 xl:w-98">
             <div>
-              <h1 className="my-5 text-5xl">{t("login-page.signin.title")}</h1>
+              <h1 className="my-5 text-5xl text-primary">{t("login-page.signin.title")}</h1>
             </div>
             <div className="relative mb-5">
               <div>
@@ -132,7 +132,7 @@ export default function Login(): ReactElement {
             </div>
             <div className="flex flex-col justify-between mt-4">
               <div>
-                <span className="text-sm text-primary">
+                <span className="text-sm text-brand">
                   <Link href="/password-reset" className="fs-1 dark-white">
                     {t("login-page.forget-password")}
                   </Link>

@@ -37,7 +37,7 @@ interface InterractiveAswerProps {
  */
 export default function InteractiveModuleAnswer({ correct = false, selected = false, text = "", disable = false, onChange, timerCount = 0 }: InterractiveAswerProps): ReactElement {
   const borderColor = useMemo(() => (!selected ? "border-gray-200" : correct ? "border-green-200 divide-green-200" : "border-red-200 divide-red-200"), [correct, selected]);
-  const bannerColor = !selected ? null : correct ? "bg-green-100 text-green-600" : "bg-red-100 text-red-900";
+  const bannerColor = !selected ? null : correct ? "bg-green-100 text-success" : "bg-red-100 text-red-900";
   const errorMessage = !timerCount ? "This answer is wrong. Try again!" : `This answer is wrong. Try again in ${timerCount} seconds`;
 
   return (
@@ -52,7 +52,7 @@ export default function InteractiveModuleAnswer({ correct = false, selected = fa
             checked={selected}
             disabled={disable}
             communityStyles={correct}
-            className={!correct ? "text-red-900" : "!text-green-600"}
+            className={!correct ? "text-red-900" : "!text-success"}
             onChange={() => {
               onChange?.();
             }}

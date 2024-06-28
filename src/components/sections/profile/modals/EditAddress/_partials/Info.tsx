@@ -33,7 +33,7 @@ export function WalletInfo({ address, onClick, connectionMethod }: Props) {
         <p className="text-base font-medium">{t(address ? "profile.edit.wallet.current.address" : "profile.edit.wallet.input.label.manual")}</p>
 
         {address && (
-          <span className="ml-auto text-base font-medium cursor-pointer text-primary" onClick={onClick}>
+          <span className="ml-auto text-base font-medium cursor-pointer text-brand" onClick={onClick}>
             {t("profile.edit.wallet.button.change")}
           </span>
         )}

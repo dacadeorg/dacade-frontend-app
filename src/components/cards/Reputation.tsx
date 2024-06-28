@@ -32,7 +32,7 @@ interface ReputationCardProps {
  */
 export default function ReputationCard({ details = {} }: ReputationCardProps): ReactElement {
   return (
-    <div className="flex space-x-3 text-left hover:bg-gray-50 py-3 -mx-5 px-5 relative">
+    <div className="flex space-x-3 text-left hover:bg-secondary py-3 -mx-5 px-5 relative">
       <Avatar
         icon={details.community?.icon}
         color={details.community?.colors?.cover?.background || details.community?.colors.primary}

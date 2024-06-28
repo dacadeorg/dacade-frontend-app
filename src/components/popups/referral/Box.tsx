@@ -65,7 +65,7 @@ export default function Box({ value = null, label = null }: BoxProps): ReactElem
   }, [timeoutId]);
 
   return (
-    <div className="relative flex items-center justify-between border border-solid p-2.5 text-gray-500 rounded border-gray-200 bg-gray-50">
+    <div className="relative flex items-center justify-between border border-solid p-2.5 text-gray-500 rounded border-gray-200 bg-secondary">
       <div className="text-left flex-grow w-2/5 md:w-3/4">
         <label className="relative block text-xs md:text-sm">{label}</label>
         <div className="text-base md:text-lg mt-0.5 w-full truncate">{value}</div>

@@ -38,7 +38,7 @@ export default function Referral({ referral }: ReferralProps): ReactElement {
     return date ? DateManager.fromNow(date, locale) : null
   }
   return (
-    <div className="text-sm text-gray-700 bg-gray-50 md:mb-0 p-7">
+    <div className="text-sm text-gray-700 bg-secondary md:mb-0 p-7">
       <div className="w-full">
         <div className="flex gap-4 ">
           <Avatar size="large" user={referral.user} hideVerificationBadge />

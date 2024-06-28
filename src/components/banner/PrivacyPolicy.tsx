@@ -33,7 +33,7 @@ export default function PrivacyPolicyBanner(): ReactElement {
 
   if (showBanner)
     return (
-      <div className="fixed bottom-0 left-0 right-0 z-999 flex flex-row justify-center md:justify-between bg-primary">
+      <div className="fixed bottom-0 left-0 right-0 z-999 flex flex-row justify-center md:justify-between bg-brand">
         <div className="text-white py-8 text-center mx-auto lg:text-base text-sm md:text-lg justify-center md:max-w-none px-6">
           {t("signup-page.privacy.text")}{" "}
           <Link href="/privacy-policy" className="underline">

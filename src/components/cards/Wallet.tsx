@@ -78,7 +78,7 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
       <div className="relative lg:flex md:flex sm:flex rounded-3.5xl">
         {showEditModal && <EditAddress show={showEditModal} onClose={onClose} wallet={wallet} />}
         <Payout wallet={wallet} show={showPayoutModal} onClose={onClose} />
-        <div className="bg-gray-50 lg:w-60 md:w-60 sm:w-60 rounded-3.5xl">
+        <div className="bg-secondary lg:w-60 md:w-60 sm:w-60 rounded-3.5xl">
           <div className="p-6">
             <div className="border-b border-dotted border-gray-900">
               <h1 className="text-2xl">{wallet.title}</h1>

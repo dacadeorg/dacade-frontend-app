@@ -67,7 +67,7 @@ export default function DiscordDisconnect({ show, onClose }: DiscordDisconnectPr
         </p>
       </div>
       <div className="flex items-center justify-between pt-4 pb-2 pl-6 pr-6">
-        <span className="text-sm font-medium cursor-pointer text-primary self-end mb-4" onClick={onClose}>
+        <span className="text-sm font-medium cursor-pointer text-brand self-end mb-4" onClick={onClose}>
           {t("profile.header.discord.close")}
         </span>
         {!disconnectLoading && !discordDisconnectSuccess && (

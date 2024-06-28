@@ -15,7 +15,7 @@ export default function FaqCard(): ReactElement {
   const { t } = useTranslation();
 
   return (
-    <div className="py-5 md:py-10 w-full bg-gray-50">
+    <div className="py-5 md:py-10 w-full bg-secondary">
       <div className="w-full content-wrapper divide-y divide-2 lg:divide-0 lg:divide-y-0 divide-gray-200 flex flex-col lg:flex-row">
         <div className="w-full lg:w-1/2 lg:min-w-xs text-gray-900 text-2xl md:text-4xl font-medium pb-5 flex-row">
           <div>{t("faq.title")}</div>

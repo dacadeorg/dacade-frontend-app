@@ -57,7 +57,7 @@ export default function LanguageList({ onSelect }: LanguageSwitcherProps): React
               </span>
             </div>
             {locale === selected && (
-              <div className="text-primary">
+              <div className="text-brand">
                 <Checkmark />
               </div>
             )}

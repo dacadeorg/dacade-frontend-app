@@ -125,7 +125,7 @@ export default function ChallengePage() {
           <MetaData description={challenge?.description} />
         </Head>
         <Wrapper paths={headerPaths}>
-          <div className="flex flex-col py-4 text-gray-700 divide-y divide-gray-200 divide-solid">
+          <div className="flex flex-col py-4 divide-y divide-gray-200 divide-solid">
             <Header />
             <Rewards />
             <Objectives />

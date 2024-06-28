@@ -27,7 +27,7 @@ interface AddressProps {
 export default function Address({ hasAddress }: AddressProps): ReactElement {
   const { t } = useTranslation();
   return (
-    <div className="lg:pt-5 sm:pt-5 md:pt-5 pt-14 absolute text-sm lg:text-gray-700 md:text-gray-700 sm:text-gray-700 cursor-pointer text-primary font-medium lg:font-normal md:font-normal sm:font-normal">
+    <div className="lg:pt-5 sm:pt-5 md:pt-5 pt-14 absolute text-sm lg:text-gray-700 md:text-gray-700 sm:text-gray-700 cursor-pointer text-brand font-medium lg:font-normal md:font-normal sm:font-normal">
       {hasAddress ? (
         <div>
           <Link href="#">{t("profile.wallets.address-set")}</Link>

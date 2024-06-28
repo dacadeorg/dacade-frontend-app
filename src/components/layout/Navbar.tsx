@@ -101,7 +101,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
           <ul className="hidden lg:block relative self-center">
             <NavItem to="/bounties">{t("nav.bounties")}</NavItem>
             <NavItem to={"/communities"}>{t("nav.communities")}</NavItem>
-            <button type="button" className="nav-item underline underline-offset-2 text-primary bg-transparent p-0 capitalize" onClick={displayJobOffersPopup}>
+            <button type="button" className="nav-item underline underline-offset-2 text-brand bg-transparent p-0 capitalize" onClick={displayJobOffersPopup}>
               {t("job.offers.title")}
             </button>
           </ul>
@@ -129,7 +129,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
                     <NavItem type="item" to="/login">
                       <span
                         className={classNames("py-2 text-sm", {
-                          "text-primary": router.pathname === "/signup",
+                          "text-brand": router.pathname === "/signup",
                           inherit: router.pathname !== "/signup",
                         })}
                       >
@@ -143,7 +143,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
                     {router.pathname === "/login" && <span className="text-sm">{t("nav.signin.new-accout")}</span>}
                     <NavItem type="item" to="/signup">
                       {router.pathname === "/login" ? (
-                        <span className="py-2 text-sm text-primary">{t("nav.sign-up")}</span>
+                        <span className="py-2 text-sm text-brand">{t("nav.sign-up")}</span>
                       ) : (
                         <Button
                           variant="secondary"
@@ -154,7 +154,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
                           rounded={false}
                           onClick={() => null}
                           className={classNames("text-sm py-2", {
-                            "text-primary": router.pathname === "/login",
+                            "text-brand": router.pathname === "/login",
                             "text-gray-900": router.pathname !== "/login",
                           })}
                         >

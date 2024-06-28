@@ -105,7 +105,7 @@ export default function NotificationCard({ user = {}, notification, extended = f
 
   return (
     <>
-      <div onClick={goToLink} className={`flex hover:bg-gray-50 py-4 -mx-5 px-5 cursor-pointer ${extended ? "rounded-3xl" : ""}`}>
+      <div onClick={goToLink} className={`flex hover:bg-secondary py-4 -mx-5 px-5 cursor-pointer ${extended ? "rounded-3xl" : ""}`}>
         <div className="flex mr-2">
           <Avatar user={user} size="medium-fixed" className="!w-10 !h-10" />
         </div>

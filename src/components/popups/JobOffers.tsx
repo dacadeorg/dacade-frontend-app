@@ -41,7 +41,7 @@ export default function JobOffers() {
             </Link>
           </div>
           <div className="absolute top-5 right-5 w-fit h-fit">
-            <Button type="button" padding={false} variant="secondary" className="p-1 bg-gray-100 hover:bg-gray-50 text-gray-900 absolute top-0" onClick={toggle}>
+            <Button type="button" padding={false} variant="secondary" className="p-1 bg-gray-100 hover:bg-secondary text-gray-900 absolute top-0" onClick={toggle}>
               <CloseIcon className="block" />
             </Button>
           </div>

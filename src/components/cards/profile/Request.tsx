@@ -47,7 +47,7 @@ export default function Request(): ReactElement {
 
         <div className="md:pl-4 py-4 md:py-0">4 Pending invitations</div>
       </div>
-      <Link href={`/profile/referrals`} className="text-primary flex items-center justify-between gap-4 cursor-pointer">
+      <Link href={`/profile/referrals`} className="text-brand flex items-center justify-between gap-4 cursor-pointer">
         <span>See all</span>
         <Right />
       </Link>

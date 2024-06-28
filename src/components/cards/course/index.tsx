@@ -38,7 +38,7 @@ export default function CourseCard({ course, community }: CourseCardProps): Reac
   const reward = course?.challenge?.rewards?.find((entity) => entity.type === "SUBMISSION");
 
   return (
-    <div className="flex flex-col sm:flex-row p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 bg-gray-50 rounded-3xl group text-gray-700 sm:p-7 mb-4 w-full border-solid border border-gray-200">
+    <div className="flex flex-col sm:flex-row p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 bg-secondary rounded-3xl group text-gray-700 sm:p-7 mb-4 w-full border-solid border border-gray-200">
       <div className="flex flex-col sm:pr-20 justify-between w-full sm:w-3/5 lg:w-2/3 pb-6 sm:pb-0">
         <div className="flex flex-col">
           <div className="text-lg font-medium leading-normal">{t(course.name)}</div>

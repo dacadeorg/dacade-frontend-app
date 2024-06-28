@@ -63,10 +63,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (
   const labelClasssName = classNames(
     "absolute top-0 left-0 text-lg px-5 py-5 z-10 h-full pointer-events-none transform origin-left transition-all duration-100 ease-in-out items-center",
     {
-      "text-gray-400 flex items-center": !isFilled && !isFocused,
-      "text-gray-400 scale-75 -translate-y-3 translate-x-1": isFocused || isFilled,
+      "text-tertiary flex items-center": !isFilled && !isFocused,
+      "text-tertiary scale-75 -translate-y-3 translate-x-1": isFocused || isFilled,
       "text-red-600": error,
-      "text-gray-400": !isFocused && isFilled,
+      "text-tertiary": !isFocused && isFilled,
       "text-blue-500": isFocused && !error,
     }
   );
@@ -77,7 +77,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (
 
   const inputElementClassName = classNames(
     "rounded-md focus:outline-none focus:shadow-sm w-full",
-    { "text-gray-400 bg-gray-50": disabled, "border-red-100 rounded-b-none": error, "focus:border-gray-200 border-gray-200": !error },
+    { "text-tertiary bg-secondary": disabled, "border-red-100 rounded-b-none": error, "focus:border-gray-200 border-gray-200": !error },
     inputClass,
     fontSizeClasses()
   );

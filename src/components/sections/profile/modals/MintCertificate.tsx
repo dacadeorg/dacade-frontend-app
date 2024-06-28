@@ -177,7 +177,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
                 </div>
                 <div className="px-3.5 py-2.5 border border-solid rounded">
                   <p>Transaction ID</p>
-                  <p className="text-gray-400">
+                  <p className="text-tertiary">
                     <a href={txURL} target="_blank" className="underline cursor-pointer">
                       {txData?.tx}
                     </a>
@@ -203,7 +203,7 @@ export default function MintCertificate({ show, close }: { show: boolean; wallet
           </div>
         </div>
         <div className="flex items-center justify-between mt-8">
-          <a className="text-sm font-medium cursor-pointer text-primary" onClick={onClose}>
+          <a className="text-sm font-medium cursor-pointer text-brand" onClick={onClose}>
             Close
           </a>
           {!minted ? (
