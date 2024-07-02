@@ -2,8 +2,8 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { CoursesOverview } from "@/components/sections/communities/overview/Courses";
 import { renderWithRedux } from "@__mocks__/renderWithRedux";
-import { mockCourse } from "@__mocks__/course";
-import { mockCommunity } from "@__mocks__/community";
+import { mockCourse } from "@__mocks__/fixtures/course";
+import { mockCommunity } from "@__mocks__/fixtures/community";
 
 describe("CoursesOverview", () => {
   it("renders the courses overview section with course cards", () => {

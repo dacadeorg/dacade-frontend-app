@@ -2,9 +2,9 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import CommunitySection from "@/components/sections/communities/overview/MainHeader";
 import { renderWithRedux } from "@__mocks__/renderWithRedux";
-import { mockCommunity } from "@__mocks__/community";
-import { mockCourse } from "@__mocks__/course";
 import { CommunitiesState } from "@/store/feature/community.slice";
+import { mockCommunity } from "@__mocks__/fixtures/community";
+import { mockCourse } from "@__mocks__/fixtures/course";
 
 describe("MainHeader", () => {
   const communityMockState = {

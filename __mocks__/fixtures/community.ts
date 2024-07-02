@@ -1,7 +1,7 @@
 import { Community } from "@/types/community";
 import { colors } from "./colors";
 
-export const metadata = {
+export const mockMetadata = {
   invite_id: "abc123",
   submissions: 5,
   bestSubmissions: ["submission1", "submission2"],
@@ -19,7 +19,7 @@ export const metadata = {
   submission: "submission_details",
 };
 
-const reward = {
+const mockReward = {
   id: "123456789",
   ref: "ref123",
   created_at: new Date("2024-01-29T08:00:00Z"),
@@ -46,10 +46,10 @@ export const mockCommunity: Community = {
   slug: "ae",
   active: true,
   description: "this is a aeternity community",
-  metadata,
+  metadata: mockMetadata,
   timestamp: 182044800000,
-  rewards: [reward],
-  reward,
+  rewards: [mockReward],
+  reward: mockReward,
   courses: 3,
   duration: 4,
   can_mint_certificates: true,

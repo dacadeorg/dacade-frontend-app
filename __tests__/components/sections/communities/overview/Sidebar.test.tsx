@@ -2,8 +2,8 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import Sidebar from "@/components/sections/communities/overview/Sidebar";
-import { mockCourse } from "@__mocks__/course";
-import { mockCommunity } from "@__mocks__/community";
+import { mockCourse } from "@__mocks__/fixtures/course";
+import { mockCommunity } from "@__mocks__/fixtures/community";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({

@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import { fireEvent, screen } from "@testing-library/react";
 import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import ScoreboardOverview from "@/components/sections/communities/overview/scoreboard";
-import { mockScoreboard } from "@__mocks__/scoreboard";
+import { mockScoreboard } from "@__mocks__/fixtures/scoreboard";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({

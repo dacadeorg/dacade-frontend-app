@@ -1,34 +1,18 @@
 import { mockFormat, mockCertificateData, mockCourse, mockLearningModule, mockRatingCriteria } from "./course";
-import { mockCommunity, metadata } from "./community";
+import { mockCommunity, mockMetadata } from "./community";
 import { reward } from "./reward";
-import { KYCSTATUS } from "@/store/feature/kyc.slice";
-import { Submission, User } from "@/types/bounty";
-import { AdditionalInfo } from "@/types/course";
+import { Submission } from "@/types/bounty";
+import { AdditionalInfo, Challenge } from "@/types/course";
 import { TEAM_FORMATION } from "@/constants/challengeInfo";
 import { Team, TeamMember } from "@/types/challenge";
+import { Feedback } from "@/types/feedback";
+import { mockUser } from "./user";
 
-export const mockUser = (): User => ({
-  id: "user_id",
-  ref: "ref",
-  created_at: new Date("2022-05-01T12:00:00Z"),
-  firstName: "John Doe",
-  displayName: "John Doe",
-  uid: "uuid-uuido-232-dex0232-2331",
-  joined: "14 days ago",
-  disabled: false,
-  reputation: 0,
-  username: "",
-  lastName: "",
-  emailVerified: false,
-  email: "",
-  kycStatus: KYCSTATUS.PENDING,
-});
+export const mockAdditionalInfo: { [type: string]: AdditionalInfo } = {
+  type: { type: "additional type", text: "additional text" },
+};
 
-export const mockAdditionalInfo: {[type: string]: AdditionalInfo } = {
-  "type": {type: "additional type", text: "additional text"},
-}
-
-export const challenge = () => ({
+export const challenge: Challenge = {
   id: "challenge",
   ref: "challenge ref",
   created_at: new Date("2022-05-01T12:00:00Z"),
@@ -44,7 +28,7 @@ export const challenge = () => ({
   threshold: 8,
   community: mockCommunity,
   reviewTime: 9,
-  metadata: metadata,
+  metadata: mockMetadata,
   level: 58,
   courses: [mockCourse],
   learningModules: [mockLearningModule],
@@ -64,13 +48,13 @@ export const challenge = () => ({
   isHackathon: false,
   additionalInfo: {
     [TEAM_FORMATION]: {
-      type: 'teamFormation',
-      text: 'Form your team details here'
-    }
-  }
-});
+      type: "teamFormation",
+      text: "Form your team details here",
+    },
+  },
+};
 
-export const submission = (): Submission => ({
+export const submission: Submission = {
   length: 0,
   id: "submission_id",
   ref: "reference",
@@ -79,11 +63,10 @@ export const submission = (): Submission => ({
   link: "/submissions/reference",
   community: mockCommunity,
   user_id: "user_id",
-  challenge: challenge(),
+  challenge: challenge,
   text: "Submission",
   reviewDeadline: new Date(),
   metadata: {
-    evaluation: "",
     applicableReward: {
       ref: "",
       amount: 0,
@@ -99,52 +82,74 @@ export const submission = (): Submission => ({
     reviewed: false,
     feedbacks: 0,
     language: "",
+    evaluation: {
+      points: 8,
+      reward: reward,
+      score: 80,
+      totalPoints: 10,
+    },
   },
   timestamp: 0,
-  user: mockUser(),
+  user: mockUser,
   reviewable: false,
   status: "",
   reward: reward,
-  map: function () {
+  map: () => {
     throw new Error("Function not implemented.");
   },
-});
+};
 
 export const mockInvite = {
-  created_at: "tuesday",
+  created_at: new Date().toISOString(),
   id: "invite",
   ref: "invitation ref",
   status: "invitation status",
   team_ref: "team reference",
   timestamp: 3,
-  updated_at: "wednesday",
-  user: mockUser(),
+  updated_at: new Date().toISOString(),
+  user: mockUser,
   user_id: "user id",
-}
+};
 
 export const mockTeamMember: TeamMember = {
-  created_at: "created_at",
+  created_at: new Date().toISOString(),
   id: "id",
   joined_on: "joined_on",
   ref: "ref",
   team_ref: "team reference",
   timestamp: 3,
-  updated_at: "wednesday",
-  user: mockUser(),
-}
+  updated_at: new Date().toISOString(),
+  user: mockUser,
+};
 
 export const mockTeam: Team = {
-  challenge: challenge(),
+  challenge: challenge,
   challenge_ref: "challenge ref",
-  created_at: "created at",
+  created_at: new Date().toISOString(),
   id: "id",
   locked: true,
   name: "Master",
-  organizer: mockUser(),
+  organizer: mockUser,
   organizer_id: "organizer id",
   invites: [mockInvite],
   members: [mockTeamMember],
   ref: "",
   timestamp: "",
-  updated_at: ""
-}
+  updated_at: new Date().toISOString(),
+};
+
+export const mockFeedback: Feedback = {
+  submission: submission,
+  id: "234-4231243",
+  ref: "feedbacks/234-4231243",
+  created_at: new Date(),
+  updated_at: "",
+  criteria: ["criteria 1", "criteria 2"],
+  positive: false,
+  name: "The person who made a submission",
+  challenge: "challenge name",
+  timestamp: undefined,
+  user: mockUser,
+  ranking: 0,
+  text: "I am providing a feedback",
+};

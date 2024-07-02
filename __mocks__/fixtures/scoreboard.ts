@@ -1,10 +1,11 @@
+
 import { Scoreboard } from "@/types/scoreboard";
-import { mockUser } from "./challenge";
+import { mockUser } from "./user";
 
 export const mockScoreboard: Scoreboard = {
     id: "id",
     ref: "ref",
-    created_at: "Monday",
+    created_at: new Date().toISOString(),
     updated_at: "February",
     score: 3,
     user_id: "user_id",
@@ -15,5 +16,5 @@ export const mockScoreboard: Scoreboard = {
     entity: "feedback entity",
     feedbackPoints: 0,
     timestamp: 4,
-    user: mockUser(),
+    user: mockUser,
 }

@@ -1,7 +1,7 @@
 import Video from "@/components/ui/Video";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { video } from "../../../__mocks__/video";
+import { video } from "../../../__mocks__/fixtures/video";
 
 describe("Video", () => {
   it("should render the video", () => {
