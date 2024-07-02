@@ -5,7 +5,6 @@ import { useTranslation } from "next-i18next";
 import { ReactElement, useState } from "react";
 import Loader from "@/components/ui/Loader";
 import EmptyState from "@/components/ui/EmptyState";
-
 /**
  * Scoreboard Overview index component
  * @date 4/13/2023 - 10:12:04 AM

@@ -3,7 +3,6 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import { ReactElement } from "react";
-
 /**
  * Represents the Community Section
  * @date 4/13/2023 - 5:56:41 AM
@@ -14,7 +13,6 @@ import { ReactElement } from "react";
 export default function CommunitySection(): ReactElement {
   const { t } = useTranslation();
   const community = useSelector((state) => state.communities.current);
-
   const submissions = community?.metadata?.submissions || 0;
   const feedbacks = community?.metadata?.feedbacks || 0;
 

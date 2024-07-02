@@ -25,7 +25,7 @@ interface Option {
  * @type {Option[]}
  */
 
-const filterOptions: Option[] = [
+ export const filterOptions: Option[] = [
   {
     label: "All",
     value: "all",
@@ -51,7 +51,7 @@ const filterOptions: Option[] = [
  * @type {Option[]}
  */
 
-const sortingOptions: Option[] = [
+ export const sortingOptions: Option[] = [
   {
     label: "Reputation",
     value: "score",

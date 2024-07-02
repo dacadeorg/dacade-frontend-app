@@ -28,20 +28,19 @@ export default function Sidebar(): JSX.Element {
   const isActive = (link: string) => {
     return router.asPath === link;
   };
-
   const scoreboardLink = hasCurrentCommunity ? `/communities/${currentCommunity.slug}/scoreboard` : "";
   const mainLink = hasCurrentCommunity ? `/communities/${currentCommunity.slug}` : "";
 
   return (
     <div className="flex flex-col md:divide-y divide-solid divide-gray-100 w-full text-gray-700 space-y-6">
-      <Link href={mainLink}>
+      <Link href={mainLink} aria-label="main link">
         <div className={isActive(mainLink) ? "" : "opacity-80"}>
           <div className="font-medium text-.5xl leading-snug">{t("communities.overview.challenges.title")}</div>
           <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0">{t("communities.overview.challenges.description")} </div>
         </div>
       </Link>
       {hasCurrentCommunity && (
-        <Link href={scoreboardLink}>
+        <Link href={scoreboardLink} aria-label="scoreboard link">
           <div className={classNames("pt-6", { "opacity-80 md:block hidden scroll-smooth": isActive(scoreboardLink) })}>
             <div className="font-medium text-.5xl leading-snug">{t("communities.overview.scoreboard.title")}</div>
             <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0">{t("communities.overview.scoreboard.description")}</div>
