@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom";
-import { renderWithRedux } from "@__mocks__/renderWithRedux";
-import BestSubmissions from "@/components/sections/submissions/BestSubmissions";
 import { screen } from "@testing-library/react";
-import { challenge, submission } from "@__mocks__/challenge";
+import { challenge, submission } from "@__mocks__/fixtures/challenge";
+import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
+import BestSubmissions from "@/components/sections/submissions/BestSubmissions";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -15,11 +15,11 @@ jest.mock("next/router", () => ({
 const mockBestSubmissions = {
   challenges: {
     current: {
-      ...challenge(),
-      bestSubmissions: [submission()],
+      ...challenge,
+      bestSubmissions: [submission],
     },
-    list: [challenge()],
-    submission: submission(),
+    list: [challenge],
+    submission: submission,
     loading: true,
   },
 };

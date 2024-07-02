@@ -46,19 +46,19 @@ export default function Evaluations({testId = "evaluationsId" }: EvaluationsProp
     <div data-testid={testId}>
       <EvaluationCard evaluation={evaluation}>
         <>
-          {challenge && <RatingRubric hideTitle ratingCriteria={challenge.ratingCriteria} selected={evaluation.criteria} />}
+          {challenge && <RatingRubric hideTitle ratingCriteria={challenge.ratingCriteria} selected={evaluation?.criteria} />}
           <div className="grid grid-cols-1 mt-3 space-y-4 md:space-y-0 md:grid-cols-2 lg:grid-cols-4 gap-y-5 gap-x-5">
             <div className="text-sm">
               <span className="block font-medium">{t("communities.challenge.evaluation.total")}</span>
               <span className="text-xl" style={{ color: colors?.textAccent }}>
-                {evaluation.points}
+                {evaluation?.points}
               </span>
               <span style={{ color: colors?.textAccent }}>
                 /{evaluation?.totalPoints}
                 {t("communities.challenge.evaluation.points")}
               </span>
             </div>
-            {evaluation.reward && (
+            {evaluation?.reward && (
               <div className="relative text-sm">
                 {challenge?.isHackathon ? (
                   <>

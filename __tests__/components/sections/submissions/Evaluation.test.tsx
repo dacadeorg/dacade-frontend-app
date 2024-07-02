@@ -1,6 +1,6 @@
 import Evaluations from "@/components/sections/submissions/Evaluation";
-import { challenge, submission } from "@__mocks__/challenge";
-import { colors } from "@__mocks__/colors";
+import { challenge, submission } from "@__mocks__/fixtures/challenge";
+import { colors } from "@__mocks__/fixtures/colors";
 import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
@@ -15,12 +15,12 @@ const mockEvaluationState = {
   ui: { colors: colors, locked: false, showReferralPopup: false, showJobOffersPopup: false },
   submissions: {
     current: {
-      ...submission(),
+      ...submission,
     },
-    list: [submission()],
+    list: [submission],
     text: "",
   },
-  challenges: { current: challenge(), list: [challenge()], submission: submission(), loading: false },
+  challenges: { current: challenge, list: [challenge], submission: submission, loading: false },
 };
 
 describe("Evaluations", () => {
@@ -32,7 +32,7 @@ describe("Evaluations", () => {
 
   it("Should render RatingRubric when the challenge is present", () => {
     renderWithRedux(<Evaluations />, mockEvaluationState);
-    const ratingCriteriaName = challenge().ratingCriteria[0].name;
+    const ratingCriteriaName = challenge.ratingCriteria[0].name;
     const ratingRubric = screen.getByText(ratingCriteriaName);
     expect(ratingRubric).toBeInTheDocument();
   });
@@ -42,12 +42,12 @@ describe("Evaluations", () => {
       ...mockEvaluationState,
       challenges: {
         ...mockEvaluationState.challenges,
-        current: { ...challenge(), isHackathon: false },
+        current: { ...challenge, isHackathon: false },
       },
     };
 
     renderWithRedux(<Evaluations />, nonHackathonState);
-    const token = submission().evaluation?.reward?.token;
+    const token = submission.evaluation?.reward?.token;
     if (token) {
       expect(screen.getByText(token)).toBeInTheDocument();
     }
@@ -58,7 +58,7 @@ describe("Evaluations", () => {
       ...mockEvaluationState,
       challenges: {
         ...mockEvaluationState.challenges,
-        current: { ...challenge(), isHackathon: true },
+        current: { ...challenge, isHackathon: true },
       },
     };
 
