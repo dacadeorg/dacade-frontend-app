@@ -18,6 +18,7 @@ import { ReactElement, useMemo, useEffect, useState } from "react";
  */
 interface SubmissionCard {
   submission: Submission;
+  testId?: string;
 }
 
 /**
@@ -30,7 +31,7 @@ interface SubmissionCard {
 }
  * @returns {ReactElement}
  */
-export default function SubmissionCard({ submission }: SubmissionCard): ReactElement {
+export default function SubmissionCard({ submission, testId = "submissionCardId" }: SubmissionCard): ReactElement {
   const router = useRouter();
   const navigation = new CommunityNavigation(router);
   const [membersWithOrganiser, setMembersWithOrganiser] = useState<User[]>([]);
@@ -51,7 +52,7 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
   }, []);
 
   return (
-    <div className="bg-gray-50 text-sm text-gray-700 border-solid border border-gray-200 rounded-3xl mb-5 md:mb-0">
+    <div data-testid={testId} className="bg-gray-50 text-sm text-gray-700 border-solid border border-gray-200 rounded-3xl mb-5 md:mb-0">
       <Link href={navigation.submissionPath(submission.id)}>
         <div className="p-7">
           {membersWithOrganiser?.length ? (
