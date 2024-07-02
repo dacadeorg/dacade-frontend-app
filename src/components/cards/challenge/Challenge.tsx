@@ -2,11 +2,11 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { Community } from "@/types/community";
 import { Challenge } from "@/types/course";
 import Link from "next/link";
-import Badges from "./Badges";
 import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import RewardCertificate from "./RewardCertificate";
+import Badges from "@/components/badges";
 
 /**
  * `ChallengeCard` is a function component that renders a card
