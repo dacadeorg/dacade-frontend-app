@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { useRouter } from "next/router";
 import List from "@/components/sections/submissions/List";
-import { submission } from "../../../../__mocks__/challenge";
+import { submission } from "../../.../../../../__mocks__/fixtures/challenge";
 import React from "react";
 
 jest.mock("next/router", () => ({
@@ -13,9 +13,9 @@ jest.mock("next/router", () => ({
 const mockState = {
   submissions: {
     current: {
-      ...submission(),
+      ...submission,
     },
-    list: [submission(), submission(), submission()],
+    list: [submission, submission, submission],
     hasMore: true,
     text: "",
   },
@@ -24,7 +24,7 @@ const mockState = {
 const mockEmptyState = {
   submissions: {
     current: {
-      ...submission(),
+      ...submission,
     },
     list: [],
     hasMore: false,

@@ -1,5 +1,5 @@
 import View from "@/components/sections/submissions/View";
-import { submission } from "../../../../__mocks__/challenge";
+import { submission } from "../../.../../../../__mocks__/fixtures/challenge";
 import { renderWithRedux } from "../.../../../../../__mocks__/renderWithRedux";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
@@ -13,9 +13,9 @@ jest.mock("next/router", () => ({
 const mockStateWithSubmission = {
   submissions: {
     current: {
-      ...submission(),
+      ...submission,
     },
-    list: [submission()],
+    list: [submission],
     text: "",
   },
 };
