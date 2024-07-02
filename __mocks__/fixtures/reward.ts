@@ -10,4 +10,9 @@ export const reward = {
   stable: false,
   amount: 10,
   timestamp: 10,
-};
+  distribution: {
+    first: 1,
+    second: 2,
+    third: 3
+  }
+}
