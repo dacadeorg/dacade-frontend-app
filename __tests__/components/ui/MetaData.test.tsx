@@ -3,16 +3,17 @@ import { getMetadataDescription } from "@/utilities/Metadata";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 
-describe("MetaData", () => {
-  const description = "Test description";
+const description = "Test description";
+const expectedMetaTags = getMetadataDescription(description);
 
-  it("should render metaData", () => {
+describe("MetaData", () => {
+  it("should render metaData tags", () => {
     render(<MetaData description={description} />);
-    const metadata = screen.queryByTestId("meta-id");
-    expect(metadata).toBeInTheDocument();
+    const metaTags = screen.getAllByTestId("meta-id");
+    expect(metaTags).toHaveLength(expectedMetaTags.length);
   });
 
-  it("should render meta tags", () => {
+  it("should render the correct content in the meta tags", () => {
     render(<MetaData description={description} />);
     const mockMetas = getMetadataDescription(description);
     mockMetas.forEach((meta, index) => {
