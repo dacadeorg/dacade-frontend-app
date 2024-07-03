@@ -128,6 +128,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
   }, [translated]);
 
   const translatable = currentLocale !== defaultLocale && !disabled && getLocaleName(defaultLocale);
+  console.log({description} , getLocaleName(currentLocale))
   return (
     <div className="relative w-full pb-5">
       {currentText ? (
