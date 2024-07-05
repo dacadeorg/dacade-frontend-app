@@ -2,8 +2,9 @@ import Form from "@/components/sections/feedbacks/Form"
 import "@testing-library/jest-dom"
 import { fireEvent, screen } from "@testing-library/react"
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
-import { colors } from "../../../../__mocks__/colors";
-import { challenge, challengeSliceData, mockUser } from "../../../../__mocks__/fixtures/challenge";
+import { mockUser } from "@__mocks__/fixtures/user";
+import { colors } from "@__mocks__/fixtures/colors";
+import { challenge, challengeSliceData } from "@__mocks__/fixtures/challenge";
 jest.mock("next/router", () => ({
     useRouter: () => ({
         push: jest.fn(),
@@ -13,7 +14,7 @@ jest.mock("next/router", () => ({
 const handleSave = jest.fn()
 
 const user = {
-    data: mockUser(),
+    data: mockUser,
     userBalance: null,
     balance: null,
     walletAddresses: null,
@@ -56,7 +57,7 @@ describe('FeedbackForm', () => {
             ui, user, challenges: {
                 ...challengeSliceData,
                 current: {
-                    ...challenge(),
+                    ...challenge,
                     format: {
                         githubLink: false,
                         text: true,

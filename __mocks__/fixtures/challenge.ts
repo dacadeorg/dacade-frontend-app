@@ -170,3 +170,11 @@ export const mockFeedback: Feedback = {
   ranking: 0,
   text: "I am providing a feedback",
 };
+
+export const challengeSliceData = {
+  current: challenge,
+  list: [challenge],
+  submission: submission,
+  loading: false
+
+}

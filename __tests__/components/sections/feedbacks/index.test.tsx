@@ -2,7 +2,8 @@ import Feedback from "@/components/sections/feedbacks"
 import "@testing-library/jest-dom"
 import { screen } from "@testing-library/react"
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
-import { challengeSliceData, mockUser, submission } from "../../../../__mocks__/fixtures/challenge";
+import { challengeSliceData, submission } from "../../../../__mocks__/fixtures/challenge";
+import { mockUser } from "@__mocks__/fixtures/user";
 
 
 jest.mock("next/router", () => ({
@@ -19,7 +20,7 @@ jest.mock("next/router", () => ({
 }));
 
 const authData = {
-    data: mockUser(),
+    data: mockUser,
     userBalance: null,
     balance: null,
     walletAddresses: null,
@@ -55,8 +56,8 @@ describe('Feedback', () => {
             auth: { ...authData, data: null },
             challenges: challengeSliceData,
             submissions: {
-                current: submission(),
-                list: [submission()],
+                current: submission,
+                list: [submission],
                 text: "string"
             }
         })
