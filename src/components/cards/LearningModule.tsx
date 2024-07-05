@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useMemo } from "react";
 import ArrowButton from "@/components/ui/button/Arrow";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
@@ -16,7 +16,6 @@ import { LearningModule } from "@/types/course";
  * Component that displays related learning material with a title, description, and "Start now" button.
  */
 export function LearningModuleCard({ data }: { data: LearningModule }): JSX.Element {
-  const [level, setLevel] = useState("");
   const { t } = useTranslation()
   const { challenge, community, colors } = useMultiSelector<any, any>({
     challenge: (state: IRootState) => state.challenges.current,
@@ -24,10 +23,9 @@ export function LearningModuleCard({ data }: { data: LearningModule }): JSX.Elem
     colors: (state: IRootState) => state.ui.colors
   })
 
-  useEffect(() => {
-    if (!challenge?.level) return
-    if (challenge.level === 0 || challenge.level === 1) return setLevel("course.challenge.level-0");
-    return setLevel("course.challenge.level-2");
+  const level = useMemo(() => {
+    const value = challenge?.level;
+    return t((value === 0 || value === 1) ? "course.challenge.level-0" : "course.challenge.level-2");
   }, [challenge?.level]);
 
   const courses = data?.courses.map(course => ({ name: course.name, slug: course.slug }))
@@ -40,7 +38,7 @@ export function LearningModuleCard({ data }: { data: LearningModule }): JSX.Elem
           <span className="uppercase font-semibold">{t("communities.card.module")}</span>
         </div>
         <div className="gap-2 flex items-center">
-          <Tag className="uppercase">{t(level)}</Tag>
+          {challenge.level && <Tag className="uppercase">{level}</Tag>}
           <DurationCard value={data.duration} type="bordered" />
         </div>
       </div>
