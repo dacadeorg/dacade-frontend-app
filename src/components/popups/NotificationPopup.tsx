@@ -70,7 +70,7 @@ export default function NotificationPopup({ buttonStyles }: NotificationPopupPro
             customStyle={buttonStyles}
           >
             <BellIcon />
-            {unread > 0 && <Badge value={unread} className="top-0 -right-1 absolute" />}
+            {unread > 0 && <Badge value={unread} className="top-0 -right-1 absolute"  size="small"/>}
           </Button>
         </li>
         {isNotificationVisible && (

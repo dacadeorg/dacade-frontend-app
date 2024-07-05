@@ -26,7 +26,7 @@ export default function Learning({ title, description, link }: LearningProps): J
     <div className="flex flex-col gap-3 relative bg-primary p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group sm:p-7 border-solid border border-primary">
       <div className="flex flex-col justify-between w-full sm:pb-0">
         <div className="flex flex-col">
-          <div className="text-lg font-medium leading-normal text-primary">{title}</div>
+          <div className="text-base font-medium leading-6 text-primary">{title}</div>
           <div className="text-sm font-normal text-secondary mt-3 max-w-xxs pb-6 mb-5">{description}</div>
         </div>
         <div className="absolute bottom-0 pb-4">

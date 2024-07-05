@@ -162,7 +162,7 @@ export default function Submission(): ReactElement {
                     />
                   </div>
                   {challenge.format.githubLink && (
-                    <div className="w-full m-0 text-lg py-0 leading-none items-center space-x-2">
+                    <div className="w-full m-0 text-base py-0 leading-none items-center space-x-2">
                       <div>
                         <GithubLinkInput
                           id="input-github"

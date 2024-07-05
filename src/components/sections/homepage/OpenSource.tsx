@@ -13,7 +13,7 @@ import { useTranslation } from "next-i18next";
 export default function OpenSource() {
   const { t } = useTranslation();
   return (
-    <div className="text-4xl lg:text-5xl pt-24 flex flex-col text-wrap space-y-2">
+    <div className="text-4xl lg:text-5xl leading-10 lg:leading-13.4 pt-24 flex flex-col text-wrap space-y-2 -tracking-2 md:-tracking-6 xl:-tracking-2">
       <p className="text-primary">
         {t("footer.open.source")}
         <br className="block md:hidden lg:block" />
