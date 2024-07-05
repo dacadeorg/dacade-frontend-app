@@ -67,7 +67,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
         <div className="mx-auto relative rounded-full mb-5 w-[147px] h-[184px]">
           <Image src={data?.certificateData?.icon} alt="achievement" fill priority />
         </div>
-        <div className="">
+        <div>
           <h1 className="font-bold text-tertiary text-xs uppercase pb-3 leading-3.3 tracking-3">{t("communities.overview.challenge.unlock.certificate")}</h1>
           <RewardCertificate rewards={data?.rewards} />
         </div>

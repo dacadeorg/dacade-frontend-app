@@ -29,7 +29,7 @@ export function OverviewRewards(): ReactElement {
         <div className="flex flex-col lg:flex-row justify-between gap-2 items-start w-full">
           <div className="flex flex-col text-primary w-full lg:w-1/2">{challenge?.rewards && <RewardCertificate rewards={challenge?.rewards} isReward />}</div>
           {!challenge?.isHackathon && (
-            <div className="pb-1.5 border-b border-primary text-primary w-full lg:w-1/2">{t("communities.overview.challenge.participate", { token: token })}</div>
+            <div className="pb-1.5 border-b border-primary text-primary w-full lg:w-1/2 text-base">{t("communities.overview.challenge.participate", { token: token })}</div>
           )}
         </div>
       </div>
