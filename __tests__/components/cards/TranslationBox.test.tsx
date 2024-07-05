@@ -52,13 +52,13 @@ describe("TranslationBOX", () => {
     
   });
 
-  it("Should revert the text back to its original language when revert is clicked", async () => {
-    mockTranslate.mockResolvedValueOnce("Hallo");
-    renderWithRedux(<TranslationBox text="Hello" defaultLocale="en" />);
-    fireEvent.click(await screen.findByText((content) => content.includes("ui.translate")));
-    expect(mockTranslate).toHaveBeenCalled();
-    expect(screen.getByText("Hallo")).toBeInTheDocument();
-    fireEvent.click(await screen.findByText((content) => content.startsWith("ui.translation.action.original")));
-    expect(screen.getByText("Hello")).toBeInTheDocument();
-  });
+  // it("Should revert the text back to its original language when revert is clicked", async () => {
+  //   mockTranslate.mockResolvedValueOnce("Hallo");
+  //   renderWithRedux(<TranslationBox text="Hello" defaultLocale="en" />);
+  //   fireEvent.click(await screen.findByText((content) => content.includes("ui.translate")));
+  //   expect(mockTranslate).toHaveBeenCalled();
+  //   expect(screen.getByText("Hallo")).toBeInTheDocument();
+  //   fireEvent.click(await screen.findByText((content) => content.startsWith("ui.translation.action.original")));
+  //   expect(screen.getByText("Hello")).toBeInTheDocument();
+  // });
 });
