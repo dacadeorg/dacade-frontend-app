@@ -51,7 +51,7 @@ describe("User card component", () => {
     expect(screen.getByTestId("tag")).toBeInTheDocument();
   });
 
-  test("Calls onClock prop when clicked", () => {
+  test("Calls onClick prop when clicked", () => {
     fireEvent.click(screen.getByTestId("userId"));
     expect(handleClick).toHaveBeenCalled();
   });
