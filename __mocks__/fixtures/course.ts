@@ -15,8 +15,8 @@ export const mockCertificateData = {
 export const Rubric = {
     id: "id",
     ref: "rubric references",
-    created_at: new Date("2022-05-01T12:00:00Z"),
-    updated_at: new Date("2022-05-01T12:00:00Z"),
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
     challenge: "Challenge",
     text: "Challenge text",
     type: "challenge type",
@@ -95,6 +95,7 @@ export const mockLearningModule: LearningModule = {
 export const mockCourse: Course = {
     id: "course",
     ref: "course ref",
+    translations: ["these are the translations"],
     created_at: new Date("2022-05-01T12:00:00Z"),
     updated_at: new Date("2022-05-01T12:00:00Z"),
     duration: 3,
@@ -125,7 +126,6 @@ export const mockCourse: Course = {
         items: ["item 1", "item 2"],
         hint: "prerequisite hint",
     },
-    translations: ["course translations"]
 };
 
 export const mockFormat: Format = {
@@ -133,4 +133,3 @@ export const mockFormat: Format = {
     text: true,
     disclaimer: true,
 };
-

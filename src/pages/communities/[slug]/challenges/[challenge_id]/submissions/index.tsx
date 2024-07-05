@@ -4,26 +4,19 @@ import Header from "@/components/sections/communities/_partials/Header";
 import Wrapper from "@/components/sections/courses/Wrapper";
 import SubmissionList from "@/components/sections/submissions/List";
 import MetaData from "@/components/ui/MetaData";
-import useNavigation from "@/hooks/useNavigation";
-import { useDispatch } from "@/hooks/useTypedDispatch";
-import { useMultiSelector } from "@/hooks/useTypedSelector";
-import { IRootState, wrapper } from "@/store";
-import { showSubmission } from "@/store/feature/communities/challenges/submissions";
-import { initChallengeNavigationMenu } from "@/store/feature/communities/navigation.slice";
-import { toggleBodyScrolling } from "@/store/feature/ui.slice";
+import useSubmissionNavigation from "@/hooks/useSubmissionNavigation";
+import { wrapper } from "@/store";
 import { fetchAllSubmission, fetchChallenge } from "@/store/services/communities/challenges";
 import { fetchCurrentCommunity } from "@/store/services/community.service";
 import { Submission as SubmissionType } from "@/types/bounty";
 import { Community } from "@/types/community";
 import { Challenge } from "@/types/course";
 import { NotFoundError } from "@/utilities/errors/NotFoundError";
-import { localePath } from "@/utilities/Routing";
 import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
+import { ReactElement, useMemo } from "react";
 
 /**
  * Submission page
@@ -35,55 +28,10 @@ import { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
  */
 export default function Submission(props: { pageProps: { currentCommunity: Community; submissions: SubmissionType[]; challenge: Challenge } }) {
   const { challenge } = props.pageProps;
-  const { selectedSubmission, submissions } = useMultiSelector<unknown, { selectedSubmission: SubmissionType; submissions: SubmissionType[] }>({
-    selectedSubmission: (state: IRootState) => state.submissions.current,
-    submissions: (state: IRootState) => state.submissions.list,
-  });
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const { submission_id } = router.query;
+
+  const { submissions, selectedSubmission, handleCloseSubmission, showPopup} = useSubmissionNavigation();
+
   const { t } = useTranslation();
-  const navigation = useNavigation();
-
-  const handleCloseSubmission = useCallback(() => {
-    if (!selectedSubmission) return;
-    dispatch(showSubmission(""));
-    setShowModal(false);
-    window.history.pushState("", "", localePath(router, router.asPath));
-    dispatch(toggleBodyScrolling(false));
-  }, [dispatch, router, selectedSubmission]);
-
-  useEffect(() => {
-    dispatch(initChallengeNavigationMenu(navigation.community));
-  }, [navigation.community, dispatch]);
-
-  const handleShowSubmission = useCallback(
-    (e: any) => {
-      const newUrl = e.detail;
-      const submissionId = newUrl.replace(localePath(router, router.asPath), "").replace(/\//g, "");
-      const submission = submissions.find((submission) => submission.id === submissionId);
-      if (!submission) return;
-      dispatch(showSubmission(submissionId));
-      setShowModal(true);
-      dispatch(toggleBodyScrolling(true));
-    },
-    [dispatch, router, submissions]
-  );
-
-  useEffect(() => {
-    window.addEventListener("onSoftNavigation", handleShowSubmission);
-    window.addEventListener("popstate", handleCloseSubmission);
-    return () => {
-      window.removeEventListener("onSoftNavigation", handleShowSubmission);
-      window.removeEventListener("popstate", handleCloseSubmission);
-    };
-  }, [handleCloseSubmission, handleShowSubmission]);
-
-  // Temporary fix for links copied which have submission_id as a query parameter
-  useEffect(() => {
-    if (submission_id) router.push(`${router.asPath.split("?")[0]}/${submission_id}`);
-  }, [router, submission_id]);
 
   const headerPaths = useMemo(() => [t("communities.navigation.challenge")], [t]);
 
@@ -93,14 +41,14 @@ export default function Submission(props: { pageProps: { currentCommunity: Commu
     <>
       <Head>
         <title>{`${t("communities.submission.title")} ${challenge?.name}`}</title>
-        <MetaData description={challenge?.description as string} />
+        <MetaData description={challenge?.description} />
       </Head>
       <Wrapper paths={headerPaths}>
         <div className="flex flex-col py-4 space-y-8 text-gray-700">
           <Header title={challenge?.name} subtitle={t("communities.submission.title")} isTeamChallenge={challenge?.isTeamChallenge} isHackathon={challenge?.isHackathon} />
           <SubmissionList />
         </div>
-        {showModal && <SubmissionPopup show={showModal} onClose={handleCloseSubmission} submissionId={selectedSubmission?.id} />}
+        {showPopup && <SubmissionPopup show={showPopup} onClose={handleCloseSubmission} submissionId={selectedSubmission?.id} />}
       </Wrapper>
     </>
   );
