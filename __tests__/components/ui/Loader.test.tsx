@@ -1,7 +1,7 @@
 import Loader from "@/components/ui/Loader";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import { colors } from "../../../__mocks__/colors";
+import { colors } from "../../../__mocks__/fixtures/colors";
 import { renderWithRedux } from "../../../__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
