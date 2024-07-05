@@ -46,7 +46,7 @@ export default function Tag({ rounded = true, type = "gray", value, children, te
   );
   return (
     <div {...props} className={tagClassNames} data-testid={testId}>
-      <span className="text-xs font-medium block leading-none">{value ? <span data-testid={tagValueTestId}>{value}</span> : children}</span>
+      <span className="text-xs font-medium block leading-3.3">{value ? <span data-testid={tagValueTestId}>{value}</span> : children}</span>
     </div>
   );
 }
