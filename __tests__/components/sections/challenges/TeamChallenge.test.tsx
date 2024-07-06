@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import TeamChallenge from "@/components/sections/challenges/TeamChallenge";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
-import { challenge, submission } from "../../../../__mocks__/challenge";
+import { challenge, submission } from "@__mocks__/fixtures/challenge";
 
 interface CardData {
   index: number;
@@ -45,10 +45,8 @@ describe("TeamChallenge", () => {
       text: "Once you have completed the challenge, only one person needs to submit it at the end of this page",
     },
   ];
-  const mockChallenge = challenge();
-  const mockSubmission = submission();
   const mockTeamChallengeStates = {
-    challenges: { current: mockChallenge, list: [mockChallenge], loading: false, submission: mockSubmission },
+    challenges: { current: challenge, list: [challenge], loading: false, submission: submission },
   };
   it("should render the team challenge section", () => {
     renderWithRedux(<TeamChallenge />, mockTeamChallengeStates);
@@ -58,9 +56,8 @@ describe("TeamChallenge", () => {
 
   it("should render all team challenge steps", () => {
     renderWithRedux(<TeamChallenge />, mockTeamChallengeStates);
-    const challenges = challenge();
     let teamChallengeArray: CardData[] = [];
-    if (challenges.isHackathon) {
+    if (challenge.isHackathon) {
       teamChallengeArray = hackathonChallengeSteps;
     } else teamChallengeArray = teamChallengeSteps;
 

@@ -3,10 +3,9 @@ import { screen } from "@testing-library/react";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 import RubricHeader from "@/components/sections/challenges/Rubric";
 import { Rubric, mockRatingCriteria } from "../../../../__mocks__/course";
-import { challenge as mockChallenge, submission } from "../../../../__mocks__/challenge";
+import { challenge, submission } from "@__mocks__/fixtures/challenge";
 
 describe("Rubric", () => {
-  const challenge = mockChallenge();
   it("should render the Rubric header", () => {
     renderWithRedux(<RubricHeader testId="rubricId" ratingCriteria={[]} selected={[]} />);
     expect(screen.getByTestId("rubricId")).toBeInTheDocument();
@@ -14,7 +13,7 @@ describe("Rubric", () => {
 
   it("should render the Rubric with ratings", () => {
     renderWithRedux(<RubricHeader ratingCriteria={[mockRatingCriteria]} selected={[Rubric]} />, {
-      challenges: { current: challenge, list: [challenge], loading: false, submission: submission() },
+      challenges: { current: challenge, list: [challenge], loading: false, submission: submission },
     });
     const rubricHeaderName = screen.getByText(mockRatingCriteria.name);
     expect(rubricHeaderName).toBeInTheDocument();

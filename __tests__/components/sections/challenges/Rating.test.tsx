@@ -2,10 +2,9 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 import RubricRating from "@/components/sections/challenges/Rating";
-import type { RubricRatingProps } from "@/components/sections/challenges/Rating";  
-import { mockCommunity } from "../../../../__mocks__/community";
-import { mockCourse } from "../../../../__mocks__/course";
-
+import type { RubricRatingProps } from "@/components/sections/challenges/Rating";
+import { mockCommunity } from "@__mocks__/fixtures/community";
+import { mockCourse } from "@__mocks__/fixtures/course";
 type MockRubricRating = Pick<RubricRatingProps, "rubricRating">;
 
 const fixtureRubricRating: MockRubricRating = {
@@ -30,22 +29,22 @@ describe("RubricRating", () => {
 
   it("should render ratings with rating criterias", () => {
     renderWithRedux(<RubricRating rubricRating={rubricRatings} />, {
-        community: { current: mockCommunity, list: [mockCommunity], courses: [mockCourse], status: "succeeded", error: "error message" },
-      });
+      community: { current: mockCommunity, list: [mockCommunity], courses: [mockCourse], status: "succeeded", error: "error message" },
+    });
 
     mockCommunity.challenge?.ratingCriteria.forEach((criteria) => {
-        expect(screen.getByText(criteria.name)).toBeInTheDocument();
-        expect(screen.getByText(criteria.name).textContent).toBe("rating criteria");
-        criteria.rubric.forEach((rubric) => {
-          if (rubricRatings) {
-            if (rubricRatings[criteria.name] === rubric.points) {
-              expect(screen.getByText(rubric.points)).toBeInTheDocument();
-              expect(screen.getByText(rubric.points).textContent).toBe("90");
-              expect(screen.getByText(rubric.text)).toBeInTheDocument();
-              expect(screen.getByText(rubric.text).textContent).toBe("Challenge text");
-            }
+      expect(screen.getByText(criteria.name)).toBeInTheDocument();
+      expect(screen.getByText(criteria.name).textContent).toBe("rating criteria");
+      criteria.rubric.forEach((rubric) => {
+        if (rubricRatings) {
+          if (rubricRatings[criteria.name] === rubric.points) {
+            expect(screen.getByText(rubric.points)).toBeInTheDocument();
+            expect(screen.getByText(rubric.points).textContent).toBe("90");
+            expect(screen.getByText(rubric.text)).toBeInTheDocument();
+            expect(screen.getByText(rubric.text).textContent).toBe("Challenge text");
           }
-        });
+        }
       });
-  })
+    });
+  });
 });

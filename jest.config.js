@@ -19,7 +19,7 @@ const config = {
   testEnvironment: "jsdom",
   setupFiles: ["./jest.polyfills.js"],
   // Add more setup options before each test is run
-  // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   testEnvironmentOptions: {
     customExportConditions: [""],
   },

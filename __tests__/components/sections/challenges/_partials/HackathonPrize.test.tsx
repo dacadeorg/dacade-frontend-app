@@ -1,8 +1,8 @@
 import HackathonPrize from "@/components/sections/challenges/_partials/HackathonPrize";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { reward } from "../../../../../__mocks__/reward";
 import { Distribution } from "@/types/course";
+import { reward } from "@__mocks__/fixtures/reward";
 
 describe("HackathonPrize", () => {
   const { first, second, third } = reward?.distribution || ({} as Distribution);

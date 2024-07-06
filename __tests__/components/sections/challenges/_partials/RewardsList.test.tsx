@@ -1,7 +1,7 @@
 import RewardsList from "@/components/sections/challenges/_partials/RewardsList";
+import { reward } from "@__mocks__/fixtures/reward";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { reward } from "../../../../../__mocks__/reward";
 
 describe("RewardsList", () => {
   it("should render the reward list", () => {

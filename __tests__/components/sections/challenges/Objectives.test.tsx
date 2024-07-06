@@ -2,13 +2,13 @@ import Objectives from "@/components/sections/challenges/Objectives";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
-import { challenge as mockChallenge, submission } from "../../../../__mocks__/challenge";
 import DateManager from "@/utilities/DateManager";
+import { challenge, submission } from "@__mocks__/fixtures/challenge";
 
 describe("Objectives", () => {
-  const challenge = mockChallenge();
-  const mockSubmission = submission();
-  const mockObjectivesStates = { challenges: { current: challenge, list: [challenge], loading: false, submission: mockSubmission } };
+  const challenges = challenge;
+  const submissions = submission;
+  const mockObjectivesStates = { challenges: { current: challenges, list: [challenges], loading: false, submission: submissions } };
   it("should render objectives", () => {
     renderWithRedux(<Objectives testId="objectiveId" />);
     expect(screen.getByTestId("objectiveId")).toBeInTheDocument();
@@ -25,14 +25,14 @@ describe("Objectives", () => {
     renderWithRedux(<Objectives />, mockObjectivesStates);
     const expirationDate = challenge.expiresAt && DateManager.format(challenge.expiresAt, "MMMM d, yyyy", "en");
     if (expirationDate) {
-      const expirationDateElement = screen.getByText(expirationDate)
+      const expirationDateElement = screen.getByText(expirationDate);
       expect(expirationDateElement).toBeInTheDocument();
-      expect(expirationDateElement).toHaveTextContent(expirationDate)
+      expect(expirationDateElement).toHaveTextContent(expirationDate);
     }
   });
 
   it("should display challenge hint", () => {
-    renderWithRedux(<Objectives />, { challenges: { current: challenge, list: [challenge], loading: false, submission: mockSubmission } });
+    renderWithRedux(<Objectives />, { challenges: { current: challenges, list: [challenges], loading: false, submission: submissions } });
     const containsLink = new RegExp(/<a.*?>.*?<\/a>/g);
     expect(containsLink.test('<a href="http://example.com">Example</a>')).toBe(true);
     expect(containsLink.test("This is a test string without a link.")).toBe(false);

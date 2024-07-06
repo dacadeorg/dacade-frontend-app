@@ -13,7 +13,7 @@ import RewardCertificate from "@/components/cards/challenge/RewardCertificate";
  * @export
  * @returns {ReactElement}
  */
-export function OverviewRewards({testId}: {testId?: string}): ReactElement {
+export function OverviewRewards({ testId }: { testId?: string }): ReactElement {
   const { t } = useTranslation();
   const challenge = useSelector((state) => state.challenges.current);
   const router = useRouter();
@@ -21,7 +21,9 @@ export function OverviewRewards({testId}: {testId?: string}): ReactElement {
 
   return (
     <Section title={`${t("communities.overview.reward.title")}`}>
-      <p data-testid={testId} className="my-6 text-lg">{t("course.challenge.reward.certificate.description")}</p>
+      <p data-testid={testId} className="my-6 text-lg">
+        {t("course.challenge.reward.certificate.description")}
+      </p>
       <div className="text-sm mt-6 flex gap-8 w-full md:w-2/3 items-center">
         <div>
           <Certificate size="medium" name={router.query?.slug as string} />

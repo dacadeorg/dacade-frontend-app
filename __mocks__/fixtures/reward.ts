@@ -12,8 +12,8 @@ export const reward = {
   amount: 10,
   timestamp: 10,
   distribution: {
-      first: 1,
-      second: 2,
-      third: 3
-  }
-}
+    first: 1,
+    second: 2,
+    third: 3,
+  },
+};

@@ -38,7 +38,7 @@ export default function ObjectiveCard({ iconcolor = "", crossmark = false, objec
       <div className="py-0 pt-px mt-px mr-2" style={{ color: iconcolor || colors?.primary }}>
         {crossmark ? <Crossmark /> : <Checkmark />}
       </div>
-      <div className="text-sm font-normal leading-5 contains-ordered-list" dangerouslySetInnerHTML={{ __html: objective as string }} />
+      <div className="text-base font-normal leading-6 contains-ordered-list -tracking-1" dangerouslySetInnerHTML={{ __html: objective as string }} />
     </div>
   );
 }
