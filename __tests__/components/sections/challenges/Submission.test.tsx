@@ -5,10 +5,13 @@ import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 import { FieldErrors } from "react-hook-form";
 import { challenge, mockTeam, submission } from "@__mocks__/fixtures/challenge";
 import { mockUser } from "@__mocks__/fixtures/user";
-import { mockReferral } from "@__mocks__/fixtures/referrals";
 
 describe("Submission", () => {
   let errors: FieldErrors<FormValues>;
+  const canSubmit = () => {
+    if (!challenge?.isTeamChallenge) return true;
+    return Boolean(!!mockTeam?.organizer);
+  };
   it("renders the submission section", async () => {
     renderWithRedux(<Submission />, {
       challenges: { current: challenge, list: [challenge], loading: false, submission: submission },
@@ -23,26 +26,11 @@ describe("Submission", () => {
   });
 
   it("validates submission form and displays necessary elements", () => {
-    const canSubmit = () => {
-      if (!challenge?.isTeamChallenge) return true;
-      return Boolean(!!mockTeam?.organizer);
-    };
-
     renderWithRedux(<Submission testId="submission-form" />, {
       challenges: { current: challenge, list: [challenge], loading: false, submission: submission },
       teams: { current: mockTeam, loading: true },
-      user: {
-        data: mockUser,
-        fetchingUserLoading: true,
-        filteredUsers: [mockUser],
-        token: "",
-        userBalance: "User balance",
-        balance: "cusd",
-        walletAddresses: "walletAddress",
-        referrals: [mockReferral],
-      },
     });
-    if (!canSubmit) {
+    if (!canSubmit()) {
       expect(screen.getByText("communities.challenge.submission.hint")).toBeInTheDocument();
     } else {
       expect(screen.getByTestId("submission-form")).toBeInTheDocument();
