@@ -2,8 +2,8 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
 import RubricHeader from "@/components/sections/challenges/Rubric";
-import { Rubric, mockRatingCriteria } from "../../../../__mocks__/course";
 import { challenge, submission } from "@__mocks__/fixtures/challenge";
+import { mockRatingCriteria, Rubric } from "@__mocks__/fixtures/course";
 
 describe("Rubric", () => {
   it("should render the Rubric header", () => {
