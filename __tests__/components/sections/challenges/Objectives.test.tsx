@@ -1,7 +1,7 @@
 import Objectives from "@/components/sections/challenges/Objectives";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import DateManager from "@/utilities/DateManager";
 import { challenge, submission } from "@__mocks__/fixtures/challenge";
 
@@ -21,7 +21,7 @@ describe("Objectives", () => {
     expect(screen.getByText(objectiveValue || "objectives 1")).toBeInTheDocument();
   });
 
-  it("should display expiry date", () => {
+  it("should display challenge expiry date, when applicable", () => {
     renderWithRedux(<Objectives />, mockObjectivesStates);
     const expirationDate = challenge.expiresAt && DateManager.format(challenge.expiresAt, "MMMM d, yyyy", "en");
     if (expirationDate) {

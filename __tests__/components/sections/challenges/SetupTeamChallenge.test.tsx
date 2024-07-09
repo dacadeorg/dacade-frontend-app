@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import SetupTeamChallenge from "@/components/sections/challenges/SetupTeamChallenge";
-import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import { challenge, mockInvite, submission } from "@__mocks__/fixtures/challenge";
 
 describe("SetUpTeamChallenge", () => {

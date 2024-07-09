@@ -32,7 +32,7 @@ export interface RubricRatingProps {
     [key: string]: string | number;
   };
   hideTitle?: boolean;
-  testId?: string
+  testId?: string;
 }
 
 /**
@@ -65,7 +65,7 @@ export default function RubricRating({
     rewardCoin: "CGLD",
   },
   hideTitle = false,
-  testId
+  testId,
 }: RubricRatingProps): ReactElement {
   const { t } = useTranslation();
 

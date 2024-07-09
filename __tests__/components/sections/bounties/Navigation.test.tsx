@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import BountiesNavigation from "@/components/sections/bounties/Navigation";
-import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import { List } from "@/utilities/CommunityNavigation";
 
 jest.mock("next/router", () => ({

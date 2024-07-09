@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { OverviewRewards } from "@/components/sections/challenges/Rewards";
-import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import { challenge, submission } from "@__mocks__/fixtures/challenge";
 
 jest.mock("next/router", () => ({
@@ -21,7 +21,6 @@ describe("Reward", () => {
     if (challenge.rewards) {
       challenge.rewards.forEach((reward) => {
         expect(screen.getByText(`${reward.amount} ${reward.token}`)).toBeInTheDocument();
-        expect(screen.getByText(`${reward.amount} ${reward.token}`).textContent).toBe("10 token");
       });
     }
     if (challenge.isHackathon) {

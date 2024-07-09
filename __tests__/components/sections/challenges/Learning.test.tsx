@@ -1,7 +1,7 @@
 import Learning from "@/components/sections/challenges/Learning";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import { challenge, submission } from "@__mocks__/fixtures/challenge";
 import { mockCourse, mockLearningModule } from "@__mocks__/fixtures/course";
 import { mockCommunity } from "@__mocks__/fixtures/community";
@@ -14,7 +14,7 @@ describe("Learning", () => {
     expect(screen.getByText("communities.overview.challenge.learning.title")).toBeInTheDocument();
   });
 
-  it("should render with courses", () => {
+  it("should render with course cards when they the challenge has them", () => {
     const coursesArray = [mockCourse];
     renderWithRedux(<Learning courses={[mockCourse]} learningModules={[mockLearningModule]} community={mockCommunity} />, {
       challenges: { current: challenge, list: [challenge], loading: false, submission: submission },
@@ -23,13 +23,12 @@ describe("Learning", () => {
       const courseNameElement = screen.getByText(course.name);
       const courseDescriptionElement = screen.getByText(course.description);
       expect(courseNameElement).toBeInTheDocument();
-      expect(courseNameElement).toHaveTextContent(course.name);
       expect(courseDescriptionElement).toBeInTheDocument();
       expect(courseDescriptionElement).toHaveTextContent(course.description);
     });
   });
 
-  it("should render with learning", () => {
+  it("should render with learning module card", () => {
     const learningArray = [mockLearningModule];
     renderWithRedux(<Learning courses={[mockCourse]} learningModules={[mockLearningModule]} community={mockCommunity} />);
     learningArray.forEach((learningModule) => {

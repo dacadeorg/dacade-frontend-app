@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import Submission, { FormValues } from "@/components/sections/challenges/Submission";
-import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import { FieldErrors } from "react-hook-form";
 import { challenge, mockTeam, submission } from "@__mocks__/fixtures/challenge";
 import { mockUser } from "@__mocks__/fixtures/user";

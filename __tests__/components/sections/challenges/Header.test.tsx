@@ -1,7 +1,7 @@
 import ChallengeHeader from "@/components/sections/challenges/Header";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import { challenge, submission } from "@__mocks__/fixtures/challenge";
 
 describe("ChallengeHeader", () => {
