@@ -154,7 +154,7 @@ export interface User {
     connected?: boolean;
   };
   kycStatus: KYCSTATUS;
-  referrals: Referral;
+  referrals?: [Referral];
 }
 
 export interface UserMetadata {

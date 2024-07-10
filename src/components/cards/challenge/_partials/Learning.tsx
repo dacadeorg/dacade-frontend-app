@@ -23,11 +23,11 @@ export default function Learning({ title, description, link }: LearningProps): J
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col relative md:w-1/2s p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">
+    <div className="flex flex-col gap-3 relative p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 border-solid border border-gray-200">
       <div className="flex flex-col justify-between w-full sm:pb-0">
         <div className="flex flex-col">
-          <div className="text-lg font-medium leading-normal text-gray-900">{title}</div>
-          <div className="text-sm font-normal text-gray-700 mt-3 max-w-xxs pb-6 mb-5">{description}</div>
+          <div className="text-base font-medium leading-6 text-gray-900">{title}</div>
+          <div className="text-sm lg:text-base font-normal -tracking-1 leading-6 text-gray-700 mt-3 max-w-xxs pb-6 mb-5">{description}</div>
         </div>
         <div className="absolute bottom-0 pb-4">
           <Link href={link}>
