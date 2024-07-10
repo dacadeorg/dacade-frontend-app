@@ -51,7 +51,7 @@ body {
 }
 
 .nav-item {
-  @apply font-normal ml-3 opacity-70 hover:opacity-100;
+  @apply font-normal ml-3 hover:opacity-70;
 }
 .nav-item a {
   @apply align-text-top;
@@ -98,7 +98,7 @@ body {
 }
 
 .message-bubble {
-  @apply w-72 p-6 rounded-3.5xl rounded-bl-none relative text-base border border-black border-opacity-5 leading-6 -tracking-1;
+  @apply w-72 p-6 rounded-3.5xl rounded-bl-none relative text-base border bg-warning border-warning text-warning leading-6 -tracking-1;
 
   background: #fefce8;
   color: #713f12;
@@ -120,7 +120,7 @@ input {
   @apply px-5 border border-solid block xl:mx-auto lg:mx-auto lg:w-98 xl:w-98 w-full h-17;
 }
 button {
-  @apply bg-primary px-4 py-2 text-white rounded-full;
+  @apply bg-brand px-4 py-2 text-white rounded-full;
 }
 button,
 .btn {
