@@ -70,7 +70,7 @@ export default function ReplyToInvitation({ invite_id, team_ref }: InvitationPro
   }, [invite_id, team]);
 
   return (
-    <div>
+    <div data-testid="reply-to-invitation">
       {loading ? (
         <Loader isSmallSpinner />
       ) : (

@@ -10,7 +10,7 @@ import CheckIcon from "@/icons/check.svg";
  * @interface InvitationButtonProps
  * @typedef {InvitationButtonProps}
  */
-interface InvitationButtonProps {
+export interface InvitationButtonProps {
   text: "accept" | "decline";
   confirmInvitation: (text: "accept" | "decline") => void;
 }
@@ -36,6 +36,7 @@ export default function InvitationButton({ text, confirmInvitation }: Invitation
         e.stopPropagation();
         confirmInvitation(text);
       }}
+      data-testid="invitation-button" 
     >
       {text === "accept" ? <CheckIcon className="text-green-700" /> : <CloseIcon className="text-red-700" />}
       <span className="capitalize">{text}</span>
