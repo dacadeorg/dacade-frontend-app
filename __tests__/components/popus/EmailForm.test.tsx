@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom"
-import { renderWithRedux } from "../../../__mocks__/renderWithRedux"
 import EmailForm from "@/components/popups/profile-settings/EmailForm";
 import { act, fireEvent, screen } from "@testing-library/react";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
     useRouter: () => ({
@@ -85,5 +85,4 @@ describe("EmailEditForm", () => {
         fireEvent.click(screen.getByTestId('close-button'))
         expect(handleClose).toHaveBeenCalled()
     })
-
 })
