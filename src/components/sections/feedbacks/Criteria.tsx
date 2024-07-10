@@ -47,7 +47,7 @@ export default function Criteria(): ReactElement {
   const deadline = useMemo(() => DateManager.fromNow(submission?.reviewDeadline as Date), [submission?.reviewDeadline]);
 
   return (
-    <div className={`py-5 border rounded-t relative ${reviewed ? "bg-gray-50 border-gray-200" : "bg-yellow-50 border-yellow-200"}`}>
+    <div className={`py-5 border rounded-t relative ${reviewed ? "bg-secondary border-gray-200" : "bg-yellow-50 border-yellow-200"}`}>
       {reward && (
         <div className="absolute sm:-ml-7 left-3 sm:left-0 top-6 sm:top-4">
           <Coin token={reward.token} className="w-10 h-10 sm:w-15 sm:h-15" bgColor={reviewed ? "#d2d2d2" : ""} textColor={reviewed ? "#000000" : ""} />
@@ -107,7 +107,7 @@ export default function Criteria(): ReactElement {
                     return (
                       <div key={`feedback-${key}`} className={`pt-6 px-3.75 sm:px-10 pb-0 sm:border-t font-medium ${reviewed ? "border-gray-200" : "border-yellow-200 "}`}>
                         <span className="relative block">{t(`feedback.criteria.${item.name}`)}</span>
-                        <div className={`sm:-ml-6 px-5 sm:p-0 ${reviewed ? "text-gray-600" : "text-yellow-900 "}`}>
+                        <div className={`sm:-ml-6 px-5 sm:p-0 ${reviewed ? "text-secondary" : "text-yellow-900 "}`}>
                           <ObjectiveList iconcolor={reviewed ? "#9CA3AF" : "#F59E0B"} crossmark={!item.positive} objectives={item.criteria} />
                           {item.description && (
                             <div

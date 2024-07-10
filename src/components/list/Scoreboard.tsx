@@ -32,7 +32,7 @@ export default function ScoreboardList({ badgeStyles = { backgroundColor: "purpl
   const { t } = useTranslation();
 
   return (
-    <div className="pb-5 w-full divide-y divide-gray-200 space-y-4 bg-gray-50 rounded-3xl lg:max-w-2xl">
+    <div className="pb-5 w-full divide-y divide-gray-200 space-y-4 bg-secondary rounded-3xl lg:max-w-2xl">
       {users.map((user, i) => (
         <div key={`score-user-${i}`} className="px-3">
           <div className="h-36 md:h-24 md:flex w-full justify-between md:justify-end space-x-5 space-y-0 pt-6 md:flex-row-reverse md:pt-6">
@@ -54,7 +54,7 @@ export default function ScoreboardList({ badgeStyles = { backgroundColor: "purpl
             <div className="relative">
               <div className="absolute md:relative right-2 md:-bottom-10 -bottom-14 md:top-0">
                 <Avatar user={user} size="large" />
-                <Badge className="absolute left-9 top-10 w-6 h-6" value="1" customStyle={badgeStyles} />
+                <Badge className="absolute left-9 top-10" value="1" customStyle={badgeStyles} />
               </div>
             </div>
           </div>

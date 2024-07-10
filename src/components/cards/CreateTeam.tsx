@@ -203,7 +203,7 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
                     </div>
                     <div className="flex flex-col">
                       <div className=" text-sm text-gray-700 font-medium">{member?.displayName}</div>
-                      <div className=" text-gray-400 text-xs">{status}</div>
+                      <div className=" text-tertiary text-xs">{status}</div>
                     </div>
                     {!team?.locked && (
                       <>

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import classNames from "classnames";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 /**
  * @interface SidebarProps
@@ -26,24 +26,27 @@ export default function Sidebar(): JSX.Element {
    * @param link - The link to check.
    * @returns boolean - True if the link is the active route, false otherwise.
    */
-  const isActive = (link: string) => {
-    return router.asPath === link;
-  };
+  const isActive = useCallback(
+    (link: string) => {
+      return router.asPath === link;
+    },
+    [router.asPath]
+  );
 
-const links = useMemo(() => {
-  if (!hasCurrentCommunity)
+  const links = useMemo(() => {
+    if (!hasCurrentCommunity)
+      return {
+        scoreboardLink: "",
+        learningMaterialsLink: "",
+        mainLink: "",
+      };
+    const { slug } = currentCommunity;
     return {
-      scoreboardLink: "",
-      learningMaterialsLink: "",
-      mainLink: "",
+      scoreboardLink: `/communities/${slug}/scoreboard`,
+      learningMaterialsLink: `/communities/${slug}/learning-materials`,
+      mainLink: `/communities/${slug}`,
     };
-  const { slug } = currentCommunity;
-  return {
-    scoreboardLink: `/communities/${slug}/scoreboard`,
-    learningMaterialsLink: `/communities/${slug}/learning-materials`,
-    mainLink: `/communities/${slug}`,
-  };
-}, [hasCurrentCommunity, currentCommunity]);
+  }, [hasCurrentCommunity, currentCommunity]);
 
   return (
     <div className="flex flex-col md:divide-y divide-solid divide-gray-100 w-full text-gray-700 space-y-6">
