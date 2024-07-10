@@ -52,7 +52,7 @@ describe("EmailEditForm", () => {
         expect(closeButton).toBeInTheDocument()
     })
 
-    it("should not modify the input values of the form", async () => {
+    it("should not modify user's input values", async () => {
         const emailInput = screen.getByPlaceholderText('login-page.email.placeholder');
         const emailInputConfirm = screen.getByPlaceholderText('profile.settings.edit.email.confirm')
 

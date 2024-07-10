@@ -96,8 +96,8 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
           <div className="mb-8">
             <Input
               label={`${t("profile.settings.edit.email.confirm")}`}
-              placeholder={`${t("profile.settings.edit.email.confirm")}`}
               error={errors.emailConfirm?.message}
+              placeholder={`${t("profile.settings.edit.email.confirm")}`}
               type="emailConfirm"
               {...register("emailConfirm", {
                 required: "This field is required",
@@ -116,7 +116,7 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
             />
           </div>
           <div className="flex pb-2 items-center justify-between">
-            <span className="cursor-pointer text-sm font-medium text-primary" onClick={onClose} data-testid="close-button">
+            <span className="cursor-pointer text-sm font-medium text-brand" onClick={onClose} data-testid="close-button">
               {t("profile.edit.close")}
             </span>
             <ArrowButton loading={loading} disabled={loading} variant="outline-primary">
