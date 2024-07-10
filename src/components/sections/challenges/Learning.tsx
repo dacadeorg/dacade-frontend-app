@@ -13,7 +13,17 @@ import { useTranslation } from "next-i18next";
  *
  * @returns {JSX.Element} The Learning component JSX element.
  */
-export default function Learning({ courses, learningModules, community, testId }: { courses: Course[]; learningModules: LearningModule[]; community: Community, testId?: string }): JSX.Element {
+export default function Learning({
+  courses,
+  learningModules,
+  community,
+  testId,
+}: {
+  courses: Course[];
+  learningModules: LearningModule[];
+  community: Community;
+  testId?: string;
+}): JSX.Element {
   const challenge = useSelector((state) => state.challenges.current);
   const { t } = useTranslation();
   return (
@@ -24,8 +34,10 @@ export default function Learning({ courses, learningModules, community, testId }
         isExpanded
         content={
           <>
-            <div data-testid={testId} className="text-base font-normal text-slate-700 py-6">{t("communities.overview.challenge.learning.title")}</div>
-            <div className="md:grid grid-cols-2 gap-3">
+            <div data-testid={testId} className="text-base font-normal text-primary py-6">
+              {t("communities.overview.challenge.learning.title")}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
               {courses?.map((course) => (
                 <LearningCard
                   key={`learning-card-data-${course.id}`}
