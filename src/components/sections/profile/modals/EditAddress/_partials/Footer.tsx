@@ -23,7 +23,7 @@ export default function EditAdressFooter({ onClose, actionButtonDisabled, loadin
   const { t } = useTranslation();
   return (
     <div className="flex items-center justify-between pt-4 pb-2 pl-6 pr-2 -mb-6">
-      <span className="text-sm font-medium cursor-pointer text-primary" onClick={onClose}>
+      <span className="text-sm font-medium cursor-pointer text-brand" onClick={onClose}>
         {t("profile.edit.close")}
       </span>
 

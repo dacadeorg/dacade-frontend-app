@@ -32,7 +32,7 @@ export default function RewardCertificate({ rewards, isReward }: RewardCertifica
           )}
         >
           <Coin size="small" token={reward?.token} />
-          <div className="text-sm">
+          <div className={`${isReward ? "text-base" : "text-sm"}`}>
             <span>
               {shortenNumber(reward.amount)} {reward.token}
             </span>
