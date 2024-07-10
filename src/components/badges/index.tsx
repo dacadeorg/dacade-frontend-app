@@ -1,7 +1,7 @@
 import Tag from "@/components/ui/Tag";
 import { Challenge } from "@/types/course";
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 
 /**
  * this component is for the badges indicating if the course has a team challenge and the course level
