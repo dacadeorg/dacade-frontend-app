@@ -32,7 +32,7 @@ export default function ScoreboardList({ badgeStyles = { backgroundColor: "purpl
   const { t } = useTranslation();
 
   return (
-    <div className="pb-5 w-full divide-y divide-gray-200 space-y-4 bg-gray-50 rounded-3xl lg:max-w-2xl">
+    <div className="pb-5 w-full divide-y divide-gray-200 space-y-4 bg-secondary rounded-3xl lg:max-w-2xl">
       {users.map((user, i) => (
         <div key={`score-user-${i}`} className="px-3">
           <div className="h-36 md:h-24 md:flex w-full justify-between md:justify-end space-x-5 space-y-0 pt-6 md:flex-row-reverse md:pt-6">

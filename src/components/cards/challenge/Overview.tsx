@@ -46,7 +46,7 @@ export default function Overview({ challenge, community }: Props) {
                 {community?.slug === "celo" && "NFT"} {t("communities.overview.challenge.certificate")}
               </span>
             </div>
-            <div className="text-gray-400 text-xs font-medium">{t("communities.overview.challenge.subtitle")}</div>
+            <div className="text-tertiary text-xs font-medium">{t("communities.overview.challenge.subtitle")}</div>
           </div>
         </div>
         {rewardsByToken.map((reward, index) => (
@@ -59,7 +59,7 @@ export default function Overview({ challenge, community }: Props) {
                 <span>{reward?.token}</span>
                 <span>{t("communities.overview.challenge.rewards")}</span>
               </div>
-              <div className="text-gray-400 text-xs font-medium leading-3 mt-1 flex">
+              <div className="text-tertiary text-xs font-medium leading-3 mt-1 flex">
                 {challenge.rewards.map((reward, index) => (
                   <span key={`reward-${index}`}>
                     {index > 0 && "\u003B "}
@@ -72,7 +72,7 @@ export default function Overview({ challenge, community }: Props) {
         ))}
       </div>
       {expirationDate && (
-        <div className="text-gray-400 text-sm font-normal pt-6">
+        <div className="text-tertiary text-sm font-normal pt-6">
           <span>{t("communities.overview.challenge.deadline")}: </span>
           <span className="font-medium">{expirationDate}</span>
         </div>

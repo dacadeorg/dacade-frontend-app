@@ -62,7 +62,13 @@ export default function NotificationPopup({ buttonStyles }: NotificationPopupPro
     <div>
       <span onClick={externalClick}>
         <li className={`inline-block align-middle mr-3 relative text-gray-500 max-w-80 ${isNotificationVisible ? "z-50" : "z-10"}`} onClick={toggle}>
-          <Button type="button" padding={false} variant="secondary" className="p-2 bg-gray-100 bg-opacity-75 hover:bg-gray-50 text-primary" customStyle={buttonStyles}>
+          <Button
+            type="button"
+            padding={false}
+            variant="secondary"
+            className="p-2 bg-tertiary hover:bg-secondary text-brand"
+            customStyle={buttonStyles}
+          >
             <BellIcon />
             {unread > 0 && <Badge value={unread} className="top-0 -right-1 absolute"  size="small"/>}
           </Button>
@@ -74,7 +80,7 @@ export default function NotificationPopup({ buttonStyles }: NotificationPopupPro
               maxHeight: "calc(100vh - 140px)",
               overflow: "hidden scroll",
             }}
-            className="z-50 w-80 absolute top-14 right-0 bg-white py-4 px-4.5 rounded-3.5xl text-gray-900 no-scrollbar"
+            className="z-50 w-80 absolute top-14 right-0 bg-primary border border-primary py-4 px-4.5 rounded-3.5xl text-primary no-scrollbar"
           >
             <NotificationList extended={false} />
           </div>

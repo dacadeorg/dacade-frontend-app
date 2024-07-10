@@ -8,7 +8,6 @@ import { ReactElement } from "react";
 interface RewardCertificateProps {
   rewards: Reward[];
   isReward?: boolean;
-  isChallengeCard?:boolean;
 }
 
 /**
@@ -19,7 +18,7 @@ interface RewardCertificateProps {
  * @returns {JSX.Element} The rendered RewardCertificate component.
  */
 
-export default function RewardCertificate({ rewards, isReward, isChallengeCard }: RewardCertificateProps): ReactElement {
+export default function RewardCertificate({ rewards, isReward }: RewardCertificateProps): ReactElement {
   const { t } = useTranslation();
   return (
     <>
@@ -33,7 +32,7 @@ export default function RewardCertificate({ rewards, isReward, isChallengeCard }
           )}
         >
           <Coin size="small" token={reward?.token} />
-          <div className={`${isChallengeCard? "text-sm":"text-base"}`}>
+          <div className={`${isReward ? "text-base" : "text-sm"}`}>
             <span>
               {shortenNumber(reward.amount)} {reward.token}
             </span>

@@ -110,7 +110,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
         )}
       </li>
       <Popup center={false} show={show} className="px-3 pt-16 pb-2" onClose={externalClick}>
-        <div className="max-h-full overflow-scroll md:max-w-sidebar relative ml-auto mt-0 md:mr-12 w-full z-40 bg-secondary rounded-3.5xl text-gray-900">
+        <div className="max-h-full overflow-scroll md:max-w-sidebar relative ml-auto mt-0 md:mr-12 w-full z-40 bg-tertiary rounded-3.5xl text-gray-900">
           <div className="divide-y divide-gray-200">
             <div className="flex flex-col text-left justify-between">
               <div className="flex">
@@ -146,7 +146,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
                     </div>
                   </div>
                   <div className="flex">
-                    <div className="w-10 h-10 ml-3 mr-2 my-3 rounded-full bg-primary">
+                    <div className="w-10 h-10 ml-3 mr-2 my-3 rounded-full bg-brand">
                       <JobIcon className="m-2 text-white" />
                     </div>
                     <div className="py-5 font-medium text-gray-900 cursor-pointer" onClick={displayJobOffersPopup}>
@@ -196,7 +196,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
 
             {!isAuthenticated && (
               <div className="w-full h-15 p-2 flex">
-                <Button padding={false} type="button" variant="secondary" className="w-full p-3 text-sm font-medium text-primary" onClick={toggle}>
+                <Button padding={false} type="button" variant="secondary" className="w-full p-3 text-sm font-medium text-brand" onClick={toggle}>
                   <Link className="w-full" href="/login">
                     {t("nav.login")}
                   </Link>
