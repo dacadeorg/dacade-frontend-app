@@ -121,7 +121,7 @@ export default function Avatar({
     <Component data-testid={testId} href={link} className={componentClassName}>
       <div
         style={{ backgroundColor: color }}
-        className={`bg-primary h-full w-full flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle relative z-0 ${shapeClassName}`}
+        className={`bg-brand h-full w-full flex overflow-hidden text-white items-center justify-center uppercase leading-none align-middle relative z-0 ${shapeClassName}`}
       >
         {user && user.avatar && userAvatarLoaded ? (
           <div>

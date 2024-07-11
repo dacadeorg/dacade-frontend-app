@@ -36,7 +36,7 @@ export default function Loader({ communityStyles = false, className = "", isSmal
   };
 
   const loaderClasses = classNames(`flex items-center relative justify-center ${className}`, {
-    "text-primary": !communityStyles,
+    "text-brand": !communityStyles,
   });
   const spinnerClasses = classNames(`animate-spin`, {
     "h-12 w-12": !isSmallSpinner,

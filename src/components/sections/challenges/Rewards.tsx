@@ -21,14 +21,16 @@ export function OverviewRewards(): ReactElement {
 
   return (
     <Section title={`${t("communities.overview.reward.title")}`}>
-      <p className="my-6 text-lg">{t("course.challenge.reward.certificate.description")}</p>
+      <p className="my-6 text-base text-secondary">{t("course.challenge.reward.certificate.description")}</p>
       <div className="text-sm mt-6 flex gap-8 w-full md:w-2/3 items-center">
         <div>
           <Certificate size="medium" name={router.query?.slug as string} />
         </div>
         <div className="flex flex-col lg:flex-row justify-between gap-2 items-start w-full">
-          <div className="flex flex-col w-full lg:w-1/2">{challenge?.rewards && <RewardCertificate rewards={challenge?.rewards} isReward />}</div>
-          {challenge?.isHackathon && <div className="pb-1.5 border-b border-gray-200 w-full lg:w-1/2">{t("communities.overview.challenge.participate", { token: token })}</div>}
+          <div className="flex flex-col text-primary w-full lg:w-1/2">{challenge?.rewards && <RewardCertificate rewards={challenge?.rewards} isReward />}</div>
+          {!challenge?.isHackathon && (
+            <div className="pb-1.5 border-b border-primary text-primary w-full lg:w-1/2 text-base">{t("communities.overview.challenge.participate", { token: token })}</div>
+          )}
         </div>
       </div>
     </Section>

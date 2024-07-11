@@ -36,7 +36,7 @@ export default function ScoreboardOverview(): ReactElement {
             <ScoreboardCard key={`list-element-${i}`} index={i + 1} value={item} />
           ))}
           {items < list.length && (
-            <div className="flex items-center w-full p-6 space-x-5 space-y-0 overflow-hidden sm:flex sm:flex-row-reverse bg-gray-50 sm:px-4 sm:py-7 sm:justify-center">
+            <div className="flex items-center w-full p-6 space-x-5 space-y-0 overflow-hidden sm:flex sm:flex-row-reverse bg-secondary sm:px-4 sm:py-7 sm:justify-center">
               <ArrowButton communityStyles={true} variant="outline-primary" direction="down" onClick={loadMore}>
                 {t("course.scoreboard.button")}
               </ArrowButton>
