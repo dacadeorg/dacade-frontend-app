@@ -61,8 +61,8 @@ export const getStaticProps = wrapper.getStaticProps((store: any) => async ({ lo
         scoreboard,
         ...translations,
       },
-      // TODO: Need to discuss how long we want to set the revalidation timeout
-      revalidate: 60,
+
+      revalidate: 60 * 60 * 24,
     };
   } catch (error) {
     return {
