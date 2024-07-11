@@ -24,7 +24,7 @@ export default function Learning({ courses, learningModules, community }: { cour
         isExpanded
         content={
           <>
-            <div className="text-base font-normal text-slate-700 py-6">{t("communities.overview.challenge.learning.title")}</div>
+            <div className="text-base font-normal text-primary py-6">{t("communities.overview.challenge.learning.title")}</div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
               {courses?.map((course) => (
                 <LearningCard

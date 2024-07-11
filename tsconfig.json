@@ -16,7 +16,7 @@
     "incremental": true,
     "paths": {
       "@/*": ["./src/*"],
-      "react": ["./node_modules/@types/react"], 
+      "react": ["./node_modules/@types/react"],
       "@__mocks__/*": ["./__mocks__/*"]
     }
   },

@@ -66,7 +66,7 @@ export default function ReferralPopup(): ReactElement {
         <Modal show={true} onClose={close}>
           <div className="w-full p-7 relative">
             <button className="bg-gray-100 self-start px-2.5 py-2.5 absolute top-2 right-2" onClick={close}>
-              <Crossmark className="text-xl text-gray-600 w-6" />
+              <Crossmark className="text-xl text-secondary w-6" />
             </button>
             <h1 className="text-xl md:text-3xl mr-3 mb-3 text-left">
               {t("modal.referral.title")}

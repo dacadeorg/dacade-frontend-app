@@ -25,7 +25,7 @@ export default function ProfileOverview(): ReactElement {
       <div className="grid grid-cols-3 gap-4 p-4">
         <div className="text-gray text-sm">{t("profile.settings.email")}</div>
         <div className="text-gray text-sm">{user.data?.email}</div>
-        <button className="bg-transparent hover:bg-transparent flex justify-end text-primary text-xs" onClick={() => setTogglePopupEmail(true)}>
+        <button className="bg-transparent hover:bg-transparent flex justify-end text-brand text-xs" onClick={() => setTogglePopupEmail(true)}>
           {user.data?.email.length ? t("profile.edit.change") : t("profile.edit.set")}
         </button>
       </div>
@@ -35,7 +35,7 @@ export default function ProfileOverview(): ReactElement {
         <div className="text-gray text-sm">
           <span>{user.data?.firstName ?? ""}</span> <span>{user.data?.lastName ?? ""}</span>
         </div>
-        <button className="bg-transparent hover:bg-transparent flex justify-end text-primary text-xs" onClick={() => setTogglePopupNames(true)}>
+        <button className="bg-transparent hover:bg-transparent flex justify-end text-brand text-xs" onClick={() => setTogglePopupNames(true)}>
           {user.data?.username.length ? t("profile.edit.change") : t("profile.edit.set")}
         </button>
       </div>
