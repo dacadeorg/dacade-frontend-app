@@ -18,7 +18,7 @@ describe("MainHeader", () => {
       expect(element).toBeInTheDocument()
     })
     if(mockCommunity.icon){
-      expect(screen.getByRole('img')).toBeInTheDocument()
+      expect(screen.getByAltText(mockCommunity.name)).toBeInTheDocument()
     }
     expect(screen.getByText("communities.submissions")).toBeInTheDocument();
     expect(screen.getByText("communities.feedbacks")).toBeInTheDocument();

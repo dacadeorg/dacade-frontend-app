@@ -11,7 +11,7 @@ jest.mock("next/router", () => ({
 
 
 describe("Wrapper", () => {
-  it("displays the wrapper", () => {
+  it("displays the wrapper with all the children", () => {
     renderWithRedux(
       <Wrapper filter={<div>Test Filter</div>}>
         <div>Wrappper test</div>

@@ -16,7 +16,7 @@ describe("SectionWrapper", () => {
     expect(screen.getByText("Test Children")).toBeInTheDocument();
   });
 
-  it("renders without title and description", () => {
+  it("renders without title and description when they are not available", () => {
     render(
       <SectionWrapper>
         <div>Test Children</div>
