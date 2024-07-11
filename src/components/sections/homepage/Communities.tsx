@@ -25,13 +25,13 @@ export default function CommunitiesSection({ communities }: { communities: Commu
     <Section type="default" padding="pt-20 lg:pb-24 md:pb-24">
       <div id="communities" className="md:flex relative items-end">
         <div className="pr-5">
-          <p className="uppercase font-semibold leading-none text-base">{t("page.index.communities.title")}</p>
+          <p className="uppercase font-bold text-xs leading-3.3 tracking-3 text-primary">{t("page.index.communities.title")}</p>
         </div>
         <div className="pl-7 relative hidden lg:block md:block">
           <div className="message-bubble">{t("page.index.communities.subtitle")}</div>
         </div>
       </div>
-      <div className="mt-5 md:mt-7 grid grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-0.5 lg:gap-y-5 md:gap-y-5 justify-stretch-items">
+      <div className="mt-5 md:mt-7 grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-2 lg:gap-y-6 md:gap-y-5 justify-stretch-items">
         {communities?.map((community) => (
           <CommunityCard key={community.id} community={community} />
         ))}
