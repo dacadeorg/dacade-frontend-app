@@ -1,7 +1,7 @@
 import OverviewRewards from "@/components/ui/Reward";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { reward } from "../../../__mocks__/reward";
+import { reward } from "../../../__mocks__/fixtures/reward";
 
 describe("OverviewRewards", () => {
   it("Should render reward", () => {

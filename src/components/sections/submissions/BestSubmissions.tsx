@@ -9,6 +9,10 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "@/hooks/useTypedSelector";
 import Accordion from "@/components/ui/accordion/Accordion";
 
+interface BestSubmissionsProps {
+  testId?: string;
+}
+
 /**
  * BestSubmissions Component
  * @date 4/25/2023 - 2:21:45 PM
@@ -16,7 +20,7 @@ import Accordion from "@/components/ui/accordion/Accordion";
  * @export
  * @returns {ReactElement}
  */
-export default function BestSubmissions(): ReactElement {
+export default function BestSubmissions({ testId }: BestSubmissionsProps): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
   const navigation = new CommunityNavigation(router);
@@ -29,8 +33,8 @@ export default function BestSubmissions(): ReactElement {
         subtitle=""
         isExpanded
         content={
-          <div>
-            <p className="leading-normal text-sm capitalize md:w-full w-64 pt-6">{t("communities.challenge.best-submissions.description")}</p>
+          <div data-testid={testId}>
+            <p className="leading-6 text-base pt-6 text-primary">{t("communities.challenge.best-submissions.description")}</p>
             <div className="text-xl md:text-.5xl px-0">
               <div className="md:grid grid-cols-2 gap-5 pt-6 flex-wrap">
                 {challenge?.bestSubmissions.map((submission, index) => {
