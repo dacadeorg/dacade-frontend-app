@@ -52,7 +52,7 @@ export default function Payout({ show, wallet, onClose }: PayoutProps): ReactEle
       <div id="sumsub-websdk-container" className="relative px-6 pt-6">
         <div className="mb-6">
           <p className="text-.5xl leading-snug font-medium">{wallet.title}</p>
-          <p className="text-.5xl font-medium text-gray-400 leading-snug">{t("profile.wallet.payout.request")}</p>
+          <p className="text-.5xl font-medium text-tertiary leading-snug">{t("profile.wallet.payout.request")}</p>
           <Tag className="text-gray-500" value={wallet.token} />
         </div>
         <div className="border-b border-dotted">
@@ -72,7 +72,7 @@ export default function Payout({ show, wallet, onClose }: PayoutProps): ReactEle
         </div>
       </div>
       <div className="flex items-center justify-between pb-2 pl-6 pr-2">
-        <span className="text-sm font-medium cursor-pointer text-primary" onClick={onClose}>
+        <span className="text-sm font-medium cursor-pointer text-brand" onClick={onClose}>
           {t("profile.edit.close")}
         </span>
         <ArrowButton loading={loading} disabled={loading} variant="outline-primary" onClick={save}>

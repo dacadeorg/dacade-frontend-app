@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import MainSection, { cards } from "@/components/sections/homepage/Main";
 
 describe("Main Section", () => {

@@ -1,7 +1,7 @@
 import CommunityStats, { stats } from "@/components/sections/homepage/_partials/testimonials/CommunityStats";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import { renderWithRedux } from "../../../../../__mocks__/renderWithRedux";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 
 describe("CommunityStats", () => {
   it("should render Community stats", () => {
@@ -12,7 +12,13 @@ describe("CommunityStats", () => {
 
   it("should display the stats", () => {
     renderWithRedux(<CommunityStats />);
-    stats.forEach((stat) => {
+    const digitFormatter = new Intl.NumberFormat();
+    const formattedStats = stats.map(stat => ({
+      ...stat,
+      count: digitFormatter.format(stat.count),
+    }));
+
+    formattedStats.forEach((stat) => {
       expect(screen.getByText(stat.count)).toBeInTheDocument();
       expect(screen.getByText(stat.count).textContent).toBe(stat.count.toString());
       expect(screen.getByText(stat.title)).toBeInTheDocument();

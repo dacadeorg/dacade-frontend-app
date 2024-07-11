@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import TestimonialsSection from "@/components/sections/homepage/Testimonials";
-import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 
 describe("TestimonialsSection", () => {
   it("should render TestimonialsSection with child components", () => {

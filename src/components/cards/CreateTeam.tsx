@@ -180,7 +180,7 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
   };
 
   return (
-    <div className="flex flex-col relative flex-grow p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 mb-4 border-solid border border-gray-200">
+    <div className="flex flex-col relative flex-grow p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-7 border-solid border border-gray-200">
       <div className="flex flex-col justify-between w-full sm:pb-0">
         <div className="flex flex-col gap-4">
           <div className="text-lg font-medium leading-normal text-gray-900">
@@ -203,7 +203,7 @@ export default function CreateTeamCard({ index = 1, title = "", text = "" }: Cre
                     </div>
                     <div className="flex flex-col">
                       <div className=" text-sm text-gray-700 font-medium">{member?.displayName}</div>
-                      <div className=" text-gray-400 text-xs">{status}</div>
+                      <div className=" text-tertiary text-xs">{status}</div>
                     </div>
                     {!team?.locked && (
                       <>

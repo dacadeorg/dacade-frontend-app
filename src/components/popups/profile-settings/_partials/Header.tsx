@@ -26,7 +26,7 @@ export default function SubmissionPopup({ onClose }: SubmissionPopup): ReactElem
       <div className="text-left pl-5 flex items-center space-x-6 cursor-pointer" onClick={onClose}></div>
       <div className="p-2">
         <button className="bg-gray-100 self-start px-2.5 py-2.5" onClick={onClose}>
-          <Crossmark className="text-xl text-gray-600 w-6" />
+          <Crossmark className="text-xl text-secondary w-6" />
         </button>
       </div>
     </div>
