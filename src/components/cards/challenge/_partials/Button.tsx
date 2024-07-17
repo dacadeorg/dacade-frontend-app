@@ -9,9 +9,9 @@ export interface ButtonProps {
 }
 
 export default function Button({ text, onClick, loading }: ButtonProps) {
-  const [isTextVisible, setistextVisible] = useState(false);
+  const [isTextVisible, setIsTextVisible] = useState(false);
   return (
-    <div className="ml-auto cursor-pointer relative " onMouseEnter={() => setistextVisible(true)} onMouseLeave={() => setistextVisible(false)} onClick={onClick}
+    <div className="ml-auto cursor-pointer relative " onMouseEnter={() => setIsTextVisible(true)} onMouseLeave={() => setistextVisible(false)} onClick={onClick}
     data-testid = "button"
     >
       <>

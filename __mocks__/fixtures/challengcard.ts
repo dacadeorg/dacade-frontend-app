@@ -1,0 +1,88 @@
+import { ChallengeCardProps } from "@/components/cards/challenge/Challenge";
+import { mockCertificateData, mockCourse, mockFormat, mockLearningModule, mockRatingCriteria } from "./course";
+import { mockCommunity, mockMetadata } from "./community";
+import { reward } from "./reward";
+import { GRADING_CRITERIA, TEAM_FORMATION } from "@/constants/challengeInfo";
+import { colors } from "./colors";
+
+const mockReward = {
+  id: "123456789",
+  ref: "ref123",
+  created_at: new Date("2024-01-29T08:00:00Z"),
+  updated_at: new Date("2024-01-29T08:30:00Z"),
+  challenge: "Challenge Name",
+  type: "SUBMISSION",
+  community: "Community Name",
+  token: "Token ID",
+  stable: true,
+  amount: 100,
+  timestamp: 1643424000,
+};
+
+export const mockChallengeCardProps: ChallengeCardProps = {
+  data: {
+    id: "challenge",
+    ref: "challenge ref",
+    created_at: new Date("2022-05-01T12:00:00Z"),
+    updated_at: new Date("2022-05-01T12:00:00Z"),
+    hint: "Hint",
+    name: "challenge name",
+    format: mockFormat,
+    description: "challenge description",
+    course: mockCourse,
+    type: "course",
+    isTeamChallenge: false,
+    objectives: ["objectives 1", "Objectives 2", "Objectives 3", "Objectives 4"],
+    threshold: 8,
+    community: mockCommunity,
+    reviewTime: 9,
+    metadata: mockMetadata,
+    level: 58,
+    courses: [mockCourse],
+    learningModules: [mockLearningModule],
+    expiresAt: "2025",
+    reward: reward,
+    certificateIcon: "certificate",
+    certificateData: mockCertificateData,
+    ratingCriteria: [mockRatingCriteria],
+    timestamp: 6,
+    maxPoints: 299,
+    minPoints: 9,
+    rewards: [reward],
+    feedbacks: {},
+    feedbackInfo: [{}],
+    bestSubmissions: [{}],
+    teamLimit: 5,
+    isHackathon: false,
+    additionalInfo: {
+      [TEAM_FORMATION]: {
+        type: "teamFormation",
+        text: "Form your team details here",
+      },
+      [GRADING_CRITERIA]: { type: "teamFormation", text: "Sample grading criteria text" },
+    },
+  },
+  community: {
+    id: "ew-43",
+    ref: "community/ref",
+    created_at: new Date("2022-05-01T12:00:00Z"),
+    updated_at: new Date("2022-05-01T12:00:00Z"),
+    summary: "this is the summary",
+    icon: "/public/fav-icons/favicon-16x16.png",
+    name: "aeternity",
+    image: "/public/img/Ape_Unit_Logo_White.png",
+    colors: colors,
+    slug: "ae",
+    active: true,
+    description: "this is a aeternity community",
+    metadata: mockMetadata,
+    timestamp: 182044800000,
+    rewards: [mockReward],
+    reward: mockReward,
+    courses: 3,
+    duration: 4,
+    can_mint_certificates: true,
+    challenges: 3,
+  },
+  isCourseEnd: true,
+};

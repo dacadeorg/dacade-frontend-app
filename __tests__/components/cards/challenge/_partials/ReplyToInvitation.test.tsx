@@ -1,16 +1,16 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { useDispatch } from "../../../../../src/hooks/useTypedDispatch";
+import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import ReplyToInvitation, { InvitationProps } from "@/components/cards/challenge/_partials/ReplyToInvitation";
 import { acceptInvitation, declineInvitation } from "@/store/feature/communities/challenges/invites.slice";
 
 
-jest.mock("../../../../../src/hooks/useTypedDispatch");
-jest.mock("../../../../../src/hooks/useTypedSelector");
-jest.mock("../../../../../src/store/services/teams.service");
-jest.mock("../../../../../src/store/feature/communities/challenges/invites.slice");
+jest.mock("@/hooks/useTypedDispatch");
+jest.mock("@/hooks/useTypedSelector");
+jest.mock("@/store/services/teams.service");
+jest.mock("@/store/feature/communities/challenges/invites.slice");
 const mockDispatch = jest.fn();
 
 (useDispatch as jest.Mock).mockReturnValue(mockDispatch);

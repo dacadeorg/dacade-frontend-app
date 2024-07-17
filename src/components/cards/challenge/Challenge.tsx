@@ -17,7 +17,7 @@ import RewardCertificate from "./RewardCertificate";
  * @returns {JSX.Element} The rendered ChallengeCard component.
  * @interface ChallengeCardProps
  */
-interface ChallengeCardProps {
+export interface ChallengeCardProps {
   data: Challenge;
   community: Community;
   isCourseEnd?: boolean;
@@ -33,7 +33,9 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
 
 
   return (
-    <div className="w-full flex flex-col sm:flex-row  md:flex-col lg:flex-row  border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">
+    <div 
+    data-testid = "challenge-card"
+    className="w-full flex flex-col sm:flex-row  md:flex-col lg:flex-row  border-solid border border-gray-200 bg-gray-50 rounded-3xl mb-5 group text-gray-700">
       <div className="border-solid border -m-px border-gray-200 bg-white rounded-3xl sm:p-8 sm:pb-6 p-6 sm:w-2/3 md:w-auto lg:w-2/3">
         <div className="flex flex-col mb-1">
           <div className="lg:pr-20">
