@@ -112,7 +112,7 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
             />
           </div>
           <div className="flex pb-2 items-center justify-between">
-            <span className="cursor-pointer text-sm font-medium text-primary" onClick={onClose}>
+            <span className="cursor-pointer text-sm font-medium text-brand" onClick={onClose}>
               {t("profile.edit.close")}
             </span>
             <ArrowButton loading={loading} disabled={loading} variant="outline-primary">

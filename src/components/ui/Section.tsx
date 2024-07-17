@@ -31,9 +31,9 @@ interface SectionProps {
 export default function Section({ type, padding = "py-4", children, className = "", testId = "section" }: SectionProps): ReactElement {
   const sectionClassName = classNames("relative", className, {
     "bg-white text-gray-900": type === "default",
-    "bg-primary text-white": type === "primary",
-    "bg-secondary text-gray-900": type === "secondary",
-    "bg-gray-50 text-gray-900": type === "secondary-light",
+    "bg-brand text-white": type === "primary",
+    "bg-tertiary text-gray-900": type === "secondary",
+    "bg-secondary text-gray-900": type === "secondary-light",
   });
 
   return (

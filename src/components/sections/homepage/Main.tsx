@@ -40,8 +40,8 @@ export default function MainSection(): ReactElement {
   return (
     <Section type="default" padding="p-0">
       <div className="w-full lg:py-24 pt-24 pb-8">
-        <h1 className="lg:text-7.75xl md:text-6xl text-4.5xl leading-10 -tracking-4">{t("page.index.main.title")}</h1>
-        <p className="lg:text-7.75xl md:text-6xl text-4.5xl py-2 lg:py-0 md:py-0 sm:py-0 text-gray-400 -tracking-4 leading-10">{t("page.index.main.subtitle")}</p>
+        <h1 className="lg:text-7.75xl md:text-6xl text-4.5xl leading-10 -tracking-4 text-primary">{t("page.index.main.title")}</h1>
+        <p className="lg:text-7.75xl md:text-6xl text-4.5xl py-2 lg:py-0 md:py-0 sm:py-0 text-tertiary -tracking-4 leading-10">{t("page.index.main.subtitle")}</p>
       </div>
       <div className="flex justify-between">
         <div className="w-full max-w-xs hidden lg:block">
