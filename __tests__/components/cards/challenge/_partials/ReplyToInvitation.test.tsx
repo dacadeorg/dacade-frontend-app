@@ -5,7 +5,6 @@ import { useMultiSelector } from "@/hooks/useTypedSelector";
 import ReplyToInvitation, { InvitationProps } from "@/components/cards/challenge/_partials/ReplyToInvitation";
 import { acceptInvitation, declineInvitation } from "@/store/feature/communities/challenges/invites.slice";
 
-
 jest.mock("@/hooks/useTypedDispatch");
 jest.mock("@/hooks/useTypedSelector");
 jest.mock("@/store/services/teams.service");
@@ -31,6 +30,14 @@ describe("ReplyToInvitation", () => {
   it("should render the ReplyToInvitation component", () => {
     render(<ReplyToInvitation {...invitationProps} />);
     expect(screen.getByTestId("reply-to-invitation")).toBeInTheDocument();
+  });
+
+  it("should render accept button and decline button in component",() => {
+    render(<ReplyToInvitation {...invitationProps} />);
+    const acceptButton = screen.getByTestId('reply-to-invitation');
+    const declineButton = screen.getByTestId('reply-to-invitation');
+    expect(acceptButton).toBeInTheDocument();
+    expect(declineButton).toBeInTheDocument();
   });
 
   it("should display loader when loading", async () => {
@@ -64,7 +71,7 @@ describe("ReplyToInvitation", () => {
     });
 
     render(<ReplyToInvitation {...invitationProps} />);
-    
+
     await waitFor(() => expect(screen.queryByTestId("loader")).not.toBeInTheDocument());
     const invitationButtons = screen.queryAllByTestId("invitation-button");
     expect(invitationButtons).toHaveLength(2);
