@@ -43,10 +43,10 @@ export default function RewardBadge({ reward = {}, type = "transparent", display
   });
   if (!reward) return <></>;
   return (
-    <span className={badgeClassnames}>
+    <span data-testid="RewardBadge" className={badgeClassnames}>
       {token && <Coin token={token} size="small" />}
       {amount && (
-        <div className="font-medium pl-0 pr-2">
+        <div data-testid="amount" className="font-medium pl-0 pr-2">
           {displayAmount && shortenNumber(amount)} {token}
         </div>
       )}
