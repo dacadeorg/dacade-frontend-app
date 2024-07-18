@@ -16,7 +16,7 @@ export default function Button({ text, onClick, loading }: ButtonProps) {
     >
       <>
         {loading ? (
-          <Loader isSmallSpinner  data-testid = "loader"/>
+          <Loader isSmallSpinner />
         ) : (
           <>
             <CloseIcon />

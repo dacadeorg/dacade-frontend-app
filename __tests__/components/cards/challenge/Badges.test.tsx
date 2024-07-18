@@ -19,8 +19,8 @@ jest.mock("next/router", () => ({
 
 describe("Badge-card", () => {
   it("should render the level badge in cards", () => {
-    const levelChallenge = { ...challenge, level: 2, isTeamChallenge: false };
-    renderWithRedux(<Badges challenge={levelChallenge} />);
+    const challengeWithLevel = { ...challenge, level: 2, isTeamChallenge: false };
+    renderWithRedux(<Badges challenge={challengeWithLevel} />);
     const badges = screen.getAllByTestId('tag');
     expect(badges.length).toBe(1);
     expect(badges[0]).toHaveTextContent('course.challenge.level-2');
