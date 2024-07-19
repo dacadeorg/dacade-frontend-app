@@ -4,19 +4,6 @@ import Badges from "@/components/cards/challenge/Badges";
 import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import { challenge } from "@__mocks__/fixtures/challenge";
 
-jest.mock("next/router", () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-    events: {
-      on: jest.fn(),
-      off: jest.fn(),
-      emit: jest.fn(),
-    },
-    isFallback: false,
-    pathname: "mocked-pathname",
-  }),
-}));
-
 describe("Badge-card", () => {
   it("should render the level badge in cards", () => {
     const challengeWithLevel = { ...challenge, level: 2, isTeamChallenge: false };

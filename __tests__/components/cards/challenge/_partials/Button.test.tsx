@@ -1,40 +1,19 @@
-import Button, { ButtonProps } from "@/components/cards/challenge/_partials/Button";
+import Button from "@/components/cards/challenge/_partials/Button";
 import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import "@testing-library/jest-dom";
-import { screen, fireEvent } from '@testing-library/react';
-import { useRouter } from 'next/router';
-
-jest.mock("next/router", () => ({
-  useRouter: jest.fn(),
-}));
-
-const mockPush = jest.fn();
-
-(useRouter as jest.Mock).mockReturnValue({
-  push: mockPush,
-  events: {
-    on: jest.fn(),
-    off: jest.fn(),
-    emit: jest.fn(),
-  },
-  isFallback: false,
-});
+import { screen, fireEvent } from "@testing-library/react";
+import { ButtonProps } from "@/components/cards/challenge/_partials/Button";
 
 const buttonProps: ButtonProps = {
   text: "Test Button",
   onClick: jest.fn(),
   loading: true,
+  buttonTestId: "button",
 };
 
 function RenderButton(props: ButtonProps = buttonProps) {
-  renderWithRedux(
-    <Button
-      text={props.text}
-      onClick={props.onClick}
-      loading={props.loading}
-    />
-  );
-  return screen.getByTestId("button");
+  renderWithRedux(<Button text={props.text} onClick={props.onClick} loading={props.loading} buttonTestId={props.buttonTestId} />);
+  return screen.getByTestId(buttonProps.buttonTestId!);
 }
 
 describe("Button", () => {
@@ -56,13 +35,13 @@ describe("Button", () => {
   it("should call onClick when clicked", () => {
     const onClickMock = jest.fn();
     RenderButton({ ...buttonProps, onClick: onClickMock, loading: false });
-    fireEvent.click(screen.getByTestId("button"));
+    fireEvent.click(screen.getByTestId(buttonProps.buttonTestId!));
     expect(onClickMock).toHaveBeenCalled();
   });
 
   it("should display text when loading is false and isTextVisible is true", () => {
     renderWithRedux(<Button {...buttonProps} loading={false} />);
-    fireEvent.mouseEnter(screen.getByTestId("button"));
+    fireEvent.mouseEnter(screen.getByTestId(buttonProps.buttonTestId!));
     expect(screen.getByTestId("button-text")).toHaveTextContent(buttonProps.text);
   });
 });

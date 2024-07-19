@@ -4,12 +4,6 @@ import "@testing-library/jest-dom";
 import Rewards, { OverviewRewardsProps } from "@/components/cards/challenge/_partials/Reward";
 
 
-jest.mock("next-i18next", () => ({
-  useTranslation: jest.fn().mockReturnValue({
-    t: (key: string) => key,
-  }),
-}));
-
 const rewardProps: OverviewRewardsProps = {
   reward: {
     id: "1",

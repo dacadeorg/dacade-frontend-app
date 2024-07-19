@@ -10,6 +10,9 @@ export interface LearningProps {
   title: string;
   description: string;
   link: string;
+  learningTestId?: string;
+  titleTestId?: string;
+  descriptionTestId?: string;
 }
 
 /**
@@ -18,18 +21,23 @@ export interface LearningProps {
  * @param {LearningProps} props - The props for the Learning component.
  * @returns {JSX.Element} The Learning component JSX element.
  */
-export default function Learning({ title, description, link }: LearningProps): JSX.Element {
+export default function Learning({ title, description, link, learningTestId, titleTestId, descriptionTestId }: LearningProps): JSX.Element {
   // This is link is not the actual link; we will replace it after it's done in the backend
   const { t } = useTranslation();
 
   return (
-    <div 
-    data-testid="learning-component"
-    className="flex flex-col gap-3 relative bg-primary p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group sm:p-7 border-solid border border-primary">
+    <div
+      data-testid={learningTestId}
+      className="flex flex-col gap-3 relative bg-primary p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group sm:p-7 border-solid border border-primary"
+    >
       <div className="flex flex-col justify-between w-full sm:pb-0">
         <div className="flex flex-col">
-          <div className="text-base font-medium leading-6 text-primary" data-testid="learning-title">{title}</div>
-          <div className="text-sm lg:text-base font-normal -tracking-1 leading-6 text-secondary mt-3 max-w-xxs pb-6 mb-5" data-testid ="learning-description">{description}</div>
+          <div className="text-base font-medium leading-6 text-primary" data-testid={titleTestId}>
+            {title}
+          </div>
+          <div className="text-sm lg:text-base font-normal -tracking-1 leading-6 text-secondary mt-3 max-w-xxs pb-6 mb-5" data-testid={descriptionTestId}>
+            {description}
+          </div>
         </div>
         <div className="absolute bottom-0 pb-4">
           <Link href={link}>

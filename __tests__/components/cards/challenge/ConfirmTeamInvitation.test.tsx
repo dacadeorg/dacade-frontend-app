@@ -8,20 +8,6 @@ import { mockConfirmTeamInvitation } from "@__mocks__/fixtures/confirmTeamInvita
 jest.mock("@/hooks/useTypedDispatch.ts", () => ({
   useDispatch: jest.fn(),
 }));
-
-jest.mock("next/router", () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-    events: {
-      on: jest.fn(),
-      off: jest.fn(),
-      emit: jest.fn(),
-    },
-    isFallback: false,
-    pathname: "mocked-pathname",
-  }),
-}));
-
 const dispatchMock = jest.fn() as jest.MockedFunction<AppDispatch>;
 const useDispatchMock = useDispatch as jest.MockedFunction<typeof useDispatch>;
 
@@ -33,13 +19,13 @@ describe("ConfirmTeamInvitation", () => {
 
   it("should render the ConfirmTeamInvitation component", () => {
     renderWithRedux(<ConfirmTeamInvitation {...mockConfirmTeamInvitation} />);
-    const confirmTeamInvitation = screen.getByTestId("confirmTeamInvitation");
+    const confirmTeamInvitation = screen.getByTestId(mockConfirmTeamInvitation.confirmInvitationTestId!);
     expect(confirmTeamInvitation).toBeInTheDocument();
   });
 
   it("should render the ReplyToInvitation component within ConfirmTeamInvitation", () => {
     renderWithRedux(<ConfirmTeamInvitation {...mockConfirmTeamInvitation} />);
-    const replyToInvitation = screen.getByTestId("reply-to-invitation");
+    const replyToInvitation = screen.getByTestId("reply-to-invitation" );
     expect(replyToInvitation).toBeInTheDocument();
   });
 });

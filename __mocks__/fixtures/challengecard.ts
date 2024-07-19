@@ -6,4 +6,5 @@ export const mockChallengeCardProps: ChallengeCardProps = {
   data: challenge,
   community: mockCommunity,
   isCourseEnd: true,
+  challengeTestId: 'challenge-card'
 };

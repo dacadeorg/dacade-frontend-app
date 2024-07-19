@@ -29,7 +29,7 @@ describe("FormTeamCard", () => {
 
     it('should have a link to the correct URL', () => {
         RenderFormTeamCard();
-        const linkElement = screen.getByRole('link', { name: /Start now/i });
+        const linkElement = screen.getByRole('link', { name: 'Start now' });
         expect(linkElement).toHaveAttribute('href', 'https://t.me/+0oJye8IwAuxkMDY0');
         expect(linkElement).toHaveAttribute('target', '_blank');
     });

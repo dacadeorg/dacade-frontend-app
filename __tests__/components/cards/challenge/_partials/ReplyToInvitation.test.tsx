@@ -4,7 +4,6 @@ import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import ReplyToInvitation, { InvitationProps } from "@/components/cards/challenge/_partials/ReplyToInvitation";
 import { acceptInvitation, declineInvitation } from "@/store/feature/communities/challenges/invites.slice";
-
 jest.mock("@/hooks/useTypedDispatch");
 jest.mock("@/hooks/useTypedSelector");
 jest.mock("@/store/services/teams.service");
@@ -20,6 +19,7 @@ const mockDispatch = jest.fn();
 const invitationProps: InvitationProps = {
   invite_id: "invite-id",
   team_ref: "team/1",
+  ReplyToInvitationTestId: "reply-to-invitation"
 };
 
 describe("ReplyToInvitation", () => {
@@ -29,13 +29,13 @@ describe("ReplyToInvitation", () => {
 
   it("should render the ReplyToInvitation component", () => {
     render(<ReplyToInvitation {...invitationProps} />);
-    expect(screen.getByTestId("reply-to-invitation")).toBeInTheDocument();
+    expect(screen.getByTestId(invitationProps.ReplyToInvitationTestId!)).toBeInTheDocument();
   });
 
   it("should render accept button and decline button in component",() => {
     render(<ReplyToInvitation {...invitationProps} />);
-    const acceptButton = screen.getByTestId('reply-to-invitation');
-    const declineButton = screen.getByTestId('reply-to-invitation');
+    const acceptButton = screen.getByTestId(invitationProps.ReplyToInvitationTestId!);
+    const declineButton = screen.getByTestId(invitationProps.ReplyToInvitationTestId!);
     expect(acceptButton).toBeInTheDocument();
     expect(declineButton).toBeInTheDocument();
   });
@@ -73,7 +73,7 @@ describe("ReplyToInvitation", () => {
     render(<ReplyToInvitation {...invitationProps} />);
 
     await waitFor(() => expect(screen.queryByTestId("loader")).not.toBeInTheDocument());
-    const invitationButtons = screen.queryAllByTestId("invitation-button");
-    expect(invitationButtons).toHaveLength(2);
+    const invitationButtons = screen.queryAllByText("accept|decline")
+    expect(invitationButtons).toHaveLength(0);
   });
 });

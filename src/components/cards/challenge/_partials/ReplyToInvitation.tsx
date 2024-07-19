@@ -16,9 +16,10 @@ interface MultiSelector {
 export interface InvitationProps {
   invite_id: string;
   team_ref: string;
+  ReplyToInvitationTestId?: string
 }
 
-export default function ReplyToInvitation({ invite_id, team_ref }: InvitationProps) {
+export default function ReplyToInvitation({ invite_id, team_ref,ReplyToInvitationTestId }: InvitationProps) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [canReply, setCanReply] = useState(false);
@@ -70,7 +71,7 @@ export default function ReplyToInvitation({ invite_id, team_ref }: InvitationPro
   }, [invite_id, team]);
 
   return (
-    <div data-testid="reply-to-invitation">
+    <div data-testid={ReplyToInvitationTestId}>
       {loading ? (
         <Loader isSmallSpinner />
       ) : (

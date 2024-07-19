@@ -7,5 +7,6 @@ export const mockConfirmTeamInvitation : ConfirmTeamInvitationProps = {
     index: 1,
     title: "ConfirmTeamInvitation",
     text: "welcome to our team",
-    invite: mockInvite
+    invite: mockInvite,
+    confirmInvitationTestId: "confirmTeamInvitation"
 }

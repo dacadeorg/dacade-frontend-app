@@ -6,13 +6,18 @@ export interface ButtonProps {
   text: string;
   onClick: () => void;
   loading: boolean;
+  buttonTestId?: string;
 }
 
-export default function Button({ text, onClick, loading }: ButtonProps) {
+export default function Button({ text, onClick, loading, buttonTestId }: ButtonProps) {
   const [isTextVisible, setIsTextVisible] = useState(false);
   return (
-    <div className="ml-auto cursor-pointer relative " onMouseEnter={() => setIsTextVisible(true)} onMouseLeave={() => setIsTextVisible(false)} onClick={onClick}
-    data-testid = "button"
+    <div
+      className="ml-auto cursor-pointer relative "
+      onMouseEnter={() => setIsTextVisible(true)}
+      onMouseLeave={() => setIsTextVisible(false)}
+      onClick={onClick}
+      data-testid={buttonTestId}
     >
       <>
         {loading ? (
@@ -20,9 +25,9 @@ export default function Button({ text, onClick, loading }: ButtonProps) {
         ) : (
           <>
             <CloseIcon />
-            <span className={`absolute -top-8 -right-6 text-sm bg-white p-0.5 px-1.5 rounded shadow-md ${isTextVisible ? "block" : "hidden"}`}
-            data-testid="button-text"
-            >{text} </span>
+            <span className={`absolute -top-8 -right-6 text-sm bg-white p-0.5 px-1.5 rounded shadow-md ${isTextVisible ? "block" : "hidden"}`} data-testid="button-text">
+              {text}{" "}
+            </span>
           </>
         )}
       </>
