@@ -27,13 +27,14 @@ interface Reward {
  * @typedef {RewardBadgeProps}
  */
 
-interface RewardBadgeProps {
+export interface RewardBadgeProps {
   type?: "transparent" | "gray" | "light-gray";
   reward?: Reward;
   displayAmount?: boolean;
+  rewardBadgeTestId?:string;
 }
 
-export default function RewardBadge({ reward = {}, type = "transparent", displayAmount = true }: RewardBadgeProps): ReactElement {
+export default function RewardBadge({ reward = {}, type = "transparent", displayAmount = true,rewardBadgeTestId =  "RewardBadge" }: RewardBadgeProps): ReactElement {
   const { token, amount } = reward;
 
   const badgeClassnames = classNames("font-semibold leading-none text-center inline-flex items-center justify-between rounded-full text-xs p-0.5 h-5 space-x-2", {
@@ -43,10 +44,10 @@ export default function RewardBadge({ reward = {}, type = "transparent", display
   });
   if (!reward) return <></>;
   return (
-    <span data-testid="RewardBadge" className={badgeClassnames}>
+    <span data-testid= {rewardBadgeTestId} className={badgeClassnames}>
       {token && <Coin token={token} size="small" />}
       {amount && (
-        <div data-testid="amount" className="font-medium pl-0 pr-2">
+        <div className="font-medium pl-0 pr-2">
           {displayAmount && shortenNumber(amount)} {token}
         </div>
       )}
