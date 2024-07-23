@@ -295,6 +295,7 @@
   "profile.settings.edit.name.update": "Update your Name",
   "profile.settings.edit.email": "Email",
   "profile.settings.edit.email.update": "Update your Email",
+  "profile.settings.edit.email.error": "Имейлите трябва да съвпадат",
   "profile.settings.edit.email.confirm": "Confirm email",
   "profile.settings.edit.discord": "Discord",
   "profile.settings.edit.discord.connect": "connect",

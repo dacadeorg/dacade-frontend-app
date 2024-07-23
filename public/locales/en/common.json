@@ -300,6 +300,7 @@
   "profile.settings.edit.email": "Email",
   "profile.settings.edit.email.update": "Update your Email",
   "profile.settings.edit.email.confirm": "Confirm email",
+  "profile.settings.edit.email.error": "Emails should match",
   "profile.settings.discord.disconnect.confirm": "Do you want to disconnect from Discord?",
   "profile.settings.discord.disconnect": "Disconnect",
   "profile.settings.edit.discord": "Discord",

@@ -296,6 +296,7 @@
   "profile.settings.edit.email": "Correo electrónico",
   "profile.settings.edit.email.confirm": "Confirme correo electrónico",
   "profile.settings.edit.email.update": "Actualice su correo electrónico",
+  "profile.settings.edit.email.error": "Los correos electrónicos deben coincidir",
   "profile.settings.edit.name.update": "Actualice su nombre",
   "profile.settings.edit.discord": "Discord",
   "profile.settings.edit.discord.connect": "conectar",
