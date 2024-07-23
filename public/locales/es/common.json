@@ -172,6 +172,7 @@
   "communities.challenge.evaluation.points": "Puntos",
   "communities.challenge.evaluation.message": "¡Felicidades, ha ganado al menos el 70% de los puntos disponibles!",
   "communities.challenge.evaluation.message.nominated": "Felicitaciones, ganar el {{threshold}}% te nominó para el fondo de premios de:",
+  "communities.challenge.submission.no.feedbacks": "La retroalimentación para esta presentación ya no está disponible",
   "communities.submission.title": "Propuestas",
   "communities.feedbacks": "Feedbacks",
   "communities.navigation.overview": "Vista general",

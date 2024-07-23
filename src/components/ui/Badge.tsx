@@ -42,7 +42,7 @@ export default function Badge({ customStyle, value, size = "medium", className, 
   }, [value, size]);
 
   const router = useRouter();
-  const isCommunity: boolean = router.pathname.startsWith("communities-slug__");
+  const isCommunity: boolean = router.pathname?.startsWith("communities-slug__");
 
   if (value === null || value === "") {
     return <></>;
