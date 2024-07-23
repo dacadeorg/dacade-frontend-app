@@ -34,7 +34,7 @@ interface CourseCardProps {
 
 export default function CourseCard({ course, community }: CourseCardProps): ReactElement {
   const { t } = useTranslation();
-  const path = `/communities/${community.slug}/courses/${course.slug}`;
+  const path = `/communities/${community?.slug}/courses/${course.slug}`;
   const reward = course?.challenge?.rewards?.find((entity) => entity.type === "SUBMISSION");
 
   return (
@@ -74,8 +74,8 @@ export default function CourseCard({ course, community }: CourseCardProps): Reac
           <span className="text-xxs tracking-wider px-1 font-semibold uppercase text-gray-500">{t(`course.challenge.certificate`)}</span>
           <Avatar
             className="w-15 h-15 p-3 overflow-hidden"
-            icon={community.icon}
-            color={community.colors?.cover?.background || community.colors.primary}
+            icon={community?.icon}
+            color={community?.colors?.cover?.background || community?.colors.primary}
             size="extra"
             shape="rounded-3xl"
             user={null}

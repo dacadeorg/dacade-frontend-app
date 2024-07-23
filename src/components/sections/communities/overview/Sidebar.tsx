@@ -60,7 +60,7 @@ export default function Sidebar(): JSX.Element {
 
   return (
     <div className="flex flex-col md:divide-y divide-solid divide-gray-100 w-full text-gray-700 space-y-6">
-      <Link href={links.mainLink}>
+      <Link href={links.mainLink} aria-label="main link">
         <div>
           <div className={`${getClassNames(links.mainLink).titleColor} font-medium text-.5xl leading-snug text`}>{t("communities.overview.challenges.title")}</div>
           <div className={`${getClassNames(links.mainLink).descriptionColor} text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0`}>
@@ -69,7 +69,7 @@ export default function Sidebar(): JSX.Element {
         </div>
       </Link>
       {hasCurrentCommunity && (
-        <Link href={links.scoreboardLink}>
+        <Link href={links.scoreboardLink} aria-label="scoreboard link">
           <div className={classNames(`pt-6 ${getClassNames(links.scoreboardLink).titleColor}`, { "md:block hidden scroll-smooth": isActive(links.scoreboardLink) })}>
             <div className="font-medium text-.5xl leading-snug">{t("communities.overview.scoreboard.title")}</div>
             <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0">{t("communities.overview.scoreboard.description")}</div>
