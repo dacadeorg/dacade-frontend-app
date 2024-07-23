@@ -1,7 +1,7 @@
 import Avatar from "@/components/ui/Avatar";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { userIcon, mockProfile } from "../../../__mocks__/fixtures/profile";
+import { userIcon, mockProfile } from "@__mocks__/fixtures/profile";
 
 describe("Avatar", () => {
   it("Should render the avatar", () => {

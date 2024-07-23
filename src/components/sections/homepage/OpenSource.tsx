@@ -10,10 +10,10 @@ import { useTranslation } from "next-i18next";
  * @returns {ReactElement}
  */
 
-export default function OpenSource() {
+export default function OpenSource({ testId = "openSourceId" }: { testId?: string }) {
   const { t } = useTranslation();
   return (
-    <div className="text-4xl lg:text-5xl leading-10 lg:leading-13.4 pt-24 flex flex-col text-wrap space-y-2 -tracking-2 md:-tracking-6 xl:-tracking-2">
+    <div data-testid={testId} className="text-4xl lg:text-5xl leading-10 lg:leading-13.4 pt-24 flex flex-col text-wrap space-y-2 -tracking-2 md:-tracking-6 xl:-tracking-2">
       <p className="text-primary">
         {t("footer.open.source")}
         <br className="block md:hidden lg:block" />
