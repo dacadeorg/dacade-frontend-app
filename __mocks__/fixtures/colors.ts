@@ -1,4 +1,6 @@
-export const colors = {
+import { Colors } from "@/types/community";
+
+export const colors: Colors = {
   textAccent: "--tm-text",
   text: "--tm-text",
   accent: "--tm-accent",
