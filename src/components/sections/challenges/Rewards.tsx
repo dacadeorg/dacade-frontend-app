@@ -6,6 +6,10 @@ import Certificate from "@/components/ui/Certificate";
 import { useRouter } from "next/router";
 import RewardCertificate from "@/components/cards/challenge/RewardCertificate";
 
+interface OverviewRewardsProps {
+  testId?: string;
+}
+
 /**
  * Overview reward section component
  * @date 4/18/2023 - 1:44:34 PM
@@ -13,7 +17,7 @@ import RewardCertificate from "@/components/cards/challenge/RewardCertificate";
  * @export
  * @returns {ReactElement}
  */
-export function OverviewRewards({ testId }: { testId?: string }): ReactElement {
+export function OverviewRewards({ testId = "overviewRewardId" }: OverviewRewardsProps): ReactElement {
   const { t } = useTranslation();
   const challenge = useSelector((state) => state.challenges.current);
   const router = useRouter();

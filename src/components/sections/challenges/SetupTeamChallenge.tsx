@@ -18,14 +18,16 @@ interface Props {
  *
  * @returns {JSX.Element} The SetupTeamChallenge component JSX element.
  */
-export default function SetupTeamChallenge({testid}: {testid?: string}): JSX.Element {
+export default function SetupTeamChallenge({ testid }: { testid?: string }): JSX.Element {
   const { invite, challenge } = useMultiSelector<unknown, Props>({ invite: (state: IRootState) => state.invites.data, challenge: (state: IRootState) => state.challenges.current });
 
   const { t } = useTranslation();
 
   return (
     <Section title="Submission">
-      <div data-testid={testid} className="text-base font-normal text-slate-700 py-6 md:w-182.5">{t("communities.overview.challenge.team.setup.info")}</div>
+      <div data-testid={testid} className="text-base font-normal text-slate-700 py-6 md:w-182.5">
+        {t("communities.overview.challenge.team.setup.info")}
+      </div>
       <div className="flex flex-col md:flex-row gap-6">
         <FormTeamCard index={1} title="Form your team" description={challenge?.additionalInfo?.[TEAM_FORMATION].text || t("communities.overview.challenge.team.organization")} />
         {invite && !invite.team?.locked ? (

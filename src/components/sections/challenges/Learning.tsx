@@ -8,22 +8,19 @@ import { Community } from "@/types/community";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 
+interface learningProps {
+  courses: Course[];
+  learningModules: LearningModule[];
+  community: Community;
+  testId?: string;
+}
+
 /**
  * Learning component.
  *
  * @returns {JSX.Element} The Learning component JSX element.
  */
-export default function Learning({
-  courses,
-  learningModules,
-  community,
-  testId,
-}: {
-  courses: Course[];
-  learningModules: LearningModule[];
-  community: Community;
-  testId?: string;
-}): JSX.Element {
+export default function Learning({ courses, learningModules, community, testId = "learningId" }: learningProps): JSX.Element {
   const challenge = useSelector((state) => state.challenges.current);
   const { t } = useTranslation();
   return (

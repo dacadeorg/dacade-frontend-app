@@ -4,6 +4,10 @@ import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 
+interface challengeHeaderProp {
+  testId?: string;
+}
+
 /**
  * Challenge header component
  * @date 4/18/2023 - 12:08:02 PM
@@ -11,7 +15,7 @@ import { ReactElement } from "react";
  * @export
  * @returns {ReactElement}
  */
-export default function ChallengeHeader({testId}: {testId?: string}): ReactElement {
+export default function ChallengeHeader({ testId = "challengeHeaderId" }: challengeHeaderProp): ReactElement {
   const { t } = useTranslation();
   const challenge = useSelector((state) => state.challenges.current);
 

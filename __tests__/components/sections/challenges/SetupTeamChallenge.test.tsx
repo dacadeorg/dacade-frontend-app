@@ -22,14 +22,14 @@ describe("SetUpTeamChallenge", () => {
     expect(screen.getByText(challenge?.additionalInfo?.TEAM_FORMATION.text || " ") || "communities.overview.challenge.team.organization").toBeInTheDocument();
   });
 
-  it("renders CreateTeamCard when there is no invitation or comfirmTeamInvitation when there is invitation", () => {
+  it("renders the confirmation of the team invitation when there is an invite", () => {
     renderWithRedux(<SetupTeamChallenge />, mockTeamChallengeStates);
-    if (!mockInvite) {
-      expect(screen.getByText("communities.overview.challenge.team.setup.submit-title")).toBeInTheDocument();
-      expect(screen.getByText("communities.overview.challenge.team.setup.description")).toBeInTheDocument();
-    } else {
+    if (!mockInvite.team.locked && mockInvite) {
       expect(screen.getByText("Submit your team")).toBeInTheDocument();
       expect(screen.getByText(`The maximum team members for this challenge is ${challenge?.teamLimit} people`)).toBeInTheDocument();
+    } else {
+      expect(screen.getByText("communities.overview.challenge.team.setup.submit-title")).toBeInTheDocument();
+      expect(screen.getByText("communities.overview.challenge.team.setup.description")).toBeInTheDocument();
     }
   });
 });

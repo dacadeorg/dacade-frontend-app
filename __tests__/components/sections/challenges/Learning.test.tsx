@@ -14,7 +14,7 @@ describe("Learning", () => {
     expect(screen.getByText("communities.overview.challenge.learning.title")).toBeInTheDocument();
   });
 
-  it("should render with course cards when they the challenge has them", () => {
+  it("should render with course cards when the challenge has them", () => {
     const coursesArray = [mockCourse];
     renderWithRedux(<Learning courses={[mockCourse]} learningModules={[mockLearningModule]} community={mockCommunity} />, {
       challenges: { current: challenge, list: [challenge], loading: false, submission: submission },
