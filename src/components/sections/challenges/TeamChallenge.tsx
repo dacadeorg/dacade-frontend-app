@@ -19,43 +19,43 @@ interface CardData {
  *  * @interface TeamChallengeCard
  */
 
+export const hackathonChallengeSteps: CardData[] = [
+  {
+    index: 1,
+    title: "Form your team",
+    text: "Open Telegram group and find your teammates to complete the challenge with you",
+  },
+  {
+    index: 2,
+    title: "Confirm your team",
+    text: "Make sure your teammates accept notification to confirm your team",
+  },
+  {
+    index: 3,
+    title: "Submit!",
+    text: "Once you have completed the challenge, only one person needs to submit it at the end of this page",
+  },
+];
+export const teamChallengeSteps: CardData[] = [
+  {
+    index: 1,
+    title: "Form your team",
+    text: "Open discord channel #teams and find your teammates to complete the challenge with you",
+  },
+  {
+    index: 2,
+    title: "Confirm your team",
+    text: "Make sure your teammates accept notification to confirm your team",
+  },
+  {
+    index: 3,
+    title: "Submit!",
+    text: "Once you have completed the challenge, only one person needs to submit it at the end of this page",
+  },
+];
+
 export default function TeamChallenge(): JSX.Element {
   const challenge = useSelector((state) => state.challenges.current);
-
-  const hackathonChallengeSteps: CardData[] = [
-    {
-      index: 1,
-      title: "Form your team",
-      text: "Open Telegram group and find your teammates to complete the challenge with you",
-    },
-    {
-      index: 2,
-      title: "Confirm your team",
-      text: "Make sure your teammates accept notification to confirm your team",
-    },
-    {
-      index: 3,
-      title: "Submit!",
-      text: "Once you have completed the challenge, only one person needs to submit it at the end of this page",
-    },
-  ];
-  const teamChallengeSteps: CardData[] = [
-    {
-      index: 1,
-      title: "Form your team",
-      text: "Open discord channel #teams and find your teammates to complete the challenge with you",
-    },
-    {
-      index: 2,
-      title: "Confirm your team",
-      text: "Make sure your teammates accept notification to confirm your team",
-    },
-    {
-      index: 3,
-      title: "Submit!",
-      text: "Once you have completed the challenge, only one person needs to submit it at the end of this page",
-    },
-  ];
 
   const steps: CardData[] = useMemo(() => {
     return challenge?.isHackathon ? hackathonChallengeSteps : teamChallengeSteps;

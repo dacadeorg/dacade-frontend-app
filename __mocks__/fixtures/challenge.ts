@@ -116,18 +116,6 @@ export const submission: Submission = {
   },
 };
 
-export const mockInvite = {
-  created_at: new Date().toISOString(),
-  id: "invite",
-  ref: "invitation ref",
-  status: "invitation status",
-  team_ref: "team reference",
-  timestamp: 3,
-  updated_at: new Date().toISOString(),
-  user: mockUser,
-  user_id: "user id",
-};
-
 export const mockTeamMember: TeamMember = {
   created_at: new Date().toISOString(),
   id: "id",
@@ -148,11 +136,23 @@ export const mockTeam: Team = {
   name: "Master",
   organizer: mockUser,
   organizer_id: "organizer id",
-  invites: [mockInvite],
   members: [mockTeamMember],
   ref: "",
   timestamp: "",
   updated_at: new Date().toISOString(),
+};
+
+export const mockInvite = {
+  created_at: new Date().toISOString(),
+  id: "invite",
+  ref: "invitation ref",
+  status: "invitation status",
+  team_ref: "team reference",
+  timestamp: 3,
+  updated_at: new Date().toISOString(),
+  user: mockUser,
+  user_id: "user id",
+  team: mockTeam,
 };
 
 export const mockFeedback: Feedback = {

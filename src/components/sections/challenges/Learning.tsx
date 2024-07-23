@@ -8,12 +8,19 @@ import { Community } from "@/types/community";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 
+interface learningProps {
+  courses: Course[];
+  learningModules: LearningModule[];
+  community: Community;
+  testId?: string;
+}
+
 /**
  * Learning component.
  *
  * @returns {JSX.Element} The Learning component JSX element.
  */
-export default function Learning({ courses, learningModules, community }: { courses: Course[]; learningModules: LearningModule[]; community: Community }): JSX.Element {
+export default function Learning({ courses, learningModules, community, testId = "learningId" }: learningProps): JSX.Element {
   const challenge = useSelector((state) => state.challenges.current);
   const { t } = useTranslation();
   return (
@@ -24,7 +31,9 @@ export default function Learning({ courses, learningModules, community }: { cour
         isExpanded
         content={
           <>
-            <div className="text-base font-normal text-primary py-6">{t("communities.overview.challenge.learning.title")}</div>
+            <div data-testid={testId} className="text-base font-normal text-primary py-6">
+              {t("communities.overview.challenge.learning.title")}
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
               {courses?.map((course) => (
                 <LearningCard

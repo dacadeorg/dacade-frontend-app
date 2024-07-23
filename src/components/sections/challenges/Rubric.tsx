@@ -22,6 +22,7 @@ interface RubricHeaderProps {
   ratingCriteria: RatingCriteria[];
   selected: Rubric[];
   hideTitle?: boolean;
+  testId?: string;
 }
 
 /**
@@ -36,7 +37,7 @@ interface RubricHeaderProps {
 }
  * @returns {ReactElement}
  */
-export default function RubricHeader({ ratingCriteria, selected, hideTitle = false }: RubricHeaderProps): ReactElement {
+export default function RubricHeader({ ratingCriteria, selected, hideTitle = false, testId }: RubricHeaderProps): ReactElement {
   const { t } = useTranslation();
   const { challenge, colors } = useMultiSelector<unknown, { challenge: Challenge; colors: Colors }>({
     challenge: (state: IRootState) => state.challenges.current,
@@ -57,7 +58,7 @@ export default function RubricHeader({ ratingCriteria, selected, hideTitle = fal
     const hackatonPassingScore = t("communities.challenge.hackathon.passing.score", { threshold: challenge?.threshold, prizePool: `USD ${reward?.amount}` });
 
     return (
-      <div className="text-base font-normal text-primary pt-6 inline-flex flex-wrap items-center gap-1">
+      <div data-testid={testId} className="text-base font-normal text-primary pt-6 inline-flex flex-wrap items-center gap-1">
         {challenge?.isHackathon ? (
           <div dangerouslySetInnerHTML={{ __html: challenge?.additionalInfo?.[GRADING_CRITERIA].text || hackatonPassingScore }} />
         ) : (
