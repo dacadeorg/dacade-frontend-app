@@ -47,6 +47,7 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
   const {
+    watch,
     register,
     handleSubmit,
     formState: { errors },
@@ -55,8 +56,7 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
   const onSave = async (form: FormValues) => {
     setLoading(true);
     try {
-      const { email, emailConfirm } = form;
-      if (email !== emailConfirm) return;
+      const { email } = form;
       await dispatch(updateUserEmail({ email }));
       await dispatch(logout());
       onClose();
@@ -69,9 +69,9 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
 
   return (
     <Modal show={show} onClose={onClose}>
-      <div className="px-6 pt-6 relative">
+      <div className="px-6 pt-6 relative" data-testid="profileModal">
         <h1 className="text-.5xl leading-none font-medium mb-12">{t("profile.settings.edit.email.update")}</h1>
-        <form onSubmit={handleSubmit(onSave)}>
+        <form onSubmit={handleSubmit(onSave)} data-testid="edit-email-form">
           <div className="mb-2.5">
             <Input
               id="email"
@@ -96,7 +96,8 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
           <div className="mb-8">
             <Input
               label={`${t("profile.settings.edit.email.confirm")}`}
-              error={errors.email?.message}
+              error={errors.emailConfirm?.message}
+              placeholder={`${t("profile.settings.edit.email.confirm")}`}
               type="emailConfirm"
               {...register("emailConfirm", {
                 required: "This field is required",
@@ -108,11 +109,14 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
                   value: 2,
                   message: "This must be a valid email address",
                 },
+                validate: (val: string) => {
+                  if (watch('email') !== val) return "Emails should match."
+                },
               })}
             />
           </div>
           <div className="flex pb-2 items-center justify-between">
-            <span className="cursor-pointer text-sm font-medium text-primary" onClick={onClose}>
+            <span className="cursor-pointer text-sm font-medium text-brand" onClick={onClose} data-testid="close-button">
               {t("profile.edit.close")}
             </span>
             <ArrowButton loading={loading} disabled={loading} variant="outline-primary">

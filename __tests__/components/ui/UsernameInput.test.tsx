@@ -2,7 +2,7 @@ import React from "react";
 import { screen } from "@testing-library/react";
 import UsernameInput from "@/components/ui/UsernameInput";
 import "@testing-library/jest-dom";
-import { renderWithRedux } from "../../../__mocks__/renderWithRedux";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({

@@ -23,7 +23,7 @@ export type Course = {
   learningModules: LearningModule[];
   challenge?: Challenge;
   challenges?: Challenge[];
-  translations: any[];
+  translations?: any[];
   trailer: Trailer;
   disclaimer: string;
   items?: string[];
@@ -174,6 +174,7 @@ export type LearningModule = {
   order: number;
   course: string;
   interactiveModules: InteractiveModule[];
+  courses: Course[]
 };
 
 export type InteractiveModule = {

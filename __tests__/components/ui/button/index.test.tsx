@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { fireEvent, screen } from "@testing-library/react";
 import Button, { ButtonProps } from "@/components/ui/button";
-import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({

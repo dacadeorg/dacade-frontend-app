@@ -1,7 +1,7 @@
 import useNavigation from "@/hooks/useNavigation";
-import DateManager from "@/utilities/DateManager";
 import { useRouter } from "next/router";
-import { ReactElement, useMemo } from "react";
+import { ReactElement } from "react";
+import { DurationBadge } from "../badges/Duration";
 
 /**
  * LearningModule interface
@@ -40,28 +40,17 @@ export default function Learning({ learningModule }: LearningProps): ReactElemen
   const router = useRouter();
   const navigation = useNavigation();
 
-  const duration = useMemo(() => {
-    return (value: number) => {
-      if (!value) {
-        return 0;
-      }
-      return DateManager.humanize(value, router.locale as string);
-    };
-  }, [router.locale]);
-
   const navigate = () => {
     const courseLink = navigation.community.learningModulePath(learningModule.id);
     router.push(courseLink);
   };
 
   return (
-    <div className="px-5 pt-5 pb-8 bg-gray-50 rounded-3xl min-h-2xs w-full border-solid border-2 border-gray-100 md:mt-0 cursor-pointer">
+    <div className="px-5 pt-5 pb-8 bg-secondary rounded-3xl min-h-2xs w-full border-solid border-2 border-gray-100 md:mt-0 cursor-pointer">
       <div onClick={navigate} className="flex flex-col">
         <div className="w-full">
-          <h4 className="font-medium block text-xl">{learningModule.title}</h4>
-          {learningModule.duration && (
-            <span className="text-xxs mt-4 uppercase font-semibold px-2 mb-2 bg-gray-200 rounded-3xl inline-block text-gray-500">{duration(learningModule.duration)}</span>
-          )}
+          <h4 className="font-medium block text-xl mb-4">{learningModule.title}</h4>
+          {learningModule.duration && <DurationBadge type="bordered" value={learningModule.duration} />}
         </div>
         {learningModule.description && (
           <span className="text-sm mt-4 rounded-3xl">

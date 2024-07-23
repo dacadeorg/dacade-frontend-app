@@ -68,8 +68,8 @@ export default function CommunityListCard({ community }: CommunityListCardProps)
                   <Link href={path}>
                     <ArrowButton
                       rounded={false}
-                      className="group-hover:bg-primary group-hover:text-white"
-                      arrowClasses="group-hover:bg-primary bg-gray-200 text-primary group-hover:text-white"
+                      className="group-hover:bg-brand group-hover:text-white"
+                      arrowClasses="group-hover:bg-brand bg-gray-200 text-brand group-hover:text-white"
                       variant="outline-primary"
                       loading={false}
                       disabled={false}

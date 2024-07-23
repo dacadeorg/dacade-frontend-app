@@ -1,7 +1,7 @@
 import Markdown from "@/components/ui/Markdown";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import { renderWithRedux } from "../../../__mocks__/renderWithRedux";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({

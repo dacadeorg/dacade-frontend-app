@@ -144,7 +144,7 @@ They can also be given class names as shown in the above image.
 
 ```javascript
 <div
-  className={classNames("w-1/3", "bg-primary", {
+  className={classNames("w-1/3", "bg-brand", {
     "text-white": type === "default",
     underline: hasLink,
   })}

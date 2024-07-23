@@ -23,13 +23,14 @@ interface SubmissionCardProps {
     date: string;
   };
   children?: ReactNode;
+  testId?:string;
 }
 
 /**
  * Submission card component
  * @return {ReactElement}
  */
-export default function SubmissionCard({ submission, link = "", children }: SubmissionCardProps): ReactElement {
+export default function SubmissionCard({ submission, link = "", children, testId = "submissionId" }: SubmissionCardProps): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
   const colors = useSelector((state) => state.ui.colors);
@@ -75,11 +76,11 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
       teamMembers={members}
       link={link}
       bordered={false}
-      className="pt-6 hover:bg-gray-50 cursor-pointer"
+      className="pt-6 hover:bg-secondary cursor-pointer"
       boxLayout
       onClick={displaySubmission}
     >
-      <div className="divide-y divide-gray-200 flex flex-col">
+      <div className="divide-y divide-gray-200 flex flex-col" data-testid={testId}>
         <div className="pb-5">
           <p className="text-base sm:text-lg line-clamp-3 leading-normal text-gray-700 break-words">{submission.text}</p>
         </div>
@@ -97,7 +98,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
             )}
             {submission.metadata && submission.metadata.evaluation ? (
               <div className="inline-flex flex-1 items-center space-x-1">
-                <Badge customStyle={badgeButtonStyles} size="medium" className="relative" value={submission.metadata.evaluation.points} />
+                <Badge customStyle={badgeButtonStyles} className="relative" value={submission.metadata.evaluation.points} />
                 <span className="text-sm leading">{t("submissions.evaluation.points")}</span>
               </div>
             ) : (

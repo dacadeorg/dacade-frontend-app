@@ -31,7 +31,7 @@ export default function Balance({ details }: BalanceProps): ReactElement {
 
   return (
     <Link href="/profile/wallets">
-      <div className="flex px-5 py-3 -mx-5 space-x-3 text-left hover:bg-gray-50">
+      <div className="flex px-5 py-3 -mx-5 space-x-3 text-left hover:bg-secondary">
         <Coin token={details.token} size="medium" />
         <div className="w-3/4 pt-1">
           <div className="flex justify-between">

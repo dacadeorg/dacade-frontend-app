@@ -75,7 +75,7 @@ export default function KYCVerification({ onCompleted }: KYCVerificationProps) {
         {showModal ? <div id="sumsub-websdk-container" className="pb-5"></div> : <></>}
       </div>
       <div className="flex items-center justify-between pt-4 pb-2 pl-6 pr-2">
-        <span className="text-sm font-medium cursor-pointer text-primary" onClick={closeModal}>
+        <span className="text-sm font-medium cursor-pointer text-brand" onClick={closeModal}>
           {t("profile.edit.close")}
         </span>
         {!verifying && kycStatus !== KYCSTATUS.REJECTED && (
