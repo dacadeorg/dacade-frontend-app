@@ -1,7 +1,7 @@
 import Tag from "@/components/ui/Tag";
 import { Challenge } from "@/types/course";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useMemo } from "react";
+import { useTranslation } from "next-i18next";
 
 /**
  * this component is for the badges indicating if the course has a team challenge and the course level
@@ -13,23 +13,22 @@ import { useTranslation } from "react-i18next";
  * @returns {*}
  */
 interface BadgeProps {
-  challenge: Challenge;
+  challenge?: Challenge;
   className?: string;
+  courseLevel?: number;
 }
-export default function Badges({ challenge, className }: BadgeProps) {
+export default function Badges({ challenge, className, courseLevel }: BadgeProps) {
   const { t } = useTranslation();
-  const [challengeLevel, setChallengeLevel] = useState("");
 
-  useEffect(() => {
-    if (challenge.level === 0 || challenge.level === 1) return setChallengeLevel("course.challenge.level-0");
-    return setChallengeLevel("course.challenge.level-2");
-  }, [challenge.level]);
+  const level = useMemo(() => {
+    const value = challenge?.level || courseLevel;
+    return (value === 0 || value === 1) ? "course.challenge.level-0" : "course.challenge.level-2";
+  }, [challenge?.level, courseLevel]);
 
-  if (!challenge?.level && !challenge?.isTeamChallenge) return <></>;
-
+  if (!level && !challenge?.isTeamChallenge) return <></>;
   return (
     <div className={`uppercase flex flex-wrap gap-2 mb-3 ${className}`}>
-      {challenge?.level && <Tag>{t(challengeLevel)}</Tag>}
+      {level && <Tag>{t(level)}</Tag>}
       {challenge?.isTeamChallenge && <Tag type="light">{challenge?.isHackathon ? "Hackathon" : "Team"} challenge</Tag>}
     </div>
   );
