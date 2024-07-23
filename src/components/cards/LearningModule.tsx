@@ -3,7 +3,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import Tag from "../ui/Tag";
-import { DurationCard } from "@/components/badges/Duration";
+import { DurationBadge } from "@/components/badges/Duration";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { IRootState } from "@/store";
 import { LearningModule } from "@/types/course";
@@ -39,7 +39,7 @@ export function LearningModuleCard({ data }: { data: LearningModule }): JSX.Elem
         </div>
         <div className="gap-2 flex items-center">
           {challenge.level && <Tag className="uppercase">{level}</Tag>}
-          <DurationCard value={data.duration} type="bordered" />
+          <DurationBadge value={data.duration} type="bordered" />
         </div>
       </div>
 

@@ -1,7 +1,7 @@
 import useNavigation from "@/hooks/useNavigation";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
-import { DurationCard } from "../badges/Duration";
+import { DurationBadge } from "../badges/Duration";
 
 /**
  * LearningModule interface
@@ -50,7 +50,7 @@ export default function Learning({ learningModule }: LearningProps): ReactElemen
       <div onClick={navigate} className="flex flex-col">
         <div className="w-full">
           <h4 className="font-medium block text-xl mb-4">{learningModule.title}</h4>
-          {learningModule.duration && <DurationCard type="bordered" value={learningModule.duration} />}
+          {learningModule.duration && <DurationBadge type="bordered" value={learningModule.duration} />}
         </div>
         {learningModule.description && (
           <span className="text-sm mt-4 rounded-3xl">

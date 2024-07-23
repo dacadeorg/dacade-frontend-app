@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 
-export const DurationCard = ({ value, type = "gray" }: { value: number, type?: string }) => {
+export const DurationBadge = ({ value, type = "gray" }: { value: number, type?: string }) => {
     const router = useRouter();
     const duration = useMemo(() => {
         if (!value) {
