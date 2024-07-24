@@ -18,12 +18,12 @@ import { Community } from "@/types/community";
  * @returns {ReactElement}
  */
 
-export default function CommunitiesSection({ communities }: { communities: Community[] }): ReactElement {
+export default function CommunitiesSection({ communities, testId = "communitiesSectionId" }: { communities: Community[]; testId?: string }): ReactElement {
   const { t } = useTranslation();
 
   return (
     <Section type="default" padding="pt-20 lg:pb-24 md:pb-24">
-      <div id="communities" className="md:flex relative items-end">
+      <div data-testid={testId} id="communities" className="md:flex relative items-end">
         <div className="pr-5">
           <p className="uppercase font-bold text-xs leading-3.3 tracking-3 text-primary">{t("page.index.communities.title")}</p>
         </div>

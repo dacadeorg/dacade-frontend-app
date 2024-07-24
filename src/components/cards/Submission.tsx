@@ -23,13 +23,14 @@ interface SubmissionCardProps {
     date: string;
   };
   children?: ReactNode;
+  testId?:string;
 }
 
 /**
  * Submission card component
  * @return {ReactElement}
  */
-export default function SubmissionCard({ submission, link = "", children }: SubmissionCardProps): ReactElement {
+export default function SubmissionCard({ submission, link = "", children, testId = "submissionId" }: SubmissionCardProps): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
   const colors = useSelector((state) => state.ui.colors);
@@ -79,7 +80,7 @@ export default function SubmissionCard({ submission, link = "", children }: Subm
       boxLayout
       onClick={displaySubmission}
     >
-      <div className="divide-y divide-gray-200 flex flex-col">
+      <div className="divide-y divide-gray-200 flex flex-col" data-testid={testId}>
         <div className="pb-5">
           <p className="text-base sm:text-lg line-clamp-3 leading-normal text-gray-700 break-words">{submission.text}</p>
         </div>
