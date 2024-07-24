@@ -24,7 +24,7 @@ export default function Wrapper({ children, filter }: WrapperProps): JSX.Element
     <div className="relative">
       <MainHeaderSection />
       <Section>
-        <div className="w-full md:flex gap-36 mx-auto mt-14">
+        <div className="w-full md:flex gap-36 mx-auto mt-6 md:mt-17">
           <div className="hidden md:grid w-4/12">
             <CommunitySidebar />
             {filter}

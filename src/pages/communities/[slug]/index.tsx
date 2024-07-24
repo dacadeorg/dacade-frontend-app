@@ -37,12 +37,14 @@ export default function Slug(props: {
       <CommunityWrapper>
         <div className="md:hidden">
           <div className="font-medium text-.5xl leading-snug">{t("communities.overview.challenges.title")}</div>
-          <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-6 md:mb-0">{t("communities.overview.challenges.description")} </div>
+          <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-8 md:mb-0">{t("communities.overview.challenges.description")} </div>
         </div>
-        {challenges.map((challenge) => (
-          <ChallengeCard key={challenge.id} data={challenge} community={community} />
-        ))}
-        <div className="md:hidden w-full grid mt-16 gap-16">
+        <div className="grid gap-6">
+          {challenges.map((challenge) => (
+            <ChallengeCard key={challenge.id} data={challenge} community={community} />
+          ))}
+        </div>
+        <div className="md:hidden w-full grid">
           <LearningMaterialsOverview />
           <Scoreboard />
         </div>
