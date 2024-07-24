@@ -1,9 +1,17 @@
-import ConfirmTeamInvitation from "@/components/cards/challenge/ConfirmTeamInvitation";
+import ConfirmTeamInvitation, { ConfirmTeamInvitationProps } from "@/components/cards/challenge/ConfirmTeamInvitation";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import { useDispatch, AppDispatch } from "@/hooks/useTypedDispatch";
-import { mockConfirmTeamInvitation } from "@__mocks__/fixtures/confirmTeamInvitation";
+import { mockInvite } from "@__mocks__/fixtures/challenge";
+
+
+const mockConfirmTeamInvitation : ConfirmTeamInvitationProps = {
+  index: 1,
+  title: "ConfirmTeamInvitation",
+  text: "welcome to our team",
+  invite: mockInvite,
+}
 
 jest.mock("@/hooks/useTypedDispatch.ts", () => ({
   useDispatch: jest.fn(),
@@ -19,7 +27,7 @@ describe("ConfirmTeamInvitation", () => {
 
   it("should render the ConfirmTeamInvitation component", () => {
     renderWithRedux(<ConfirmTeamInvitation {...mockConfirmTeamInvitation} />);
-    const confirmTeamInvitation = screen.getByTestId(mockConfirmTeamInvitation.confirmInvitationTestId!);
+    const confirmTeamInvitation = screen.getByTestId("confirmTeamInvitation");
     expect(confirmTeamInvitation).toBeInTheDocument();
   });
 

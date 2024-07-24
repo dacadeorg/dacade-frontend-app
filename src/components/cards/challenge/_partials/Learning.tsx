@@ -11,8 +11,6 @@ export interface LearningProps {
   description: string;
   link: string;
   learningTestId?: string;
-  titleTestId?: string;
-  descriptionTestId?: string;
 }
 
 /**
@@ -21,7 +19,7 @@ export interface LearningProps {
  * @param {LearningProps} props - The props for the Learning component.
  * @returns {JSX.Element} The Learning component JSX element.
  */
-export default function Learning({ title, description, link, learningTestId, titleTestId, descriptionTestId }: LearningProps): JSX.Element {
+export default function Learning({ title, description, link, learningTestId = "learning-component" }: LearningProps): JSX.Element {
   // This is link is not the actual link; we will replace it after it's done in the backend
   const { t } = useTranslation();
 
@@ -32,10 +30,10 @@ export default function Learning({ title, description, link, learningTestId, tit
     >
       <div className="flex flex-col justify-between w-full sm:pb-0">
         <div className="flex flex-col">
-          <div className="text-base font-medium leading-6 text-primary" data-testid={titleTestId}>
+          <div className="text-base font-medium leading-6 text-primary">
             {title}
           </div>
-          <div className="text-sm lg:text-base font-normal -tracking-1 leading-6 text-secondary mt-3 max-w-xxs pb-6 mb-5" data-testid={descriptionTestId}>
+          <div className="text-sm lg:text-base font-normal -tracking-1 leading-6 text-secondary mt-3 max-w-xxs pb-6 mb-5">
             {description}
           </div>
         </div>

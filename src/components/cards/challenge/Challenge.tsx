@@ -23,7 +23,7 @@ export interface ChallengeCardProps {
   isCourseEnd?: boolean;
   challengeTestId?: string;
 }
-export default function ChallengeCard({ data, community, isCourseEnd, challengeTestId }: ChallengeCardProps) {
+export default function ChallengeCard({ data, community, isCourseEnd, challengeTestId ='challenge-card' }: ChallengeCardProps) {
   const { t } = useTranslation();
   const link = `/communities/${community.slug}/challenges/${data.id}`;
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);

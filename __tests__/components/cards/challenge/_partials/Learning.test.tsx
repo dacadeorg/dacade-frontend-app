@@ -13,9 +13,6 @@ const learningProps: LearningProps = {
   title: "Learning Title",
   description: "This is the learning description.",
   link: "/learning-link",
-  learningTestId:"learning-component",
-  titleTestId: 'title',
-  descriptionTestId: 'description'
 };
 
 function RenderLearning(props: LearningProps = learningProps) {
@@ -23,25 +20,24 @@ function RenderLearning(props: LearningProps = learningProps) {
 }
 
 describe("Learning", () => {
-  it("should render the Learning component", () => {
+  beforeEach(() => {
     RenderLearning();
-    expect(screen.getByTestId(learningProps.learningTestId!)).toBeInTheDocument();
+  })
+  it("should render the Learning component", () => {
+    expect(screen.getByTestId("learning-component")).toBeInTheDocument();
   });
 
   it("should display the title and description", () => {
-    RenderLearning();
-    expect(screen.getByTestId(learningProps.titleTestId!)).toHaveTextContent(learningProps.title);
-    expect(screen.getByTestId(learningProps.descriptionTestId!)).toHaveTextContent(learningProps.description);
+    expect(screen.getByText('Learning Title')).toHaveTextContent(learningProps.title);
+    expect(screen.getByText('This is the learning description.')).toHaveTextContent(learningProps.description);
   });
 
   it("should have a link with the correct URL", () => {
-    RenderLearning();
     const linkElement = screen.getByRole("link", { name:'communities.overview.challenge.learning.start' });
     expect(linkElement).toHaveAttribute("href", learningProps.link);
   });
 
   it("should render the ArrowButton with the correct text", () => {
-    RenderLearning();
     expect(screen.getByText("communities.overview.challenge.learning.start")).toBeInTheDocument();
   });
 });

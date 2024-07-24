@@ -19,7 +19,7 @@ export interface InvitationProps {
   ReplyToInvitationTestId?: string
 }
 
-export default function ReplyToInvitation({ invite_id, team_ref,ReplyToInvitationTestId }: InvitationProps) {
+export default function ReplyToInvitation({ invite_id, team_ref,ReplyToInvitationTestId = 'reply-to-invitation' }: InvitationProps) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [canReply, setCanReply] = useState(false);

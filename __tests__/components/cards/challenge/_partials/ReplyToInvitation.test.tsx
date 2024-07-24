@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
@@ -19,7 +19,6 @@ const mockDispatch = jest.fn();
 const invitationProps: InvitationProps = {
   invite_id: "invite-id",
   team_ref: "team/1",
-  ReplyToInvitationTestId: "reply-to-invitation"
 };
 
 describe("ReplyToInvitation", () => {
@@ -29,13 +28,13 @@ describe("ReplyToInvitation", () => {
 
   it("should render the ReplyToInvitation component", () => {
     render(<ReplyToInvitation {...invitationProps} />);
-    expect(screen.getByTestId(invitationProps.ReplyToInvitationTestId!)).toBeInTheDocument();
+    expect(screen.getByTestId("reply-to-invitation")).toBeInTheDocument();
   });
 
-  it("should render accept button and decline button in component",() => {
+  it("should render accept button and decline button in component", () => {
     render(<ReplyToInvitation {...invitationProps} />);
-    const acceptButton = screen.getByTestId(invitationProps.ReplyToInvitationTestId!);
-    const declineButton = screen.getByTestId(invitationProps.ReplyToInvitationTestId!);
+    const acceptButton = screen.getByTestId("reply-to-invitation");
+    const declineButton = screen.getByTestId("reply-to-invitation");
     expect(acceptButton).toBeInTheDocument();
     expect(declineButton).toBeInTheDocument();
   });
@@ -43,25 +42,25 @@ describe("ReplyToInvitation", () => {
   it("should display loader when loading", async () => {
     render(<ReplyToInvitation {...invitationProps} />);
     expect(screen.getByTestId("loader")).toBeInTheDocument();
-    await waitFor(() => expect(screen.queryByTestId("loader")).not.toBeInTheDocument());
+    expect(await screen.findByTestId("loader")).not.toBeInTheDocument();
   });
 
   it("should call acceptInvitation when accept button is clicked", async () => {
     render(<ReplyToInvitation {...invitationProps} />);
-    await waitFor(() => expect(screen.queryByTestId("loader")).not.toBeInTheDocument());
+    expect(await screen.findByTestId("loader")).not.toBeInTheDocument();
 
     const acceptButton = screen.getByText("accept");
     fireEvent.click(acceptButton);
-    await waitFor(() => expect(mockDispatch).toHaveBeenCalledWith(acceptInvitation("invite-id")));
+    expect(await mockDispatch).toHaveBeenCalledWith(acceptInvitation("invite-id"));
   });
 
   it("should call declineInvitation when decline button is clicked", async () => {
     render(<ReplyToInvitation {...invitationProps} />);
-    await waitFor(() => expect(screen.queryByTestId("loader")).not.toBeInTheDocument());
+    expect(await screen.findByTestId("loader")).not.toBeInTheDocument();
 
     const declineButton = screen.getByText("decline");
     fireEvent.click(declineButton);
-    await waitFor(() => expect(mockDispatch).toHaveBeenCalledWith(declineInvitation("invite-id")));
+    expect(await mockDispatch).toHaveBeenCalledWith(declineInvitation("invite-id"));
   });
 
   it("should not allow replies if the team is locked", async () => {
@@ -72,8 +71,8 @@ describe("ReplyToInvitation", () => {
 
     render(<ReplyToInvitation {...invitationProps} />);
 
-    await waitFor(() => expect(screen.queryByTestId("loader")).not.toBeInTheDocument());
-    const invitationButtons = screen.queryAllByText("accept|decline")
+    expect(await screen.findByTestId("loader")).not.toBeInTheDocument();
+    const invitationButtons = screen.queryAllByText("accept|decline");
     expect(invitationButtons).toHaveLength(0);
   });
 });

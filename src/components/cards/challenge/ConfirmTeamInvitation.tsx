@@ -25,7 +25,7 @@ export interface ConfirmTeamInvitationProps {
  * @param {ConfirmTeamInvitationProps} { index, title, text, invites }
  * @returns {ReactElement}
  */
-export default function ConfirmTeamInvitation({ index, title, text, invite,confirmInvitationTestId }: ConfirmTeamInvitationProps): ReactElement {
+export default function ConfirmTeamInvitation({ index, title, text, invite,confirmInvitationTestId = 'confirmTeamInvitation' }: ConfirmTeamInvitationProps): ReactElement {
   return (
     <div 
     data-testid={confirmInvitationTestId}  
@@ -44,7 +44,7 @@ export default function ConfirmTeamInvitation({ index, title, text, invite,confi
           <p className="text-sm font-normal text-gray-700 max-w-xxs">
             {invite?.team?.organizer?.displayName} added you to their team for the {invite?.team?.challenge?.name} challenge. Would you like to accept?
           </p>
-          <ReplyToInvitation ReplyToInvitationTestId= "reply-to-invitation"  invite_id={invite?.id} team_ref={invite?.team_ref} />
+          <ReplyToInvitation invite_id={invite?.id} team_ref={invite?.team_ref} />
         </div>
       </div>
     </div>

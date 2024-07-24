@@ -1,13 +1,24 @@
-import ChallengeCard from "@/components/cards/challenge/Challenge";
+import ChallengeCard, { ChallengeCardProps } from "@/components/cards/challenge/Challenge";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { renderWithRedux } from "@__mocks__/renderWithRedux";
-import { mockChallengeCardProps } from "@__mocks__/fixtures/challengecard";
+import { challenge } from "@__mocks__/fixtures/challenge";
+import { mockCommunity } from "@__mocks__/fixtures/community";
+
+
+const mockChallengeCardProps: ChallengeCardProps = {
+  data: {
+    ...challenge,
+    isHackathon: true,
+  },
+  community: mockCommunity,
+  isCourseEnd: true,
+};
 
 describe("ChallengeCard", () => {
   it("should render the ChallengeCard", () => {
     renderWithRedux(<ChallengeCard {...mockChallengeCardProps} />);
-    const challengeCard = screen.getByTestId(mockChallengeCardProps.challengeTestId!);
+    const challengeCard = screen.getByTestId("challenge-card");
     expect(challengeCard).toBeInTheDocument();
   });
 
@@ -36,10 +47,22 @@ describe("ChallengeCard", () => {
     const rewardCertificate = screen.getByText("communities.overview.challenge.unlock.certificate");
     expect(rewardCertificate).toBeInTheDocument();
   });
-  
+
   it("should link to the correct challenge page", () => {
     renderWithRedux(<ChallengeCard {...mockChallengeCardProps} />);
-    const link = screen.getByRole('link');
-    expect(link).toHaveAttribute('href', `/communities/${mockChallengeCardProps.community.slug}/challenges/${mockChallengeCardProps.data.id}`);
+    const link = screen.getByRole("link");
+    expect(link).toHaveAttribute("href", `/communities/${mockChallengeCardProps.community.slug}/challenges/${mockChallengeCardProps.data.id}`);
   });
-});
+  it("should render the challenge image", () => {
+    renderWithRedux(<ChallengeCard {...mockChallengeCardProps} />);
+    const challengeImage = screen.getByAltText("achievement");
+    expect(challengeImage).toBeInTheDocument();
+  });
+
+  it("should display the reward certificate component with proper rewards", () => {
+    renderWithRedux(<ChallengeCard {...mockChallengeCardProps} />);
+    const rewardCertificateText = screen.getByText("communities.overview.challenge.unlock.certificate");
+    expect(rewardCertificateText).toBeInTheDocument();
+  });
+
+  });
