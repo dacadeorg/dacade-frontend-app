@@ -174,6 +174,7 @@ export type LearningModule = {
   order: number;
   course: string;
   interactiveModules: InteractiveModule[];
+  courses: Course[]
 };
 
 export type InteractiveModule = {

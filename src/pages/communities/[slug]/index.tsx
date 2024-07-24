@@ -15,6 +15,9 @@ import { useTranslation } from "next-i18next";
 import Head from "next/head";
 import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import LearningMaterialsOverview from "@/components/sections/communities/overview/LearningMaterials";
+import { fetchCommunities } from "@/services/community";
+import { GetStaticPathsContext } from "next";
+
 export default function Slug(props: {
   pageProps: {
     community: Community;
@@ -52,7 +55,7 @@ Slug.getLayout = function (page: ReactElement) {
   return <CommunityLayout>{page}</CommunityLayout>;
 };
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ params, locale }) => {
+export const getStaticProps = wrapper.getStaticProps((store: any) => async ({ locale, params }) => {
   try {
     const slug = params?.slug as string;
 
@@ -74,6 +77,8 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
         learningMaterials: learningMaterials || { courses: [], learningModule: [] },
         ...translations,
       },
+
+      revalidate: 60 * 60 * 24,
     };
   } catch (error) {
     return {
@@ -81,3 +86,18 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ({
     };
   }
 });
+
+export const getStaticPaths = async (context: GetStaticPathsContext) => {
+  const locale = context.defaultLocale;
+  const communities = await fetchCommunities({ locale: locale ?? "en" });
+  const paths = communities.map((community) => ({
+    params: {
+      slug: community.slug,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: "blocking",
+  };
+};

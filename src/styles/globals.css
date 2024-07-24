@@ -130,6 +130,9 @@ button,
 .floating-input > input::placeholder {
   color: transparent;
 }
+.clip-hexagon {
+       clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+   }
 
 .floating-input > input:focus,
 .floating-input > input:not(:placeholder-shown) {
