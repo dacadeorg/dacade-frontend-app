@@ -1,25 +1,22 @@
 import CardsWallet from "@/components/cards/Wallet";
-import { renderWithRedux } from "../../../__mocks__/renderWithRedux";
+import "@testing-library/jest-dom";
 import { mockWallet } from "../../../__mocks__/fixtures/wallet";
-import { mockUser } from "../../../__mocks__/fixtures/user";
-import { mockReferral } from "../../../__mocks__/fixtures/referrals";
-// jest.mock("@/store/feature/kyc.slice", () => ({
-//   openVerificationModal: jest.fn(),
-// }));
+import { renderWithRedux } from "../../../__mocks__/renderWithRedux";
+import { screen } from "@testing-library/react";
 
 
-describe("Wallet card compoent", () => {
-  it("renders the wallet component", () => {
-    renderWithRedux(<CardsWallet wallet={mockWallet} disabled={false} />, {
-      data: mockUser,
-      userBalance: null,
-      balance: null,
-      walletAddresses: null,
-      token: null,
-      referrals: [mockReferral],
-      fetchingUserLoading: false,
-      filteredUsers: [mockUser],
-    } as any);
+// use the actual component when it is done tested
+jest.mock("../../../src/components/sections/profile/modals/EditAddress/index.tsx", () => {
+  return <h1>hello</h1>;
+});
+
+describe("Wallet card component", () => {
+  it("renders the wallet component with all the required elements", () => {
+    renderWithRedux(<CardsWallet wallet={mockWallet} disabled={false} />);
+    expect(screen.getByTestId("cardWalletId")).toBeInTheDocument()
+    expect(screen.getByText("User wallet")).toBeInTheDocument();
+    expect(screen.getByTestId("tag-value")).toBeInTheDocument();
+    expect(screen.queryAllByTestId("currencyId")).not.toBeNull();
+    expect(screen.getByTestId("coin")).toBeInTheDocument();
   });
-
 });

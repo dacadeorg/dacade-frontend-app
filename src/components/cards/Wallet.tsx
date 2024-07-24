@@ -20,6 +20,7 @@ import { openVerificationModal } from "@/store/feature/kyc.slice";
 interface CardsWalletProps {
   wallet: Wallet;
   disabled?: boolean;
+  testId?:string
 }
 
 /**
@@ -28,7 +29,7 @@ interface CardsWalletProps {
  * @returns {ReactElement}
  */
 
-export default function CardsWallet({ wallet, disabled = false }: CardsWalletProps): ReactElement {
+export default function CardsWallet({ wallet, disabled = false, testId='cardWalletId' }: CardsWalletProps): ReactElement {
   const { t } = useTranslation();
   const [showEditModal, setShowEditModal] = useState(false);
   const [showPayoutModal, setShowPayoutModal] = useState(false);
@@ -74,7 +75,7 @@ export default function CardsWallet({ wallet, disabled = false }: CardsWalletPro
   };
 
   return (
-    <div className="relative mb-7">
+    <div className="relative mb-7" data-testid={testId}>
       <div className="relative lg:flex md:flex sm:flex rounded-3.5xl">
         {showEditModal && <EditAddress show={showEditModal} onClose={onClose} wallet={wallet} />}
         <Payout wallet={wallet} show={showPayoutModal} onClose={onClose} />
