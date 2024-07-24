@@ -1,8 +1,8 @@
 import CourseLink from "@/components/ui/SideNavigation/_partials/SideNavLink";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import { renderWithRedux } from "../../../../../__mocks__/renderWithRedux";
-import { colors } from "../../../../../__mocks__/fixtures/colors";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
+import { colors } from "@__mocks__/fixtures/colors";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
@@ -29,6 +29,7 @@ describe("SideNavLink", () => {
         colors: colors,
         locked: false,
         showReferralPopup: false,
+        showJobOffersPopup: false,
       },
     });
     const courseLink = screen.getByTestId("courseLinkId");

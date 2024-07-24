@@ -33,6 +33,7 @@ interface UserProps {
   submission?: Submission;
   teamMembers?: User[];
   onClick?: () => void;
+  testId?: string
 }
 
 /**
@@ -51,7 +52,7 @@ interface UserProps {
 }
  * @returns {ReactElement}
  */
-export default function UserCard({ boxLayout, link, bordered, expanded, user, badge = "", timestamp, children, className, teamMembers, onClick }: UserProps): ReactElement {
+export default function UserCard({ boxLayout, link, bordered, expanded, user, badge = "", timestamp, children, className, teamMembers, onClick, testId="userId" }: UserProps): ReactElement {
   const { locale, push } = useRouter();
   const colors = useSelector((state) => state.ui.colors);
 
@@ -77,7 +78,7 @@ export default function UserCard({ boxLayout, link, bordered, expanded, user, ba
     "cursor-pointer": link,
   });
   return (
-    <div className={userCardClassName} onClick={handleClick}>
+    <div data-testid={testId} className={userCardClassName} onClick={handleClick}>
       <div className={`z-10 ${boxLayout ? "relative flex-none" : "absolute top-0 left-0"}`}>
         {teamMembers && teamMembers?.length ? (
           <div className="w-15 h-15 rounded-full bg-gray-800 overflow-hidden grid grid-cols-2 items-between">
@@ -92,7 +93,6 @@ export default function UserCard({ boxLayout, link, bordered, expanded, user, ba
               <Badge
                 value={badge}
                 className="absolute"
-                size="medium"
                 customStyle={{
                   bottom: "-1px",
                   right: "-3px",

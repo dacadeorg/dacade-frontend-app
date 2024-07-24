@@ -18,6 +18,7 @@ import { ReactElement, useMemo, useEffect, useState } from "react";
  */
 interface SubmissionCard {
   submission: Submission;
+  testId?: string;
 }
 
 /**
@@ -30,7 +31,7 @@ interface SubmissionCard {
 }
  * @returns {ReactElement}
  */
-export default function SubmissionCard({ submission }: SubmissionCard): ReactElement {
+export default function SubmissionCard({ submission, testId = "submissionCardId" }: SubmissionCard): ReactElement {
   const router = useRouter();
   const navigation = new CommunityNavigation(router);
   const [membersWithOrganiser, setMembersWithOrganiser] = useState<User[]>([]);
@@ -51,17 +52,17 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
   }, []);
 
   return (
-    <div className="bg-gray-50 text-sm text-gray-700 border-solid border border-gray-200 rounded-3xl mb-5 md:mb-0">
+    <div data-testid={testId} className="bg-secondary text-sm lg:text-base border-solid border border-primary rounded-3xl mb-5 md:mb-0">
       <Link href={navigation.submissionPath(submission.id)}>
-        <div className="p-7">
+        <div className="p-7 text-primary">
           {membersWithOrganiser?.length ? (
             <div className="flex gap-2 overflow-hidden">
               {membersWithOrganiser?.map((user, index) => {
                 return (
                   <div className="flex items-center space-x-1.5 pb-1.5 pt-1" key={`team-member-${index}`}>
-                    <span className="text-lg leading-loose font-medium text-gray-900 pb-1 whitespace-nowrap">{user.displayName}</span>
+                    <span className="text-sm lg:text-base leading-6 font-medium text-primary pb-1 whitespace-nowrap">{user.displayName}</span>
                     {user.reputation ? (
-                      <span className="text-xs px-2.5 bg-secondary leading-none py-1 rounded-full font-medium">
+                      <span className="text-xs px-2.5 bg-tertiary leading-none py-1 rounded-full font-medium">
                         <Currency value={user.reputation} token="REP" />
                       </span>
                     ) : (
@@ -73,9 +74,9 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
             </div>
           ) : (
             <div className="flex items-center space-x-1.5 pb-1.5 pt-1">
-              <span className="text-lg leading-loose font-medium text-gray-900 pb-1">{submission.user.displayName}</span>
+              <span className="text-sm lg:text-base leading-6 font-medium pb-1">{submission.user.displayName}</span>
               {submission.user.reputation ? (
-                <span className="text-xs px-2.5 bg-secondary leading-none py-1 rounded-full font-medium">
+                <span className="text-xs px-2.5 bg-tertiary leading-none py-1 rounded-full font-medium">
                   <Currency value={submission.user.reputation} token="REP" />
                 </span>
               ) : (
@@ -83,15 +84,15 @@ export default function SubmissionCard({ submission }: SubmissionCard): ReactEle
               )}
             </div>
           )}
-          <span className="block text-sm leading-snug text-gray-700 pb-4">
+          <span className="block text-sm lg:text-base leading-snug pb-4">
             {t("submissions.submitted")}{" "}
             <span className="font-medium" style={{ color: colors?.textAccent }}>
               {date}
             </span>
           </span>
-          <p className="line-clamp-3">{submission.text}</p>
+          <p className="line-clamp-3 text-sm lg:text-base">{submission.text}</p>
           <div className="pt-5">
-            <Badge customStyle={{ backgroundColor: colors?.textAccent }} size="medium" className="relative left-0" value={submission.metadata.evaluation.points} />
+            <Badge customStyle={{ backgroundColor: colors?.textAccent }} className="relative left-0" value={submission.metadata.evaluation.points} />
             <span className="ml-1 text-sm">{t("submissions.evaluation.points")}</span>
           </div>
         </div>
