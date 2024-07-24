@@ -94,7 +94,6 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
         newLocale: currentLocale,
         text,
       });
-
       setCurrentText(translatedText);
       setLocale(currentLocale);
     } catch (e) {
@@ -145,7 +144,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
           ) : (
             <div className="flex divide-x divide-gray-200">
               <div className={`pr-3 ${!translated ? "cursor-pointer underline" : ""}`} onClick={translate}>
-                <span>
+                <span role="button" aria-label="Click me">
                   {description} {getLocaleName(currentLocale)}
                 </span>
               </div>
