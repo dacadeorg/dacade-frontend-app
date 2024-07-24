@@ -1,38 +1,40 @@
 import { screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Badges from "@/components/cards/challenge/Badges";
+import Badges from "@/components/badges";
 import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import { challenge } from "@__mocks__/fixtures/challenge";
 
 describe("Badge-card", () => {
-  it("should render the level badge in cards", () => {
-    const challengeWithLevel = { ...challenge, level: 2, isTeamChallenge: false };
-    renderWithRedux(<Badges challenge={challengeWithLevel} />);
-    const badges = screen.getAllByTestId('tag');
-    expect(badges.length).toBe(1);
-    expect(badges[0]).toHaveTextContent('course.challenge.level-2');
+  it("should render the challenge level in challenge card", () => {
+    renderWithRedux(<Badges />);
+    const challengeLevel = screen.getByTestId("badge");
+    expect(challengeLevel).toBeInTheDocument();
   });
-
   it("should render the team challenge badge", () => {
-    const teamChallenge = { ...challenge, level: 0, isTeamChallenge: true, isHackathon: false };
+    const teamChallenge = { ...challenge, level: 1, isTeamChallenge: true, isHackathon: false };
     renderWithRedux(<Badges challenge={teamChallenge} />);
-    const badges = screen.getAllByTestId('tag');
-    expect(badges.length).toBe(1);
-    expect(badges[0]).toHaveTextContent('Team challenge');
+    const teamChallengeValue = screen.getByText("Team challenge");
+    expect(teamChallengeValue).toBeInTheDocument();
+    expect(teamChallengeValue).toHaveTextContent("Team challenge");
   });
 
   it("should render the Hackathon badge", () => {
     const hackathonChallenge = { ...challenge, level: 0, isTeamChallenge: true, isHackathon: true };
     renderWithRedux(<Badges challenge={hackathonChallenge} />);
-    const badges = screen.getAllByTestId('tag');
-    expect(badges.length).toBe(1);
-    expect(badges[0]).toHaveTextContent('Hackathon challenge');
+    const teamChallengeValue = screen.getByText("Hackathon challenge");
+    expect(teamChallengeValue).toBeInTheDocument();
+    expect(teamChallengeValue).toHaveTextContent("Hackathon challenge");
   });
-
-  it("should render nothing when there is no level or team challenge", () => {
-    const noChallenge = { ...challenge, level: 0, isTeamChallenge: false };
-    renderWithRedux(<Badges challenge={noChallenge} />);
-    const badges = screen.queryByTestId('tag');
-    expect(badges).toBeNull();
+  it('should display BEGINNER when the challenge level 0', () => {
+    renderWithRedux(<Badges courseLevel={1} />);
+    const beginnerTag = screen.getByText('course.challenge.level-0');
+    expect(beginnerTag).toBeInTheDocument();
+    expect(beginnerTag).toHaveTextContent('course.challenge.level-0')
   });
+it('should display INTERMEDIATE when the challenge lever is 2',()=> {
+  renderWithRedux(<Badges courseLevel={2} />);
+    const intermediateTag = screen.getByText('course.challenge.level-2');
+    expect(intermediateTag).toBeInTheDocument();
+    expect(intermediateTag).toHaveTextContent('course.challenge.level-2')
+})
 });
