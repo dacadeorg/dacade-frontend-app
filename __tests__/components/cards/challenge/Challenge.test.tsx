@@ -64,5 +64,10 @@ describe("ChallengeCard", () => {
     const rewardCertificateText = screen.getByText("communities.overview.challenge.unlock.certificate");
     expect(rewardCertificateText).toBeInTheDocument();
   });
-
+  it('should indicate if you participate in challenge hackathon',()=> {
+    renderWithRedux(<ChallengeCard  {...mockChallengeCardProps}/>)
+    const hackathonText = screen.getByText('communities.overview.challenge.participate')
+    expect(hackathonText).toBeInTheDocument()
+  })
+   
   });
