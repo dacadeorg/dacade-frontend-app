@@ -2,7 +2,7 @@ import ArrowButton from "@/components/ui/button/Arrow";
 import { useSelector } from "react-redux";
 import { IRootState } from "@/store"; import Link from "next/link";
 import Badges from "@/components/badges";
-import DurationBadge from "@/components/badges/DurationBadge";
+import { DurationBadge } from "@/components/badges/Duration";
 import { useTranslation } from "next-i18next";
 
 
