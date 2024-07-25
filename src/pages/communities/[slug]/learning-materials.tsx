@@ -6,7 +6,7 @@ import { GetServerSideProps } from "next";
 import { ReactElement } from "react";
 import { useTranslation } from "next-i18next";
 import Head from "next/head";
-import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
+import MetaData from "@/components/ui/MetaData";
 import { Community } from "@/types/community";
 import CommunityWrapper from "@/components/sections/communities/overview/Wrapper";
 import { Course, LearningModule } from "@/types/course";
@@ -23,10 +23,7 @@ export default function LearningMaterials(props: {
   return (
     <div>
       <Head>
-        <title>{getMetadataTitle(t("communities.navigation.learning-materials"), community?.name as string)}</title>
-        {getMetadataDescription(community?.description as string).map((attributes) => (
-          <meta key={`scoreboard-meta-${attributes.hid}`} {...attributes} />
-        ))}
+        <MetaData community={community.name} title={t("communities.navigation.learning-materials")} description={community?.description} />
       </Head>
       <CommunityWrapper>
         <LearningMaterialsOverview />

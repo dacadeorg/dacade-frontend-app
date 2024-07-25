@@ -68,6 +68,7 @@ export const communityService = createApi({
           return data
         }
         catch (error) {
+          dispatch(setError(error))
           return null
         }
         finally {

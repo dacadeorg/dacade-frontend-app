@@ -13,7 +13,7 @@ import { NotFoundError } from "@/utilities/errors/NotFoundError";
 import { fetchAllScoreboards } from "@/store/services/communities/scoreboard.service";
 import { useTranslation } from "next-i18next";
 import Head from "next/head";
-import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
+import MetaData from "@/components/ui/MetaData";
 import LearningMaterialsOverview from "@/components/sections/communities/overview/LearningMaterials";
 import { fetchCommunities } from "@/services/community";
 import { GetStaticPathsContext } from "next";
@@ -29,10 +29,7 @@ export default function Slug(props: {
   return (
     <>
       <Head>
-        <title>{getMetadataTitle(t("communities.navigation.courses"), community?.name as string)}</title>
-        {getMetadataDescription(community?.description as string).map((attributes) => (
-          <meta key={`scoreboard-meta-${attributes.hid}`} {...attributes} />
-        ))}
+        <MetaData community={community.name} title={t("communities.navigation.courses")} description={community?.description} />
       </Head>
       <CommunityWrapper>
         <div className="md:hidden">
