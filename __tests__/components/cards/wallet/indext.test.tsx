@@ -6,7 +6,7 @@ import { renderWithRedux } from "@__mocks__/renderWithRedux";
 
 // use the actual component when it is done tested
 jest.mock("@/components/sections/profile/modals/EditAddress", () => {
-  return <h1>hello</h1>;
+  return <div>Edit address</div>;
 });
 
 jest.mock("@/hooks/useTypedDispatch.ts", () => ({

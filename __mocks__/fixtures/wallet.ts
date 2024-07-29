@@ -18,7 +18,7 @@ export const mockWallet: Wallet = {
     balance: 0,
     user_id: mockUser.id,
     token: "ICP",
-    address: "0xd0 5AfA 87A5 99b8 AD8C ff71 b1eC 7129 e3Ed fe08 b9",
+    address: "0xd05AfA87A599b8AD8Cff71b1eC7129e3Edfe08b9",
     payouts: [mockPayout],
     description: ""
 }
