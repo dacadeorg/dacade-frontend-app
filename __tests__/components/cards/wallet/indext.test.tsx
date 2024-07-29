@@ -1,11 +1,11 @@
 import CardsWallet from "@/components/cards/wallet";
 import "@testing-library/jest-dom";
-import { mockWallet } from "../../../__mocks__/fixtures/wallet";
+import { mockWallet } from "@__mocks__/fixtures/wallet";
 import { screen } from "@testing-library/react";
 import { renderWithRedux } from "@__mocks__/renderWithRedux";
 
 // use the actual component when it is done tested
-jest.mock("../../../src/components/sections/profile/modals/EditAddress/index.tsx", () => {
+jest.mock("@/components/sections/profile/modals/EditAddress", () => {
   return <h1>hello</h1>;
 });
 
