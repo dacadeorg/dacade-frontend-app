@@ -1,4 +1,4 @@
-import { getMetadataDescription } from "@/utilities/Metadata";
+import { getMetadataDescription, getMetadataTitle } from "@/utilities/Metadata";
 import { ReactElement, useMemo } from "react";
 
 /**
@@ -8,10 +8,19 @@ import { ReactElement, useMemo } from "react";
  * @export
  * @returns {ReactElement}
  */
-export default function MetaData({ description, testId = "meta-id" }: { description?: string; testId?: string }): ReactElement {
+
+interface MetadataProps {
+  description?: string;
+  title?: string | null;
+  community?: string;
+  testId?: string
+}
+
+export default function MetaData({ description, title, community, testId = "meta-id" }: MetadataProps): ReactElement {
   const metas = useMemo(() => getMetadataDescription(description), [description]);
   return (
     <>
+      {title && <title data-testid="page-title">{getMetadataTitle(title, community as string)}</title>}
       {metas.map((meta, index) => (
         <meta data-testid={testId} key={`meta-${index}`} content={meta.content} name={meta.name} />
       ))}

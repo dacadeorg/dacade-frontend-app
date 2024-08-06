@@ -36,7 +36,15 @@ export function CoursesOverview(): ReactElement {
   return (
     <SectionWrapper title={`${t("communities.overview.courses.title")}`} description={`${t("communities.overview.courses.description")}`}>
       {courseList?.map((course: Course) => (
-        <CourseCard key={course.id} course={course} community={community as Community} />
+        <CourseCard
+          key={`learning-card-data-${course.id}`}
+          title={course.name}
+          description={course.description}
+          link={`/communities/${community?.slug}/courses/${course.slug}`}
+          duration={course.duration}
+          level={course.level}
+          learningModulesCount={course.learningModules?.length}
+        />
       ))}
     </SectionWrapper>
   );

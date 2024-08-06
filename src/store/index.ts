@@ -48,6 +48,7 @@ import scoreboardService from "./services/communities/scoreboard.service";
 import communitiesProfile from "./feature/profile/communities.slice";
 import reputationSlice from "./feature/profile/reputation.slice";
 import { learningModulesService } from "./services/learningModules.service";
+import learningMaterialsSlice from "./feature/learningMaterials.slice";
 
 export interface IRootState {
   communities: ReturnType<typeof communities.reducer>;
@@ -81,6 +82,7 @@ export interface IRootState {
   payouts: ReturnType<typeof payoutsSlice.reducer>;
   teams: ReturnType<typeof teamsSlice.reducer>;
   invites: ReturnType<typeof invitesSlice.reducer>;
+  learningMaterials: ReturnType<typeof learningMaterialsSlice.reducer>
 }
 
 export type IRootService = {
@@ -150,6 +152,7 @@ export const reducers = {
   [invitesSlice.name]: invitesSlice.reducer,
   [communitiesProfile.name]: communitiesProfile.reducer,
   [reputationSlice.name]: reputationSlice.reducer,
+  [learningMaterialsSlice.name]: learningMaterialsSlice.reducer,
 };
 
 export const middlewares = [

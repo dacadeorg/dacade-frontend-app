@@ -13,6 +13,12 @@ describe("MetaData", () => {
     expect(metaTags).toHaveLength(expectedMetaTags.length);
   });
 
+  it("should render the title when applicable", () => {
+    render(<MetaData description={description} title="Any title" />);
+    const metatitle = screen.getByTestId("page-title");
+    expect(metatitle).toHaveTextContent("Any title");
+  })
+
   it("should render the correct content in the meta tags", () => {
     render(<MetaData description={description} />);
     const mockMetas = getMetadataDescription(description);
