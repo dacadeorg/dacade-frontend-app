@@ -8,7 +8,7 @@ export const Introduction = {
 
 export const mockCertificateData = {
     narrative: "course certificate",
-    icon: "certificate icon",
+    icon: "/public/fav-icons/favicon-32x32.png",
 };
 
 export const Rubric = {

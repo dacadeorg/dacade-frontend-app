@@ -3,7 +3,7 @@ import Coin from "@/components/ui/Coin";
 import { useTranslation } from "next-i18next";
 import { Reward } from "@/types/course";
 
-interface OverviewRewardsProps {
+export interface OverviewRewardsProps {
   reward: Reward;
   size: string;
 }

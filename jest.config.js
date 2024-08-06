@@ -28,6 +28,7 @@ const config = {
     "react-markdown": "<rootDir>/__mocks__/react-markdown.tsx",
     [`^(${esModules})-.*`]: "<rootDir>/__mocks__/plugin.ts",
     unified: "<rootDir>/__mocks__/unified.ts",
+    "^@/(.*)$": "<rootDir>/src/$1",
   },
 };
 

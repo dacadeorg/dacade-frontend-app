@@ -5,7 +5,7 @@ import Link from "next/link";
 /**
  * Props for the FormTeam component.
  */
-interface FormTeamCardProps {
+export interface FormTeamCardProps {
   title: string;
   description: string;
   index: number;
