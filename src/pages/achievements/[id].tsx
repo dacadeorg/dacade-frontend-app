@@ -231,7 +231,12 @@ const Achievement = () => {
                       </AchievementViewItem>
                     </div>
                   )}
-                  <Button onClick={() => login((principal) => requestVC(principal))}>Generate VC</Button>
+                  {achievement.community.name === "Internet Computer" && (
+                    <div className="flex flex-col gap-1">
+                      <p className="font-medium text-center">{`Verified ${achievement.metadata.name} completion on Dacade`}</p>
+                      <Button onClick={() => login((principal) => requestVC(principal))}>Request Requdential</Button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
