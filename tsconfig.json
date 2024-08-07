@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -15,11 +19,25 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "react": ["./node_modules/@types/react"],
-      "@__mocks__/*": ["./__mocks__/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "react": [
+        "./node_modules/@types/react"
+      ],
+      "@__mocks__/*": [
+        "./__mocks__/*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/sections/learning-modules/_partials/MarkDown.jsx", "jest.config.js"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/components/sections/learning-modules/_partials/MarkDown.jsx",
+    "jest.config.js"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

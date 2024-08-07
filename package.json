@@ -14,6 +14,12 @@
   },
   "dependencies": {
     "@coingecko/cryptoformat": "^0.5.4",
+    "@dfinity/agent": "^2.0.0",
+    "@dfinity/auth-client": "^2.0.0",
+    "@dfinity/candid": "^2.0.0",
+    "@dfinity/identity": "^2.0.0",
+    "@dfinity/principal": "^2.0.0",
+    "@dfinity/verifiable-credentials": "^0.0.2",
     "@reduxjs/toolkit": "^1.9.3",
     "@stefanprobst/remark-extract-toc": "^2.2.0",
     "@sumsub/websdk": "^1.4.0",
