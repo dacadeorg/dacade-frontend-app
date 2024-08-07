@@ -21,6 +21,10 @@ import MintCertificate from "@/components/sections/profile/modals/MintCertificat
 import { Certificate } from "@/types/certificate";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
+import Button from "@/components/ui/button";
+import useIcpAuth, { IDENTITY_PROVIDER } from "@/hooks/useIcpAuth";
+import { requestVerifiablePresentation, type VerifiablePresentationResponse } from "@dfinity/verifiable-credentials/request-verifiable-presentation";
+import { Principal } from "@dfinity/principal";
 
 /**
  * interface for Achievement multiSelector
@@ -45,6 +49,7 @@ const Achievement = () => {
   const [showMintCertificate, setShowMintCertificate] = useState(false);
   const dispatch = useDispatch();
   const { locale, query } = useRouter();
+  const { login } = useIcpAuth();
 
   const findCertificateById = useCallback(async () => {
     await dispatch(findCertificate({ id: query.id as string }));
@@ -103,6 +108,45 @@ const Achievement = () => {
   const isNotCertificateIcon = useMemo(() => {
     return !achievement?.metadata?.image?.includes("/img/certificates/");
   }, [achievement]);
+
+  const requestVC = (principal: string) => {
+    if (!achievement?.metadata) return;
+    const { issuedOn, issuerName, linkToWork, recipientName, feedbacks, name } = achievement?.metadata;
+    console.log({ issuedOn, issuerName, linkToWork, recipientName, feedbacks, name });
+
+    requestVerifiablePresentation({
+      onSuccess: async (verifiablePresentation: VerifiablePresentationResponse) => {
+        console.log({ verifiablePresentation });
+      },
+      onError() {
+        console.log("An error occurred");
+      },
+      issuerData: {
+        /**
+         * This issuer is for testing.
+         * In this case dacade acts as a relying party requesting for verifiable identification
+         * @link https://internetcomputer.org/docs/current/developer-docs/identity/verifiable-credentials/how-it-works#test-verifiable-credentials
+         */
+        origin: "https://qdiif-2iaaa-aaaap-ahjaq-cai.icp0.io",
+        canisterId: Principal.fromText("qdiif-2iaaa-aaaap-ahjaq-cai"),
+      },
+      credentialData: {
+        credentialSpec: {
+          credentialType: `Verified ${name} completion on Dacade`,
+          arguments: {
+            issuedOn,
+            issuerName,
+            linkToWork,
+            recipientName,
+            name,
+          },
+        },
+        credentialSubject: Principal.fromText(principal),
+      },
+      identityProvider: new URL(IDENTITY_PROVIDER),
+      // derivationOrigin: window.location.href,
+    });
+  };
 
   return (
     <>
@@ -185,6 +229,12 @@ const Achievement = () => {
                           {achievement.minting.tokenURI}
                         </a>
                       </AchievementViewItem>
+                    </div>
+                  )}
+                  {achievement.community.name === "Internet Computer" && (
+                    <div className="flex flex-col gap-1">
+                      <p className="font-medium text-center">{`Verified ${achievement.metadata.name} completion on Dacade`}</p>
+                      <Button onClick={() => login((principal) => requestVC(principal))}>Request Requdential</Button>
                     </div>
                   )}
                 </div>
