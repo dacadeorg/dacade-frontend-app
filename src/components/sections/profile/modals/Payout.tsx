@@ -20,6 +20,7 @@ interface PayoutProps {
   show: boolean;
   wallet: Wallet;
   onClose: () => void;
+  testId?: string;
 }
 
 /**
@@ -34,7 +35,7 @@ interface PayoutProps {
 }
  * @returns {ReactElement}
  */
-export default function Payout({ show, wallet, onClose }: PayoutProps): ReactElement {
+export default function Payout({ show, wallet, onClose, testId = "payoutId" }: PayoutProps): ReactElement {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -49,7 +50,7 @@ export default function Payout({ show, wallet, onClose }: PayoutProps): ReactEle
 
   return (
     <Modal show={show} onClose={onClose}>
-      <div id="sumsub-websdk-container" className="relative px-6 pt-6">
+      <div id="sumsub-websdk-container" className="relative px-6 pt-6" data-testid={testId}>
         <div className="mb-6">
           <p className="text-.5xl leading-snug font-medium">{wallet.title}</p>
           <p className="text-.5xl font-medium text-tertiary leading-snug">{t("profile.wallet.payout.request")}</p>
