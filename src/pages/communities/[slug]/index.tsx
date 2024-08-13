@@ -17,6 +17,7 @@ import MetaData from "@/components/ui/MetaData";
 import LearningMaterialsOverview from "@/components/sections/communities/overview/LearningMaterials";
 import { fetchCommunities } from "@/services/community";
 import { GetStaticPathsContext } from "next";
+import CommunityNavItem from "@/components/sections/communities/overview/_partials/NavItem";
 
 export default function Slug(props: {
   pageProps: {
@@ -32,10 +33,11 @@ export default function Slug(props: {
         <MetaData community={community.name} title={t("communities.navigation.courses")} description={community?.description} />
       </Head>
       <CommunityWrapper>
-        <div className="md:hidden">
-          <div className="font-medium text-.5xl leading-snug">{t("communities.overview.challenges.title")}</div>
-          <div className="text-sm font-light lg:w-full lg:pr-7 pt-2 mb-8 md:mb-0">{t("communities.overview.challenges.description")} </div>
-        </div>
+        <CommunityNavItem
+          title={t("communities.overview.challenges.title")}
+          description={t("communities.overview.challenges.description")}
+          className="md:hidden my-8"
+        />
         <div className="grid gap-6">
           {challenges.map((challenge) => (
             <ChallengeCard key={challenge.id} data={challenge} community={community} />

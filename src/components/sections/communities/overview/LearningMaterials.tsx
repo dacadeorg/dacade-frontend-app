@@ -6,6 +6,7 @@ import { Community } from "@/types/community";
 import Loader from "@/components/ui/Loader";
 import { IRootState } from "@/store";
 import { useTranslation } from "next-i18next";
+import CommunityNavItem from "./_partials/NavItem";
 
 interface LearningMaterialsSectionProps {
     community: Community;
@@ -26,11 +27,12 @@ export default function LearningMaterialsOverview() {
 
     return (
         <>
-            <div className="md:hidden my-8">
-                <div className="font-medium text-.5xl leading-snug">{t("communities.overview.learning-materials.title")}</div>
-                <div className="text-sm font-light lg:w-full lg:pr-7 pt-2">{t("communities.overview.learning-materials.description")} </div>
-            </div>
-            <div className="grid gap-3 md:gap-6 mb-3 md:mb-6">
+            <CommunityNavItem
+                title={t("communities.overview.learning-materials.title")}
+                description={t("communities.overview.learning-materials.description")}
+                className="md:hidden my-8"
+            />
+            <div className="grid gap-6 mb-6">
                 {courses?.map((course) => {
                     return <CourseCard
                         key={`learning-card-data-${course.id}`}
@@ -43,7 +45,7 @@ export default function LearningMaterialsOverview() {
                     />
                 })}
             </div>
-            <div className="grid md:grid-cols-2 gap-3 w-full">
+            <div className="grid lg:grid-cols-2 gap-3 w-full">
                 {learningModules?.map((module) => {
                     return <LearningModuleCard
                         key={`related-learning-card-${module.id}`}

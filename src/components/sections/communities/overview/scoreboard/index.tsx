@@ -5,6 +5,7 @@ import { useTranslation } from "next-i18next";
 import { ReactElement, useState } from "react";
 import Loader from "@/components/ui/Loader";
 import EmptyState from "@/components/ui/EmptyState";
+import CommunityNavItem from "../_partials/NavItem";
 
 /**
  * Scoreboard Overview index component
@@ -26,10 +27,11 @@ export default function ScoreboardOverview(): ReactElement {
 
   return (
     <>
-      <div className="md:hidden my-8">
-        <div className="font-medium text-.5xl leading-snug">{t("communities.overview.scoreboard.title")}</div>
-        <div className="text-sm font-light lg:w-full lg:pr-7 pt-2">{t("communities.overview.scoreboard.description")} </div>
-      </div>
+      <CommunityNavItem
+        title={t("communities.overview.scoreboard.title")}
+        description={t("communities.overview.scoreboard.description")}
+        className="md:hidden my-8"
+      />
       {loading ? (
         <div className="h-full w-full grid">
           <Loader className="place-self-center" />
