@@ -101,7 +101,7 @@ export default function LearningModulePage(props: LearningModulePageProps): Reac
             <LearningModuleSection learningModule={learningModule} />
             {isLastLearningModule ? (
               course.challenges && (
-                <div>
+                <div className="mb-5">
                   <div className="mt-6 mb-5">
                     <h2 className="font-medium text-.5xl text-gray-700 pb-3">{t("communities.challenge.title")}</h2>
                     <p className="text-lg">{t("communities.overview.learning-modules-challenge-introduction")}</p>

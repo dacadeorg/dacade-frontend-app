@@ -7,13 +7,17 @@ import CommunityLayout from "@/layouts/Community";
 import { ReactElement } from "react";
 import { Challenge } from "@/types/course";
 import { wrapper } from "@/store";
-import { fetchCurrentCommunity } from "@/store/services/community.service";
+import { fetchCurrentCommunity, fetchLearningMaterials } from "@/store/services/community.service";
 import { fetchAllChallenges } from "@/store/services/communities/challenges";
 import { NotFoundError } from "@/utilities/errors/NotFoundError";
 import { fetchAllScoreboards } from "@/store/services/communities/scoreboard.service";
 import { useTranslation } from "next-i18next";
+import Head from "next/head";
+import MetaData from "@/components/ui/MetaData";
+import LearningMaterialsOverview from "@/components/sections/communities/overview/LearningMaterials";
 import { fetchCommunities } from "@/services/community";
 import { GetStaticPathsContext } from "next";
+import CommunityNavItem from "@/components/sections/communities/overview/_partials/NavItem";
 
 export default function Slug(props: {
   pageProps: {
@@ -24,18 +28,27 @@ export default function Slug(props: {
   const { community, challenges } = props.pageProps;
   const { t } = useTranslation();
   return (
-    <CommunityWrapper>
-      {challenges.map((challenge) => (
-        <ChallengeCard key={challenge.id} data={challenge} community={community} />
-      ))}
-      <div className="md:hidden">
-        <div className="active md:hidden mb-7 scroll-smooth pt-5">
-          <div className="font-medium text-.5xl leading-snug">{t("communities.overview.scoreboard.title")}</div>
-          <div className="text-sm font-light lg:w-full lg:pr-7 pt-2">{t("communities.overview.scoreboard.description")} </div>
+    <>
+      <Head>
+        <MetaData community={community.name} title={t("communities.navigation.courses")} description={community?.description} />
+      </Head>
+      <CommunityWrapper>
+        <CommunityNavItem
+          title={t("communities.overview.challenges.title")}
+          description={t("communities.overview.challenges.description")}
+          className="md:hidden my-8"
+        />
+        <div className="grid gap-6">
+          {challenges.map((challenge) => (
+            <ChallengeCard key={challenge.id} data={challenge} community={community} />
+          ))}
         </div>
-        <Scoreboard />
-      </div>
-    </CommunityWrapper>
+        <div className="md:hidden w-full grid">
+          <LearningMaterialsOverview />
+          <Scoreboard />
+        </div>
+      </CommunityWrapper>
+    </>
   );
 }
 
@@ -47,18 +60,22 @@ export const getStaticProps = wrapper.getStaticProps((store: any) => async ({ lo
   try {
     const slug = params?.slug as string;
 
-    const [{ data: community }, { data: challenges }, { data: scoreboard }, translations] = await Promise.all([
+    const [{ data: community }, { data: challenges }, { data: scoreboard }, { data: learningMaterials }, translations] = await Promise.all([
       store.dispatch(fetchCurrentCommunity({ slug, locale })),
       store.dispatch(fetchAllChallenges({ slug, locale })),
       store.dispatch(fetchAllScoreboards({ slug, locale: locale || "en" })),
+      store.dispatch(fetchLearningMaterials({ slug, locale })),
       serverSideTranslations(locale as string),
     ]);
+
     if (!community || !challenges) throw new NotFoundError();
+
     return {
       props: {
         community,
         challenges,
         scoreboard,
+        learningMaterials: learningMaterials || { courses: [], learningModule: [] },
         ...translations,
       },
 
