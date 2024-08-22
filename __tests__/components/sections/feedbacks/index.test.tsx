@@ -28,7 +28,7 @@ const authData = {
 }
 
 const renderFeedbackSection = () => {
-    renderWithRedux(<Feedback />, {
+    renderWithRedux(<Feedback testId="feedback-section" />, {
         auth: authData
     })
 }
@@ -52,7 +52,7 @@ describe('Feedback', () => {
     })
 
     it("should not render the feedback section when we don't have a user", () => {
-        renderWithRedux(<Feedback />, {
+        renderWithRedux(<Feedback testId="feedback-section" />, {
             auth: { ...authData, data: null },
             challenges: challengeSliceData,
             submissions: {

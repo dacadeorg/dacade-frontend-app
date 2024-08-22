@@ -12,7 +12,7 @@ import Link from "next/link";
  *
  * @type {{title: string; body: string}[]}
  */
-const cards: { title: string; body: string }[] = [
+export const cards: { title: string; body: string }[] = [
   {
     title: "page.index.main.cards.first.title",
     body: "page.index.main.cards.first.body",
@@ -34,14 +34,14 @@ const cards: { title: string; body: string }[] = [
  * @export
  * @returns {ReactElement}
  */
-export default function MainSection(): ReactElement {
+export default function MainSection({ testId = "mainSectionId" }: { testId?: string }): ReactElement {
   const { t } = useTranslation();
 
   return (
     <Section type="default" padding="p-0">
-      <div className="w-full lg:py-24 pt-24 pb-8">
-        <h1 className="lg:text-8xl md:text-6xl text-5xl leading-none tracking-tighter">{t("page.index.main.title")}</h1>
-        <p className="lg:text-8xl md:text-6xl text-4.5xl py-2 lg:py-0 md:py-0 sm:py-0 text-gray-400 tracking-tighter leading-none">{t("page.index.main.subtitle")}</p>
+      <div data-testid={testId} className="w-full lg:py-24 pt-24 pb-8">
+        <h1 className="lg:text-7.75xl md:text-6xl text-4.5xl leading-10 -tracking-4 text-primary">{t("page.index.main.title")}</h1>
+        <p className="lg:text-7.75xl md:text-6xl text-4.5xl py-2 lg:py-0 md:py-0 sm:py-0 text-tertiary -tracking-4 leading-10">{t("page.index.main.subtitle")}</p>
       </div>
       <div className="flex justify-between">
         <div className="w-full max-w-xs hidden lg:block">

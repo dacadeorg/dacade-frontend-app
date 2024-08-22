@@ -45,7 +45,7 @@ describe('FeedbackForm', () => {
         expect(avatar).toBeInTheDocument()
     })
 
-    it('should not make modifications to the text input', () => {
+    it('should preserve the text case and format', () => {
         renderForm()
         const inputText = screen.getByTestId('textarea').getElementsByTagName("textarea")[0]
         fireEvent.change(inputText, { target: { value: 'Test input' } })

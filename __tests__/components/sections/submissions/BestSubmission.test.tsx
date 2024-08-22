@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import { challenge, submission } from "@__mocks__/fixtures/challenge";
-import { renderWithRedux } from "../../../../__mocks__/renderWithRedux";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import BestSubmissions from "@/components/sections/submissions/BestSubmissions";
 
 jest.mock("next/router", () => ({
