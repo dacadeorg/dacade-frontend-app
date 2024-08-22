@@ -1,9 +1,10 @@
 import ArrowButton from "@/components/ui/button/Arrow";
-import { useSelector } from "react-redux";
-import { IRootState } from "@/store"; import Link from "next/link";
+import { IRootState } from "@/store";
+import Link from "next/link";
 import Badges from "@/components/badges";
 import { DurationBadge } from "@/components/badges/Duration";
 import { useTranslation } from "next-i18next";
+import { useSelector } from "@/hooks/useTypedSelector";
 
 
 
@@ -32,7 +33,9 @@ export default function CourseCard({ title, description, link, level, learningMo
         <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
           <div className="flex gap-2 items-center">
             <div className="h-5.5 w-5.5 rounded-sm clip-hexagon" style={{ backgroundColor: colors?.primary }} />
-            <span className="capitalize font-semibold text-[#4B5563] text-sm">COURSE</span>
+            <span className="capitalize font-semibold text-[#4B5563] text-sm">
+              {t('communities.overview.challenge.course')}
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <Badges courseLevel={level} className="!mb-0" />

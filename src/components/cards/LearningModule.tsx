@@ -24,7 +24,7 @@ export function LearningModuleCard({ data }: { data: LearningModule }): JSX.Elem
   })
 
   const level = useMemo(() => {
-    const value = challenge?.level;
+    const value = data?.level || challenge?.level;
     return t((value === 0 || value === 1) ? "course.challenge.level-0" : "course.challenge.level-2");
   }, [challenge?.level]);
 
