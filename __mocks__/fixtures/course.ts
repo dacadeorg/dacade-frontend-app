@@ -1,5 +1,6 @@
 import { Course, Format, LearningModule, Material } from "@/types/course";
 import { mockTrailer } from "./bounty";
+import { RatingCriteria } from "@/types/challenge";
 
 
 export const Introduction = {
@@ -25,7 +26,7 @@ export const Rubric = {
     typeSlug: "slug",
 };
 
-export const mockRatingCriteria = {
+export const mockRatingCriteria: RatingCriteria = {
     name: "rating criteria",
     order: 4,
     rubric: [Rubric],
@@ -132,5 +133,3 @@ export const mockFormat: Format = {
     text: true,
     disclaimer: true,
 };
-
-

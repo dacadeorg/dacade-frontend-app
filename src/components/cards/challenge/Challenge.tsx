@@ -52,9 +52,8 @@ export default function ChallengeCard({ data, community, isCourseEnd, challengeT
           </div>
           <div className="divide-y-2 divide-gray-200 divide-dotted flex flex-col mt-8">
             {learningMaterialsCount && (
-              <p className="pb-3 md:pb-4 text-sm font-medium text-tertiary">{`${learningMaterialsCount}  Learning ${
-                learningMaterialsCount === 1 ? "material" : "materials"
-              } included`}</p>
+              <p className="pb-3 md:pb-4 text-sm font-medium text-tertiary">{`${learningMaterialsCount}  Learning ${learningMaterialsCount === 1 ? "material" : "materials"
+                } included`}</p>
             )}
             <div className="lg:flex lg:flex-row flex-col justify-between pt-3 md:pt-4 items-center">
               <Link href={link}>
