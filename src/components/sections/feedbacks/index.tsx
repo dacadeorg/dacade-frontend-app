@@ -14,6 +14,10 @@ import { Challenge } from "@/types/course";
 import { Feedback as FeedbackType } from "@/types/feedback";
 import { IRootState } from "@/store";
 
+interface FeedbackProps {
+  testId?: string;
+}
+
 /**
  * interface for Feedback multiSelector
  * @date 9/13/2023 - 9:12:52 AM
@@ -35,7 +39,7 @@ interface FeedbackMultiSelector {
  * @export
  * @returns {ReactElement}
  */
-export default function Feedback(): ReactElement {
+export default function Feedback({ testId = "feedbackId" }: FeedbackProps): ReactElement {
   const dispatch = useDispatch();
   const route = useRouter();
 
@@ -59,7 +63,7 @@ export default function Feedback(): ReactElement {
   }, [fetchList]);
 
   return (
-    <div className="relative">
+    <div className="relative" data-testid={testId}>
       {isFetching ? <Loader loading={isFetching} /> : feedbacks.map((feedback, index) => <FeedbackCard key={feedback.id} value={feedback} last={index === feedbacks.length - 1} />)}
       {isAuthenticated && challenge?.feedbackInfo && (
         <Section>

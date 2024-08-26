@@ -16,7 +16,7 @@ interface SectionProps {
   className?: string;
   hideSubtitleOnMobile?: boolean;
   children?: ReactNode;
-  testId?:string
+  testId?: string;
 }
 
 /**

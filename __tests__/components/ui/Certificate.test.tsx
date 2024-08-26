@@ -1,7 +1,7 @@
 import Certificate from "@/components/ui/Certificate";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import ReactComponent from "../../../__mocks__/svg";
+import ReactComponent from "@__mocks__/svg";
 
 describe("Certificate", () => {
   it("should render certificate", () => {

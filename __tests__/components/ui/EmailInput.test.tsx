@@ -4,7 +4,7 @@ import "@testing-library/jest-dom";
 import EmailInput from "@/components/ui/EmailInput";
 import { FormValues } from "@/pages/signup";
 import { FieldErrors } from "react-hook-form";
-import { renderWithRedux } from "../../../__mocks__/renderWithRedux";
+import { renderWithRedux } from "@__mocks__/renderWithRedux";
 
 jest.mock("next/router", () => ({
   useRouter: () => ({

@@ -21,6 +21,7 @@ interface Testimonial {
  */
 interface TestimonialsSectionProps {
   list: Testimonial[];
+  testId?: string;
 }
 
 /**
@@ -35,7 +36,7 @@ interface ShowingBubble {
   grid: number | null;
 }
 
-export default function TestimonialsSection({ list }: TestimonialsSectionProps): ReactElement {
+export default function TestimonialsSection({ list, testId = "testimonialsId" }: TestimonialsSectionProps): ReactElement {
   const [showingBubble, setShowingBubble] = useState<ShowingBubble>(() => ({
     card: 4,
     grid: 0,
@@ -94,7 +95,7 @@ export default function TestimonialsSection({ list }: TestimonialsSectionProps):
   };
 
   return (
-    <div className="relative w-full top-0 h-screen left-0 z-0 hidden md:block md:max-h-3xl lg:max-h-4xl xl:max-h-7.1xl">
+    <div data-testid={testId} className="relative w-full top-0 h-screen left-0 z-0 hidden md:block md:max-h-3xl lg:max-h-4xl xl:max-h-7.1xl">
       {grids.map((grid, gridIndex) => {
         return (
           <span
