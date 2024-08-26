@@ -16,7 +16,8 @@ describe("Sidebar", () => {
     renderWithRedux(<Sidebar />, { communities: { current: mockCommunity, list: [mockCommunity], courses: [mockCourse], status: "succeeded", error: "" } });
   });
   const mainLink = `/communities/${mockCommunity.slug}`;
-  const scoreboardLink = `/communities/${mockCommunity.slug}/scoreboard`;
+    const learningMaterialsLink = `/communities/${mockCommunity.slug}/learning-materials`;
+    const scoreboardLink = `/communities/${mockCommunity.slug}/scoreboard`;
 
   it("displays the sidebar", () => {
     expect(screen.getByText("communities.overview.challenges.title")).toBeInTheDocument();
@@ -26,7 +27,8 @@ describe("Sidebar", () => {
   });
 
   it("renders the links correctly", () => {
-    expect(screen.getByRole("link", { name: "main link" })).toHaveAttribute("href", mainLink);
-    expect(screen.getByRole("link", { name: "scoreboard link" })).toHaveAttribute("href", scoreboardLink);
+    expect(screen.getByText("communities.overview.challenges.title").closest("a")).toHaveAttribute("href", mainLink);
+    expect(screen.getByText("communities.overview.learning-materials.title").closest("a")).toHaveAttribute("href", learningMaterialsLink);
+    expect(screen.getByText("communities.overview.scoreboard.title").closest("a")).toHaveAttribute("href", scoreboardLink);
   });
 });

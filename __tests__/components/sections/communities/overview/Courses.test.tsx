@@ -5,6 +5,13 @@ import { renderWithRedux } from "@__mocks__/renderWithRedux";
 import { mockCourse } from "@__mocks__/fixtures/course";
 import { mockCommunity } from "@__mocks__/fixtures/community";
 
+
+jest.mock("next/router", () => ({
+  useRouter: () => ({
+    asPath: "next",
+  }),
+}));
+
 describe("CoursesOverview", () => {
   it("renders the courses overview section with course cards", () => {
     renderWithRedux(<CoursesOverview />, {
