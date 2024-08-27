@@ -25,6 +25,10 @@ jest.mock("../../../src/utilities/Translate", () => ({
   Translate: jest.fn(),
 }));
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe("TranslationBOX", () => {
   const mockTranslate = Translate as jest.Mock;
   it("should render the componet", () => {
@@ -34,7 +38,6 @@ describe("TranslationBOX", () => {
 
   it("should show loading state during translation", async () => {
     renderWithRedux(<TranslationBox text="test text" defaultLocale="en" />);
-    
     fireEvent.click(await screen.findByRole("button", { name: "Click me" }));
     expect(Translate).toHaveBeenCalled();
     expect(screen.getByText("Translating...")).toBeInTheDocument();
@@ -51,14 +54,24 @@ describe("TranslationBOX", () => {
     expect(screen.getByText("Translated Text")).toBeInTheDocument();
     
   });
+  it("should automatically translate when currentLocale is different from defaultLocale", async () => {
+    mockTranslate.mockResolvedValue("Translated Text");
+    renderWithRedux(<TranslationBox text="test text" defaultLocale="en" />);
+    await waitFor(() => expect(Translate).toHaveBeenCalled());
+    expect(screen.getByText("Translated Text")).toBeInTheDocument();
+  });
+  it("should not show translation options when disabled prop is true", () => {
+    renderWithRedux(<TranslationBox text="test text" defaultLocale="en" disabled={true} />);
+    expect(screen.queryByText("ui.translate")).not.toBeInTheDocument();
+  });
 
-  // it("Should revert the text back to its original language when revert is clicked", async () => {
-  //   mockTranslate.mockResolvedValueOnce("Hallo");
-  //   renderWithRedux(<TranslationBox text="Hello" defaultLocale="en" />);
-  //   fireEvent.click(await screen.findByText((content) => content.includes("ui.translate")));
-  //   expect(mockTranslate).toHaveBeenCalled();
-  //   expect(screen.getByText("Hallo")).toBeInTheDocument();
-  //   fireEvent.click(await screen.findByText((content) => content.startsWith("ui.translation.action.original")));
-  //   expect(screen.getByText("Hello")).toBeInTheDocument();
-  // });
+   it("should revert the text back to its original language when revert is clicked", async () => {
+     mockTranslate.mockResolvedValue("Hallo");
+     renderWithRedux(<TranslationBox text="Hello" defaultLocale="en" />);
+
+     await waitFor(() => expect(screen.getByText("Hallo")).toBeInTheDocument());
+
+     fireEvent.click(screen.getByText("ui.translation.action.original English"));
+     expect(screen.getByText("Hello")).toBeInTheDocument();
+   });
 });
