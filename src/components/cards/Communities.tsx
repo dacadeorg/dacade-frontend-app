@@ -34,7 +34,7 @@ interface CommunitiesProps {
 
 export default function Communities({ title = "" }: CommunitiesProps): ReactElement {
   return (
-    <div className="bg-gray-50 rounded-full pl-2 py-2 flex items-center mb-3">
+    <div className="bg-secondary rounded-full pl-2 py-2 flex items-center mb-3">
       {PARTNERS.map((partner) => (
         <a href={partner.link} key={partner.link} target="__blank" className="inline-block md:mx-auto">
           <div className="w-10 h-10 rounded-full border border-solid flex items-center">

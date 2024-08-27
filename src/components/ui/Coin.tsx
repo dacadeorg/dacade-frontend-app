@@ -18,7 +18,7 @@ import SUIIcon from "@/icons/tokens/SUI.svg";
  * @interface CoinProps
  * @typedef {CoinProps}
  */
-interface CoinProps {
+export interface CoinProps {
   bgColor?: string;
   textColor?: string;
   size?: "medium" | "medium-mini" | "normal" | "small";

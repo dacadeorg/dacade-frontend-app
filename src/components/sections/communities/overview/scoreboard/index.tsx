@@ -5,6 +5,7 @@ import { useTranslation } from "next-i18next";
 import { ReactElement, useState } from "react";
 import Loader from "@/components/ui/Loader";
 import EmptyState from "@/components/ui/EmptyState";
+import CommunityNavItem from "../_partials/NavItem";
 
 /**
  * Scoreboard Overview index component
@@ -26,6 +27,11 @@ export default function ScoreboardOverview(): ReactElement {
 
   return (
     <>
+      <CommunityNavItem
+        title={t("communities.overview.scoreboard.title")}
+        description={t("communities.overview.scoreboard.description")}
+        className="md:hidden my-8"
+      />
       {loading ? (
         <div className="h-full w-full grid">
           <Loader className="place-self-center" />
@@ -36,7 +42,7 @@ export default function ScoreboardOverview(): ReactElement {
             <ScoreboardCard key={`list-element-${i}`} index={i + 1} value={item} />
           ))}
           {items < list.length && (
-            <div className="flex items-center w-full p-6 space-x-5 space-y-0 overflow-hidden sm:flex sm:flex-row-reverse bg-gray-50 sm:px-4 sm:py-7 sm:justify-center">
+            <div className="flex items-center w-full p-6 space-x-5 space-y-0 overflow-hidden sm:flex sm:flex-row-reverse bg-secondary sm:px-4 sm:py-7 sm:justify-center">
               <ArrowButton communityStyles={true} variant="outline-primary" direction="down" onClick={loadMore}>
                 {t("course.scoreboard.button")}
               </ArrowButton>

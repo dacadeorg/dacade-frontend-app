@@ -67,9 +67,10 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
     <Modal show={show} onClose={onClose}>
       <div className="px-6 pt-6 relative">
         <h1 className="text-.5xl leading-none font-medium mb-12">{t("profile.settings.edit.name.update")}</h1>
-        <form onSubmit={handleSubmit(onSave)}>
+        <form onSubmit={handleSubmit(onSave)} data-testid="names-edit-form">
           <div className="mb-2.5">
             <Input
+              testId="first-name"
               label={`${t("profile.edit.label.fist-name")}`}
               error={errors.firstName?.message}
               type="firstName"
@@ -85,6 +86,7 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
           </div>
           <div className="mb-8">
             <Input
+              testId="last-name"
               label={`${t("profile.edit.label.last-name")}`}
               error={errors.lastName?.message}
               type="lastName"
@@ -98,7 +100,7 @@ export default function EditProfile({ show, onClose }: EditProfileProps): ReactE
             />
           </div>
           <div className="flex pb-2 items-center justify-between">
-            <span className="cursor-pointer text-sm font-medium text-primary" onClick={onClose}>
+            <span className="cursor-pointer text-sm font-medium text-primary" onClick={onClose} data-testid="close-button">
               {t("profile.edit.close")}
             </span>
             <ArrowButton loading={loading} disabled={loading} variant="outline-primary">

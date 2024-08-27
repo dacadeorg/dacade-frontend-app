@@ -1,9 +1,9 @@
 import { mockFormat, mockCertificateData, mockCourse, mockLearningModule, mockRatingCriteria } from "./course";
 import { mockCommunity, mockMetadata } from "./community";
 import { reward } from "./reward";
-import { Submission } from "@/types/bounty";
+import { Evaluation, Submission } from "@/types/bounty";
 import { AdditionalInfo, Challenge } from "@/types/course";
-import { TEAM_FORMATION } from "@/constants/challengeInfo";
+import { GRADING_CRITERIA, TEAM_FORMATION } from "@/constants/challengeInfo";
 import { Team, TeamMember } from "@/types/challenge";
 import { Feedback } from "@/types/feedback";
 import { mockUser } from "./user";
@@ -51,6 +51,22 @@ export const challenge: Challenge = {
       type: "teamFormation",
       text: "Form your team details here",
     },
+    [GRADING_CRITERIA]: { type: "teamFormation", text: "Sample grading criteria text" },
+  },
+};
+export const evaluation: Evaluation = {
+  evaluator: mockUser,
+  created_at: new Date("2022-05-01T12:00:00Z"),
+  comment: "comment",
+  criteria: [],
+  metadata: {
+    language: "language",
+  },
+  points: 10,
+  totalPoints: 1,
+  reward: {
+    amount: 10,
+    token: "token",
   },
 };
 
@@ -89,6 +105,7 @@ export const submission: Submission = {
       totalPoints: 10,
     },
   },
+  evaluation: evaluation,
   timestamp: 0,
   user: mockUser,
   reviewable: false,
@@ -153,3 +170,11 @@ export const mockFeedback: Feedback = {
   ranking: 0,
   text: "I am providing a feedback",
 };
+
+export const challengeSliceData = {
+  current: challenge,
+  list: [challenge],
+  submission: submission,
+  loading: false
+
+}

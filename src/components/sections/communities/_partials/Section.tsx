@@ -16,6 +16,7 @@ interface SectionProps {
   className?: string;
   hideSubtitleOnMobile?: boolean;
   children?: ReactNode;
+  testId?: string;
 }
 
 /**
@@ -33,11 +34,11 @@ interface SectionProps {
 }
  * @returns {ReactElement}
  */
-export default function Section({ title, titleBold = true, subtitle, id, hideSubtitleOnMobile = false, children, className = "" }: SectionProps): ReactElement {
+export default function Section({ title, titleBold = true, subtitle, id, hideSubtitleOnMobile = false, children, className, testId = "section" }: SectionProps): ReactElement {
   return (
-    <div id={id} className={`text-xl md:text-.5xl px-0 py-6 ${className}`}>
+    <div id={id} className={`text-xl md:text-.5xl px-0 py-6 ${className}`} data-testid={testId}>
       {title && <H3 bold={titleBold}>{title}</H3>}
-      <p className={`text-base md:text-.5xl font-normal leading-normal ${hideSubtitleOnMobile ? "hidden" : ""}`}>{subtitle}</p>
+      <p className={`text-base  font-normal text-primary ${hideSubtitleOnMobile ? "hidden" : ""}`}>{subtitle}</p>
       <div>{children}</div>
     </div>
   );

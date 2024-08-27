@@ -1,97 +1,65 @@
-import Reward from "@/components/cards/course/_partials/Reward";
-import Avatar from "@/components/ui/Avatar";
 import ArrowButton from "@/components/ui/button/Arrow";
-import { Community } from "@/types/community";
-import { Course } from "@/types/course";
+import { IRootState } from "@/store";
 import Link from "next/link";
-import { ReactElement } from "react";
+import Badges from "@/components/badges";
+import { DurationBadge } from "@/components/badges/Duration";
 import { useTranslation } from "next-i18next";
+import { useSelector } from "@/hooks/useTypedSelector";
 
-/**
- * Course card component props
- * @date 3/30/2023 - 1:19:07 PM
- *
- * @interface CourseCardProps
- * @typedef {CourseCardProps}
- */
+
 
 interface CourseCardProps {
-  course: Course;
-  community: Community;
+  title: string;
+  description: string;
+  link: string;
+  level: number;
+  learningModulesCount: number;
+  duration: number;
 }
 
 /**
- * Course card component
- * @date 3/30/2023 - 1:18:16 PM
+ * CourseMaterial component.
  *
- * @export
- * @param {CourseCardProps} {
-  course,
-  community,
-}
- * @returns {ReactElement}
+ * @param {CourseMaterial} { title, description, link, level, learningModulesCount, duration }.
+ * @returns {JSX.Element}
  */
-
-export default function CourseCard({ course, community }: CourseCardProps): ReactElement {
+export default function CourseCard({ title, description, link, level, learningModulesCount, duration }: CourseCardProps): JSX.Element {
   const { t } = useTranslation();
-  const path = `/communities/${community.slug}/courses/${course.slug}`;
-  const reward = course?.challenge?.rewards?.find((entity) => entity.type === "SUBMISSION");
+  const colors = useSelector((state: IRootState) => state.ui.colors);
 
   return (
-    <div className="flex flex-col sm:flex-row p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 bg-gray-50 rounded-3xl group text-gray-700 sm:p-7 mb-4 w-full border-solid border border-gray-200">
-      <div className="flex flex-col sm:pr-20 justify-between w-full sm:w-3/5 lg:w-2/3 pb-6 sm:pb-0">
-        <div className="flex flex-col">
-          <div className="text-lg font-medium leading-normal">{t(course.name)}</div>
-          {course.level && (
-            <div className="mt-2 text-xxs px-2.5 py-0.5 bg-gray-200 text-gray-500 rounded-3xl max-w-max tracking-wider uppercase font-medium">
-              {t(`course.challenge.level-${course.level}`)}
-            </div>
-          )}
-          <div className="text-sm mt-3 pb-2 max-w-xxs">{course.description}</div>
+    <div className="flex flex-col gap-3 relative p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-8 border-solid border border-gray-200">
+      <div className="flex flex-col w-full">
+        <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
+          <div className="flex gap-2 items-center">
+            <div className="h-5.5 w-5.5 rounded-sm clip-hexagon" style={{ backgroundColor: colors?.primary }} />
+            <span className="capitalize font-semibold text-[#4B5563] text-sm">
+              {t('communities.overview.challenge.course')}
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badges courseLevel={level} className="!mb-0" />
+            <DurationBadge value={duration} type="bordered" />
+          </div>
         </div>
-        <div className="hidden sm:block">
-          <Link href={path}>
+        <div className="flex flex-col gap-6">
+          <div className="text-lg font-medium leading-normal text-gray-900">{title}</div>
+          <div className="text-sm font-normal text-gray-700 max-w-xxs">{description}</div>
+          {learningModulesCount && (
+            <p className="text-sm pb-6 font-medium text-gray-400 border-b-2 border-gray-200 border-dotted">
+              {t(learningModulesCount === 1 ? "communities.overview.challenge.course.learningModule" : "communities.overview.challenge.course.learningModules", {
+                count: learningModulesCount,
+              })}
+            </p>
+          )}
+        </div>
+        <div className="bottom-0 mt-6">
+          <Link href={link}>
             <ArrowButton communityStyles={true} variant="outline-primary">
-              {t("course.challenge.button")}
+              {t("communities.overview.challenge.learning.start")}
             </ArrowButton>
           </Link>
         </div>
-      </div>
-
-      {reward ? (
-        <div className="text-base text-left sm:flex flex-start flex flex-col pt-6 sm:pt-0 space-y-4 pb-5 sm:pl-7 sm:pb-10 w-full sm:w-2/5 lg:w-1/3 tracking-wider">
-          <Reward reward={reward} />
-          <div className="font-light text-sm max-w-xs pb-2 text-gray-700">
-            {t(reward.stable ? "course.challenge.reward.stable.description" : "course.challenge.reward.description", {
-              currency: "$",
-              amount: reward.amount,
-              token: reward.token,
-            })}
-          </div>
-        </div>
-      ) : (
-        <div className="text-base text-left sm:flex flex-start flex flex-col pt-6 sm:pt-0 space-y-4 pb-5 sm:pl-7 sm:pb-10 w-full sm:w-2/5 lg:w-1/3 tracking-wider">
-          <span className="text-xxs tracking-wider px-1 font-semibold uppercase text-gray-500">{t(`course.challenge.certificate`)}</span>
-          <Avatar
-            className="w-15 h-15 p-3 overflow-hidden"
-            icon={community.icon}
-            color={community.colors?.cover?.background || community.colors.primary}
-            size="extra"
-            shape="rounded-3xl"
-            user={null}
-          />
-          <div className="font-light text-sm max-w-xs pb-2 text-gray-700">
-            <p>{t("course.challenge.certificate.description")}</p>
-          </div>
-        </div>
-      )}
-
-      <div className="block sm:hidden pt-6">
-        <Link href={path}>
-          <ArrowButton communityStyles={true} variant="outline-primary">
-            {t("course.challenge.button")}
-          </ArrowButton>
-        </Link>
       </div>
     </div>
   );

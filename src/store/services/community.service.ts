@@ -3,6 +3,7 @@ import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { setColors } from "../feature/ui.slice";
 import { setAllCommunities, setCurrentCommunity } from "../feature/community.slice";
 import { setBusy, setError } from "../feature/index.slice";
+import { setCourseList, setLearningModulesList, setLoading } from "../feature/learningMaterials.slice";
 
 /**
  * Community Service
@@ -50,6 +51,31 @@ export const communityService = createApi({
         }
       },
     }),
+
+    fetchLearningMaterials: builder.query({
+      query: ({ locale, slug }: { locale?: string; slug: string }) => ({
+        url: `/communities/${slug}/learning-materials`,
+        headers: {
+          "accept-language": locale
+        }
+      }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          dispatch(setLoading(true))
+          const { data } = await queryFulfilled
+          dispatch(setCourseList(data.courses))
+          dispatch(setLearningModulesList(data.learningModules))
+          return data
+        }
+        catch (error) {
+          dispatch(setError(error))
+          return null
+        }
+        finally {
+          dispatch(setLoading(false))
+        }
+      }
+    })
   }),
 });
 
@@ -70,4 +96,6 @@ export const fetchCurrentCommunity = ({ slug, locale }: { slug: string; locale?:
     slug,
   });
 };
+
+export const fetchLearningMaterials = ({ slug, locale }: { slug: string; locale?: string }) => communityService.endpoints.fetchLearningMaterials.initiate({ slug, locale })
 export const { useGetCommunitiesQuery } = communityService;

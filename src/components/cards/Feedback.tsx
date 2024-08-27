@@ -62,6 +62,7 @@ export default function FeedbackCard({ value, preview = false, last = false, lin
       bordered={!last}
       badge={`${value.ranking ?? ""}`} // badge only accepts string
       boxLayout={preview}
+      testId="feedback-card"
     >
       <TranslationBox
         text={value.text}

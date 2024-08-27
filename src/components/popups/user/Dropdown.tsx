@@ -95,7 +95,7 @@ const UserProfileDropdown = ({ buttonStyles, onClose }: { buttonStyles?: CSSProp
   return (
     <DropdownPopup>
       <div className="divide-y divide-gray-200">
-        <div className="flex justify-between hover:bg-gray-50">
+        <div className="flex justify-between hover:bg-secondary">
           <div className="w-full p-4 text-left flex">
             <div className="pr-3.5">
               <Avatar user={user as User} size="medium" useLink={false} hideVerificationBadge />
