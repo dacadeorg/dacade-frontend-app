@@ -33,7 +33,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
 
 
   return (
-    <div className="w-full flex flex-col sm:flex-row  md:flex-col lg:flex-row  border-solid border border-primary bg-secondary rounded-3xl mb-5 group text-secondary">
+    <div className="w-full flex flex-col sm:flex-row  md:flex-col lg:flex-row  border-solid border border-primary bg-secondary rounded-3xl group text-secondary">
       <div className="border-solid border -m-px border-primary bg-primary rounded-3xl sm:p-8 sm:pb-6 p-6 sm:w-2/3 md:w-auto lg:w-2/3">
         <div className="flex flex-col mb-1">
           <div className="lg:pr-20">
@@ -49,9 +49,8 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
           </div>
           <div className="divide-y-2 divide-gray-200 divide-dotted flex flex-col mt-8">
             {learningMaterialsCount && (
-              <p className="pb-3 md:pb-4 text-sm font-medium text-tertiary">{`${learningMaterialsCount}  Learning ${
-                learningMaterialsCount === 1 ? "material" : "materials"
-              } included`}</p>
+              <p className="pb-3 md:pb-4 text-sm font-medium text-tertiary">{`${learningMaterialsCount}  Learning ${learningMaterialsCount === 1 ? "material" : "materials"
+                } included`}</p>
             )}
             <div className="lg:flex lg:flex-row flex-col justify-between pt-3 md:pt-4 items-center">
               <Link href={link}>
