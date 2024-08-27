@@ -59,6 +59,12 @@ const Achievement = () => {
     findCertificateById();
   }, [findCertificateById]);
 
+  // useEffect(() => {
+  //   window?.addEventListener("message", (event: MessageEvent) => {
+  //     console.log({ event });
+  //   });
+  // }, []);
+
   const issuedOn = useMemo(() => {
     if (!achievement?.metadata?.issuedOn) return null;
     return DateManager.intlFormat(achievement.metadata.issuedOn, locale, {
@@ -112,27 +118,22 @@ const Achievement = () => {
   const requestVC = (principal: string) => {
     if (!achievement?.metadata) return;
     const { issuedOn, issuerName, linkToWork, recipientName, feedbacks, name } = achievement?.metadata;
-    console.log({ issuedOn, issuerName, linkToWork, recipientName, feedbacks, name });
+    console.log({ issuedOn, issuerName, linkToWork, recipientName, feedbacks, name, principal });
 
     requestVerifiablePresentation({
-      onSuccess: async (verifiablePresentation: VerifiablePresentationResponse) => {
+      onSuccess: (verifiablePresentation: VerifiablePresentationResponse) => {
         console.log({ verifiablePresentation });
       },
-      onError() {
-        console.log("An error occurred");
+      onError: (err: any) => {
+        console.log("An error occurred", err);
       },
       issuerData: {
-        /**
-         * This issuer is for testing.
-         * In this case dacade acts as a relying party requesting for verifiable identification
-         * @link https://internetcomputer.org/docs/current/developer-docs/identity/verifiable-credentials/how-it-works#test-verifiable-credentials
-         */
-        origin: "https://qdiif-2iaaa-aaaap-ahjaq-cai.icp0.io",
-        canisterId: Principal.fromText("qdiif-2iaaa-aaaap-ahjaq-cai"),
+        origin: "http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943",
+        canisterId: Principal.fromText("bkyz2-fmaaa-aaaaa-qaaaq-cai"),
       },
       credentialData: {
         credentialSpec: {
-          credentialType: `Verified ${name} completion on Dacade`,
+          credentialType: `Verified ${name} completion`,
           arguments: {
             issuedOn,
             issuerName,
@@ -144,7 +145,6 @@ const Achievement = () => {
         credentialSubject: Principal.fromText(principal),
       },
       identityProvider: new URL(IDENTITY_PROVIDER),
-      // derivationOrigin: window.location.href,
     });
   };
 
