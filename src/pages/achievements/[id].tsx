@@ -133,7 +133,7 @@ const Achievement = () => {
       },
       credentialData: {
         credentialSpec: {
-          credentialType: `Verified ${name} completion`,
+          credentialType: `ICP 101 completion`,
           arguments: {
             issuedOn,
             issuerName,

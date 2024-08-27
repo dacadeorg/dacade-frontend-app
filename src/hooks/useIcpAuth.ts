@@ -46,7 +46,7 @@ const useIcpAuth = () => {
     const authClient = window.auth.client;
 
     const isAuthenticated = await authClient.isAuthenticated();
-
+    console.log({ isAuthenticated });
     if (!isAuthenticated) {
       await authClient?.login({
         maxTimeToLive: MAX_TTL,
@@ -57,9 +57,10 @@ const useIcpAuth = () => {
           callback(principal);
         },
       });
+    } else {
+      const principal = await authClient.getIdentity()?.getPrincipal().toText();
+      callback(principal);
     }
-    const principal = await authClient.getIdentity()?.getPrincipal().toText();
-    callback(principal);
   }
 
   async function logout() {
