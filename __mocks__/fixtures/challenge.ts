@@ -96,7 +96,7 @@ export const submission: Submission = {
       token: "",
     },
     reviewed: false,
-    feedbacks: 0,
+    feedbacks: 3,
     language: "",
     evaluation: {
       points: 8,
