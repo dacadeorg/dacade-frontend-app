@@ -19,8 +19,8 @@ export default function CommunitySection(): ReactElement {
   const feedbacks = community?.metadata?.feedbacks || 0;
 
   return (
-    <Section padding=" pt-7 pb-6 lg:pt-2 lg:pb-8" className="bg-theme-primary text-theme-text">
-      <div className="mx-auto">
+    <Section padding="pt-7 pb-6 lg:pt-2 lg:pb-8" className="bg-theme-primary text-theme-text">
+      <div className="mx-auto relative">
         <div className="flex flex-col justify-between lg:flex-row">
           <div className="max-w-md mb-4 md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl lg:mr-6 space-y-1.5 md:space-y-7">
             <h1 className="text-5xl leading-10 sm:text-6.5xl xl:text-7.75xl max-w-text-xs -tracking-4">{community?.name}</h1>
@@ -30,7 +30,7 @@ export default function CommunitySection(): ReactElement {
             {community?.icon && <Image src={`${community?.icon}`} alt={community?.name || ""} className="relative w-full h-full" width={300} height={300} />}
           </div>
         </div>
-        <div className="flex flex-col max-w-xs mt-0 sm:-mt-15 md:-mt-8 md:max-w-xl md:flex-row md:items-center text-sm gap-1 md:gap-2.5">
+        <div className="absolute left-0 bottom-0 md:static flex flex-col md:flex-row md:items-center text-sm gap-1 md:gap-2.5">
           <p className="md:py-2">
             <strong>{submissions} </strong>
             {t("communities.submissions")}
