@@ -1,8 +1,5 @@
 import { useTranslation } from "next-i18next";
 import { ReactElement, useMemo } from "react";
-
-
-
 interface AddressDisplayProps {
   walletAddress: string;
   description: string;
