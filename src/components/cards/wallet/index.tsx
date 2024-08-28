@@ -4,9 +4,9 @@ import Payout from "@/components/sections/profile/modals/Payout";
 import { Wallet } from "@/types/wallet";
 import { toggleBodyScrolling } from "@/store/feature/ui.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import CashoutAddress from "./CashoutAddress";
-import Overview from "./Overview";
-import WalletHint from "./WalletHint";
+import Cashout from "./_partials/Cashout";
+import Overview from "./_partials/Overview";
+import Hints from "./_partials/Hints";
 
 /**
  * Cards wallet props interface
@@ -40,9 +40,9 @@ export default function CardsWallet({ wallet, disabled = false, testId = "cardWa
         {showEditModal && <EditAddress show={showEditModal} onClose={onClose} wallet={wallet} />}
         <Payout wallet={wallet} show={showPayoutModal} onClose={onClose} />
         <Overview wallet={wallet} />
-        <CashoutAddress wallet={wallet} setShowEditModal={setShowEditModal} disabled={disabled} setShowPayoutModal={setShowPayoutModal} />
+        <Cashout wallet={wallet} setShowEditModal={setShowEditModal} disabled={disabled} setShowPayoutModal={setShowPayoutModal} />
       </div>
-      <WalletHint wallet={wallet} />
+      <Hints wallet={wallet} />
     </div>
   );
 }

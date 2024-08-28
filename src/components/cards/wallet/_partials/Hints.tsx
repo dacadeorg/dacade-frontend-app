@@ -4,7 +4,7 @@ import Hint from "@/components/ui/Hint";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 
-interface WalletHintProps {
+interface HintsProps {
   wallet: Wallet;
 }
 
@@ -14,7 +14,7 @@ interface WalletHintProps {
  * @returns {ReactElement}
  */
 
-export default function WalletHint({ wallet }: WalletHintProps): ReactElement {
+export default function Hints({ wallet }: HintsProps): ReactElement {
   const { t } = useTranslation();
   return (
     <>
