@@ -19,12 +19,12 @@ export default function CommunitySection(): ReactElement {
   const feedbacks = community?.metadata?.feedbacks || 0;
 
   return (
-    <Section padding="pt-7 pb-6 lg:pt-2 lg:pb-8" className="bg-theme-primary text-theme-text">
+    <Section padding="pt-8 pb-6 lg:pt-12 lg:pb-16" className="bg-theme-primary text-theme-text">
       <div className="mx-auto relative">
         <div className="flex flex-col justify-between lg:flex-row">
           <div className="max-w-md mb-4 md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl lg:mr-6 space-y-1.5 md:space-y-7">
             <h1 className="text-5xl leading-10 sm:text-6.5xl xl:text-7.75xl max-w-text-xs -tracking-4">{community?.name}</h1>
-            <p className="text-base md:text-.5xl">{community?.summary}</p>
+            <p className="text-xl md:text-.5xl">{community?.summary}</p>
           </div>
           <div className="self-end w-36 md:h-82 lg:h-128 md:w-1/2 max-w-lg">
             {community?.icon && <Image src={`${community?.icon}`} alt={community?.name || ""} className="relative w-full h-full" width={300} height={300} />}
