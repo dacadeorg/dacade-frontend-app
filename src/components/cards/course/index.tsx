@@ -25,7 +25,7 @@ interface CourseCardProps {
  */
 export default function CourseCard({ title, description, link, level, learningModulesCount, duration }: CourseCardProps): JSX.Element {
   const { t } = useTranslation();
-  const colors = useSelector((state: IRootState) => state.ui.colors);
+   const colors = useSelector((state: IRootState) => state.ui.colors);
 
   return (
     <div className="flex flex-col gap-3 relative p-6 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 rounded-3xl group text-gray-700 sm:p-8 border-solid border border-gray-200">
