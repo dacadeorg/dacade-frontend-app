@@ -11,15 +11,14 @@ describe("SubmissionPopup", () => {
     expect(screen.getByText("communities.submission")).toBeInTheDocument();
   });
 
-  it("calls onClose when clicking the arrow icon", () => {
+  it("Invokes the onClose function when the arrow icon is clicked", () => {
     render(<SubmissionPopup onClose={mockOnClose} />);
-
-    const arrowButton = screen.getByText("communities.submission").parentElement;
-    fireEvent.click(arrowButton!);
+    const arrowButton = screen.getByTestId("arrow-button");
+    fireEvent.click(arrowButton);
     expect(mockOnClose).toHaveBeenCalled();
   });
 
-  it("calls onClose when clicking the close button", () => {
+  it("Invokes the onClose function when the close button is clicked", () => {
     render(<SubmissionPopup onClose={mockOnClose} />);
     const closeButton = screen.getByRole("button");
     fireEvent.click(closeButton);

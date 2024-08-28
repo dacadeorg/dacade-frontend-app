@@ -13,15 +13,15 @@ describe("SubmissionPopup", () => {
     expect(screen.getByTestId("viewId")).toBeInTheDocument();
   });
 
-  it("does not render  the popup when show is false", () => {
+  it("does not render the popup when show is false", () => {
     renderWithRedux(<SubmissionPopup show={false} onClose={mockOnClose} submissionId="123" />);
     expect(screen.queryByTestId("overlay")).not.toBeInTheDocument();
   });
 
-  it("calls onClose when the close button is clicked", () => {
+  it("calls the onClose function when the close button is clicked", () => {
     renderWithRedux(<SubmissionPopup show={true} onClose={mockOnClose} submissionId="123" />);
-    const buttonElement = screen.getByText("communities.submission").parentElement;
-    fireEvent.click(buttonElement!);
+    const closeButton = screen.getByTestId("overlay");
+    fireEvent.click(closeButton);
     expect(mockOnClose).toHaveBeenCalled();
   });
 });
