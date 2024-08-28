@@ -2,12 +2,6 @@ import SubmissionPopup from "@/components/popups/submission/_partials/Header";
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 
-jest.mock("src/icons/arrow-left.svg", () => ({
-  __esModule: true,
-  default: () => <svg data-testid="arrow-left-icon" />,
-}));
-
-
 describe("SubmissionPopup", () => {
   const mockOnClose = jest.fn();
 
