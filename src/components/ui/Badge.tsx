@@ -33,7 +33,7 @@ export default function Badge({ customStyle, value, size = "medium", className, 
   const sizeClasses = useMemo(() => {
     const expandedClasses = "w-7 h-7";
     const defaultClasses = "w-6 h-6";
-    
+
     if (value && value.toString().length >= 3) {
       return expandedClasses;
     }
@@ -52,7 +52,7 @@ export default function Badge({ customStyle, value, size = "medium", className, 
       data-testid={testId}
       {...props}
       className={classNames(
-        `font-semibold leading-3 text-center inline-flex items-center justify-center rounded-full ${size ==="small"? "text-xxs":"text-sm"}`,
+        `font-semibold leading-3 text-center inline-flex items-center justify-center rounded-full ${size === "small" ? "text-xxs" : "text-sm"}`,
         sizeClasses,
         className,
         { "bg-white text-gray-900": isCommunity },

@@ -23,7 +23,7 @@ interface SubmissionCardProps {
     date: string;
   };
   children?: ReactNode;
-  testId?:string;
+  testId?: string;
 }
 
 /**

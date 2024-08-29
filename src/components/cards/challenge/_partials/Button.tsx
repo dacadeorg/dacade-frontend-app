@@ -6,10 +6,10 @@ export interface ButtonProps {
   text: string;
   onClick: () => void;
   loading: boolean;
-  buttonTestId?: string;
+  testId?: string;
 }
 
-export default function Button({ text, onClick, loading, buttonTestId }: ButtonProps) {
+export default function Button({ text, onClick, loading, testId }: ButtonProps) {
   const [isTextVisible, setIsTextVisible] = useState(false);
   return (
     <div
@@ -17,7 +17,7 @@ export default function Button({ text, onClick, loading, buttonTestId }: ButtonP
       onMouseEnter={() => setIsTextVisible(true)}
       onMouseLeave={() => setIsTextVisible(false)}
       onClick={onClick}
-      data-testid={buttonTestId}
+      data-testid={testId}
     >
       <>
         {loading ? (

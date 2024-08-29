@@ -68,7 +68,7 @@ export default function ProfileHeader() {
 
   const triggerKYCVerification = () => {
     dispatch(openVerificationModal({}));
-    dispatch(toggleBodyScrolling(true))
+    dispatch(toggleBodyScrolling(true));
   };
 
   const { canConnectDiscord, triggerDiscordOauth } = useDiscordConnect();

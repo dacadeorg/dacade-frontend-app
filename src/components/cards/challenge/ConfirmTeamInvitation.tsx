@@ -14,7 +14,7 @@ export interface ConfirmTeamInvitationProps {
   title: string;
   text: string;
   invite: Invite;
-  testId?: string
+  testId?: string;
 }
 
 /**
@@ -25,11 +25,9 @@ export interface ConfirmTeamInvitationProps {
  * @param {ConfirmTeamInvitationProps} { index, title, text, invites }
  * @returns {ReactElement}
  */
-export default function ConfirmTeamInvitation({ index, title, text, invite,testId = 'confirmTeamInvitation' }: ConfirmTeamInvitationProps): ReactElement {
+export default function ConfirmTeamInvitation({ index, title, text, invite, testId = "confirmTeamInvitation" }: ConfirmTeamInvitationProps): ReactElement {
   return (
-    <div 
-    data-testid={testId}  
-    className="flex flex-col relative flex-grow p-6 rounded-3xl group text-gray-700 sm:p-7 border-solid border border-gray-200">
+    <div data-testid={testId} className="flex flex-col relative flex-grow p-6 rounded-3xl group text-gray-700 sm:p-7 border-solid border border-gray-200">
       <div className="flex flex-col justify-between w-full sm:pb-0">
         <div className="flex flex-col">
           <div className="text-lg font-medium leading-normal text-gray-900">

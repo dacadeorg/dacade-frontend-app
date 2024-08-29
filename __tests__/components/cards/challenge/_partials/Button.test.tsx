@@ -8,12 +8,12 @@ const buttonProps: ButtonProps = {
   text: "Test Button",
   onClick: jest.fn(),
   loading: true,
-  buttonTestId: "button",
+  testId: "button",
 };
 
 function RenderButton(props: ButtonProps = buttonProps) {
-  renderWithRedux(<Button text={props.text} onClick={props.onClick} loading={props.loading} buttonTestId={props.buttonTestId} />);
-  return screen.getByTestId(buttonProps.buttonTestId!);
+  renderWithRedux(<Button text={props.text} onClick={props.onClick} loading={props.loading} testId={props.testId} />);
+  return screen.getByTestId(buttonProps.testId!);
 }
 
 describe("Button", () => {
@@ -35,13 +35,13 @@ describe("Button", () => {
   it("should call onClick when clicked", () => {
     const onClickMock = jest.fn();
     RenderButton({ ...buttonProps, onClick: onClickMock, loading: false });
-    fireEvent.click(screen.getByTestId(buttonProps.buttonTestId!));
+    fireEvent.click(screen.getByTestId(buttonProps.testId!));
     expect(onClickMock).toHaveBeenCalled();
   });
 
   it("should display text when loading is false and isTextVisible is true", () => {
     renderWithRedux(<Button {...buttonProps} loading={false} />);
-    fireEvent.mouseEnter(screen.getByTestId(buttonProps.buttonTestId!));
+    fireEvent.mouseEnter(screen.getByTestId(buttonProps.testId!));
     expect(screen.getByTestId("button-text")).toHaveTextContent(buttonProps.text);
   });
 });

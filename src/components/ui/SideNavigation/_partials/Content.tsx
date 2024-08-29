@@ -35,9 +35,14 @@ export function NavItem({ item, isActive = false, expanded = false }: NavItemPro
   return (
     <span data-testid="contentId">
       <span style={{ display: isActive ? "!inline-block" : "none" }} className="absolute top-0 inline-block -left-6 nav-icon">
-        <ChevronRightIcon data-testid="contentIcon" className={`transition-transform duration-200 ${item.subitems && item.subitems.length && isActive && expanded ? "transform rotate-90" : ""}`} />
+        <ChevronRightIcon
+          data-testid="contentIcon"
+          className={`transition-transform duration-200 ${item.subitems && item.subitems.length && isActive && expanded ? "transform rotate-90" : ""}`}
+        />
       </span>
-      <span data-testid="contentLabel" className="nav-label">{t(item.label)}</span>
+      <span data-testid="contentLabel" className="nav-label">
+        {t(item.label)}
+      </span>
     </span>
   );
 }

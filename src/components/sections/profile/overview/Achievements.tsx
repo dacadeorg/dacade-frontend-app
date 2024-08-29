@@ -27,13 +27,13 @@ export default function ProfileOverviewAchievements(): ReactElement {
           ))}
         </div>
         {showAll ? (
-          <button  onClick={() => setShowAll(false)} className="text-brand bg-transparent pt-4 flex items-center gap-1.5 cursor-pointer">
+          <button onClick={() => setShowAll(false)} className="text-brand bg-transparent pt-4 flex items-center gap-1.5 cursor-pointer">
             {" "}
             <Less />
             <span>See Less</span>
           </button>
         ) : (
-          <button  onClick={() => setShowAll(true)} className="text-brand bg-transparent pt-4 flex items-center gap-1.5 cursor-pointer">
+          <button onClick={() => setShowAll(true)} className="text-brand bg-transparent pt-4 flex items-center gap-1.5 cursor-pointer">
             {" "}
             <Plus />
             <span>See All</span>

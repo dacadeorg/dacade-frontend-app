@@ -30,7 +30,7 @@ interface BountiesNavigationMultiSelector {
  * @export
  * @returns {ReactElement}
  */
-export default function BountiesNavigation({testId}: {testId?: string}): ReactElement {
+export default function BountiesNavigation({ testId }: { testId?: string }): ReactElement {
   const { t } = useTranslation();
   const router = useRouter();
   const { colors, bounties } = useMultiSelector<unknown, BountiesNavigationMultiSelector>({

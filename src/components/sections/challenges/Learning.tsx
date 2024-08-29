@@ -37,10 +37,7 @@ export default function Learning({ courses, learningModules, community }: { cour
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {learningModules?.map((learning) => (
-                <LearningModuleCard
-                  key={`related-learning-card-${learning.id}`}
-                  data={learning}
-                />
+                <LearningModuleCard key={`related-learning-card-${learning.id}`} data={learning} />
               ))}
             </div>
           </>

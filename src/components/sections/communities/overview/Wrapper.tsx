@@ -16,7 +16,7 @@ interface WrapperProps {
 /**
  * Wrapper component to provide a layout for children and filter props.
  * @param {WrapperProps} props - The properties to configure the Wrapper component.
- * @returns {JSX.Element} A styled Wrapper component containing a MainHeaderSection, CommunitySidebar, 
+ * @returns {JSX.Element} A styled Wrapper component containing a MainHeaderSection, CommunitySidebar,
  * optional filter component, and children content.
  */
 export default function Wrapper({ children, filter }: WrapperProps): JSX.Element {
@@ -34,4 +34,4 @@ export default function Wrapper({ children, filter }: WrapperProps): JSX.Element
       </Section>
     </div>
   );
-};
+}

@@ -62,15 +62,9 @@ export default function NotificationPopup({ buttonStyles }: NotificationPopupPro
     <div>
       <span onClick={externalClick}>
         <li className={`inline-block align-middle mr-3 relative text-gray-500 max-w-80 ${isNotificationVisible ? "z-50" : "z-10"}`} onClick={toggle}>
-          <Button
-            type="button"
-            padding={false}
-            variant="secondary"
-            className="p-2 bg-tertiary hover:bg-secondary text-brand"
-            customStyle={buttonStyles}
-          >
+          <Button type="button" padding={false} variant="secondary" className="p-2 bg-tertiary hover:bg-secondary text-brand" customStyle={buttonStyles}>
             <BellIcon />
-            {unread > 0 && <Badge value={unread} className="top-0 -right-1 absolute"  size="small"/>}
+            {unread > 0 && <Badge value={unread} className="top-0 -right-1 absolute" size="small" />}
           </Button>
         </li>
         {isNotificationVisible && (

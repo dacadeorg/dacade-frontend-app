@@ -87,7 +87,7 @@ export const truncateAlgoAddress = (address: string): string => {
  */
 export const defaultAddressTruncate = (address: string): string => {
   return truncateHandler(address, defaultRegex, (match) => {
-    return`${match?.[1]}…${match?.[2]}`
+    return `${match?.[1]}…${match?.[2]}`;
   });
 };
 
@@ -112,8 +112,8 @@ export const truncateAddress = (rawAddress: string, token: string = "eth"): stri
       return truncateAlgoAddress(address);
     case "eth":
       return truncateEthAddress(address);
-    default: 
-      return defaultAddressTruncate(address)
+    default:
+      return defaultAddressTruncate(address);
   }
 };
 

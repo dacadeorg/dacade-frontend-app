@@ -56,26 +56,24 @@ export const communityService = createApi({
       query: ({ locale, slug }: { locale?: string; slug: string }) => ({
         url: `/communities/${slug}/learning-materials`,
         headers: {
-          "accept-language": locale
-        }
+          "accept-language": locale,
+        },
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         try {
-          dispatch(setLoading(true))
-          const { data } = await queryFulfilled
-          dispatch(setCourseList(data.courses))
-          dispatch(setLearningModulesList(data.learningModules))
-          return data
+          dispatch(setLoading(true));
+          const { data } = await queryFulfilled;
+          dispatch(setCourseList(data.courses));
+          dispatch(setLearningModulesList(data.learningModules));
+          return data;
+        } catch (error) {
+          dispatch(setError(error));
+          return null;
+        } finally {
+          dispatch(setLoading(false));
         }
-        catch (error) {
-          dispatch(setError(error))
-          return null
-        }
-        finally {
-          dispatch(setLoading(false))
-        }
-      }
-    })
+      },
+    }),
   }),
 });
 
@@ -97,5 +95,5 @@ export const fetchCurrentCommunity = ({ slug, locale }: { slug: string; locale?:
   });
 };
 
-export const fetchLearningMaterials = ({ slug, locale }: { slug: string; locale?: string }) => communityService.endpoints.fetchLearningMaterials.initiate({ slug, locale })
+export const fetchLearningMaterials = ({ slug, locale }: { slug: string; locale?: string }) => communityService.endpoints.fetchLearningMaterials.initiate({ slug, locale });
 export const { useGetCommunitiesQuery } = communityService;

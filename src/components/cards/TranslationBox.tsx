@@ -66,7 +66,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
   const [locale, setLocale] = useState("");
   const [loading, setLoading] = useState(false);
   const [description, setDescription] = useState<string | null>("");
-  const [reverted, setReverted] =useState(false) 
+  const [reverted, setReverted] = useState(false);
 
   const { t } = useTranslation();
   const router = useRouter();
@@ -102,7 +102,7 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
     }
 
     setLoading(false);
-    setReverted(false)
+    setReverted(false);
   }, [getDefaultLocale, text]);
 
   /**
@@ -122,9 +122,9 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
 
   useEffect(() => {
     setDescription(translated ? t("ui.translated") : t("ui.translate"));
-   if(!translated && !reverted){
-    translate()
-   }
+    if (!translated && !reverted) {
+      translate();
+    }
   }, [translated]);
 
   const translatable = currentLocale !== defaultLocale && !disabled && getLocaleName(defaultLocale);

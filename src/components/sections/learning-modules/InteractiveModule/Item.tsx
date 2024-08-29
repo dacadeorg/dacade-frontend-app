@@ -17,7 +17,7 @@ interface InteractiveModuleItemProps {
       correct: number;
     };
   };
-  goToNextItem: () => void
+  goToNextItem: () => void;
 }
 
 /**

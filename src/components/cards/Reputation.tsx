@@ -41,7 +41,10 @@ export default function ReputationCard({ details = {} }: ReputationCardProps): R
         useLink={false}
       />
       {details?.score && (
-        <Link href={details?.community ? `/communities/${details.community.slug}` : ""} className="pt-1 before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:z-0 before:block">
+        <Link
+          href={details?.community ? `/communities/${details.community.slug}` : ""}
+          className="pt-1 before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:z-0 before:block"
+        >
           <span className="block text-base font-medium leading-normal">
             <Currency value={details.score} token="REP" />
           </span>

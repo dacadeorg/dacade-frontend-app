@@ -60,23 +60,19 @@ export default function Sidebar(): JSX.Element {
         url={links.learningMaterialsLink}
         title={t("communities.overview.learning-materials.title")}
         description={t("communities.overview.learning-materials.description")}
-        className={classNames("pt-6",
-          {
-            "text-tertiary": !isActive(links.learningMaterialsLink),
-          }
-        )}
+        className={classNames("pt-6", {
+          "text-tertiary": !isActive(links.learningMaterialsLink),
+        })}
       />
       {hasCurrentCommunity && (
         <CommunityNavItem
           url={links.scoreboardLink}
           title={t("communities.overview.scoreboard.title")}
           description={t("communities.overview.scoreboard.description")}
-          className={classNames("pt-6",
-            {
-              "md:block hidden scroll-smooth": isActive(links.scoreboardLink),
-              "text-tertiary": !isActive(links.scoreboardLink)
-            },
-          )}
+          className={classNames("pt-6", {
+            "md:block hidden scroll-smooth": isActive(links.scoreboardLink),
+            "text-tertiary": !isActive(links.scoreboardLink),
+          })}
         />
       )}
     </div>

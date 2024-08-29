@@ -16,10 +16,10 @@ interface MultiSelector {
 export interface InvitationProps {
   invite_id: string;
   team_ref: string;
-  testId?: string
+  testId?: string;
 }
 
-export default function ReplyToInvitation({ invite_id, team_ref,testId = 'reply-to-invitation' }: InvitationProps) {
+export default function ReplyToInvitation({ invite_id, team_ref, testId = "reply-to-invitation" }: InvitationProps) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [canReply, setCanReply] = useState(false);

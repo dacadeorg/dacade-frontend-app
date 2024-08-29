@@ -70,7 +70,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       serverSideTranslations(locale as string),
     ]);
     if (!community || !course) throw new NotFoundError();
-    
+
     return {
       props: {
         community,

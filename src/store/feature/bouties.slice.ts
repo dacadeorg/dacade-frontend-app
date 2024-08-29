@@ -11,7 +11,7 @@ interface InitialState {
 const initialState: InitialState = {
   bountiesList: [],
   filteredBountyList: [],
-  isLoading: false
+  isLoading: false,
 };
 
 /**
@@ -32,7 +32,7 @@ const bountiesSlice = createSlice({
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
-    }
+    },
   },
 });
 
