@@ -24,6 +24,7 @@ interface StoryProps {
     card: number | null;
     grid: number | null;
   };
+  testId?: string;
 }
 
 /**
@@ -42,7 +43,7 @@ interface StoryProps {
  * @returns {ReactElement}
  */
 
-export default function Story({ story, position, gridPosition, count, showingBubble, onShowBubble, onHideBubble }: StoryProps): ReactElement {
+export default function Story({ story, position, gridPosition, count, showingBubble, onShowBubble, onHideBubble, testId = "storyId" }: StoryProps): ReactElement {
   const [showBubble, setShowBubble] = useState(() => position === showingBubble.card && gridPosition === showingBubble.grid);
   const [height, setHeight] = useState(0);
   const bubbleRef = useRef<HTMLDivElement>(null);
@@ -108,6 +109,7 @@ export default function Story({ story, position, gridPosition, count, showingBub
       style={{
         transform: getPosition(),
       }}
+      data-testid={testId}
     >
       <Image className="object-cover h-14 w-14 rounded-full" src={story.icon as string} alt="story icon" width={43} height={43} />
 
