@@ -73,7 +73,7 @@ export default function SignupWithInvite(): ReactElement {
     };
     try {
       if (!checkTerms) return;
-      await dispatch(signUp({ locale, payload: { ...signupData } }));
+      dispatch(signUp({ locale, payload: { ...signupData } }));
     } catch (error) {
       setError(error);
       console.error(error);

@@ -29,6 +29,8 @@ interface EmailInputProps {
 export default function EmailInput({ errors, register, emailValue, testId = "emailInput" }: EmailInputProps): ReactElement {
   const { t } = useTranslation();
   const error = useSelector((state) => state.store.error);
+  // regex to validate emails
+  const emailregex = /^([-!#-'*+\/-9=?A-Z^-~]+(\.[-!#-'*+\/-9=?A-Z^-~]+)*|".+")@([-!#-'*+\/-9=?A-Z^-~]+(\.[-!#-'*+\/-9=?A-Z^-~]+)*|\[[\t -Z^-~]*])$/i;
 
   return (
     <Input
@@ -38,11 +40,11 @@ export default function EmailInput({ errors, register, emailValue, testId = "ema
       placeholder={`${t("login-page.email.placeholder")}`}
       label={`${t("login-page.email.label")}`}
       value={emailValue}
-      error={errors?.email?.message || error?.error?.data.details.email}
+      error={errors?.email?.message || error?.error?.data?.details?.email}
       {...register("email", {
         required: "This field is required",
         pattern: {
-          value: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i,
+          value: emailregex,
           message: "This must be a valid email address",
         },
       })}
