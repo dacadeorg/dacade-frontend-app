@@ -14,7 +14,7 @@ export const mockReferral: Referral = {
     ref: "",
     created_at: new Date("2022-05-01T12:00:00Z"),
     updated_at: new Date("2022-05-01T12:00:00Z"),
-    title: "",
+    title: "test referral",
     community,
     timestamp: 0,
     reward: reward,
