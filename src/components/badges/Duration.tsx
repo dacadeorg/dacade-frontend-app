@@ -14,7 +14,7 @@ export const DurationBadge = ({ value, type = "gray" }: DurationBadgeProps) => {
     if (!value) {
       return 0;
     }
-    if (isNaN(Number(value))) return value;
+    if (Number.isNaN(Number(value))) return value;
     return DateManager.humanize(value, router.locale as string);
   }, [router.locale, value]);
 
