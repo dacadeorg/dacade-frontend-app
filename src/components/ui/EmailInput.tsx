@@ -4,6 +4,7 @@ import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { FormValues } from "@/pages/signup";
+import * as EmailValidator from "email-validator";
 
 interface EmailInputProps {
   register: UseFormRegister<FormValues>;
@@ -29,8 +30,6 @@ interface EmailInputProps {
 export default function EmailInput({ errors, register, emailValue, testId = "emailInput" }: EmailInputProps): ReactElement {
   const { t } = useTranslation();
   const error = useSelector((state) => state.store.error);
-  // regex to validate emails
-  const emailregex = /^([-!#-'*+\/-9=?A-Z^-~]+(\.[-!#-'*+\/-9=?A-Z^-~]+)*|".+")@([-!#-'*+\/-9=?A-Z^-~]+(\.[-!#-'*+\/-9=?A-Z^-~]+)*|\[[\t -Z^-~]*])$/i;
 
   return (
     <Input
@@ -43,10 +42,7 @@ export default function EmailInput({ errors, register, emailValue, testId = "ema
       error={errors?.email?.message || error?.error?.data?.details?.email}
       {...register("email", {
         required: "This field is required",
-        pattern: {
-          value: emailregex,
-          message: "This must be a valid email address",
-        },
+        validate: (value) => EmailValidator.validate(value) || "This must be a valid email address",
       })}
     />
   );
