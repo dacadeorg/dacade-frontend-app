@@ -47,13 +47,10 @@ interface ErrorDetails {
     };
   };
 }
-
 interface MultiSelector {
   referrals: Referral[];
   error: ErrorDetails;
 }
-
-
 
 /**
  * signup page
