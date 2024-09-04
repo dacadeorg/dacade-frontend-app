@@ -9,9 +9,9 @@ const referralSubmission = () => Object.assign(getMockSubmission, { challengeDat
 const userReferral: UserReferral = Object.assign(mockUser, { submissions: [referralSubmission()] });
 
 export const mockReferral: Referral = {
-    id: "",
-    name: "",
-    ref: "",
+    id: "ee",
+    name: "test name",
+    ref: "sddf",
     created_at: new Date("2022-05-01T12:00:00Z"),
     updated_at: new Date("2022-05-01T12:00:00Z"),
     title: "test referral",

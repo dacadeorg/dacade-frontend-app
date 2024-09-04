@@ -29,6 +29,7 @@ describe("SideNavLink", () => {
         colors: colors,
         locked: false,
         showReferralPopup: false,
+        showJobOffersPopup: false,
       },
     });
     const courseLink = screen.getByTestId("courseLinkId");
