@@ -26,6 +26,7 @@ type Referral = {
 interface ReferralListItemProps {
   referral: Referral;
   bounty?: boolean;
+  testId?: string;
 }
 
 /**
@@ -39,9 +40,9 @@ interface ReferralListItemProps {
 }
  * @returns {ReactElement}
  */
-export default function ReferralListItem({ referral, bounty = false }: ReferralListItemProps): ReactElement {
+export default function ReferralListItem({ referral, bounty = false, testId = "referral-bounty-item" }: ReferralListItemProps): ReactElement {
   return (
-    <div className="flex justify-between w-full items-center text-gray-900">
+    <div className="flex justify-between w-full items-center text-gray-900" data-testId={testId}>
       <div className="flex items-center">
         <Avatar
           className="w-6 h-6 rounded overflow-hidden"
