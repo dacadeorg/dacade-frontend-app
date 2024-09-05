@@ -17,13 +17,29 @@ jest.mock("next/router", () => ({
   }),
 }));
 
-const mockState = {
+const SidebarMockState = {
   ui: { colors: colors, locked: false, showReferralPopup: false, showJobOffersPopup: false },
   user: { data: mockUser, userBalance: null, balance: null, walletAddresses: null, token: null, referrals: null, fetchingUserLoading: false, filteredUsers: null },
-  isAuthenticated: true,
-  unread: 0,
+  auth: {
+    data: mockUser,
+    isAuthLoading: false,
+    userBalance: null,
+    balance: null,
+    walletAddresses: null,
+  },
+  notifications: { unread: 0, notifications: [], count: 0 },
+};
+const authenticatedUserMockState = {
+  ...SidebarMockState,
+  auth: { ...SidebarMockState.auth, data: { ...SidebarMockState.auth.data, emailVerified: true } },
 };
 
+const triggerSidebarOpen = async () => {
+  const toggleButton = screen.getByTestId("sidebar-toggle-button");
+  await act(async () => {
+    fireEvent.click(toggleButton);
+  });
+};
 describe("Sidebar Component", () => {
   it("should render the Sidebar component", () => {
     renderWithRedux(<Sidebar testId="popup-sidebar" />);
@@ -32,7 +48,7 @@ describe("Sidebar Component", () => {
   });
 
   it("should toggle between menu and close icons when the toggle button is clicked", async () => {
-    renderWithRedux(<Sidebar />, mockState);
+    renderWithRedux(<Sidebar />, SidebarMockState);
 
     const toggleButton = screen.getByTestId("sidebar-toggle-button");
     expect(toggleButton).toBeInTheDocument();
@@ -53,7 +69,7 @@ describe("Sidebar Component", () => {
   });
 
   it("should open the popup when the toggle button is clicked", async () => {
-    renderWithRedux(<Sidebar />, mockState);
+    renderWithRedux(<Sidebar />, SidebarMockState);
 
     const toggleButton = screen.getByTestId("sidebar-toggle-button");
     expect(toggleButton).toBeInTheDocument();
@@ -64,5 +80,27 @@ describe("Sidebar Component", () => {
 
     const popup = screen.getByTestId("popup-sidebar");
     expect(popup).toBeVisible();
+  });
+
+  it("should not display authenticated user content when isAuthenticated is false", async () => {
+    renderWithRedux(<Sidebar />, SidebarMockState);
+
+    await triggerSidebarOpen();
+
+    expect(screen.queryByText(mockUser.username)).not.toBeInTheDocument();
+    expect(screen.queryByText("nav.wallet")).not.toBeInTheDocument();
+    expect(screen.queryByText("job.offers.title")).not.toBeInTheDocument();
+    expect(screen.queryByText("nav.view-profile-codes")).not.toBeInTheDocument();
+  });
+
+  it("should display authenticated user content when isAuthenticated is true", async () => {
+    renderWithRedux(<Sidebar />, authenticatedUserMockState);
+
+    await triggerSidebarOpen();
+
+    expect(screen.getByText(mockUser.username)).toBeInTheDocument();
+    expect(screen.getByText("nav.wallet")).toBeInTheDocument();
+    expect(screen.getByText("job.offers.title")).toBeInTheDocument();
+    expect(screen.getByText("nav.view-profile-codes")).toBeInTheDocument();
   });
 });
