@@ -5,7 +5,6 @@ import Sidebar from "@/components/popups/Sidebar";
 import { colors } from "@__mocks__/fixtures/colors";
 import { mockUser } from "@__mocks__/fixtures/user";
 
-// Mocking the required hooks and functions
 jest.mock("next/router", () => ({
   useRouter: () => ({
     push: jest.fn(),
@@ -15,39 +14,8 @@ jest.mock("next/router", () => ({
       emit: jest.fn(),
     },
     isFallback: false,
-    pathname: "mocked-pathname",
   }),
 }));
-
-// Mock the functions to be used in the Sidebar component
-jest.mock("@/store/feature/ui.slice", () => {
-  const toggleBodyScrolling = jest.fn();
-  const toggleJobOffersPopup = jest.fn();
-  const toggleShowReferralPopup = jest.fn();
-
-  return {
-    toggleBodyScrolling,
-    toggleJobOffersPopup,
-    toggleShowReferralPopup,
-  };
-});
-jest.mock("@/store/services/notification.service", () => ({
-  readNotification: jest.fn(),
-}));
-
-jest.mock("@/hooks/useTypedDispatch", () => ({
-  useDispatch: jest.fn(() => jest.fn()),
-}));
-
-jest.mock("@/components/ui/button", () => {
-  return function MockButton({ children, ...props }) {
-    return (
-      <button data-testid="mock-button" {...props}>
-        {children}
-      </button>
-    );
-  };
-});
 
 const mockState = {
   ui: { colors: colors, locked: false, showReferralPopup: false, showJobOffersPopup: false },
