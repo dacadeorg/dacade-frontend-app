@@ -19,7 +19,7 @@
     "@dfinity/candid": "^2.0.0",
     "@dfinity/identity": "^2.0.0",
     "@dfinity/principal": "^2.0.0",
-    "@dfinity/verifiable-credentials": "^0.0.2",
+    "@dfinity/verifiable-credentials": "^0.0.3-next-2024-09-09",
     "@reduxjs/toolkit": "^1.9.3",
     "@stefanprobst/remark-extract-toc": "^2.2.0",
     "@sumsub/websdk": "^1.4.0",

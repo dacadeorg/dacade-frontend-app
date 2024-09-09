@@ -23,7 +23,7 @@ export const MAX_TTL = BigInt(7 * 24 * 60 * 60 * 1000 * 1000 * 1000);
 /**
  * For production ready we shall use https://identity.ic0.app/ as identity provider
  */
-export const IDENTITY_PROVIDER = "http://bd3sg-teaaa-aaaaa-qaaba-cai.localhost:4943";
+export const IDENTITY_PROVIDER = "http://be2us-64aaa-aaaaa-qaabq-cai.localhost:4943";
 const useIcpAuth = () => {
   useEffect(() => {
     if (!window) return;

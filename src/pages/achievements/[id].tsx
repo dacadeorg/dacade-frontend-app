@@ -23,7 +23,7 @@ import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
 import Button from "@/components/ui/button";
 import useIcpAuth, { IDENTITY_PROVIDER } from "@/hooks/useIcpAuth";
-import { requestVerifiablePresentation, type VerifiablePresentationResponse } from "@dfinity/verifiable-credentials/request-verifiable-presentation";
+import { requestVerifiablePresentation, type VerifiablePresentationResponse } from "@dfinity/verifiable-credentials";
 import { Principal } from "@dfinity/principal";
 
 /**
@@ -128,12 +128,12 @@ const Achievement = () => {
         console.log("An error occurred", err);
       },
       issuerData: {
-        origin: "http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943",
-        canisterId: Principal.fromText("bkyz2-fmaaa-aaaaa-qaaaq-cai"),
+        origin: "http://bd3sg-teaaa-aaaaa-qaaba-cai.localhost:4943",
+        canisterId: Principal.fromText("bd3sg-teaaa-aaaaa-qaaba-cai"),
       },
       credentialData: {
         credentialSpec: {
-          credentialType: `ICP 101 completion`,
+          credentialType: "ICP101Completion",
           arguments: {
             issuedOn,
             issuerName,
