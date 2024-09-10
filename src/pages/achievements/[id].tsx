@@ -21,9 +21,8 @@ import MintCertificate from "@/components/sections/profile/modals/MintCertificat
 import { Certificate } from "@/types/certificate";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
-import Button from "@/components/ui/button";
 import useIcpAuth, { IDENTITY_PROVIDER } from "@/hooks/useIcpAuth";
-import { requestVerifiablePresentation, type VerifiablePresentationResponse } from "@dfinity/verifiable-credentials";
+import { requestVerifiablePresentation, type VerifiablePresentationResponse } from "@dfinity/verifiable-credentials/request-verifiable-presentation";
 import { Principal } from "@dfinity/principal";
 
 /**
@@ -47,6 +46,7 @@ const Achievement = () => {
     user: (state: IRootState) => state.user.data,
   });
   const [showMintCertificate, setShowMintCertificate] = useState(false);
+  const [jwtVC, setJwtVc] = useState("");
   const dispatch = useDispatch();
   const { locale, query } = useRouter();
   const { login } = useIcpAuth();
@@ -58,12 +58,6 @@ const Achievement = () => {
   useEffect(() => {
     findCertificateById();
   }, [findCertificateById]);
-
-  // useEffect(() => {
-  //   window?.addEventListener("message", (event: MessageEvent) => {
-  //     console.log({ event });
-  //   });
-  // }, []);
 
   const issuedOn = useMemo(() => {
     if (!achievement?.metadata?.issuedOn) return null;
@@ -107,9 +101,13 @@ const Achievement = () => {
     return user.id === achievement?.user_id;
   }, [user, achievement]);
 
-  const mintable = useMemo(() => {
-    return achievement?.community?.can_mint_certificates;
+  const isICPSubmission = useMemo(() => {
+    return achievement?.community.name === "Internet Computer";
   }, [achievement]);
+
+  const mintable = useMemo(() => {
+    return achievement?.community?.can_mint_certificates || isICPSubmission;
+  }, [achievement, isICPSubmission]);
 
   const isNotCertificateIcon = useMemo(() => {
     return !achievement?.metadata?.image?.includes("/img/certificates/");
@@ -117,19 +115,21 @@ const Achievement = () => {
 
   const requestVC = (principal: string) => {
     if (!achievement?.metadata) return;
-    const { issuedOn, issuerName, linkToWork, recipientName, feedbacks, name } = achievement?.metadata;
-    console.log({ issuedOn, issuerName, linkToWork, recipientName, feedbacks, name, principal });
+    const { issuedOn, issuerName, linkToWork, recipientName, name } = achievement?.metadata;
 
     requestVerifiablePresentation({
       onSuccess: (verifiablePresentation: VerifiablePresentationResponse) => {
-        console.log({ verifiablePresentation });
+        const verifiablePresentationData = (verifiablePresentation as { Ok: string })?.Ok;
+        if (verifiablePresentationData) {
+          setJwtVc(verifiablePresentationData);
+        }
       },
       onError: (err: any) => {
         console.log("An error occurred", err);
       },
       issuerData: {
-        origin: "http://bd3sg-teaaa-aaaaa-qaaba-cai.localhost:4943",
-        canisterId: Principal.fromText("bd3sg-teaaa-aaaaa-qaaba-cai"),
+        origin: "http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943",
+        canisterId: Principal.fromText("bkyz2-fmaaa-aaaaa-qaaaq-cai"),
       },
       credentialData: {
         credentialSpec: {
@@ -140,12 +140,18 @@ const Achievement = () => {
             linkToWork,
             recipientName,
             name,
+            image: achievement?.metadata?.image,
           },
         },
         credentialSubject: Principal.fromText(principal),
       },
       identityProvider: new URL(IDENTITY_PROVIDER),
     });
+  };
+
+  const onMint = () => {
+    if (isICPSubmission) return login((principal) => requestVC(principal));
+    setShowMintCertificate(true);
   };
 
   return (
@@ -204,9 +210,14 @@ const Achievement = () => {
                       <div className="w-full flex">
                         {!achievementMinted && belongsToCurrentUser && <MintCertificate show={showMintCertificate} close={() => setShowMintCertificate(false)} />}
 
-                        {belongsToCurrentUser && !minted && (
-                          <ArrowButton target="__blank" variant="primary" className="flex ml-auto mt-5" onClick={() => setShowMintCertificate(true)}>
+                        {belongsToCurrentUser && !minted && !isICPSubmission && (
+                          <ArrowButton target="__blank" variant="primary" className="flex ml-auto mt-5" onClick={onMint}>
                             Mint certificate
+                          </ArrowButton>
+                        )}
+                        {belongsToCurrentUser && !jwtVC && (
+                          <ArrowButton target="__blank" variant="primary" className="flex ml-auto mt-5" onClick={onMint}>
+                            Request verifiable credential
                           </ArrowButton>
                         )}
                       </div>
@@ -231,10 +242,18 @@ const Achievement = () => {
                       </AchievementViewItem>
                     </div>
                   )}
-                  {achievement.community.name === "Internet Computer" && (
+                  {achievement.community.name === "Internet Computer" && !!jwtVC && (
                     <div className="flex flex-col gap-1">
-                      <p className="font-medium text-center">{`Verified ${achievement.metadata.name} completion on Dacade`}</p>
-                      <Button onClick={() => login((principal) => requestVC(principal))}>Request Requdential</Button>
+                      <AchievementViewItem name={"Credential JWT presentation"}>
+                        <small
+                          onClick={() => {
+                            window.navigator.clipboard.writeText(jwtVC);
+                          }}
+                          className="font-normal line-clamp-1 text-start my-2 cursor-pointer"
+                        >
+                          {jwtVC}
+                        </small>
+                      </AchievementViewItem>
                     </div>
                   )}
                 </div>

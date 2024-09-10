@@ -1314,10 +1314,10 @@
   dependencies:
     "@noble/hashes" "^1.3.1"
 
-"@dfinity/verifiable-credentials@^0.0.3-next-2024-09-09":
-  version "0.0.3-next-2024-09-09"
-  resolved "https://registry.yarnpkg.com/@dfinity/verifiable-credentials/-/verifiable-credentials-0.0.3-next-2024-09-09.tgz#5ed60f29e4772c0a2f2be19a916e7123c56060f9"
-  integrity sha512-bHuMtpNjrZyyMxTk69LOBkqKX8eXy7ltGoanHs6gyzalsk4zhUcp46uz8n9MXIf1KD+Be0BKiMgGLTqr7cswfw==
+"@dfinity/verifiable-credentials@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@dfinity/verifiable-credentials/-/verifiable-credentials-0.0.4.tgz#d671bfe25363075b19bbff6574291ad23e36bf1e"
+  integrity sha512-vnGbsyvkNh4bxvZe5MqCIVrO6w1TGpNk1ho+S4lOtLbzlFtBYx3E4z+RgFF0iEQPhlYDaAkVBGmo/oO+F14G7Q==
   dependencies:
     nanoid "^5.0.7"
 
