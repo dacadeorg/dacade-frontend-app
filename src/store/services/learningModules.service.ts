@@ -35,6 +35,7 @@ export const learningModulesService = createApi({
         },
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+
         const { data } = await queryFulfilled;
         dispatch(setLearningModuleList(data));
       },

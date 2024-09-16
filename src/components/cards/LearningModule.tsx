@@ -24,7 +24,7 @@ export function LearningModuleCard({ data }: { data: LearningModule }): JSX.Elem
   })
 
   const level = useMemo(() => {
-    const value = challenge?.level;
+    const value = data?.level || challenge?.level;
     return t((value === 0 || value === 1) ? "course.challenge.level-0" : "course.challenge.level-2");
   }, [challenge?.level]);
 
@@ -38,7 +38,7 @@ export function LearningModuleCard({ data }: { data: LearningModule }): JSX.Elem
           <span className="uppercase font-semibold">{t("communities.card.module")}</span>
         </div>
         <div className="gap-2 flex items-center">
-          {challenge.level && <Tag className="uppercase">{level}</Tag>}
+          {challenge?.level && <Tag className="uppercase">{level}</Tag>}
           <DurationBadge value={data.duration} type="bordered" />
         </div>
       </div>

@@ -39,7 +39,7 @@ interface FeedbackMultiSelector {
  * @export
  * @returns {ReactElement}
  */
-export default function Feedback({testId = "feedbackId" }: FeedbackProps): ReactElement {
+export default function Feedback({ testId = "feedbackId" }: FeedbackProps): ReactElement {
   const dispatch = useDispatch();
   const route = useRouter();
 

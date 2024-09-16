@@ -6,7 +6,7 @@ import { fetchAllWallets } from "@/store/services/wallets.service";
 import { GetStaticProps } from "next";
 
 import EditProfile from "@/components/sections/profile/modals/EditProfile";
-import Wallet from "@/components/cards/Wallet";
+import Wallet from "@/components/cards/wallet";
 import Hint from "@/components/ui/Hint";
 import ProfileLayout from "@/layouts/ProfileLayout";
 import i18Translate from "@/utilities/I18Translate";

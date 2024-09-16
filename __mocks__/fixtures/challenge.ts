@@ -96,7 +96,7 @@ export const submission: Submission = {
       token: "",
     },
     reviewed: false,
-    feedbacks: 0,
+    feedbacks: 3,
     language: "",
     evaluation: {
       points: 8,
@@ -170,3 +170,11 @@ export const mockFeedback: Feedback = {
   ranking: 0,
   text: "I am providing a feedback",
 };
+
+export const challengeSliceData = {
+  current: challenge,
+  list: [challenge],
+  submission: submission,
+  loading: false
+
+}

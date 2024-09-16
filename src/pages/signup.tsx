@@ -9,7 +9,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
 import i18Translate from "@/utilities/I18Translate";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "@/hooks/useTypedDispatch";
 import classNames from "classnames";
 import Checkbox from "@/components/ui/Checkbox";
@@ -19,6 +19,8 @@ import LayoutWithoutFooter from "@/layouts/WithoutFooter";
 import EmailInput from "@/components/ui/EmailInput";
 import UsernameInput from "@/components/ui/UsernameInput";
 import { setError } from "@/store/feature/index.slice";
+import { IRootState } from "@/store";
+import { Referral } from "@/types/community";
 
 /**
  * Signup form values
@@ -34,6 +36,20 @@ export interface FormValues {
   password: string;
   referralCode: string;
   checkTerms: boolean;
+}
+
+interface ErrorDetails {
+  error: {
+    data: {
+      details: {
+        password?: string;
+      };
+    };
+  };
+}
+interface MultiSelector {
+  referrals: Referral[];
+  error: ErrorDetails;
 }
 
 /**
@@ -56,7 +72,10 @@ export default function SignupWithInvite(): ReactElement {
   const referralCodeValue = watch("referralCode") || "";
   const { query, locale } = useRouter();
   const referrer = query.invite;
-  const referrals = useSelector((state) => state.referrals.list);
+  const { referrals, error } = useMultiSelector<unknown, MultiSelector>({
+    referrals: (state: IRootState) => state.referrals.list,
+    error: (state: IRootState) => state.store.error,
+  });
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -73,7 +92,7 @@ export default function SignupWithInvite(): ReactElement {
     };
     try {
       if (!checkTerms) return;
-      await dispatch(signUp({ locale, payload: { ...signupData } }));
+      dispatch(signUp({ locale, payload: { ...signupData } }));
     } catch (error) {
       setError(error);
       console.error(error);
@@ -122,7 +141,7 @@ export default function SignupWithInvite(): ReactElement {
                 value={passwordValue}
                 placeholder={`${t("login-page.password.placeholde")}`}
                 label={`${t("login-page.password.label")}`}
-                error={errors.password?.message}
+                error={error?.error?.data?.details?.password}
                 {...register("password", {
                   required: "This field is required",
                   minLength: { value: 3, message: "The password is too short" },

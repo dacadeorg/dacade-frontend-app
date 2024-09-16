@@ -31,8 +31,7 @@ describe("View component", () => {
   it("Should render the submission view card and evaluation", () => {
     renderWithRedux(<View />, mockStateWithSubmission);
     expect(screen.getByTestId("viewId")).toBeInTheDocument();
-    // TODO: add this test once the pr for testing evaluations is merged
-    // expect(screen.getByTestId("evaluationsId")).toBeInTheDocument();
+    expect(screen.getByTestId("evaluationsId")).toBeInTheDocument();
     expect(screen.getByTestId("feedbackId")).toBeInTheDocument();
   });
   it("Should display a message when submission is not available", () => {

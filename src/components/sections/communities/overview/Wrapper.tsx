@@ -11,6 +11,7 @@ import Section from "@/components/ui/Section";
 interface WrapperProps {
   children: ReactNode;
   filter?: ReactNode;
+  testId?: string
 }
 
 /**
@@ -19,13 +20,13 @@ interface WrapperProps {
  * @returns {JSX.Element} A styled Wrapper component containing a MainHeaderSection, CommunitySidebar, 
  * optional filter component, and children content.
  */
-export default function Wrapper({ children, filter }: WrapperProps): JSX.Element {
+export default function Wrapper({ children, filter, testId = "wrapperId" }: WrapperProps): JSX.Element {
   return (
-    <div className="relative">
+    <div data-testid={testId} className="relative">
       <MainHeaderSection />
       <Section>
-        <div className="w-full md:flex gap-36 mx-auto mt-14">
-          <div className="md:w-4/12">
+        <div className="w-full md:flex gap-36 mx-auto mt-6 md:mt-17">
+          <div className="hidden md:grid w-4/12">
             <CommunitySidebar />
             {filter}
           </div>
