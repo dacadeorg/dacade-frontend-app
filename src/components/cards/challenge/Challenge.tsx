@@ -17,12 +17,13 @@ import Badges from "@/components/badges";
  * @returns {JSX.Element} The rendered ChallengeCard component.
  * @interface ChallengeCardProps
  */
-interface ChallengeCardProps {
+export interface ChallengeCardProps {
   data: Challenge;
   community: Community;
   isCourseEnd?: boolean;
+  testId?: string;
 }
-export default function ChallengeCard({ data, community, isCourseEnd }: ChallengeCardProps) {
+export default function ChallengeCard({ data, community, isCourseEnd, testId = "challenge-card" }: ChallengeCardProps) {
   const { t } = useTranslation();
   const link = `/communities/${community.slug}/challenges/${data.id}`;
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
@@ -31,9 +32,11 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
   const { learningModules = [], courses = [] } = data || {};
   const learningMaterialsCount = learningModules.length + courses.length;
 
-
   return (
-    <div className="w-full flex flex-col sm:flex-row  md:flex-col lg:flex-row  border-solid border border-primary bg-secondary rounded-3xl group text-secondary">
+    <div
+      data-testid={testId}
+      className="w-full flex flex-col sm:flex-row  md:flex-col lg:flex-row  border-solid border border-primary bg-secondary rounded-3xl mb-5 group text-secondary"
+    >
       <div className="border-solid border -m-px border-primary bg-primary rounded-3xl sm:p-8 sm:pb-6 p-6 sm:w-2/3 md:w-auto lg:w-2/3">
         <div className="flex flex-col mb-1 justify-between h-full">
           <div className="lg:pr-20">

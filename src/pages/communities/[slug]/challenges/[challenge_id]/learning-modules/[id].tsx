@@ -44,8 +44,8 @@ interface LearningModulePageProps {
 }
 
 interface LearningModuleMultiselector {
-  learningModule: LearningModule,
-  loading: boolean
+  learningModule: LearningModule;
+  loading: boolean;
 }
 
 /**
@@ -60,22 +60,21 @@ export default function LearningModulePage(props: LearningModulePageProps) {
   const { community, challenge } = props.pageProps;
   const { learningModule, loading } = useMultiSelector<unknown, LearningModuleMultiselector>({
     learningModule: (state: IRootState) => state.learningModules.current,
-    loading: (state: IRootState) => state.learningModules.loading
-  })
+    loading: (state: IRootState) => state.learningModules.loading,
+  });
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const navigation = useNavigation();
-  const router = useRouter()
-  const { query, locale } = router
+  const router = useRouter();
+  const { query, locale } = router;
 
   useEffect(() => {
     dispatch(setCurrentCommunity(community));
     dispatch(setCurrentLearningModule(learningModule));
     dispatch(setColors(community.colors));
     dispatch(initChallengeNavigationMenu(navigation.community));
-    dispatch(findLearningModule({ id: query?.id as string, locale }))
+    dispatch(findLearningModule({ id: query?.id as string, locale }));
   }, [community?.colors, locale]);
-
 
   const title = getMetadataTitle(learningModule?.title);
   const descriptions = getMetadataDescription(learningModule?.description);
@@ -83,13 +82,12 @@ export default function LearningModulePage(props: LearningModulePageProps) {
   const paths = useMemo(() => [challenge.name, learningModule?.title], [challenge.name, learningModule]);
 
   const isLastLearningModule = useMemo(() => {
-    if (!learningModule) return false
+    if (!learningModule) return false;
     if (!challenge.learningModules || !challenge.learningModules.length) return false;
     return learningModule.id === challenge.learningModules[challenge.learningModules.length - 1].id;
   }, [learningModule, challenge.learningModules]);
 
   if (loading)
-
     return (
       <Section className="h-[50vh] flex items-center justify-center">
         <Loader />
@@ -143,8 +141,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       serverSideTranslations(locale as string),
     ]);
 
-    if (Object.entries(community).length === 0 || Object.entries(challenge).length === 0)
-      throw new Error("Failed to fetch learning module");
+    if (Object.entries(community).length === 0 || Object.entries(challenge).length === 0) throw new Error("Failed to fetch learning module");
 
     return {
       props: {

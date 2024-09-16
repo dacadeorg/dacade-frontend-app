@@ -13,7 +13,7 @@ interface MetadataProps {
   description?: string;
   title?: string | null;
   community?: string;
-  testId?: string
+  testId?: string;
 }
 
 export default function MetaData({ description, title, community, testId = "meta-id" }: MetadataProps): ReactElement {

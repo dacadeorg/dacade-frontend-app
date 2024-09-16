@@ -33,11 +33,7 @@ export default function Slug(props: {
         <MetaData community={community.name} title={t("communities.navigation.courses")} description={community?.description} />
       </Head>
       <CommunityWrapper>
-        <CommunityNavItem
-          title={t("communities.overview.challenges.title")}
-          description={t("communities.overview.challenges.description")}
-          className="md:hidden my-8"
-        />
+        <CommunityNavItem title={t("communities.overview.challenges.title")} description={t("communities.overview.challenges.description")} className="md:hidden my-8" />
         <div className="grid gap-6">
           {challenges.map((challenge) => (
             <ChallengeCard key={challenge.id} data={challenge} community={community} />

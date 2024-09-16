@@ -29,7 +29,7 @@ import { ReactElement, useMemo } from "react";
 export default function Submission(props: { pageProps: { currentCommunity: Community; submissions: SubmissionType[]; challenge: Challenge } }) {
   const { challenge } = props.pageProps;
 
-  const { submissions, selectedSubmission, handleCloseSubmission, showPopup} = useSubmissionNavigation();
+  const { submissions, selectedSubmission, handleCloseSubmission, showPopup } = useSubmissionNavigation();
 
   const { t } = useTranslation();
 

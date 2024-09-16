@@ -35,7 +35,7 @@ const referralsService = createApi({
       onQueryStarted: async ({ startAfter }, { dispatch, queryFulfilled, getState }) => {
         const state = getState() as any;
         try {
-          dispatch(setLoading(true))
+          dispatch(setLoading(true));
           const { data } = await queryFulfilled;
           const list: Referral[] = [];
           if (startAfter) {
@@ -48,8 +48,7 @@ const referralsService = createApi({
           dispatch(setUserReferralsList(list));
           dispatch(setCount(data?.count));
           dispatch(setHasMoreReferrals(data?.list?.length > 0 ? true : false));
-          dispatch(setLoading(false))
-
+          dispatch(setLoading(false));
         } catch (error) {
           console.log("error in fetching the userFetchReferrals ", error);
         }

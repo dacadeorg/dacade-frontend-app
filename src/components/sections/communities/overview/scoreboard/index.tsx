@@ -27,11 +27,7 @@ export default function ScoreboardOverview(): ReactElement {
 
   return (
     <>
-      <CommunityNavItem
-        title={t("communities.overview.scoreboard.title")}
-        description={t("communities.overview.scoreboard.description")}
-        className="md:hidden my-8"
-      />
+      <CommunityNavItem title={t("communities.overview.scoreboard.title")} description={t("communities.overview.scoreboard.description")} className="md:hidden my-8" />
       {loading ? (
         <div className="h-full w-full grid">
           <Loader className="place-self-center" />

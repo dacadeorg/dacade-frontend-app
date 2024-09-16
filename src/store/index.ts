@@ -82,7 +82,7 @@ export interface IRootState {
   payouts: ReturnType<typeof payoutsSlice.reducer>;
   teams: ReturnType<typeof teamsSlice.reducer>;
   invites: ReturnType<typeof invitesSlice.reducer>;
-  learningMaterials: ReturnType<typeof learningMaterialsSlice.reducer>
+  learningMaterials: ReturnType<typeof learningMaterialsSlice.reducer>;
 }
 
 export type IRootService = {

@@ -41,8 +41,8 @@ interface LearningModulePageProps {
 }
 
 interface LearningModuleMultiselector {
-  learningModule: LearningModule,
-  loading: boolean
+  learningModule: LearningModule;
+  loading: boolean;
 }
 
 /**
@@ -57,24 +57,24 @@ export default function LearningModulePage(props: LearningModulePageProps): Reac
   const { course, community } = props.pageProps;
   const { learningModule, loading } = useMultiSelector<unknown, LearningModuleMultiselector>({
     learningModule: (state: IRootState) => state.learningModules.current,
-    loading: (state: IRootState) => state.learningModules.loading
-  })
+    loading: (state: IRootState) => state.learningModules.loading,
+  });
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { t } = useTranslation();
-  const router = useRouter()
-  const { query, locale } = router
+  const router = useRouter();
+  const { query, locale } = router;
 
   useEffect(() => {
     dispatch(initCourseNavigationMenu(navigation.community));
-    dispatch(findLearningModule({ id: query?.id as string, locale }))
+    dispatch(findLearningModule({ id: query?.id as string, locale }));
   }, [dispatch, locale]);
 
   const title = useMemo(() => getMetadataTitle(learningModule?.title, course.name!), [course.name, learningModule]);
   const descriptions = useMemo(() => getMetadataDescription(learningModule?.description), [learningModule]);
   const paths = useMemo(() => [learningModule?.title], [learningModule?.title]);
   const isLastLearningModule = useMemo(() => {
-    if (!learningModule) return false
+    if (!learningModule) return false;
     if (!course.learningModules || !course.learningModules.length) return false;
     return learningModule.id === course.learningModules[course.learningModules.length - 1].id;
   }, [learningModule, course.learningModules]);

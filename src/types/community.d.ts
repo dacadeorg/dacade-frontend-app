@@ -43,11 +43,11 @@ export interface Colors {
   };
 }
 interface ReferralSubmission extends Submission {
-  challengeData: Challenge,
-  link: string
+  challengeData: Challenge;
+  link: string;
 }
 interface UserReferral extends User {
-  submissions: ReferralSubmission[]
+  submissions: ReferralSubmission[];
 }
 export interface Referral {
   id: string;

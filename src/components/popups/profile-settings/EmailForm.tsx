@@ -110,7 +110,7 @@ export default function EditEmail({ show, onClose }: EditProfileProps): ReactEle
                   message: "This must be a valid email address",
                 },
                 validate: (val: string) => {
-                  if (watch('email') !== val) return "Emails should match."
+                  if (watch("email") !== val) return "Emails should match.";
                 },
               })}
             />

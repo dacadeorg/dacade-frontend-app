@@ -1,0 +1,78 @@
+import { render, screen, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { useDispatch } from "@/hooks/useTypedDispatch";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
+import ReplyToInvitation, { InvitationProps } from "@/components/cards/challenge/_partials/ReplyToInvitation";
+import { acceptInvitation, declineInvitation } from "@/store/feature/communities/challenges/invites.slice";
+jest.mock("@/hooks/useTypedDispatch");
+jest.mock("@/hooks/useTypedSelector");
+jest.mock("@/store/services/teams.service");
+jest.mock("@/store/feature/communities/challenges/invites.slice");
+const mockDispatch = jest.fn();
+
+(useDispatch as jest.Mock).mockReturnValue(mockDispatch);
+(useMultiSelector as jest.Mock).mockReturnValue({
+  challenge: { id: "challenge-id" },
+  team: { invites: [{ id: "invite-id", status: "PENDING" }] },
+});
+
+const invitationProps: InvitationProps = {
+  invite_id: "invite-id",
+  team_ref: "team/1",
+};
+
+describe("ReplyToInvitation", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should render the ReplyToInvitation component", () => {
+    render(<ReplyToInvitation {...invitationProps} />);
+    expect(screen.getByTestId("reply-to-invitation")).toBeInTheDocument();
+  });
+
+  it("should render accept button and decline button in component", () => {
+    render(<ReplyToInvitation {...invitationProps} />);
+    const acceptButton = screen.getByTestId("reply-to-invitation");
+    const declineButton = screen.getByTestId("reply-to-invitation");
+    expect(acceptButton).toBeInTheDocument();
+    expect(declineButton).toBeInTheDocument();
+  });
+
+  it("should display loader when loading", async () => {
+    render(<ReplyToInvitation {...invitationProps} />);
+    expect(screen.getByTestId("loader")).toBeInTheDocument();
+    expect(await screen.findByTestId("loader")).not.toBeInTheDocument();
+  });
+
+  it("should call acceptInvitation when accept button is clicked", async () => {
+    render(<ReplyToInvitation {...invitationProps} />);
+    expect(await screen.findByTestId("loader")).not.toBeInTheDocument();
+
+    const acceptButton = screen.getByText("accept");
+    fireEvent.click(acceptButton);
+    expect(await mockDispatch).toHaveBeenCalledWith(acceptInvitation("invite-id"));
+  });
+
+  it("should call declineInvitation when decline button is clicked", async () => {
+    render(<ReplyToInvitation {...invitationProps} />);
+    expect(await screen.findByTestId("loader")).not.toBeInTheDocument();
+
+    const declineButton = screen.getByText("decline");
+    fireEvent.click(declineButton);
+    expect(await mockDispatch).toHaveBeenCalledWith(declineInvitation("invite-id"));
+  });
+
+  it("should not allow replies if the team is locked", async () => {
+    (useMultiSelector as jest.Mock).mockReturnValueOnce({
+      challenge: { id: "challenge-id" },
+      team: { invites: [{ id: "invite-id", status: "PENDING" }], locked: true },
+    });
+
+    render(<ReplyToInvitation {...invitationProps} />);
+
+    expect(await screen.findByTestId("loader")).not.toBeInTheDocument();
+    const invitationButtons = screen.queryAllByText("accept|decline");
+    expect(invitationButtons).toHaveLength(0);
+  });
+});

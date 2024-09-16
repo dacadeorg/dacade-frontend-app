@@ -18,7 +18,6 @@ import ProfileOverviewSection from "@/components/sections/profile/overview/Secti
 import ReferralsList from "@/components/list/ReferralsList";
 import Spinner from "@/components/ui/Loader";
 
-
 /**
  * interface for UserReferrals multiSelector
  * @date 9/13/2023 - 9:27:17 AM
@@ -30,7 +29,7 @@ interface UserReferralsMultiSelector {
   user: User | null;
   referrals: ReferralType[];
   hasMore: boolean;
-  loading: boolean
+  loading: boolean;
 }
 
 /**
@@ -47,7 +46,7 @@ export default function UserReferrals(): ReactElement {
     user: (state: IRootState) => state.user.data,
     referrals: (state: IRootState) => state.userReferrals.userReferralList,
     hasMore: (state: IRootState) => state.userReferrals.hasMore,
-    loading: (state: IRootState) => state.userReferrals.loading
+    loading: (state: IRootState) => state.userReferrals.loading,
   });
   const dispatch = useDispatch();
   const showLoadMore = useMemo(() => hasMore && referrals?.length >= 10, [referrals?.length, hasMore]);
@@ -90,7 +89,7 @@ export default function UserReferrals(): ReactElement {
               {isLoadingMore && <Loader loading={isLoadingMore} className="absolute left-6 -bottom-7.5" onClick={() => nextPage()} />}
             </div>
           ) : (
-            <div className="w-full border bg-secondary border-gray-200 border-solid rounded-3xl text-gray-500 p-6.5 font-semibold">{t('referrals.empty-state.subtitle')}</div>
+            <div className="w-full border bg-secondary border-gray-200 border-solid rounded-3xl text-gray-500 p-6.5 font-semibold">{t("referrals.empty-state.subtitle")}</div>
           )}
         </div>
       </ProfileOverviewSection>

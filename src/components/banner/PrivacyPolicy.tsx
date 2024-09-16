@@ -40,10 +40,7 @@ export default function PrivacyPolicyBanner(): ReactElement {
             {t("signup-page.privacy")}
           </Link>
         </div>
-        <div
-          className="flex absolute lg:relative lg:p-6 md:py-0 lg:justify-center right-0 top-0 lg:items-center items-center"
-          onClick={onAcceptCookiesPolicy}
-        >
+        <div className="flex absolute lg:relative lg:p-6 md:py-0 lg:justify-center right-0 top-0 lg:items-center items-center" onClick={onAcceptCookiesPolicy}>
           <div className="z-50 lg:h-8 h-7 lg:w-8 w-7 flex items-center text-white rounded-full lg:border-solid lg:border lg:border-white hover:bg-blue-700 bg-transparent cursor-pointer place-content-center">
             <CloseIcon />
           </div>

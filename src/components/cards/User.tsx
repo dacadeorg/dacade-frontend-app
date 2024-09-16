@@ -33,7 +33,7 @@ interface UserProps {
   submission?: Submission;
   teamMembers?: User[];
   onClick?: () => void;
-  testId?: string
+  testId?: string;
 }
 
 /**
@@ -52,7 +52,20 @@ interface UserProps {
 }
  * @returns {ReactElement}
  */
-export default function UserCard({ boxLayout, link, bordered, expanded, user, badge = "", timestamp, children, className, teamMembers, onClick, testId = "userId" }: UserProps): ReactElement {
+export default function UserCard({
+  boxLayout,
+  link,
+  bordered,
+  expanded,
+  user,
+  badge = "",
+  timestamp,
+  children,
+  className,
+  teamMembers,
+  onClick,
+  testId = "userId",
+}: UserProps): ReactElement {
   const { locale, push } = useRouter();
   const colors = useSelector((state) => state.ui.colors);
 
@@ -77,7 +90,7 @@ export default function UserCard({ boxLayout, link, bordered, expanded, user, ba
     "pl-5 sm:pl-7.5": !boxLayout,
     "cursor-pointer": link,
   });
-  console.log("this is the user test id", testId)
+  console.log("this is the user test id", testId);
   return (
     <div data-testid={testId} className={userCardClassName} onClick={handleClick}>
       <div className={`z-10 ${boxLayout ? "relative flex-none" : "absolute top-0 left-0"}`}>
@@ -105,8 +118,9 @@ export default function UserCard({ boxLayout, link, bordered, expanded, user, ba
         )}
       </div>
       <div
-        className={`relative z-0 flex-1 ${expanded ? "pb-24" : ""} ${bordered ? "group-hover:border-gray-50 border-l border-solid border-gray-200" : ""} ${!boxLayout ? "pl-10.5 pb-12" : ""
-          }`}
+        className={`relative z-0 flex-1 ${expanded ? "pb-24" : ""} ${bordered ? "group-hover:border-gray-50 border-l border-solid border-gray-200" : ""} ${
+          !boxLayout ? "pl-10.5 pb-12" : ""
+        }`}
       >
         <div className="pb-4">
           <div className="flex gap-4 w-full overflow-hidden">
