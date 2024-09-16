@@ -1,6 +1,6 @@
 {
   "name": "dacade",
-  "version": "1.9.0",
+  "version": "1.21.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
