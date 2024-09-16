@@ -36,7 +36,7 @@ export default function UsernameInput({ register, errors, usernameValue, testId 
       placeholder={`${t("login-page.username.placeholde")}`}
       label={`${t("login-page.username.label")}`}
       value={usernameValue}
-      error={errors.username?.message || (error?.error?.data.details.username as string)}
+      error={errors.username?.message || (error?.error?.data?.details?.username as string)}
       {...register("username", {
         required: "This field is required",
         minLength: {

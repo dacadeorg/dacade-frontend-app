@@ -32,6 +32,7 @@
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
     "dompurify": "^3.0.1",
+    "email-validator": "^2.0.4",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "eslint-plugin-prettier": "^5.0.0",
