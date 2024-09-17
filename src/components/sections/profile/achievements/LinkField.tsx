@@ -38,7 +38,7 @@ export default function AchievementLinkField({ link }: AchievementLinkFieldProps
 
   return (
     <div className="border relative p-2 rounded">
-      <p className="text-gray-500 line-clamp-1 break-all flex-1 text-sm md:text-base overflow-hidden" onClick={copy}>
+      <p className="text-gray-500 line-clamp-1 break-all flex-1 text-sm md:text-base cursor-pointer overflow-hidden" onClick={copy}>
         {link}
       </p>
       <div className="bg-gradient-to-l input-background absolute h-full w-40 top-0 flex justify-end items-center pr-2 right-0">

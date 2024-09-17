@@ -55,7 +55,6 @@ const certificateService = createApi({
 
       onQueryStarted: async (_, { dispatch, queryFulfilled, getState }) => {
         const { data } = await queryFulfilled;
-        console.log("This is the returned thing", data);
         if (data.certificate) {
           const state: any = getState();
           const currentCertificate = state.profileCertificate.current;
