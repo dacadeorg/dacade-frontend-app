@@ -50,6 +50,7 @@ export default function LearningMaterialsOverview() {
                     return <LearningModuleCard
                         key={`related-learning-card-${module.id}`}
                         data={module}
+                        url={`/communities/${community.slug}/learning-modules/${module.id}`}
                     />
                 })}
             </div>
