@@ -1,6 +1,6 @@
 import { NextSeoProps } from "next-seo"
 export default {
-    title: "Dacade",
+    title: "Dacade site name",
     description:
         "A peer to peer learning platform",
     canonical: "https://dacade.org/",
