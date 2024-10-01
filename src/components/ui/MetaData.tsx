@@ -27,6 +27,7 @@ export default function MetaData({ description, title, community, testId = "meta
       {metas.map((meta, index) => (
         <meta data-testid={testId} key={`meta-${index}`} content={meta.content} name={meta.name} />
       ))}
+      <meta property="og:logo" content="/favicon.ico" />
     </>
   );
 }

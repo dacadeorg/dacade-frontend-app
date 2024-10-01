@@ -10,12 +10,18 @@ export default {
         url: "https://dacade.org/",
         siteName: "Dacade",
         images: [
+            // {
+            //     url: "/img/opengraph.webp",
+            //     width: 800,
+            //     height: 600,
+            //     alt: "DACADE",
+            // },
             {
-                url: "/img/opengraph.webp",
-                width: 1200,
-                height: 630,
+                url: "/favicon.ico",
+                width: 800,
+                height: 600,
                 alt: "DACADE",
-            },
+            }
         ],
     },
     twitter: {
