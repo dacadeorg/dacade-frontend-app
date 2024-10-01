@@ -22,7 +22,7 @@ export default function MetaData({ description, title, community, testId = "meta
   const metas = useMemo(() => getMetadataDescription(description), [description]);
   return (
     <>
-      <NextSeo title={title || "dacade.org"} description={description || ""} />
+      <NextSeo title={getMetadataTitle(title || "Dacade.org", community as string)} description={description || ""} />
       {title && <title data-testid="page-title">{getMetadataTitle(title, community as string)}</title>}
       {metas.map((meta, index) => (
         <meta data-testid={testId} key={`meta-${index}`} content={meta.content} name={meta.name} />
