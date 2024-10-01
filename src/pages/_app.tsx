@@ -10,6 +10,8 @@ import AuthObserver from "@/contexts/AuthObserver";
 import NextNProgress from "nextjs-progressbar";
 import { WagmiConfig } from "wagmi";
 import { config } from "@/config/Web3Modal";
+import { DefaultSeo } from "next-seo"
+import SEO from "../../next-seo.config"
 
 /**
  * Represents a Next.js page with a custom layout.
@@ -66,6 +68,7 @@ const App = ({ Component, ...rest }: AppPropsWithLayout) => {
               />
 
               <Component {...pageProps} />
+              <DefaultSeo {...SEO} />
             </>
           )}
         </AuthObserver>
