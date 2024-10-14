@@ -1,10 +1,13 @@
 import Section from "@/components/sections/communities/_partials/Section";
-import { useSelector } from "@/hooks/useTypedSelector";
+import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { useTranslation } from "next-i18next";
 import { ReactElement } from "react";
 import Certificate from "@/components/ui/Certificate";
 import { useRouter } from "next/router";
 import RewardCertificate from "@/components/cards/challenge/RewardCertificate";
+import { IRootState } from "@/store";
+import { Challenge } from "@/types/course";
+import { Community } from "@/types/community";
 
 /**
  * Overview reward section component
@@ -15,9 +18,11 @@ import RewardCertificate from "@/components/cards/challenge/RewardCertificate";
  */
 export function OverviewRewards(): ReactElement {
   const { t } = useTranslation();
-  const challenge = useSelector((state) => state.challenges.current);
+  const { challenge, community } = useMultiSelector<unknown, { challenge: Challenge, community: Community }>({
+    challenge: (state: IRootState) => state.challenges.current,
+    community: (state: IRootState) => state.communities.current,
+  })
   const router = useRouter();
-  const token = challenge?.reward?.token || challenge?.rewards[0]?.token || "";
 
   return (
     <Section title={`${t("communities.overview.reward.title")}`}>
@@ -29,7 +34,7 @@ export function OverviewRewards(): ReactElement {
         <div className="flex flex-col lg:flex-row justify-between gap-2 items-start w-full">
           <div className="flex flex-col text-primary w-full lg:w-1/2">{challenge?.rewards && <RewardCertificate rewards={challenge?.rewards} isReward />}</div>
           {!challenge?.isHackathon && (
-            <div className="pb-1.5 border-b border-primary text-primary w-full lg:w-1/2 text-base">{t("communities.overview.challenge.participate", { token: token })}</div>
+            <div className="pb-1.5 border-b border-primary text-primary w-full lg:w-1/2 text-base">{t("communities.overview.challenge.participate", { community: community.name })}</div>
           )}
         </div>
       </div>
