@@ -126,7 +126,7 @@
   "communities.overview.challenge.for.certificate": "for the certificate",
   "communities.overview.challenge.for.feedback": "for every feedback",
   "communities.overview.challenge.unlock.certificate": "Unlock with Certificate",
-  "communities.overview.challenge.participate": "Participate in {{token}} hackathons",
+  "communities.overview.challenge.participate": "Participate in {{community}} hackathons",
   "communities.overview.challenge.learning.modules.included": "Learning modules included",
   "communities.overview.challenge.no.learning.modules": "No learning modules included",
   "communities.overview.challenge.learning.title": "The following learning materials will equip you with the technical expertise required to successfully address the challenge.",

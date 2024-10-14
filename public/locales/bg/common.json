@@ -119,7 +119,7 @@
   "communities.overview.challenge.take.challenge": "Вземете предизвикателството",
   "communities.overview.challenge.see.challenge": "Вижте предизвикателството",
   "communities.overview.challenge.unlock.certificate": "Отключване с сертификат",
-  "communities.overview.challenge.participate": "Участвайте в хакатони {{token}}",
+  "communities.overview.challenge.participate": "Участвайте в хакатони {{community}}",
   "communities.overview.challenge.for.certificate": "за сертификата",
   "communities.overview.challenge.for.feedback": "за всеки отзив",
   "communities.overview.challenge.learning.modules.included": "Включени образователни модули",
