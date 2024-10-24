@@ -115,7 +115,7 @@ const Achievement = () => {
 
   const requestVC = (principal: string) => {
     if (!achievement?.metadata) return;
-    const { issuedOn, issuerName, linkToWork, recipientName, name } = achievement?.metadata;
+    const { issuedOn, linkToWork, issuerName, name, narrative, image, comment } = achievement?.metadata;
 
     requestVerifiablePresentation({
       onSuccess: (verifiablePresentation: VerifiablePresentationResponse) => {
@@ -128,19 +128,20 @@ const Achievement = () => {
         console.log("An error occurred", err);
       },
       issuerData: {
-        origin: "http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943",
-        canisterId: Principal.fromText("bkyz2-fmaaa-aaaaa-qaaaq-cai"),
+        origin: "https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/",
+        canisterId: Principal.fromText("bu5ax-5iaaa-aaaam-qbgcq-cai"),
       },
       credentialData: {
         credentialSpec: {
-          credentialType: "ICP101Completion",
+          credentialType: `${name} completion`,
           arguments: {
             issuedOn,
-            issuerName,
             linkToWork,
-            recipientName,
+            image,
+            narrative,
+            comment,
+            issuerName,
             name,
-            image: achievement?.metadata?.image,
           },
         },
         credentialSubject: Principal.fromText(principal),
