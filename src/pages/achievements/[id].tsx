@@ -21,6 +21,9 @@ import MintCertificate from "@/components/sections/profile/modals/MintCertificat
 import { Certificate } from "@/types/certificate";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
+import useIcpAuth, { IDENTITY_PROVIDER } from "@/hooks/useIcpAuth";
+import { requestVerifiablePresentation, type VerifiablePresentationResponse } from "@dfinity/verifiable-credentials/request-verifiable-presentation";
+import { Principal } from "@dfinity/principal";
 
 /**
  * interface for Achievement multiSelector
@@ -43,8 +46,10 @@ const Achievement = () => {
     user: (state: IRootState) => state.user.data,
   });
   const [showMintCertificate, setShowMintCertificate] = useState(false);
+  const [jwtVC, setJwtVc] = useState("");
   const dispatch = useDispatch();
   const { locale, query } = useRouter();
+  const { login } = useIcpAuth();
 
   const findCertificateById = useCallback(async () => {
     await dispatch(findCertificate({ id: query.id as string }));
@@ -96,13 +101,59 @@ const Achievement = () => {
     return user.id === achievement?.user_id;
   }, [user, achievement]);
 
-  const mintable = useMemo(() => {
-    return achievement?.community?.can_mint_certificates;
+  const isICPSubmission = useMemo(() => {
+    return achievement?.community.name === "Internet Computer";
   }, [achievement]);
+
+  const mintable = useMemo(() => {
+    return achievement?.community?.can_mint_certificates || isICPSubmission;
+  }, [achievement, isICPSubmission]);
 
   const isNotCertificateIcon = useMemo(() => {
     return !achievement?.metadata?.image?.includes("/img/certificates/");
   }, [achievement]);
+
+  const requestVC = (principal: string) => {
+    if (!achievement?.metadata) return;
+    const { issuedOn, linkToWork, issuerName, name, narrative, image, comment } = achievement?.metadata;
+
+    requestVerifiablePresentation({
+      onSuccess: (verifiablePresentation: VerifiablePresentationResponse) => {
+        const verifiablePresentationData = (verifiablePresentation as { Ok: string })?.Ok;
+        if (verifiablePresentationData) {
+          setJwtVc(verifiablePresentationData);
+        }
+      },
+      onError: (err: any) => {
+        console.log("An error occurred", err);
+      },
+      issuerData: {
+        origin: "https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/",
+        canisterId: Principal.fromText("bu5ax-5iaaa-aaaam-qbgcq-cai"),
+      },
+      credentialData: {
+        credentialSpec: {
+          credentialType: `${name} completion`,
+          arguments: {
+            issuedOn,
+            linkToWork,
+            image,
+            narrative,
+            comment,
+            issuerName,
+            name,
+          },
+        },
+        credentialSubject: Principal.fromText(principal),
+      },
+      identityProvider: new URL(IDENTITY_PROVIDER),
+    });
+  };
+
+  const onMint = () => {
+    if (isICPSubmission) return login((principal) => requestVC(principal));
+    setShowMintCertificate(true);
+  };
 
   return (
     <>
@@ -160,9 +211,14 @@ const Achievement = () => {
                       <div className="w-full flex">
                         {!achievementMinted && belongsToCurrentUser && <MintCertificate show={showMintCertificate} close={() => setShowMintCertificate(false)} />}
 
-                        {belongsToCurrentUser && !minted && (
-                          <ArrowButton target="__blank" variant="primary" className="flex ml-auto mt-5" onClick={() => setShowMintCertificate(true)}>
+                        {belongsToCurrentUser && !minted && !isICPSubmission && (
+                          <ArrowButton target="__blank" variant="primary" className="flex ml-auto mt-5" onClick={onMint}>
                             Mint certificate
+                          </ArrowButton>
+                        )}
+                        {belongsToCurrentUser && !jwtVC && (
+                          <ArrowButton target="__blank" variant="primary" className="flex ml-auto mt-5" onClick={onMint}>
+                            Request verifiable credential
                           </ArrowButton>
                         )}
                       </div>
@@ -184,6 +240,20 @@ const Achievement = () => {
                         <a href={ipfsUrl} target="_blank" className="text-xs underline">
                           {achievement.minting.tokenURI}
                         </a>
+                      </AchievementViewItem>
+                    </div>
+                  )}
+                  {achievement.community.name === "Internet Computer" && !!jwtVC && (
+                    <div className="flex flex-col gap-1">
+                      <AchievementViewItem name={"Credential JWT presentation"}>
+                        <small
+                          onClick={() => {
+                            window.navigator.clipboard.writeText(jwtVC);
+                          }}
+                          className="font-normal line-clamp-1 text-start my-2 cursor-pointer"
+                        >
+                          {jwtVC}
+                        </small>
                       </AchievementViewItem>
                     </div>
                   )}
