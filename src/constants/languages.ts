@@ -5,5 +5,5 @@ export const languages: { [key: string]: string } = {
   hr: "Croatian",
   ko: "Korean",
   zh: "Chinese",
-  jp: "Japanese",
+  ja: "Japanese",
 };
