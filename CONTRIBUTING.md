@@ -20,7 +20,7 @@ We follow a specific branching model to organize our development process. Please
 
 ### **Feature branches**
 
-Feature branches should have one of the following prefixes: fix (bug fix), ft (feature), ht (hotfix), chore, or doc (documentation), followed by a forward slash and a descriptive name.
+Feature branches should have one of the following prefixes: fix (bug fix), ft (feature), ht (hotfix), chore, doc (documentation), or test(testing) followed by a forward slash and a descriptive name.
 
 **Examples:**
 
@@ -29,6 +29,7 @@ Feature branches should have one of the following prefixes: fix (bug fix), ft (f
 - ht/emergency-fix
 - chore/update-dependencies
 - doc/update-readme
+- test/add-unit-tests
 
 ### Commit
 
