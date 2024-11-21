@@ -52,7 +52,7 @@ Feature branches should have one of the following prefixes: fix (bug fix), ft (f
    ```bash
    # Good practice
    git commit -m "chore: update dependencies"
-   git commit -m "doc: improve documentation"
+   git commit -m "docs: improve documentation"
 
    # Avoid combining unrelated changes
    git commit -m "chore: update dependencies and fix bug"
