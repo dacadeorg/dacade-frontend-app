@@ -407,6 +407,7 @@
   "profile.achievement.award": "Awarded to",
   "profile.achievement.issued": "Issued by",
   "profile.achievement.comment": "Comment",
+  "profile.achievement.complete-certificate": "Get ICP Certificate",
   "profile.edit.wallet.current.address": "Current address",
   "profile.edit.wallet.new.address": "New address",
   "profile.edit.wallet.error.matches-existing": "New address matches the existing one",

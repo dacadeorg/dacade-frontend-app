@@ -14,13 +14,14 @@ import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useDispatch } from "@/hooks/useTypedDispatch";
-import { findCertificate } from "@/store/services/profile/certificate.service";
+import { completeIcpCertificate, findCertificate } from "@/store/services/profile/certificate.service";
 import { useTranslation } from "next-i18next";
 import Logo from "@/icons/logo.svg";
 import MintCertificate from "@/components/sections/profile/modals/MintCertificate";
 import { Certificate } from "@/types/certificate";
 import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
+import useIcpAuth from "@/hooks/useIcpAuth";
 
 /**
  * interface for Achievement multiSelector
@@ -45,6 +46,8 @@ const Achievement = () => {
   const [showMintCertificate, setShowMintCertificate] = useState(false);
   const dispatch = useDispatch();
   const { locale, query } = useRouter();
+  const { login } = useIcpAuth();
+  const [addCourseToCompletionPending, setAddCourseToCompletionPending] = useState(false);
 
   const findCertificateById = useCallback(async () => {
     await dispatch(findCertificate({ id: query.id as string }));
@@ -96,13 +99,37 @@ const Achievement = () => {
     return user.id === achievement?.user_id;
   }, [user, achievement]);
 
-  const mintable = useMemo(() => {
-    return achievement?.community?.can_mint_certificates;
+  const isICPSubmission = useMemo(() => {
+    return achievement?.community.name === "Internet Computer";
   }, [achievement]);
+
+  const mintable = useMemo(() => {
+    return achievement?.community?.can_mint_certificates || isICPSubmission;
+  }, [achievement, isICPSubmission]);
 
   const isNotCertificateIcon = useMemo(() => {
     return !achievement?.metadata?.image?.includes("/img/certificates/");
   }, [achievement]);
+
+  const addCourseCompletionToTheIssuerCanister = useCallback(async () => {
+    if (!achievement?.metadata) return;
+    const { name } = achievement?.metadata;
+    if (!window.issuerCanister) return;
+    try {
+      setAddCourseToCompletionPending(true);
+      await window.issuerCanister.add_course_completion(name.toLowerCase().replaceAll(" ", "-"));
+      await dispatch(completeIcpCertificate({ id: achievement.id }));
+    } catch (err) {
+      console.error("Failed to complete course: ", err);
+    } finally {
+      setAddCourseToCompletionPending(false);
+    }
+  }, [achievement?.id, achievement?.metadata, dispatch, findCertificateById]);
+
+  const onMint = () => {
+    if (isICPSubmission) return login(() => addCourseCompletionToTheIssuerCanister());
+    setShowMintCertificate(true);
+  };
 
   return (
     <>
@@ -160,9 +187,21 @@ const Achievement = () => {
                       <div className="w-full flex">
                         {!achievementMinted && belongsToCurrentUser && <MintCertificate show={showMintCertificate} close={() => setShowMintCertificate(false)} />}
 
-                        {belongsToCurrentUser && !minted && (
-                          <ArrowButton target="__blank" variant="primary" className="flex ml-auto mt-5" onClick={() => setShowMintCertificate(true)}>
+                        {belongsToCurrentUser && !minted && !isICPSubmission && (
+                          <ArrowButton target="__blank" variant="outline-primary" className="flex ml-auto mt-5" onClick={onMint}>
                             Mint certificate
+                          </ArrowButton>
+                        )}
+                        {belongsToCurrentUser && !achievement.completed && isICPSubmission && (
+                          <ArrowButton
+                            target="__blank"
+                            variant="outline-primary"
+                            className="flex ml-auto mt-5"
+                            disabled={addCourseToCompletionPending}
+                            loading={addCourseToCompletionPending}
+                            onClick={onMint}
+                          >
+                            Record Course Completion
                           </ArrowButton>
                         )}
                       </div>

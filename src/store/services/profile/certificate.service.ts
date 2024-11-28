@@ -42,6 +42,21 @@ const certificateService = createApi({
       },
     }),
 
+    complete: builder.mutation({
+      query: ({ id }: { id: string }) => ({
+        url: "certificates/complete",
+        method: "POST",
+        body: {
+          certificateId: id,
+        },
+      }),
+
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        const { data } = await queryFulfilled;
+        dispatch(setCurrentCertificate(data));
+      },
+    }),
+
     mint: builder.mutation({
       query: ({ id, address, signature }) => ({
         url: "certificates/mint",
@@ -55,7 +70,6 @@ const certificateService = createApi({
 
       onQueryStarted: async (_, { dispatch, queryFulfilled, getState }) => {
         const { data } = await queryFulfilled;
-        console.log("This is the returned thing", data);
         if (data.certificate) {
           const state: any = getState();
           const currentCertificate = state.profileCertificate.current;
@@ -96,6 +110,8 @@ export const mintCertificate = ({ id, address, signature }: MintCertificateArgs)
     address,
     signature,
   });
+
+export const completeIcpCertificate = ({ id }: { id: string }) => certificateService.endpoints.complete.initiate({ id });
 
 export const { useFetchAllCertificatesQuery, useFindCertificateQuery } = certificateService;
 export default certificateService;

@@ -47,7 +47,7 @@ export default function SubmissionList(): ReactElement {
                 <SubmissionCard
                   key={submission.id}
                   stats
-                  link={navigation.community.submissionPath(submission.id, submission.challenge.id, community?.slug)}
+                  link={navigation.community.submissionPath(submission.id, submission.challenge?.id, community?.slug)}
                   submission={submission}
                   last={i === submissions.length - 1}
                 />

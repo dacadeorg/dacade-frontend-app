@@ -19,6 +19,7 @@ export interface Certificate {
   submission: Submission;
   minting: Minting;
   user: User;
+  completed: boolean;
 }
 
 /**
