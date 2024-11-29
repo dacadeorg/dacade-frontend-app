@@ -26,6 +26,15 @@ export const MAX_TTL = BigInt(7 * 24 * 60 * 60 * 1000 * 1000 * 1000);
  */
 export const IDENTITY_PROVIDER = "https://identity.ic0.app/";
 const useIcpAuth = () => {
+  const initializeCanister = useCallback((identity: Identity) => {
+    window.issuerCanister = createActor(canisterId ?? "", {
+      agentOptions: {
+        host: "https://icp0.io",
+        identity,
+      },
+    });
+  }, []);
+
   useEffect(() => {
     if (!window) return;
     async function initializeContract() {
@@ -36,12 +45,6 @@ const useIcpAuth = () => {
       window.auth.identity = authClient.getIdentity();
       window.auth.principal = authClient.getIdentity()?.getPrincipal();
       window.auth.principalText = authClient.getIdentity()?.getPrincipal().toText();
-      window.issuerCanister = createActor(canisterId ?? "", {
-        agentOptions: {
-          host: "https://icp0.io",
-          identity: authClient.getIdentity(),
-        },
-      });
     }
 
     initializeContract();
@@ -75,12 +78,17 @@ const useIcpAuth = () => {
         windowOpenerFeatures: popupCenter(),
         onSuccess: async () => {
           window.auth.isAuthenticated = await authClient.isAuthenticated();
+
           const principal = await authClient.getIdentity()?.getPrincipal().toText();
+          initializeCanister(authClient.getIdentity());
           callback(principal);
         },
       });
     } else {
       const principal = await authClient.getIdentity()?.getPrincipal().toText();
+      if (!window.issuerCanister) {
+        initializeCanister(authClient.getIdentity());
+      }
       callback(principal);
     }
   }

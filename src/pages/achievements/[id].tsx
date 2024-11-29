@@ -124,10 +124,10 @@ const Achievement = () => {
     } finally {
       setAddCourseToCompletionPending(false);
     }
-  }, [achievement?.id, achievement?.metadata, dispatch, findCertificateById]);
+  }, [achievement?.id, achievement?.metadata, dispatch]);
 
   const onMint = () => {
-    if (isICPSubmission) return login(() => addCourseCompletionToTheIssuerCanister());
+    if (isICPSubmission) return login(addCourseCompletionToTheIssuerCanister);
     setShowMintCertificate(true);
   };
 
