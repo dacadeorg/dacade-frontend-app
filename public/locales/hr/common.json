@@ -174,7 +174,7 @@
   "communities.overview.challenge.take.challenges": "Prihvati izazov",
   "communities.overview.challenge.see.challenge": "Pogledaj izazov",
   "communities.overview.challenge.unlock.certificate": "Otključajte s certifikatom",
-  "communities.overview.challenge.participate": "Sudjelujte na ${token} hakatonima",
+  "communities.overview.challenge.participate": "Sudjelujte na {{community}} hakatonima",
   "communities.overview.challenge.for.certificate": "za certifikat",
   "communities.overview.challenge.for.feedback": "za svaki povratni odgovor",
   "communities.overview.challenge.learning.modules.included": "Uključeni moduli učenja",
