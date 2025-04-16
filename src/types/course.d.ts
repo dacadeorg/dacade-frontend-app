@@ -176,6 +176,7 @@ export type LearningModule = {
   interactiveModules: InteractiveModule[];
   courses: Course[],
   level?: number,
+  challenges?: Challenge[]
 };
 
 export type InteractiveModule = {

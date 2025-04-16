@@ -1,5 +1,5 @@
 import { Community } from "@/types/community";
-import { Challenge, Course } from "@/types/course";
+import { Challenge, Course, LearningModule } from "@/types/course";
 import Slugger from "github-slugger";
 
 type QueryRoute = {
@@ -113,6 +113,18 @@ export default class CommunityNavigation {
 
   learningModulePath(path: string, courseSlug: string | undefined = this.params().course_slug, communitySlug: string | undefined = this.params().slug): string {
     return this.cleanupUrl(this.coursePath(`learning-modules/${path}`, courseSlug, communitySlug));
+  }
+
+
+  /**
+   * Path for a single learning module from the community found at communities/:slug/learning-module/:id 
+   *
+   * @param {string} path
+   * @param {(string | undefined)} [communitySlug=this.params().slug]
+   * @returns {string}
+   */
+  singleLearningModulePath(path: string, communitySlug: string | undefined = this.params().slug): string {
+    return this.cleanupUrl(this.communityPath(`learning-modules/${path}`, communitySlug))
   }
 
   /**
@@ -314,5 +326,77 @@ export default class CommunityNavigation {
       });
     }
     return communityNavigationMenuList;
+  }
+
+  initForLearningModule({ community, learningModule }: { community: Community; learningModule: LearningModule }): List[] {
+
+    const learningModuleNavigationMenuList: List[] = [
+      {
+        id: "introduction",
+        title: "Introduction",
+        hideTitle: true,
+        items: [
+          {
+            label: "communities.navigation.overview",
+            exact: true,
+            link: "",
+          },
+        ],
+      },
+    ];
+
+    const modules = {
+      id: "learning-modules",
+      title: "communities.navigation.learning-modules",
+      hideTitle: false,
+      items: [{
+        id: learningModule.id,
+        label: `item ${learningModule.title}`,
+        link: this.singleLearningModulePath(learningModule.id, community?.slug),
+        exact: false,
+        subitems: []
+      }],
+    };
+
+    const challenges =
+      learningModule?.challenges?.map((challenge) => {
+        return {
+          id: challenge?.id,
+          label: challenge.name,
+          link: this.challengePath(challenge?.id, community.slug),
+          exact: false,
+        };
+      }) || [];
+
+    const courses = learningModule?.courses?.map((course) => {
+      return {
+        id: course?.id,
+        label: course.name,
+        link: this.coursePath("", course.slug, community?.slug),
+        exact: false,
+      };
+    }) || [];
+
+    learningModuleNavigationMenuList.push(modules)
+
+    // Add connected challenges
+    if (challenges.length) {
+      learningModuleNavigationMenuList.push({
+        id: "challenges",
+        title: "communities.navigation.challenge",
+        items: challenges,
+      });
+    }
+
+    // Add related courses
+    if (courses.length) {
+      learningModuleNavigationMenuList.push({
+        id: "courses",
+        title: "communities.overview.courses.title",
+        items: courses,
+      });
+    }
+
+    return learningModuleNavigationMenuList
   }
 }

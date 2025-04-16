@@ -1,6 +1,6 @@
 import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import { NextRouter } from "next/router";
-import { Challenge, Course } from "@/types/course";
+import { Challenge, Course, LearningModule } from "@/types/course";
 import { Community } from "@/types/community";
 import { List } from "@/utilities/CommunityNavigation";
 import remarkParse from "remark-parse";
@@ -119,6 +119,23 @@ export const initCourseNavigationMenu = (navigation: any) => (dispatch: Dispatch
   dispatch(setNavigationList(menus));
 };
 
+
+/**
+ * Iniate the learning module page navigation found at communities/:slug/learning-module/:id
+ *
+ * @param {*} navigation
+ * @returns {(dispatch: Dispatch, getState: any) => void}
+ */
+export const initLearningModuleNavigationMenu = (navigation: any) => (dispatch: Dispatch, getState: any) => {
+  dispatch(setNavigationList([]))
+  const community = getState().communities.current as Community;
+  const learningModule = getState().learningModules.current as LearningModule
+  const menus: List[] = navigation.initForLearningModule({
+    community,
+    learningModule
+  })
+  dispatch(setNavigationList(menus));
+}
 /**
  * Hide navigation action
  * @date 4/20/2023 - 4:09:46 PM
