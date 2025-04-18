@@ -43,6 +43,8 @@ interface SidebarMultiSelector {
  */
 interface SidebarProps {
   burgerColor?: boolean;
+  testId?: string;
+  toggleButtonTestId?: string;
 }
 
 /**
@@ -53,7 +55,7 @@ interface SidebarProps {
  * @param {SidebarProps} { burgerColor }
  * @returns {ReactElement}
  */
-export default function Sidebar({ burgerColor = false }: SidebarProps): ReactElement {
+export default function Sidebar({ burgerColor = false, testId = "popup-sidebar", toggleButtonTestId = "sidebar-toggle-button" }: SidebarProps): ReactElement {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -97,19 +99,19 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
   };
 
   return (
-    <div className="relative">
-      <li className="inline-block align-middle z-40 relative ease-linear transition-all duration-150" onClick={toggle}>
+    <div className="relative" data-testid={testId}>
+      <li className="inline-block align-middle z-40 relative ease-linear transition-all duration-150" onClick={toggle} data-testid={toggleButtonTestId}>
         {!show ? (
           <div>
-            <MobileMenuLogo className={burgerColor ? "text-white" : "text-black"} />
+            <MobileMenuLogo data-testid="mobile-menu-logo" className={burgerColor ? "text-white" : "text-black"} />
           </div>
         ) : (
           <div>
-            <CloseIcon />
+            <CloseIcon data-testid="close-icon" />
           </div>
         )}
       </li>
-      <Popup center={false} show={show} className="px-3 pt-16 pb-2" onClose={externalClick}>
+      <Popup center={false} show={show} className="px-3 pt-16 pb-2" data-testid="popup-sidebar" onClose={externalClick}>
         <div className="max-h-full overflow-scroll md:max-w-sidebar relative ml-auto mt-0 md:mr-12 w-full z-40 bg-tertiary rounded-3.5xl text-gray-900">
           <div className="divide-y divide-gray-200">
             <div className="flex flex-col text-left justify-between">
