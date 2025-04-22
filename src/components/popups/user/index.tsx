@@ -37,7 +37,7 @@ interface UserPopupMultiSelector {
 }
  * @returns {ReactElement}
  */
-export default function UserPopup({ buttonStyles }: { buttonStyles: CSSProperties }): ReactElement {
+export default function UserPopup({ buttonStyles, testId = "user-popup" }: { buttonStyles: CSSProperties, testId?: string }): ReactElement {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const { mainWallet, user } = useMultiSelector<unknown, UserPopupMultiSelector>({
@@ -64,7 +64,7 @@ export default function UserPopup({ buttonStyles }: { buttonStyles: CSSPropertie
   useUnlockPageScroll();
 
   return (
-    <div>
+    <div data-testid={testId}>
       <div>
         <div className={`inline-block align-middle relative ${show === true ? "z-50" : "z-10"}`} onClick={toggle}>
           <Button customStyle={buttonStyles} padding={false} variant="secondary" className={`p-0.5 bg-tertiary hover:bg-secondary ${mainWallet ? "pr-5" : ""}`}>
