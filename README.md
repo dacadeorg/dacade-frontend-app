@@ -76,27 +76,27 @@ yarn install
 Before running the application locally, the following environment variables are required to be set:
 
 ```js
-NEXT_PUBLIC_FIREBASE_API_KEY = "AIzaSyAmodim2lJZBradsjx6Zl98hECO7vpo2To";
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN = "dacade-d02d2.firebaseapp.com";
-NEXT_PUBLIC_FIREBASE_PROJECT_ID = "dacade-d02d2";
-NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID = "${config.measurementId}";
-NEXT_PUBLIC_FIREBASE_APP_ID = "1:194074425069:web:e519dce8d78a458d8b3ee4";
+NEXT_PUBLIC_FIREBASE_API_KEY = "AIzaSyAmodim2lJZBradsjx6Zl98hECO7vpo2To"
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN = "dacade-d02d2.firebaseapp.com"
+NEXT_PUBLIC_FIREBASE_PROJECT_ID = "dacade-d02d2"
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID = "${config.measurementId}"
+NEXT_PUBLIC_FIREBASE_APP_ID = "1:194074425069:web:e519dce8d78a458d8b3ee4"
 
-NEXT_PUBLIC_API_BASE_URL = "https://us-central1-dacade-d02d2.cloudfunctions.net/api";
+NEXT_PUBLIC_API_BASE_URL = "https://us-central1-dacade-d02d2.cloudfunctions.net/api"
 
-NEXT_PUBLIC_BUGSNAG_API_KEY = "";
-NEXT_PUBLIC_SHOW_LANGUAGE_SELECTOR = true;
+NEXT_PUBLIC_BUGSNAG_API_KEY = ""
+NEXT_PUBLIC_SHOW_LANGUAGE_SELECTOR = true
 
-NEXT_PUBLIC_DISCORD_CLIENT_ID = "";
-NEXT_PUBLIC_DISCORD_CALLBACK_URL = "https://us-central1-dacade-d02d2.cloudfunctions.net/api/discord-bot/oauth/callback";
-NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL = "https://discord.com/api/oauth2/authorize";
-NEXT_PUBLIC_DISCORD_SCOPE = "identify email";
+NEXT_PUBLIC_DISCORD_CLIENT_ID = ""
+NEXT_PUBLIC_DISCORD_CALLBACK_URL = "https://us-central1-dacade-d02d2.cloudfunctions.net/api/discord-bot/oauth/callback"
+NEXT_PUBLIC_DISCORD_OAUTH_BASE_URL = "https://discord.com/api/oauth2/authorize"
+NEXT_PUBLIC_DISCORD_SCOPE = "identify email"
 
-NEXT_PUBLIC_GOOGLE_TRANSLATE_API_KEY = "";
+NEXT_PUBLIC_GOOGLE_TRANSLATE_API_KEY = ""
 
-NEXT_PUBLIC_BLOCK_EXPLORER_URL = "https://alfajores.celoscan.io";
+NEXT_PUBLIC_BLOCK_EXPLORER_URL = "https://alfajores.celoscan.io"
 
-NEXT_PUBLIC_IPFS_URL = "https://gateway.pinata.cloud/ipfs/";
+NEXT_PUBLIC_IPFS_URL = "https://gateway.pinata.cloud/ipfs/"
 ```
 
 ### 4. Run App
