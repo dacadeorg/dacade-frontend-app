@@ -26,15 +26,15 @@ interface WrapperProps {
  */
 export default function Wrapper({ children, paths }: WrapperProps): ReactElement {
   return (
-    <Section type="default">
+    <Section type="default" data-testid="wrapperId">
       <div className="h-auto lg:flex">
-        <div className="sticky top-0 self-start hidden w-1/4 py-3 lg:block pr-9 lg:py-14">
+        <div className="sticky top-0 self-start hidden w-1/4 py-3 lg:block pr-9 lg:py-14" data-testid="NavId">
           <Navigation />
         </div>
-        <div className="w-full pt-6 lg:hidden">
+        <div className="w-full pt-6 lg:hidden" data-testid="MobileNavId">
           <MobileNav showTopBorder />
         </div>
-        <div className="w-full lg:w-3/4">
+        <div className="w-full lg:w-3/4"  data-testid="communityNavId">
           <CommunityNavigation paths={paths} />
           {children}
         </div>

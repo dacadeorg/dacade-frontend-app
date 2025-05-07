@@ -106,16 +106,16 @@ export default function PageNavigation(): ReactElement {
   if (show)
     return (
       <Section>
-        <div className={classNames("text-center justify-center space-x-10 pt-3", { flex: prevUrl, "w-full sm:flex": !prevUrl })}>
+        <div data-testid="pageNavId" className={classNames("text-center justify-center space-x-10 pt-3", { flex: prevUrl, "w-full sm:flex": !prevUrl })}>
           {prevUrl && (
-            <Link href={prevUrl}>
+            <Link href={prevUrl} data-testId="pageNavLinkId">
               <ArrowButton customStyle={buttonStyle} direction="left" minWidthClass="null">
                 {t("nav.page.prev")}
               </ArrowButton>
             </Link>
           )}
           {nextUrl && (
-            <Link href={nextUrl}>
+            <Link href={nextUrl} data-testId="pageNavLinkId">
               <ArrowButton
                 className={classNames({
                   "text-.5xl py-4.5 pl-6 pr-5.5": !prevUrl,

@@ -19,10 +19,10 @@ export default function Rewards(): ReactElement {
   return (
     <>
       {course && course.challenge ? (
-        <Section title={t("communities.overview.reward.title")} subtitle={t("communities.overview.reward.subtitle")}>
+        <Section data-testid="rewardsId" title={t("communities.overview.reward.title")} subtitle={t("communities.overview.reward.subtitle")}>
           <div className="grid grid-cols-2 pt-4 lg:grid-cols-3">
             {course.challenge.rewards.map((reward: RewardType, i: number) => {
-              return <Reward key={`reward-${i}`} reward={reward} size="medium" category={reward.type.toLowerCase()} />;
+              return <Reward data-testid="rewardId" key={`reward-${i}`} reward={reward} size="medium" category={reward.type.toLowerCase()} />;
             })}
           </div>
         </Section>

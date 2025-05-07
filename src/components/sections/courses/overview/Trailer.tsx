@@ -20,13 +20,13 @@ export default function Trailer(): ReactElement {
   return (
     <>
       {course && course.trailer && course.trailer.video ? (
-        <Section title={t("communities.overview.trailer")}>
-          <Duration text={t("communities.overview.trailer.video")} value={course.trailer.duration} />
-          <div className="block text-lg mt-3 mb-4.5">{course.trailer.summary}</div>
-          <Video className="-mx-0 md:w-full md:mx-auto" url={course.trailer.video} />
+        <Section data-testid="trailerId" title={t("communities.overview.trailer")}>
+          <Duration data-testid="trailerDurationId" text={t("communities.overview.trailer.video")} value={course.trailer.duration} />
+          <div data-testid="trailerVideoSummary" className="block text-lg mt-3 mb-4.5">{course.trailer.summary}</div>
+          <Video data-testid="trailerVideoId" className="-mx-0 md:w-full md:mx-auto" url={course.trailer.video} />
 
           {course.trailer.description && (
-            <div
+            <div data-testid="trailerTextId"
               dangerouslySetInnerHTML={{
                 __html: course.trailer.description,
               }}
