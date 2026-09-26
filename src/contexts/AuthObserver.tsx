@@ -13,7 +13,7 @@ import { setListProfileCommunities } from "@/store/feature/profile/communities.s
 import Loader from "@/components/ui/Loader";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { AUTH_TOKEN } from "@/constants/localStorage";
-import { IS_ARCHIVED } from "@/constants/archive";
+import { ARCHIVED_PAGES, IS_ARCHIVED } from "@/constants/archive";
 
 const UserAuthContext = createContext(null);
 
@@ -91,6 +91,11 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     onIdTokenChanged(auth, async (user) => {
+      // A leftover session is signed out below; don't show it as logged in meanwhile.
+      if (IS_ARCHIVED && user) {
+        localStorage.removeItem(AUTH_TOKEN);
+        return;
+      }
       dispatch(setAuthData(user?.toJSON()));
       localStorage.setItem(AUTH_TOKEN, (await user?.getIdToken()) ?? "");
       await dispatch(getToken());
@@ -116,6 +121,11 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
   useEffect(() => {
     dispatch(clearError());
   }, [router.pathname]);
+
+  // next.config.js redirects closed pages on full page loads; this catches in-app navigation.
+  useEffect(() => {
+    if (IS_ARCHIVED && ARCHIVED_PAGES.includes(router.pathname)) router.replace("/");
+  }, [router, router.pathname]);
 
   if (loading && !user && (isGuestRoute(route) || isUserRoute(route))) {
     return (

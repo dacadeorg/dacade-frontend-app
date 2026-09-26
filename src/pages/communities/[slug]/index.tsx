@@ -84,6 +84,8 @@ export const getStaticProps = wrapper.getStaticProps((store: any) => async ({ lo
   } catch (error) {
     return {
       notFound: true,
+      // Retry later so a failed refresh doesn't turn the page into a permanent 404.
+      revalidate: 60 * 60,
     };
   }
 });

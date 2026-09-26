@@ -3,7 +3,8 @@
 const { i18n } = require("./next-i18next.config");
 
 // Pages that only make sense for logged-in users or for creating content.
-// Closed while Dacade is archived (see src/constants/archive.ts).
+// Closed while Dacade is archived. Keep in sync with ARCHIVED_PAGES in
+// src/constants/archive.ts, which covers client-side navigation.
 const ARCHIVED_PATHS = [
   "/login",
   "/signup",

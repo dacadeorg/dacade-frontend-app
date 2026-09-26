@@ -114,16 +114,18 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
         <div className="max-h-full overflow-scroll md:max-w-sidebar relative ml-auto mt-0 md:mr-12 w-full z-40 bg-tertiary rounded-3.5xl text-gray-900">
           <div className="divide-y divide-gray-200">
             <div className="flex flex-col text-left justify-between">
-              <div className="flex">
-                <div className="w-10 h-10 ml-3 mr-2 my-3 rounded-full bg-green-500">
-                  <BountiesIcon className="m-2" />
+              {!IS_ARCHIVED && (
+                <div className="flex">
+                  <div className="w-10 h-10 ml-3 mr-2 my-3 rounded-full bg-green-500">
+                    <BountiesIcon className="m-2" />
+                  </div>
+                  <div className="py-5 font-medium text-gray-900" onClick={toggle}>
+                    <Link className="font-medium text-lg text-gray-900" href="/bounties">
+                      {t("nav.bounties")}
+                    </Link>
+                  </div>
                 </div>
-                <div className="py-5 font-medium text-gray-900" onClick={toggle}>
-                  <Link className="font-medium text-lg text-gray-900" href="/bounties">
-                    {t("nav.bounties")}
-                  </Link>
-                </div>
-              </div>
+              )}
               <div className="flex">
                 <div className="w-10 h-10 ml-3 mr-2 my-3 rounded-full bg-purple-500">
                   <CommunitiesIcon className="m-2" />
