@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import LOCALES from "@/constants/locales";
 import { languages } from "@/constants/languages";
 import { useTranslation } from "react-i18next";
+import { IS_ARCHIVED } from "@/constants/archive";
 type DefaultLocale = "en" | "fr";
 /**
  * TranslationBox card component props
@@ -122,12 +123,12 @@ export default function TranslationBox({ text, defaultLocale, disabled, textCont
 
   useEffect(() => {
     setDescription(translated ? t("ui.translated") : t("ui.translate"));
-   if(!translated && !reverted){
+   if(!IS_ARCHIVED && !translated && !reverted){
     translate()
    }
   }, [translated]);
 
-  const translatable = currentLocale !== defaultLocale && !disabled && getLocaleName(defaultLocale);
+  const translatable = !IS_ARCHIVED && currentLocale !== defaultLocale && !disabled && getLocaleName(defaultLocale);
   return (
     <div className="relative w-full pb-5">
       {currentText ? (

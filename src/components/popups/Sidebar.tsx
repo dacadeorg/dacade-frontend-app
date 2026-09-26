@@ -20,6 +20,7 @@ import { User } from "@/types/bounty";
 import { IRootState } from "@/store";
 import LanguageList from "@/components/list/LanguageList";
 import JobIcon from "@/icons/briefcase.svg";
+import { IS_ARCHIVED } from "@/constants/archive";
 
 /**
  * interface for Sidebar multiSelector
@@ -194,7 +195,7 @@ export default function Sidebar({ burgerColor = false }: SidebarProps): ReactEle
               </div>
             )}
 
-            {!isAuthenticated && (
+            {!isAuthenticated && !IS_ARCHIVED && (
               <div className="w-full h-15 p-2 flex">
                 <Button padding={false} type="button" variant="secondary" className="w-full p-3 text-sm font-medium text-brand" onClick={toggle}>
                   <Link className="w-full" href="/login">

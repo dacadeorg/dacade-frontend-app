@@ -10,6 +10,8 @@ import { useRouter } from "next/router";
 import LanguageSwitcherPopup from "@/components/popups/LanguageSwitcher";
 import { useMultiSelector } from "@/hooks/useTypedSelector";
 import { authCheck, authVerify } from "@/store/feature/auth.slice";
+import ArchiveBanner from "@/components/banner/Archive";
+import { IS_ARCHIVED } from "@/constants/archive";
 import Sidebar from "../popups/Sidebar";
 import { Colors } from "@/types/community";
 import classNames from "classnames";
@@ -88,6 +90,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
 
   return (
     <div className="text-gray-900" style={containerStyle}>
+      <ArchiveBanner />
       <div className="content-wrapper lg:py-12 py-6 flex relative">
         <ul className="relative">
           <NavItem to="/" type="logo w-8 h-8 md:w-11 md:h-11">
@@ -123,7 +126,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
               </ul>
             ) : (
               <ul className="ml-auto text-right relative hidden lg:block">
-                {router.pathname !== "/login" && (
+                {!IS_ARCHIVED && router.pathname !== "/login" && (
                   <div className="inline-block">
                     {router.pathname === "/signup" && <span className="text-sm">{t("nav.signup.already-exist")}</span>}
                     <NavItem type="item" to="/login">
@@ -138,7 +141,7 @@ export default function Navbar({ settings, sidebarBurgerColor = false }: NavbarP
                     </NavItem>
                   </div>
                 )}
-                {router.pathname !== "/signup" && (
+                {!IS_ARCHIVED && router.pathname !== "/signup" && (
                   <div className="inline-block">
                     {router.pathname === "/login" && <span className="text-sm">{t("nav.signin.new-accout")}</span>}
                     <NavItem type="item" to="/signup">

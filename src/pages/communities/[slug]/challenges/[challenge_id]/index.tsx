@@ -34,6 +34,7 @@ import Loader from "@/components/ui/Loader";
 import { useRouter } from "next/router";
 import Section from "@/components/ui/Section";
 import Hint from "@/components/ui/Hint";
+import { IS_ARCHIVED } from "@/constants/archive";
 import Link from "next/link";
 
 /**
@@ -170,12 +171,16 @@ export default function ChallengePage() {
             ) : (
               <div>
                 <Hint className="mt-6">
-                  <p>
-                    To be able to submit
-                    <Link className="underline pl-1" href="/login">
-                      Login.
-                    </Link>
-                  </p>
+                  {IS_ARCHIVED ? (
+                    <p>Dacade is now an archive, so new submissions are closed.</p>
+                  ) : (
+                    <p>
+                      To be able to submit
+                      <Link className="underline pl-1" href="/login">
+                        Login.
+                      </Link>
+                    </p>
+                  )}
                 </Hint>
               </div>
             )}

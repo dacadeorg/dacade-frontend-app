@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useCallback, useEffect, useMemo, useState } from "react";
-import { User, onAuthStateChanged, onIdTokenChanged } from "firebase/auth";
+import { User, onAuthStateChanged, onIdTokenChanged, signOut } from "firebase/auth";
 import { auth } from "@/config/firebase";
 import { setAuthData, setIsAuthLoading } from "@/store/feature/auth.slice";
 import { useDispatch } from "@/hooks/useTypedDispatch";
@@ -13,6 +13,7 @@ import { setListProfileCommunities } from "@/store/feature/profile/communities.s
 import Loader from "@/components/ui/Loader";
 import { useSelector } from "@/hooks/useTypedSelector";
 import { AUTH_TOKEN } from "@/constants/localStorage";
+import { IS_ARCHIVED } from "@/constants/archive";
 
 const UserAuthContext = createContext(null);
 
@@ -96,6 +97,11 @@ export default function AuthObserver({ children }: { children: ReactNode }) {
     });
 
     onAuthStateChanged(auth, async (user) => {
+      // Nobody can log in while archived, so end sessions left over from before.
+      if (IS_ARCHIVED && user) {
+        await signOut(auth);
+        return;
+      }
       setLoading(true);
       dispatch(setIsAuthLoading(true));
       await emailVerificationChecker(user);

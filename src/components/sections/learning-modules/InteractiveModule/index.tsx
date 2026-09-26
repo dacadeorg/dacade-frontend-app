@@ -13,6 +13,7 @@ import { hidePageNavigation, showPageNavigation } from "@/store/feature/communit
 import { checkAnswer } from "@/store/feature/learningModules.slice";
 import { submitModuleAnswer } from "@/store/services/learningModules.service";
 import { IRootState } from "@/store";
+import { IS_ARCHIVED } from "@/constants/archive";
 
 /**
  * interface for InteractiveModule multiSelector
@@ -124,7 +125,7 @@ export default function InteractiveModule({ data }: interactiveModuleProps): Rea
             ) : (
               <Markdown value={data.closing.text} />
             )}
-            {!isLoggedIn && (
+            {!isLoggedIn && !IS_ARCHIVED && (
               <Hint className="mt-6">
                 <p>Since you are not logged in, your progress won&#8217;t be saved.</p>
                 <p>
