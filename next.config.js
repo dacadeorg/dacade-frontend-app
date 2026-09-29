@@ -41,6 +41,9 @@ const nextConfig = {
   },
   i18n,
   images: {
+    // Netlify's image optimizer fails on the missing sharp/libvips library,
+    // which breaks every photo. Serve the files as they are instead.
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
