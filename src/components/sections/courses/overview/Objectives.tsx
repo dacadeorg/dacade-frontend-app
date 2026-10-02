@@ -17,8 +17,8 @@ export default function Objectives(): ReactElement {
   const course = useSelector((state) => state.courses.current);
 
   return course ? (
-    <Section title={t("communities.overview.objective.title")} subtitle={t("communities.overview.objective.subtitle")}>
-      <ObjectiveList objectives={course.objectives} />
+    <Section data-testid="objectivesShow" title={t("communities.overview.objective.title")} subtitle={t("communities.overview.objective.subtitle")}>
+      <ObjectiveList data-testid="objectiveListShow" objectives={course.objectives} />
     </Section>
   ) : (
     <></>

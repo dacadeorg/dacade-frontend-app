@@ -18,10 +18,10 @@ export default function Disclaimer(): ReactElement {
 
   if (course && !course.disclaimer) return <></>;
   return (
-    <Section className="!pb-12 !pt-0">
+    <Section data-testid="disclaimerId" className="!pb-12 !pt-0">
       <Hint>
         <strong>{t("communities.overview.info.disclaimer.title")}: </strong>
-        <span dangerouslySetInnerHTML={{ __html: course?.disclaimer as string }} />
+        <span data-testid="disclaimerSpanId" dangerouslySetInnerHTML={{ __html: course?.disclaimer as string }} />
       </Hint>
     </Section>
   );
