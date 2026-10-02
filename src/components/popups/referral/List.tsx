@@ -34,7 +34,7 @@ export default function ReferralList({ bounty = false }: { bounty?: boolean }): 
       </div>
       <div className="flex flex-col space-y-2">
         {referrals?.map((referral) => (
-          <ListItem key={referral.name} referral={referral} bounty={bounty} />
+          <ListItem key={`referral-id-${referral.name}`} referral={referral} bounty={bounty} />
         ))}
       </div>
     </div>
