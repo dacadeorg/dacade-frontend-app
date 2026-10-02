@@ -123,7 +123,7 @@
   "communities.overview.challenge.take.challenge": "Toma el desafío",
   "communities.overview.challenge.see.challenge": "Ver el desafío",
   "communities.overview.challenge.unlock.certificate": "Desbloquear con certificado",
-  "communities.overview.challenge.participate": "Participa en hackatones {{token}}",
+  "communities.overview.challenge.participate": "Participa en hackatones {{community}}",
   "communities.overview.challenge.for.certificate": "para el certificado",
   "communities.overview.challenge.for.feedback": "para cada retroalimentación",
   "communities.overview.challenge.learning.modules.included": "Módulos de aprendizaje incluidos",

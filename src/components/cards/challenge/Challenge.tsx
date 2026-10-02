@@ -26,7 +26,6 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
   const { t } = useTranslation();
   const link = `/communities/${community.slug}/challenges/${data.id}`;
   const expiresAt = useMemo(() => (data.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null), [data.expiresAt]);
-  const reward = isCourseEnd ? data?.rewards?.find((reward) => reward.type === "SUBMISSION") : data?.reward;
 
   const { learningModules = [], courses = [] } = data || {};
   const learningMaterialsCount = learningModules.length + courses.length;
@@ -49,9 +48,8 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
           </div>
           <div className="divide-y-2 divide-gray-200 divide-dotted flex flex-col mt-8">
             {learningMaterialsCount && (
-              <p className="pb-3 md:pb-4 text-sm font-medium text-tertiary">{`${learningMaterialsCount}  Learning ${
-                learningMaterialsCount === 1 ? "material" : "materials"
-              } included`}</p>
+              <p className="pb-3 md:pb-4 text-sm font-medium text-tertiary">{`${learningMaterialsCount}  Learning ${learningMaterialsCount === 1 ? "material" : "materials"
+                } included`}</p>
             )}
             <div className="lg:flex lg:flex-row flex-col justify-between pt-3 md:pt-4 items-center">
               <Link href={link}>
@@ -71,7 +69,7 @@ export default function ChallengeCard({ data, community, isCourseEnd }: Challeng
           <h1 className="font-bold text-tertiary text-xs uppercase pb-3 leading-3.3 tracking-3">{t("communities.overview.challenge.unlock.certificate")}</h1>
           <RewardCertificate rewards={data?.rewards} />
         </div>
-        {data?.isHackathon && <p className="py-1.5 border-t border-primary text-sm">{t("communities.overview.challenge.participate", { token: reward?.token })}</p>}
+        {data?.isHackathon && <p className="py-1.5 border-t border-primary text-sm">{t("communities.overview.challenge.participate", { community: community.name })}</p>}
       </div>
     </div>
   );
