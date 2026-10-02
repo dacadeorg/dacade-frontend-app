@@ -27,7 +27,7 @@ interface DurationProps {
  */
 export default function Duration({ text, value }: DurationProps): ReactElement {
   const colors = useSelector((state) => state.ui.colors);
-  const duration = value ? DateManager.humanize(value, "en") : 0;
+  const duration = value ? DateManager.humanize(value, "en") : "";
 
   return (
     <div>
