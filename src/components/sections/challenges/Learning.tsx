@@ -2,7 +2,7 @@ import Accordion from "@/components/ui/accordion/Accordion";
 import Section from "@/components/sections/communities/_partials/Section";
 import { LearningModuleCard } from "@/components/cards/LearningModule";
 import CourseCard from "@/components/cards/course";
-import { Course, LearningModule } from "@/types/course";
+import { Challenge } from "@/types/course";
 import { Community } from "@/types/community";
 import { useTranslation } from "next-i18next";
 
@@ -11,8 +11,11 @@ import { useTranslation } from "next-i18next";
  *
  * @returns {JSX.Element} The Learning component JSX element.
  */
-export default function Learning({ courses, learningModules, community }: { courses: Course[]; learningModules: LearningModule[]; community: Community }): JSX.Element {
+export default function Learning({ challenge, community }: { challenge: Challenge; community: Community }): JSX.Element {
   const { t } = useTranslation();
+  const courses = challenge?.courses
+  const learningModules = challenge?.learningModules
+
   return (
     <Section>
       <Accordion
@@ -40,6 +43,7 @@ export default function Learning({ courses, learningModules, community }: { cour
                 <LearningModuleCard
                   key={`related-learning-card-${learning.id}`}
                   data={learning}
+                  url={`/communities/${community.slug}/challenges/${challenge?.id}/learning-modules/${learning.id}`}
                 />
               ))}
             </div>

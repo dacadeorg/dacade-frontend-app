@@ -15,7 +15,7 @@ import { LearningModule } from "@/types/course";
 /**
  * Component that displays related learning material with a title, description, and "Start now" button.
  */
-export function LearningModuleCard({ data }: { data: LearningModule }): JSX.Element {
+export function LearningModuleCard({ data, url }: { data: LearningModule, url: string }): JSX.Element {
   const { t } = useTranslation()
   const { challenge, community, colors } = useMultiSelector<any, any>({
     challenge: (state: IRootState) => state.challenges.current,
@@ -66,7 +66,7 @@ export function LearningModuleCard({ data }: { data: LearningModule }): JSX.Elem
         <></>}
 
       <div className="w-full mb-0 justify-self-end">
-        <Link href={`/communities/${community.slug}/challenges/${challenge?.id}/learning-modules/${data.id}`}>
+        <Link href={url}>
           <ArrowButton communityStyles={true} variant="outline-primary">
             {t("communities.overview.challenge.learning.start")}
           </ArrowButton>
